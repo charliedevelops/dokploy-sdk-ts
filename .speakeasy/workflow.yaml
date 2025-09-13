@@ -11,6 +11,9 @@ targets:
     dokploy:
         target: typescript
         source: Dokploy API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
@@ -20,6 +23,9 @@ targets:
     typescript:
         target: typescript
         source: Dokploy API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
