@@ -28,194 +28,6 @@ export type PostgresOneApplicationStatus = ClosedEnum<
   typeof PostgresOneApplicationStatus
 >;
 
-export type PostgresOneHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresOneRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresOneSpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresOnePreference = {
-  spread: PostgresOneSpread;
-};
-
-export type PostgresOnePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresOnePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresOnePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresOnePlatform> | undefined;
-};
-
-export type PostgresOneUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresOneRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresOneReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresOneGlobal = {};
-
-export type PostgresOneReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresOneGlobalJob = {};
-
-export type PostgresOneModeSwarm = {
-  replicated?: PostgresOneReplicated | undefined;
-  global?: PostgresOneGlobal | undefined;
-  replicatedJob?: PostgresOneReplicatedJob | undefined;
-  globalJob?: PostgresOneGlobalJob | undefined;
-};
-
-export type PostgresOneDriverOpts = {};
-
-export type PostgresOneNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresOneDriverOpts | undefined;
-};
-
-export type PostgresOneProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresOneEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresOneProject;
-};
-
-export const PostgresOneType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresOneType = ClosedEnum<typeof PostgresOneType>;
-
-export const PostgresOneServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresOneServiceType = ClosedEnum<typeof PostgresOneServiceType>;
-
-export type PostgresOneMount = {
-  mountId: string;
-  type: PostgresOneType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresOneServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresOneServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresOneServerStatus = ClosedEnum<
-  typeof PostgresOneServerStatus
->;
-
-export const PostgresOneMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresOneMetricsConfigEnum = ClosedEnum<
-  typeof PostgresOneMetricsConfigEnum
->;
-
-export type PostgresOneMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresOneMetricsConfigEnum;
-
-export type PostgresOneMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresOneMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresOneServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresOneServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresOneMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
-
 export const PostgresOneBackupType = {
   Database: "database",
   Compose: "compose",
@@ -240,29 +52,29 @@ export type PostgresOneMetadataEnum = ClosedEnum<
   typeof PostgresOneMetadataEnum
 >;
 
-export type PostgresOnePostgres = {
-  databaseUser: string;
-};
-
 export type PostgresOneMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresOneMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresOneMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresOnePostgres = {
+  databaseUser: string;
+};
+
 export type PostgresOneMetadata = {
-  postgres?: PostgresOnePostgres | undefined;
   mariadb?: PostgresOneMariadb | undefined;
   mongo?: PostgresOneMongo | undefined;
   mysql?: PostgresOneMysql | undefined;
+  postgres?: PostgresOnePostgres | undefined;
 };
 
 export type PostgresOneMetadataUnion =
@@ -270,62 +82,250 @@ export type PostgresOneMetadataUnion =
   | PostgresOneMetadataEnum;
 
 export type PostgresOneBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresOneBackupType;
-  databaseType: PostgresOneDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresOneDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: PostgresOneMetadata | PostgresOneMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresOneProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresOneEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresOneProject;
+  projectId: string;
+};
+
+export type PostgresOneHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresOneGlobal = {};
+
+export type PostgresOneGlobalJob = {};
+
+export type PostgresOneReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresOneReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresOneModeSwarm = {
+  global?: PostgresOneGlobal | undefined;
+  globalJob?: PostgresOneGlobalJob | undefined;
+  replicated?: PostgresOneReplicated | undefined;
+  replicatedJob?: PostgresOneReplicatedJob | undefined;
+};
+
+export const PostgresOneServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresOneServiceType = ClosedEnum<typeof PostgresOneServiceType>;
+
+export const PostgresOneType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresOneType = ClosedEnum<typeof PostgresOneType>;
+
+export type PostgresOneMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresOneServiceType;
+  type: PostgresOneType;
+  volumeName: string | null;
+};
+
+export type PostgresOneDriverOpts = {};
+
+export type PostgresOneNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresOneDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresOnePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresOneSpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresOnePreference = {
+  spread: PostgresOneSpread;
+};
+
+export type PostgresOnePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresOnePlatform> | undefined;
+  preferences?: Array<PostgresOnePreference> | undefined;
+};
+
+export type PostgresOneRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresOneRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresOneMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresOneMetricsConfigEnum = ClosedEnum<
+  typeof PostgresOneMetricsConfigEnum
+>;
+
+export type PostgresOneMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresOneMetricsConfigEnum;
+
+export type PostgresOneMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresOneMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresOneServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresOneServerStatus = ClosedEnum<
+  typeof PostgresOneServerStatus
+>;
+
+export type PostgresOneServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresOneMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresOneServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresOneUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresOneResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresOneApplicationStatus;
+  backups: Array<PostgresOneBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresOneApplicationStatus;
-  healthCheckSwarm: PostgresOneHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresOneRestartPolicySwarm | null;
-  placementSwarm: PostgresOnePlacementSwarm | null;
-  updateConfigSwarm: PostgresOneUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresOneRollbackConfigSwarm | null;
-  modeSwarm: PostgresOneModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresOneNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresOneEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresOneHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresOneModeSwarm | null;
   mounts: Array<PostgresOneMount>;
+  name: string;
+  networkSwarm: Array<PostgresOneNetworkSwarm> | null;
+  placementSwarm: PostgresOnePlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresOneRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresOneRollbackConfigSwarm | null;
   server: PostgresOneServer | null;
-  backups: Array<PostgresOneBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresOneUpdateConfigSwarm | null;
 };
 
 export type PostgresOneResponse = PostgresOneResponseBody | models.ErrorT;
@@ -468,33 +468,693 @@ export namespace PostgresOneApplicationStatus$ {
 }
 
 /** @internal */
+export const PostgresOneBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneBackupType
+> = z.nativeEnum(PostgresOneBackupType);
+
+/** @internal */
+export const PostgresOneBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneBackupType
+> = PostgresOneBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneBackupType$ {
+  /** @deprecated use `PostgresOneBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneBackupType$inboundSchema;
+  /** @deprecated use `PostgresOneBackupType$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresOneDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneDatabaseType
+> = z.nativeEnum(PostgresOneDatabaseType);
+
+/** @internal */
+export const PostgresOneDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneDatabaseType
+> = PostgresOneDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneDatabaseType$ {
+  /** @deprecated use `PostgresOneDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresOneDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneMetadataEnum
+> = z.nativeEnum(PostgresOneMetadataEnum);
+
+/** @internal */
+export const PostgresOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneMetadataEnum
+> = PostgresOneMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMetadataEnum$ {
+  /** @deprecated use `PostgresOneMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresOneMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresOneMariadb$inboundSchema: z.ZodType<
+  PostgresOneMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresOneMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresOneMariadb$outboundSchema: z.ZodType<
+  PostgresOneMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMariadb$ {
+  /** @deprecated use `PostgresOneMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMariadb$inboundSchema;
+  /** @deprecated use `PostgresOneMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMariadb$outboundSchema;
+  /** @deprecated use `PostgresOneMariadb$Outbound` instead. */
+  export type Outbound = PostgresOneMariadb$Outbound;
+}
+
+export function postgresOneMariadbToJSON(
+  postgresOneMariadb: PostgresOneMariadb,
+): string {
+  return JSON.stringify(
+    PostgresOneMariadb$outboundSchema.parse(postgresOneMariadb),
+  );
+}
+
+export function postgresOneMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneMongo$inboundSchema: z.ZodType<
+  PostgresOneMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresOneMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresOneMongo$outboundSchema: z.ZodType<
+  PostgresOneMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMongo$ {
+  /** @deprecated use `PostgresOneMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMongo$inboundSchema;
+  /** @deprecated use `PostgresOneMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMongo$outboundSchema;
+  /** @deprecated use `PostgresOneMongo$Outbound` instead. */
+  export type Outbound = PostgresOneMongo$Outbound;
+}
+
+export function postgresOneMongoToJSON(
+  postgresOneMongo: PostgresOneMongo,
+): string {
+  return JSON.stringify(
+    PostgresOneMongo$outboundSchema.parse(postgresOneMongo),
+  );
+}
+
+export function postgresOneMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneMysql$inboundSchema: z.ZodType<
+  PostgresOneMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresOneMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresOneMysql$outboundSchema: z.ZodType<
+  PostgresOneMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMysql$ {
+  /** @deprecated use `PostgresOneMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMysql$inboundSchema;
+  /** @deprecated use `PostgresOneMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMysql$outboundSchema;
+  /** @deprecated use `PostgresOneMysql$Outbound` instead. */
+  export type Outbound = PostgresOneMysql$Outbound;
+}
+
+export function postgresOneMysqlToJSON(
+  postgresOneMysql: PostgresOneMysql,
+): string {
+  return JSON.stringify(
+    PostgresOneMysql$outboundSchema.parse(postgresOneMysql),
+  );
+}
+
+export function postgresOneMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOnePostgres$inboundSchema: z.ZodType<
+  PostgresOnePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresOnePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresOnePostgres$outboundSchema: z.ZodType<
+  PostgresOnePostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresOnePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOnePostgres$ {
+  /** @deprecated use `PostgresOnePostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresOnePostgres$inboundSchema;
+  /** @deprecated use `PostgresOnePostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresOnePostgres$outboundSchema;
+  /** @deprecated use `PostgresOnePostgres$Outbound` instead. */
+  export type Outbound = PostgresOnePostgres$Outbound;
+}
+
+export function postgresOnePostgresToJSON(
+  postgresOnePostgres: PostgresOnePostgres,
+): string {
+  return JSON.stringify(
+    PostgresOnePostgres$outboundSchema.parse(postgresOnePostgres),
+  );
+}
+
+export function postgresOnePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOnePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOnePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOnePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneMetadata$inboundSchema: z.ZodType<
+  PostgresOneMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresOneMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => PostgresOneMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresOneMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresOnePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostgresOneMetadata$Outbound = {
+  mariadb?: PostgresOneMariadb$Outbound | undefined;
+  mongo?: PostgresOneMongo$Outbound | undefined;
+  mysql?: PostgresOneMysql$Outbound | undefined;
+  postgres?: PostgresOnePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresOneMetadata$outboundSchema: z.ZodType<
+  PostgresOneMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresOneMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => PostgresOneMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresOneMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresOnePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMetadata$ {
+  /** @deprecated use `PostgresOneMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMetadata$inboundSchema;
+  /** @deprecated use `PostgresOneMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMetadata$outboundSchema;
+  /** @deprecated use `PostgresOneMetadata$Outbound` instead. */
+  export type Outbound = PostgresOneMetadata$Outbound;
+}
+
+export function postgresOneMetadataToJSON(
+  postgresOneMetadata: PostgresOneMetadata,
+): string {
+  return JSON.stringify(
+    PostgresOneMetadata$outboundSchema.parse(postgresOneMetadata),
+  );
+}
+
+export function postgresOneMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneMetadataUnion$inboundSchema: z.ZodType<
+  PostgresOneMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresOneMetadata$inboundSchema),
+  PostgresOneMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresOneMetadataUnion$Outbound =
+  | PostgresOneMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresOneMetadataUnion$outboundSchema: z.ZodType<
+  PostgresOneMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresOneMetadata$outboundSchema),
+  PostgresOneMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMetadataUnion$ {
+  /** @deprecated use `PostgresOneMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresOneMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresOneMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresOneMetadataUnion$Outbound;
+}
+
+export function postgresOneMetadataUnionToJSON(
+  postgresOneMetadataUnion: PostgresOneMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresOneMetadataUnion$outboundSchema.parse(postgresOneMetadataUnion),
+  );
+}
+
+export function postgresOneMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneBackup$inboundSchema: z.ZodType<
+  PostgresOneBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresOneBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresOneDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresOneMetadata$inboundSchema),
+      PostgresOneMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresOneBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: PostgresOneMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresOneBackup$outboundSchema: z.ZodType<
+  PostgresOneBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresOneBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresOneBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresOneDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresOneMetadata$outboundSchema),
+      PostgresOneMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneBackup$ {
+  /** @deprecated use `PostgresOneBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneBackup$inboundSchema;
+  /** @deprecated use `PostgresOneBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneBackup$outboundSchema;
+  /** @deprecated use `PostgresOneBackup$Outbound` instead. */
+  export type Outbound = PostgresOneBackup$Outbound;
+}
+
+export function postgresOneBackupToJSON(
+  postgresOneBackup: PostgresOneBackup,
+): string {
+  return JSON.stringify(
+    PostgresOneBackup$outboundSchema.parse(postgresOneBackup),
+  );
+}
+
+export function postgresOneBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneProject$inboundSchema: z.ZodType<
+  PostgresOneProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresOneProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresOneProject$outboundSchema: z.ZodType<
+  PostgresOneProject$Outbound,
+  z.ZodTypeDef,
+  PostgresOneProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneProject$ {
+  /** @deprecated use `PostgresOneProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneProject$inboundSchema;
+  /** @deprecated use `PostgresOneProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneProject$outboundSchema;
+  /** @deprecated use `PostgresOneProject$Outbound` instead. */
+  export type Outbound = PostgresOneProject$Outbound;
+}
+
+export function postgresOneProjectToJSON(
+  postgresOneProject: PostgresOneProject,
+): string {
+  return JSON.stringify(
+    PostgresOneProject$outboundSchema.parse(postgresOneProject),
+  );
+}
+
+export function postgresOneProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneEnvironment$inboundSchema: z.ZodType<
+  PostgresOneEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresOneProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresOneEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresOneProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresOneEnvironment$outboundSchema: z.ZodType<
+  PostgresOneEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresOneEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresOneProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneEnvironment$ {
+  /** @deprecated use `PostgresOneEnvironment$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneEnvironment$inboundSchema;
+  /** @deprecated use `PostgresOneEnvironment$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneEnvironment$outboundSchema;
+  /** @deprecated use `PostgresOneEnvironment$Outbound` instead. */
+  export type Outbound = PostgresOneEnvironment$Outbound;
+}
+
+export function postgresOneEnvironmentToJSON(
+  postgresOneEnvironment: PostgresOneEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresOneEnvironment$outboundSchema.parse(postgresOneEnvironment),
+  );
+}
+
+export function postgresOneEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresOneHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresOneHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresOneHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -503,18 +1163,18 @@ export const PostgresOneHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresOneHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -552,48 +1212,129 @@ export function postgresOneHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresOneRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresOneRestartPolicySwarm,
+export const PostgresOneGlobal$inboundSchema: z.ZodType<
+  PostgresOneGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresOneGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresOneGlobal$outboundSchema: z.ZodType<
+  PostgresOneGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresOneGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneGlobal$ {
+  /** @deprecated use `PostgresOneGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneGlobal$inboundSchema;
+  /** @deprecated use `PostgresOneGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneGlobal$outboundSchema;
+  /** @deprecated use `PostgresOneGlobal$Outbound` instead. */
+  export type Outbound = PostgresOneGlobal$Outbound;
+}
+
+export function postgresOneGlobalToJSON(
+  postgresOneGlobal: PostgresOneGlobal,
+): string {
+  return JSON.stringify(
+    PostgresOneGlobal$outboundSchema.parse(postgresOneGlobal),
+  );
+}
+
+export function postgresOneGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneGlobalJob$inboundSchema: z.ZodType<
+  PostgresOneGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresOneGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresOneGlobalJob$outboundSchema: z.ZodType<
+  PostgresOneGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresOneGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneGlobalJob$ {
+  /** @deprecated use `PostgresOneGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresOneGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresOneGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresOneGlobalJob$Outbound;
+}
+
+export function postgresOneGlobalJobToJSON(
+  postgresOneGlobalJob: PostgresOneGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresOneGlobalJob$outboundSchema.parse(postgresOneGlobalJob),
+  );
+}
+
+export function postgresOneGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneReplicated$inboundSchema: z.ZodType<
+  PostgresOneReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresOneRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresOneReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresOneRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresOneRestartPolicySwarm$Outbound,
+export const PostgresOneReplicated$outboundSchema: z.ZodType<
+  PostgresOneReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresOneRestartPolicySwarm
+  PostgresOneReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -601,32 +1342,501 @@ export const PostgresOneRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresOneRestartPolicySwarm$ {
-  /** @deprecated use `PostgresOneRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresOneRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresOneRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresOneRestartPolicySwarm$Outbound;
+export namespace PostgresOneReplicated$ {
+  /** @deprecated use `PostgresOneReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneReplicated$inboundSchema;
+  /** @deprecated use `PostgresOneReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneReplicated$outboundSchema;
+  /** @deprecated use `PostgresOneReplicated$Outbound` instead. */
+  export type Outbound = PostgresOneReplicated$Outbound;
 }
 
-export function postgresOneRestartPolicySwarmToJSON(
-  postgresOneRestartPolicySwarm: PostgresOneRestartPolicySwarm,
+export function postgresOneReplicatedToJSON(
+  postgresOneReplicated: PostgresOneReplicated,
 ): string {
   return JSON.stringify(
-    PostgresOneRestartPolicySwarm$outboundSchema.parse(
-      postgresOneRestartPolicySwarm,
-    ),
+    PostgresOneReplicated$outboundSchema.parse(postgresOneReplicated),
   );
 }
 
-export function postgresOneRestartPolicySwarmFromJSON(
+export function postgresOneReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresOneRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresOneReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneRestartPolicySwarm' from JSON`,
+    (x) => PostgresOneReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneReplicatedJob$inboundSchema: z.ZodType<
+  PostgresOneReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresOneReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresOneReplicatedJob$outboundSchema: z.ZodType<
+  PostgresOneReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresOneReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneReplicatedJob$ {
+  /** @deprecated use `PostgresOneReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresOneReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresOneReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresOneReplicatedJob$Outbound;
+}
+
+export function postgresOneReplicatedJobToJSON(
+  postgresOneReplicatedJob: PostgresOneReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresOneReplicatedJob$outboundSchema.parse(postgresOneReplicatedJob),
+  );
+}
+
+export function postgresOneReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneModeSwarm$inboundSchema: z.ZodType<
+  PostgresOneModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresOneGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresOneGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => PostgresOneReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => PostgresOneReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresOneModeSwarm$Outbound = {
+  Global?: PostgresOneGlobal$Outbound | undefined;
+  GlobalJob?: PostgresOneGlobalJob$Outbound | undefined;
+  Replicated?: PostgresOneReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresOneReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresOneModeSwarm$outboundSchema: z.ZodType<
+  PostgresOneModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresOneModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresOneGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresOneGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => PostgresOneReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => PostgresOneReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneModeSwarm$ {
+  /** @deprecated use `PostgresOneModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresOneModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresOneModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresOneModeSwarm$Outbound;
+}
+
+export function postgresOneModeSwarmToJSON(
+  postgresOneModeSwarm: PostgresOneModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresOneModeSwarm$outboundSchema.parse(postgresOneModeSwarm),
+  );
+}
+
+export function postgresOneModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneServiceType
+> = z.nativeEnum(PostgresOneServiceType);
+
+/** @internal */
+export const PostgresOneServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneServiceType
+> = PostgresOneServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneServiceType$ {
+  /** @deprecated use `PostgresOneServiceType$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneServiceType$inboundSchema;
+  /** @deprecated use `PostgresOneServiceType$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresOneType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneType
+> = z.nativeEnum(PostgresOneType);
+
+/** @internal */
+export const PostgresOneType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneType
+> = PostgresOneType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneType$ {
+  /** @deprecated use `PostgresOneType$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneType$inboundSchema;
+  /** @deprecated use `PostgresOneType$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresOneMount$inboundSchema: z.ZodType<
+  PostgresOneMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresOneServiceType$inboundSchema,
+  type: PostgresOneType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresOneMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresOneMount$outboundSchema: z.ZodType<
+  PostgresOneMount$Outbound,
+  z.ZodTypeDef,
+  PostgresOneMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresOneServiceType$outboundSchema,
+  type: PostgresOneType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneMount$ {
+  /** @deprecated use `PostgresOneMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneMount$inboundSchema;
+  /** @deprecated use `PostgresOneMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneMount$outboundSchema;
+  /** @deprecated use `PostgresOneMount$Outbound` instead. */
+  export type Outbound = PostgresOneMount$Outbound;
+}
+
+export function postgresOneMountToJSON(
+  postgresOneMount: PostgresOneMount,
+): string {
+  return JSON.stringify(
+    PostgresOneMount$outboundSchema.parse(postgresOneMount),
+  );
+}
+
+export function postgresOneMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneDriverOpts$inboundSchema: z.ZodType<
+  PostgresOneDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresOneDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresOneDriverOpts$outboundSchema: z.ZodType<
+  PostgresOneDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresOneDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneDriverOpts$ {
+  /** @deprecated use `PostgresOneDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresOneDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresOneDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresOneDriverOpts$Outbound;
+}
+
+export function postgresOneDriverOptsToJSON(
+  postgresOneDriverOpts: PostgresOneDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresOneDriverOpts$outboundSchema.parse(postgresOneDriverOpts),
+  );
+}
+
+export function postgresOneDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOneNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresOneNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresOneDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresOneNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresOneDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresOneNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresOneNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresOneNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresOneDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneNetworkSwarm$ {
+  /** @deprecated use `PostgresOneNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresOneNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresOneNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresOneNetworkSwarm$Outbound;
+}
+
+export function postgresOneNetworkSwarmToJSON(
+  postgresOneNetworkSwarm: PostgresOneNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresOneNetworkSwarm$outboundSchema.parse(postgresOneNetworkSwarm),
+  );
+}
+
+export function postgresOneNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOneNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresOnePlatform$inboundSchema: z.ZodType<
+  PostgresOnePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresOnePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresOnePlatform$outboundSchema: z.ZodType<
+  PostgresOnePlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresOnePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOnePlatform$ {
+  /** @deprecated use `PostgresOnePlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresOnePlatform$inboundSchema;
+  /** @deprecated use `PostgresOnePlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresOnePlatform$outboundSchema;
+  /** @deprecated use `PostgresOnePlatform$Outbound` instead. */
+  export type Outbound = PostgresOnePlatform$Outbound;
+}
+
+export function postgresOnePlatformToJSON(
+  postgresOnePlatform: PostgresOnePlatform,
+): string {
+  return JSON.stringify(
+    PostgresOnePlatform$outboundSchema.parse(postgresOnePlatform),
+  );
+}
+
+export function postgresOnePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresOnePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresOnePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOnePlatform' from JSON`,
   );
 }
 
@@ -755,99 +1965,32 @@ export function postgresOnePreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresOnePlatform$inboundSchema: z.ZodType<
-  PostgresOnePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresOnePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresOnePlatform$outboundSchema: z.ZodType<
-  PostgresOnePlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresOnePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOnePlatform$ {
-  /** @deprecated use `PostgresOnePlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresOnePlatform$inboundSchema;
-  /** @deprecated use `PostgresOnePlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresOnePlatform$outboundSchema;
-  /** @deprecated use `PostgresOnePlatform$Outbound` instead. */
-  export type Outbound = PostgresOnePlatform$Outbound;
-}
-
-export function postgresOnePlatformToJSON(
-  postgresOnePlatform: PostgresOnePlatform,
-): string {
-  return JSON.stringify(
-    PostgresOnePlatform$outboundSchema.parse(postgresOnePlatform),
-  );
-}
-
-export function postgresOnePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOnePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOnePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOnePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresOnePlacementSwarm$inboundSchema: z.ZodType<
   PostgresOnePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => PostgresOnePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresOnePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => PostgresOnePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresOnePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresOnePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresOnePlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresOnePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -857,17 +2000,17 @@ export const PostgresOnePlacementSwarm$outboundSchema: z.ZodType<
   PostgresOnePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => PostgresOnePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresOnePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => PostgresOnePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -903,58 +2046,48 @@ export function postgresOnePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresOneUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresOneUpdateConfigSwarm,
+export const PostgresOneRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresOneRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresOneUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresOneRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresOneUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresOneUpdateConfigSwarm$Outbound,
+export const PostgresOneRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresOneRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresOneUpdateConfigSwarm
+  PostgresOneRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -962,32 +2095,32 @@ export const PostgresOneUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresOneUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresOneUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresOneUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresOneUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresOneUpdateConfigSwarm$Outbound;
+export namespace PostgresOneRestartPolicySwarm$ {
+  /** @deprecated use `PostgresOneRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresOneRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresOneRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresOneRestartPolicySwarm$Outbound;
 }
 
-export function postgresOneUpdateConfigSwarmToJSON(
-  postgresOneUpdateConfigSwarm: PostgresOneUpdateConfigSwarm,
+export function postgresOneRestartPolicySwarmToJSON(
+  postgresOneRestartPolicySwarm: PostgresOneRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresOneUpdateConfigSwarm$outboundSchema.parse(
-      postgresOneUpdateConfigSwarm,
+    PostgresOneRestartPolicySwarm$outboundSchema.parse(
+      postgresOneRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresOneUpdateConfigSwarmFromJSON(
+export function postgresOneRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresOneUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresOneRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneUpdateConfigSwarm' from JSON`,
+    (x) => PostgresOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -997,31 +2130,31 @@ export const PostgresOneRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresOneRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1030,20 +2163,20 @@ export const PostgresOneRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresOneRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1078,730 +2211,6 @@ export function postgresOneRollbackConfigSwarmFromJSON(
     (x) => PostgresOneRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostgresOneRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresOneReplicated$inboundSchema: z.ZodType<
-  PostgresOneReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresOneReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresOneReplicated$outboundSchema: z.ZodType<
-  PostgresOneReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresOneReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneReplicated$ {
-  /** @deprecated use `PostgresOneReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneReplicated$inboundSchema;
-  /** @deprecated use `PostgresOneReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneReplicated$outboundSchema;
-  /** @deprecated use `PostgresOneReplicated$Outbound` instead. */
-  export type Outbound = PostgresOneReplicated$Outbound;
-}
-
-export function postgresOneReplicatedToJSON(
-  postgresOneReplicated: PostgresOneReplicated,
-): string {
-  return JSON.stringify(
-    PostgresOneReplicated$outboundSchema.parse(postgresOneReplicated),
-  );
-}
-
-export function postgresOneReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneGlobal$inboundSchema: z.ZodType<
-  PostgresOneGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresOneGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresOneGlobal$outboundSchema: z.ZodType<
-  PostgresOneGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresOneGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneGlobal$ {
-  /** @deprecated use `PostgresOneGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneGlobal$inboundSchema;
-  /** @deprecated use `PostgresOneGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneGlobal$outboundSchema;
-  /** @deprecated use `PostgresOneGlobal$Outbound` instead. */
-  export type Outbound = PostgresOneGlobal$Outbound;
-}
-
-export function postgresOneGlobalToJSON(
-  postgresOneGlobal: PostgresOneGlobal,
-): string {
-  return JSON.stringify(
-    PostgresOneGlobal$outboundSchema.parse(postgresOneGlobal),
-  );
-}
-
-export function postgresOneGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneReplicatedJob$inboundSchema: z.ZodType<
-  PostgresOneReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresOneReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresOneReplicatedJob$outboundSchema: z.ZodType<
-  PostgresOneReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresOneReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneReplicatedJob$ {
-  /** @deprecated use `PostgresOneReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresOneReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresOneReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresOneReplicatedJob$Outbound;
-}
-
-export function postgresOneReplicatedJobToJSON(
-  postgresOneReplicatedJob: PostgresOneReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresOneReplicatedJob$outboundSchema.parse(postgresOneReplicatedJob),
-  );
-}
-
-export function postgresOneReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneGlobalJob$inboundSchema: z.ZodType<
-  PostgresOneGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresOneGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresOneGlobalJob$outboundSchema: z.ZodType<
-  PostgresOneGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresOneGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneGlobalJob$ {
-  /** @deprecated use `PostgresOneGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresOneGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresOneGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresOneGlobalJob$Outbound;
-}
-
-export function postgresOneGlobalJobToJSON(
-  postgresOneGlobalJob: PostgresOneGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresOneGlobalJob$outboundSchema.parse(postgresOneGlobalJob),
-  );
-}
-
-export function postgresOneGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneModeSwarm$inboundSchema: z.ZodType<
-  PostgresOneModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresOneReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => PostgresOneGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresOneReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresOneGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresOneModeSwarm$Outbound = {
-  Replicated?: PostgresOneReplicated$Outbound | undefined;
-  Global?: PostgresOneGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresOneReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresOneGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresOneModeSwarm$outboundSchema: z.ZodType<
-  PostgresOneModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresOneModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresOneReplicated$outboundSchema).optional(),
-  global: z.lazy(() => PostgresOneGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresOneReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresOneGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneModeSwarm$ {
-  /** @deprecated use `PostgresOneModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresOneModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresOneModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresOneModeSwarm$Outbound;
-}
-
-export function postgresOneModeSwarmToJSON(
-  postgresOneModeSwarm: PostgresOneModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresOneModeSwarm$outboundSchema.parse(postgresOneModeSwarm),
-  );
-}
-
-export function postgresOneModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneDriverOpts$inboundSchema: z.ZodType<
-  PostgresOneDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresOneDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresOneDriverOpts$outboundSchema: z.ZodType<
-  PostgresOneDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresOneDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneDriverOpts$ {
-  /** @deprecated use `PostgresOneDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresOneDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresOneDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresOneDriverOpts$Outbound;
-}
-
-export function postgresOneDriverOptsToJSON(
-  postgresOneDriverOpts: PostgresOneDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresOneDriverOpts$outboundSchema.parse(postgresOneDriverOpts),
-  );
-}
-
-export function postgresOneDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresOneNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresOneDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresOneNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresOneDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresOneNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresOneNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresOneNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresOneDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneNetworkSwarm$ {
-  /** @deprecated use `PostgresOneNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresOneNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresOneNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresOneNetworkSwarm$Outbound;
-}
-
-export function postgresOneNetworkSwarmToJSON(
-  postgresOneNetworkSwarm: PostgresOneNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresOneNetworkSwarm$outboundSchema.parse(postgresOneNetworkSwarm),
-  );
-}
-
-export function postgresOneNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneProject$inboundSchema: z.ZodType<
-  PostgresOneProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresOneProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresOneProject$outboundSchema: z.ZodType<
-  PostgresOneProject$Outbound,
-  z.ZodTypeDef,
-  PostgresOneProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneProject$ {
-  /** @deprecated use `PostgresOneProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneProject$inboundSchema;
-  /** @deprecated use `PostgresOneProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneProject$outboundSchema;
-  /** @deprecated use `PostgresOneProject$Outbound` instead. */
-  export type Outbound = PostgresOneProject$Outbound;
-}
-
-export function postgresOneProjectToJSON(
-  postgresOneProject: PostgresOneProject,
-): string {
-  return JSON.stringify(
-    PostgresOneProject$outboundSchema.parse(postgresOneProject),
-  );
-}
-
-export function postgresOneProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneEnvironment$inboundSchema: z.ZodType<
-  PostgresOneEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresOneProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresOneEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresOneProject$Outbound;
-};
-
-/** @internal */
-export const PostgresOneEnvironment$outboundSchema: z.ZodType<
-  PostgresOneEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresOneEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresOneProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneEnvironment$ {
-  /** @deprecated use `PostgresOneEnvironment$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneEnvironment$inboundSchema;
-  /** @deprecated use `PostgresOneEnvironment$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneEnvironment$outboundSchema;
-  /** @deprecated use `PostgresOneEnvironment$Outbound` instead. */
-  export type Outbound = PostgresOneEnvironment$Outbound;
-}
-
-export function postgresOneEnvironmentToJSON(
-  postgresOneEnvironment: PostgresOneEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresOneEnvironment$outboundSchema.parse(postgresOneEnvironment),
-  );
-}
-
-export function postgresOneEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneType
-> = z.nativeEnum(PostgresOneType);
-
-/** @internal */
-export const PostgresOneType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneType
-> = PostgresOneType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneType$ {
-  /** @deprecated use `PostgresOneType$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneType$inboundSchema;
-  /** @deprecated use `PostgresOneType$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresOneServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneServiceType
-> = z.nativeEnum(PostgresOneServiceType);
-
-/** @internal */
-export const PostgresOneServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneServiceType
-> = PostgresOneServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneServiceType$ {
-  /** @deprecated use `PostgresOneServiceType$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneServiceType$inboundSchema;
-  /** @deprecated use `PostgresOneServiceType$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresOneMount$inboundSchema: z.ZodType<
-  PostgresOneMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresOneType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresOneServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresOneMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresOneMount$outboundSchema: z.ZodType<
-  PostgresOneMount$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresOneType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresOneServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMount$ {
-  /** @deprecated use `PostgresOneMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMount$inboundSchema;
-  /** @deprecated use `PostgresOneMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMount$outboundSchema;
-  /** @deprecated use `PostgresOneMount$Outbound` instead. */
-  export type Outbound = PostgresOneMount$Outbound;
-}
-
-export function postgresOneMountToJSON(
-  postgresOneMount: PostgresOneMount,
-): string {
-  return JSON.stringify(
-    PostgresOneMount$outboundSchema.parse(postgresOneMount),
-  );
-}
-
-export function postgresOneMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneServerStatus
-> = z.nativeEnum(PostgresOneServerStatus);
-
-/** @internal */
-export const PostgresOneServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneServerStatus
-> = PostgresOneServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneServerStatus$ {
-  /** @deprecated use `PostgresOneServerStatus$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneServerStatus$inboundSchema;
-  /** @deprecated use `PostgresOneServerStatus$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1964,24 +2373,38 @@ export function postgresOneMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresOneServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneServerStatus
+> = z.nativeEnum(PostgresOneServerStatus);
+
+/** @internal */
+export const PostgresOneServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresOneServerStatus
+> = PostgresOneServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresOneServerStatus$ {
+  /** @deprecated use `PostgresOneServerStatus$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneServerStatus$inboundSchema;
+  /** @deprecated use `PostgresOneServerStatus$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresOneServer$inboundSchema: z.ZodType<
   PostgresOneServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresOneServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1992,26 +2415,33 @@ export const PostgresOneServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresOneServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresOneServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2020,19 +2450,12 @@ export const PostgresOneServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresOneServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresOneServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2043,6 +2466,13 @@ export const PostgresOneServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresOneServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2077,521 +2507,91 @@ export function postgresOneServerFromJSON(
 }
 
 /** @internal */
-export const PostgresOneBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneBackupType
-> = z.nativeEnum(PostgresOneBackupType);
-
-/** @internal */
-export const PostgresOneBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneBackupType
-> = PostgresOneBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneBackupType$ {
-  /** @deprecated use `PostgresOneBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneBackupType$inboundSchema;
-  /** @deprecated use `PostgresOneBackupType$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresOneDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneDatabaseType
-> = z.nativeEnum(PostgresOneDatabaseType);
-
-/** @internal */
-export const PostgresOneDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneDatabaseType
-> = PostgresOneDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneDatabaseType$ {
-  /** @deprecated use `PostgresOneDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresOneDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneMetadataEnum
-> = z.nativeEnum(PostgresOneMetadataEnum);
-
-/** @internal */
-export const PostgresOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresOneMetadataEnum
-> = PostgresOneMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMetadataEnum$ {
-  /** @deprecated use `PostgresOneMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresOneMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresOnePostgres$inboundSchema: z.ZodType<
-  PostgresOnePostgres,
+export const PostgresOneUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresOneUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type PostgresOnePostgres$Outbound = {
-  databaseUser: string;
+export type PostgresOneUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresOnePostgres$outboundSchema: z.ZodType<
-  PostgresOnePostgres$Outbound,
+export const PostgresOneUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresOneUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresOnePostgres
+  PostgresOneUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresOnePostgres$ {
-  /** @deprecated use `PostgresOnePostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresOnePostgres$inboundSchema;
-  /** @deprecated use `PostgresOnePostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresOnePostgres$outboundSchema;
-  /** @deprecated use `PostgresOnePostgres$Outbound` instead. */
-  export type Outbound = PostgresOnePostgres$Outbound;
+export namespace PostgresOneUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresOneUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresOneUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresOneUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresOneUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresOneUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresOneUpdateConfigSwarm$Outbound;
 }
 
-export function postgresOnePostgresToJSON(
-  postgresOnePostgres: PostgresOnePostgres,
+export function postgresOneUpdateConfigSwarmToJSON(
+  postgresOneUpdateConfigSwarm: PostgresOneUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresOnePostgres$outboundSchema.parse(postgresOnePostgres),
+    PostgresOneUpdateConfigSwarm$outboundSchema.parse(
+      postgresOneUpdateConfigSwarm,
+    ),
   );
 }
 
-export function postgresOnePostgresFromJSON(
+export function postgresOneUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresOnePostgres, SDKValidationError> {
+): SafeParseResult<PostgresOneUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresOnePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOnePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneMariadb$inboundSchema: z.ZodType<
-  PostgresOneMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresOneMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresOneMariadb$outboundSchema: z.ZodType<
-  PostgresOneMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMariadb$ {
-  /** @deprecated use `PostgresOneMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMariadb$inboundSchema;
-  /** @deprecated use `PostgresOneMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMariadb$outboundSchema;
-  /** @deprecated use `PostgresOneMariadb$Outbound` instead. */
-  export type Outbound = PostgresOneMariadb$Outbound;
-}
-
-export function postgresOneMariadbToJSON(
-  postgresOneMariadb: PostgresOneMariadb,
-): string {
-  return JSON.stringify(
-    PostgresOneMariadb$outboundSchema.parse(postgresOneMariadb),
-  );
-}
-
-export function postgresOneMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneMongo$inboundSchema: z.ZodType<
-  PostgresOneMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresOneMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresOneMongo$outboundSchema: z.ZodType<
-  PostgresOneMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMongo$ {
-  /** @deprecated use `PostgresOneMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMongo$inboundSchema;
-  /** @deprecated use `PostgresOneMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMongo$outboundSchema;
-  /** @deprecated use `PostgresOneMongo$Outbound` instead. */
-  export type Outbound = PostgresOneMongo$Outbound;
-}
-
-export function postgresOneMongoToJSON(
-  postgresOneMongo: PostgresOneMongo,
-): string {
-  return JSON.stringify(
-    PostgresOneMongo$outboundSchema.parse(postgresOneMongo),
-  );
-}
-
-export function postgresOneMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneMysql$inboundSchema: z.ZodType<
-  PostgresOneMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresOneMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresOneMysql$outboundSchema: z.ZodType<
-  PostgresOneMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMysql$ {
-  /** @deprecated use `PostgresOneMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMysql$inboundSchema;
-  /** @deprecated use `PostgresOneMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMysql$outboundSchema;
-  /** @deprecated use `PostgresOneMysql$Outbound` instead. */
-  export type Outbound = PostgresOneMysql$Outbound;
-}
-
-export function postgresOneMysqlToJSON(
-  postgresOneMysql: PostgresOneMysql,
-): string {
-  return JSON.stringify(
-    PostgresOneMysql$outboundSchema.parse(postgresOneMysql),
-  );
-}
-
-export function postgresOneMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneMetadata$inboundSchema: z.ZodType<
-  PostgresOneMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresOnePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresOneMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => PostgresOneMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresOneMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresOneMetadata$Outbound = {
-  postgres?: PostgresOnePostgres$Outbound | undefined;
-  mariadb?: PostgresOneMariadb$Outbound | undefined;
-  mongo?: PostgresOneMongo$Outbound | undefined;
-  mysql?: PostgresOneMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresOneMetadata$outboundSchema: z.ZodType<
-  PostgresOneMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresOnePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresOneMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => PostgresOneMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresOneMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMetadata$ {
-  /** @deprecated use `PostgresOneMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMetadata$inboundSchema;
-  /** @deprecated use `PostgresOneMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMetadata$outboundSchema;
-  /** @deprecated use `PostgresOneMetadata$Outbound` instead. */
-  export type Outbound = PostgresOneMetadata$Outbound;
-}
-
-export function postgresOneMetadataToJSON(
-  postgresOneMetadata: PostgresOneMetadata,
-): string {
-  return JSON.stringify(
-    PostgresOneMetadata$outboundSchema.parse(postgresOneMetadata),
-  );
-}
-
-export function postgresOneMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneMetadataUnion$inboundSchema: z.ZodType<
-  PostgresOneMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresOneMetadata$inboundSchema),
-  PostgresOneMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresOneMetadataUnion$Outbound =
-  | PostgresOneMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresOneMetadataUnion$outboundSchema: z.ZodType<
-  PostgresOneMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresOneMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresOneMetadata$outboundSchema),
-  PostgresOneMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneMetadataUnion$ {
-  /** @deprecated use `PostgresOneMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresOneMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresOneMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresOneMetadataUnion$Outbound;
-}
-
-export function postgresOneMetadataUnionToJSON(
-  postgresOneMetadataUnion: PostgresOneMetadataUnion,
-): string {
-  return JSON.stringify(
-    PostgresOneMetadataUnion$outboundSchema.parse(postgresOneMetadataUnion),
-  );
-}
-
-export function postgresOneMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresOneBackup$inboundSchema: z.ZodType<
-  PostgresOneBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresOneBackupType$inboundSchema,
-  databaseType: PostgresOneDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresOneMetadata$inboundSchema),
-      PostgresOneMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresOneBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: PostgresOneMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const PostgresOneBackup$outboundSchema: z.ZodType<
-  PostgresOneBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresOneBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresOneBackupType$outboundSchema,
-  databaseType: PostgresOneDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresOneMetadata$outboundSchema),
-      PostgresOneMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresOneBackup$ {
-  /** @deprecated use `PostgresOneBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresOneBackup$inboundSchema;
-  /** @deprecated use `PostgresOneBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresOneBackup$outboundSchema;
-  /** @deprecated use `PostgresOneBackup$Outbound` instead. */
-  export type Outbound = PostgresOneBackup$Outbound;
-}
-
-export function postgresOneBackupToJSON(
-  postgresOneBackup: PostgresOneBackup,
-): string {
-  return JSON.stringify(
-    PostgresOneBackup$outboundSchema.parse(postgresOneBackup),
-  );
-}
-
-export function postgresOneBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresOneBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresOneBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresOneBackup' from JSON`,
+    (x) => PostgresOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresOneUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2601,86 +2601,86 @@ export const PostgresOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresOneApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresOneBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresOneEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresOneApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresOneHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresOneRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresOneModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresOneMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresOneNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresOnePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresOneUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresOneRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresOneRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresOneModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresOneNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresOneEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresOneMount$inboundSchema)),
   server: z.nullable(z.lazy(() => PostgresOneServer$inboundSchema)),
-  backups: z.array(z.lazy(() => PostgresOneBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresOneUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresOneResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresOneBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresOneHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresOneRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresOnePlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresOneUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresOneRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresOneModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresOneNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresOneEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresOneHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresOneModeSwarm$Outbound | null;
   mounts: Array<PostgresOneMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresOneNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresOnePlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresOneRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresOneRollbackConfigSwarm$Outbound | null;
   server: PostgresOneServer$Outbound | null;
-  backups: Array<PostgresOneBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresOneUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2689,50 +2689,50 @@ export const PostgresOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresOneResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresOneApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresOneBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresOneEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresOneApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresOneHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresOneRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresOneModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresOneMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresOneNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresOnePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresOneUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresOneRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresOneRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresOneModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresOneNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresOneEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresOneMount$outboundSchema)),
   server: z.nullable(z.lazy(() => PostgresOneServer$outboundSchema)),
-  backups: z.array(z.lazy(() => PostgresOneBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresOneUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

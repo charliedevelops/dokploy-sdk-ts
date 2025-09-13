@@ -14,8 +14,8 @@ export type ComposeDeploySecurity = {
 
 export type ComposeDeployRequest = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -87,15 +87,15 @@ export const ComposeDeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeDeployRequest$Outbound = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -105,8 +105,8 @@ export const ComposeDeployRequest$outboundSchema: z.ZodType<
   ComposeDeployRequest
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**

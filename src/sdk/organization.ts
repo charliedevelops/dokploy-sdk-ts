@@ -15,19 +15,6 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Organization extends ClientSDK {
-  async organizationCreate(
-    security: operations.OrganizationCreateSecurity,
-    request: operations.OrganizationCreateRequest,
-    options?: RequestOptions,
-  ): Promise<operations.OrganizationCreateResponse> {
-    return unwrapAsync(organizationOrganizationCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async organizationAll(
     security: operations.OrganizationAllSecurity,
     options?: RequestOptions,
@@ -39,25 +26,23 @@ export class Organization extends ClientSDK {
     ));
   }
 
-  async organizationOne(
-    security: operations.OrganizationOneSecurity,
-    request: operations.OrganizationOneRequest,
+  async organizationAllInvitations(
+    security: operations.OrganizationAllInvitationsSecurity,
     options?: RequestOptions,
-  ): Promise<operations.OrganizationOneResponse> {
-    return unwrapAsync(organizationOrganizationOne(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(organizationOrganizationAllInvitations(
       this,
       security,
-      request,
       options,
     ));
   }
 
-  async organizationUpdate(
-    security: operations.OrganizationUpdateSecurity,
-    request: operations.OrganizationUpdateRequest,
+  async organizationCreate(
+    security: operations.OrganizationCreateSecurity,
+    request: operations.OrganizationCreateRequest,
     options?: RequestOptions,
-  ): Promise<operations.OrganizationUpdateResponse> {
-    return unwrapAsync(organizationOrganizationUpdate(
+  ): Promise<operations.OrganizationCreateResponse> {
+    return unwrapAsync(organizationOrganizationCreate(
       this,
       security,
       request,
@@ -78,13 +63,15 @@ export class Organization extends ClientSDK {
     ));
   }
 
-  async organizationAllInvitations(
-    security: operations.OrganizationAllInvitationsSecurity,
+  async organizationOne(
+    security: operations.OrganizationOneSecurity,
+    request: operations.OrganizationOneRequest,
     options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(organizationOrganizationAllInvitations(
+  ): Promise<operations.OrganizationOneResponse> {
+    return unwrapAsync(organizationOrganizationOne(
       this,
       security,
+      request,
       options,
     ));
   }
@@ -95,6 +82,19 @@ export class Organization extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(organizationOrganizationRemoveInvitation(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async organizationUpdate(
+    security: operations.OrganizationUpdateSecurity,
+    request: operations.OrganizationUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<operations.OrganizationUpdateResponse> {
+    return unwrapAsync(organizationOrganizationUpdate(
       this,
       security,
       request,

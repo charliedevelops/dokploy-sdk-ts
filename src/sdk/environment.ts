@@ -13,6 +13,19 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Environment extends ClientSDK {
+  async environmentByProjectId(
+    security: operations.EnvironmentByProjectIdSecurity,
+    request: operations.EnvironmentByProjectIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.EnvironmentByProjectIdResponse> {
+    return unwrapAsync(environmentEnvironmentByProjectId(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async environmentCreate(
     security: operations.EnvironmentCreateSecurity,
     request: operations.EnvironmentCreateRequest,
@@ -26,12 +39,12 @@ export class Environment extends ClientSDK {
     ));
   }
 
-  async environmentOne(
-    security: operations.EnvironmentOneSecurity,
-    request: operations.EnvironmentOneRequest,
+  async environmentDuplicate(
+    security: operations.EnvironmentDuplicateSecurity,
+    request: operations.EnvironmentDuplicateRequest,
     options?: RequestOptions,
-  ): Promise<operations.EnvironmentOneResponse> {
-    return unwrapAsync(environmentEnvironmentOne(
+  ): Promise<operations.EnvironmentDuplicateResponse> {
+    return unwrapAsync(environmentEnvironmentDuplicate(
       this,
       security,
       request,
@@ -39,12 +52,12 @@ export class Environment extends ClientSDK {
     ));
   }
 
-  async environmentByProjectId(
-    security: operations.EnvironmentByProjectIdSecurity,
-    request: operations.EnvironmentByProjectIdRequest,
+  async environmentOne(
+    security: operations.EnvironmentOneSecurity,
+    request: operations.EnvironmentOneRequest,
     options?: RequestOptions,
-  ): Promise<operations.EnvironmentByProjectIdResponse> {
-    return unwrapAsync(environmentEnvironmentByProjectId(
+  ): Promise<operations.EnvironmentOneResponse> {
+    return unwrapAsync(environmentEnvironmentOne(
       this,
       security,
       request,
@@ -71,19 +84,6 @@ export class Environment extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.EnvironmentUpdateResponse> {
     return unwrapAsync(environmentEnvironmentUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async environmentDuplicate(
-    security: operations.EnvironmentDuplicateSecurity,
-    request: operations.EnvironmentDuplicateRequest,
-    options?: RequestOptions,
-  ): Promise<operations.EnvironmentDuplicateResponse> {
-    return unwrapAsync(environmentEnvironmentDuplicate(
       this,
       security,
       request,

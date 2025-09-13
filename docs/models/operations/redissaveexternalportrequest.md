@@ -6,8 +6,8 @@
 import { RedisSaveExternalPortRequest } from "dokploy-sdk/models/operations";
 
 let value: RedisSaveExternalPortRequest = {
-  redisId: "<id>",
   externalPort: 3649,
+  redisId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: RedisSaveExternalPortRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `redisId`          | *string*           | :heavy_check_mark: | N/A                |
 | `externalPort`     | *number*           | :heavy_check_mark: | N/A                |
+| `redisId`          | *string*           | :heavy_check_mark: | N/A                |

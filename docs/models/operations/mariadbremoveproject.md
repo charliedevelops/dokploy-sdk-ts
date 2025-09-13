@@ -6,12 +6,12 @@
 import { MariadbRemoveProject } from "dokploy-sdk/models/operations";
 
 let value: MariadbRemoveProject = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "bravely successfully till till",
-  createdAt: "1723287201455",
-  organizationId: "<id>",
+  createdAt: "1711717370850",
+  description: "boldly yet attraction personalise whereas square anxiously",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -19,9 +19,9 @@ let value: MariadbRemoveProject = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `projectId`        | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
+| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `projectId`        | *string*           | :heavy_check_mark: | N/A                |

@@ -28,196 +28,6 @@ export type MariadbRemoveApplicationStatus = ClosedEnum<
   typeof MariadbRemoveApplicationStatus
 >;
 
-export type MariadbRemoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MariadbRemoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MariadbRemoveSpread = {
-  spreadDescriptor: string;
-};
-
-export type MariadbRemovePreference = {
-  spread: MariadbRemoveSpread;
-};
-
-export type MariadbRemovePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MariadbRemovePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbRemovePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MariadbRemovePlatform> | undefined;
-};
-
-export type MariadbRemoveUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbRemoveRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbRemoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbRemoveGlobal = {};
-
-export type MariadbRemoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbRemoveGlobalJob = {};
-
-export type MariadbRemoveModeSwarm = {
-  replicated?: MariadbRemoveReplicated | undefined;
-  global?: MariadbRemoveGlobal | undefined;
-  replicatedJob?: MariadbRemoveReplicatedJob | undefined;
-  globalJob?: MariadbRemoveGlobalJob | undefined;
-};
-
-export type MariadbRemoveDriverOpts = {};
-
-export type MariadbRemoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbRemoveDriverOpts | undefined;
-};
-
-export type MariadbRemoveProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MariadbRemoveEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbRemoveProject;
-};
-
-export const MariadbRemoveType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MariadbRemoveType = ClosedEnum<typeof MariadbRemoveType>;
-
-export const MariadbRemoveServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MariadbRemoveServiceType = ClosedEnum<
-  typeof MariadbRemoveServiceType
->;
-
-export type MariadbRemoveMount = {
-  mountId: string;
-  type: MariadbRemoveType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MariadbRemoveServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MariadbRemoveServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MariadbRemoveServerStatus = ClosedEnum<
-  typeof MariadbRemoveServerStatus
->;
-
-export const MariadbRemoveMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MariadbRemoveMetricsConfigEnum = ClosedEnum<
-  typeof MariadbRemoveMetricsConfigEnum
->;
-
-export type MariadbRemoveMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MariadbRemoveMetricsConfigEnum;
-
-export type MariadbRemoveMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MariadbRemoveMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MariadbRemoveServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MariadbRemoveServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MariadbRemoveMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
-
 export const MariadbRemoveBackupType = {
   Database: "database",
   Compose: "compose",
@@ -244,29 +54,29 @@ export type MariadbRemoveMetadataEnum = ClosedEnum<
   typeof MariadbRemoveMetadataEnum
 >;
 
-export type MariadbRemovePostgres = {
-  databaseUser: string;
-};
-
 export type MariadbRemoveMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbRemoveMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbRemoveMysql = {
   databaseRootPassword: string;
 };
 
+export type MariadbRemovePostgres = {
+  databaseUser: string;
+};
+
 export type MariadbRemoveMetadata = {
-  postgres?: MariadbRemovePostgres | undefined;
   mariadb?: MariadbRemoveMariadb | undefined;
   mongo?: MariadbRemoveMongo | undefined;
   mysql?: MariadbRemoveMysql | undefined;
+  postgres?: MariadbRemovePostgres | undefined;
 };
 
 export type MariadbRemoveMetadataUnion =
@@ -274,67 +84,257 @@ export type MariadbRemoveMetadataUnion =
   | MariadbRemoveMetadataEnum;
 
 export type MariadbRemoveBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MariadbRemoveBackupType;
-  databaseType: MariadbRemoveDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MariadbRemoveDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MariadbRemoveMetadata
     | MariadbRemoveMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MariadbRemoveProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MariadbRemoveEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbRemoveProject;
+  projectId: string;
+};
+
+export type MariadbRemoveHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MariadbRemoveGlobal = {};
+
+export type MariadbRemoveGlobalJob = {};
+
+export type MariadbRemoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbRemoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbRemoveModeSwarm = {
+  global?: MariadbRemoveGlobal | undefined;
+  globalJob?: MariadbRemoveGlobalJob | undefined;
+  replicated?: MariadbRemoveReplicated | undefined;
+  replicatedJob?: MariadbRemoveReplicatedJob | undefined;
+};
+
+export const MariadbRemoveServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MariadbRemoveServiceType = ClosedEnum<
+  typeof MariadbRemoveServiceType
+>;
+
+export const MariadbRemoveType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MariadbRemoveType = ClosedEnum<typeof MariadbRemoveType>;
+
+export type MariadbRemoveMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MariadbRemoveServiceType;
+  type: MariadbRemoveType;
+  volumeName: string | null;
+};
+
+export type MariadbRemoveDriverOpts = {};
+
+export type MariadbRemoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbRemoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbRemovePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MariadbRemoveSpread = {
+  spreadDescriptor: string;
+};
+
+export type MariadbRemovePreference = {
+  spread: MariadbRemoveSpread;
+};
+
+export type MariadbRemovePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MariadbRemovePlatform> | undefined;
+  preferences?: Array<MariadbRemovePreference> | undefined;
+};
+
+export type MariadbRemoveRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MariadbRemoveRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MariadbRemoveMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MariadbRemoveMetricsConfigEnum = ClosedEnum<
+  typeof MariadbRemoveMetricsConfigEnum
+>;
+
+export type MariadbRemoveMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MariadbRemoveMetricsConfigEnum;
+
+export type MariadbRemoveMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MariadbRemoveMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MariadbRemoveServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MariadbRemoveServerStatus = ClosedEnum<
+  typeof MariadbRemoveServerStatus
+>;
+
+export type MariadbRemoveServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MariadbRemoveMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MariadbRemoveServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MariadbRemoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbRemoveResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbRemoveApplicationStatus;
+  backups: Array<MariadbRemoveBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbRemoveApplicationStatus;
-  healthCheckSwarm: MariadbRemoveHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbRemoveRestartPolicySwarm | null;
-  placementSwarm: MariadbRemovePlacementSwarm | null;
-  updateConfigSwarm: MariadbRemoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbRemoveRollbackConfigSwarm | null;
-  modeSwarm: MariadbRemoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbRemoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbRemoveEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbRemoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbRemoveModeSwarm | null;
   mounts: Array<MariadbRemoveMount>;
+  name: string;
+  networkSwarm: Array<MariadbRemoveNetworkSwarm> | null;
+  placementSwarm: MariadbRemovePlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbRemoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbRemoveRollbackConfigSwarm | null;
   server: MariadbRemoveServer | null;
-  backups: Array<MariadbRemoveBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbRemoveUpdateConfigSwarm | null;
 };
 
 export type MariadbRemoveResponse = MariadbRemoveResponseBody | models.ErrorT;
@@ -477,33 +477,693 @@ export namespace MariadbRemoveApplicationStatus$ {
 }
 
 /** @internal */
+export const MariadbRemoveBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveBackupType
+> = z.nativeEnum(MariadbRemoveBackupType);
+
+/** @internal */
+export const MariadbRemoveBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveBackupType
+> = MariadbRemoveBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveBackupType$ {
+  /** @deprecated use `MariadbRemoveBackupType$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveBackupType$inboundSchema;
+  /** @deprecated use `MariadbRemoveBackupType$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveDatabaseType
+> = z.nativeEnum(MariadbRemoveDatabaseType);
+
+/** @internal */
+export const MariadbRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveDatabaseType
+> = MariadbRemoveDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveDatabaseType$ {
+  /** @deprecated use `MariadbRemoveDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveDatabaseType$inboundSchema;
+  /** @deprecated use `MariadbRemoveDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveMetadataEnum
+> = z.nativeEnum(MariadbRemoveMetadataEnum);
+
+/** @internal */
+export const MariadbRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveMetadataEnum
+> = MariadbRemoveMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMetadataEnum$ {
+  /** @deprecated use `MariadbRemoveMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMetadataEnum$inboundSchema;
+  /** @deprecated use `MariadbRemoveMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MariadbRemoveMariadb$inboundSchema: z.ZodType<
+  MariadbRemoveMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbRemoveMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbRemoveMariadb$outboundSchema: z.ZodType<
+  MariadbRemoveMariadb$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMariadb$ {
+  /** @deprecated use `MariadbRemoveMariadb$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMariadb$inboundSchema;
+  /** @deprecated use `MariadbRemoveMariadb$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMariadb$outboundSchema;
+  /** @deprecated use `MariadbRemoveMariadb$Outbound` instead. */
+  export type Outbound = MariadbRemoveMariadb$Outbound;
+}
+
+export function mariadbRemoveMariadbToJSON(
+  mariadbRemoveMariadb: MariadbRemoveMariadb,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMariadb$outboundSchema.parse(mariadbRemoveMariadb),
+  );
+}
+
+export function mariadbRemoveMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveMongo$inboundSchema: z.ZodType<
+  MariadbRemoveMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbRemoveMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbRemoveMongo$outboundSchema: z.ZodType<
+  MariadbRemoveMongo$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMongo$ {
+  /** @deprecated use `MariadbRemoveMongo$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMongo$inboundSchema;
+  /** @deprecated use `MariadbRemoveMongo$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMongo$outboundSchema;
+  /** @deprecated use `MariadbRemoveMongo$Outbound` instead. */
+  export type Outbound = MariadbRemoveMongo$Outbound;
+}
+
+export function mariadbRemoveMongoToJSON(
+  mariadbRemoveMongo: MariadbRemoveMongo,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMongo$outboundSchema.parse(mariadbRemoveMongo),
+  );
+}
+
+export function mariadbRemoveMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveMysql$inboundSchema: z.ZodType<
+  MariadbRemoveMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MariadbRemoveMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MariadbRemoveMysql$outboundSchema: z.ZodType<
+  MariadbRemoveMysql$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMysql$ {
+  /** @deprecated use `MariadbRemoveMysql$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMysql$inboundSchema;
+  /** @deprecated use `MariadbRemoveMysql$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMysql$outboundSchema;
+  /** @deprecated use `MariadbRemoveMysql$Outbound` instead. */
+  export type Outbound = MariadbRemoveMysql$Outbound;
+}
+
+export function mariadbRemoveMysqlToJSON(
+  mariadbRemoveMysql: MariadbRemoveMysql,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMysql$outboundSchema.parse(mariadbRemoveMysql),
+  );
+}
+
+export function mariadbRemoveMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemovePostgres$inboundSchema: z.ZodType<
+  MariadbRemovePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbRemovePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbRemovePostgres$outboundSchema: z.ZodType<
+  MariadbRemovePostgres$Outbound,
+  z.ZodTypeDef,
+  MariadbRemovePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemovePostgres$ {
+  /** @deprecated use `MariadbRemovePostgres$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemovePostgres$inboundSchema;
+  /** @deprecated use `MariadbRemovePostgres$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemovePostgres$outboundSchema;
+  /** @deprecated use `MariadbRemovePostgres$Outbound` instead. */
+  export type Outbound = MariadbRemovePostgres$Outbound;
+}
+
+export function mariadbRemovePostgresToJSON(
+  mariadbRemovePostgres: MariadbRemovePostgres,
+): string {
+  return JSON.stringify(
+    MariadbRemovePostgres$outboundSchema.parse(mariadbRemovePostgres),
+  );
+}
+
+export function mariadbRemovePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemovePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemovePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemovePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveMetadata$inboundSchema: z.ZodType<
+  MariadbRemoveMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MariadbRemoveMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MariadbRemoveMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MariadbRemoveMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MariadbRemovePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MariadbRemoveMetadata$Outbound = {
+  mariadb?: MariadbRemoveMariadb$Outbound | undefined;
+  mongo?: MariadbRemoveMongo$Outbound | undefined;
+  mysql?: MariadbRemoveMysql$Outbound | undefined;
+  postgres?: MariadbRemovePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbRemoveMetadata$outboundSchema: z.ZodType<
+  MariadbRemoveMetadata$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMetadata
+> = z.object({
+  mariadb: z.lazy(() => MariadbRemoveMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MariadbRemoveMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MariadbRemoveMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MariadbRemovePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMetadata$ {
+  /** @deprecated use `MariadbRemoveMetadata$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMetadata$inboundSchema;
+  /** @deprecated use `MariadbRemoveMetadata$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMetadata$outboundSchema;
+  /** @deprecated use `MariadbRemoveMetadata$Outbound` instead. */
+  export type Outbound = MariadbRemoveMetadata$Outbound;
+}
+
+export function mariadbRemoveMetadataToJSON(
+  mariadbRemoveMetadata: MariadbRemoveMetadata,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMetadata$outboundSchema.parse(mariadbRemoveMetadata),
+  );
+}
+
+export function mariadbRemoveMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveMetadataUnion$inboundSchema: z.ZodType<
+  MariadbRemoveMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MariadbRemoveMetadata$inboundSchema),
+  MariadbRemoveMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MariadbRemoveMetadataUnion$Outbound =
+  | MariadbRemoveMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MariadbRemoveMetadataUnion$outboundSchema: z.ZodType<
+  MariadbRemoveMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMetadataUnion
+> = z.union([
+  z.lazy(() => MariadbRemoveMetadata$outboundSchema),
+  MariadbRemoveMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMetadataUnion$ {
+  /** @deprecated use `MariadbRemoveMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMetadataUnion$inboundSchema;
+  /** @deprecated use `MariadbRemoveMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMetadataUnion$outboundSchema;
+  /** @deprecated use `MariadbRemoveMetadataUnion$Outbound` instead. */
+  export type Outbound = MariadbRemoveMetadataUnion$Outbound;
+}
+
+export function mariadbRemoveMetadataUnionToJSON(
+  mariadbRemoveMetadataUnion: MariadbRemoveMetadataUnion,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMetadataUnion$outboundSchema.parse(mariadbRemoveMetadataUnion),
+  );
+}
+
+export function mariadbRemoveMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveBackup$inboundSchema: z.ZodType<
+  MariadbRemoveBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbRemoveBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbRemoveDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbRemoveMetadata$inboundSchema),
+      MariadbRemoveMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbRemoveBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MariadbRemoveMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MariadbRemoveBackup$outboundSchema: z.ZodType<
+  MariadbRemoveBackup$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbRemoveBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbRemoveDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbRemoveMetadata$outboundSchema),
+      MariadbRemoveMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveBackup$ {
+  /** @deprecated use `MariadbRemoveBackup$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveBackup$inboundSchema;
+  /** @deprecated use `MariadbRemoveBackup$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveBackup$outboundSchema;
+  /** @deprecated use `MariadbRemoveBackup$Outbound` instead. */
+  export type Outbound = MariadbRemoveBackup$Outbound;
+}
+
+export function mariadbRemoveBackupToJSON(
+  mariadbRemoveBackup: MariadbRemoveBackup,
+): string {
+  return JSON.stringify(
+    MariadbRemoveBackup$outboundSchema.parse(mariadbRemoveBackup),
+  );
+}
+
+export function mariadbRemoveBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveProject$inboundSchema: z.ZodType<
+  MariadbRemoveProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbRemoveProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbRemoveProject$outboundSchema: z.ZodType<
+  MariadbRemoveProject$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveProject$ {
+  /** @deprecated use `MariadbRemoveProject$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveProject$inboundSchema;
+  /** @deprecated use `MariadbRemoveProject$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveProject$outboundSchema;
+  /** @deprecated use `MariadbRemoveProject$Outbound` instead. */
+  export type Outbound = MariadbRemoveProject$Outbound;
+}
+
+export function mariadbRemoveProjectToJSON(
+  mariadbRemoveProject: MariadbRemoveProject,
+): string {
+  return JSON.stringify(
+    MariadbRemoveProject$outboundSchema.parse(mariadbRemoveProject),
+  );
+}
+
+export function mariadbRemoveProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveEnvironment$inboundSchema: z.ZodType<
+  MariadbRemoveEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbRemoveProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbRemoveEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbRemoveProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbRemoveEnvironment$outboundSchema: z.ZodType<
+  MariadbRemoveEnvironment$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbRemoveProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveEnvironment$ {
+  /** @deprecated use `MariadbRemoveEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveEnvironment$inboundSchema;
+  /** @deprecated use `MariadbRemoveEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveEnvironment$outboundSchema;
+  /** @deprecated use `MariadbRemoveEnvironment$Outbound` instead. */
+  export type Outbound = MariadbRemoveEnvironment$Outbound;
+}
+
+export function mariadbRemoveEnvironmentToJSON(
+  mariadbRemoveEnvironment: MariadbRemoveEnvironment,
+): string {
+  return JSON.stringify(
+    MariadbRemoveEnvironment$outboundSchema.parse(mariadbRemoveEnvironment),
+  );
+}
+
+export function mariadbRemoveEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MariadbRemoveHealthCheckSwarm$inboundSchema: z.ZodType<
   MariadbRemoveHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbRemoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -512,18 +1172,18 @@ export const MariadbRemoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbRemoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -561,48 +1221,129 @@ export function mariadbRemoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbRemoveRestartPolicySwarm,
+export const MariadbRemoveGlobal$inboundSchema: z.ZodType<
+  MariadbRemoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbRemoveGlobal$Outbound = {};
+
+/** @internal */
+export const MariadbRemoveGlobal$outboundSchema: z.ZodType<
+  MariadbRemoveGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveGlobal$ {
+  /** @deprecated use `MariadbRemoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveGlobal$inboundSchema;
+  /** @deprecated use `MariadbRemoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveGlobal$outboundSchema;
+  /** @deprecated use `MariadbRemoveGlobal$Outbound` instead. */
+  export type Outbound = MariadbRemoveGlobal$Outbound;
+}
+
+export function mariadbRemoveGlobalToJSON(
+  mariadbRemoveGlobal: MariadbRemoveGlobal,
+): string {
+  return JSON.stringify(
+    MariadbRemoveGlobal$outboundSchema.parse(mariadbRemoveGlobal),
+  );
+}
+
+export function mariadbRemoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveGlobalJob$inboundSchema: z.ZodType<
+  MariadbRemoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbRemoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbRemoveGlobalJob$outboundSchema: z.ZodType<
+  MariadbRemoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveGlobalJob$ {
+  /** @deprecated use `MariadbRemoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbRemoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbRemoveGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbRemoveGlobalJob$Outbound;
+}
+
+export function mariadbRemoveGlobalJobToJSON(
+  mariadbRemoveGlobalJob: MariadbRemoveGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbRemoveGlobalJob$outboundSchema.parse(mariadbRemoveGlobalJob),
+  );
+}
+
+export function mariadbRemoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveReplicated$inboundSchema: z.ZodType<
+  MariadbRemoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MariadbRemoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MariadbRemoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MariadbRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  MariadbRemoveRestartPolicySwarm$Outbound,
+export const MariadbRemoveReplicated$outboundSchema: z.ZodType<
+  MariadbRemoveReplicated$Outbound,
   z.ZodTypeDef,
-  MariadbRemoveRestartPolicySwarm
+  MariadbRemoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -610,32 +1351,501 @@ export const MariadbRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbRemoveRestartPolicySwarm$ {
-  /** @deprecated use `MariadbRemoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbRemoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbRemoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbRemoveRestartPolicySwarm$Outbound;
+export namespace MariadbRemoveReplicated$ {
+  /** @deprecated use `MariadbRemoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveReplicated$inboundSchema;
+  /** @deprecated use `MariadbRemoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveReplicated$outboundSchema;
+  /** @deprecated use `MariadbRemoveReplicated$Outbound` instead. */
+  export type Outbound = MariadbRemoveReplicated$Outbound;
 }
 
-export function mariadbRemoveRestartPolicySwarmToJSON(
-  mariadbRemoveRestartPolicySwarm: MariadbRemoveRestartPolicySwarm,
+export function mariadbRemoveReplicatedToJSON(
+  mariadbRemoveReplicated: MariadbRemoveReplicated,
 ): string {
   return JSON.stringify(
-    MariadbRemoveRestartPolicySwarm$outboundSchema.parse(
-      mariadbRemoveRestartPolicySwarm,
-    ),
+    MariadbRemoveReplicated$outboundSchema.parse(mariadbRemoveReplicated),
   );
 }
 
-export function mariadbRemoveRestartPolicySwarmFromJSON(
+export function mariadbRemoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbRemoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MariadbRemoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveRestartPolicySwarm' from JSON`,
+    (x) => MariadbRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveReplicatedJob$inboundSchema: z.ZodType<
+  MariadbRemoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbRemoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbRemoveReplicatedJob$outboundSchema: z.ZodType<
+  MariadbRemoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveReplicatedJob$ {
+  /** @deprecated use `MariadbRemoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbRemoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbRemoveReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbRemoveReplicatedJob$Outbound;
+}
+
+export function mariadbRemoveReplicatedJobToJSON(
+  mariadbRemoveReplicatedJob: MariadbRemoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbRemoveReplicatedJob$outboundSchema.parse(mariadbRemoveReplicatedJob),
+  );
+}
+
+export function mariadbRemoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveModeSwarm$inboundSchema: z.ZodType<
+  MariadbRemoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbRemoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbRemoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MariadbRemoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MariadbRemoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbRemoveModeSwarm$Outbound = {
+  Global?: MariadbRemoveGlobal$Outbound | undefined;
+  GlobalJob?: MariadbRemoveGlobalJob$Outbound | undefined;
+  Replicated?: MariadbRemoveReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbRemoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbRemoveModeSwarm$outboundSchema: z.ZodType<
+  MariadbRemoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbRemoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbRemoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MariadbRemoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MariadbRemoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveModeSwarm$ {
+  /** @deprecated use `MariadbRemoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbRemoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbRemoveModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbRemoveModeSwarm$Outbound;
+}
+
+export function mariadbRemoveModeSwarmToJSON(
+  mariadbRemoveModeSwarm: MariadbRemoveModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbRemoveModeSwarm$outboundSchema.parse(mariadbRemoveModeSwarm),
+  );
+}
+
+export function mariadbRemoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveServiceType
+> = z.nativeEnum(MariadbRemoveServiceType);
+
+/** @internal */
+export const MariadbRemoveServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveServiceType
+> = MariadbRemoveServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveServiceType$ {
+  /** @deprecated use `MariadbRemoveServiceType$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveServiceType$inboundSchema;
+  /** @deprecated use `MariadbRemoveServiceType$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbRemoveType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveType
+> = z.nativeEnum(MariadbRemoveType);
+
+/** @internal */
+export const MariadbRemoveType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveType
+> = MariadbRemoveType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveType$ {
+  /** @deprecated use `MariadbRemoveType$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveType$inboundSchema;
+  /** @deprecated use `MariadbRemoveType$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbRemoveMount$inboundSchema: z.ZodType<
+  MariadbRemoveMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbRemoveServiceType$inboundSchema,
+  type: MariadbRemoveType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbRemoveMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MariadbRemoveMount$outboundSchema: z.ZodType<
+  MariadbRemoveMount$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbRemoveServiceType$outboundSchema,
+  type: MariadbRemoveType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveMount$ {
+  /** @deprecated use `MariadbRemoveMount$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveMount$inboundSchema;
+  /** @deprecated use `MariadbRemoveMount$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveMount$outboundSchema;
+  /** @deprecated use `MariadbRemoveMount$Outbound` instead. */
+  export type Outbound = MariadbRemoveMount$Outbound;
+}
+
+export function mariadbRemoveMountToJSON(
+  mariadbRemoveMount: MariadbRemoveMount,
+): string {
+  return JSON.stringify(
+    MariadbRemoveMount$outboundSchema.parse(mariadbRemoveMount),
+  );
+}
+
+export function mariadbRemoveMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveDriverOpts$inboundSchema: z.ZodType<
+  MariadbRemoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbRemoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbRemoveDriverOpts$outboundSchema: z.ZodType<
+  MariadbRemoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveDriverOpts$ {
+  /** @deprecated use `MariadbRemoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbRemoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbRemoveDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbRemoveDriverOpts$Outbound;
+}
+
+export function mariadbRemoveDriverOptsToJSON(
+  mariadbRemoveDriverOpts: MariadbRemoveDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbRemoveDriverOpts$outboundSchema.parse(mariadbRemoveDriverOpts),
+  );
+}
+
+export function mariadbRemoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemoveNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbRemoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbRemoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbRemoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbRemoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbRemoveNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbRemoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbRemoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbRemoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveNetworkSwarm$ {
+  /** @deprecated use `MariadbRemoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbRemoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbRemoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbRemoveNetworkSwarm$Outbound;
+}
+
+export function mariadbRemoveNetworkSwarmToJSON(
+  mariadbRemoveNetworkSwarm: MariadbRemoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbRemoveNetworkSwarm$outboundSchema.parse(mariadbRemoveNetworkSwarm),
+  );
+}
+
+export function mariadbRemoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbRemovePlatform$inboundSchema: z.ZodType<
+  MariadbRemovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbRemovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbRemovePlatform$outboundSchema: z.ZodType<
+  MariadbRemovePlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbRemovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemovePlatform$ {
+  /** @deprecated use `MariadbRemovePlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemovePlatform$inboundSchema;
+  /** @deprecated use `MariadbRemovePlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemovePlatform$outboundSchema;
+  /** @deprecated use `MariadbRemovePlatform$Outbound` instead. */
+  export type Outbound = MariadbRemovePlatform$Outbound;
+}
+
+export function mariadbRemovePlatformToJSON(
+  mariadbRemovePlatform: MariadbRemovePlatform,
+): string {
+  return JSON.stringify(
+    MariadbRemovePlatform$outboundSchema.parse(mariadbRemovePlatform),
+  );
+}
+
+export function mariadbRemovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbRemovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbRemovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemovePlatform' from JSON`,
   );
 }
 
@@ -764,99 +1974,32 @@ export function mariadbRemovePreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbRemovePlatform$inboundSchema: z.ZodType<
-  MariadbRemovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbRemovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbRemovePlatform$outboundSchema: z.ZodType<
-  MariadbRemovePlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbRemovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemovePlatform$ {
-  /** @deprecated use `MariadbRemovePlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemovePlatform$inboundSchema;
-  /** @deprecated use `MariadbRemovePlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemovePlatform$outboundSchema;
-  /** @deprecated use `MariadbRemovePlatform$Outbound` instead. */
-  export type Outbound = MariadbRemovePlatform$Outbound;
-}
-
-export function mariadbRemovePlatformToJSON(
-  mariadbRemovePlatform: MariadbRemovePlatform,
-): string {
-  return JSON.stringify(
-    MariadbRemovePlatform$outboundSchema.parse(mariadbRemovePlatform),
-  );
-}
-
-export function mariadbRemovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbRemovePlacementSwarm$inboundSchema: z.ZodType<
   MariadbRemovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MariadbRemovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MariadbRemovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MariadbRemovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbRemovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbRemovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbRemovePlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbRemovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -866,17 +2009,17 @@ export const MariadbRemovePlacementSwarm$outboundSchema: z.ZodType<
   MariadbRemovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MariadbRemovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MariadbRemovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MariadbRemovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -914,58 +2057,48 @@ export function mariadbRemovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbRemoveUpdateConfigSwarm,
+export const MariadbRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbRemoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbRemoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbRemoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbRemoveUpdateConfigSwarm$Outbound,
+export const MariadbRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  MariadbRemoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MariadbRemoveUpdateConfigSwarm
+  MariadbRemoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -973,32 +2106,32 @@ export const MariadbRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbRemoveUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbRemoveUpdateConfigSwarm$Outbound;
+export namespace MariadbRemoveRestartPolicySwarm$ {
+  /** @deprecated use `MariadbRemoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbRemoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbRemoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbRemoveRestartPolicySwarm$Outbound;
 }
 
-export function mariadbRemoveUpdateConfigSwarmToJSON(
-  mariadbRemoveUpdateConfigSwarm: MariadbRemoveUpdateConfigSwarm,
+export function mariadbRemoveRestartPolicySwarmToJSON(
+  mariadbRemoveRestartPolicySwarm: MariadbRemoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbRemoveUpdateConfigSwarm$outboundSchema.parse(
-      mariadbRemoveUpdateConfigSwarm,
+    MariadbRemoveRestartPolicySwarm$outboundSchema.parse(
+      mariadbRemoveRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbRemoveUpdateConfigSwarmFromJSON(
+export function mariadbRemoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbRemoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MariadbRemoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveUpdateConfigSwarm' from JSON`,
+    (x) => MariadbRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1008,31 +2141,31 @@ export const MariadbRemoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MariadbRemoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1041,20 +2174,20 @@ export const MariadbRemoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbRemoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1089,730 +2222,6 @@ export function mariadbRemoveRollbackConfigSwarmFromJSON(
     (x) => MariadbRemoveRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MariadbRemoveRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MariadbRemoveReplicated$inboundSchema: z.ZodType<
-  MariadbRemoveReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MariadbRemoveReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveReplicated$outboundSchema: z.ZodType<
-  MariadbRemoveReplicated$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveReplicated$ {
-  /** @deprecated use `MariadbRemoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveReplicated$inboundSchema;
-  /** @deprecated use `MariadbRemoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveReplicated$outboundSchema;
-  /** @deprecated use `MariadbRemoveReplicated$Outbound` instead. */
-  export type Outbound = MariadbRemoveReplicated$Outbound;
-}
-
-export function mariadbRemoveReplicatedToJSON(
-  mariadbRemoveReplicated: MariadbRemoveReplicated,
-): string {
-  return JSON.stringify(
-    MariadbRemoveReplicated$outboundSchema.parse(mariadbRemoveReplicated),
-  );
-}
-
-export function mariadbRemoveReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveGlobal$inboundSchema: z.ZodType<
-  MariadbRemoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbRemoveGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbRemoveGlobal$outboundSchema: z.ZodType<
-  MariadbRemoveGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveGlobal$ {
-  /** @deprecated use `MariadbRemoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveGlobal$inboundSchema;
-  /** @deprecated use `MariadbRemoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveGlobal$outboundSchema;
-  /** @deprecated use `MariadbRemoveGlobal$Outbound` instead. */
-  export type Outbound = MariadbRemoveGlobal$Outbound;
-}
-
-export function mariadbRemoveGlobalToJSON(
-  mariadbRemoveGlobal: MariadbRemoveGlobal,
-): string {
-  return JSON.stringify(
-    MariadbRemoveGlobal$outboundSchema.parse(mariadbRemoveGlobal),
-  );
-}
-
-export function mariadbRemoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveReplicatedJob$inboundSchema: z.ZodType<
-  MariadbRemoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbRemoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveReplicatedJob$outboundSchema: z.ZodType<
-  MariadbRemoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveReplicatedJob$ {
-  /** @deprecated use `MariadbRemoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbRemoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbRemoveReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbRemoveReplicatedJob$Outbound;
-}
-
-export function mariadbRemoveReplicatedJobToJSON(
-  mariadbRemoveReplicatedJob: MariadbRemoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbRemoveReplicatedJob$outboundSchema.parse(mariadbRemoveReplicatedJob),
-  );
-}
-
-export function mariadbRemoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveGlobalJob$inboundSchema: z.ZodType<
-  MariadbRemoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbRemoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbRemoveGlobalJob$outboundSchema: z.ZodType<
-  MariadbRemoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveGlobalJob$ {
-  /** @deprecated use `MariadbRemoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbRemoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbRemoveGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbRemoveGlobalJob$Outbound;
-}
-
-export function mariadbRemoveGlobalJobToJSON(
-  mariadbRemoveGlobalJob: MariadbRemoveGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbRemoveGlobalJob$outboundSchema.parse(mariadbRemoveGlobalJob),
-  );
-}
-
-export function mariadbRemoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveModeSwarm$inboundSchema: z.ZodType<
-  MariadbRemoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbRemoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MariadbRemoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MariadbRemoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MariadbRemoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbRemoveModeSwarm$Outbound = {
-  Replicated?: MariadbRemoveReplicated$Outbound | undefined;
-  Global?: MariadbRemoveGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbRemoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbRemoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveModeSwarm$outboundSchema: z.ZodType<
-  MariadbRemoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbRemoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MariadbRemoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MariadbRemoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MariadbRemoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveModeSwarm$ {
-  /** @deprecated use `MariadbRemoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbRemoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbRemoveModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbRemoveModeSwarm$Outbound;
-}
-
-export function mariadbRemoveModeSwarmToJSON(
-  mariadbRemoveModeSwarm: MariadbRemoveModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbRemoveModeSwarm$outboundSchema.parse(mariadbRemoveModeSwarm),
-  );
-}
-
-export function mariadbRemoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveDriverOpts$inboundSchema: z.ZodType<
-  MariadbRemoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbRemoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbRemoveDriverOpts$outboundSchema: z.ZodType<
-  MariadbRemoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveDriverOpts$ {
-  /** @deprecated use `MariadbRemoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbRemoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbRemoveDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbRemoveDriverOpts$Outbound;
-}
-
-export function mariadbRemoveDriverOptsToJSON(
-  mariadbRemoveDriverOpts: MariadbRemoveDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbRemoveDriverOpts$outboundSchema.parse(mariadbRemoveDriverOpts),
-  );
-}
-
-export function mariadbRemoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbRemoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbRemoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbRemoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbRemoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbRemoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbRemoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveNetworkSwarm$ {
-  /** @deprecated use `MariadbRemoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbRemoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbRemoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbRemoveNetworkSwarm$Outbound;
-}
-
-export function mariadbRemoveNetworkSwarmToJSON(
-  mariadbRemoveNetworkSwarm: MariadbRemoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbRemoveNetworkSwarm$outboundSchema.parse(mariadbRemoveNetworkSwarm),
-  );
-}
-
-export function mariadbRemoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveProject$inboundSchema: z.ZodType<
-  MariadbRemoveProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MariadbRemoveProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MariadbRemoveProject$outboundSchema: z.ZodType<
-  MariadbRemoveProject$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveProject$ {
-  /** @deprecated use `MariadbRemoveProject$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveProject$inboundSchema;
-  /** @deprecated use `MariadbRemoveProject$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveProject$outboundSchema;
-  /** @deprecated use `MariadbRemoveProject$Outbound` instead. */
-  export type Outbound = MariadbRemoveProject$Outbound;
-}
-
-export function mariadbRemoveProjectToJSON(
-  mariadbRemoveProject: MariadbRemoveProject,
-): string {
-  return JSON.stringify(
-    MariadbRemoveProject$outboundSchema.parse(mariadbRemoveProject),
-  );
-}
-
-export function mariadbRemoveProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveEnvironment$inboundSchema: z.ZodType<
-  MariadbRemoveEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbRemoveProject$inboundSchema),
-});
-
-/** @internal */
-export type MariadbRemoveEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbRemoveProject$Outbound;
-};
-
-/** @internal */
-export const MariadbRemoveEnvironment$outboundSchema: z.ZodType<
-  MariadbRemoveEnvironment$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbRemoveProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveEnvironment$ {
-  /** @deprecated use `MariadbRemoveEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveEnvironment$inboundSchema;
-  /** @deprecated use `MariadbRemoveEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveEnvironment$outboundSchema;
-  /** @deprecated use `MariadbRemoveEnvironment$Outbound` instead. */
-  export type Outbound = MariadbRemoveEnvironment$Outbound;
-}
-
-export function mariadbRemoveEnvironmentToJSON(
-  mariadbRemoveEnvironment: MariadbRemoveEnvironment,
-): string {
-  return JSON.stringify(
-    MariadbRemoveEnvironment$outboundSchema.parse(mariadbRemoveEnvironment),
-  );
-}
-
-export function mariadbRemoveEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveType
-> = z.nativeEnum(MariadbRemoveType);
-
-/** @internal */
-export const MariadbRemoveType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveType
-> = MariadbRemoveType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveType$ {
-  /** @deprecated use `MariadbRemoveType$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveType$inboundSchema;
-  /** @deprecated use `MariadbRemoveType$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbRemoveServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveServiceType
-> = z.nativeEnum(MariadbRemoveServiceType);
-
-/** @internal */
-export const MariadbRemoveServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveServiceType
-> = MariadbRemoveServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveServiceType$ {
-  /** @deprecated use `MariadbRemoveServiceType$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveServiceType$inboundSchema;
-  /** @deprecated use `MariadbRemoveServiceType$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbRemoveMount$inboundSchema: z.ZodType<
-  MariadbRemoveMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MariadbRemoveType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbRemoveServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MariadbRemoveMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MariadbRemoveMount$outboundSchema: z.ZodType<
-  MariadbRemoveMount$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMount
-> = z.object({
-  mountId: z.string(),
-  type: MariadbRemoveType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbRemoveServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMount$ {
-  /** @deprecated use `MariadbRemoveMount$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMount$inboundSchema;
-  /** @deprecated use `MariadbRemoveMount$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMount$outboundSchema;
-  /** @deprecated use `MariadbRemoveMount$Outbound` instead. */
-  export type Outbound = MariadbRemoveMount$Outbound;
-}
-
-export function mariadbRemoveMountToJSON(
-  mariadbRemoveMount: MariadbRemoveMount,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMount$outboundSchema.parse(mariadbRemoveMount),
-  );
-}
-
-export function mariadbRemoveMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveServerStatus
-> = z.nativeEnum(MariadbRemoveServerStatus);
-
-/** @internal */
-export const MariadbRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveServerStatus
-> = MariadbRemoveServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveServerStatus$ {
-  /** @deprecated use `MariadbRemoveServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveServerStatus$inboundSchema;
-  /** @deprecated use `MariadbRemoveServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1975,24 +2384,38 @@ export function mariadbRemoveMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MariadbRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveServerStatus
+> = z.nativeEnum(MariadbRemoveServerStatus);
+
+/** @internal */
+export const MariadbRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbRemoveServerStatus
+> = MariadbRemoveServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbRemoveServerStatus$ {
+  /** @deprecated use `MariadbRemoveServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveServerStatus$inboundSchema;
+  /** @deprecated use `MariadbRemoveServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MariadbRemoveServer$inboundSchema: z.ZodType<
   MariadbRemoveServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbRemoveServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2003,26 +2426,33 @@ export const MariadbRemoveServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbRemoveServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MariadbRemoveServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2031,19 +2461,12 @@ export const MariadbRemoveServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbRemoveServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbRemoveServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2054,6 +2477,13 @@ export const MariadbRemoveServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbRemoveServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2088,521 +2518,91 @@ export function mariadbRemoveServerFromJSON(
 }
 
 /** @internal */
-export const MariadbRemoveBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveBackupType
-> = z.nativeEnum(MariadbRemoveBackupType);
-
-/** @internal */
-export const MariadbRemoveBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveBackupType
-> = MariadbRemoveBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveBackupType$ {
-  /** @deprecated use `MariadbRemoveBackupType$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveBackupType$inboundSchema;
-  /** @deprecated use `MariadbRemoveBackupType$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveDatabaseType
-> = z.nativeEnum(MariadbRemoveDatabaseType);
-
-/** @internal */
-export const MariadbRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveDatabaseType
-> = MariadbRemoveDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveDatabaseType$ {
-  /** @deprecated use `MariadbRemoveDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveDatabaseType$inboundSchema;
-  /** @deprecated use `MariadbRemoveDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveMetadataEnum
-> = z.nativeEnum(MariadbRemoveMetadataEnum);
-
-/** @internal */
-export const MariadbRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbRemoveMetadataEnum
-> = MariadbRemoveMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMetadataEnum$ {
-  /** @deprecated use `MariadbRemoveMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMetadataEnum$inboundSchema;
-  /** @deprecated use `MariadbRemoveMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MariadbRemovePostgres$inboundSchema: z.ZodType<
-  MariadbRemovePostgres,
+export const MariadbRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbRemoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MariadbRemovePostgres$Outbound = {
-  databaseUser: string;
+export type MariadbRemoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MariadbRemovePostgres$outboundSchema: z.ZodType<
-  MariadbRemovePostgres$Outbound,
+export const MariadbRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbRemoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MariadbRemovePostgres
+  MariadbRemoveUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbRemovePostgres$ {
-  /** @deprecated use `MariadbRemovePostgres$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemovePostgres$inboundSchema;
-  /** @deprecated use `MariadbRemovePostgres$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemovePostgres$outboundSchema;
-  /** @deprecated use `MariadbRemovePostgres$Outbound` instead. */
-  export type Outbound = MariadbRemovePostgres$Outbound;
+export namespace MariadbRemoveUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbRemoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbRemoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbRemoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbRemoveUpdateConfigSwarm$Outbound;
 }
 
-export function mariadbRemovePostgresToJSON(
-  mariadbRemovePostgres: MariadbRemovePostgres,
+export function mariadbRemoveUpdateConfigSwarmToJSON(
+  mariadbRemoveUpdateConfigSwarm: MariadbRemoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbRemovePostgres$outboundSchema.parse(mariadbRemovePostgres),
+    MariadbRemoveUpdateConfigSwarm$outboundSchema.parse(
+      mariadbRemoveUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mariadbRemovePostgresFromJSON(
+export function mariadbRemoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbRemovePostgres, SDKValidationError> {
+): SafeParseResult<MariadbRemoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbRemovePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemovePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveMariadb$inboundSchema: z.ZodType<
-  MariadbRemoveMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbRemoveMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbRemoveMariadb$outboundSchema: z.ZodType<
-  MariadbRemoveMariadb$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMariadb$ {
-  /** @deprecated use `MariadbRemoveMariadb$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMariadb$inboundSchema;
-  /** @deprecated use `MariadbRemoveMariadb$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMariadb$outboundSchema;
-  /** @deprecated use `MariadbRemoveMariadb$Outbound` instead. */
-  export type Outbound = MariadbRemoveMariadb$Outbound;
-}
-
-export function mariadbRemoveMariadbToJSON(
-  mariadbRemoveMariadb: MariadbRemoveMariadb,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMariadb$outboundSchema.parse(mariadbRemoveMariadb),
-  );
-}
-
-export function mariadbRemoveMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveMongo$inboundSchema: z.ZodType<
-  MariadbRemoveMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbRemoveMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbRemoveMongo$outboundSchema: z.ZodType<
-  MariadbRemoveMongo$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMongo$ {
-  /** @deprecated use `MariadbRemoveMongo$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMongo$inboundSchema;
-  /** @deprecated use `MariadbRemoveMongo$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMongo$outboundSchema;
-  /** @deprecated use `MariadbRemoveMongo$Outbound` instead. */
-  export type Outbound = MariadbRemoveMongo$Outbound;
-}
-
-export function mariadbRemoveMongoToJSON(
-  mariadbRemoveMongo: MariadbRemoveMongo,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMongo$outboundSchema.parse(mariadbRemoveMongo),
-  );
-}
-
-export function mariadbRemoveMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveMysql$inboundSchema: z.ZodType<
-  MariadbRemoveMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MariadbRemoveMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MariadbRemoveMysql$outboundSchema: z.ZodType<
-  MariadbRemoveMysql$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMysql$ {
-  /** @deprecated use `MariadbRemoveMysql$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMysql$inboundSchema;
-  /** @deprecated use `MariadbRemoveMysql$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMysql$outboundSchema;
-  /** @deprecated use `MariadbRemoveMysql$Outbound` instead. */
-  export type Outbound = MariadbRemoveMysql$Outbound;
-}
-
-export function mariadbRemoveMysqlToJSON(
-  mariadbRemoveMysql: MariadbRemoveMysql,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMysql$outboundSchema.parse(mariadbRemoveMysql),
-  );
-}
-
-export function mariadbRemoveMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveMetadata$inboundSchema: z.ZodType<
-  MariadbRemoveMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MariadbRemovePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbRemoveMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MariadbRemoveMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MariadbRemoveMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MariadbRemoveMetadata$Outbound = {
-  postgres?: MariadbRemovePostgres$Outbound | undefined;
-  mariadb?: MariadbRemoveMariadb$Outbound | undefined;
-  mongo?: MariadbRemoveMongo$Outbound | undefined;
-  mysql?: MariadbRemoveMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveMetadata$outboundSchema: z.ZodType<
-  MariadbRemoveMetadata$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMetadata
-> = z.object({
-  postgres: z.lazy(() => MariadbRemovePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbRemoveMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MariadbRemoveMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MariadbRemoveMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMetadata$ {
-  /** @deprecated use `MariadbRemoveMetadata$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMetadata$inboundSchema;
-  /** @deprecated use `MariadbRemoveMetadata$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMetadata$outboundSchema;
-  /** @deprecated use `MariadbRemoveMetadata$Outbound` instead. */
-  export type Outbound = MariadbRemoveMetadata$Outbound;
-}
-
-export function mariadbRemoveMetadataToJSON(
-  mariadbRemoveMetadata: MariadbRemoveMetadata,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMetadata$outboundSchema.parse(mariadbRemoveMetadata),
-  );
-}
-
-export function mariadbRemoveMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveMetadataUnion$inboundSchema: z.ZodType<
-  MariadbRemoveMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MariadbRemoveMetadata$inboundSchema),
-  MariadbRemoveMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MariadbRemoveMetadataUnion$Outbound =
-  | MariadbRemoveMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MariadbRemoveMetadataUnion$outboundSchema: z.ZodType<
-  MariadbRemoveMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveMetadataUnion
-> = z.union([
-  z.lazy(() => MariadbRemoveMetadata$outboundSchema),
-  MariadbRemoveMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveMetadataUnion$ {
-  /** @deprecated use `MariadbRemoveMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveMetadataUnion$inboundSchema;
-  /** @deprecated use `MariadbRemoveMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveMetadataUnion$outboundSchema;
-  /** @deprecated use `MariadbRemoveMetadataUnion$Outbound` instead. */
-  export type Outbound = MariadbRemoveMetadataUnion$Outbound;
-}
-
-export function mariadbRemoveMetadataUnionToJSON(
-  mariadbRemoveMetadataUnion: MariadbRemoveMetadataUnion,
-): string {
-  return JSON.stringify(
-    MariadbRemoveMetadataUnion$outboundSchema.parse(mariadbRemoveMetadataUnion),
-  );
-}
-
-export function mariadbRemoveMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbRemoveBackup$inboundSchema: z.ZodType<
-  MariadbRemoveBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbRemoveBackupType$inboundSchema,
-  databaseType: MariadbRemoveDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbRemoveMetadata$inboundSchema),
-      MariadbRemoveMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MariadbRemoveBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MariadbRemoveMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MariadbRemoveBackup$outboundSchema: z.ZodType<
-  MariadbRemoveBackup$Outbound,
-  z.ZodTypeDef,
-  MariadbRemoveBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbRemoveBackupType$outboundSchema,
-  databaseType: MariadbRemoveDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbRemoveMetadata$outboundSchema),
-      MariadbRemoveMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRemoveBackup$ {
-  /** @deprecated use `MariadbRemoveBackup$inboundSchema` instead. */
-  export const inboundSchema = MariadbRemoveBackup$inboundSchema;
-  /** @deprecated use `MariadbRemoveBackup$outboundSchema` instead. */
-  export const outboundSchema = MariadbRemoveBackup$outboundSchema;
-  /** @deprecated use `MariadbRemoveBackup$Outbound` instead. */
-  export type Outbound = MariadbRemoveBackup$Outbound;
-}
-
-export function mariadbRemoveBackupToJSON(
-  mariadbRemoveBackup: MariadbRemoveBackup,
-): string {
-  return JSON.stringify(
-    MariadbRemoveBackup$outboundSchema.parse(mariadbRemoveBackup),
-  );
-}
-
-export function mariadbRemoveBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRemoveBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRemoveBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRemoveBackup' from JSON`,
+    (x) => MariadbRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbRemoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2612,88 +2612,88 @@ export const MariadbRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbRemoveApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MariadbRemoveBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbRemoveEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbRemoveApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbRemoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbRemoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbRemoveModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbRemoveMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbRemoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbRemovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbRemoveUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbRemoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbRemoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbRemoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbRemoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbRemoveEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MariadbRemoveMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MariadbRemoveServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MariadbRemoveBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbRemoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbRemoveResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MariadbRemoveBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MariadbRemoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbRemoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: MariadbRemovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbRemoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MariadbRemoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MariadbRemoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbRemoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbRemoveEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbRemoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbRemoveModeSwarm$Outbound | null;
   mounts: Array<MariadbRemoveMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MariadbRemoveNetworkSwarm$Outbound> | null;
+  placementSwarm: MariadbRemovePlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbRemoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MariadbRemoveRollbackConfigSwarm$Outbound | null;
   server: MariadbRemoveServer$Outbound | null;
-  backups: Array<MariadbRemoveBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbRemoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2702,51 +2702,51 @@ export const MariadbRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbRemoveResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbRemoveApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MariadbRemoveBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbRemoveEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbRemoveApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbRemoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbRemoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbRemoveModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbRemoveMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbRemoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbRemovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbRemoveUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbRemoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbRemoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbRemoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbRemoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbRemoveEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MariadbRemoveMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MariadbRemoveServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MariadbRemoveBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbRemoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

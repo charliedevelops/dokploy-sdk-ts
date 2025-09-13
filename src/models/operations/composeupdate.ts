@@ -13,6 +13,24 @@ export type ComposeUpdateSecurity = {
   authorization: string;
 };
 
+export const ComposeUpdateComposeStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
+} as const;
+export type ComposeUpdateComposeStatus = ClosedEnum<
+  typeof ComposeUpdateComposeStatus
+>;
+
+export const ComposeUpdateComposeType = {
+  DockerCompose: "docker-compose",
+  Stack: "stack",
+} as const;
+export type ComposeUpdateComposeType = ClosedEnum<
+  typeof ComposeUpdateComposeType
+>;
+
 export const ComposeUpdateSourceType = {
   Git: "git",
   Github: "github",
@@ -25,14 +43,6 @@ export type ComposeUpdateSourceType = ClosedEnum<
   typeof ComposeUpdateSourceType
 >;
 
-export const ComposeUpdateComposeType = {
-  DockerCompose: "docker-compose",
-  Stack: "stack",
-} as const;
-export type ComposeUpdateComposeType = ClosedEnum<
-  typeof ComposeUpdateComposeType
->;
-
 export const ComposeUpdateTriggerType = {
   Push: "push",
   Tag: "tag",
@@ -41,60 +51,50 @@ export type ComposeUpdateTriggerType = ClosedEnum<
   typeof ComposeUpdateTriggerType
 >;
 
-export const ComposeUpdateComposeStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
-} as const;
-export type ComposeUpdateComposeStatus = ClosedEnum<
-  typeof ComposeUpdateComposeStatus
->;
-
 export type ComposeUpdateRequest = {
-  composeId: string;
-  name?: string | undefined;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  composeFile?: string | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ComposeUpdateSourceType | undefined;
-  composeType?: ComposeUpdateComposeType | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  command?: string | undefined;
+  composeFile?: string | undefined;
+  composeId: string;
+  composePath?: string | undefined;
+  composeStatus?: ComposeUpdateComposeStatus | undefined;
+  composeType?: ComposeUpdateComposeType | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  command?: string | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   enableSubmodules?: boolean | undefined;
-  composePath?: string | undefined;
-  suffix?: string | undefined;
-  randomize?: boolean | undefined;
+  env?: string | null | undefined;
+  environmentId?: string | undefined;
+  giteaBranch?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   isolatedDeployment?: boolean | undefined;
   isolatedDeploymentsVolume?: boolean | undefined;
+  name?: string | undefined;
+  owner?: string | null | undefined;
+  randomize?: boolean | undefined;
+  refreshToken?: string | null | undefined;
+  repository?: string | null | undefined;
+  sourceType?: ComposeUpdateSourceType | undefined;
+  suffix?: string | undefined;
   triggerType?: ComposeUpdateTriggerType | null | undefined;
-  composeStatus?: ComposeUpdateComposeStatus | undefined;
-  environmentId?: string | undefined;
-  createdAt?: string | undefined;
   watchPaths?: Array<string> | null | undefined;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  giteaId?: string | null | undefined;
 };
 
 /** @internal */
@@ -160,24 +160,24 @@ export function composeUpdateSecurityFromJSON(
 }
 
 /** @internal */
-export const ComposeUpdateSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ComposeUpdateSourceType
-> = z.nativeEnum(ComposeUpdateSourceType);
+export const ComposeUpdateComposeStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ComposeUpdateComposeStatus
+> = z.nativeEnum(ComposeUpdateComposeStatus);
 
 /** @internal */
-export const ComposeUpdateSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ComposeUpdateSourceType
-> = ComposeUpdateSourceType$inboundSchema;
+export const ComposeUpdateComposeStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ComposeUpdateComposeStatus
+> = ComposeUpdateComposeStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ComposeUpdateSourceType$ {
-  /** @deprecated use `ComposeUpdateSourceType$inboundSchema` instead. */
-  export const inboundSchema = ComposeUpdateSourceType$inboundSchema;
-  /** @deprecated use `ComposeUpdateSourceType$outboundSchema` instead. */
-  export const outboundSchema = ComposeUpdateSourceType$outboundSchema;
+export namespace ComposeUpdateComposeStatus$ {
+  /** @deprecated use `ComposeUpdateComposeStatus$inboundSchema` instead. */
+  export const inboundSchema = ComposeUpdateComposeStatus$inboundSchema;
+  /** @deprecated use `ComposeUpdateComposeStatus$outboundSchema` instead. */
+  export const outboundSchema = ComposeUpdateComposeStatus$outboundSchema;
 }
 
 /** @internal */
@@ -202,6 +202,27 @@ export namespace ComposeUpdateComposeType$ {
 }
 
 /** @internal */
+export const ComposeUpdateSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ComposeUpdateSourceType
+> = z.nativeEnum(ComposeUpdateSourceType);
+
+/** @internal */
+export const ComposeUpdateSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ComposeUpdateSourceType
+> = ComposeUpdateSourceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ComposeUpdateSourceType$ {
+  /** @deprecated use `ComposeUpdateSourceType$inboundSchema` instead. */
+  export const inboundSchema = ComposeUpdateSourceType$inboundSchema;
+  /** @deprecated use `ComposeUpdateSourceType$outboundSchema` instead. */
+  export const outboundSchema = ComposeUpdateSourceType$outboundSchema;
+}
+
+/** @internal */
 export const ComposeUpdateTriggerType$inboundSchema: z.ZodNativeEnum<
   typeof ComposeUpdateTriggerType
 > = z.nativeEnum(ComposeUpdateTriggerType);
@@ -223,122 +244,101 @@ export namespace ComposeUpdateTriggerType$ {
 }
 
 /** @internal */
-export const ComposeUpdateComposeStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ComposeUpdateComposeStatus
-> = z.nativeEnum(ComposeUpdateComposeStatus);
-
-/** @internal */
-export const ComposeUpdateComposeStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ComposeUpdateComposeStatus
-> = ComposeUpdateComposeStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeUpdateComposeStatus$ {
-  /** @deprecated use `ComposeUpdateComposeStatus$inboundSchema` instead. */
-  export const inboundSchema = ComposeUpdateComposeStatus$inboundSchema;
-  /** @deprecated use `ComposeUpdateComposeStatus$outboundSchema` instead. */
-  export const outboundSchema = ComposeUpdateComposeStatus$outboundSchema;
-}
-
-/** @internal */
 export const ComposeUpdateRequest$inboundSchema: z.ZodType<
   ComposeUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  composeId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ComposeUpdateSourceType$inboundSchema.optional(),
-  composeType: ComposeUpdateComposeType$inboundSchema.optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  command: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeId: z.string(),
+  composePath: z.string().optional(),
+  composeStatus: ComposeUpdateComposeStatus$inboundSchema.optional(),
+  composeType: ComposeUpdateComposeType$inboundSchema.optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  command: z.string().optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   enableSubmodules: z.boolean().optional(),
-  composePath: z.string().optional(),
-  suffix: z.string().optional(),
-  randomize: z.boolean().optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   isolatedDeployment: z.boolean().optional(),
   isolatedDeploymentsVolume: z.boolean().optional(),
+  name: z.string().optional(),
+  owner: z.nullable(z.string()).optional(),
+  randomize: z.boolean().optional(),
+  refreshToken: z.nullable(z.string()).optional(),
+  repository: z.nullable(z.string()).optional(),
+  sourceType: ComposeUpdateSourceType$inboundSchema.optional(),
+  suffix: z.string().optional(),
   triggerType: z.nullable(ComposeUpdateTriggerType$inboundSchema).optional(),
-  composeStatus: ComposeUpdateComposeStatus$inboundSchema.optional(),
-  environmentId: z.string().optional(),
-  createdAt: z.string().optional(),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ComposeUpdateRequest$Outbound = {
-  composeId: string;
-  name?: string | undefined;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  composeFile?: string | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  composeType?: string | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  command?: string | undefined;
+  composeFile?: string | undefined;
+  composeId: string;
+  composePath?: string | undefined;
+  composeStatus?: string | undefined;
+  composeType?: string | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  command?: string | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   enableSubmodules?: boolean | undefined;
-  composePath?: string | undefined;
-  suffix?: string | undefined;
-  randomize?: boolean | undefined;
+  env?: string | null | undefined;
+  environmentId?: string | undefined;
+  giteaBranch?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   isolatedDeployment?: boolean | undefined;
   isolatedDeploymentsVolume?: boolean | undefined;
+  name?: string | undefined;
+  owner?: string | null | undefined;
+  randomize?: boolean | undefined;
+  refreshToken?: string | null | undefined;
+  repository?: string | null | undefined;
+  sourceType?: string | undefined;
+  suffix?: string | undefined;
   triggerType?: string | null | undefined;
-  composeStatus?: string | undefined;
-  environmentId?: string | undefined;
-  createdAt?: string | undefined;
   watchPaths?: Array<string> | null | undefined;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  giteaId?: string | null | undefined;
 };
 
 /** @internal */
@@ -347,49 +347,49 @@ export const ComposeUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ComposeUpdateRequest
 > = z.object({
-  composeId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ComposeUpdateSourceType$outboundSchema.optional(),
-  composeType: ComposeUpdateComposeType$outboundSchema.optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  command: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeId: z.string(),
+  composePath: z.string().optional(),
+  composeStatus: ComposeUpdateComposeStatus$outboundSchema.optional(),
+  composeType: ComposeUpdateComposeType$outboundSchema.optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  command: z.string().optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   enableSubmodules: z.boolean().optional(),
-  composePath: z.string().optional(),
-  suffix: z.string().optional(),
-  randomize: z.boolean().optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   isolatedDeployment: z.boolean().optional(),
   isolatedDeploymentsVolume: z.boolean().optional(),
+  name: z.string().optional(),
+  owner: z.nullable(z.string()).optional(),
+  randomize: z.boolean().optional(),
+  refreshToken: z.nullable(z.string()).optional(),
+  repository: z.nullable(z.string()).optional(),
+  sourceType: ComposeUpdateSourceType$outboundSchema.optional(),
+  suffix: z.string().optional(),
   triggerType: z.nullable(ComposeUpdateTriggerType$outboundSchema).optional(),
-  composeStatus: ComposeUpdateComposeStatus$outboundSchema.optional(),
-  environmentId: z.string().optional(),
-  createdAt: z.string().optional(),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
 });
 
 /**

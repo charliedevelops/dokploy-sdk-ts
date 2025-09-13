@@ -14,21 +14,21 @@ export type NotificationUpdateEmailSecurity = {
 
 export type NotificationUpdateEmailRequest = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
+  databaseBackup?: boolean | undefined;
   dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
-  smtpServer?: string | undefined;
-  smtpPort?: number | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  fromAddress?: string | undefined;
-  toAddresses?: Array<string> | undefined;
-  notificationId: string;
+  dokployRestart?: boolean | undefined;
   emailId: string;
+  fromAddress?: string | undefined;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  password?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  smtpPort?: number | undefined;
+  smtpServer?: string | undefined;
+  toAddresses?: Array<string> | undefined;
+  username?: string | undefined;
 };
 
 /** @internal */
@@ -102,41 +102,41 @@ export const NotificationUpdateEmailRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
+  databaseBackup: z.boolean().optional(),
   dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
-  smtpServer: z.string().optional(),
-  smtpPort: z.number().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  fromAddress: z.string().optional(),
-  toAddresses: z.array(z.string()).optional(),
-  notificationId: z.string(),
+  dokployRestart: z.boolean().optional(),
   emailId: z.string(),
+  fromAddress: z.string().optional(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  password: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  smtpPort: z.number().optional(),
+  smtpServer: z.string().optional(),
+  toAddresses: z.array(z.string()).optional(),
+  username: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateEmailRequest$Outbound = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
+  databaseBackup?: boolean | undefined;
   dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
-  smtpServer?: string | undefined;
-  smtpPort?: number | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  fromAddress?: string | undefined;
-  toAddresses?: Array<string> | undefined;
-  notificationId: string;
+  dokployRestart?: boolean | undefined;
   emailId: string;
+  fromAddress?: string | undefined;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  password?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  smtpPort?: number | undefined;
+  smtpServer?: string | undefined;
+  toAddresses?: Array<string> | undefined;
+  username?: string | undefined;
 };
 
 /** @internal */
@@ -146,21 +146,21 @@ export const NotificationUpdateEmailRequest$outboundSchema: z.ZodType<
   NotificationUpdateEmailRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
+  databaseBackup: z.boolean().optional(),
   dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
-  smtpServer: z.string().optional(),
-  smtpPort: z.number().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  fromAddress: z.string().optional(),
-  toAddresses: z.array(z.string()).optional(),
-  notificationId: z.string(),
+  dokployRestart: z.boolean().optional(),
   emailId: z.string(),
+  fromAddress: z.string().optional(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  password: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  smtpPort: z.number().optional(),
+  smtpServer: z.string().optional(),
+  toAddresses: z.array(z.string()).optional(),
+  username: z.string().optional(),
 });
 
 /**

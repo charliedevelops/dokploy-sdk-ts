@@ -17,24 +17,34 @@ export type ApplicationReadAppMonitoringRequest = {
   appName: string;
 };
 
+export type BlockValue = {
+  readMb: string;
+  writeMb: string;
+};
+
+export type Block = {
+  time: string;
+  value: BlockValue;
+};
+
 export type Cpu = {
+  time: string;
   value: string;
-  time: string;
-};
-
-export type MemoryValue = {
-  used: string;
-  total: string;
-};
-
-export type Memory = {
-  value: MemoryValue;
-  time: string;
 };
 
 export type Disk = {
-  value?: any | undefined;
   time: string;
+  value?: any | undefined;
+};
+
+export type MemoryValue = {
+  total: string;
+  used: string;
+};
+
+export type Memory = {
+  time: string;
+  value: MemoryValue;
 };
 
 export type NetworkValue = {
@@ -43,29 +53,19 @@ export type NetworkValue = {
 };
 
 export type Network = {
+  time: string;
   value: NetworkValue;
-  time: string;
-};
-
-export type BlockValue = {
-  readMb: string;
-  writeMb: string;
-};
-
-export type Block = {
-  value: BlockValue;
-  time: string;
 };
 
 /**
  * Successful response
  */
 export type ApplicationReadAppMonitoringResponseBody = {
-  cpu: Array<Cpu>;
-  memory: Array<Memory>;
-  disk: Array<Disk>;
-  network: Array<Network>;
   block: Array<Block>;
+  cpu: Array<Cpu>;
+  disk: Array<Disk>;
+  memory: Array<Memory>;
+  network: Array<Network>;
 };
 
 export type ApplicationReadAppMonitoringResponse =
@@ -199,23 +199,126 @@ export function applicationReadAppMonitoringRequestFromJSON(
 }
 
 /** @internal */
+export const BlockValue$inboundSchema: z.ZodType<
+  BlockValue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  readMb: z.string(),
+  writeMb: z.string(),
+});
+
+/** @internal */
+export type BlockValue$Outbound = {
+  readMb: string;
+  writeMb: string;
+};
+
+/** @internal */
+export const BlockValue$outboundSchema: z.ZodType<
+  BlockValue$Outbound,
+  z.ZodTypeDef,
+  BlockValue
+> = z.object({
+  readMb: z.string(),
+  writeMb: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace BlockValue$ {
+  /** @deprecated use `BlockValue$inboundSchema` instead. */
+  export const inboundSchema = BlockValue$inboundSchema;
+  /** @deprecated use `BlockValue$outboundSchema` instead. */
+  export const outboundSchema = BlockValue$outboundSchema;
+  /** @deprecated use `BlockValue$Outbound` instead. */
+  export type Outbound = BlockValue$Outbound;
+}
+
+export function blockValueToJSON(blockValue: BlockValue): string {
+  return JSON.stringify(BlockValue$outboundSchema.parse(blockValue));
+}
+
+export function blockValueFromJSON(
+  jsonString: string,
+): SafeParseResult<BlockValue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BlockValue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BlockValue' from JSON`,
+  );
+}
+
+/** @internal */
+export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
+  .object({
+    time: z.string(),
+    value: z.lazy(() => BlockValue$inboundSchema),
+  });
+
+/** @internal */
+export type Block$Outbound = {
+  time: string;
+  value: BlockValue$Outbound;
+};
+
+/** @internal */
+export const Block$outboundSchema: z.ZodType<
+  Block$Outbound,
+  z.ZodTypeDef,
+  Block
+> = z.object({
+  time: z.string(),
+  value: z.lazy(() => BlockValue$outboundSchema),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Block$ {
+  /** @deprecated use `Block$inboundSchema` instead. */
+  export const inboundSchema = Block$inboundSchema;
+  /** @deprecated use `Block$outboundSchema` instead. */
+  export const outboundSchema = Block$outboundSchema;
+  /** @deprecated use `Block$Outbound` instead. */
+  export type Outbound = Block$Outbound;
+}
+
+export function blockToJSON(block: Block): string {
+  return JSON.stringify(Block$outboundSchema.parse(block));
+}
+
+export function blockFromJSON(
+  jsonString: string,
+): SafeParseResult<Block, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Block$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Block' from JSON`,
+  );
+}
+
+/** @internal */
 export const Cpu$inboundSchema: z.ZodType<Cpu, z.ZodTypeDef, unknown> = z
   .object({
-    value: z.string(),
     time: z.string(),
+    value: z.string(),
   });
 
 /** @internal */
 export type Cpu$Outbound = {
-  value: string;
   time: string;
+  value: string;
 };
 
 /** @internal */
 export const Cpu$outboundSchema: z.ZodType<Cpu$Outbound, z.ZodTypeDef, Cpu> = z
   .object({
-    value: z.string(),
     time: z.string(),
+    value: z.string(),
   });
 
 /**
@@ -246,19 +349,66 @@ export function cpuFromJSON(
 }
 
 /** @internal */
+export const Disk$inboundSchema: z.ZodType<Disk, z.ZodTypeDef, unknown> = z
+  .object({
+    time: z.string(),
+    value: z.any().optional(),
+  });
+
+/** @internal */
+export type Disk$Outbound = {
+  time: string;
+  value?: any | undefined;
+};
+
+/** @internal */
+export const Disk$outboundSchema: z.ZodType<Disk$Outbound, z.ZodTypeDef, Disk> =
+  z.object({
+    time: z.string(),
+    value: z.any().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Disk$ {
+  /** @deprecated use `Disk$inboundSchema` instead. */
+  export const inboundSchema = Disk$inboundSchema;
+  /** @deprecated use `Disk$outboundSchema` instead. */
+  export const outboundSchema = Disk$outboundSchema;
+  /** @deprecated use `Disk$Outbound` instead. */
+  export type Outbound = Disk$Outbound;
+}
+
+export function diskToJSON(disk: Disk): string {
+  return JSON.stringify(Disk$outboundSchema.parse(disk));
+}
+
+export function diskFromJSON(
+  jsonString: string,
+): SafeParseResult<Disk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Disk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Disk' from JSON`,
+  );
+}
+
+/** @internal */
 export const MemoryValue$inboundSchema: z.ZodType<
   MemoryValue,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  used: z.string(),
   total: z.string(),
+  used: z.string(),
 });
 
 /** @internal */
 export type MemoryValue$Outbound = {
-  used: string;
   total: string;
+  used: string;
 };
 
 /** @internal */
@@ -267,8 +417,8 @@ export const MemoryValue$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MemoryValue
 > = z.object({
-  used: z.string(),
   total: z.string(),
+  used: z.string(),
 });
 
 /**
@@ -301,14 +451,14 @@ export function memoryValueFromJSON(
 /** @internal */
 export const Memory$inboundSchema: z.ZodType<Memory, z.ZodTypeDef, unknown> = z
   .object({
-    value: z.lazy(() => MemoryValue$inboundSchema),
     time: z.string(),
+    value: z.lazy(() => MemoryValue$inboundSchema),
   });
 
 /** @internal */
 export type Memory$Outbound = {
-  value: MemoryValue$Outbound;
   time: string;
+  value: MemoryValue$Outbound;
 };
 
 /** @internal */
@@ -317,8 +467,8 @@ export const Memory$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Memory
 > = z.object({
-  value: z.lazy(() => MemoryValue$outboundSchema),
   time: z.string(),
+  value: z.lazy(() => MemoryValue$outboundSchema),
 });
 
 /**
@@ -345,53 +495,6 @@ export function memoryFromJSON(
     jsonString,
     (x) => Memory$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Memory' from JSON`,
-  );
-}
-
-/** @internal */
-export const Disk$inboundSchema: z.ZodType<Disk, z.ZodTypeDef, unknown> = z
-  .object({
-    value: z.any().optional(),
-    time: z.string(),
-  });
-
-/** @internal */
-export type Disk$Outbound = {
-  value?: any | undefined;
-  time: string;
-};
-
-/** @internal */
-export const Disk$outboundSchema: z.ZodType<Disk$Outbound, z.ZodTypeDef, Disk> =
-  z.object({
-    value: z.any().optional(),
-    time: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Disk$ {
-  /** @deprecated use `Disk$inboundSchema` instead. */
-  export const inboundSchema = Disk$inboundSchema;
-  /** @deprecated use `Disk$outboundSchema` instead. */
-  export const outboundSchema = Disk$outboundSchema;
-  /** @deprecated use `Disk$Outbound` instead. */
-  export type Outbound = Disk$Outbound;
-}
-
-export function diskToJSON(disk: Disk): string {
-  return JSON.stringify(Disk$outboundSchema.parse(disk));
-}
-
-export function diskFromJSON(
-  jsonString: string,
-): SafeParseResult<Disk, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Disk$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Disk' from JSON`,
   );
 }
 
@@ -451,14 +554,14 @@ export function networkValueFromJSON(
 /** @internal */
 export const Network$inboundSchema: z.ZodType<Network, z.ZodTypeDef, unknown> =
   z.object({
-    value: z.lazy(() => NetworkValue$inboundSchema),
     time: z.string(),
+    value: z.lazy(() => NetworkValue$inboundSchema),
   });
 
 /** @internal */
 export type Network$Outbound = {
-  value: NetworkValue$Outbound;
   time: string;
+  value: NetworkValue$Outbound;
 };
 
 /** @internal */
@@ -467,8 +570,8 @@ export const Network$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Network
 > = z.object({
-  value: z.lazy(() => NetworkValue$outboundSchema),
   time: z.string(),
+  value: z.lazy(() => NetworkValue$outboundSchema),
 });
 
 /**
@@ -499,128 +602,25 @@ export function networkFromJSON(
 }
 
 /** @internal */
-export const BlockValue$inboundSchema: z.ZodType<
-  BlockValue,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  readMb: z.string(),
-  writeMb: z.string(),
-});
-
-/** @internal */
-export type BlockValue$Outbound = {
-  readMb: string;
-  writeMb: string;
-};
-
-/** @internal */
-export const BlockValue$outboundSchema: z.ZodType<
-  BlockValue$Outbound,
-  z.ZodTypeDef,
-  BlockValue
-> = z.object({
-  readMb: z.string(),
-  writeMb: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BlockValue$ {
-  /** @deprecated use `BlockValue$inboundSchema` instead. */
-  export const inboundSchema = BlockValue$inboundSchema;
-  /** @deprecated use `BlockValue$outboundSchema` instead. */
-  export const outboundSchema = BlockValue$outboundSchema;
-  /** @deprecated use `BlockValue$Outbound` instead. */
-  export type Outbound = BlockValue$Outbound;
-}
-
-export function blockValueToJSON(blockValue: BlockValue): string {
-  return JSON.stringify(BlockValue$outboundSchema.parse(blockValue));
-}
-
-export function blockValueFromJSON(
-  jsonString: string,
-): SafeParseResult<BlockValue, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BlockValue$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BlockValue' from JSON`,
-  );
-}
-
-/** @internal */
-export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
-  .object({
-    value: z.lazy(() => BlockValue$inboundSchema),
-    time: z.string(),
-  });
-
-/** @internal */
-export type Block$Outbound = {
-  value: BlockValue$Outbound;
-  time: string;
-};
-
-/** @internal */
-export const Block$outboundSchema: z.ZodType<
-  Block$Outbound,
-  z.ZodTypeDef,
-  Block
-> = z.object({
-  value: z.lazy(() => BlockValue$outboundSchema),
-  time: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Block$ {
-  /** @deprecated use `Block$inboundSchema` instead. */
-  export const inboundSchema = Block$inboundSchema;
-  /** @deprecated use `Block$outboundSchema` instead. */
-  export const outboundSchema = Block$outboundSchema;
-  /** @deprecated use `Block$Outbound` instead. */
-  export type Outbound = Block$Outbound;
-}
-
-export function blockToJSON(block: Block): string {
-  return JSON.stringify(Block$outboundSchema.parse(block));
-}
-
-export function blockFromJSON(
-  jsonString: string,
-): SafeParseResult<Block, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Block$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Block' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationReadAppMonitoringResponseBody$inboundSchema: z.ZodType<
   ApplicationReadAppMonitoringResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  cpu: z.array(z.lazy(() => Cpu$inboundSchema)),
-  memory: z.array(z.lazy(() => Memory$inboundSchema)),
-  disk: z.array(z.lazy(() => Disk$inboundSchema)),
-  network: z.array(z.lazy(() => Network$inboundSchema)),
   block: z.array(z.lazy(() => Block$inboundSchema)),
+  cpu: z.array(z.lazy(() => Cpu$inboundSchema)),
+  disk: z.array(z.lazy(() => Disk$inboundSchema)),
+  memory: z.array(z.lazy(() => Memory$inboundSchema)),
+  network: z.array(z.lazy(() => Network$inboundSchema)),
 });
 
 /** @internal */
 export type ApplicationReadAppMonitoringResponseBody$Outbound = {
-  cpu: Array<Cpu$Outbound>;
-  memory: Array<Memory$Outbound>;
-  disk: Array<Disk$Outbound>;
-  network: Array<Network$Outbound>;
   block: Array<Block$Outbound>;
+  cpu: Array<Cpu$Outbound>;
+  disk: Array<Disk$Outbound>;
+  memory: Array<Memory$Outbound>;
+  network: Array<Network$Outbound>;
 };
 
 /** @internal */
@@ -629,11 +629,11 @@ export const ApplicationReadAppMonitoringResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationReadAppMonitoringResponseBody
 > = z.object({
-  cpu: z.array(z.lazy(() => Cpu$outboundSchema)),
-  memory: z.array(z.lazy(() => Memory$outboundSchema)),
-  disk: z.array(z.lazy(() => Disk$outboundSchema)),
-  network: z.array(z.lazy(() => Network$outboundSchema)),
   block: z.array(z.lazy(() => Block$outboundSchema)),
+  cpu: z.array(z.lazy(() => Cpu$outboundSchema)),
+  disk: z.array(z.lazy(() => Disk$outboundSchema)),
+  memory: z.array(z.lazy(() => Memory$outboundSchema)),
+  network: z.array(z.lazy(() => Network$outboundSchema)),
 });
 
 /**

@@ -13,16 +13,16 @@ export type NotificationCreateNtfySecurity = {
 };
 
 export type NotificationCreateNtfyRequest = {
+  accessToken: string;
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
+  priority: number;
   serverUrl: string;
   topic: string;
-  accessToken: string;
-  priority: number;
 };
 
 /** @internal */
@@ -95,30 +95,30 @@ export const NotificationCreateNtfyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  accessToken: z.string(),
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
+  priority: z.number(),
   serverUrl: z.string(),
   topic: z.string(),
-  accessToken: z.string(),
-  priority: z.number(),
 });
 
 /** @internal */
 export type NotificationCreateNtfyRequest$Outbound = {
+  accessToken: string;
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
+  priority: number;
   serverUrl: string;
   topic: string;
-  accessToken: string;
-  priority: number;
 };
 
 /** @internal */
@@ -127,16 +127,16 @@ export const NotificationCreateNtfyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationCreateNtfyRequest
 > = z.object({
+  accessToken: z.string(),
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
+  priority: z.number(),
   serverUrl: z.string(),
   topic: z.string(),
-  accessToken: z.string(),
-  priority: z.number(),
 });
 
 /**

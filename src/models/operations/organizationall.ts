@@ -14,13 +14,13 @@ export type OrganizationAllSecurity = {
 };
 
 export type OrganizationAllResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationAllResponse =
@@ -95,24 +95,24 @@ export const OrganizationAllResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationAllResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -121,13 +121,13 @@ export const OrganizationAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationAllResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

@@ -13,12 +13,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Mounts extends ClientSDK {
-  async mountsCreate(
-    security: operations.MountsCreateSecurity,
-    request: operations.MountsCreateRequest,
+  async mountsAllNamedByApplicationId(
+    security: operations.MountsAllNamedByApplicationIdSecurity,
+    request: operations.MountsAllNamedByApplicationIdRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(mountsMountsCreate(
+    return unwrapAsync(mountsMountsAllNamedByApplicationId(
       this,
       security,
       request,
@@ -26,12 +26,12 @@ export class Mounts extends ClientSDK {
     ));
   }
 
-  async mountsRemove(
-    security: operations.MountsRemoveSecurity,
-    request: operations.MountsRemoveRequest,
+  async mountsCreate(
+    security: operations.MountsCreateSecurity,
+    request: operations.MountsCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(mountsMountsRemove(
+    return unwrapAsync(mountsMountsCreate(
       this,
       security,
       request,
@@ -52,12 +52,12 @@ export class Mounts extends ClientSDK {
     ));
   }
 
-  async mountsUpdate(
-    security: operations.MountsUpdateSecurity,
-    request: operations.MountsUpdateRequest,
+  async mountsRemove(
+    security: operations.MountsRemoveSecurity,
+    request: operations.MountsRemoveRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(mountsMountsUpdate(
+    return unwrapAsync(mountsMountsRemove(
       this,
       security,
       request,
@@ -65,12 +65,12 @@ export class Mounts extends ClientSDK {
     ));
   }
 
-  async mountsAllNamedByApplicationId(
-    security: operations.MountsAllNamedByApplicationIdSecurity,
-    request: operations.MountsAllNamedByApplicationIdRequest,
+  async mountsUpdate(
+    security: operations.MountsUpdateSecurity,
+    request: operations.MountsUpdateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(mountsMountsAllNamedByApplicationId(
+    return unwrapAsync(mountsMountsUpdate(
       this,
       security,
       request,

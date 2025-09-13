@@ -14,21 +14,21 @@ export type OrganizationCreateSecurity = {
 };
 
 export type OrganizationCreateRequest = {
-  name: string;
   logo?: string | undefined;
+  name: string;
 };
 
 /**
  * Successful response
  */
 export type OrganizationCreateResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationCreateResponse =
@@ -103,14 +103,14 @@ export const OrganizationCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
 });
 
 /** @internal */
 export type OrganizationCreateRequest$Outbound = {
-  name: string;
   logo?: string | undefined;
+  name: string;
 };
 
 /** @internal */
@@ -119,8 +119,8 @@ export const OrganizationCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationCreateRequest
 > = z.object({
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
 });
 
 /**
@@ -160,24 +160,24 @@ export const OrganizationCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationCreateResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -186,13 +186,13 @@ export const OrganizationCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationCreateResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

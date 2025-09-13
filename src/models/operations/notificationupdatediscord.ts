@@ -14,17 +14,17 @@ export type NotificationUpdateDiscordSecurity = {
 
 export type NotificationUpdateDiscordRequest = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  decoration?: boolean | undefined;
+  discordId: string;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
+  notificationId: string;
+  organizationId?: string | undefined;
   serverThreshold?: boolean | undefined;
   webhookUrl?: string | undefined;
-  decoration?: boolean | undefined;
-  notificationId: string;
-  discordId: string;
-  organizationId?: string | undefined;
 };
 
 /** @internal */
@@ -99,33 +99,33 @@ export const NotificationUpdateDiscordRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  decoration: z.boolean().optional(),
+  discordId: z.string(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
+  notificationId: z.string(),
+  organizationId: z.string().optional(),
   serverThreshold: z.boolean().optional(),
   webhookUrl: z.string().optional(),
-  decoration: z.boolean().optional(),
-  notificationId: z.string(),
-  discordId: z.string(),
-  organizationId: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateDiscordRequest$Outbound = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  decoration?: boolean | undefined;
+  discordId: string;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
+  notificationId: string;
+  organizationId?: string | undefined;
   serverThreshold?: boolean | undefined;
   webhookUrl?: string | undefined;
-  decoration?: boolean | undefined;
-  notificationId: string;
-  discordId: string;
-  organizationId?: string | undefined;
 };
 
 /** @internal */
@@ -135,17 +135,17 @@ export const NotificationUpdateDiscordRequest$outboundSchema: z.ZodType<
   NotificationUpdateDiscordRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  decoration: z.boolean().optional(),
+  discordId: z.string(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
+  notificationId: z.string(),
+  organizationId: z.string().optional(),
   serverThreshold: z.boolean().optional(),
   webhookUrl: z.string().optional(),
-  decoration: z.boolean().optional(),
-  notificationId: z.string(),
-  discordId: z.string(),
-  organizationId: z.string().optional(),
 });
 
 /**

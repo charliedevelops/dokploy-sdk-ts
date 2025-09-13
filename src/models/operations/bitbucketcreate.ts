@@ -13,12 +13,12 @@ export type BitbucketCreateSecurity = {
 };
 
 export type BitbucketCreateRequest = {
+  appPassword?: string | undefined;
+  authId: string;
   bitbucketId?: string | undefined;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
   name: string;
 };
 
@@ -90,23 +90,23 @@ export const BitbucketCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.string().optional(),
+  authId: z.string(),
   bitbucketId: z.string().optional(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.string().optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
   name: z.string(),
 });
 
 /** @internal */
 export type BitbucketCreateRequest$Outbound = {
+  appPassword?: string | undefined;
+  authId: string;
   bitbucketId?: string | undefined;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
   name: string;
 };
 
@@ -116,12 +116,12 @@ export const BitbucketCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketCreateRequest
 > = z.object({
+  appPassword: z.string().optional(),
+  authId: z.string(),
   bitbucketId: z.string().optional(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.string().optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
   name: z.string(),
 });
 

@@ -14,15 +14,15 @@ export type NotificationCreateGotifySecurity = {
 
 export type NotificationCreateGotifyRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  appToken: string;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverUrl: string;
-  appToken: string;
   priority: number;
-  decoration: boolean;
+  serverUrl: string;
 };
 
 /** @internal */
@@ -96,29 +96,29 @@ export const NotificationCreateGotifyRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  appToken: z.string(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverUrl: z.string(),
-  appToken: z.string(),
   priority: z.number(),
-  decoration: z.boolean(),
+  serverUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationCreateGotifyRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  appToken: string;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverUrl: string;
-  appToken: string;
   priority: number;
-  decoration: boolean;
+  serverUrl: string;
 };
 
 /** @internal */
@@ -128,15 +128,15 @@ export const NotificationCreateGotifyRequest$outboundSchema: z.ZodType<
   NotificationCreateGotifyRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  appToken: z.string(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverUrl: z.string(),
-  appToken: z.string(),
   priority: z.number(),
-  decoration: z.boolean(),
+  serverUrl: z.string(),
 });
 
 /**

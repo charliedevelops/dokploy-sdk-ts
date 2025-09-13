@@ -5,244 +5,20 @@
 
 ### Available Operations
 
-* [serverCreate](#servercreate)
-* [serverOne](#serverone)
-* [serverGetDefaultCommand](#servergetdefaultcommand)
 * [serverAll](#serverall)
 * [serverCount](#servercount)
-* [serverWithSSHKey](#serverwithsshkey)
-* [serverSetup](#serversetup)
-* [serverValidate](#servervalidate)
-* [serverSecurity](#serversecurity)
-* [serverSetupMonitoring](#serversetupmonitoring)
-* [serverRemove](#serverremove)
-* [serverUpdate](#serverupdate)
-* [serverPublicIp](#serverpublicip)
+* [serverCreate](#servercreate)
+* [serverGetDefaultCommand](#servergetdefaultcommand)
 * [serverGetServerMetrics](#servergetservermetrics)
-
-## serverCreate
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="server-create" method="post" path="/server.create" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.server.serverCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-    ipAddress: "8.12.175.213",
-    port: 9154.55,
-    username: "Asia_Parker82",
-    sshKeyId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerCreate } from "dokploy-sdk/funcs/serverServerCreate.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await serverServerCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-    ipAddress: "8.12.175.213",
-    port: 9154.55,
-    username: "Asia_Parker82",
-    sshKeyId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("serverServerCreate failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerCreateRequest](../../models/operations/servercreaterequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerCreateSecurity](../../models/operations/servercreatesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## serverOne
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="server-one" method="get" path="/server.one" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.server.serverOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerOne } from "dokploy-sdk/funcs/serverServerOne.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await serverServerOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("serverServerOne failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerOneRequest](../../models/operations/serveronerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerOneSecurity](../../models/operations/serveronesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## serverGetDefaultCommand
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="server-getDefaultCommand" method="get" path="/server.getDefaultCommand" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.server.serverGetDefaultCommand({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerGetDefaultCommand } from "dokploy-sdk/funcs/serverServerGetDefaultCommand.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await serverServerGetDefaultCommand(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("serverServerGetDefaultCommand failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerGetDefaultCommandRequest](../../models/operations/servergetdefaultcommandrequest.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerGetDefaultCommandSecurity](../../models/operations/servergetdefaultcommandsecurity.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+* [serverOne](#serverone)
+* [serverPublicIp](#serverpublicip)
+* [serverRemove](#serverremove)
+* [serverSecurity](#serversecurity)
+* [serverSetup](#serversetup)
+* [serverSetupMonitoring](#serversetupmonitoring)
+* [serverUpdate](#serverupdate)
+* [serverValidate](#servervalidate)
+* [serverWithSSHKey](#serverwithsshkey)
 
 ## serverAll
 
@@ -378,19 +154,25 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverWithSSHKey
+## serverCreate
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-withSSHKey" method="get" path="/server.withSSHKey" -->
+<!-- UsageSnippet language="typescript" operationID="server-create" method="post" path="/server.create" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverWithSSHKey({
+  const result = await dokploy.server.serverCreate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    ipAddress: "8.12.175.213",
+    name: "<value>",
+    port: 9154.55,
+    sshKeyId: "<id>",
+    username: "Asia_Parker82",
   });
 
   console.log(result);
@@ -405,21 +187,27 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerWithSSHKey } from "dokploy-sdk/funcs/serverServerWithSSHKey.js";
+import { serverServerCreate } from "dokploy-sdk/funcs/serverServerCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerWithSSHKey(dokploy, {
+  const res = await serverServerCreate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    ipAddress: "8.12.175.213",
+    name: "<value>",
+    port: 9154.55,
+    sshKeyId: "<id>",
+    username: "Asia_Parker82",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerWithSSHKey failed:", res.error);
+    console.log("serverServerCreate failed:", res.error);
   }
 }
 
@@ -430,7 +218,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.ServerWithSSHKeySecurity](../../models/operations/serverwithsshkeysecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.ServerCreateRequest](../../models/operations/servercreaterequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerCreateSecurity](../../models/operations/servercreatesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -445,18 +234,18 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverSetup
+## serverGetDefaultCommand
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-setup" method="post" path="/server.setup" -->
+<!-- UsageSnippet language="typescript" operationID="server-getDefaultCommand" method="get" path="/server.getDefaultCommand" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverSetup({
+  const result = await dokploy.server.serverGetDefaultCommand({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     serverId: "<id>",
@@ -474,14 +263,14 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerSetup } from "dokploy-sdk/funcs/serverServerSetup.js";
+import { serverServerGetDefaultCommand } from "dokploy-sdk/funcs/serverServerGetDefaultCommand.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerSetup(dokploy, {
+  const res = await serverServerGetDefaultCommand(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     serverId: "<id>",
@@ -490,7 +279,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerSetup failed:", res.error);
+    console.log("serverServerGetDefaultCommand failed:", res.error);
   }
 }
 
@@ -501,8 +290,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerSetupRequest](../../models/operations/serversetuprequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerSetupSecurity](../../models/operations/serversetupsecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.ServerGetDefaultCommandRequest](../../models/operations/servergetdefaultcommandrequest.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerGetDefaultCommandSecurity](../../models/operations/servergetdefaultcommandsecurity.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -517,21 +306,23 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverValidate
+## serverGetServerMetrics
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-validate" method="get" path="/server.validate" -->
+<!-- UsageSnippet language="typescript" operationID="server-getServerMetrics" method="get" path="/server.getServerMetrics" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverValidate({
+  const result = await dokploy.server.serverGetServerMetrics({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    serverId: "<id>",
+    url: "https://worthless-quart.biz",
+    token: "<value>",
+    dataPoints: "<value>",
   });
 
   console.log(result);
@@ -546,23 +337,25 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerValidate } from "dokploy-sdk/funcs/serverServerValidate.js";
+import { serverServerGetServerMetrics } from "dokploy-sdk/funcs/serverServerGetServerMetrics.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerValidate(dokploy, {
+  const res = await serverServerGetServerMetrics(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    serverId: "<id>",
+    url: "https://worthless-quart.biz",
+    token: "<value>",
+    dataPoints: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerValidate failed:", res.error);
+    console.log("serverServerGetServerMetrics failed:", res.error);
   }
 }
 
@@ -573,8 +366,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerValidateRequest](../../models/operations/servervalidaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerValidateSecurity](../../models/operations/servervalidatesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.ServerGetServerMetricsRequest](../../models/operations/servergetservermetricsrequest.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerGetServerMetricsSecurity](../../models/operations/servergetservermetricssecurity.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -589,18 +382,18 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverSecurity
+## serverOne
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-security" method="get" path="/server.security" -->
+<!-- UsageSnippet language="typescript" operationID="server-one" method="get" path="/server.one" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverSecurity({
+  const result = await dokploy.server.serverOne({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     serverId: "<id>",
@@ -618,14 +411,14 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerSecurity } from "dokploy-sdk/funcs/serverServerSecurity.js";
+import { serverServerOne } from "dokploy-sdk/funcs/serverServerOne.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerSecurity(dokploy, {
+  const res = await serverServerOne(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     serverId: "<id>",
@@ -634,7 +427,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerSecurity failed:", res.error);
+    console.log("serverServerOne failed:", res.error);
   }
 }
 
@@ -645,8 +438,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerSecurityRequest](../../models/operations/serversecurityrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerSecuritySecurity](../../models/operations/serversecuritysecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.ServerOneRequest](../../models/operations/serveronerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerOneSecurity](../../models/operations/serveronesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -661,39 +454,19 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverSetupMonitoring
+## serverPublicIp
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-setupMonitoring" method="post" path="/server.setupMonitoring" -->
+<!-- UsageSnippet language="typescript" operationID="server-publicIp" method="get" path="/server.publicIp" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverSetupMonitoring({
+  const result = await dokploy.server.serverPublicIp({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-    metricsConfig: {
-      server: {
-        refreshRate: 2789,
-        port: 8870.52,
-        token: "<value>",
-        urlCallback: "https://basic-lieu.info",
-        retentionDays: 3260.17,
-        cronJob: "<value>",
-        thresholds: {
-          cpu: 1297.57,
-          memory: 4963.43,
-        },
-      },
-      containers: {
-        refreshRate: 9885.9,
-        services: {},
-      },
-    },
   });
 
   console.log(result);
@@ -708,41 +481,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerSetupMonitoring } from "dokploy-sdk/funcs/serverServerSetupMonitoring.js";
+import { serverServerPublicIp } from "dokploy-sdk/funcs/serverServerPublicIp.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerSetupMonitoring(dokploy, {
+  const res = await serverServerPublicIp(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    serverId: "<id>",
-    metricsConfig: {
-      server: {
-        refreshRate: 2789,
-        port: 8870.52,
-        token: "<value>",
-        urlCallback: "https://basic-lieu.info",
-        retentionDays: 3260.17,
-        cronJob: "<value>",
-        thresholds: {
-          cpu: 1297.57,
-          memory: 4963.43,
-        },
-      },
-      containers: {
-        refreshRate: 9885.9,
-        services: {},
-      },
-    },
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerSetupMonitoring failed:", res.error);
+    console.log("serverServerPublicIp failed:", res.error);
   }
 }
 
@@ -753,8 +506,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerSetupMonitoringRequest](../../models/operations/serversetupmonitoringrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerSetupMonitoringSecurity](../../models/operations/serversetupmonitoringsecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `security`                                                                                                                                                                     | [operations.ServerPublicIpSecurity](../../models/operations/serverpublicipsecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -841,6 +593,258 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
+## serverSecurity
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="server-security" method="get" path="/server.security" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.server.serverSecurity({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { serverServerSecurity } from "dokploy-sdk/funcs/serverServerSecurity.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await serverServerSecurity(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serverServerSecurity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ServerSecurityRequest](../../models/operations/serversecurityrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerSecuritySecurity](../../models/operations/serversecuritysecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## serverSetup
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="server-setup" method="post" path="/server.setup" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.server.serverSetup({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { serverServerSetup } from "dokploy-sdk/funcs/serverServerSetup.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await serverServerSetup(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serverServerSetup failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ServerSetupRequest](../../models/operations/serversetuprequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerSetupSecurity](../../models/operations/serversetupsecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## serverSetupMonitoring
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="server-setupMonitoring" method="post" path="/server.setupMonitoring" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.server.serverSetupMonitoring({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    metricsConfig: {
+      containers: {
+        refreshRate: 9885.9,
+        services: {},
+      },
+      server: {
+        cronJob: "<value>",
+        port: 8870.52,
+        refreshRate: 2789,
+        retentionDays: 3260.17,
+        thresholds: {
+          cpu: 1297.57,
+          memory: 4963.43,
+        },
+        token: "<value>",
+        urlCallback: "https://basic-lieu.info",
+      },
+    },
+    serverId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { serverServerSetupMonitoring } from "dokploy-sdk/funcs/serverServerSetupMonitoring.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await serverServerSetupMonitoring(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    metricsConfig: {
+      containers: {
+        refreshRate: 9885.9,
+        services: {},
+      },
+      server: {
+        cronJob: "<value>",
+        port: 8870.52,
+        refreshRate: 2789,
+        retentionDays: 3260.17,
+        thresholds: {
+          cpu: 1297.57,
+          memory: 4963.43,
+        },
+        token: "<value>",
+        urlCallback: "https://basic-lieu.info",
+      },
+    },
+    serverId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("serverServerSetupMonitoring failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ServerSetupMonitoringRequest](../../models/operations/serversetupmonitoringrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerSetupMonitoringSecurity](../../models/operations/serversetupmonitoringsecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
 ## serverUpdate
 
 ### Example Usage
@@ -855,12 +859,12 @@ async function run() {
   const result = await dokploy.server.serverUpdate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    name: "<value>",
-    serverId: "<id>",
     ipAddress: "945d:4a06:ae40:dab4:6ecb:dbfc:8b3d:df1d",
+    name: "<value>",
     port: 4322.18,
-    username: "Adelia.Casper",
+    serverId: "<id>",
     sshKeyId: "<id>",
+    username: "Adelia.Casper",
   });
 
   console.log(result);
@@ -885,12 +889,12 @@ async function run() {
   const res = await serverServerUpdate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    name: "<value>",
-    serverId: "<id>",
     ipAddress: "945d:4a06:ae40:dab4:6ecb:dbfc:8b3d:df1d",
+    name: "<value>",
     port: 4322.18,
-    username: "Adelia.Casper",
+    serverId: "<id>",
     sshKeyId: "<id>",
+    username: "Adelia.Casper",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -923,19 +927,21 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverPublicIp
+## serverValidate
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-publicIp" method="get" path="/server.publicIp" -->
+<!-- UsageSnippet language="typescript" operationID="server-validate" method="get" path="/server.validate" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverPublicIp({
+  const result = await dokploy.server.serverValidate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
   });
 
   console.log(result);
@@ -950,21 +956,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerPublicIp } from "dokploy-sdk/funcs/serverServerPublicIp.js";
+import { serverServerValidate } from "dokploy-sdk/funcs/serverServerValidate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerPublicIp(dokploy, {
+  const res = await serverServerValidate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    serverId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerPublicIp failed:", res.error);
+    console.log("serverServerValidate failed:", res.error);
   }
 }
 
@@ -975,7 +983,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.ServerPublicIpSecurity](../../models/operations/serverpublicipsecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.ServerValidateRequest](../../models/operations/servervalidaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.ServerValidateSecurity](../../models/operations/servervalidatesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -990,23 +999,19 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## serverGetServerMetrics
+## serverWithSSHKey
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="server-getServerMetrics" method="get" path="/server.getServerMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="server-withSSHKey" method="get" path="/server.withSSHKey" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.server.serverGetServerMetrics({
+  const result = await dokploy.server.serverWithSSHKey({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    url: "https://worthless-quart.biz",
-    token: "<value>",
-    dataPoints: "<value>",
   });
 
   console.log(result);
@@ -1021,25 +1026,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { serverServerGetServerMetrics } from "dokploy-sdk/funcs/serverServerGetServerMetrics.js";
+import { serverServerWithSSHKey } from "dokploy-sdk/funcs/serverServerWithSSHKey.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await serverServerGetServerMetrics(dokploy, {
+  const res = await serverServerWithSSHKey(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    url: "https://worthless-quart.biz",
-    token: "<value>",
-    dataPoints: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("serverServerGetServerMetrics failed:", res.error);
+    console.log("serverServerWithSSHKey failed:", res.error);
   }
 }
 
@@ -1050,8 +1051,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ServerGetServerMetricsRequest](../../models/operations/servergetservermetricsrequest.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ServerGetServerMetricsSecurity](../../models/operations/servergetservermetricssecurity.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `security`                                                                                                                                                                     | [operations.ServerWithSSHKeySecurity](../../models/operations/serverwithsshkeysecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

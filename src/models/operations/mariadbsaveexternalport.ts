@@ -15,8 +15,8 @@ export type MariadbSaveExternalPortSecurity = {
 };
 
 export type MariadbSaveExternalPortRequest = {
-  mariadbId: string;
   externalPort: number | null;
+  mariadbId: string;
 };
 
 export const MariadbSaveExternalPortApplicationStatus = {
@@ -28,198 +28,6 @@ export const MariadbSaveExternalPortApplicationStatus = {
 export type MariadbSaveExternalPortApplicationStatus = ClosedEnum<
   typeof MariadbSaveExternalPortApplicationStatus
 >;
-
-export type MariadbSaveExternalPortHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MariadbSaveExternalPortRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MariadbSaveExternalPortSpread = {
-  spreadDescriptor: string;
-};
-
-export type MariadbSaveExternalPortPreference = {
-  spread: MariadbSaveExternalPortSpread;
-};
-
-export type MariadbSaveExternalPortPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MariadbSaveExternalPortPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbSaveExternalPortPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MariadbSaveExternalPortPlatform> | undefined;
-};
-
-export type MariadbSaveExternalPortUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbSaveExternalPortRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbSaveExternalPortReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbSaveExternalPortGlobal = {};
-
-export type MariadbSaveExternalPortReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbSaveExternalPortGlobalJob = {};
-
-export type MariadbSaveExternalPortModeSwarm = {
-  replicated?: MariadbSaveExternalPortReplicated | undefined;
-  global?: MariadbSaveExternalPortGlobal | undefined;
-  replicatedJob?: MariadbSaveExternalPortReplicatedJob | undefined;
-  globalJob?: MariadbSaveExternalPortGlobalJob | undefined;
-};
-
-export type MariadbSaveExternalPortDriverOpts = {};
-
-export type MariadbSaveExternalPortNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbSaveExternalPortDriverOpts | undefined;
-};
-
-export type MariadbSaveExternalPortProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MariadbSaveExternalPortEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbSaveExternalPortProject;
-};
-
-export const MariadbSaveExternalPortType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MariadbSaveExternalPortType = ClosedEnum<
-  typeof MariadbSaveExternalPortType
->;
-
-export const MariadbSaveExternalPortServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MariadbSaveExternalPortServiceType = ClosedEnum<
-  typeof MariadbSaveExternalPortServiceType
->;
-
-export type MariadbSaveExternalPortMount = {
-  mountId: string;
-  type: MariadbSaveExternalPortType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MariadbSaveExternalPortServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MariadbSaveExternalPortServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MariadbSaveExternalPortServerStatus = ClosedEnum<
-  typeof MariadbSaveExternalPortServerStatus
->;
-
-export const MariadbSaveExternalPortMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MariadbSaveExternalPortMetricsConfigEnum = ClosedEnum<
-  typeof MariadbSaveExternalPortMetricsConfigEnum
->;
-
-export type MariadbSaveExternalPortMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MariadbSaveExternalPortMetricsConfigEnum;
-
-export type MariadbSaveExternalPortMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MariadbSaveExternalPortMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MariadbSaveExternalPortServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MariadbSaveExternalPortServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MariadbSaveExternalPortMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MariadbSaveExternalPortBackupType = {
   Database: "database",
@@ -247,29 +55,29 @@ export type MariadbSaveExternalPortMetadataEnum = ClosedEnum<
   typeof MariadbSaveExternalPortMetadataEnum
 >;
 
-export type MariadbSaveExternalPortPostgres = {
-  databaseUser: string;
-};
-
 export type MariadbSaveExternalPortMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbSaveExternalPortMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbSaveExternalPortMysql = {
   databaseRootPassword: string;
 };
 
+export type MariadbSaveExternalPortPostgres = {
+  databaseUser: string;
+};
+
 export type MariadbSaveExternalPortMetadata = {
-  postgres?: MariadbSaveExternalPortPostgres | undefined;
   mariadb?: MariadbSaveExternalPortMariadb | undefined;
   mongo?: MariadbSaveExternalPortMongo | undefined;
   mysql?: MariadbSaveExternalPortMysql | undefined;
+  postgres?: MariadbSaveExternalPortPostgres | undefined;
 };
 
 export type MariadbSaveExternalPortMetadataUnion =
@@ -277,67 +85,259 @@ export type MariadbSaveExternalPortMetadataUnion =
   | MariadbSaveExternalPortMetadataEnum;
 
 export type MariadbSaveExternalPortBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MariadbSaveExternalPortBackupType;
-  databaseType: MariadbSaveExternalPortDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MariadbSaveExternalPortDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MariadbSaveExternalPortMetadata
     | MariadbSaveExternalPortMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MariadbSaveExternalPortProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MariadbSaveExternalPortEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbSaveExternalPortProject;
+  projectId: string;
+};
+
+export type MariadbSaveExternalPortHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MariadbSaveExternalPortGlobal = {};
+
+export type MariadbSaveExternalPortGlobalJob = {};
+
+export type MariadbSaveExternalPortReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbSaveExternalPortReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbSaveExternalPortModeSwarm = {
+  global?: MariadbSaveExternalPortGlobal | undefined;
+  globalJob?: MariadbSaveExternalPortGlobalJob | undefined;
+  replicated?: MariadbSaveExternalPortReplicated | undefined;
+  replicatedJob?: MariadbSaveExternalPortReplicatedJob | undefined;
+};
+
+export const MariadbSaveExternalPortServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MariadbSaveExternalPortServiceType = ClosedEnum<
+  typeof MariadbSaveExternalPortServiceType
+>;
+
+export const MariadbSaveExternalPortType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MariadbSaveExternalPortType = ClosedEnum<
+  typeof MariadbSaveExternalPortType
+>;
+
+export type MariadbSaveExternalPortMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MariadbSaveExternalPortServiceType;
+  type: MariadbSaveExternalPortType;
+  volumeName: string | null;
+};
+
+export type MariadbSaveExternalPortDriverOpts = {};
+
+export type MariadbSaveExternalPortNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbSaveExternalPortDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbSaveExternalPortPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MariadbSaveExternalPortSpread = {
+  spreadDescriptor: string;
+};
+
+export type MariadbSaveExternalPortPreference = {
+  spread: MariadbSaveExternalPortSpread;
+};
+
+export type MariadbSaveExternalPortPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MariadbSaveExternalPortPlatform> | undefined;
+  preferences?: Array<MariadbSaveExternalPortPreference> | undefined;
+};
+
+export type MariadbSaveExternalPortRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MariadbSaveExternalPortRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MariadbSaveExternalPortMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MariadbSaveExternalPortMetricsConfigEnum = ClosedEnum<
+  typeof MariadbSaveExternalPortMetricsConfigEnum
+>;
+
+export type MariadbSaveExternalPortMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MariadbSaveExternalPortMetricsConfigEnum;
+
+export type MariadbSaveExternalPortMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MariadbSaveExternalPortMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MariadbSaveExternalPortServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MariadbSaveExternalPortServerStatus = ClosedEnum<
+  typeof MariadbSaveExternalPortServerStatus
+>;
+
+export type MariadbSaveExternalPortServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MariadbSaveExternalPortMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MariadbSaveExternalPortServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MariadbSaveExternalPortUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbSaveExternalPortResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbSaveExternalPortApplicationStatus;
+  backups: Array<MariadbSaveExternalPortBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbSaveExternalPortApplicationStatus;
-  healthCheckSwarm: MariadbSaveExternalPortHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbSaveExternalPortRestartPolicySwarm | null;
-  placementSwarm: MariadbSaveExternalPortPlacementSwarm | null;
-  updateConfigSwarm: MariadbSaveExternalPortUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbSaveExternalPortRollbackConfigSwarm | null;
-  modeSwarm: MariadbSaveExternalPortModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbSaveExternalPortNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbSaveExternalPortEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbSaveExternalPortHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbSaveExternalPortModeSwarm | null;
   mounts: Array<MariadbSaveExternalPortMount>;
+  name: string;
+  networkSwarm: Array<MariadbSaveExternalPortNetworkSwarm> | null;
+  placementSwarm: MariadbSaveExternalPortPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbSaveExternalPortRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbSaveExternalPortRollbackConfigSwarm | null;
   server: MariadbSaveExternalPortServer | null;
-  backups: Array<MariadbSaveExternalPortBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbSaveExternalPortUpdateConfigSwarm | null;
 };
 
 export type MariadbSaveExternalPortResponse =
@@ -414,14 +414,14 @@ export const MariadbSaveExternalPortRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
   externalPort: z.nullable(z.number()),
+  mariadbId: z.string(),
 });
 
 /** @internal */
 export type MariadbSaveExternalPortRequest$Outbound = {
-  mariadbId: string;
   externalPort: number | null;
+  mariadbId: string;
 };
 
 /** @internal */
@@ -430,8 +430,8 @@ export const MariadbSaveExternalPortRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveExternalPortRequest
 > = z.object({
-  mariadbId: z.string(),
   externalPort: z.nullable(z.number()),
+  mariadbId: z.string(),
 });
 
 /**
@@ -491,33 +491,729 @@ export namespace MariadbSaveExternalPortApplicationStatus$ {
 }
 
 /** @internal */
+export const MariadbSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortBackupType
+> = z.nativeEnum(MariadbSaveExternalPortBackupType);
+
+/** @internal */
+export const MariadbSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortBackupType
+> = MariadbSaveExternalPortBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortBackupType$ {
+  /** @deprecated use `MariadbSaveExternalPortBackupType$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortBackupType$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortBackupType$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortDatabaseType
+> = z.nativeEnum(MariadbSaveExternalPortDatabaseType);
+
+/** @internal */
+export const MariadbSaveExternalPortDatabaseType$outboundSchema:
+  z.ZodNativeEnum<typeof MariadbSaveExternalPortDatabaseType> =
+    MariadbSaveExternalPortDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortDatabaseType$ {
+  /** @deprecated use `MariadbSaveExternalPortDatabaseType$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortDatabaseType$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortDatabaseType$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortMetadataEnum
+> = z.nativeEnum(MariadbSaveExternalPortMetadataEnum);
+
+/** @internal */
+export const MariadbSaveExternalPortMetadataEnum$outboundSchema:
+  z.ZodNativeEnum<typeof MariadbSaveExternalPortMetadataEnum> =
+    MariadbSaveExternalPortMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMetadataEnum$ {
+  /** @deprecated use `MariadbSaveExternalPortMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortMetadataEnum$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMariadb$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortMariadb$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMariadb$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMariadb$ {
+  /** @deprecated use `MariadbSaveExternalPortMariadb$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortMariadb$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMariadb$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortMariadb$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMariadb$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMariadb$Outbound;
+}
+
+export function mariadbSaveExternalPortMariadbToJSON(
+  mariadbSaveExternalPortMariadb: MariadbSaveExternalPortMariadb,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMariadb$outboundSchema.parse(
+      mariadbSaveExternalPortMariadb,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMongo$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortMongo$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMongo$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMongo$ {
+  /** @deprecated use `MariadbSaveExternalPortMongo$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortMongo$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMongo$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortMongo$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMongo$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMongo$Outbound;
+}
+
+export function mariadbSaveExternalPortMongoToJSON(
+  mariadbSaveExternalPortMongo: MariadbSaveExternalPortMongo,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMongo$outboundSchema.parse(
+      mariadbSaveExternalPortMongo,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMysql$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortMysql$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMysql$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMysql$ {
+  /** @deprecated use `MariadbSaveExternalPortMysql$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortMysql$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMysql$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortMysql$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMysql$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMysql$Outbound;
+}
+
+export function mariadbSaveExternalPortMysqlToJSON(
+  mariadbSaveExternalPortMysql: MariadbSaveExternalPortMysql,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMysql$outboundSchema.parse(
+      mariadbSaveExternalPortMysql,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortPostgres$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortPostgres$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortPostgres$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortPostgres$ {
+  /** @deprecated use `MariadbSaveExternalPortPostgres$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortPostgres$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortPostgres$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortPostgres$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortPostgres$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortPostgres$Outbound;
+}
+
+export function mariadbSaveExternalPortPostgresToJSON(
+  mariadbSaveExternalPortPostgres: MariadbSaveExternalPortPostgres,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortPostgres$outboundSchema.parse(
+      mariadbSaveExternalPortPostgres,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMetadata$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MariadbSaveExternalPortMariadb$inboundSchema)
+    .optional(),
+  mongo: z.lazy(() => MariadbSaveExternalPortMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MariadbSaveExternalPortMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MariadbSaveExternalPortPostgres$inboundSchema)
+    .optional(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortMetadata$Outbound = {
+  mariadb?: MariadbSaveExternalPortMariadb$Outbound | undefined;
+  mongo?: MariadbSaveExternalPortMongo$Outbound | undefined;
+  mysql?: MariadbSaveExternalPortMysql$Outbound | undefined;
+  postgres?: MariadbSaveExternalPortPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortMetadata$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMetadata$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMetadata
+> = z.object({
+  mariadb: z.lazy(() => MariadbSaveExternalPortMariadb$outboundSchema)
+    .optional(),
+  mongo: z.lazy(() => MariadbSaveExternalPortMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MariadbSaveExternalPortMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MariadbSaveExternalPortPostgres$outboundSchema)
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMetadata$ {
+  /** @deprecated use `MariadbSaveExternalPortMetadata$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortMetadata$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMetadata$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortMetadata$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMetadata$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMetadata$Outbound;
+}
+
+export function mariadbSaveExternalPortMetadataToJSON(
+  mariadbSaveExternalPortMetadata: MariadbSaveExternalPortMetadata,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMetadata$outboundSchema.parse(
+      mariadbSaveExternalPortMetadata,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MariadbSaveExternalPortMetadata$inboundSchema),
+  MariadbSaveExternalPortMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MariadbSaveExternalPortMetadataUnion$Outbound =
+  | MariadbSaveExternalPortMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MariadbSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMetadataUnion
+> = z.union([
+  z.lazy(() => MariadbSaveExternalPortMetadata$outboundSchema),
+  MariadbSaveExternalPortMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMetadataUnion$ {
+  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortMetadataUnion$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortMetadataUnion$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMetadataUnion$Outbound;
+}
+
+export function mariadbSaveExternalPortMetadataUnionToJSON(
+  mariadbSaveExternalPortMetadataUnion: MariadbSaveExternalPortMetadataUnion,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMetadataUnion$outboundSchema.parse(
+      mariadbSaveExternalPortMetadataUnion,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      MariadbSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortBackup$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbSaveExternalPortBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbSaveExternalPortDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbSaveExternalPortMetadata$inboundSchema),
+      MariadbSaveExternalPortMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?:
+    | MariadbSaveExternalPortMetadata$Outbound
+    | string
+    | null
+    | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortBackup$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortBackup$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbSaveExternalPortBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbSaveExternalPortDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbSaveExternalPortMetadata$outboundSchema),
+      MariadbSaveExternalPortMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortBackup$ {
+  /** @deprecated use `MariadbSaveExternalPortBackup$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortBackup$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortBackup$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortBackup$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortBackup$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortBackup$Outbound;
+}
+
+export function mariadbSaveExternalPortBackupToJSON(
+  mariadbSaveExternalPortBackup: MariadbSaveExternalPortBackup,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortBackup$outboundSchema.parse(
+      mariadbSaveExternalPortBackup,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortProject$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortProject$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortProject$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortProject$ {
+  /** @deprecated use `MariadbSaveExternalPortProject$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortProject$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortProject$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortProject$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortProject$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortProject$Outbound;
+}
+
+export function mariadbSaveExternalPortProjectToJSON(
+  mariadbSaveExternalPortProject: MariadbSaveExternalPortProject,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortProject$outboundSchema.parse(
+      mariadbSaveExternalPortProject,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortEnvironment$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbSaveExternalPortProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbSaveExternalPortProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortEnvironment$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortEnvironment$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbSaveExternalPortProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortEnvironment$ {
+  /** @deprecated use `MariadbSaveExternalPortEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortEnvironment$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortEnvironment$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortEnvironment$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortEnvironment$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortEnvironment$Outbound;
+}
+
+export function mariadbSaveExternalPortEnvironmentToJSON(
+  mariadbSaveExternalPortEnvironment: MariadbSaveExternalPortEnvironment,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortEnvironment$outboundSchema.parse(
+      mariadbSaveExternalPortEnvironment,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      MariadbSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MariadbSaveExternalPortHealthCheckSwarm$inboundSchema: z.ZodType<
   MariadbSaveExternalPortHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbSaveExternalPortHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -526,18 +1222,18 @@ export const MariadbSaveExternalPortHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveExternalPortHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -584,91 +1280,666 @@ export function mariadbSaveExternalPortHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortRestartPolicySwarm,
+export const MariadbSaveExternalPortGlobal$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortGlobal,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
-  });
-});
+> = z.object({});
 
 /** @internal */
-export type MariadbSaveExternalPortRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
-};
+export type MariadbSaveExternalPortGlobal$Outbound = {};
 
 /** @internal */
-export const MariadbSaveExternalPortRestartPolicySwarm$outboundSchema:
-  z.ZodType<
-    MariadbSaveExternalPortRestartPolicySwarm$Outbound,
-    z.ZodTypeDef,
-    MariadbSaveExternalPortRestartPolicySwarm
-  > = z.object({
-    condition: z.string().optional(),
-    delay: z.number().optional(),
-    maxAttempts: z.number().optional(),
-    window: z.number().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      condition: "Condition",
-      delay: "Delay",
-      maxAttempts: "MaxAttempts",
-      window: "Window",
-    });
-  });
+export const MariadbSaveExternalPortGlobal$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortGlobal
+> = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbSaveExternalPortRestartPolicySwarm$ {
-  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortRestartPolicySwarm$Outbound;
+export namespace MariadbSaveExternalPortGlobal$ {
+  /** @deprecated use `MariadbSaveExternalPortGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortGlobal$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortGlobal$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortGlobal$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortGlobal$Outbound;
 }
 
-export function mariadbSaveExternalPortRestartPolicySwarmToJSON(
-  mariadbSaveExternalPortRestartPolicySwarm:
-    MariadbSaveExternalPortRestartPolicySwarm,
+export function mariadbSaveExternalPortGlobalToJSON(
+  mariadbSaveExternalPortGlobal: MariadbSaveExternalPortGlobal,
 ): string {
   return JSON.stringify(
-    MariadbSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
-      mariadbSaveExternalPortRestartPolicySwarm,
+    MariadbSaveExternalPortGlobal$outboundSchema.parse(
+      mariadbSaveExternalPortGlobal,
     ),
   );
 }
 
-export function mariadbSaveExternalPortRestartPolicySwarmFromJSON(
+export function mariadbSaveExternalPortGlobalFromJSON(
   jsonString: string,
-): SafeParseResult<
-  MariadbSaveExternalPortRestartPolicySwarm,
-  SDKValidationError
-> {
+): SafeParseResult<MariadbSaveExternalPortGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbSaveExternalPortGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortGlobalJob$ {
+  /** @deprecated use `MariadbSaveExternalPortGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortGlobalJob$Outbound;
+}
+
+export function mariadbSaveExternalPortGlobalJobToJSON(
+  mariadbSaveExternalPortGlobalJob: MariadbSaveExternalPortGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortGlobalJob$outboundSchema.parse(
+      mariadbSaveExternalPortGlobalJob,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortReplicated$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortReplicated,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Replicas: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Replicas": "replicas",
+  });
+});
+
+/** @internal */
+export type MariadbSaveExternalPortReplicated$Outbound = {
+  Replicas?: number | undefined;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortReplicated$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortReplicated$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortReplicated
+> = z.object({
+  replicas: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    replicas: "Replicas",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortReplicated$ {
+  /** @deprecated use `MariadbSaveExternalPortReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortReplicated$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortReplicated$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortReplicated$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortReplicated$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortReplicated$Outbound;
+}
+
+export function mariadbSaveExternalPortReplicatedToJSON(
+  mariadbSaveExternalPortReplicated: MariadbSaveExternalPortReplicated,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortReplicated$outboundSchema.parse(
+      mariadbSaveExternalPortReplicated,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbSaveExternalPortReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortReplicatedJob$ {
+  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortReplicatedJob$Outbound;
+}
+
+export function mariadbSaveExternalPortReplicatedJobToJSON(
+  mariadbSaveExternalPortReplicatedJob: MariadbSaveExternalPortReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortReplicatedJob$outboundSchema.parse(
+      mariadbSaveExternalPortReplicatedJob,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MariadbSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'MariadbSaveExternalPortRestartPolicySwarm' from JSON`,
+      MariadbSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbSaveExternalPortGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbSaveExternalPortGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => MariadbSaveExternalPortReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() =>
+    MariadbSaveExternalPortReplicatedJob$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbSaveExternalPortModeSwarm$Outbound = {
+  Global?: MariadbSaveExternalPortGlobal$Outbound | undefined;
+  GlobalJob?: MariadbSaveExternalPortGlobalJob$Outbound | undefined;
+  Replicated?: MariadbSaveExternalPortReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbSaveExternalPortReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbSaveExternalPortGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbSaveExternalPortGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => MariadbSaveExternalPortReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() =>
+    MariadbSaveExternalPortReplicatedJob$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortModeSwarm$ {
+  /** @deprecated use `MariadbSaveExternalPortModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortModeSwarm$Outbound;
+}
+
+export function mariadbSaveExternalPortModeSwarmToJSON(
+  mariadbSaveExternalPortModeSwarm: MariadbSaveExternalPortModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortModeSwarm$outboundSchema.parse(
+      mariadbSaveExternalPortModeSwarm,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortServiceType
+> = z.nativeEnum(MariadbSaveExternalPortServiceType);
+
+/** @internal */
+export const MariadbSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortServiceType
+> = MariadbSaveExternalPortServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortServiceType$ {
+  /** @deprecated use `MariadbSaveExternalPortServiceType$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortServiceType$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortServiceType$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortType
+> = z.nativeEnum(MariadbSaveExternalPortType);
+
+/** @internal */
+export const MariadbSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortType
+> = MariadbSaveExternalPortType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortType$ {
+  /** @deprecated use `MariadbSaveExternalPortType$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortType$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortType$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbSaveExternalPortMount$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbSaveExternalPortServiceType$inboundSchema,
+  type: MariadbSaveExternalPortType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbSaveExternalPortMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortMount$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortMount$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbSaveExternalPortServiceType$outboundSchema,
+  type: MariadbSaveExternalPortType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortMount$ {
+  /** @deprecated use `MariadbSaveExternalPortMount$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortMount$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMount$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortMount$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortMount$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortMount$Outbound;
+}
+
+export function mariadbSaveExternalPortMountToJSON(
+  mariadbSaveExternalPortMount: MariadbSaveExternalPortMount,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortMount$outboundSchema.parse(
+      mariadbSaveExternalPortMount,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbSaveExternalPortDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortDriverOpts$ {
+  /** @deprecated use `MariadbSaveExternalPortDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortDriverOpts$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortDriverOpts$Outbound;
+}
+
+export function mariadbSaveExternalPortDriverOptsToJSON(
+  mariadbSaveExternalPortDriverOpts: MariadbSaveExternalPortDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortDriverOpts$outboundSchema.parse(
+      mariadbSaveExternalPortDriverOpts,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbSaveExternalPortDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbSaveExternalPortNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbSaveExternalPortDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbSaveExternalPortDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortNetworkSwarm$ {
+  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortNetworkSwarm$Outbound;
+}
+
+export function mariadbSaveExternalPortNetworkSwarmToJSON(
+  mariadbSaveExternalPortNetworkSwarm: MariadbSaveExternalPortNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortNetworkSwarm$outboundSchema.parse(
+      mariadbSaveExternalPortNetworkSwarm,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      MariadbSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbSaveExternalPortPlatform$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbSaveExternalPortPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortPlatform$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortPlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortPlatform$ {
+  /** @deprecated use `MariadbSaveExternalPortPlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbSaveExternalPortPlatform$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortPlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbSaveExternalPortPlatform$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortPlatform$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortPlatform$Outbound;
+}
+
+export function mariadbSaveExternalPortPlatformToJSON(
+  mariadbSaveExternalPortPlatform: MariadbSaveExternalPortPlatform,
+): string {
+  return JSON.stringify(
+    MariadbSaveExternalPortPlatform$outboundSchema.parse(
+      mariadbSaveExternalPortPlatform,
+    ),
+  );
+}
+
+export function mariadbSaveExternalPortPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbSaveExternalPortPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbSaveExternalPortPlatform' from JSON`,
   );
 }
 
@@ -802,103 +2073,34 @@ export function mariadbSaveExternalPortPreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbSaveExternalPortPlatform$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbSaveExternalPortPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortPlatform$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortPlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortPlatform$ {
-  /** @deprecated use `MariadbSaveExternalPortPlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortPlatform$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortPlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortPlatform$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortPlatform$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortPlatform$Outbound;
-}
-
-export function mariadbSaveExternalPortPlatformToJSON(
-  mariadbSaveExternalPortPlatform: MariadbSaveExternalPortPlatform,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortPlatform$outboundSchema.parse(
-      mariadbSaveExternalPortPlatform,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbSaveExternalPortPlacementSwarm$inboundSchema: z.ZodType<
   MariadbSaveExternalPortPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => MariadbSaveExternalPortPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(
     z.lazy(() => MariadbSaveExternalPortPlatform$inboundSchema),
   ).optional(),
+  Preferences: z.array(
+    z.lazy(() => MariadbSaveExternalPortPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbSaveExternalPortPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbSaveExternalPortPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbSaveExternalPortPlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbSaveExternalPortPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -908,19 +2110,19 @@ export const MariadbSaveExternalPortPlacementSwarm$outboundSchema: z.ZodType<
   MariadbSaveExternalPortPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => MariadbSaveExternalPortPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(
     z.lazy(() => MariadbSaveExternalPortPlatform$outboundSchema),
   ).optional(),
+  preferences: z.array(
+    z.lazy(() => MariadbSaveExternalPortPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -961,100 +2163,91 @@ export function mariadbSaveExternalPortPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortUpdateConfigSwarm,
+export const MariadbSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbSaveExternalPortUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbSaveExternalPortRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortUpdateConfigSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortUpdateConfigSwarm
-> = z.object({
-  parallelism: z.number(),
-  delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    parallelism: "Parallelism",
-    delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+export const MariadbSaveExternalPortRestartPolicySwarm$outboundSchema:
+  z.ZodType<
+    MariadbSaveExternalPortRestartPolicySwarm$Outbound,
+    z.ZodTypeDef,
+    MariadbSaveExternalPortRestartPolicySwarm
+  > = z.object({
+    condition: z.string().optional(),
+    delay: z.number().optional(),
+    maxAttempts: z.number().optional(),
+    window: z.number().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      condition: "Condition",
+      delay: "Delay",
+      maxAttempts: "MaxAttempts",
+      window: "Window",
+    });
   });
-});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbSaveExternalPortUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+export namespace MariadbSaveExternalPortRestartPolicySwarm$ {
+  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+    MariadbSaveExternalPortRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortUpdateConfigSwarm$Outbound;
+    MariadbSaveExternalPortRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortRestartPolicySwarm$Outbound;
 }
 
-export function mariadbSaveExternalPortUpdateConfigSwarmToJSON(
-  mariadbSaveExternalPortUpdateConfigSwarm:
-    MariadbSaveExternalPortUpdateConfigSwarm,
+export function mariadbSaveExternalPortRestartPolicySwarmToJSON(
+  mariadbSaveExternalPortRestartPolicySwarm:
+    MariadbSaveExternalPortRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
-      mariadbSaveExternalPortUpdateConfigSwarm,
+    MariadbSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
+      mariadbSaveExternalPortRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbSaveExternalPortUpdateConfigSwarmFromJSON(
+export function mariadbSaveExternalPortRestartPolicySwarmFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  MariadbSaveExternalPortUpdateConfigSwarm,
+  MariadbSaveExternalPortRestartPolicySwarm,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(
+      MariadbSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'MariadbSaveExternalPortUpdateConfigSwarm' from JSON`,
+    `Failed to parse 'MariadbSaveExternalPortRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1062,31 +2255,31 @@ export function mariadbSaveExternalPortUpdateConfigSwarmFromJSON(
 export const MariadbSaveExternalPortRollbackConfigSwarm$inboundSchema:
   z.ZodType<MariadbSaveExternalPortRollbackConfigSwarm, z.ZodTypeDef, unknown> =
     z.object({
-      Parallelism: z.number(),
       Delay: z.number().optional(),
       FailureAction: z.string().optional(),
-      Monitor: z.number().optional(),
       MaxFailureRatio: z.number().optional(),
+      Monitor: z.number().optional(),
       Order: z.string(),
+      Parallelism: z.number(),
     }).transform((v) => {
       return remap$(v, {
-        "Parallelism": "parallelism",
         "Delay": "delay",
         "FailureAction": "failureAction",
-        "Monitor": "monitor",
         "MaxFailureRatio": "maxFailureRatio",
+        "Monitor": "monitor",
         "Order": "order",
+        "Parallelism": "parallelism",
       });
     });
 
 /** @internal */
 export type MariadbSaveExternalPortRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1096,20 +2289,20 @@ export const MariadbSaveExternalPortRollbackConfigSwarm$outboundSchema:
     z.ZodTypeDef,
     MariadbSaveExternalPortRollbackConfigSwarm
   > = z.object({
-    parallelism: z.number(),
     delay: z.number().optional(),
     failureAction: z.string().optional(),
-    monitor: z.number().optional(),
     maxFailureRatio: z.number().optional(),
+    monitor: z.number().optional(),
     order: z.string(),
+    parallelism: z.number(),
   }).transform((v) => {
     return remap$(v, {
-      parallelism: "Parallelism",
       delay: "Delay",
       failureAction: "FailureAction",
-      monitor: "Monitor",
       maxFailureRatio: "MaxFailureRatio",
+      monitor: "Monitor",
       order: "Order",
+      parallelism: "Parallelism",
     });
   });
 
@@ -1153,771 +2346,6 @@ export function mariadbSaveExternalPortRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'MariadbSaveExternalPortRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortReplicated$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MariadbSaveExternalPortReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortReplicated$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortReplicated$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortReplicated$ {
-  /** @deprecated use `MariadbSaveExternalPortReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortReplicated$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortReplicated$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortReplicated$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortReplicated$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortReplicated$Outbound;
-}
-
-export function mariadbSaveExternalPortReplicatedToJSON(
-  mariadbSaveExternalPortReplicated: MariadbSaveExternalPortReplicated,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortReplicated$outboundSchema.parse(
-      mariadbSaveExternalPortReplicated,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortGlobal$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbSaveExternalPortGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbSaveExternalPortGlobal$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortGlobal$ {
-  /** @deprecated use `MariadbSaveExternalPortGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortGlobal$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortGlobal$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortGlobal$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortGlobal$Outbound;
-}
-
-export function mariadbSaveExternalPortGlobalToJSON(
-  mariadbSaveExternalPortGlobal: MariadbSaveExternalPortGlobal,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortGlobal$outboundSchema.parse(
-      mariadbSaveExternalPortGlobal,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbSaveExternalPortReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortReplicatedJob$ {
-  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortReplicatedJob$Outbound;
-}
-
-export function mariadbSaveExternalPortReplicatedJobToJSON(
-  mariadbSaveExternalPortReplicatedJob: MariadbSaveExternalPortReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortReplicatedJob$outboundSchema.parse(
-      mariadbSaveExternalPortReplicatedJob,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MariadbSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbSaveExternalPortGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortGlobalJob$ {
-  /** @deprecated use `MariadbSaveExternalPortGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortGlobalJob$Outbound;
-}
-
-export function mariadbSaveExternalPortGlobalJobToJSON(
-  mariadbSaveExternalPortGlobalJob: MariadbSaveExternalPortGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortGlobalJob$outboundSchema.parse(
-      mariadbSaveExternalPortGlobalJob,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbSaveExternalPortReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MariadbSaveExternalPortGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() =>
-    MariadbSaveExternalPortReplicatedJob$inboundSchema
-  ).optional(),
-  GlobalJob: z.lazy(() => MariadbSaveExternalPortGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbSaveExternalPortModeSwarm$Outbound = {
-  Replicated?: MariadbSaveExternalPortReplicated$Outbound | undefined;
-  Global?: MariadbSaveExternalPortGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbSaveExternalPortReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbSaveExternalPortGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbSaveExternalPortReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MariadbSaveExternalPortGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() =>
-    MariadbSaveExternalPortReplicatedJob$outboundSchema
-  ).optional(),
-  globalJob: z.lazy(() => MariadbSaveExternalPortGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortModeSwarm$ {
-  /** @deprecated use `MariadbSaveExternalPortModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortModeSwarm$Outbound;
-}
-
-export function mariadbSaveExternalPortModeSwarmToJSON(
-  mariadbSaveExternalPortModeSwarm: MariadbSaveExternalPortModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortModeSwarm$outboundSchema.parse(
-      mariadbSaveExternalPortModeSwarm,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbSaveExternalPortDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortDriverOpts$ {
-  /** @deprecated use `MariadbSaveExternalPortDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortDriverOpts$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortDriverOpts$Outbound;
-}
-
-export function mariadbSaveExternalPortDriverOptsToJSON(
-  mariadbSaveExternalPortDriverOpts: MariadbSaveExternalPortDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortDriverOpts$outboundSchema.parse(
-      mariadbSaveExternalPortDriverOpts,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbSaveExternalPortDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbSaveExternalPortNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbSaveExternalPortDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbSaveExternalPortDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortNetworkSwarm$ {
-  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortNetworkSwarm$Outbound;
-}
-
-export function mariadbSaveExternalPortNetworkSwarmToJSON(
-  mariadbSaveExternalPortNetworkSwarm: MariadbSaveExternalPortNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortNetworkSwarm$outboundSchema.parse(
-      mariadbSaveExternalPortNetworkSwarm,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MariadbSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortProject$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortProject$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortProject$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortProject$ {
-  /** @deprecated use `MariadbSaveExternalPortProject$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortProject$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortProject$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortProject$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortProject$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortProject$Outbound;
-}
-
-export function mariadbSaveExternalPortProjectToJSON(
-  mariadbSaveExternalPortProject: MariadbSaveExternalPortProject,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortProject$outboundSchema.parse(
-      mariadbSaveExternalPortProject,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortEnvironment$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbSaveExternalPortProject$inboundSchema),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbSaveExternalPortProject$Outbound;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortEnvironment$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortEnvironment$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbSaveExternalPortProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortEnvironment$ {
-  /** @deprecated use `MariadbSaveExternalPortEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortEnvironment$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortEnvironment$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortEnvironment$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortEnvironment$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortEnvironment$Outbound;
-}
-
-export function mariadbSaveExternalPortEnvironmentToJSON(
-  mariadbSaveExternalPortEnvironment: MariadbSaveExternalPortEnvironment,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortEnvironment$outboundSchema.parse(
-      mariadbSaveExternalPortEnvironment,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MariadbSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortType
-> = z.nativeEnum(MariadbSaveExternalPortType);
-
-/** @internal */
-export const MariadbSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortType
-> = MariadbSaveExternalPortType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortType$ {
-  /** @deprecated use `MariadbSaveExternalPortType$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortType$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortType$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortServiceType
-> = z.nativeEnum(MariadbSaveExternalPortServiceType);
-
-/** @internal */
-export const MariadbSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortServiceType
-> = MariadbSaveExternalPortServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortServiceType$ {
-  /** @deprecated use `MariadbSaveExternalPortServiceType$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortServiceType$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortServiceType$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMount$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MariadbSaveExternalPortType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbSaveExternalPortServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortMount$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMount$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMount
-> = z.object({
-  mountId: z.string(),
-  type: MariadbSaveExternalPortType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbSaveExternalPortServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMount$ {
-  /** @deprecated use `MariadbSaveExternalPortMount$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortMount$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMount$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortMount$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMount$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMount$Outbound;
-}
-
-export function mariadbSaveExternalPortMountToJSON(
-  mariadbSaveExternalPortMount: MariadbSaveExternalPortMount,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMount$outboundSchema.parse(
-      mariadbSaveExternalPortMount,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortServerStatus
-> = z.nativeEnum(MariadbSaveExternalPortServerStatus);
-
-/** @internal */
-export const MariadbSaveExternalPortServerStatus$outboundSchema:
-  z.ZodNativeEnum<typeof MariadbSaveExternalPortServerStatus> =
-    MariadbSaveExternalPortServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortServerStatus$ {
-  /** @deprecated use `MariadbSaveExternalPortServerStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortServerStatus$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortServerStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2098,24 +2526,40 @@ export function mariadbSaveExternalPortMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MariadbSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbSaveExternalPortServerStatus
+> = z.nativeEnum(MariadbSaveExternalPortServerStatus);
+
+/** @internal */
+export const MariadbSaveExternalPortServerStatus$outboundSchema:
+  z.ZodNativeEnum<typeof MariadbSaveExternalPortServerStatus> =
+    MariadbSaveExternalPortServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbSaveExternalPortServerStatus$ {
+  /** @deprecated use `MariadbSaveExternalPortServerStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbSaveExternalPortServerStatus$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortServerStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbSaveExternalPortServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MariadbSaveExternalPortServer$inboundSchema: z.ZodType<
   MariadbSaveExternalPortServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbSaveExternalPortServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2126,26 +2570,33 @@ export const MariadbSaveExternalPortServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbSaveExternalPortServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MariadbSaveExternalPortServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2154,19 +2605,12 @@ export const MariadbSaveExternalPortServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveExternalPortServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbSaveExternalPortServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2177,6 +2621,13 @@ export const MariadbSaveExternalPortServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbSaveExternalPortServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2213,551 +2664,100 @@ export function mariadbSaveExternalPortServerFromJSON(
 }
 
 /** @internal */
-export const MariadbSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortBackupType
-> = z.nativeEnum(MariadbSaveExternalPortBackupType);
+export const MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbSaveExternalPortUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
 
 /** @internal */
-export const MariadbSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortBackupType
-> = MariadbSaveExternalPortBackupType$inboundSchema;
+export type MariadbSaveExternalPortUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbSaveExternalPortUpdateConfigSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbSaveExternalPortUpdateConfigSwarm
+> = z.object({
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbSaveExternalPortBackupType$ {
-  /** @deprecated use `MariadbSaveExternalPortBackupType$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortBackupType$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortBackupType$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortDatabaseType
-> = z.nativeEnum(MariadbSaveExternalPortDatabaseType);
-
-/** @internal */
-export const MariadbSaveExternalPortDatabaseType$outboundSchema:
-  z.ZodNativeEnum<typeof MariadbSaveExternalPortDatabaseType> =
-    MariadbSaveExternalPortDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortDatabaseType$ {
-  /** @deprecated use `MariadbSaveExternalPortDatabaseType$inboundSchema` instead. */
+export namespace MariadbSaveExternalPortUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
   export const inboundSchema =
-    MariadbSaveExternalPortDatabaseType$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortDatabaseType$outboundSchema` instead. */
+    MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MariadbSaveExternalPortDatabaseType$outboundSchema;
+    MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbSaveExternalPortUpdateConfigSwarm$Outbound;
 }
 
-/** @internal */
-export const MariadbSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbSaveExternalPortMetadataEnum
-> = z.nativeEnum(MariadbSaveExternalPortMetadataEnum);
-
-/** @internal */
-export const MariadbSaveExternalPortMetadataEnum$outboundSchema:
-  z.ZodNativeEnum<typeof MariadbSaveExternalPortMetadataEnum> =
-    MariadbSaveExternalPortMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMetadataEnum$ {
-  /** @deprecated use `MariadbSaveExternalPortMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortMetadataEnum$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MariadbSaveExternalPortPostgres$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortPostgres,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortPostgres$Outbound = {
-  databaseUser: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortPostgres$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortPostgres$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortPostgres
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortPostgres$ {
-  /** @deprecated use `MariadbSaveExternalPortPostgres$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortPostgres$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortPostgres$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortPostgres$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortPostgres$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortPostgres$Outbound;
-}
-
-export function mariadbSaveExternalPortPostgresToJSON(
-  mariadbSaveExternalPortPostgres: MariadbSaveExternalPortPostgres,
+export function mariadbSaveExternalPortUpdateConfigSwarmToJSON(
+  mariadbSaveExternalPortUpdateConfigSwarm:
+    MariadbSaveExternalPortUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbSaveExternalPortPostgres$outboundSchema.parse(
-      mariadbSaveExternalPortPostgres,
+    MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
+      mariadbSaveExternalPortUpdateConfigSwarm,
     ),
   );
 }
 
-export function mariadbSaveExternalPortPostgresFromJSON(
+export function mariadbSaveExternalPortUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMariadb$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortMariadb$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMariadb$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMariadb$ {
-  /** @deprecated use `MariadbSaveExternalPortMariadb$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortMariadb$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMariadb$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortMariadb$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMariadb$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMariadb$Outbound;
-}
-
-export function mariadbSaveExternalPortMariadbToJSON(
-  mariadbSaveExternalPortMariadb: MariadbSaveExternalPortMariadb,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMariadb$outboundSchema.parse(
-      mariadbSaveExternalPortMariadb,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMongo$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortMongo$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMongo$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMongo$ {
-  /** @deprecated use `MariadbSaveExternalPortMongo$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortMongo$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMongo$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortMongo$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMongo$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMongo$Outbound;
-}
-
-export function mariadbSaveExternalPortMongoToJSON(
-  mariadbSaveExternalPortMongo: MariadbSaveExternalPortMongo,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMongo$outboundSchema.parse(
-      mariadbSaveExternalPortMongo,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMysql$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortMysql$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMysql$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMysql$ {
-  /** @deprecated use `MariadbSaveExternalPortMysql$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortMysql$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMysql$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortMysql$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMysql$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMysql$Outbound;
-}
-
-export function mariadbSaveExternalPortMysqlToJSON(
-  mariadbSaveExternalPortMysql: MariadbSaveExternalPortMysql,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMysql$outboundSchema.parse(
-      mariadbSaveExternalPortMysql,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMetadata$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MariadbSaveExternalPortPostgres$inboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MariadbSaveExternalPortMariadb$inboundSchema)
-    .optional(),
-  mongo: z.lazy(() => MariadbSaveExternalPortMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MariadbSaveExternalPortMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortMetadata$Outbound = {
-  postgres?: MariadbSaveExternalPortPostgres$Outbound | undefined;
-  mariadb?: MariadbSaveExternalPortMariadb$Outbound | undefined;
-  mongo?: MariadbSaveExternalPortMongo$Outbound | undefined;
-  mysql?: MariadbSaveExternalPortMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortMetadata$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMetadata$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMetadata
-> = z.object({
-  postgres: z.lazy(() => MariadbSaveExternalPortPostgres$outboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MariadbSaveExternalPortMariadb$outboundSchema)
-    .optional(),
-  mongo: z.lazy(() => MariadbSaveExternalPortMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MariadbSaveExternalPortMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMetadata$ {
-  /** @deprecated use `MariadbSaveExternalPortMetadata$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortMetadata$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMetadata$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortMetadata$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMetadata$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMetadata$Outbound;
-}
-
-export function mariadbSaveExternalPortMetadataToJSON(
-  mariadbSaveExternalPortMetadata: MariadbSaveExternalPortMetadata,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMetadata$outboundSchema.parse(
-      mariadbSaveExternalPortMetadata,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MariadbSaveExternalPortMetadata$inboundSchema),
-  MariadbSaveExternalPortMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MariadbSaveExternalPortMetadataUnion$Outbound =
-  | MariadbSaveExternalPortMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MariadbSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortMetadataUnion
-> = z.union([
-  z.lazy(() => MariadbSaveExternalPortMetadata$outboundSchema),
-  MariadbSaveExternalPortMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortMetadataUnion$ {
-  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbSaveExternalPortMetadataUnion$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbSaveExternalPortMetadataUnion$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortMetadataUnion$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortMetadataUnion$Outbound;
-}
-
-export function mariadbSaveExternalPortMetadataUnionToJSON(
-  mariadbSaveExternalPortMetadataUnion: MariadbSaveExternalPortMetadataUnion,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortMetadataUnion$outboundSchema.parse(
-      mariadbSaveExternalPortMetadataUnion,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortMetadataUnion, SDKValidationError> {
+): SafeParseResult<
+  MariadbSaveExternalPortUpdateConfigSwarm,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      MariadbSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbSaveExternalPortBackup$inboundSchema: z.ZodType<
-  MariadbSaveExternalPortBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbSaveExternalPortBackupType$inboundSchema,
-  databaseType: MariadbSaveExternalPortDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbSaveExternalPortMetadata$inboundSchema),
-      MariadbSaveExternalPortMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MariadbSaveExternalPortBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?:
-    | MariadbSaveExternalPortMetadata$Outbound
-    | string
-    | null
-    | undefined;
-};
-
-/** @internal */
-export const MariadbSaveExternalPortBackup$outboundSchema: z.ZodType<
-  MariadbSaveExternalPortBackup$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveExternalPortBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbSaveExternalPortBackupType$outboundSchema,
-  databaseType: MariadbSaveExternalPortDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbSaveExternalPortMetadata$outboundSchema),
-      MariadbSaveExternalPortMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveExternalPortBackup$ {
-  /** @deprecated use `MariadbSaveExternalPortBackup$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveExternalPortBackup$inboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortBackup$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveExternalPortBackup$outboundSchema;
-  /** @deprecated use `MariadbSaveExternalPortBackup$Outbound` instead. */
-  export type Outbound = MariadbSaveExternalPortBackup$Outbound;
-}
-
-export function mariadbSaveExternalPortBackupToJSON(
-  mariadbSaveExternalPortBackup: MariadbSaveExternalPortBackup,
-): string {
-  return JSON.stringify(
-    MariadbSaveExternalPortBackup$outboundSchema.parse(
-      mariadbSaveExternalPortBackup,
-    ),
-  );
-}
-
-export function mariadbSaveExternalPortBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveExternalPortBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveExternalPortBackup' from JSON`,
+      MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'MariadbSaveExternalPortUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2767,92 +2767,92 @@ export const MariadbSaveExternalPortResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbSaveExternalPortApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MariadbSaveExternalPortBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbSaveExternalPortEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbSaveExternalPortApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MariadbSaveExternalPortMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbSaveExternalPortNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbSaveExternalPortNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbSaveExternalPortEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MariadbSaveExternalPortMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MariadbSaveExternalPortServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MariadbSaveExternalPortBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbSaveExternalPortResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MariadbSaveExternalPortBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
+  environment: MariadbSaveExternalPortEnvironment$Outbound;
+  environmentId: string;
   externalPort: number | null;
-  applicationStatus: string;
   healthCheckSwarm: MariadbSaveExternalPortHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbSaveExternalPortRestartPolicySwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbSaveExternalPortModeSwarm$Outbound | null;
+  mounts: Array<MariadbSaveExternalPortMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MariadbSaveExternalPortNetworkSwarm$Outbound> | null;
   placementSwarm: MariadbSaveExternalPortPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbSaveExternalPortUpdateConfigSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbSaveExternalPortRestartPolicySwarm$Outbound | null;
   rollbackConfigSwarm:
     | MariadbSaveExternalPortRollbackConfigSwarm$Outbound
     | null;
-  modeSwarm: MariadbSaveExternalPortModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbSaveExternalPortNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  environment: MariadbSaveExternalPortEnvironment$Outbound;
-  mounts: Array<MariadbSaveExternalPortMount$Outbound>;
   server: MariadbSaveExternalPortServer$Outbound | null;
-  backups: Array<MariadbSaveExternalPortBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbSaveExternalPortUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2861,55 +2861,55 @@ export const MariadbSaveExternalPortResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveExternalPortResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbSaveExternalPortApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MariadbSaveExternalPortBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbSaveExternalPortEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbSaveExternalPortApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MariadbSaveExternalPortMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbSaveExternalPortNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbSaveExternalPortRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MariadbSaveExternalPortModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbSaveExternalPortNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbSaveExternalPortEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MariadbSaveExternalPortMount$outboundSchema)),
   server: z.nullable(
     z.lazy(() => MariadbSaveExternalPortServer$outboundSchema),
   ),
-  backups: z.array(z.lazy(() => MariadbSaveExternalPortBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

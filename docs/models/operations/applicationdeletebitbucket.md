@@ -6,9 +6,9 @@
 import { ApplicationDeleteBitbucket } from "dokploy-sdk/models/operations";
 
 let value: ApplicationDeleteBitbucket = {
+  appPassword: "<value>",
   bitbucketId: "<id>",
   bitbucketUsername: "<value>",
-  appPassword: "<value>",
   bitbucketWorkspaceName: "<value>",
   gitProviderId: "<id>",
 };
@@ -18,8 +18,8 @@ let value: ApplicationDeleteBitbucket = {
 
 | Field                    | Type                     | Required                 | Description              |
 | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `appPassword`            | *string*                 | :heavy_check_mark:       | N/A                      |
 | `bitbucketId`            | *string*                 | :heavy_check_mark:       | N/A                      |
 | `bitbucketUsername`      | *string*                 | :heavy_check_mark:       | N/A                      |
-| `appPassword`            | *string*                 | :heavy_check_mark:       | N/A                      |
 | `bitbucketWorkspaceName` | *string*                 | :heavy_check_mark:       | N/A                      |
 | `gitProviderId`          | *string*                 | :heavy_check_mark:       | N/A                      |

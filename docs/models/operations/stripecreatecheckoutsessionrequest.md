@@ -6,9 +6,9 @@
 import { StripeCreateCheckoutSessionRequest } from "dokploy-sdk/models/operations";
 
 let value: StripeCreateCheckoutSessionRequest = {
-  productId: "<id>",
-  serverQuantity: 6277.97,
   isAnnual: false,
+  productId: "<id>",
+  serverQuantity: 6888.59,
 };
 ```
 
@@ -16,6 +16,6 @@ let value: StripeCreateCheckoutSessionRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `isAnnual`         | *boolean*          | :heavy_check_mark: | N/A                |
 | `productId`        | *string*           | :heavy_check_mark: | N/A                |
 | `serverQuantity`   | *number*           | :heavy_check_mark: | N/A                |
-| `isAnnual`         | *boolean*          | :heavy_check_mark: | N/A                |

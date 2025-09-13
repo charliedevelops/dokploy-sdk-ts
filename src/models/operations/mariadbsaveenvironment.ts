@@ -14,8 +14,8 @@ export type MariadbSaveEnvironmentSecurity = {
 };
 
 export type MariadbSaveEnvironmentRequest = {
-  mariadbId: string;
   env?: string | null | undefined;
+  mariadbId: string;
 };
 
 export type MariadbSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -90,14 +90,14 @@ export const MariadbSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mariadbId: z.string(),
 });
 
 /** @internal */
 export type MariadbSaveEnvironmentRequest$Outbound = {
-  mariadbId: string;
   env?: string | null | undefined;
+  mariadbId: string;
 };
 
 /** @internal */
@@ -106,8 +106,8 @@ export const MariadbSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveEnvironmentRequest
 > = z.object({
-  mariadbId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mariadbId: z.string(),
 });
 
 /**

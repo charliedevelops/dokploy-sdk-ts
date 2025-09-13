@@ -247,7 +247,7 @@ export function resolveGlobalSecurity(
       {
         fieldName: "x-api-key",
         type: "apiKey:header",
-        value: security?.apiKey ?? env().DOKPLOY_API_KEY,
+        value: security?.apiKeyAuth ?? env().DOKPLOY_API_KEY_AUTH,
       },
     ],
   );

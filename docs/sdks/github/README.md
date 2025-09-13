@@ -5,28 +5,29 @@
 
 ### Available Operations
 
-* [githubOne](#githubone)
-* [githubGetGithubRepositories](#githubgetgithubrepositories)
 * [githubGetGithubBranches](#githubgetgithubbranches)
+* [githubGetGithubRepositories](#githubgetgithubrepositories)
 * [githubGithubProviders](#githubgithubproviders)
+* [githubOne](#githubone)
 * [githubTestConnection](#githubtestconnection)
 * [githubUpdate](#githubupdate)
 
-## githubOne
+## githubGetGithubBranches
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="github-one" method="get" path="/github.one" -->
+<!-- UsageSnippet language="typescript" operationID="github-getGithubBranches" method="get" path="/github.getGithubBranches" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.github.githubOne({
+  const result = await dokploy.github.githubGetGithubBranches({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    githubId: "<id>",
+    repo: "<value>",
+    owner: "<value>",
   });
 
   console.log(result);
@@ -41,23 +42,24 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { githubGithubOne } from "dokploy-sdk/funcs/githubGithubOne.js";
+import { githubGithubGetGithubBranches } from "dokploy-sdk/funcs/githubGithubGetGithubBranches.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await githubGithubOne(dokploy, {
+  const res = await githubGithubGetGithubBranches(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    githubId: "<id>",
+    repo: "<value>",
+    owner: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("githubGithubOne failed:", res.error);
+    console.log("githubGithubGetGithubBranches failed:", res.error);
   }
 }
 
@@ -68,15 +70,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GithubOneRequest](../../models/operations/githubonerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GithubOneSecurity](../../models/operations/githubonesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.GithubGetGithubBranchesRequest](../../models/operations/githubgetgithubbranchesrequest.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.GithubGetGithubBranchesSecurity](../../models/operations/githubgetgithubbranchessecurity.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GithubOneResponse](../../models/operations/githuboneresponse.md)\>**
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
 
 ### Errors
 
@@ -156,80 +158,6 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## githubGetGithubBranches
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="github-getGithubBranches" method="get" path="/github.getGithubBranches" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.github.githubGetGithubBranches({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    repo: "<value>",
-    owner: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { githubGithubGetGithubBranches } from "dokploy-sdk/funcs/githubGithubGetGithubBranches.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await githubGithubGetGithubBranches(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    repo: "<value>",
-    owner: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("githubGithubGetGithubBranches failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GithubGetGithubBranchesRequest](../../models/operations/githubgetgithubbranchesrequest.md)                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GithubGetGithubBranchesSecurity](../../models/operations/githubgetgithubbranchessecurity.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
 ## githubGithubProviders
 
 ### Example Usage
@@ -290,6 +218,78 @@ run();
 ### Response
 
 **Promise\<[operations.GithubGithubProvidersResponse](../../models/operations/githubgithubprovidersresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## githubOne
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="github-one" method="get" path="/github.one" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.github.githubOne({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    githubId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { githubGithubOne } from "dokploy-sdk/funcs/githubGithubOne.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await githubGithubOne(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    githubId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("githubGithubOne failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GithubOneRequest](../../models/operations/githubonerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.GithubOneSecurity](../../models/operations/githubonesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GithubOneResponse](../../models/operations/githuboneresponse.md)\>**
 
 ### Errors
 
@@ -383,8 +383,8 @@ async function run() {
   const result = await dokploy.github.githubUpdate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    githubId: "<id>",
     gitProviderId: "<id>",
+    githubId: "<id>",
     name: "<value>",
   });
 
@@ -410,8 +410,8 @@ async function run() {
   const res = await githubGithubUpdate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    githubId: "<id>",
     gitProviderId: "<id>",
+    githubId: "<id>",
     name: "<value>",
   });
   if (res.ok) {

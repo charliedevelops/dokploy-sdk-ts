@@ -7,13 +7,13 @@ import { dlv } from "./dlv.js";
 import * as z from "zod";
 
 export interface Env {
-  DOKPLOY_API_KEY?: string | undefined;
+  DOKPLOY_API_KEY_AUTH?: string | undefined;
 
   DOKPLOY_DEBUG?: boolean | undefined;
 }
 
 export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
-  DOKPLOY_API_KEY: z.string().optional(),
+  DOKPLOY_API_KEY_AUTH: z.string().optional(),
 
   DOKPLOY_DEBUG: z.coerce.boolean().optional(),
 });

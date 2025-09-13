@@ -7,43 +7,40 @@
 
 ```typescript
 const value: operations.PostgresMoveResponseBody = {
-  postgresId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  databaseName: "<value>",
-  databaseUser: "<value>",
-  databasePassword: "<value>",
-  description:
-    "depart productive um wedge pfft familiar despite frightfully searchingly doorpost",
-  dockerImage: "<value>",
+  applicationStatus: "running",
   command: "<value>",
-  env: "<value>",
-  memoryReservation: null,
-  externalPort: 6214.87,
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
   cpuLimit: "<value>",
-  applicationStatus: "error",
-  healthCheckSwarm: null,
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 3667.35,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 5646.93,
-    order: "<value>",
-  },
-  modeSwarm: {},
-  labelsSwarm: {},
-  networkSwarm: [
-    {},
-  ],
-  replicas: 7263.91,
-  createdAt: "1715559383415",
+  cpuReservation: null,
+  createdAt: "1711502713532",
+  databaseName: "<value>",
+  databasePassword: "<value>",
+  databaseUser: "<value>",
+  description: "livid shakily soup",
+  dockerImage: "<value>",
+  env: "<value>",
   environmentId: "<id>",
+  externalPort: 9835.24,
+  healthCheckSwarm: {},
+  labelsSwarm: {},
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  name: "<value>",
+  networkSwarm: [],
+  placementSwarm: {},
+  postgresId: "<id>",
+  replicas: 3867.18,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 2552.61,
+  },
   serverId: "<id>",
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 3706.58,
+  },
 };
 ```
 
@@ -51,8 +48,8 @@ const value: operations.PostgresMoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

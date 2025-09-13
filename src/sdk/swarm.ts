@@ -11,12 +11,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Swarm extends ClientSDK {
-  async swarmGetNodes(
-    security: operations.SwarmGetNodesSecurity,
-    request?: operations.SwarmGetNodesRequest | undefined,
+  async swarmGetNodeApps(
+    security: operations.SwarmGetNodeAppsSecurity,
+    request?: operations.SwarmGetNodeAppsRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(swarmSwarmGetNodes(
+    return unwrapAsync(swarmSwarmGetNodeApps(
       this,
       security,
       request,
@@ -37,12 +37,12 @@ export class Swarm extends ClientSDK {
     ));
   }
 
-  async swarmGetNodeApps(
-    security: operations.SwarmGetNodeAppsSecurity,
-    request?: operations.SwarmGetNodeAppsRequest | undefined,
+  async swarmGetNodes(
+    security: operations.SwarmGetNodesSecurity,
+    request?: operations.SwarmGetNodesRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(swarmSwarmGetNodeApps(
+    return unwrapAsync(swarmSwarmGetNodes(
       this,
       security,
       request,

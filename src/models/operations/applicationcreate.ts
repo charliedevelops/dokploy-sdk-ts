@@ -15,122 +15,11 @@ export type ApplicationCreateSecurity = {
 };
 
 export type ApplicationCreateRequest = {
-  name: string;
   appName?: string | undefined;
   description?: string | null | undefined;
   environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
-};
-
-export const ApplicationCreatePreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationCreatePreviewCertificateType = ClosedEnum<
-  typeof ApplicationCreatePreviewCertificateType
->;
-
-export const ApplicationCreateSourceType = {
-  Github: "github",
-  Docker: "docker",
-  Git: "git",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
-} as const;
-export type ApplicationCreateSourceType = ClosedEnum<
-  typeof ApplicationCreateSourceType
->;
-
-export const ApplicationCreateTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type ApplicationCreateTriggerType = ClosedEnum<
-  typeof ApplicationCreateTriggerType
->;
-
-export type ApplicationCreateHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type ApplicationCreateRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type ApplicationCreateSpread = {
-  spreadDescriptor: string;
-};
-
-export type ApplicationCreatePreference = {
-  spread: ApplicationCreateSpread;
-};
-
-export type ApplicationCreatePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type ApplicationCreatePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<ApplicationCreatePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<ApplicationCreatePlatform> | undefined;
-};
-
-export type ApplicationCreateUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationCreateRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationCreateReplicated = {
-  replicas?: number | undefined;
-};
-
-export type ApplicationCreateGlobal = {};
-
-export type ApplicationCreateReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type ApplicationCreateGlobalJob = {};
-
-export type ApplicationCreateModeSwarm = {
-  replicated?: ApplicationCreateReplicated | undefined;
-  global?: ApplicationCreateGlobal | undefined;
-  replicatedJob?: ApplicationCreateReplicatedJob | undefined;
-  globalJob?: ApplicationCreateGlobalJob | undefined;
-};
-
-export type ApplicationCreateDriverOpts = {};
-
-export type ApplicationCreateNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: ApplicationCreateDriverOpts | undefined;
 };
 
 export const ApplicationCreateApplicationStatus = {
@@ -155,97 +44,208 @@ export type ApplicationCreateBuildType = ClosedEnum<
   typeof ApplicationCreateBuildType
 >;
 
+export type ApplicationCreateHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type ApplicationCreateGlobal = {};
+
+export type ApplicationCreateGlobalJob = {};
+
+export type ApplicationCreateReplicated = {
+  replicas?: number | undefined;
+};
+
+export type ApplicationCreateReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type ApplicationCreateModeSwarm = {
+  global?: ApplicationCreateGlobal | undefined;
+  globalJob?: ApplicationCreateGlobalJob | undefined;
+  replicated?: ApplicationCreateReplicated | undefined;
+  replicatedJob?: ApplicationCreateReplicatedJob | undefined;
+};
+
+export type ApplicationCreateDriverOpts = {};
+
+export type ApplicationCreateNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: ApplicationCreateDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type ApplicationCreatePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type ApplicationCreateSpread = {
+  spreadDescriptor: string;
+};
+
+export type ApplicationCreatePreference = {
+  spread: ApplicationCreateSpread;
+};
+
+export type ApplicationCreatePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<ApplicationCreatePlatform> | undefined;
+  preferences?: Array<ApplicationCreatePreference> | undefined;
+};
+
+export const ApplicationCreatePreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
+} as const;
+export type ApplicationCreatePreviewCertificateType = ClosedEnum<
+  typeof ApplicationCreatePreviewCertificateType
+>;
+
+export type ApplicationCreateRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type ApplicationCreateRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const ApplicationCreateSourceType = {
+  Github: "github",
+  Docker: "docker",
+  Git: "git",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
+} as const;
+export type ApplicationCreateSourceType = ClosedEnum<
+  typeof ApplicationCreateSourceType
+>;
+
+export const ApplicationCreateTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type ApplicationCreateTriggerType = ClosedEnum<
+  typeof ApplicationCreateTriggerType
+>;
+
+export type ApplicationCreateUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
 /**
  * Successful response
  */
 export type ApplicationCreateResponseBody = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: ApplicationCreatePreviewCertificateType | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ApplicationCreateSourceType | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: ApplicationCreateTriggerType | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: ApplicationCreateApplicationStatus | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: ApplicationCreateBuildType | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
   dropBuildPath?: string | null | undefined;
-  healthCheckSwarm?: ApplicationCreateHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: ApplicationCreateRestartPolicySwarm | null | undefined;
-  placementSwarm?: ApplicationCreatePlacementSwarm | null | undefined;
-  updateConfigSwarm?: ApplicationCreateUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: ApplicationCreateRollbackConfigSwarm | null | undefined;
-  modeSwarm?: ApplicationCreateModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationCreateNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: ApplicationCreateApplicationStatus | undefined;
-  buildType?: ApplicationCreateBuildType | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
   environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
   giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
+  healthCheckSwarm?: ApplicationCreateHealthCheckSwarm | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationCreateModeSwarm | null | undefined;
+  name: string;
+  networkSwarm?: Array<ApplicationCreateNetworkSwarm> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationCreatePlacementSwarm | null | undefined;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: ApplicationCreatePreviewCertificateType | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  refreshToken?: string | null | undefined;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?: ApplicationCreateRestartPolicySwarm | null | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?: ApplicationCreateRollbackConfigSwarm | null | undefined;
   serverId?: string | null | undefined;
+  sourceType?: ApplicationCreateSourceType | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: ApplicationCreateTriggerType | null | undefined;
+  updateConfigSwarm?: ApplicationCreateUpdateConfigSwarm | null | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationCreateResponse =
@@ -320,19 +320,19 @@ export const ApplicationCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationCreateRequest$Outbound = {
-  name: string;
   appName?: string | undefined;
   description?: string | null | undefined;
   environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -342,10 +342,10 @@ export const ApplicationCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
@@ -381,68 +381,46 @@ export function applicationCreateRequestFromJSON(
 }
 
 /** @internal */
-export const ApplicationCreatePreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof ApplicationCreatePreviewCertificateType> = z
-    .nativeEnum(ApplicationCreatePreviewCertificateType);
+export const ApplicationCreateApplicationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateApplicationStatus
+> = z.nativeEnum(ApplicationCreateApplicationStatus);
 
 /** @internal */
-export const ApplicationCreatePreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof ApplicationCreatePreviewCertificateType> =
-    ApplicationCreatePreviewCertificateType$inboundSchema;
+export const ApplicationCreateApplicationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateApplicationStatus
+> = ApplicationCreateApplicationStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationCreatePreviewCertificateType$ {
-  /** @deprecated use `ApplicationCreatePreviewCertificateType$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationCreatePreviewCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationCreatePreviewCertificateType$outboundSchema` instead. */
+export namespace ApplicationCreateApplicationStatus$ {
+  /** @deprecated use `ApplicationCreateApplicationStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateApplicationStatus$inboundSchema;
+  /** @deprecated use `ApplicationCreateApplicationStatus$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationCreatePreviewCertificateType$outboundSchema;
+    ApplicationCreateApplicationStatus$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationCreateSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateSourceType
-> = z.nativeEnum(ApplicationCreateSourceType);
+export const ApplicationCreateBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateBuildType
+> = z.nativeEnum(ApplicationCreateBuildType);
 
 /** @internal */
-export const ApplicationCreateSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateSourceType
-> = ApplicationCreateSourceType$inboundSchema;
+export const ApplicationCreateBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateBuildType
+> = ApplicationCreateBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationCreateSourceType$ {
-  /** @deprecated use `ApplicationCreateSourceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateSourceType$inboundSchema;
-  /** @deprecated use `ApplicationCreateSourceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateSourceType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationCreateTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateTriggerType
-> = z.nativeEnum(ApplicationCreateTriggerType);
-
-/** @internal */
-export const ApplicationCreateTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateTriggerType
-> = ApplicationCreateTriggerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateTriggerType$ {
-  /** @deprecated use `ApplicationCreateTriggerType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateTriggerType$inboundSchema;
-  /** @deprecated use `ApplicationCreateTriggerType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateTriggerType$outboundSchema;
+export namespace ApplicationCreateBuildType$ {
+  /** @deprecated use `ApplicationCreateBuildType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateBuildType$inboundSchema;
+  /** @deprecated use `ApplicationCreateBuildType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateBuildType$outboundSchema;
 }
 
 /** @internal */
@@ -451,28 +429,28 @@ export const ApplicationCreateHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type ApplicationCreateHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -481,18 +459,18 @@ export const ApplicationCreateHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationCreateHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -531,48 +509,129 @@ export function applicationCreateHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationCreateRestartPolicySwarm$inboundSchema: z.ZodType<
-  ApplicationCreateRestartPolicySwarm,
+export const ApplicationCreateGlobal$inboundSchema: z.ZodType<
+  ApplicationCreateGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationCreateGlobal$Outbound = {};
+
+/** @internal */
+export const ApplicationCreateGlobal$outboundSchema: z.ZodType<
+  ApplicationCreateGlobal$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateGlobal$ {
+  /** @deprecated use `ApplicationCreateGlobal$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateGlobal$inboundSchema;
+  /** @deprecated use `ApplicationCreateGlobal$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateGlobal$outboundSchema;
+  /** @deprecated use `ApplicationCreateGlobal$Outbound` instead. */
+  export type Outbound = ApplicationCreateGlobal$Outbound;
+}
+
+export function applicationCreateGlobalToJSON(
+  applicationCreateGlobal: ApplicationCreateGlobal,
+): string {
+  return JSON.stringify(
+    ApplicationCreateGlobal$outboundSchema.parse(applicationCreateGlobal),
+  );
+}
+
+export function applicationCreateGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateGlobalJob$inboundSchema: z.ZodType<
+  ApplicationCreateGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationCreateGlobalJob$Outbound = {};
+
+/** @internal */
+export const ApplicationCreateGlobalJob$outboundSchema: z.ZodType<
+  ApplicationCreateGlobalJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateGlobalJob$ {
+  /** @deprecated use `ApplicationCreateGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateGlobalJob$inboundSchema;
+  /** @deprecated use `ApplicationCreateGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateGlobalJob$outboundSchema;
+  /** @deprecated use `ApplicationCreateGlobalJob$Outbound` instead. */
+  export type Outbound = ApplicationCreateGlobalJob$Outbound;
+}
+
+export function applicationCreateGlobalJobToJSON(
+  applicationCreateGlobalJob: ApplicationCreateGlobalJob,
+): string {
+  return JSON.stringify(
+    ApplicationCreateGlobalJob$outboundSchema.parse(applicationCreateGlobalJob),
+  );
+}
+
+export function applicationCreateGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateReplicated$inboundSchema: z.ZodType<
+  ApplicationCreateReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type ApplicationCreateRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type ApplicationCreateReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationCreateRestartPolicySwarm$outboundSchema: z.ZodType<
-  ApplicationCreateRestartPolicySwarm$Outbound,
+export const ApplicationCreateReplicated$outboundSchema: z.ZodType<
+  ApplicationCreateReplicated$Outbound,
   z.ZodTypeDef,
-  ApplicationCreateRestartPolicySwarm
+  ApplicationCreateReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -580,35 +639,375 @@ export const ApplicationCreateRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationCreateRestartPolicySwarm$ {
-  /** @deprecated use `ApplicationCreateRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationCreateRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `ApplicationCreateRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationCreateRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `ApplicationCreateRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = ApplicationCreateRestartPolicySwarm$Outbound;
+export namespace ApplicationCreateReplicated$ {
+  /** @deprecated use `ApplicationCreateReplicated$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateReplicated$inboundSchema;
+  /** @deprecated use `ApplicationCreateReplicated$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateReplicated$outboundSchema;
+  /** @deprecated use `ApplicationCreateReplicated$Outbound` instead. */
+  export type Outbound = ApplicationCreateReplicated$Outbound;
 }
 
-export function applicationCreateRestartPolicySwarmToJSON(
-  applicationCreateRestartPolicySwarm: ApplicationCreateRestartPolicySwarm,
+export function applicationCreateReplicatedToJSON(
+  applicationCreateReplicated: ApplicationCreateReplicated,
 ): string {
   return JSON.stringify(
-    ApplicationCreateRestartPolicySwarm$outboundSchema.parse(
-      applicationCreateRestartPolicySwarm,
+    ApplicationCreateReplicated$outboundSchema.parse(
+      applicationCreateReplicated,
     ),
   );
 }
 
-export function applicationCreateRestartPolicySwarmFromJSON(
+export function applicationCreateReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationCreateRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<ApplicationCreateReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      ApplicationCreateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateRestartPolicySwarm' from JSON`,
+    (x) => ApplicationCreateReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateReplicatedJob$inboundSchema: z.ZodType<
+  ApplicationCreateReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type ApplicationCreateReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const ApplicationCreateReplicatedJob$outboundSchema: z.ZodType<
+  ApplicationCreateReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateReplicatedJob$ {
+  /** @deprecated use `ApplicationCreateReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateReplicatedJob$inboundSchema;
+  /** @deprecated use `ApplicationCreateReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateReplicatedJob$outboundSchema;
+  /** @deprecated use `ApplicationCreateReplicatedJob$Outbound` instead. */
+  export type Outbound = ApplicationCreateReplicatedJob$Outbound;
+}
+
+export function applicationCreateReplicatedJobToJSON(
+  applicationCreateReplicatedJob: ApplicationCreateReplicatedJob,
+): string {
+  return JSON.stringify(
+    ApplicationCreateReplicatedJob$outboundSchema.parse(
+      applicationCreateReplicatedJob,
+    ),
+  );
+}
+
+export function applicationCreateReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateModeSwarm$inboundSchema: z.ZodType<
+  ApplicationCreateModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => ApplicationCreateGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => ApplicationCreateGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => ApplicationCreateReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => ApplicationCreateReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type ApplicationCreateModeSwarm$Outbound = {
+  Global?: ApplicationCreateGlobal$Outbound | undefined;
+  GlobalJob?: ApplicationCreateGlobalJob$Outbound | undefined;
+  Replicated?: ApplicationCreateReplicated$Outbound | undefined;
+  ReplicatedJob?: ApplicationCreateReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const ApplicationCreateModeSwarm$outboundSchema: z.ZodType<
+  ApplicationCreateModeSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateModeSwarm
+> = z.object({
+  global: z.lazy(() => ApplicationCreateGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => ApplicationCreateGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => ApplicationCreateReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => ApplicationCreateReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateModeSwarm$ {
+  /** @deprecated use `ApplicationCreateModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateModeSwarm$inboundSchema;
+  /** @deprecated use `ApplicationCreateModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateModeSwarm$outboundSchema;
+  /** @deprecated use `ApplicationCreateModeSwarm$Outbound` instead. */
+  export type Outbound = ApplicationCreateModeSwarm$Outbound;
+}
+
+export function applicationCreateModeSwarmToJSON(
+  applicationCreateModeSwarm: ApplicationCreateModeSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationCreateModeSwarm$outboundSchema.parse(applicationCreateModeSwarm),
+  );
+}
+
+export function applicationCreateModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateDriverOpts$inboundSchema: z.ZodType<
+  ApplicationCreateDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationCreateDriverOpts$Outbound = {};
+
+/** @internal */
+export const ApplicationCreateDriverOpts$outboundSchema: z.ZodType<
+  ApplicationCreateDriverOpts$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateDriverOpts$ {
+  /** @deprecated use `ApplicationCreateDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateDriverOpts$inboundSchema;
+  /** @deprecated use `ApplicationCreateDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateDriverOpts$outboundSchema;
+  /** @deprecated use `ApplicationCreateDriverOpts$Outbound` instead. */
+  export type Outbound = ApplicationCreateDriverOpts$Outbound;
+}
+
+export function applicationCreateDriverOptsToJSON(
+  applicationCreateDriverOpts: ApplicationCreateDriverOpts,
+): string {
+  return JSON.stringify(
+    ApplicationCreateDriverOpts$outboundSchema.parse(
+      applicationCreateDriverOpts,
+    ),
+  );
+}
+
+export function applicationCreateDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreateNetworkSwarm$inboundSchema: z.ZodType<
+  ApplicationCreateNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => ApplicationCreateDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type ApplicationCreateNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: ApplicationCreateDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const ApplicationCreateNetworkSwarm$outboundSchema: z.ZodType<
+  ApplicationCreateNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreateNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => ApplicationCreateDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateNetworkSwarm$ {
+  /** @deprecated use `ApplicationCreateNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateNetworkSwarm$inboundSchema;
+  /** @deprecated use `ApplicationCreateNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateNetworkSwarm$outboundSchema;
+  /** @deprecated use `ApplicationCreateNetworkSwarm$Outbound` instead. */
+  export type Outbound = ApplicationCreateNetworkSwarm$Outbound;
+}
+
+export function applicationCreateNetworkSwarmToJSON(
+  applicationCreateNetworkSwarm: ApplicationCreateNetworkSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationCreateNetworkSwarm$outboundSchema.parse(
+      applicationCreateNetworkSwarm,
+    ),
+  );
+}
+
+export function applicationCreateNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationCreatePlatform$inboundSchema: z.ZodType<
+  ApplicationCreatePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type ApplicationCreatePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const ApplicationCreatePlatform$outboundSchema: z.ZodType<
+  ApplicationCreatePlatform$Outbound,
+  z.ZodTypeDef,
+  ApplicationCreatePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreatePlatform$ {
+  /** @deprecated use `ApplicationCreatePlatform$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreatePlatform$inboundSchema;
+  /** @deprecated use `ApplicationCreatePlatform$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreatePlatform$outboundSchema;
+  /** @deprecated use `ApplicationCreatePlatform$Outbound` instead. */
+  export type Outbound = ApplicationCreatePlatform$Outbound;
+}
+
+export function applicationCreatePlatformToJSON(
+  applicationCreatePlatform: ApplicationCreatePlatform,
+): string {
+  return JSON.stringify(
+    ApplicationCreatePlatform$outboundSchema.parse(applicationCreatePlatform),
+  );
+}
+
+export function applicationCreatePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreatePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationCreatePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreatePlatform' from JSON`,
   );
 }
 
@@ -739,99 +1138,32 @@ export function applicationCreatePreferenceFromJSON(
 }
 
 /** @internal */
-export const ApplicationCreatePlatform$inboundSchema: z.ZodType<
-  ApplicationCreatePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type ApplicationCreatePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const ApplicationCreatePlatform$outboundSchema: z.ZodType<
-  ApplicationCreatePlatform$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreatePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreatePlatform$ {
-  /** @deprecated use `ApplicationCreatePlatform$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreatePlatform$inboundSchema;
-  /** @deprecated use `ApplicationCreatePlatform$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreatePlatform$outboundSchema;
-  /** @deprecated use `ApplicationCreatePlatform$Outbound` instead. */
-  export type Outbound = ApplicationCreatePlatform$Outbound;
-}
-
-export function applicationCreatePlatformToJSON(
-  applicationCreatePlatform: ApplicationCreatePlatform,
-): string {
-  return JSON.stringify(
-    ApplicationCreatePlatform$outboundSchema.parse(applicationCreatePlatform),
-  );
-}
-
-export function applicationCreatePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreatePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreatePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreatePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationCreatePlacementSwarm$inboundSchema: z.ZodType<
   ApplicationCreatePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => ApplicationCreatePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => ApplicationCreatePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => ApplicationCreatePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type ApplicationCreatePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<ApplicationCreatePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<ApplicationCreatePlatform$Outbound> | undefined;
+  Preferences?: Array<ApplicationCreatePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -841,17 +1173,17 @@ export const ApplicationCreatePlacementSwarm$outboundSchema: z.ZodType<
   ApplicationCreatePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => ApplicationCreatePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => ApplicationCreatePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => ApplicationCreatePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -889,58 +1221,71 @@ export function applicationCreatePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationCreateUpdateConfigSwarm$inboundSchema: z.ZodType<
-  ApplicationCreateUpdateConfigSwarm,
+export const ApplicationCreatePreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof ApplicationCreatePreviewCertificateType> = z
+    .nativeEnum(ApplicationCreatePreviewCertificateType);
+
+/** @internal */
+export const ApplicationCreatePreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof ApplicationCreatePreviewCertificateType> =
+    ApplicationCreatePreviewCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreatePreviewCertificateType$ {
+  /** @deprecated use `ApplicationCreatePreviewCertificateType$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationCreatePreviewCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationCreatePreviewCertificateType$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationCreatePreviewCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationCreateRestartPolicySwarm$inboundSchema: z.ZodType<
+  ApplicationCreateRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type ApplicationCreateUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type ApplicationCreateRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
-  ApplicationCreateUpdateConfigSwarm$Outbound,
+export const ApplicationCreateRestartPolicySwarm$outboundSchema: z.ZodType<
+  ApplicationCreateRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationCreateUpdateConfigSwarm
+  ApplicationCreateRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -948,34 +1293,35 @@ export const ApplicationCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationCreateUpdateConfigSwarm$ {
-  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$outboundSchema` instead. */
+export namespace ApplicationCreateRestartPolicySwarm$ {
+  /** @deprecated use `ApplicationCreateRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationCreateRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `ApplicationCreateRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationCreateUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = ApplicationCreateUpdateConfigSwarm$Outbound;
+    ApplicationCreateRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `ApplicationCreateRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = ApplicationCreateRestartPolicySwarm$Outbound;
 }
 
-export function applicationCreateUpdateConfigSwarmToJSON(
-  applicationCreateUpdateConfigSwarm: ApplicationCreateUpdateConfigSwarm,
+export function applicationCreateRestartPolicySwarmToJSON(
+  applicationCreateRestartPolicySwarm: ApplicationCreateRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    ApplicationCreateUpdateConfigSwarm$outboundSchema.parse(
-      applicationCreateUpdateConfigSwarm,
+    ApplicationCreateRestartPolicySwarm$outboundSchema.parse(
+      applicationCreateRestartPolicySwarm,
     ),
   );
 }
 
-export function applicationCreateUpdateConfigSwarmFromJSON(
+export function applicationCreateRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationCreateUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<ApplicationCreateRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      ApplicationCreateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateUpdateConfigSwarm' from JSON`,
+      ApplicationCreateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -985,31 +1331,31 @@ export const ApplicationCreateRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type ApplicationCreateRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1018,20 +1364,20 @@ export const ApplicationCreateRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationCreateRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1072,33 +1418,100 @@ export function applicationCreateRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationCreateReplicated$inboundSchema: z.ZodType<
-  ApplicationCreateReplicated,
+export const ApplicationCreateSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateSourceType
+> = z.nativeEnum(ApplicationCreateSourceType);
+
+/** @internal */
+export const ApplicationCreateSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateSourceType
+> = ApplicationCreateSourceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateSourceType$ {
+  /** @deprecated use `ApplicationCreateSourceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateSourceType$inboundSchema;
+  /** @deprecated use `ApplicationCreateSourceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateSourceType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationCreateTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateTriggerType
+> = z.nativeEnum(ApplicationCreateTriggerType);
+
+/** @internal */
+export const ApplicationCreateTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationCreateTriggerType
+> = ApplicationCreateTriggerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationCreateTriggerType$ {
+  /** @deprecated use `ApplicationCreateTriggerType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateTriggerType$inboundSchema;
+  /** @deprecated use `ApplicationCreateTriggerType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationCreateTriggerType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationCreateUpdateConfigSwarm$inboundSchema: z.ZodType<
+  ApplicationCreateUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type ApplicationCreateReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type ApplicationCreateUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const ApplicationCreateReplicated$outboundSchema: z.ZodType<
-  ApplicationCreateReplicated$Outbound,
+export const ApplicationCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
+  ApplicationCreateUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationCreateReplicated
+  ApplicationCreateUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1106,448 +1519,35 @@ export const ApplicationCreateReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationCreateReplicated$ {
-  /** @deprecated use `ApplicationCreateReplicated$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateReplicated$inboundSchema;
-  /** @deprecated use `ApplicationCreateReplicated$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateReplicated$outboundSchema;
-  /** @deprecated use `ApplicationCreateReplicated$Outbound` instead. */
-  export type Outbound = ApplicationCreateReplicated$Outbound;
-}
-
-export function applicationCreateReplicatedToJSON(
-  applicationCreateReplicated: ApplicationCreateReplicated,
-): string {
-  return JSON.stringify(
-    ApplicationCreateReplicated$outboundSchema.parse(
-      applicationCreateReplicated,
-    ),
-  );
-}
-
-export function applicationCreateReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateGlobal$inboundSchema: z.ZodType<
-  ApplicationCreateGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationCreateGlobal$Outbound = {};
-
-/** @internal */
-export const ApplicationCreateGlobal$outboundSchema: z.ZodType<
-  ApplicationCreateGlobal$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateGlobal$ {
-  /** @deprecated use `ApplicationCreateGlobal$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateGlobal$inboundSchema;
-  /** @deprecated use `ApplicationCreateGlobal$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateGlobal$outboundSchema;
-  /** @deprecated use `ApplicationCreateGlobal$Outbound` instead. */
-  export type Outbound = ApplicationCreateGlobal$Outbound;
-}
-
-export function applicationCreateGlobalToJSON(
-  applicationCreateGlobal: ApplicationCreateGlobal,
-): string {
-  return JSON.stringify(
-    ApplicationCreateGlobal$outboundSchema.parse(applicationCreateGlobal),
-  );
-}
-
-export function applicationCreateGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateReplicatedJob$inboundSchema: z.ZodType<
-  ApplicationCreateReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type ApplicationCreateReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationCreateReplicatedJob$outboundSchema: z.ZodType<
-  ApplicationCreateReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateReplicatedJob$ {
-  /** @deprecated use `ApplicationCreateReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateReplicatedJob$inboundSchema;
-  /** @deprecated use `ApplicationCreateReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateReplicatedJob$outboundSchema;
-  /** @deprecated use `ApplicationCreateReplicatedJob$Outbound` instead. */
-  export type Outbound = ApplicationCreateReplicatedJob$Outbound;
-}
-
-export function applicationCreateReplicatedJobToJSON(
-  applicationCreateReplicatedJob: ApplicationCreateReplicatedJob,
-): string {
-  return JSON.stringify(
-    ApplicationCreateReplicatedJob$outboundSchema.parse(
-      applicationCreateReplicatedJob,
-    ),
-  );
-}
-
-export function applicationCreateReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateGlobalJob$inboundSchema: z.ZodType<
-  ApplicationCreateGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationCreateGlobalJob$Outbound = {};
-
-/** @internal */
-export const ApplicationCreateGlobalJob$outboundSchema: z.ZodType<
-  ApplicationCreateGlobalJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateGlobalJob$ {
-  /** @deprecated use `ApplicationCreateGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateGlobalJob$inboundSchema;
-  /** @deprecated use `ApplicationCreateGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateGlobalJob$outboundSchema;
-  /** @deprecated use `ApplicationCreateGlobalJob$Outbound` instead. */
-  export type Outbound = ApplicationCreateGlobalJob$Outbound;
-}
-
-export function applicationCreateGlobalJobToJSON(
-  applicationCreateGlobalJob: ApplicationCreateGlobalJob,
-): string {
-  return JSON.stringify(
-    ApplicationCreateGlobalJob$outboundSchema.parse(applicationCreateGlobalJob),
-  );
-}
-
-export function applicationCreateGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateModeSwarm$inboundSchema: z.ZodType<
-  ApplicationCreateModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => ApplicationCreateReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => ApplicationCreateGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => ApplicationCreateReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => ApplicationCreateGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type ApplicationCreateModeSwarm$Outbound = {
-  Replicated?: ApplicationCreateReplicated$Outbound | undefined;
-  Global?: ApplicationCreateGlobal$Outbound | undefined;
-  ReplicatedJob?: ApplicationCreateReplicatedJob$Outbound | undefined;
-  GlobalJob?: ApplicationCreateGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationCreateModeSwarm$outboundSchema: z.ZodType<
-  ApplicationCreateModeSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateModeSwarm
-> = z.object({
-  replicated: z.lazy(() => ApplicationCreateReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => ApplicationCreateGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => ApplicationCreateReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => ApplicationCreateGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateModeSwarm$ {
-  /** @deprecated use `ApplicationCreateModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateModeSwarm$inboundSchema;
-  /** @deprecated use `ApplicationCreateModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateModeSwarm$outboundSchema;
-  /** @deprecated use `ApplicationCreateModeSwarm$Outbound` instead. */
-  export type Outbound = ApplicationCreateModeSwarm$Outbound;
-}
-
-export function applicationCreateModeSwarmToJSON(
-  applicationCreateModeSwarm: ApplicationCreateModeSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationCreateModeSwarm$outboundSchema.parse(applicationCreateModeSwarm),
-  );
-}
-
-export function applicationCreateModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateDriverOpts$inboundSchema: z.ZodType<
-  ApplicationCreateDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationCreateDriverOpts$Outbound = {};
-
-/** @internal */
-export const ApplicationCreateDriverOpts$outboundSchema: z.ZodType<
-  ApplicationCreateDriverOpts$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateDriverOpts$ {
-  /** @deprecated use `ApplicationCreateDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateDriverOpts$inboundSchema;
-  /** @deprecated use `ApplicationCreateDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateDriverOpts$outboundSchema;
-  /** @deprecated use `ApplicationCreateDriverOpts$Outbound` instead. */
-  export type Outbound = ApplicationCreateDriverOpts$Outbound;
-}
-
-export function applicationCreateDriverOptsToJSON(
-  applicationCreateDriverOpts: ApplicationCreateDriverOpts,
-): string {
-  return JSON.stringify(
-    ApplicationCreateDriverOpts$outboundSchema.parse(
-      applicationCreateDriverOpts,
-    ),
-  );
-}
-
-export function applicationCreateDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateNetworkSwarm$inboundSchema: z.ZodType<
-  ApplicationCreateNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => ApplicationCreateDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type ApplicationCreateNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: ApplicationCreateDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationCreateNetworkSwarm$outboundSchema: z.ZodType<
-  ApplicationCreateNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationCreateNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => ApplicationCreateDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateNetworkSwarm$ {
-  /** @deprecated use `ApplicationCreateNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateNetworkSwarm$inboundSchema;
-  /** @deprecated use `ApplicationCreateNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateNetworkSwarm$outboundSchema;
-  /** @deprecated use `ApplicationCreateNetworkSwarm$Outbound` instead. */
-  export type Outbound = ApplicationCreateNetworkSwarm$Outbound;
-}
-
-export function applicationCreateNetworkSwarmToJSON(
-  applicationCreateNetworkSwarm: ApplicationCreateNetworkSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationCreateNetworkSwarm$outboundSchema.parse(
-      applicationCreateNetworkSwarm,
-    ),
-  );
-}
-
-export function applicationCreateNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCreateNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCreateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCreateNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationCreateApplicationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateApplicationStatus
-> = z.nativeEnum(ApplicationCreateApplicationStatus);
-
-/** @internal */
-export const ApplicationCreateApplicationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateApplicationStatus
-> = ApplicationCreateApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateApplicationStatus$ {
-  /** @deprecated use `ApplicationCreateApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateApplicationStatus$inboundSchema;
-  /** @deprecated use `ApplicationCreateApplicationStatus$outboundSchema` instead. */
+export namespace ApplicationCreateUpdateConfigSwarm$ {
+  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationCreateUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationCreateApplicationStatus$outboundSchema;
+    ApplicationCreateUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `ApplicationCreateUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = ApplicationCreateUpdateConfigSwarm$Outbound;
 }
 
-/** @internal */
-export const ApplicationCreateBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateBuildType
-> = z.nativeEnum(ApplicationCreateBuildType);
+export function applicationCreateUpdateConfigSwarmToJSON(
+  applicationCreateUpdateConfigSwarm: ApplicationCreateUpdateConfigSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationCreateUpdateConfigSwarm$outboundSchema.parse(
+      applicationCreateUpdateConfigSwarm,
+    ),
+  );
+}
 
-/** @internal */
-export const ApplicationCreateBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationCreateBuildType
-> = ApplicationCreateBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCreateBuildType$ {
-  /** @deprecated use `ApplicationCreateBuildType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCreateBuildType$inboundSchema;
-  /** @deprecated use `ApplicationCreateBuildType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCreateBuildType$outboundSchema;
+export function applicationCreateUpdateConfigSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationCreateUpdateConfigSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ApplicationCreateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationCreateUpdateConfigSwarm' from JSON`,
+  );
 }
 
 /** @internal */
@@ -1556,215 +1556,215 @@ export const ApplicationCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationCreatePreviewCertificateType$inboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationCreateSourceType$inboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationCreateTriggerType$inboundSchema)
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationCreateApplicationStatus$inboundSchema
     .optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationCreateBuildType$inboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationCreateHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationCreateRestartPolicySwarm$inboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationCreatePlacementSwarm$inboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationCreateUpdateConfigSwarm$inboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationCreateRollbackConfigSwarm$inboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationCreateModeSwarm$inboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationCreateNetworkSwarm$inboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationCreateApplicationStatus$inboundSchema
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationCreatePlacementSwarm$inboundSchema),
+  ).optional(),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationCreatePreviewCertificateType$inboundSchema
     .optional(),
-  buildType: ApplicationCreateBuildType$inboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
   publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  refreshToken: z.nullable(z.string()).optional(),
   registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationCreateRestartPolicySwarm$inboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationCreateRollbackConfigSwarm$inboundSchema),
+  ).optional(),
   serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationCreateSourceType$inboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationCreateTriggerType$inboundSchema)
+    .optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationCreateUpdateConfigSwarm$inboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationCreateResponseBody$Outbound = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: string | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: string | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: string | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: string | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
   dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environmentId: string;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   healthCheckSwarm?:
     | ApplicationCreateHealthCheckSwarm$Outbound
     | null
     | undefined;
-  restartPolicySwarm?:
-    | ApplicationCreateRestartPolicySwarm$Outbound
-    | null
-    | undefined;
-  placementSwarm?: ApplicationCreatePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?:
-    | ApplicationCreateUpdateConfigSwarm$Outbound
-    | null
-    | undefined;
-  rollbackConfigSwarm?:
-    | ApplicationCreateRollbackConfigSwarm$Outbound
-    | null
-    | undefined;
-  modeSwarm?: ApplicationCreateModeSwarm$Outbound | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
   labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationCreateModeSwarm$Outbound | null | undefined;
+  name: string;
   networkSwarm?:
     | Array<ApplicationCreateNetworkSwarm$Outbound>
     | null
     | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: string | undefined;
-  buildType?: string | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationCreatePlacementSwarm$Outbound | null | undefined;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: string | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
   publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
+  railpackVersion?: string | null | undefined;
+  refreshToken?: string | null | undefined;
   registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?:
+    | ApplicationCreateRestartPolicySwarm$Outbound
+    | null
+    | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?:
+    | ApplicationCreateRollbackConfigSwarm$Outbound
+    | null
+    | undefined;
   serverId?: string | null | undefined;
+  sourceType?: string | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: string | null | undefined;
+  updateConfigSwarm?:
+    | ApplicationCreateUpdateConfigSwarm$Outbound
+    | null
+    | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -1773,109 +1773,109 @@ export const ApplicationCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationCreateResponseBody
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationCreatePreviewCertificateType$outboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationCreateSourceType$outboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationCreateTriggerType$outboundSchema)
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationCreateApplicationStatus$outboundSchema
     .optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationCreateBuildType$outboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationCreateHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationCreateRestartPolicySwarm$outboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationCreatePlacementSwarm$outboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationCreateUpdateConfigSwarm$outboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationCreateRollbackConfigSwarm$outboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationCreateModeSwarm$outboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationCreateNetworkSwarm$outboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationCreateApplicationStatus$outboundSchema
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationCreatePlacementSwarm$outboundSchema),
+  ).optional(),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationCreatePreviewCertificateType$outboundSchema
     .optional(),
-  buildType: ApplicationCreateBuildType$outboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
   publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  refreshToken: z.nullable(z.string()).optional(),
   registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationCreateRestartPolicySwarm$outboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationCreateRollbackConfigSwarm$outboundSchema),
+  ).optional(),
   serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationCreateSourceType$outboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationCreateTriggerType$outboundSchema)
+    .optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationCreateUpdateConfigSwarm$outboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

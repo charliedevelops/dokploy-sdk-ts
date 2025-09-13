@@ -14,8 +14,8 @@ export type MongoSaveEnvironmentSecurity = {
 };
 
 export type MongoSaveEnvironmentRequest = {
-  mongoId: string;
   env?: string | null | undefined;
+  mongoId: string;
 };
 
 export type MongoSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -90,14 +90,14 @@ export const MongoSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoSaveEnvironmentRequest$Outbound = {
-  mongoId: string;
   env?: string | null | undefined;
+  mongoId: string;
 };
 
 /** @internal */
@@ -106,8 +106,8 @@ export const MongoSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveEnvironmentRequest
 > = z.object({
-  mongoId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mongoId: z.string(),
 });
 
 /**

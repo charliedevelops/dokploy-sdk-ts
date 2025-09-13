@@ -14,15 +14,15 @@ export type MariadbCreateSecurity = {
 };
 
 export type MariadbCreateRequest = {
-  name: string;
   appName: string;
-  dockerImage?: string | undefined;
-  databaseRootPassword: string;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage?: string | undefined;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -96,29 +96,29 @@ export const MariadbCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mariadb:6"),
-  databaseRootPassword: z.string(),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mariadb:6"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MariadbCreateRequest$Outbound = {
-  name: string;
   appName: string;
-  dockerImage: string;
-  databaseRootPassword: string;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage: string;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -128,15 +128,15 @@ export const MariadbCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mariadb:6"),
-  databaseRootPassword: z.string(),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mariadb:6"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 

@@ -25,18 +25,44 @@ export type MongoUpdateApplicationStatus = ClosedEnum<
 >;
 
 export type MongoUpdateHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MongoUpdateRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type MongoUpdateGlobal = {};
+
+export type MongoUpdateGlobalJob = {};
+
+export type MongoUpdateReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoUpdateReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoUpdateModeSwarm = {
+  global?: MongoUpdateGlobal | undefined;
+  globalJob?: MongoUpdateGlobalJob | undefined;
+  replicated?: MongoUpdateReplicated | undefined;
+  replicatedJob?: MongoUpdateReplicatedJob | undefined;
+};
+
+export type MongoUpdateDriverOpts = {};
+
+export type MongoUpdateNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoUpdateDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoUpdatePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type MongoUpdateSpread = {
@@ -47,92 +73,66 @@ export type MongoUpdatePreference = {
   spread: MongoUpdateSpread;
 };
 
-export type MongoUpdatePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type MongoUpdatePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<MongoUpdatePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<MongoUpdatePlatform> | undefined;
+  preferences?: Array<MongoUpdatePreference> | undefined;
 };
 
-export type MongoUpdateUpdateConfigSwarm = {
-  parallelism: number;
+export type MongoUpdateRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type MongoUpdateRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type MongoUpdateReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoUpdateGlobal = {};
-
-export type MongoUpdateReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoUpdateGlobalJob = {};
-
-export type MongoUpdateModeSwarm = {
-  replicated?: MongoUpdateReplicated | undefined;
-  global?: MongoUpdateGlobal | undefined;
-  replicatedJob?: MongoUpdateReplicatedJob | undefined;
-  globalJob?: MongoUpdateGlobalJob | undefined;
-};
-
-export type MongoUpdateDriverOpts = {};
-
-export type MongoUpdateNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoUpdateDriverOpts | undefined;
+export type MongoUpdateUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 export type MongoUpdateRequest = {
+  appName?: string | undefined;
+  applicationStatus?: MongoUpdateApplicationStatus | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
+  databasePassword?: string | undefined;
+  databaseUser?: string | undefined;
+  description?: string | null | undefined;
+  dockerImage?: string | undefined;
+  env?: string | null | undefined;
+  environmentId?: string | undefined;
+  externalPort?: number | null | undefined;
+  healthCheckSwarm?: MongoUpdateHealthCheckSwarm | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: MongoUpdateModeSwarm | null | undefined;
   mongoId: string;
   name?: string | undefined;
-  appName?: string | undefined;
-  description?: string | null | undefined;
-  databaseUser?: string | undefined;
-  databasePassword?: string | undefined;
-  dockerImage?: string | undefined;
-  command?: string | null | undefined;
-  env?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  externalPort?: number | null | undefined;
-  applicationStatus?: MongoUpdateApplicationStatus | undefined;
-  healthCheckSwarm?: MongoUpdateHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: MongoUpdateRestartPolicySwarm | null | undefined;
-  placementSwarm?: MongoUpdatePlacementSwarm | null | undefined;
-  updateConfigSwarm?: MongoUpdateUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: MongoUpdateRollbackConfigSwarm | null | undefined;
-  modeSwarm?: MongoUpdateModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
   networkSwarm?: Array<MongoUpdateNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  createdAt?: string | undefined;
-  environmentId?: string | undefined;
+  placementSwarm?: MongoUpdatePlacementSwarm | null | undefined;
   replicaSets?: boolean | null | undefined;
+  replicas?: number | undefined;
+  restartPolicySwarm?: MongoUpdateRestartPolicySwarm | null | undefined;
+  rollbackConfigSwarm?: MongoUpdateRollbackConfigSwarm | null | undefined;
+  updateConfigSwarm?: MongoUpdateUpdateConfigSwarm | null | undefined;
 };
 
 export type MongoUpdateResponse = models.ErrorT | boolean;
@@ -226,28 +226,28 @@ export const MongoUpdateHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoUpdateHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -256,18 +256,18 @@ export const MongoUpdateHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoUpdateHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -305,48 +305,129 @@ export function mongoUpdateHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoUpdateRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoUpdateRestartPolicySwarm,
+export const MongoUpdateGlobal$inboundSchema: z.ZodType<
+  MongoUpdateGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoUpdateGlobal$Outbound = {};
+
+/** @internal */
+export const MongoUpdateGlobal$outboundSchema: z.ZodType<
+  MongoUpdateGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateGlobal$ {
+  /** @deprecated use `MongoUpdateGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateGlobal$inboundSchema;
+  /** @deprecated use `MongoUpdateGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateGlobal$outboundSchema;
+  /** @deprecated use `MongoUpdateGlobal$Outbound` instead. */
+  export type Outbound = MongoUpdateGlobal$Outbound;
+}
+
+export function mongoUpdateGlobalToJSON(
+  mongoUpdateGlobal: MongoUpdateGlobal,
+): string {
+  return JSON.stringify(
+    MongoUpdateGlobal$outboundSchema.parse(mongoUpdateGlobal),
+  );
+}
+
+export function mongoUpdateGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateGlobalJob$inboundSchema: z.ZodType<
+  MongoUpdateGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoUpdateGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoUpdateGlobalJob$outboundSchema: z.ZodType<
+  MongoUpdateGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateGlobalJob$ {
+  /** @deprecated use `MongoUpdateGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateGlobalJob$inboundSchema;
+  /** @deprecated use `MongoUpdateGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateGlobalJob$outboundSchema;
+  /** @deprecated use `MongoUpdateGlobalJob$Outbound` instead. */
+  export type Outbound = MongoUpdateGlobalJob$Outbound;
+}
+
+export function mongoUpdateGlobalJobToJSON(
+  mongoUpdateGlobalJob: MongoUpdateGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoUpdateGlobalJob$outboundSchema.parse(mongoUpdateGlobalJob),
+  );
+}
+
+export function mongoUpdateGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateReplicated$inboundSchema: z.ZodType<
+  MongoUpdateReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoUpdateRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoUpdateReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoUpdateRestartPolicySwarm$Outbound,
+export const MongoUpdateReplicated$outboundSchema: z.ZodType<
+  MongoUpdateReplicated$Outbound,
   z.ZodTypeDef,
-  MongoUpdateRestartPolicySwarm
+  MongoUpdateReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -354,32 +435,363 @@ export const MongoUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoUpdateRestartPolicySwarm$ {
-  /** @deprecated use `MongoUpdateRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoUpdateRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoUpdateRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoUpdateRestartPolicySwarm$Outbound;
+export namespace MongoUpdateReplicated$ {
+  /** @deprecated use `MongoUpdateReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateReplicated$inboundSchema;
+  /** @deprecated use `MongoUpdateReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateReplicated$outboundSchema;
+  /** @deprecated use `MongoUpdateReplicated$Outbound` instead. */
+  export type Outbound = MongoUpdateReplicated$Outbound;
 }
 
-export function mongoUpdateRestartPolicySwarmToJSON(
-  mongoUpdateRestartPolicySwarm: MongoUpdateRestartPolicySwarm,
+export function mongoUpdateReplicatedToJSON(
+  mongoUpdateReplicated: MongoUpdateReplicated,
 ): string {
   return JSON.stringify(
-    MongoUpdateRestartPolicySwarm$outboundSchema.parse(
-      mongoUpdateRestartPolicySwarm,
-    ),
+    MongoUpdateReplicated$outboundSchema.parse(mongoUpdateReplicated),
   );
 }
 
-export function mongoUpdateRestartPolicySwarmFromJSON(
+export function mongoUpdateReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoUpdateRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoUpdateReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoUpdateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateRestartPolicySwarm' from JSON`,
+    (x) => MongoUpdateReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateReplicatedJob$inboundSchema: z.ZodType<
+  MongoUpdateReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoUpdateReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoUpdateReplicatedJob$outboundSchema: z.ZodType<
+  MongoUpdateReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateReplicatedJob$ {
+  /** @deprecated use `MongoUpdateReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoUpdateReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoUpdateReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoUpdateReplicatedJob$Outbound;
+}
+
+export function mongoUpdateReplicatedJobToJSON(
+  mongoUpdateReplicatedJob: MongoUpdateReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoUpdateReplicatedJob$outboundSchema.parse(mongoUpdateReplicatedJob),
+  );
+}
+
+export function mongoUpdateReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateModeSwarm$inboundSchema: z.ZodType<
+  MongoUpdateModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoUpdateGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoUpdateGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoUpdateReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoUpdateReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoUpdateModeSwarm$Outbound = {
+  Global?: MongoUpdateGlobal$Outbound | undefined;
+  GlobalJob?: MongoUpdateGlobalJob$Outbound | undefined;
+  Replicated?: MongoUpdateReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoUpdateReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoUpdateModeSwarm$outboundSchema: z.ZodType<
+  MongoUpdateModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoUpdateGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoUpdateGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoUpdateReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoUpdateReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateModeSwarm$ {
+  /** @deprecated use `MongoUpdateModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateModeSwarm$inboundSchema;
+  /** @deprecated use `MongoUpdateModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateModeSwarm$outboundSchema;
+  /** @deprecated use `MongoUpdateModeSwarm$Outbound` instead. */
+  export type Outbound = MongoUpdateModeSwarm$Outbound;
+}
+
+export function mongoUpdateModeSwarmToJSON(
+  mongoUpdateModeSwarm: MongoUpdateModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoUpdateModeSwarm$outboundSchema.parse(mongoUpdateModeSwarm),
+  );
+}
+
+export function mongoUpdateModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateDriverOpts$inboundSchema: z.ZodType<
+  MongoUpdateDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoUpdateDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoUpdateDriverOpts$outboundSchema: z.ZodType<
+  MongoUpdateDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateDriverOpts$ {
+  /** @deprecated use `MongoUpdateDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateDriverOpts$inboundSchema;
+  /** @deprecated use `MongoUpdateDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateDriverOpts$outboundSchema;
+  /** @deprecated use `MongoUpdateDriverOpts$Outbound` instead. */
+  export type Outbound = MongoUpdateDriverOpts$Outbound;
+}
+
+export function mongoUpdateDriverOptsToJSON(
+  mongoUpdateDriverOpts: MongoUpdateDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoUpdateDriverOpts$outboundSchema.parse(mongoUpdateDriverOpts),
+  );
+}
+
+export function mongoUpdateDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdateNetworkSwarm$inboundSchema: z.ZodType<
+  MongoUpdateNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoUpdateDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoUpdateNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoUpdateDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoUpdateNetworkSwarm$outboundSchema: z.ZodType<
+  MongoUpdateNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoUpdateNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoUpdateDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdateNetworkSwarm$ {
+  /** @deprecated use `MongoUpdateNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoUpdateNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoUpdateNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoUpdateNetworkSwarm$Outbound;
+}
+
+export function mongoUpdateNetworkSwarmToJSON(
+  mongoUpdateNetworkSwarm: MongoUpdateNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoUpdateNetworkSwarm$outboundSchema.parse(mongoUpdateNetworkSwarm),
+  );
+}
+
+export function mongoUpdateNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdateNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoUpdatePlatform$inboundSchema: z.ZodType<
+  MongoUpdatePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoUpdatePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoUpdatePlatform$outboundSchema: z.ZodType<
+  MongoUpdatePlatform$Outbound,
+  z.ZodTypeDef,
+  MongoUpdatePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoUpdatePlatform$ {
+  /** @deprecated use `MongoUpdatePlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdatePlatform$inboundSchema;
+  /** @deprecated use `MongoUpdatePlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdatePlatform$outboundSchema;
+  /** @deprecated use `MongoUpdatePlatform$Outbound` instead. */
+  export type Outbound = MongoUpdatePlatform$Outbound;
+}
+
+export function mongoUpdatePlatformToJSON(
+  mongoUpdatePlatform: MongoUpdatePlatform,
+): string {
+  return JSON.stringify(
+    MongoUpdatePlatform$outboundSchema.parse(mongoUpdatePlatform),
+  );
+}
+
+export function mongoUpdatePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoUpdatePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoUpdatePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdatePlatform' from JSON`,
   );
 }
 
@@ -508,99 +920,32 @@ export function mongoUpdatePreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoUpdatePlatform$inboundSchema: z.ZodType<
-  MongoUpdatePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoUpdatePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoUpdatePlatform$outboundSchema: z.ZodType<
-  MongoUpdatePlatform$Outbound,
-  z.ZodTypeDef,
-  MongoUpdatePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdatePlatform$ {
-  /** @deprecated use `MongoUpdatePlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdatePlatform$inboundSchema;
-  /** @deprecated use `MongoUpdatePlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdatePlatform$outboundSchema;
-  /** @deprecated use `MongoUpdatePlatform$Outbound` instead. */
-  export type Outbound = MongoUpdatePlatform$Outbound;
-}
-
-export function mongoUpdatePlatformToJSON(
-  mongoUpdatePlatform: MongoUpdatePlatform,
-): string {
-  return JSON.stringify(
-    MongoUpdatePlatform$outboundSchema.parse(mongoUpdatePlatform),
-  );
-}
-
-export function mongoUpdatePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdatePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdatePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdatePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoUpdatePlacementSwarm$inboundSchema: z.ZodType<
   MongoUpdatePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoUpdatePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoUpdatePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MongoUpdatePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoUpdatePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoUpdatePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoUpdatePlatform$Outbound> | undefined;
+  Preferences?: Array<MongoUpdatePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -610,17 +955,17 @@ export const MongoUpdatePlacementSwarm$outboundSchema: z.ZodType<
   MongoUpdatePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoUpdatePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoUpdatePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MongoUpdatePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -656,58 +1001,48 @@ export function mongoUpdatePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoUpdateUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoUpdateUpdateConfigSwarm,
+export const MongoUpdateRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoUpdateRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoUpdateUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoUpdateRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoUpdateUpdateConfigSwarm$Outbound,
+export const MongoUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoUpdateRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoUpdateUpdateConfigSwarm
+  MongoUpdateRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -715,32 +1050,32 @@ export const MongoUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoUpdateUpdateConfigSwarm$ {
-  /** @deprecated use `MongoUpdateUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoUpdateUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoUpdateUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoUpdateUpdateConfigSwarm$Outbound;
+export namespace MongoUpdateRestartPolicySwarm$ {
+  /** @deprecated use `MongoUpdateRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoUpdateRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoUpdateRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoUpdateRestartPolicySwarm$Outbound;
 }
 
-export function mongoUpdateUpdateConfigSwarmToJSON(
-  mongoUpdateUpdateConfigSwarm: MongoUpdateUpdateConfigSwarm,
+export function mongoUpdateRestartPolicySwarmToJSON(
+  mongoUpdateRestartPolicySwarm: MongoUpdateRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoUpdateUpdateConfigSwarm$outboundSchema.parse(
-      mongoUpdateUpdateConfigSwarm,
+    MongoUpdateRestartPolicySwarm$outboundSchema.parse(
+      mongoUpdateRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoUpdateUpdateConfigSwarmFromJSON(
+export function mongoUpdateRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoUpdateUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoUpdateRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoUpdateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateUpdateConfigSwarm' from JSON`,
+    (x) => MongoUpdateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -750,31 +1085,31 @@ export const MongoUpdateRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoUpdateRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -783,20 +1118,20 @@ export const MongoUpdateRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoUpdateRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -834,33 +1169,58 @@ export function mongoUpdateRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoUpdateReplicated$inboundSchema: z.ZodType<
-  MongoUpdateReplicated,
+export const MongoUpdateUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoUpdateUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type MongoUpdateReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type MongoUpdateUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoUpdateReplicated$outboundSchema: z.ZodType<
-  MongoUpdateReplicated$Outbound,
+export const MongoUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoUpdateUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoUpdateReplicated
+  MongoUpdateUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -868,392 +1228,32 @@ export const MongoUpdateReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoUpdateReplicated$ {
-  /** @deprecated use `MongoUpdateReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateReplicated$inboundSchema;
-  /** @deprecated use `MongoUpdateReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateReplicated$outboundSchema;
-  /** @deprecated use `MongoUpdateReplicated$Outbound` instead. */
-  export type Outbound = MongoUpdateReplicated$Outbound;
+export namespace MongoUpdateUpdateConfigSwarm$ {
+  /** @deprecated use `MongoUpdateUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoUpdateUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoUpdateUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoUpdateUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoUpdateUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoUpdateUpdateConfigSwarm$Outbound;
 }
 
-export function mongoUpdateReplicatedToJSON(
-  mongoUpdateReplicated: MongoUpdateReplicated,
+export function mongoUpdateUpdateConfigSwarmToJSON(
+  mongoUpdateUpdateConfigSwarm: MongoUpdateUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoUpdateReplicated$outboundSchema.parse(mongoUpdateReplicated),
+    MongoUpdateUpdateConfigSwarm$outboundSchema.parse(
+      mongoUpdateUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mongoUpdateReplicatedFromJSON(
+export function mongoUpdateUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoUpdateReplicated, SDKValidationError> {
+): SafeParseResult<MongoUpdateUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoUpdateReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateGlobal$inboundSchema: z.ZodType<
-  MongoUpdateGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoUpdateGlobal$Outbound = {};
-
-/** @internal */
-export const MongoUpdateGlobal$outboundSchema: z.ZodType<
-  MongoUpdateGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateGlobal$ {
-  /** @deprecated use `MongoUpdateGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateGlobal$inboundSchema;
-  /** @deprecated use `MongoUpdateGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateGlobal$outboundSchema;
-  /** @deprecated use `MongoUpdateGlobal$Outbound` instead. */
-  export type Outbound = MongoUpdateGlobal$Outbound;
-}
-
-export function mongoUpdateGlobalToJSON(
-  mongoUpdateGlobal: MongoUpdateGlobal,
-): string {
-  return JSON.stringify(
-    MongoUpdateGlobal$outboundSchema.parse(mongoUpdateGlobal),
-  );
-}
-
-export function mongoUpdateGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateReplicatedJob$inboundSchema: z.ZodType<
-  MongoUpdateReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoUpdateReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoUpdateReplicatedJob$outboundSchema: z.ZodType<
-  MongoUpdateReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateReplicatedJob$ {
-  /** @deprecated use `MongoUpdateReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoUpdateReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoUpdateReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoUpdateReplicatedJob$Outbound;
-}
-
-export function mongoUpdateReplicatedJobToJSON(
-  mongoUpdateReplicatedJob: MongoUpdateReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoUpdateReplicatedJob$outboundSchema.parse(mongoUpdateReplicatedJob),
-  );
-}
-
-export function mongoUpdateReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateGlobalJob$inboundSchema: z.ZodType<
-  MongoUpdateGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoUpdateGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoUpdateGlobalJob$outboundSchema: z.ZodType<
-  MongoUpdateGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateGlobalJob$ {
-  /** @deprecated use `MongoUpdateGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateGlobalJob$inboundSchema;
-  /** @deprecated use `MongoUpdateGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateGlobalJob$outboundSchema;
-  /** @deprecated use `MongoUpdateGlobalJob$Outbound` instead. */
-  export type Outbound = MongoUpdateGlobalJob$Outbound;
-}
-
-export function mongoUpdateGlobalJobToJSON(
-  mongoUpdateGlobalJob: MongoUpdateGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoUpdateGlobalJob$outboundSchema.parse(mongoUpdateGlobalJob),
-  );
-}
-
-export function mongoUpdateGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateModeSwarm$inboundSchema: z.ZodType<
-  MongoUpdateModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoUpdateReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoUpdateGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoUpdateReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MongoUpdateGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoUpdateModeSwarm$Outbound = {
-  Replicated?: MongoUpdateReplicated$Outbound | undefined;
-  Global?: MongoUpdateGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoUpdateReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoUpdateGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoUpdateModeSwarm$outboundSchema: z.ZodType<
-  MongoUpdateModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoUpdateReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoUpdateGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoUpdateReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoUpdateGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateModeSwarm$ {
-  /** @deprecated use `MongoUpdateModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateModeSwarm$inboundSchema;
-  /** @deprecated use `MongoUpdateModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateModeSwarm$outboundSchema;
-  /** @deprecated use `MongoUpdateModeSwarm$Outbound` instead. */
-  export type Outbound = MongoUpdateModeSwarm$Outbound;
-}
-
-export function mongoUpdateModeSwarmToJSON(
-  mongoUpdateModeSwarm: MongoUpdateModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoUpdateModeSwarm$outboundSchema.parse(mongoUpdateModeSwarm),
-  );
-}
-
-export function mongoUpdateModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateDriverOpts$inboundSchema: z.ZodType<
-  MongoUpdateDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoUpdateDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoUpdateDriverOpts$outboundSchema: z.ZodType<
-  MongoUpdateDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateDriverOpts$ {
-  /** @deprecated use `MongoUpdateDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateDriverOpts$inboundSchema;
-  /** @deprecated use `MongoUpdateDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateDriverOpts$outboundSchema;
-  /** @deprecated use `MongoUpdateDriverOpts$Outbound` instead. */
-  export type Outbound = MongoUpdateDriverOpts$Outbound;
-}
-
-export function mongoUpdateDriverOptsToJSON(
-  mongoUpdateDriverOpts: MongoUpdateDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoUpdateDriverOpts$outboundSchema.parse(mongoUpdateDriverOpts),
-  );
-}
-
-export function mongoUpdateDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoUpdateNetworkSwarm$inboundSchema: z.ZodType<
-  MongoUpdateNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoUpdateDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoUpdateNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoUpdateDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoUpdateNetworkSwarm$outboundSchema: z.ZodType<
-  MongoUpdateNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoUpdateNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoUpdateDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoUpdateNetworkSwarm$ {
-  /** @deprecated use `MongoUpdateNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoUpdateNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoUpdateNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoUpdateNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoUpdateNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoUpdateNetworkSwarm$Outbound;
-}
-
-export function mongoUpdateNetworkSwarmToJSON(
-  mongoUpdateNetworkSwarm: MongoUpdateNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoUpdateNetworkSwarm$outboundSchema.parse(mongoUpdateNetworkSwarm),
-  );
-}
-
-export function mongoUpdateNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoUpdateNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoUpdateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoUpdateNetworkSwarm' from JSON`,
+    (x) => MongoUpdateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoUpdateUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1263,83 +1263,83 @@ export const MongoUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string().optional(),
-  databasePassword: z.string().optional(),
-  dockerImage: z.string().default("mongo:15"),
-  command: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  externalPort: z.nullable(z.number()).optional(),
   applicationStatus: MongoUpdateApplicationStatus$inboundSchema.optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  databasePassword: z.string().optional(),
+  databaseUser: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mongo:15"),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
+  externalPort: z.nullable(z.number()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoUpdateHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoUpdateRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
+  modeSwarm: z.nullable(z.lazy(() => MongoUpdateModeSwarm$inboundSchema))
+    .optional(),
+  mongoId: z.string(),
+  name: z.string().optional(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoUpdateNetworkSwarm$inboundSchema)),
   ).optional(),
   placementSwarm: z.nullable(
     z.lazy(() => MongoUpdatePlacementSwarm$inboundSchema),
   ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoUpdateUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean().default(false)),
+  replicas: z.number().optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoUpdateRestartPolicySwarm$inboundSchema),
   ).optional(),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoUpdateRollbackConfigSwarm$inboundSchema),
   ).optional(),
-  modeSwarm: z.nullable(z.lazy(() => MongoUpdateModeSwarm$inboundSchema))
-    .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoUpdateNetworkSwarm$inboundSchema)),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoUpdateUpdateConfigSwarm$inboundSchema),
   ).optional(),
-  replicas: z.number().optional(),
-  createdAt: z.string().optional(),
-  environmentId: z.string().optional(),
-  replicaSets: z.nullable(z.boolean().default(false)),
 });
 
 /** @internal */
 export type MongoUpdateRequest$Outbound = {
+  appName?: string | undefined;
+  applicationStatus?: string | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
+  databasePassword?: string | undefined;
+  databaseUser?: string | undefined;
+  description?: string | null | undefined;
+  dockerImage: string;
+  env?: string | null | undefined;
+  environmentId?: string | undefined;
+  externalPort?: number | null | undefined;
+  healthCheckSwarm?: MongoUpdateHealthCheckSwarm$Outbound | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: MongoUpdateModeSwarm$Outbound | null | undefined;
   mongoId: string;
   name?: string | undefined;
-  appName?: string | undefined;
-  description?: string | null | undefined;
-  databaseUser?: string | undefined;
-  databasePassword?: string | undefined;
-  dockerImage: string;
-  command?: string | null | undefined;
-  env?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  externalPort?: number | null | undefined;
-  applicationStatus?: string | undefined;
-  healthCheckSwarm?: MongoUpdateHealthCheckSwarm$Outbound | null | undefined;
+  networkSwarm?: Array<MongoUpdateNetworkSwarm$Outbound> | null | undefined;
+  placementSwarm?: MongoUpdatePlacementSwarm$Outbound | null | undefined;
+  replicaSets: boolean | null;
+  replicas?: number | undefined;
   restartPolicySwarm?:
     | MongoUpdateRestartPolicySwarm$Outbound
     | null
     | undefined;
-  placementSwarm?: MongoUpdatePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?: MongoUpdateUpdateConfigSwarm$Outbound | null | undefined;
   rollbackConfigSwarm?:
     | MongoUpdateRollbackConfigSwarm$Outbound
     | null
     | undefined;
-  modeSwarm?: MongoUpdateModeSwarm$Outbound | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<MongoUpdateNetworkSwarm$Outbound> | null | undefined;
-  replicas?: number | undefined;
-  createdAt?: string | undefined;
-  environmentId?: string | undefined;
-  replicaSets: boolean | null;
+  updateConfigSwarm?: MongoUpdateUpdateConfigSwarm$Outbound | null | undefined;
 };
 
 /** @internal */
@@ -1348,46 +1348,46 @@ export const MongoUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoUpdateRequest
 > = z.object({
-  mongoId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string().optional(),
-  databasePassword: z.string().optional(),
-  dockerImage: z.string().default("mongo:15"),
-  command: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  externalPort: z.nullable(z.number()).optional(),
   applicationStatus: MongoUpdateApplicationStatus$outboundSchema.optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  databasePassword: z.string().optional(),
+  databaseUser: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mongo:15"),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
+  externalPort: z.nullable(z.number()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoUpdateHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoUpdateRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
+  modeSwarm: z.nullable(z.lazy(() => MongoUpdateModeSwarm$outboundSchema))
+    .optional(),
+  mongoId: z.string(),
+  name: z.string().optional(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoUpdateNetworkSwarm$outboundSchema)),
   ).optional(),
   placementSwarm: z.nullable(
     z.lazy(() => MongoUpdatePlacementSwarm$outboundSchema),
   ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoUpdateUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean().default(false)),
+  replicas: z.number().optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoUpdateRestartPolicySwarm$outboundSchema),
   ).optional(),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoUpdateRollbackConfigSwarm$outboundSchema),
   ).optional(),
-  modeSwarm: z.nullable(z.lazy(() => MongoUpdateModeSwarm$outboundSchema))
-    .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoUpdateNetworkSwarm$outboundSchema)),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoUpdateUpdateConfigSwarm$outboundSchema),
   ).optional(),
-  replicas: z.number().optional(),
-  createdAt: z.string().optional(),
-  environmentId: z.string().optional(),
-  replicaSets: z.nullable(z.boolean().default(false)),
 });
 
 /**

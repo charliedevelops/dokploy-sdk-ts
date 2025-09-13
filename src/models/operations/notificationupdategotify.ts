@@ -14,18 +14,18 @@ export type NotificationUpdateGotifySecurity = {
 
 export type NotificationUpdateGotifyRequest = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
   appToken?: string | undefined;
-  priority?: number | undefined;
+  databaseBackup?: boolean | undefined;
   decoration?: boolean | undefined;
-  notificationId: string;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   gotifyId: string;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
 };
 
 /** @internal */
@@ -99,35 +99,35 @@ export const NotificationUpdateGotifyRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
   appToken: z.string().optional(),
-  priority: z.number().optional(),
+  databaseBackup: z.boolean().optional(),
   decoration: z.boolean().optional(),
-  notificationId: z.string(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   gotifyId: z.string(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateGotifyRequest$Outbound = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
   appToken?: string | undefined;
-  priority?: number | undefined;
+  databaseBackup?: boolean | undefined;
   decoration?: boolean | undefined;
-  notificationId: string;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   gotifyId: string;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
 };
 
 /** @internal */
@@ -137,18 +137,18 @@ export const NotificationUpdateGotifyRequest$outboundSchema: z.ZodType<
   NotificationUpdateGotifyRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
   appToken: z.string().optional(),
-  priority: z.number().optional(),
+  databaseBackup: z.boolean().optional(),
   decoration: z.boolean().optional(),
-  notificationId: z.string(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   gotifyId: z.string(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
 });
 
 /**

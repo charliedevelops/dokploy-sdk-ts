@@ -14,15 +14,15 @@ export type GithubUpdateSecurity = {
 };
 
 export type GithubUpdateRequest = {
-  githubId: string;
-  githubAppName?: string | null | undefined;
+  gitProviderId: string;
   githubAppId?: number | null | undefined;
+  githubAppName?: string | null | undefined;
   githubClientId?: string | null | undefined;
   githubClientSecret?: string | null | undefined;
+  githubId: string;
   githubInstallationId?: string | null | undefined;
   githubPrivateKey?: string | null | undefined;
   githubWebhookSecret?: string | null | undefined;
-  gitProviderId: string;
   name: string;
 };
 
@@ -96,29 +96,29 @@ export const GithubUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()).optional(),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()).optional(),
+  githubAppName: z.nullable(z.string()).optional(),
   githubClientId: z.nullable(z.string()).optional(),
   githubClientSecret: z.nullable(z.string()).optional(),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()).optional(),
   githubPrivateKey: z.nullable(z.string()).optional(),
   githubWebhookSecret: z.nullable(z.string()).optional(),
-  gitProviderId: z.string(),
   name: z.string(),
 });
 
 /** @internal */
 export type GithubUpdateRequest$Outbound = {
-  githubId: string;
-  githubAppName?: string | null | undefined;
+  gitProviderId: string;
   githubAppId?: number | null | undefined;
+  githubAppName?: string | null | undefined;
   githubClientId?: string | null | undefined;
   githubClientSecret?: string | null | undefined;
+  githubId: string;
   githubInstallationId?: string | null | undefined;
   githubPrivateKey?: string | null | undefined;
   githubWebhookSecret?: string | null | undefined;
-  gitProviderId: string;
   name: string;
 };
 
@@ -128,15 +128,15 @@ export const GithubUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubUpdateRequest
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()).optional(),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()).optional(),
+  githubAppName: z.nullable(z.string()).optional(),
   githubClientId: z.nullable(z.string()).optional(),
   githubClientSecret: z.nullable(z.string()).optional(),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()).optional(),
   githubPrivateKey: z.nullable(z.string()).optional(),
   githubWebhookSecret: z.nullable(z.string()).optional(),
-  gitProviderId: z.string(),
   name: z.string(),
 });
 

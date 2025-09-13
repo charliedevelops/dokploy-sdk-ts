@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.EnvironmentUpdateResponseBody = {
+  createdAt: "1705330495796",
+  description: "mixed ceramics bob hence the",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: null,
-  createdAt: "1722440615046",
-  env: "<value>",
   projectId: "<id>",
 };
 ```
@@ -20,8 +20,8 @@ const value: operations.EnvironmentUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -30,12 +30,12 @@ export type SelectedService = {
 };
 
 export type ProjectDuplicateRequest = {
-  sourceEnvironmentId: string;
-  name: string;
   description?: string | undefined;
-  includeServices?: boolean | undefined;
-  selectedServices?: Array<SelectedService> | undefined;
   duplicateInSameProject?: boolean | undefined;
+  includeServices?: boolean | undefined;
+  name: string;
+  selectedServices?: Array<SelectedService> | undefined;
+  sourceEnvironmentId: string;
 };
 
 /** @internal */
@@ -182,23 +182,23 @@ export const ProjectDuplicateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sourceEnvironmentId: z.string(),
-  name: z.string(),
   description: z.string().optional(),
+  duplicateInSameProject: z.boolean().default(false),
   includeServices: z.boolean().default(true),
+  name: z.string(),
   selectedServices: z.array(z.lazy(() => SelectedService$inboundSchema))
     .optional(),
-  duplicateInSameProject: z.boolean().default(false),
+  sourceEnvironmentId: z.string(),
 });
 
 /** @internal */
 export type ProjectDuplicateRequest$Outbound = {
-  sourceEnvironmentId: string;
-  name: string;
   description?: string | undefined;
-  includeServices: boolean;
-  selectedServices?: Array<SelectedService$Outbound> | undefined;
   duplicateInSameProject: boolean;
+  includeServices: boolean;
+  name: string;
+  selectedServices?: Array<SelectedService$Outbound> | undefined;
+  sourceEnvironmentId: string;
 };
 
 /** @internal */
@@ -207,13 +207,13 @@ export const ProjectDuplicateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectDuplicateRequest
 > = z.object({
-  sourceEnvironmentId: z.string(),
-  name: z.string(),
   description: z.string().optional(),
+  duplicateInSameProject: z.boolean().default(false),
   includeServices: z.boolean().default(true),
+  name: z.string(),
   selectedServices: z.array(z.lazy(() => SelectedService$outboundSchema))
     .optional(),
-  duplicateInSameProject: z.boolean().default(false),
+  sourceEnvironmentId: z.string(),
 });
 
 /**

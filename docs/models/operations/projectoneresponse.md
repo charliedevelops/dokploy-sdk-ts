@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.ProjectOneResponseBody = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "to gastropod ouch accessorise",
-  createdAt: "1735023197780",
-  organizationId: "<id>",
+  createdAt: "1715398784605",
+  description: "inasmuch habit adaptation um",
   env: "<value>",
   environments: [],
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -21,8 +21,8 @@ const value: operations.ProjectOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

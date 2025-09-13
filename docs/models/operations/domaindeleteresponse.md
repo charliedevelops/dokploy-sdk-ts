@@ -7,22 +7,22 @@
 
 ```typescript
 const value: operations.DomainDeleteResponseBody = {
-  domainId: "<id>",
-  host: "essential-experience.com",
-  https: false,
-  port: 4892.97,
-  path: "/home/user",
-  serviceName: "<value>",
-  domainType: "compose",
-  uniqueConfigKey: 5374.37,
-  createdAt: "1706608142287",
-  composeId: "<id>",
-  customCertResolver: "<value>",
   applicationId: "<id>",
-  previewDeploymentId: "<id>",
   certificateType: "letsencrypt",
+  composeId: null,
+  createdAt: "1725170296760",
+  customCertResolver: "<value>",
+  domainId: "<id>",
+  domainType: "compose",
+  host: "dull-thongs.org",
+  https: true,
   internalPath: "<value>",
-  stripPath: false,
+  path: null,
+  port: 8405.83,
+  previewDeploymentId: "<id>",
+  serviceName: "<value>",
+  stripPath: true,
+  uniqueConfigKey: 4031.04,
 };
 ```
 
@@ -30,8 +30,8 @@ const value: operations.DomainDeleteResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -13,10 +13,10 @@ export type NotificationTestGotifyConnectionSecurity = {
 };
 
 export type NotificationTestGotifyConnectionRequest = {
-  serverUrl: string;
   appToken: string;
-  priority: number;
   decoration?: boolean | undefined;
+  priority: number;
+  serverUrl: string;
 };
 
 /** @internal */
@@ -98,18 +98,18 @@ export const NotificationTestGotifyConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverUrl: z.string(),
   appToken: z.string(),
-  priority: z.number(),
   decoration: z.boolean().optional(),
+  priority: z.number(),
+  serverUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationTestGotifyConnectionRequest$Outbound = {
-  serverUrl: string;
   appToken: string;
-  priority: number;
   decoration?: boolean | undefined;
+  priority: number;
+  serverUrl: string;
 };
 
 /** @internal */
@@ -118,10 +118,10 @@ export const NotificationTestGotifyConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestGotifyConnectionRequest
 > = z.object({
-  serverUrl: z.string(),
   appToken: z.string(),
-  priority: z.number(),
   decoration: z.boolean().optional(),
+  priority: z.number(),
+  serverUrl: z.string(),
 });
 
 /**

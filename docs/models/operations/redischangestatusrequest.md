@@ -6,8 +6,8 @@
 import { RedisChangeStatusRequest } from "dokploy-sdk/models/operations";
 
 let value: RedisChangeStatusRequest = {
-  redisId: "<id>",
   applicationStatus: "idle",
+  redisId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: RedisChangeStatusRequest = {
 
 | Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `redisId`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
 | `applicationStatus`                                                                                                          | [operations.RedisChangeStatusApplicationStatusRequest](../../models/operations/redischangestatusapplicationstatusrequest.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
+| `redisId`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |

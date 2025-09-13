@@ -14,5 +14,5 @@ let value: Disk = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `value`            | *any*              | :heavy_minus_sign: | N/A                |
 | `time`             | *string*           | :heavy_check_mark: | N/A                |
+| `value`            | *any*              | :heavy_minus_sign: | N/A                |

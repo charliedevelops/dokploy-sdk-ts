@@ -8,13 +8,13 @@ Successful response
 import { CertificatesOneResponseBody } from "dokploy-sdk/models/operations";
 
 let value: CertificatesOneResponseBody = {
-  certificateId: "<id>",
-  name: "<value>",
-  certificateData: "<value>",
-  privateKey: "<value>",
-  certificatePath: "<value>",
   autoRenew: true,
+  certificateData: "<value>",
+  certificateId: "<id>",
+  certificatePath: "<value>",
+  name: "<value>",
   organizationId: "<id>",
+  privateKey: "<value>",
   serverId: "<id>",
 };
 ```
@@ -23,11 +23,11 @@ let value: CertificatesOneResponseBody = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `certificateId`    | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `certificateData`  | *string*           | :heavy_check_mark: | N/A                |
-| `privateKey`       | *string*           | :heavy_check_mark: | N/A                |
-| `certificatePath`  | *string*           | :heavy_check_mark: | N/A                |
 | `autoRenew`        | *boolean*          | :heavy_check_mark: | N/A                |
+| `certificateData`  | *string*           | :heavy_check_mark: | N/A                |
+| `certificateId`    | *string*           | :heavy_check_mark: | N/A                |
+| `certificatePath`  | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
 | `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `privateKey`       | *string*           | :heavy_check_mark: | N/A                |
 | `serverId`         | *string*           | :heavy_check_mark: | N/A                |

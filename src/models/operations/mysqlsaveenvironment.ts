@@ -14,8 +14,8 @@ export type MysqlSaveEnvironmentSecurity = {
 };
 
 export type MysqlSaveEnvironmentRequest = {
-  mysqlId: string;
   env?: string | null | undefined;
+  mysqlId: string;
 };
 
 export type MysqlSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -90,14 +90,14 @@ export const MysqlSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlSaveEnvironmentRequest$Outbound = {
-  mysqlId: string;
   env?: string | null | undefined;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -106,8 +106,8 @@ export const MysqlSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveEnvironmentRequest
 > = z.object({
-  mysqlId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mysqlId: z.string(),
 });
 
 /**

@@ -7,12 +7,12 @@
 
 ```typescript
 const value: operations.PortUpdateResponseBody = {
-  portId: "<id>",
-  publishedPort: 9527.54,
-  publishMode: "ingress",
-  targetPort: 1095.55,
-  protocol: "tcp",
   applicationId: "<id>",
+  portId: "<id>",
+  protocol: "udp",
+  publishMode: "ingress",
+  publishedPort: 1095.55,
+  targetPort: 3732.15,
 };
 ```
 
@@ -20,8 +20,8 @@ const value: operations.PortUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

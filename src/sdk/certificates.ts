@@ -11,6 +11,17 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Certificates extends ClientSDK {
+  async certificatesAll(
+    security: operations.CertificatesAllSecurity,
+    options?: RequestOptions,
+  ): Promise<operations.CertificatesAllResponse> {
+    return unwrapAsync(certificatesCertificatesAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async certificatesCreate(
     security: operations.CertificatesCreateSecurity,
     request: operations.CertificatesCreateRequest,
@@ -46,17 +57,6 @@ export class Certificates extends ClientSDK {
       this,
       security,
       request,
-      options,
-    ));
-  }
-
-  async certificatesAll(
-    security: operations.CertificatesAllSecurity,
-    options?: RequestOptions,
-  ): Promise<operations.CertificatesAllResponse> {
-    return unwrapAsync(certificatesCertificatesAll(
-      this,
-      security,
       options,
     ));
   }

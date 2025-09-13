@@ -13,14 +13,14 @@ export type ServerUpdateSecurity = {
 };
 
 export type ServerUpdateRequest = {
-  name: string;
-  description?: string | null | undefined;
-  serverId: string;
-  ipAddress: string;
-  port: number;
-  username: string;
-  sshKeyId: string | null;
   command?: string | undefined;
+  description?: string | null | undefined;
+  ipAddress: string;
+  name: string;
+  port: number;
+  serverId: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -91,26 +91,26 @@ export const ServerUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  serverId: z.string(),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
-  sshKeyId: z.nullable(z.string()),
   command: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  ipAddress: z.string(),
+  name: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ServerUpdateRequest$Outbound = {
-  name: string;
-  description?: string | null | undefined;
-  serverId: string;
-  ipAddress: string;
-  port: number;
-  username: string;
-  sshKeyId: string | null;
   command?: string | undefined;
+  description?: string | null | undefined;
+  ipAddress: string;
+  name: string;
+  port: number;
+  serverId: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -119,14 +119,14 @@ export const ServerUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerUpdateRequest
 > = z.object({
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  serverId: z.string(),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
-  sshKeyId: z.nullable(z.string()),
   command: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  ipAddress: z.string(),
+  name: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**

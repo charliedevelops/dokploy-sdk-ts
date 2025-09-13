@@ -14,14 +14,14 @@ export type NotificationCreateDiscordSecurity = {
 
 export type NotificationCreateDiscordRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  decoration: boolean;
 };
 
 /** @internal */
@@ -96,27 +96,27 @@ export const NotificationCreateDiscordRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  decoration: z.boolean(),
 });
 
 /** @internal */
 export type NotificationCreateDiscordRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  decoration: boolean;
 };
 
 /** @internal */
@@ -126,14 +126,14 @@ export const NotificationCreateDiscordRequest$outboundSchema: z.ZodType<
   NotificationCreateDiscordRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  decoration: z.boolean(),
 });
 
 /**

@@ -22,13 +22,13 @@ export type ComposeCreateComposeType = ClosedEnum<
 >;
 
 export type ComposeCreateRequest = {
-  name: string;
+  appName?: string | undefined;
+  composeFile?: string | undefined;
+  composeType?: ComposeCreateComposeType | undefined;
   description?: string | null | undefined;
   environmentId: string;
-  composeType?: ComposeCreateComposeType | undefined;
-  appName?: string | undefined;
+  name: string;
   serverId?: string | null | undefined;
-  composeFile?: string | undefined;
 };
 
 /** @internal */
@@ -120,24 +120,24 @@ export const ComposeCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
+  appName: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeType: ComposeCreateComposeType$inboundSchema.optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
-  composeType: ComposeCreateComposeType$inboundSchema.optional(),
-  appName: z.string().optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeCreateRequest$Outbound = {
-  name: string;
+  appName?: string | undefined;
+  composeFile?: string | undefined;
+  composeType?: string | undefined;
   description?: string | null | undefined;
   environmentId: string;
-  composeType?: string | undefined;
-  appName?: string | undefined;
+  name: string;
   serverId?: string | null | undefined;
-  composeFile?: string | undefined;
 };
 
 /** @internal */
@@ -146,13 +146,13 @@ export const ComposeCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ComposeCreateRequest
 > = z.object({
-  name: z.string(),
+  appName: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeType: ComposeCreateComposeType$outboundSchema.optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
-  composeType: ComposeCreateComposeType$outboundSchema.optional(),
-  appName: z.string().optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
 });
 
 /**

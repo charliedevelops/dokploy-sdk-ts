@@ -6,12 +6,12 @@
 import { ProjectCreateProject } from "dokploy-sdk/models/operations";
 
 let value: ProjectCreateProject = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "westernize ah palate marathon disapprove",
-  createdAt: "1709594396604",
-  organizationId: "<id>",
+  createdAt: "1707657565165",
+  description: "evince ah aboard to anti ski likewise funny",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -19,9 +19,9 @@ let value: ProjectCreateProject = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `projectId`        | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
+| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `projectId`        | *string*           | :heavy_check_mark: | N/A                |

@@ -17,16 +17,16 @@ export type UserCreateApiKeyMetadata = {
 };
 
 export type UserCreateApiKeyRequest = {
-  name: string;
-  prefix?: string | undefined;
   expiresIn?: number | undefined;
   metadata: UserCreateApiKeyMetadata;
+  name: string;
+  prefix?: string | undefined;
   rateLimitEnabled?: boolean | undefined;
-  rateLimitTimeWindow?: number | undefined;
   rateLimitMax?: number | undefined;
-  remaining?: number | undefined;
+  rateLimitTimeWindow?: number | undefined;
   refillAmount?: number | undefined;
   refillInterval?: number | undefined;
+  remaining?: number | undefined;
 };
 
 /** @internal */
@@ -151,30 +151,30 @@ export const UserCreateApiKeyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  prefix: z.string().optional(),
   expiresIn: z.number().optional(),
   metadata: z.lazy(() => UserCreateApiKeyMetadata$inboundSchema),
+  name: z.string(),
+  prefix: z.string().optional(),
   rateLimitEnabled: z.boolean().optional(),
-  rateLimitTimeWindow: z.number().optional(),
   rateLimitMax: z.number().optional(),
-  remaining: z.number().optional(),
+  rateLimitTimeWindow: z.number().optional(),
   refillAmount: z.number().optional(),
   refillInterval: z.number().optional(),
+  remaining: z.number().optional(),
 });
 
 /** @internal */
 export type UserCreateApiKeyRequest$Outbound = {
-  name: string;
-  prefix?: string | undefined;
   expiresIn?: number | undefined;
   metadata: UserCreateApiKeyMetadata$Outbound;
+  name: string;
+  prefix?: string | undefined;
   rateLimitEnabled?: boolean | undefined;
-  rateLimitTimeWindow?: number | undefined;
   rateLimitMax?: number | undefined;
-  remaining?: number | undefined;
+  rateLimitTimeWindow?: number | undefined;
   refillAmount?: number | undefined;
   refillInterval?: number | undefined;
+  remaining?: number | undefined;
 };
 
 /** @internal */
@@ -183,16 +183,16 @@ export const UserCreateApiKeyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserCreateApiKeyRequest
 > = z.object({
-  name: z.string(),
-  prefix: z.string().optional(),
   expiresIn: z.number().optional(),
   metadata: z.lazy(() => UserCreateApiKeyMetadata$outboundSchema),
+  name: z.string(),
+  prefix: z.string().optional(),
   rateLimitEnabled: z.boolean().optional(),
-  rateLimitTimeWindow: z.number().optional(),
   rateLimitMax: z.number().optional(),
-  remaining: z.number().optional(),
+  rateLimitTimeWindow: z.number().optional(),
   refillAmount: z.number().optional(),
   refillInterval: z.number().optional(),
+  remaining: z.number().optional(),
 });
 
 /**

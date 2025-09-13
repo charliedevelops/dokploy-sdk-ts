@@ -25,17 +25,17 @@ export type GiteaGiteaProvidersProviderType = ClosedEnum<
 >;
 
 export type GiteaGiteaProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GiteaGiteaProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GiteaGiteaProvidersProviderType;
   userId: string;
 };
 
 export type GiteaGiteaProvidersResponseBody = {
-  giteaId: string;
   gitProvider: GiteaGiteaProvidersGitProvider;
+  giteaId: string;
 };
 
 export type GiteaGiteaProvidersResponse =
@@ -133,21 +133,21 @@ export const GiteaGiteaProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaGiteaProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaGiteaProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GiteaGiteaProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -157,11 +157,11 @@ export const GiteaGiteaProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaGiteaProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaGiteaProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaGiteaProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -204,14 +204,14 @@ export const GiteaGiteaProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  giteaId: z.string(),
   gitProvider: z.lazy(() => GiteaGiteaProvidersGitProvider$inboundSchema),
+  giteaId: z.string(),
 });
 
 /** @internal */
 export type GiteaGiteaProvidersResponseBody$Outbound = {
-  giteaId: string;
   gitProvider: GiteaGiteaProvidersGitProvider$Outbound;
+  giteaId: string;
 };
 
 /** @internal */
@@ -220,8 +220,8 @@ export const GiteaGiteaProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaGiteaProvidersResponseBody
 > = z.object({
-  giteaId: z.string(),
   gitProvider: z.lazy(() => GiteaGiteaProvidersGitProvider$outboundSchema),
+  giteaId: z.string(),
 });
 
 /**

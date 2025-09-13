@@ -31,80 +31,13 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Notification extends ClientSDK {
-  async notificationCreateSlack(
-    security: operations.NotificationCreateSlackSecurity,
-    request: operations.NotificationCreateSlackRequest,
+  async notificationAll(
+    security: operations.NotificationAllSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationCreateSlack(
+    return unwrapAsync(notificationNotificationAll(
       this,
       security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationUpdateSlack(
-    security: operations.NotificationUpdateSlackSecurity,
-    request: operations.NotificationUpdateSlackRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateSlack(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationTestSlackConnection(
-    security: operations.NotificationTestSlackConnectionSecurity,
-    request: operations.NotificationTestSlackConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationTestSlackConnection(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationCreateTelegram(
-    security: operations.NotificationCreateTelegramSecurity,
-    request: operations.NotificationCreateTelegramRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationCreateTelegram(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationUpdateTelegram(
-    security: operations.NotificationUpdateTelegramSecurity,
-    request: operations.NotificationUpdateTelegramRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateTelegram(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationTestTelegramConnection(
-    security: operations.NotificationTestTelegramConnectionSecurity,
-    request: operations.NotificationTestTelegramConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationTestTelegramConnection(
-      this,
-      security,
-      request,
       options,
     ));
   }
@@ -115,32 +48,6 @@ export class Notification extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(notificationNotificationCreateDiscord(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationUpdateDiscord(
-    security: operations.NotificationUpdateDiscordSecurity,
-    request: operations.NotificationUpdateDiscordRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateDiscord(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationTestDiscordConnection(
-    security: operations.NotificationTestDiscordConnectionSecurity,
-    request: operations.NotificationTestDiscordConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationTestDiscordConnection(
       this,
       security,
       request,
@@ -161,114 +68,12 @@ export class Notification extends ClientSDK {
     ));
   }
 
-  async notificationUpdateEmail(
-    security: operations.NotificationUpdateEmailSecurity,
-    request: operations.NotificationUpdateEmailRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateEmail(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationTestEmailConnection(
-    security: operations.NotificationTestEmailConnectionSecurity,
-    request: operations.NotificationTestEmailConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationTestEmailConnection(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationRemove(
-    security: operations.NotificationRemoveSecurity,
-    request: operations.NotificationRemoveRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationRemove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationOne(
-    security: operations.NotificationOneSecurity,
-    request: operations.NotificationOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationAll(
-    security: operations.NotificationAllSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationAll(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async notificationReceiveNotification(
-    security: operations.NotificationReceiveNotificationSecurity,
-    request: operations.NotificationReceiveNotificationRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationReceiveNotification(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async notificationCreateGotify(
     security: operations.NotificationCreateGotifySecurity,
     request: operations.NotificationCreateGotifyRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(notificationNotificationCreateGotify(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationUpdateGotify(
-    security: operations.NotificationUpdateGotifySecurity,
-    request: operations.NotificationUpdateGotifyRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateGotify(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async notificationTestGotifyConnection(
-    security: operations.NotificationTestGotifyConnectionSecurity,
-    request: operations.NotificationTestGotifyConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationTestGotifyConnection(
       this,
       security,
       request,
@@ -289,12 +94,114 @@ export class Notification extends ClientSDK {
     ));
   }
 
-  async notificationUpdateNtfy(
-    security: operations.NotificationUpdateNtfySecurity,
-    request: operations.NotificationUpdateNtfyRequest,
+  async notificationCreateSlack(
+    security: operations.NotificationCreateSlackSecurity,
+    request: operations.NotificationCreateSlackRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationUpdateNtfy(
+    return unwrapAsync(notificationNotificationCreateSlack(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationCreateTelegram(
+    security: operations.NotificationCreateTelegramSecurity,
+    request: operations.NotificationCreateTelegramRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationCreateTelegram(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationGetEmailProviders(
+    security: operations.NotificationGetEmailProvidersSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationGetEmailProviders(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async notificationOne(
+    security: operations.NotificationOneSecurity,
+    request: operations.NotificationOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationReceiveNotification(
+    security: operations.NotificationReceiveNotificationSecurity,
+    request: operations.NotificationReceiveNotificationRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationReceiveNotification(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationRemove(
+    security: operations.NotificationRemoveSecurity,
+    request: operations.NotificationRemoveRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationRemove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationTestDiscordConnection(
+    security: operations.NotificationTestDiscordConnectionSecurity,
+    request: operations.NotificationTestDiscordConnectionRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationTestDiscordConnection(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationTestEmailConnection(
+    security: operations.NotificationTestEmailConnectionSecurity,
+    request: operations.NotificationTestEmailConnectionRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationTestEmailConnection(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationTestGotifyConnection(
+    security: operations.NotificationTestGotifyConnectionSecurity,
+    request: operations.NotificationTestGotifyConnectionRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationTestGotifyConnection(
       this,
       security,
       request,
@@ -315,13 +222,106 @@ export class Notification extends ClientSDK {
     ));
   }
 
-  async notificationGetEmailProviders(
-    security: operations.NotificationGetEmailProvidersSecurity,
+  async notificationTestSlackConnection(
+    security: operations.NotificationTestSlackConnectionSecurity,
+    request: operations.NotificationTestSlackConnectionRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(notificationNotificationGetEmailProviders(
+    return unwrapAsync(notificationNotificationTestSlackConnection(
       this,
       security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationTestTelegramConnection(
+    security: operations.NotificationTestTelegramConnectionSecurity,
+    request: operations.NotificationTestTelegramConnectionRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationTestTelegramConnection(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateDiscord(
+    security: operations.NotificationUpdateDiscordSecurity,
+    request: operations.NotificationUpdateDiscordRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateDiscord(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateEmail(
+    security: operations.NotificationUpdateEmailSecurity,
+    request: operations.NotificationUpdateEmailRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateEmail(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateGotify(
+    security: operations.NotificationUpdateGotifySecurity,
+    request: operations.NotificationUpdateGotifyRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateGotify(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateNtfy(
+    security: operations.NotificationUpdateNtfySecurity,
+    request: operations.NotificationUpdateNtfyRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateNtfy(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateSlack(
+    security: operations.NotificationUpdateSlackSecurity,
+    request: operations.NotificationUpdateSlackRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateSlack(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async notificationUpdateTelegram(
+    security: operations.NotificationUpdateTelegramSecurity,
+    request: operations.NotificationUpdateTelegramRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(notificationNotificationUpdateTelegram(
+      this,
+      security,
+      request,
       options,
     ));
   }

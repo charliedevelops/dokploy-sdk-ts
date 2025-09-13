@@ -6,12 +6,12 @@
 import { RedisRemoveProject } from "dokploy-sdk/models/operations";
 
 let value: RedisRemoveProject = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "tightly why but unless",
-  createdAt: "1727801033684",
-  organizationId: "<id>",
+  createdAt: "1729055562332",
+  description: "though embody viciously regarding yet till around huzzah down",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -19,9 +19,9 @@ let value: RedisRemoveProject = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `projectId`        | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
+| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `projectId`        | *string*           | :heavy_check_mark: | N/A                |

@@ -13,8 +13,8 @@ const value: operations.EnvironmentByProjectIdResponseBody[] = [];
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

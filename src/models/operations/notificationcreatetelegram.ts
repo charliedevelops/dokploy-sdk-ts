@@ -14,15 +14,15 @@ export type NotificationCreateTelegramSecurity = {
 
 export type NotificationCreateTelegramRequest = {
   appBuildError: boolean;
-  databaseBackup: boolean;
-  dokployRestart: boolean;
-  name: string;
   appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverThreshold: boolean;
   botToken: string;
   chatId: string;
+  databaseBackup: boolean;
+  dockerCleanup: boolean;
+  dokployRestart: boolean;
   messageThreadId: string;
+  name: string;
+  serverThreshold: boolean;
 };
 
 /** @internal */
@@ -98,29 +98,29 @@ export const NotificationCreateTelegramRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
-  databaseBackup: z.boolean(),
-  dokployRestart: z.boolean(),
-  name: z.string(),
   appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverThreshold: z.boolean(),
   botToken: z.string(),
   chatId: z.string(),
+  databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
+  dokployRestart: z.boolean(),
   messageThreadId: z.string(),
+  name: z.string(),
+  serverThreshold: z.boolean(),
 });
 
 /** @internal */
 export type NotificationCreateTelegramRequest$Outbound = {
   appBuildError: boolean;
-  databaseBackup: boolean;
-  dokployRestart: boolean;
-  name: string;
   appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverThreshold: boolean;
   botToken: string;
   chatId: string;
+  databaseBackup: boolean;
+  dockerCleanup: boolean;
+  dokployRestart: boolean;
   messageThreadId: string;
+  name: string;
+  serverThreshold: boolean;
 };
 
 /** @internal */
@@ -130,15 +130,15 @@ export const NotificationCreateTelegramRequest$outboundSchema: z.ZodType<
   NotificationCreateTelegramRequest
 > = z.object({
   appBuildError: z.boolean(),
-  databaseBackup: z.boolean(),
-  dokployRestart: z.boolean(),
-  name: z.string(),
   appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverThreshold: z.boolean(),
   botToken: z.string(),
   chatId: z.string(),
+  databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
+  dokployRestart: z.boolean(),
   messageThreadId: z.string(),
+  name: z.string(),
+  serverThreshold: z.boolean(),
 });
 
 /**

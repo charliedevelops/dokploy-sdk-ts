@@ -13,12 +13,12 @@ export type NotificationTestEmailConnectionSecurity = {
 };
 
 export type NotificationTestEmailConnectionRequest = {
-  smtpServer: string;
-  smtpPort: number;
-  username: string;
-  password: string;
-  toAddresses: Array<string>;
   fromAddress: string;
+  password: string;
+  smtpPort: number;
+  smtpServer: string;
+  toAddresses: Array<string>;
+  username: string;
 };
 
 /** @internal */
@@ -100,22 +100,22 @@ export const NotificationTestEmailConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  smtpServer: z.string(),
-  smtpPort: z.number(),
-  username: z.string(),
-  password: z.string(),
-  toAddresses: z.array(z.string()),
   fromAddress: z.string(),
+  password: z.string(),
+  smtpPort: z.number(),
+  smtpServer: z.string(),
+  toAddresses: z.array(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type NotificationTestEmailConnectionRequest$Outbound = {
-  smtpServer: string;
-  smtpPort: number;
-  username: string;
-  password: string;
-  toAddresses: Array<string>;
   fromAddress: string;
+  password: string;
+  smtpPort: number;
+  smtpServer: string;
+  toAddresses: Array<string>;
+  username: string;
 };
 
 /** @internal */
@@ -124,12 +124,12 @@ export const NotificationTestEmailConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestEmailConnectionRequest
 > = z.object({
-  smtpServer: z.string(),
-  smtpPort: z.number(),
-  username: z.string(),
-  password: z.string(),
-  toAddresses: z.array(z.string()),
   fromAddress: z.string(),
+  password: z.string(),
+  smtpPort: z.number(),
+  smtpServer: z.string(),
+  toAddresses: z.array(z.string()),
+  username: z.string(),
 });
 
 /**

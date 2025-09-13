@@ -22,31 +22,9 @@ export type UserUpdateCertificateType = ClosedEnum<
   typeof UserUpdateCertificateType
 >;
 
-export const UserUpdateType = {
-  Dokploy: "Dokploy",
-  Remote: "Remote",
-} as const;
-export type UserUpdateType = ClosedEnum<typeof UserUpdateType>;
-
-export type UserUpdateThresholds = {
-  cpu: number;
-  memory: number;
-};
-
-export type UserUpdateServer = {
-  type: UserUpdateType;
-  refreshRate: number;
-  port: number;
-  token: string;
-  urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: UserUpdateThresholds;
-};
-
 export type UserUpdateServices = {
-  include: Array<string>;
   exclude: Array<string>;
+  include: Array<string>;
 };
 
 export type UserUpdateContainers = {
@@ -54,45 +32,67 @@ export type UserUpdateContainers = {
   services: UserUpdateServices;
 };
 
+export type UserUpdateThresholds = {
+  cpu: number;
+  memory: number;
+};
+
+export const UserUpdateType = {
+  Dokploy: "Dokploy",
+  Remote: "Remote",
+} as const;
+export type UserUpdateType = ClosedEnum<typeof UserUpdateType>;
+
+export type UserUpdateServer = {
+  cronJob: string;
+  port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: UserUpdateThresholds;
+  token: string;
+  type: UserUpdateType;
+  urlCallback: string;
+};
+
 export type UserUpdateMetricsConfig = {
-  server: UserUpdateServer;
   containers: UserUpdateContainers;
+  server: UserUpdateServer;
 };
 
 export type UserUpdateRequest = {
-  id?: string | undefined;
-  name?: string | undefined;
-  isRegistered?: boolean | undefined;
-  expirationDate?: string | undefined;
-  createdAt2?: string | undefined;
+  allowImpersonation?: boolean | undefined;
+  banExpires?: Date | null | undefined;
+  banReason?: string | null | undefined;
+  banned?: boolean | null | undefined;
+  certificateType?: UserUpdateCertificateType | undefined;
+  cleanupCacheApplications?: boolean | undefined;
+  cleanupCacheOnCompose?: boolean | undefined;
+  cleanupCacheOnPreviews?: boolean | undefined;
   createdAt?: Date | null | undefined;
-  twoFactorEnabled?: boolean | null | undefined;
+  createdAt2?: string | undefined;
+  currentPassword?: string | undefined;
   email?: string | undefined;
   emailVerified?: boolean | undefined;
-  image?: string | null | undefined;
-  banned?: boolean | null | undefined;
-  banReason?: string | null | undefined;
-  banExpires?: Date | null | undefined;
-  updatedAt?: Date | undefined;
-  serverIp?: string | null | undefined;
-  certificateType?: UserUpdateCertificateType | undefined;
-  https?: boolean | undefined;
-  host?: string | null | undefined;
-  letsEncryptEmail?: string | null | undefined;
-  sshPrivateKey?: string | null | undefined;
   enableDockerCleanup?: boolean | undefined;
-  logCleanupCron?: string | null | undefined;
   enablePaidFeatures?: boolean | undefined;
-  allowImpersonation?: boolean | undefined;
+  expirationDate?: string | undefined;
+  host?: string | null | undefined;
+  https?: boolean | undefined;
+  id?: string | undefined;
+  image?: string | null | undefined;
+  isRegistered?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
+  logCleanupCron?: string | null | undefined;
   metricsConfig?: UserUpdateMetricsConfig | undefined;
-  cleanupCacheApplications?: boolean | undefined;
-  cleanupCacheOnPreviews?: boolean | undefined;
-  cleanupCacheOnCompose?: boolean | undefined;
+  name?: string | undefined;
+  password?: string | undefined;
+  serverIp?: string | null | undefined;
+  serversQuantity?: number | undefined;
+  sshPrivateKey?: string | null | undefined;
   stripeCustomerId?: string | null | undefined;
   stripeSubscriptionId?: string | null | undefined;
-  serversQuantity?: number | undefined;
-  password?: string | undefined;
-  currentPassword?: string | undefined;
+  twoFactorEnabled?: boolean | null | undefined;
+  updatedAt?: Date | undefined;
 };
 
 /** @internal */
@@ -179,172 +179,19 @@ export namespace UserUpdateCertificateType$ {
 }
 
 /** @internal */
-export const UserUpdateType$inboundSchema: z.ZodNativeEnum<
-  typeof UserUpdateType
-> = z.nativeEnum(UserUpdateType);
-
-/** @internal */
-export const UserUpdateType$outboundSchema: z.ZodNativeEnum<
-  typeof UserUpdateType
-> = UserUpdateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserUpdateType$ {
-  /** @deprecated use `UserUpdateType$inboundSchema` instead. */
-  export const inboundSchema = UserUpdateType$inboundSchema;
-  /** @deprecated use `UserUpdateType$outboundSchema` instead. */
-  export const outboundSchema = UserUpdateType$outboundSchema;
-}
-
-/** @internal */
-export const UserUpdateThresholds$inboundSchema: z.ZodType<
-  UserUpdateThresholds,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/** @internal */
-export type UserUpdateThresholds$Outbound = {
-  cpu: number;
-  memory: number;
-};
-
-/** @internal */
-export const UserUpdateThresholds$outboundSchema: z.ZodType<
-  UserUpdateThresholds$Outbound,
-  z.ZodTypeDef,
-  UserUpdateThresholds
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserUpdateThresholds$ {
-  /** @deprecated use `UserUpdateThresholds$inboundSchema` instead. */
-  export const inboundSchema = UserUpdateThresholds$inboundSchema;
-  /** @deprecated use `UserUpdateThresholds$outboundSchema` instead. */
-  export const outboundSchema = UserUpdateThresholds$outboundSchema;
-  /** @deprecated use `UserUpdateThresholds$Outbound` instead. */
-  export type Outbound = UserUpdateThresholds$Outbound;
-}
-
-export function userUpdateThresholdsToJSON(
-  userUpdateThresholds: UserUpdateThresholds,
-): string {
-  return JSON.stringify(
-    UserUpdateThresholds$outboundSchema.parse(userUpdateThresholds),
-  );
-}
-
-export function userUpdateThresholdsFromJSON(
-  jsonString: string,
-): SafeParseResult<UserUpdateThresholds, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserUpdateThresholds$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserUpdateThresholds' from JSON`,
-  );
-}
-
-/** @internal */
-export const UserUpdateServer$inboundSchema: z.ZodType<
-  UserUpdateServer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: UserUpdateType$inboundSchema,
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => UserUpdateThresholds$inboundSchema),
-});
-
-/** @internal */
-export type UserUpdateServer$Outbound = {
-  type: string;
-  refreshRate: number;
-  port: number;
-  token: string;
-  urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: UserUpdateThresholds$Outbound;
-};
-
-/** @internal */
-export const UserUpdateServer$outboundSchema: z.ZodType<
-  UserUpdateServer$Outbound,
-  z.ZodTypeDef,
-  UserUpdateServer
-> = z.object({
-  type: UserUpdateType$outboundSchema,
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => UserUpdateThresholds$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserUpdateServer$ {
-  /** @deprecated use `UserUpdateServer$inboundSchema` instead. */
-  export const inboundSchema = UserUpdateServer$inboundSchema;
-  /** @deprecated use `UserUpdateServer$outboundSchema` instead. */
-  export const outboundSchema = UserUpdateServer$outboundSchema;
-  /** @deprecated use `UserUpdateServer$Outbound` instead. */
-  export type Outbound = UserUpdateServer$Outbound;
-}
-
-export function userUpdateServerToJSON(
-  userUpdateServer: UserUpdateServer,
-): string {
-  return JSON.stringify(
-    UserUpdateServer$outboundSchema.parse(userUpdateServer),
-  );
-}
-
-export function userUpdateServerFromJSON(
-  jsonString: string,
-): SafeParseResult<UserUpdateServer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserUpdateServer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserUpdateServer' from JSON`,
-  );
-}
-
-/** @internal */
 export const UserUpdateServices$inboundSchema: z.ZodType<
   UserUpdateServices,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  include: z.array(z.string()),
   exclude: z.array(z.string()),
+  include: z.array(z.string()),
 });
 
 /** @internal */
 export type UserUpdateServices$Outbound = {
-  include: Array<string>;
   exclude: Array<string>;
+  include: Array<string>;
 };
 
 /** @internal */
@@ -353,8 +200,8 @@ export const UserUpdateServices$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserUpdateServices
 > = z.object({
-  include: z.array(z.string()),
   exclude: z.array(z.string()),
+  include: z.array(z.string()),
 });
 
 /**
@@ -446,19 +293,172 @@ export function userUpdateContainersFromJSON(
 }
 
 /** @internal */
+export const UserUpdateThresholds$inboundSchema: z.ZodType<
+  UserUpdateThresholds,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/** @internal */
+export type UserUpdateThresholds$Outbound = {
+  cpu: number;
+  memory: number;
+};
+
+/** @internal */
+export const UserUpdateThresholds$outboundSchema: z.ZodType<
+  UserUpdateThresholds$Outbound,
+  z.ZodTypeDef,
+  UserUpdateThresholds
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UserUpdateThresholds$ {
+  /** @deprecated use `UserUpdateThresholds$inboundSchema` instead. */
+  export const inboundSchema = UserUpdateThresholds$inboundSchema;
+  /** @deprecated use `UserUpdateThresholds$outboundSchema` instead. */
+  export const outboundSchema = UserUpdateThresholds$outboundSchema;
+  /** @deprecated use `UserUpdateThresholds$Outbound` instead. */
+  export type Outbound = UserUpdateThresholds$Outbound;
+}
+
+export function userUpdateThresholdsToJSON(
+  userUpdateThresholds: UserUpdateThresholds,
+): string {
+  return JSON.stringify(
+    UserUpdateThresholds$outboundSchema.parse(userUpdateThresholds),
+  );
+}
+
+export function userUpdateThresholdsFromJSON(
+  jsonString: string,
+): SafeParseResult<UserUpdateThresholds, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UserUpdateThresholds$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UserUpdateThresholds' from JSON`,
+  );
+}
+
+/** @internal */
+export const UserUpdateType$inboundSchema: z.ZodNativeEnum<
+  typeof UserUpdateType
+> = z.nativeEnum(UserUpdateType);
+
+/** @internal */
+export const UserUpdateType$outboundSchema: z.ZodNativeEnum<
+  typeof UserUpdateType
+> = UserUpdateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UserUpdateType$ {
+  /** @deprecated use `UserUpdateType$inboundSchema` instead. */
+  export const inboundSchema = UserUpdateType$inboundSchema;
+  /** @deprecated use `UserUpdateType$outboundSchema` instead. */
+  export const outboundSchema = UserUpdateType$outboundSchema;
+}
+
+/** @internal */
+export const UserUpdateServer$inboundSchema: z.ZodType<
+  UserUpdateServer,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => UserUpdateThresholds$inboundSchema),
+  token: z.string(),
+  type: UserUpdateType$inboundSchema,
+  urlCallback: z.string(),
+});
+
+/** @internal */
+export type UserUpdateServer$Outbound = {
+  cronJob: string;
+  port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: UserUpdateThresholds$Outbound;
+  token: string;
+  type: string;
+  urlCallback: string;
+};
+
+/** @internal */
+export const UserUpdateServer$outboundSchema: z.ZodType<
+  UserUpdateServer$Outbound,
+  z.ZodTypeDef,
+  UserUpdateServer
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => UserUpdateThresholds$outboundSchema),
+  token: z.string(),
+  type: UserUpdateType$outboundSchema,
+  urlCallback: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UserUpdateServer$ {
+  /** @deprecated use `UserUpdateServer$inboundSchema` instead. */
+  export const inboundSchema = UserUpdateServer$inboundSchema;
+  /** @deprecated use `UserUpdateServer$outboundSchema` instead. */
+  export const outboundSchema = UserUpdateServer$outboundSchema;
+  /** @deprecated use `UserUpdateServer$Outbound` instead. */
+  export type Outbound = UserUpdateServer$Outbound;
+}
+
+export function userUpdateServerToJSON(
+  userUpdateServer: UserUpdateServer,
+): string {
+  return JSON.stringify(
+    UserUpdateServer$outboundSchema.parse(userUpdateServer),
+  );
+}
+
+export function userUpdateServerFromJSON(
+  jsonString: string,
+): SafeParseResult<UserUpdateServer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UserUpdateServer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UserUpdateServer' from JSON`,
+  );
+}
+
+/** @internal */
 export const UserUpdateMetricsConfig$inboundSchema: z.ZodType<
   UserUpdateMetricsConfig,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  server: z.lazy(() => UserUpdateServer$inboundSchema),
   containers: z.lazy(() => UserUpdateContainers$inboundSchema),
+  server: z.lazy(() => UserUpdateServer$inboundSchema),
 });
 
 /** @internal */
 export type UserUpdateMetricsConfig$Outbound = {
-  server: UserUpdateServer$Outbound;
   containers: UserUpdateContainers$Outbound;
+  server: UserUpdateServer$Outbound;
 };
 
 /** @internal */
@@ -467,8 +467,8 @@ export const UserUpdateMetricsConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserUpdateMetricsConfig
 > = z.object({
-  server: z.lazy(() => UserUpdateServer$outboundSchema),
   containers: z.lazy(() => UserUpdateContainers$outboundSchema),
+  server: z.lazy(() => UserUpdateServer$outboundSchema),
 });
 
 /**
@@ -508,81 +508,81 @@ export const UserUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  isRegistered: z.boolean().optional(),
-  expirationDate: z.string().optional(),
-  createdAt2: z.string().optional(),
-  createdAt: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  twoFactorEnabled: z.nullable(z.boolean()).optional(),
-  email: z.string().optional(),
-  emailVerified: z.boolean().optional(),
-  image: z.nullable(z.string()).optional(),
-  banned: z.nullable(z.boolean()).optional(),
-  banReason: z.nullable(z.string()).optional(),
+  allowImpersonation: z.boolean().optional(),
   banExpires: z.nullable(
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
-  updatedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  serverIp: z.nullable(z.string()).optional(),
+  banReason: z.nullable(z.string()).optional(),
+  banned: z.nullable(z.boolean()).optional(),
   certificateType: UserUpdateCertificateType$inboundSchema.optional(),
-  https: z.boolean().optional(),
-  host: z.nullable(z.string()).optional(),
-  letsEncryptEmail: z.nullable(z.string()).optional(),
-  sshPrivateKey: z.nullable(z.string()).optional(),
-  enableDockerCleanup: z.boolean().optional(),
-  logCleanupCron: z.nullable(z.string()).optional(),
-  enablePaidFeatures: z.boolean().optional(),
-  allowImpersonation: z.boolean().optional(),
-  metricsConfig: z.lazy(() => UserUpdateMetricsConfig$inboundSchema).optional(),
   cleanupCacheApplications: z.boolean().optional(),
-  cleanupCacheOnPreviews: z.boolean().optional(),
   cleanupCacheOnCompose: z.boolean().optional(),
+  cleanupCacheOnPreviews: z.boolean().optional(),
+  createdAt: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+  createdAt2: z.string().optional(),
+  currentPassword: z.string().optional(),
+  email: z.string().optional(),
+  emailVerified: z.boolean().optional(),
+  enableDockerCleanup: z.boolean().optional(),
+  enablePaidFeatures: z.boolean().optional(),
+  expirationDate: z.string().optional(),
+  host: z.nullable(z.string()).optional(),
+  https: z.boolean().optional(),
+  id: z.string().optional(),
+  image: z.nullable(z.string()).optional(),
+  isRegistered: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
+  logCleanupCron: z.nullable(z.string()).optional(),
+  metricsConfig: z.lazy(() => UserUpdateMetricsConfig$inboundSchema).optional(),
+  name: z.string().optional(),
+  password: z.string().optional(),
+  serverIp: z.nullable(z.string()).optional(),
+  serversQuantity: z.number().optional(),
+  sshPrivateKey: z.nullable(z.string()).optional(),
   stripeCustomerId: z.nullable(z.string()).optional(),
   stripeSubscriptionId: z.nullable(z.string()).optional(),
-  serversQuantity: z.number().optional(),
-  password: z.string().optional(),
-  currentPassword: z.string().optional(),
+  twoFactorEnabled: z.nullable(z.boolean()).optional(),
+  updatedAt: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
 });
 
 /** @internal */
 export type UserUpdateRequest$Outbound = {
-  id?: string | undefined;
-  name?: string | undefined;
-  isRegistered?: boolean | undefined;
-  expirationDate?: string | undefined;
-  createdAt2?: string | undefined;
+  allowImpersonation?: boolean | undefined;
+  banExpires?: string | null | undefined;
+  banReason?: string | null | undefined;
+  banned?: boolean | null | undefined;
+  certificateType?: string | undefined;
+  cleanupCacheApplications?: boolean | undefined;
+  cleanupCacheOnCompose?: boolean | undefined;
+  cleanupCacheOnPreviews?: boolean | undefined;
   createdAt?: string | null | undefined;
-  twoFactorEnabled?: boolean | null | undefined;
+  createdAt2?: string | undefined;
+  currentPassword?: string | undefined;
   email?: string | undefined;
   emailVerified?: boolean | undefined;
-  image?: string | null | undefined;
-  banned?: boolean | null | undefined;
-  banReason?: string | null | undefined;
-  banExpires?: string | null | undefined;
-  updatedAt?: string | undefined;
-  serverIp?: string | null | undefined;
-  certificateType?: string | undefined;
-  https?: boolean | undefined;
-  host?: string | null | undefined;
-  letsEncryptEmail?: string | null | undefined;
-  sshPrivateKey?: string | null | undefined;
   enableDockerCleanup?: boolean | undefined;
-  logCleanupCron?: string | null | undefined;
   enablePaidFeatures?: boolean | undefined;
-  allowImpersonation?: boolean | undefined;
+  expirationDate?: string | undefined;
+  host?: string | null | undefined;
+  https?: boolean | undefined;
+  id?: string | undefined;
+  image?: string | null | undefined;
+  isRegistered?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
+  logCleanupCron?: string | null | undefined;
   metricsConfig?: UserUpdateMetricsConfig$Outbound | undefined;
-  cleanupCacheApplications?: boolean | undefined;
-  cleanupCacheOnPreviews?: boolean | undefined;
-  cleanupCacheOnCompose?: boolean | undefined;
+  name?: string | undefined;
+  password?: string | undefined;
+  serverIp?: string | null | undefined;
+  serversQuantity?: number | undefined;
+  sshPrivateKey?: string | null | undefined;
   stripeCustomerId?: string | null | undefined;
   stripeSubscriptionId?: string | null | undefined;
-  serversQuantity?: number | undefined;
-  password?: string | undefined;
-  currentPassword?: string | undefined;
+  twoFactorEnabled?: boolean | null | undefined;
+  updatedAt?: string | undefined;
 };
 
 /** @internal */
@@ -591,40 +591,40 @@ export const UserUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserUpdateRequest
 > = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  isRegistered: z.boolean().optional(),
-  expirationDate: z.string().optional(),
-  createdAt2: z.string().optional(),
+  allowImpersonation: z.boolean().optional(),
+  banExpires: z.nullable(z.date().transform(v => v.toISOString())).optional(),
+  banReason: z.nullable(z.string()).optional(),
+  banned: z.nullable(z.boolean()).optional(),
+  certificateType: UserUpdateCertificateType$outboundSchema.optional(),
+  cleanupCacheApplications: z.boolean().optional(),
+  cleanupCacheOnCompose: z.boolean().optional(),
+  cleanupCacheOnPreviews: z.boolean().optional(),
   createdAt: z.nullable(z.date().transform(v => v.toISOString())).optional(),
-  twoFactorEnabled: z.nullable(z.boolean()).optional(),
+  createdAt2: z.string().optional(),
+  currentPassword: z.string().optional(),
   email: z.string().optional(),
   emailVerified: z.boolean().optional(),
-  image: z.nullable(z.string()).optional(),
-  banned: z.nullable(z.boolean()).optional(),
-  banReason: z.nullable(z.string()).optional(),
-  banExpires: z.nullable(z.date().transform(v => v.toISOString())).optional(),
-  updatedAt: z.date().transform(v => v.toISOString()).optional(),
-  serverIp: z.nullable(z.string()).optional(),
-  certificateType: UserUpdateCertificateType$outboundSchema.optional(),
-  https: z.boolean().optional(),
-  host: z.nullable(z.string()).optional(),
-  letsEncryptEmail: z.nullable(z.string()).optional(),
-  sshPrivateKey: z.nullable(z.string()).optional(),
   enableDockerCleanup: z.boolean().optional(),
-  logCleanupCron: z.nullable(z.string()).optional(),
   enablePaidFeatures: z.boolean().optional(),
-  allowImpersonation: z.boolean().optional(),
+  expirationDate: z.string().optional(),
+  host: z.nullable(z.string()).optional(),
+  https: z.boolean().optional(),
+  id: z.string().optional(),
+  image: z.nullable(z.string()).optional(),
+  isRegistered: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
+  logCleanupCron: z.nullable(z.string()).optional(),
   metricsConfig: z.lazy(() => UserUpdateMetricsConfig$outboundSchema)
     .optional(),
-  cleanupCacheApplications: z.boolean().optional(),
-  cleanupCacheOnPreviews: z.boolean().optional(),
-  cleanupCacheOnCompose: z.boolean().optional(),
+  name: z.string().optional(),
+  password: z.string().optional(),
+  serverIp: z.nullable(z.string()).optional(),
+  serversQuantity: z.number().optional(),
+  sshPrivateKey: z.nullable(z.string()).optional(),
   stripeCustomerId: z.nullable(z.string()).optional(),
   stripeSubscriptionId: z.nullable(z.string()).optional(),
-  serversQuantity: z.number().optional(),
-  password: z.string().optional(),
-  currentPassword: z.string().optional(),
+  twoFactorEnabled: z.nullable(z.boolean()).optional(),
+  updatedAt: z.date().transform(v => v.toISOString()).optional(),
 });
 
 /**

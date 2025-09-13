@@ -14,13 +14,13 @@ export type CertificatesAllSecurity = {
 };
 
 export type CertificatesAllResponseBody = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -96,25 +96,25 @@ export const CertificatesAllResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 
 /** @internal */
 export type CertificatesAllResponseBody$Outbound = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -124,13 +124,13 @@ export const CertificatesAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CertificatesAllResponseBody
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 

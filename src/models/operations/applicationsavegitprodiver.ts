@@ -14,13 +14,13 @@ export type ApplicationSaveGitProdiverSecurity = {
 };
 
 export type ApplicationSaveGitProdiverRequest = {
-  customGitBranch?: string | null | undefined;
   applicationId: string;
+  customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
   customGitSSHKeyId?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationSaveGitProdiverResponse = models.ErrorT | boolean;
@@ -97,24 +97,24 @@ export const ApplicationSaveGitProdiverRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  customGitBranch: z.nullable(z.string()).optional(),
   applicationId: z.string(),
+  customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveGitProdiverRequest$Outbound = {
-  customGitBranch?: string | null | undefined;
   applicationId: string;
+  customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
   customGitSSHKeyId?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -123,13 +123,13 @@ export const ApplicationSaveGitProdiverRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveGitProdiverRequest
 > = z.object({
-  customGitBranch: z.nullable(z.string()).optional(),
   applicationId: z.string(),
+  customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

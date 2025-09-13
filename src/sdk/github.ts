@@ -14,12 +14,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Github extends ClientSDK {
-  async githubOne(
-    security: operations.GithubOneSecurity,
-    request: operations.GithubOneRequest,
+  async githubGetGithubBranches(
+    security: operations.GithubGetGithubBranchesSecurity,
+    request: operations.GithubGetGithubBranchesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GithubOneResponse> {
-    return unwrapAsync(githubGithubOne(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(githubGithubGetGithubBranches(
       this,
       security,
       request,
@@ -40,19 +40,6 @@ export class Github extends ClientSDK {
     ));
   }
 
-  async githubGetGithubBranches(
-    security: operations.GithubGetGithubBranchesSecurity,
-    request: operations.GithubGetGithubBranchesRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(githubGithubGetGithubBranches(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async githubGithubProviders(
     security: operations.GithubGithubProvidersSecurity,
     options?: RequestOptions,
@@ -60,6 +47,19 @@ export class Github extends ClientSDK {
     return unwrapAsync(githubGithubGithubProviders(
       this,
       security,
+      options,
+    ));
+  }
+
+  async githubOne(
+    security: operations.GithubOneSecurity,
+    request: operations.GithubOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GithubOneResponse> {
+    return unwrapAsync(githubGithubOne(
+      this,
+      security,
+      request,
       options,
     ));
   }

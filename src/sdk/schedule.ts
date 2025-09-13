@@ -27,19 +27,6 @@ export class Schedule extends ClientSDK {
     ));
   }
 
-  async scheduleUpdate(
-    security: operations.ScheduleUpdateSecurity,
-    request: operations.ScheduleUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(scheduleScheduleUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async scheduleDelete(
     security: operations.ScheduleDeleteSecurity,
     request: operations.ScheduleDeleteRequest,
@@ -85,6 +72,19 @@ export class Schedule extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(scheduleScheduleRunManually(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async scheduleUpdate(
+    security: operations.ScheduleUpdateSecurity,
+    request: operations.ScheduleUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(scheduleScheduleUpdate(
       this,
       security,
       request,

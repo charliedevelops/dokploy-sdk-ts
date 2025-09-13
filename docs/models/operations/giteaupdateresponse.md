@@ -15,8 +15,8 @@ const value: operations.GiteaUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

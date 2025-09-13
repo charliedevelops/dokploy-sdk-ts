@@ -8,117 +8,116 @@ Successful response
 import { MongoStopResponseBody } from "dokploy-sdk/models/operations";
 
 let value: MongoStopResponseBody = {
-  mongoId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description:
-    "quarrelsomely absent that briskly ack opposite hence darling neatly against",
-  databaseUser: "<value>",
-  databasePassword: "<value>",
-  dockerImage: "<value>",
-  command: "<value>",
-  env: "<value>",
-  memoryReservation: "<value>",
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
-  cpuLimit: "<value>",
-  externalPort: 5989.84,
   applicationStatus: "done",
-  healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 3407.28,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 6553.82,
-    order: "<value>",
-  },
-  modeSwarm: {},
-  labelsSwarm: {
-    "key": "<value>",
-  },
-  networkSwarm: [
-    {},
-  ],
-  replicas: 5931.13,
-  createdAt: "1711749282257",
-  environmentId: "<id>",
-  serverId: "<id>",
-  replicaSets: false,
-  environment: {
-    environmentId: "<id>",
-    name: "<value>",
-    description: "gosh horst midst exaggerate the",
-    createdAt: "1732605263973",
-    env: "<value>",
-    projectId: "<id>",
-    project: {
-      projectId: "<id>",
-      name: "<value>",
-      description: "unwelcome hopelessly anneal",
-      createdAt: "1725708514063",
-      organizationId: "<id>",
-      env: "<value>",
-    },
-  },
-  mounts: [
-    {
-      mountId: "<id>",
-      type: "volume",
-      hostPath: "<value>",
-      volumeName: "<value>",
-      filePath: "/proc/shear_upon_absent.svg",
-      content: "<value>",
-      serviceType: "postgres",
-      mountPath: "<value>",
-      applicationId: null,
-      postgresId: "<id>",
-      mariadbId: "<id>",
-      mongoId: "<id>",
-      mysqlId: "<id>",
-      redisId: "<id>",
-      composeId: "<id>",
-    },
-  ],
-  server: {
-    serverId: "<id>",
-    name: "<value>",
-    description: "outfox ick poor better pish",
-    ipAddress: "1241:c4ec:b5cf:c999:6b3e:5228:7fa1:5e63",
-    port: 9567.89,
-    username: "Reinhold_Connelly",
-    appName: "<value>",
-    enableDockerCleanup: true,
-    createdAt: "1705659501380",
-    organizationId: "<id>",
-    serverStatus: "active",
-    command: "<value>",
-    sshKeyId: "<id>",
-    metricsConfig: "<value>",
-  },
   backups: [
     {
-      backupId: "<id>",
       appName: "<value>",
-      schedule: "<value>",
-      enabled: null,
-      database: "<value>",
-      prefix: "<value>",
-      serviceName: "<value>",
-      destinationId: "<id>",
-      keepLatestCount: 5395.88,
+      backupId: "<id>",
       backupType: "database",
-      databaseType: "mongo",
       composeId: "<id>",
-      postgresId: "<id>",
+      database: "<value>",
+      databaseType: "web-server",
+      destinationId: "<id>",
+      enabled: true,
+      keepLatestCount: 6130.66,
       mariadbId: "<id>",
-      mysqlId: "<id>",
       mongoId: "<id>",
+      mysqlId: "<id>",
+      postgresId: "<id>",
+      prefix: "<value>",
+      schedule: "<value>",
+      serviceName: null,
       userId: "<id>",
     },
   ],
+  command: null,
+  cpuLimit: "<value>",
+  cpuReservation: "<value>",
+  createdAt: "1712703478305",
+  databasePassword: "<value>",
+  databaseUser: "<value>",
+  description: "doodle opposite beside cautiously",
+  dockerImage: "<value>",
+  env: "<value>",
+  environment: {
+    createdAt: "1712067260170",
+    description: "volunteer devastation sushi menacing",
+    env: "<value>",
+    environmentId: "<id>",
+    name: "<value>",
+    project: {
+      createdAt: "1718458472155",
+      description: "guilt next pessimistic so surprisingly massage because",
+      env: "<value>",
+      name: "<value>",
+      organizationId: "<id>",
+      projectId: "<id>",
+    },
+    projectId: "<id>",
+  },
+  environmentId: "<id>",
+  externalPort: 5904.39,
+  healthCheckSwarm: {},
+  labelsSwarm: {
+    "key": "<value>",
+  },
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  mongoId: "<id>",
+  mounts: [
+    {
+      applicationId: "<id>",
+      composeId: "<id>",
+      content: "<value>",
+      filePath: "/lib/weep.rng",
+      hostPath: null,
+      mariadbId: "<id>",
+      mongoId: "<id>",
+      mountId: "<id>",
+      mountPath: "<value>",
+      mysqlId: null,
+      postgresId: null,
+      redisId: "<id>",
+      serviceType: "application",
+      type: "volume",
+      volumeName: "<value>",
+    },
+  ],
+  name: "<value>",
+  networkSwarm: [
+    {},
+  ],
+  placementSwarm: {},
+  replicaSets: true,
+  replicas: 7109.54,
+  restartPolicySwarm: null,
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 8515.77,
+  },
+  server: {
+    appName: "<value>",
+    command: "<value>",
+    createdAt: "1722969510891",
+    description: "till boo towards sock around brightly tender what",
+    enableDockerCleanup: true,
+    ipAddress: "da0a:daeb:affa:fdcb:cceb:13af:6f4d:d124",
+    metricsConfig: "null",
+    name: "<value>",
+    organizationId: "<id>",
+    port: 1892.14,
+    serverId: "<id>",
+    serverStatus: "inactive",
+    sshKeyId: "<id>",
+    username: "Joseph_Lueilwitz",
+  },
+  serverId: "<id>",
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 3053.55,
+  },
 };
 ```
 
@@ -126,35 +125,35 @@ let value: MongoStopResponseBody = {
 
 | Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
 | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `mongoId`                                                                                          | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `name`                                                                                             | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
 | `appName`                                                                                          | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `description`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `databaseUser`                                                                                     | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `databasePassword`                                                                                 | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `dockerImage`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `command`                                                                                          | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `env`                                                                                              | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `memoryReservation`                                                                                | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `memoryLimit`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `cpuReservation`                                                                                   | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `cpuLimit`                                                                                         | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `externalPort`                                                                                     | *number*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
 | `applicationStatus`                                                                                | [operations.MongoStopApplicationStatus](../../models/operations/mongostopapplicationstatus.md)     | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `healthCheckSwarm`                                                                                 | [operations.MongoStopHealthCheckSwarm](../../models/operations/mongostophealthcheckswarm.md)       | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `restartPolicySwarm`                                                                               | [operations.MongoStopRestartPolicySwarm](../../models/operations/mongostoprestartpolicyswarm.md)   | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `placementSwarm`                                                                                   | [operations.MongoStopPlacementSwarm](../../models/operations/mongostopplacementswarm.md)           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `updateConfigSwarm`                                                                                | [operations.MongoStopUpdateConfigSwarm](../../models/operations/mongostopupdateconfigswarm.md)     | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `rollbackConfigSwarm`                                                                              | [operations.MongoStopRollbackConfigSwarm](../../models/operations/mongostoprollbackconfigswarm.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `modeSwarm`                                                                                        | [operations.MongoStopModeSwarm](../../models/operations/mongostopmodeswarm.md)                     | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `labelsSwarm`                                                                                      | Record<string, *string*>                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `networkSwarm`                                                                                     | [operations.MongoStopNetworkSwarm](../../models/operations/mongostopnetworkswarm.md)[]             | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `replicas`                                                                                         | *number*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `createdAt`                                                                                        | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `environmentId`                                                                                    | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `serverId`                                                                                         | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `replicaSets`                                                                                      | *boolean*                                                                                          | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `environment`                                                                                      | [operations.MongoStopEnvironment](../../models/operations/mongostopenvironment.md)                 | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `mounts`                                                                                           | [operations.MongoStopMount](../../models/operations/mongostopmount.md)[]                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `server`                                                                                           | [operations.MongoStopServer](../../models/operations/mongostopserver.md)                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
 | `backups`                                                                                          | [operations.MongoStopBackup](../../models/operations/mongostopbackup.md)[]                         | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `command`                                                                                          | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `cpuLimit`                                                                                         | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `cpuReservation`                                                                                   | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `createdAt`                                                                                        | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `databasePassword`                                                                                 | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `databaseUser`                                                                                     | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `description`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `dockerImage`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `env`                                                                                              | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `environment`                                                                                      | [operations.MongoStopEnvironment](../../models/operations/mongostopenvironment.md)                 | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `environmentId`                                                                                    | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `externalPort`                                                                                     | *number*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `healthCheckSwarm`                                                                                 | [operations.MongoStopHealthCheckSwarm](../../models/operations/mongostophealthcheckswarm.md)       | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `labelsSwarm`                                                                                      | Record<string, *string*>                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `memoryLimit`                                                                                      | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `memoryReservation`                                                                                | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `modeSwarm`                                                                                        | [operations.MongoStopModeSwarm](../../models/operations/mongostopmodeswarm.md)                     | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `mongoId`                                                                                          | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `mounts`                                                                                           | [operations.MongoStopMount](../../models/operations/mongostopmount.md)[]                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `name`                                                                                             | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `networkSwarm`                                                                                     | [operations.MongoStopNetworkSwarm](../../models/operations/mongostopnetworkswarm.md)[]             | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `placementSwarm`                                                                                   | [operations.MongoStopPlacementSwarm](../../models/operations/mongostopplacementswarm.md)           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `replicaSets`                                                                                      | *boolean*                                                                                          | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `replicas`                                                                                         | *number*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `restartPolicySwarm`                                                                               | [operations.MongoStopRestartPolicySwarm](../../models/operations/mongostoprestartpolicyswarm.md)   | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `rollbackConfigSwarm`                                                                              | [operations.MongoStopRollbackConfigSwarm](../../models/operations/mongostoprollbackconfigswarm.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `server`                                                                                           | [operations.MongoStopServer](../../models/operations/mongostopserver.md)                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `serverId`                                                                                         | *string*                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `updateConfigSwarm`                                                                                | [operations.MongoStopUpdateConfigSwarm](../../models/operations/mongostopupdateconfigswarm.md)     | :heavy_check_mark:                                                                                 | N/A                                                                                                |

@@ -12,24 +12,9 @@ export type ServerSetupMonitoringSecurity = {
   authorization: string;
 };
 
-export type ServerSetupMonitoringThresholds = {
-  cpu: number;
-  memory: number;
-};
-
-export type ServerSetupMonitoringServer = {
-  refreshRate: number;
-  port: number;
-  token: string;
-  urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: ServerSetupMonitoringThresholds;
-};
-
 export type ServerSetupMonitoringServices = {
-  include?: Array<string> | undefined;
   exclude?: Array<string> | undefined;
+  include?: Array<string> | undefined;
 };
 
 export type ServerSetupMonitoringContainers = {
@@ -37,14 +22,29 @@ export type ServerSetupMonitoringContainers = {
   services: ServerSetupMonitoringServices;
 };
 
+export type ServerSetupMonitoringThresholds = {
+  cpu: number;
+  memory: number;
+};
+
+export type ServerSetupMonitoringServer = {
+  cronJob: string;
+  port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: ServerSetupMonitoringThresholds;
+  token: string;
+  urlCallback: string;
+};
+
 export type ServerSetupMonitoringMetricsConfig = {
-  server: ServerSetupMonitoringServer;
   containers: ServerSetupMonitoringContainers;
+  server: ServerSetupMonitoringServer;
 };
 
 export type ServerSetupMonitoringRequest = {
-  serverId: string;
   metricsConfig: ServerSetupMonitoringMetricsConfig;
+  serverId: string;
 };
 
 /** @internal */
@@ -112,152 +112,19 @@ export function serverSetupMonitoringSecurityFromJSON(
 }
 
 /** @internal */
-export const ServerSetupMonitoringThresholds$inboundSchema: z.ZodType<
-  ServerSetupMonitoringThresholds,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/** @internal */
-export type ServerSetupMonitoringThresholds$Outbound = {
-  cpu: number;
-  memory: number;
-};
-
-/** @internal */
-export const ServerSetupMonitoringThresholds$outboundSchema: z.ZodType<
-  ServerSetupMonitoringThresholds$Outbound,
-  z.ZodTypeDef,
-  ServerSetupMonitoringThresholds
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerSetupMonitoringThresholds$ {
-  /** @deprecated use `ServerSetupMonitoringThresholds$inboundSchema` instead. */
-  export const inboundSchema = ServerSetupMonitoringThresholds$inboundSchema;
-  /** @deprecated use `ServerSetupMonitoringThresholds$outboundSchema` instead. */
-  export const outboundSchema = ServerSetupMonitoringThresholds$outboundSchema;
-  /** @deprecated use `ServerSetupMonitoringThresholds$Outbound` instead. */
-  export type Outbound = ServerSetupMonitoringThresholds$Outbound;
-}
-
-export function serverSetupMonitoringThresholdsToJSON(
-  serverSetupMonitoringThresholds: ServerSetupMonitoringThresholds,
-): string {
-  return JSON.stringify(
-    ServerSetupMonitoringThresholds$outboundSchema.parse(
-      serverSetupMonitoringThresholds,
-    ),
-  );
-}
-
-export function serverSetupMonitoringThresholdsFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerSetupMonitoringThresholds, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerSetupMonitoringThresholds$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerSetupMonitoringThresholds' from JSON`,
-  );
-}
-
-/** @internal */
-export const ServerSetupMonitoringServer$inboundSchema: z.ZodType<
-  ServerSetupMonitoringServer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => ServerSetupMonitoringThresholds$inboundSchema),
-});
-
-/** @internal */
-export type ServerSetupMonitoringServer$Outbound = {
-  refreshRate: number;
-  port: number;
-  token: string;
-  urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: ServerSetupMonitoringThresholds$Outbound;
-};
-
-/** @internal */
-export const ServerSetupMonitoringServer$outboundSchema: z.ZodType<
-  ServerSetupMonitoringServer$Outbound,
-  z.ZodTypeDef,
-  ServerSetupMonitoringServer
-> = z.object({
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => ServerSetupMonitoringThresholds$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerSetupMonitoringServer$ {
-  /** @deprecated use `ServerSetupMonitoringServer$inboundSchema` instead. */
-  export const inboundSchema = ServerSetupMonitoringServer$inboundSchema;
-  /** @deprecated use `ServerSetupMonitoringServer$outboundSchema` instead. */
-  export const outboundSchema = ServerSetupMonitoringServer$outboundSchema;
-  /** @deprecated use `ServerSetupMonitoringServer$Outbound` instead. */
-  export type Outbound = ServerSetupMonitoringServer$Outbound;
-}
-
-export function serverSetupMonitoringServerToJSON(
-  serverSetupMonitoringServer: ServerSetupMonitoringServer,
-): string {
-  return JSON.stringify(
-    ServerSetupMonitoringServer$outboundSchema.parse(
-      serverSetupMonitoringServer,
-    ),
-  );
-}
-
-export function serverSetupMonitoringServerFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerSetupMonitoringServer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerSetupMonitoringServer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerSetupMonitoringServer' from JSON`,
-  );
-}
-
-/** @internal */
 export const ServerSetupMonitoringServices$inboundSchema: z.ZodType<
   ServerSetupMonitoringServices,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  include: z.array(z.string()).optional(),
   exclude: z.array(z.string()).optional(),
+  include: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type ServerSetupMonitoringServices$Outbound = {
-  include?: Array<string> | undefined;
   exclude?: Array<string> | undefined;
+  include?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -266,8 +133,8 @@ export const ServerSetupMonitoringServices$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerSetupMonitoringServices
 > = z.object({
-  include: z.array(z.string()).optional(),
   exclude: z.array(z.string()).optional(),
+  include: z.array(z.string()).optional(),
 });
 
 /**
@@ -363,19 +230,152 @@ export function serverSetupMonitoringContainersFromJSON(
 }
 
 /** @internal */
+export const ServerSetupMonitoringThresholds$inboundSchema: z.ZodType<
+  ServerSetupMonitoringThresholds,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/** @internal */
+export type ServerSetupMonitoringThresholds$Outbound = {
+  cpu: number;
+  memory: number;
+};
+
+/** @internal */
+export const ServerSetupMonitoringThresholds$outboundSchema: z.ZodType<
+  ServerSetupMonitoringThresholds$Outbound,
+  z.ZodTypeDef,
+  ServerSetupMonitoringThresholds
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ServerSetupMonitoringThresholds$ {
+  /** @deprecated use `ServerSetupMonitoringThresholds$inboundSchema` instead. */
+  export const inboundSchema = ServerSetupMonitoringThresholds$inboundSchema;
+  /** @deprecated use `ServerSetupMonitoringThresholds$outboundSchema` instead. */
+  export const outboundSchema = ServerSetupMonitoringThresholds$outboundSchema;
+  /** @deprecated use `ServerSetupMonitoringThresholds$Outbound` instead. */
+  export type Outbound = ServerSetupMonitoringThresholds$Outbound;
+}
+
+export function serverSetupMonitoringThresholdsToJSON(
+  serverSetupMonitoringThresholds: ServerSetupMonitoringThresholds,
+): string {
+  return JSON.stringify(
+    ServerSetupMonitoringThresholds$outboundSchema.parse(
+      serverSetupMonitoringThresholds,
+    ),
+  );
+}
+
+export function serverSetupMonitoringThresholdsFromJSON(
+  jsonString: string,
+): SafeParseResult<ServerSetupMonitoringThresholds, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServerSetupMonitoringThresholds$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServerSetupMonitoringThresholds' from JSON`,
+  );
+}
+
+/** @internal */
+export const ServerSetupMonitoringServer$inboundSchema: z.ZodType<
+  ServerSetupMonitoringServer,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => ServerSetupMonitoringThresholds$inboundSchema),
+  token: z.string(),
+  urlCallback: z.string(),
+});
+
+/** @internal */
+export type ServerSetupMonitoringServer$Outbound = {
+  cronJob: string;
+  port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: ServerSetupMonitoringThresholds$Outbound;
+  token: string;
+  urlCallback: string;
+};
+
+/** @internal */
+export const ServerSetupMonitoringServer$outboundSchema: z.ZodType<
+  ServerSetupMonitoringServer$Outbound,
+  z.ZodTypeDef,
+  ServerSetupMonitoringServer
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => ServerSetupMonitoringThresholds$outboundSchema),
+  token: z.string(),
+  urlCallback: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ServerSetupMonitoringServer$ {
+  /** @deprecated use `ServerSetupMonitoringServer$inboundSchema` instead. */
+  export const inboundSchema = ServerSetupMonitoringServer$inboundSchema;
+  /** @deprecated use `ServerSetupMonitoringServer$outboundSchema` instead. */
+  export const outboundSchema = ServerSetupMonitoringServer$outboundSchema;
+  /** @deprecated use `ServerSetupMonitoringServer$Outbound` instead. */
+  export type Outbound = ServerSetupMonitoringServer$Outbound;
+}
+
+export function serverSetupMonitoringServerToJSON(
+  serverSetupMonitoringServer: ServerSetupMonitoringServer,
+): string {
+  return JSON.stringify(
+    ServerSetupMonitoringServer$outboundSchema.parse(
+      serverSetupMonitoringServer,
+    ),
+  );
+}
+
+export function serverSetupMonitoringServerFromJSON(
+  jsonString: string,
+): SafeParseResult<ServerSetupMonitoringServer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServerSetupMonitoringServer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServerSetupMonitoringServer' from JSON`,
+  );
+}
+
+/** @internal */
 export const ServerSetupMonitoringMetricsConfig$inboundSchema: z.ZodType<
   ServerSetupMonitoringMetricsConfig,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  server: z.lazy(() => ServerSetupMonitoringServer$inboundSchema),
   containers: z.lazy(() => ServerSetupMonitoringContainers$inboundSchema),
+  server: z.lazy(() => ServerSetupMonitoringServer$inboundSchema),
 });
 
 /** @internal */
 export type ServerSetupMonitoringMetricsConfig$Outbound = {
-  server: ServerSetupMonitoringServer$Outbound;
   containers: ServerSetupMonitoringContainers$Outbound;
+  server: ServerSetupMonitoringServer$Outbound;
 };
 
 /** @internal */
@@ -384,8 +384,8 @@ export const ServerSetupMonitoringMetricsConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerSetupMonitoringMetricsConfig
 > = z.object({
-  server: z.lazy(() => ServerSetupMonitoringServer$outboundSchema),
   containers: z.lazy(() => ServerSetupMonitoringContainers$outboundSchema),
+  server: z.lazy(() => ServerSetupMonitoringServer$outboundSchema),
 });
 
 /**
@@ -429,14 +429,14 @@ export const ServerSetupMonitoringRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
   metricsConfig: z.lazy(() => ServerSetupMonitoringMetricsConfig$inboundSchema),
+  serverId: z.string(),
 });
 
 /** @internal */
 export type ServerSetupMonitoringRequest$Outbound = {
-  serverId: string;
   metricsConfig: ServerSetupMonitoringMetricsConfig$Outbound;
+  serverId: string;
 };
 
 /** @internal */
@@ -445,10 +445,10 @@ export const ServerSetupMonitoringRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerSetupMonitoringRequest
 > = z.object({
-  serverId: z.string(),
   metricsConfig: z.lazy(() =>
     ServerSetupMonitoringMetricsConfig$outboundSchema
   ),
+  serverId: z.string(),
 });
 
 /**

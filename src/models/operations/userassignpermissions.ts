@@ -13,19 +13,19 @@ export type UserAssignPermissionsSecurity = {
 };
 
 export type UserAssignPermissionsRequest = {
-  id: string;
-  accessedProjects: Array<string>;
   accessedEnvironments: Array<string>;
+  accessedProjects: Array<string>;
   accessedServices: Array<string>;
+  canAccessToAPI: boolean;
+  canAccessToDocker: boolean;
+  canAccessToGitProviders: boolean;
+  canAccessToSSHKeys: boolean;
+  canAccessToTraefikFiles: boolean;
   canCreateProjects: boolean;
   canCreateServices: boolean;
   canDeleteProjects: boolean;
   canDeleteServices: boolean;
-  canAccessToDocker: boolean;
-  canAccessToTraefikFiles: boolean;
-  canAccessToAPI: boolean;
-  canAccessToSSHKeys: boolean;
-  canAccessToGitProviders: boolean;
+  id: string;
 };
 
 /** @internal */
@@ -98,36 +98,36 @@ export const UserAssignPermissionsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  accessedProjects: z.array(z.string()),
   accessedEnvironments: z.array(z.string()),
+  accessedProjects: z.array(z.string()),
   accessedServices: z.array(z.string()),
+  canAccessToAPI: z.boolean(),
+  canAccessToDocker: z.boolean(),
+  canAccessToGitProviders: z.boolean(),
+  canAccessToSSHKeys: z.boolean(),
+  canAccessToTraefikFiles: z.boolean(),
   canCreateProjects: z.boolean(),
   canCreateServices: z.boolean(),
   canDeleteProjects: z.boolean(),
   canDeleteServices: z.boolean(),
-  canAccessToDocker: z.boolean(),
-  canAccessToTraefikFiles: z.boolean(),
-  canAccessToAPI: z.boolean(),
-  canAccessToSSHKeys: z.boolean(),
-  canAccessToGitProviders: z.boolean(),
+  id: z.string(),
 });
 
 /** @internal */
 export type UserAssignPermissionsRequest$Outbound = {
-  id: string;
-  accessedProjects: Array<string>;
   accessedEnvironments: Array<string>;
+  accessedProjects: Array<string>;
   accessedServices: Array<string>;
+  canAccessToAPI: boolean;
+  canAccessToDocker: boolean;
+  canAccessToGitProviders: boolean;
+  canAccessToSSHKeys: boolean;
+  canAccessToTraefikFiles: boolean;
   canCreateProjects: boolean;
   canCreateServices: boolean;
   canDeleteProjects: boolean;
   canDeleteServices: boolean;
-  canAccessToDocker: boolean;
-  canAccessToTraefikFiles: boolean;
-  canAccessToAPI: boolean;
-  canAccessToSSHKeys: boolean;
-  canAccessToGitProviders: boolean;
+  id: string;
 };
 
 /** @internal */
@@ -136,19 +136,19 @@ export const UserAssignPermissionsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserAssignPermissionsRequest
 > = z.object({
-  id: z.string(),
-  accessedProjects: z.array(z.string()),
   accessedEnvironments: z.array(z.string()),
+  accessedProjects: z.array(z.string()),
   accessedServices: z.array(z.string()),
+  canAccessToAPI: z.boolean(),
+  canAccessToDocker: z.boolean(),
+  canAccessToGitProviders: z.boolean(),
+  canAccessToSSHKeys: z.boolean(),
+  canAccessToTraefikFiles: z.boolean(),
   canCreateProjects: z.boolean(),
   canCreateServices: z.boolean(),
   canDeleteProjects: z.boolean(),
   canDeleteServices: z.boolean(),
-  canAccessToDocker: z.boolean(),
-  canAccessToTraefikFiles: z.boolean(),
-  canAccessToAPI: z.boolean(),
-  canAccessToSSHKeys: z.boolean(),
-  canAccessToGitProviders: z.boolean(),
+  id: z.string(),
 });
 
 /**

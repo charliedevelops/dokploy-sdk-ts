@@ -25,8 +25,8 @@ export type PostgresChangeStatusApplicationStatusRequest = ClosedEnum<
 >;
 
 export type PostgresChangeStatusRequest = {
-  postgresId: string;
   applicationStatus: PostgresChangeStatusApplicationStatusRequest;
+  postgresId: string;
 };
 
 export const PostgresChangeStatusApplicationStatusResponse = {
@@ -38,198 +38,6 @@ export const PostgresChangeStatusApplicationStatusResponse = {
 export type PostgresChangeStatusApplicationStatusResponse = ClosedEnum<
   typeof PostgresChangeStatusApplicationStatusResponse
 >;
-
-export type PostgresChangeStatusHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresChangeStatusRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresChangeStatusSpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresChangeStatusPreference = {
-  spread: PostgresChangeStatusSpread;
-};
-
-export type PostgresChangeStatusPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresChangeStatusPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresChangeStatusPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresChangeStatusPlatform> | undefined;
-};
-
-export type PostgresChangeStatusUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresChangeStatusRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresChangeStatusReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresChangeStatusGlobal = {};
-
-export type PostgresChangeStatusReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresChangeStatusGlobalJob = {};
-
-export type PostgresChangeStatusModeSwarm = {
-  replicated?: PostgresChangeStatusReplicated | undefined;
-  global?: PostgresChangeStatusGlobal | undefined;
-  replicatedJob?: PostgresChangeStatusReplicatedJob | undefined;
-  globalJob?: PostgresChangeStatusGlobalJob | undefined;
-};
-
-export type PostgresChangeStatusDriverOpts = {};
-
-export type PostgresChangeStatusNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresChangeStatusDriverOpts | undefined;
-};
-
-export type PostgresChangeStatusProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresChangeStatusEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresChangeStatusProject;
-};
-
-export const PostgresChangeStatusType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresChangeStatusType = ClosedEnum<
-  typeof PostgresChangeStatusType
->;
-
-export const PostgresChangeStatusServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresChangeStatusServiceType = ClosedEnum<
-  typeof PostgresChangeStatusServiceType
->;
-
-export type PostgresChangeStatusMount = {
-  mountId: string;
-  type: PostgresChangeStatusType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresChangeStatusServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresChangeStatusServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresChangeStatusServerStatus = ClosedEnum<
-  typeof PostgresChangeStatusServerStatus
->;
-
-export const PostgresChangeStatusMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresChangeStatusMetricsConfigEnum = ClosedEnum<
-  typeof PostgresChangeStatusMetricsConfigEnum
->;
-
-export type PostgresChangeStatusMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresChangeStatusMetricsConfigEnum;
-
-export type PostgresChangeStatusMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresChangeStatusMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresChangeStatusServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresChangeStatusServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresChangeStatusMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const PostgresChangeStatusBackupType = {
   Database: "database",
@@ -257,29 +65,29 @@ export type PostgresChangeStatusMetadataEnum = ClosedEnum<
   typeof PostgresChangeStatusMetadataEnum
 >;
 
-export type PostgresChangeStatusPostgres = {
-  databaseUser: string;
-};
-
 export type PostgresChangeStatusMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresChangeStatusMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresChangeStatusMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresChangeStatusPostgres = {
+  databaseUser: string;
+};
+
 export type PostgresChangeStatusMetadata = {
-  postgres?: PostgresChangeStatusPostgres | undefined;
   mariadb?: PostgresChangeStatusMariadb | undefined;
   mongo?: PostgresChangeStatusMongo | undefined;
   mysql?: PostgresChangeStatusMysql | undefined;
+  postgres?: PostgresChangeStatusPostgres | undefined;
 };
 
 export type PostgresChangeStatusMetadataUnion =
@@ -287,66 +95,258 @@ export type PostgresChangeStatusMetadataUnion =
   | PostgresChangeStatusMetadataEnum;
 
 export type PostgresChangeStatusBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresChangeStatusBackupType;
-  databaseType: PostgresChangeStatusDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresChangeStatusDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | PostgresChangeStatusMetadata
     | PostgresChangeStatusMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresChangeStatusProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresChangeStatusEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresChangeStatusProject;
+  projectId: string;
+};
+
+export type PostgresChangeStatusHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresChangeStatusGlobal = {};
+
+export type PostgresChangeStatusGlobalJob = {};
+
+export type PostgresChangeStatusReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresChangeStatusReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresChangeStatusModeSwarm = {
+  global?: PostgresChangeStatusGlobal | undefined;
+  globalJob?: PostgresChangeStatusGlobalJob | undefined;
+  replicated?: PostgresChangeStatusReplicated | undefined;
+  replicatedJob?: PostgresChangeStatusReplicatedJob | undefined;
+};
+
+export const PostgresChangeStatusServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresChangeStatusServiceType = ClosedEnum<
+  typeof PostgresChangeStatusServiceType
+>;
+
+export const PostgresChangeStatusType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresChangeStatusType = ClosedEnum<
+  typeof PostgresChangeStatusType
+>;
+
+export type PostgresChangeStatusMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresChangeStatusServiceType;
+  type: PostgresChangeStatusType;
+  volumeName: string | null;
+};
+
+export type PostgresChangeStatusDriverOpts = {};
+
+export type PostgresChangeStatusNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresChangeStatusDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresChangeStatusPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresChangeStatusSpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresChangeStatusPreference = {
+  spread: PostgresChangeStatusSpread;
+};
+
+export type PostgresChangeStatusPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresChangeStatusPlatform> | undefined;
+  preferences?: Array<PostgresChangeStatusPreference> | undefined;
+};
+
+export type PostgresChangeStatusRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresChangeStatusRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresChangeStatusMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresChangeStatusMetricsConfigEnum = ClosedEnum<
+  typeof PostgresChangeStatusMetricsConfigEnum
+>;
+
+export type PostgresChangeStatusMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresChangeStatusMetricsConfigEnum;
+
+export type PostgresChangeStatusMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresChangeStatusMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresChangeStatusServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresChangeStatusServerStatus = ClosedEnum<
+  typeof PostgresChangeStatusServerStatus
+>;
+
+export type PostgresChangeStatusServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresChangeStatusMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresChangeStatusServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresChangeStatusUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresChangeStatusResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresChangeStatusApplicationStatusResponse;
+  backups: Array<PostgresChangeStatusBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresChangeStatusApplicationStatusResponse;
-  healthCheckSwarm: PostgresChangeStatusHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresChangeStatusRestartPolicySwarm | null;
-  placementSwarm: PostgresChangeStatusPlacementSwarm | null;
-  updateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresChangeStatusRollbackConfigSwarm | null;
-  modeSwarm: PostgresChangeStatusModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresChangeStatusNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresChangeStatusEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresChangeStatusHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresChangeStatusModeSwarm | null;
   mounts: Array<PostgresChangeStatusMount>;
+  name: string;
+  networkSwarm: Array<PostgresChangeStatusNetworkSwarm> | null;
+  placementSwarm: PostgresChangeStatusPlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresChangeStatusRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresChangeStatusRollbackConfigSwarm | null;
   server: PostgresChangeStatusServer | null;
-  backups: Array<PostgresChangeStatusBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm | null;
 };
 
 export type PostgresChangeStatusResponse =
@@ -446,14 +446,14 @@ export const PostgresChangeStatusRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   applicationStatus: PostgresChangeStatusApplicationStatusRequest$inboundSchema,
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresChangeStatusRequest$Outbound = {
-  postgresId: string;
   applicationStatus: string;
+  postgresId: string;
 };
 
 /** @internal */
@@ -462,9 +462,9 @@ export const PostgresChangeStatusRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresChangeStatusRequest
 > = z.object({
-  postgresId: z.string(),
   applicationStatus:
     PostgresChangeStatusApplicationStatusRequest$outboundSchema,
+  postgresId: z.string(),
 });
 
 /**
@@ -524,33 +524,707 @@ export namespace PostgresChangeStatusApplicationStatusResponse$ {
 }
 
 /** @internal */
+export const PostgresChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusBackupType
+> = z.nativeEnum(PostgresChangeStatusBackupType);
+
+/** @internal */
+export const PostgresChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusBackupType
+> = PostgresChangeStatusBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusBackupType$ {
+  /** @deprecated use `PostgresChangeStatusBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusBackupType$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusBackupType$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusDatabaseType
+> = z.nativeEnum(PostgresChangeStatusDatabaseType);
+
+/** @internal */
+export const PostgresChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusDatabaseType
+> = PostgresChangeStatusDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusDatabaseType$ {
+  /** @deprecated use `PostgresChangeStatusDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusMetadataEnum
+> = z.nativeEnum(PostgresChangeStatusMetadataEnum);
+
+/** @internal */
+export const PostgresChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusMetadataEnum
+> = PostgresChangeStatusMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMetadataEnum$ {
+  /** @deprecated use `PostgresChangeStatusMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresChangeStatusMariadb$inboundSchema: z.ZodType<
+  PostgresChangeStatusMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusMariadb$outboundSchema: z.ZodType<
+  PostgresChangeStatusMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMariadb$ {
+  /** @deprecated use `PostgresChangeStatusMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMariadb$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMariadb$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMariadb$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMariadb$Outbound;
+}
+
+export function postgresChangeStatusMariadbToJSON(
+  postgresChangeStatusMariadb: PostgresChangeStatusMariadb,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMariadb$outboundSchema.parse(
+      postgresChangeStatusMariadb,
+    ),
+  );
+}
+
+export function postgresChangeStatusMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusMongo$inboundSchema: z.ZodType<
+  PostgresChangeStatusMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusMongo$outboundSchema: z.ZodType<
+  PostgresChangeStatusMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMongo$ {
+  /** @deprecated use `PostgresChangeStatusMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMongo$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMongo$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMongo$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMongo$Outbound;
+}
+
+export function postgresChangeStatusMongoToJSON(
+  postgresChangeStatusMongo: PostgresChangeStatusMongo,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMongo$outboundSchema.parse(postgresChangeStatusMongo),
+  );
+}
+
+export function postgresChangeStatusMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusMysql$inboundSchema: z.ZodType<
+  PostgresChangeStatusMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusMysql$outboundSchema: z.ZodType<
+  PostgresChangeStatusMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMysql$ {
+  /** @deprecated use `PostgresChangeStatusMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMysql$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMysql$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMysql$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMysql$Outbound;
+}
+
+export function postgresChangeStatusMysqlToJSON(
+  postgresChangeStatusMysql: PostgresChangeStatusMysql,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMysql$outboundSchema.parse(postgresChangeStatusMysql),
+  );
+}
+
+export function postgresChangeStatusMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusPostgres$inboundSchema: z.ZodType<
+  PostgresChangeStatusPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusPostgres$outboundSchema: z.ZodType<
+  PostgresChangeStatusPostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusPostgres$ {
+  /** @deprecated use `PostgresChangeStatusPostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusPostgres$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusPostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusPostgres$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusPostgres$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusPostgres$Outbound;
+}
+
+export function postgresChangeStatusPostgresToJSON(
+  postgresChangeStatusPostgres: PostgresChangeStatusPostgres,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusPostgres$outboundSchema.parse(
+      postgresChangeStatusPostgres,
+    ),
+  );
+}
+
+export function postgresChangeStatusPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusMetadata$inboundSchema: z.ZodType<
+  PostgresChangeStatusMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresChangeStatusMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => PostgresChangeStatusMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresChangeStatusMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresChangeStatusPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostgresChangeStatusMetadata$Outbound = {
+  mariadb?: PostgresChangeStatusMariadb$Outbound | undefined;
+  mongo?: PostgresChangeStatusMongo$Outbound | undefined;
+  mysql?: PostgresChangeStatusMysql$Outbound | undefined;
+  postgres?: PostgresChangeStatusPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresChangeStatusMetadata$outboundSchema: z.ZodType<
+  PostgresChangeStatusMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresChangeStatusMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => PostgresChangeStatusMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresChangeStatusMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresChangeStatusPostgres$outboundSchema)
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMetadata$ {
+  /** @deprecated use `PostgresChangeStatusMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMetadata$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMetadata$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMetadata$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMetadata$Outbound;
+}
+
+export function postgresChangeStatusMetadataToJSON(
+  postgresChangeStatusMetadata: PostgresChangeStatusMetadata,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMetadata$outboundSchema.parse(
+      postgresChangeStatusMetadata,
+    ),
+  );
+}
+
+export function postgresChangeStatusMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusMetadataUnion$inboundSchema: z.ZodType<
+  PostgresChangeStatusMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresChangeStatusMetadata$inboundSchema),
+  PostgresChangeStatusMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresChangeStatusMetadataUnion$Outbound =
+  | PostgresChangeStatusMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresChangeStatusMetadataUnion$outboundSchema: z.ZodType<
+  PostgresChangeStatusMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresChangeStatusMetadata$outboundSchema),
+  PostgresChangeStatusMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMetadataUnion$ {
+  /** @deprecated use `PostgresChangeStatusMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresChangeStatusMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMetadataUnion$Outbound;
+}
+
+export function postgresChangeStatusMetadataUnionToJSON(
+  postgresChangeStatusMetadataUnion: PostgresChangeStatusMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMetadataUnion$outboundSchema.parse(
+      postgresChangeStatusMetadataUnion,
+    ),
+  );
+}
+
+export function postgresChangeStatusMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusBackup$inboundSchema: z.ZodType<
+  PostgresChangeStatusBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresChangeStatusBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresChangeStatusDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresChangeStatusMetadata$inboundSchema),
+      PostgresChangeStatusMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresChangeStatusBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: PostgresChangeStatusMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresChangeStatusBackup$outboundSchema: z.ZodType<
+  PostgresChangeStatusBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresChangeStatusBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresChangeStatusDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresChangeStatusMetadata$outboundSchema),
+      PostgresChangeStatusMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusBackup$ {
+  /** @deprecated use `PostgresChangeStatusBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusBackup$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusBackup$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusBackup$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusBackup$Outbound;
+}
+
+export function postgresChangeStatusBackupToJSON(
+  postgresChangeStatusBackup: PostgresChangeStatusBackup,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusBackup$outboundSchema.parse(postgresChangeStatusBackup),
+  );
+}
+
+export function postgresChangeStatusBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusProject$inboundSchema: z.ZodType<
+  PostgresChangeStatusProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusProject$outboundSchema: z.ZodType<
+  PostgresChangeStatusProject$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusProject$ {
+  /** @deprecated use `PostgresChangeStatusProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusProject$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusProject$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusProject$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusProject$Outbound;
+}
+
+export function postgresChangeStatusProjectToJSON(
+  postgresChangeStatusProject: PostgresChangeStatusProject,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusProject$outboundSchema.parse(
+      postgresChangeStatusProject,
+    ),
+  );
+}
+
+export function postgresChangeStatusProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusEnvironment$inboundSchema: z.ZodType<
+  PostgresChangeStatusEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresChangeStatusProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresChangeStatusEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresChangeStatusProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusEnvironment$outboundSchema: z.ZodType<
+  PostgresChangeStatusEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresChangeStatusProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusEnvironment$ {
+  /** @deprecated use `PostgresChangeStatusEnvironment$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusEnvironment$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusEnvironment$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusEnvironment$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusEnvironment$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusEnvironment$Outbound;
+}
+
+export function postgresChangeStatusEnvironmentToJSON(
+  postgresChangeStatusEnvironment: PostgresChangeStatusEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusEnvironment$outboundSchema.parse(
+      postgresChangeStatusEnvironment,
+    ),
+  );
+}
+
+export function postgresChangeStatusEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresChangeStatusHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresChangeStatusHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresChangeStatusHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -559,18 +1233,18 @@ export const PostgresChangeStatusHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresChangeStatusHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -611,48 +1285,131 @@ export function postgresChangeStatusHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresChangeStatusRestartPolicySwarm,
+export const PostgresChangeStatusGlobal$inboundSchema: z.ZodType<
+  PostgresChangeStatusGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresChangeStatusGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresChangeStatusGlobal$outboundSchema: z.ZodType<
+  PostgresChangeStatusGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusGlobal$ {
+  /** @deprecated use `PostgresChangeStatusGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusGlobal$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusGlobal$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusGlobal$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusGlobal$Outbound;
+}
+
+export function postgresChangeStatusGlobalToJSON(
+  postgresChangeStatusGlobal: PostgresChangeStatusGlobal,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusGlobal$outboundSchema.parse(postgresChangeStatusGlobal),
+  );
+}
+
+export function postgresChangeStatusGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusGlobalJob$inboundSchema: z.ZodType<
+  PostgresChangeStatusGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresChangeStatusGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresChangeStatusGlobalJob$outboundSchema: z.ZodType<
+  PostgresChangeStatusGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusGlobalJob$ {
+  /** @deprecated use `PostgresChangeStatusGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusGlobalJob$Outbound;
+}
+
+export function postgresChangeStatusGlobalJobToJSON(
+  postgresChangeStatusGlobalJob: PostgresChangeStatusGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusGlobalJob$outboundSchema.parse(
+      postgresChangeStatusGlobalJob,
+    ),
+  );
+}
+
+export function postgresChangeStatusGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusReplicated$inboundSchema: z.ZodType<
+  PostgresChangeStatusReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresChangeStatusRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresChangeStatusReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresChangeStatusRestartPolicySwarm$Outbound,
+export const PostgresChangeStatusReplicated$outboundSchema: z.ZodType<
+  PostgresChangeStatusReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresChangeStatusRestartPolicySwarm
+  PostgresChangeStatusReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -660,36 +1417,520 @@ export const PostgresChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresChangeStatusRestartPolicySwarm$ {
-  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresChangeStatusRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresChangeStatusRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusRestartPolicySwarm$Outbound;
+export namespace PostgresChangeStatusReplicated$ {
+  /** @deprecated use `PostgresChangeStatusReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusReplicated$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusReplicated$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusReplicated$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusReplicated$Outbound;
 }
 
-export function postgresChangeStatusRestartPolicySwarmToJSON(
-  postgresChangeStatusRestartPolicySwarm:
-    PostgresChangeStatusRestartPolicySwarm,
+export function postgresChangeStatusReplicatedToJSON(
+  postgresChangeStatusReplicated: PostgresChangeStatusReplicated,
 ): string {
   return JSON.stringify(
-    PostgresChangeStatusRestartPolicySwarm$outboundSchema.parse(
-      postgresChangeStatusRestartPolicySwarm,
+    PostgresChangeStatusReplicated$outboundSchema.parse(
+      postgresChangeStatusReplicated,
     ),
   );
 }
 
-export function postgresChangeStatusRestartPolicySwarmFromJSON(
+export function postgresChangeStatusReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresChangeStatusRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresChangeStatusReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PostgresChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusRestartPolicySwarm' from JSON`,
+    (x) => PostgresChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusReplicatedJob$inboundSchema: z.ZodType<
+  PostgresChangeStatusReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresChangeStatusReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresChangeStatusReplicatedJob$outboundSchema: z.ZodType<
+  PostgresChangeStatusReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusReplicatedJob$ {
+  /** @deprecated use `PostgresChangeStatusReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresChangeStatusReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusReplicatedJob$Outbound;
+}
+
+export function postgresChangeStatusReplicatedJobToJSON(
+  postgresChangeStatusReplicatedJob: PostgresChangeStatusReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusReplicatedJob$outboundSchema.parse(
+      postgresChangeStatusReplicatedJob,
+    ),
+  );
+}
+
+export function postgresChangeStatusReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusModeSwarm$inboundSchema: z.ZodType<
+  PostgresChangeStatusModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresChangeStatusGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresChangeStatusGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => PostgresChangeStatusReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => PostgresChangeStatusReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresChangeStatusModeSwarm$Outbound = {
+  Global?: PostgresChangeStatusGlobal$Outbound | undefined;
+  GlobalJob?: PostgresChangeStatusGlobalJob$Outbound | undefined;
+  Replicated?: PostgresChangeStatusReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresChangeStatusReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresChangeStatusModeSwarm$outboundSchema: z.ZodType<
+  PostgresChangeStatusModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresChangeStatusGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresChangeStatusGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => PostgresChangeStatusReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => PostgresChangeStatusReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusModeSwarm$ {
+  /** @deprecated use `PostgresChangeStatusModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusModeSwarm$Outbound;
+}
+
+export function postgresChangeStatusModeSwarmToJSON(
+  postgresChangeStatusModeSwarm: PostgresChangeStatusModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusModeSwarm$outboundSchema.parse(
+      postgresChangeStatusModeSwarm,
+    ),
+  );
+}
+
+export function postgresChangeStatusModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusServiceType
+> = z.nativeEnum(PostgresChangeStatusServiceType);
+
+/** @internal */
+export const PostgresChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusServiceType
+> = PostgresChangeStatusServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusServiceType$ {
+  /** @deprecated use `PostgresChangeStatusServiceType$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusServiceType$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusServiceType$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresChangeStatusType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusType
+> = z.nativeEnum(PostgresChangeStatusType);
+
+/** @internal */
+export const PostgresChangeStatusType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusType
+> = PostgresChangeStatusType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusType$ {
+  /** @deprecated use `PostgresChangeStatusType$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusType$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusType$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresChangeStatusMount$inboundSchema: z.ZodType<
+  PostgresChangeStatusMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresChangeStatusServiceType$inboundSchema,
+  type: PostgresChangeStatusType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresChangeStatusMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresChangeStatusMount$outboundSchema: z.ZodType<
+  PostgresChangeStatusMount$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresChangeStatusServiceType$outboundSchema,
+  type: PostgresChangeStatusType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusMount$ {
+  /** @deprecated use `PostgresChangeStatusMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusMount$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusMount$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusMount$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusMount$Outbound;
+}
+
+export function postgresChangeStatusMountToJSON(
+  postgresChangeStatusMount: PostgresChangeStatusMount,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusMount$outboundSchema.parse(postgresChangeStatusMount),
+  );
+}
+
+export function postgresChangeStatusMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusDriverOpts$inboundSchema: z.ZodType<
+  PostgresChangeStatusDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresChangeStatusDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresChangeStatusDriverOpts$outboundSchema: z.ZodType<
+  PostgresChangeStatusDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusDriverOpts$ {
+  /** @deprecated use `PostgresChangeStatusDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusDriverOpts$Outbound;
+}
+
+export function postgresChangeStatusDriverOptsToJSON(
+  postgresChangeStatusDriverOpts: PostgresChangeStatusDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusDriverOpts$outboundSchema.parse(
+      postgresChangeStatusDriverOpts,
+    ),
+  );
+}
+
+export function postgresChangeStatusDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresChangeStatusNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresChangeStatusDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresChangeStatusNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresChangeStatusDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresChangeStatusNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresChangeStatusDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusNetworkSwarm$ {
+  /** @deprecated use `PostgresChangeStatusNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusNetworkSwarm$Outbound;
+}
+
+export function postgresChangeStatusNetworkSwarmToJSON(
+  postgresChangeStatusNetworkSwarm: PostgresChangeStatusNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusNetworkSwarm$outboundSchema.parse(
+      postgresChangeStatusNetworkSwarm,
+    ),
+  );
+}
+
+export function postgresChangeStatusNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresChangeStatusPlatform$inboundSchema: z.ZodType<
+  PostgresChangeStatusPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresChangeStatusPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresChangeStatusPlatform$outboundSchema: z.ZodType<
+  PostgresChangeStatusPlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresChangeStatusPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusPlatform$ {
+  /** @deprecated use `PostgresChangeStatusPlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusPlatform$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusPlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusPlatform$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusPlatform$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusPlatform$Outbound;
+}
+
+export function postgresChangeStatusPlatformToJSON(
+  postgresChangeStatusPlatform: PostgresChangeStatusPlatform,
+): string {
+  return JSON.stringify(
+    PostgresChangeStatusPlatform$outboundSchema.parse(
+      postgresChangeStatusPlatform,
+    ),
+  );
+}
+
+export function postgresChangeStatusPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresChangeStatusPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusPlatform' from JSON`,
   );
 }
 
@@ -820,102 +2061,33 @@ export function postgresChangeStatusPreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresChangeStatusPlatform$inboundSchema: z.ZodType<
-  PostgresChangeStatusPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresChangeStatusPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresChangeStatusPlatform$outboundSchema: z.ZodType<
-  PostgresChangeStatusPlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusPlatform$ {
-  /** @deprecated use `PostgresChangeStatusPlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusPlatform$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusPlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusPlatform$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusPlatform$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusPlatform$Outbound;
-}
-
-export function postgresChangeStatusPlatformToJSON(
-  postgresChangeStatusPlatform: PostgresChangeStatusPlatform,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusPlatform$outboundSchema.parse(
-      postgresChangeStatusPlatform,
-    ),
-  );
-}
-
-export function postgresChangeStatusPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresChangeStatusPlacementSwarm$inboundSchema: z.ZodType<
   PostgresChangeStatusPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => PostgresChangeStatusPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresChangeStatusPlatform$inboundSchema))
     .optional(),
+  Preferences: z.array(
+    z.lazy(() => PostgresChangeStatusPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresChangeStatusPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresChangeStatusPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresChangeStatusPlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresChangeStatusPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -925,18 +2097,18 @@ export const PostgresChangeStatusPlacementSwarm$outboundSchema: z.ZodType<
   PostgresChangeStatusPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => PostgresChangeStatusPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresChangeStatusPlatform$outboundSchema))
     .optional(),
+  preferences: z.array(
+    z.lazy(() => PostgresChangeStatusPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -976,58 +2148,48 @@ export function postgresChangeStatusPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresChangeStatusUpdateConfigSwarm,
+export const PostgresChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresChangeStatusRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresChangeStatusUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresChangeStatusRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresChangeStatusUpdateConfigSwarm$Outbound,
+export const PostgresChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresChangeStatusRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresChangeStatusUpdateConfigSwarm
+  PostgresChangeStatusRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1035,35 +2197,36 @@ export const PostgresChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresChangeStatusUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+export namespace PostgresChangeStatusRestartPolicySwarm$ {
+  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    PostgresChangeStatusUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+    PostgresChangeStatusRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    PostgresChangeStatusUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusUpdateConfigSwarm$Outbound;
+    PostgresChangeStatusRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusRestartPolicySwarm$Outbound;
 }
 
-export function postgresChangeStatusUpdateConfigSwarmToJSON(
-  postgresChangeStatusUpdateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm,
+export function postgresChangeStatusRestartPolicySwarmToJSON(
+  postgresChangeStatusRestartPolicySwarm:
+    PostgresChangeStatusRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresChangeStatusUpdateConfigSwarm$outboundSchema.parse(
-      postgresChangeStatusUpdateConfigSwarm,
+    PostgresChangeStatusRestartPolicySwarm$outboundSchema.parse(
+      postgresChangeStatusRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresChangeStatusUpdateConfigSwarmFromJSON(
+export function postgresChangeStatusRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresChangeStatusUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresChangeStatusRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      PostgresChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusUpdateConfigSwarm' from JSON`,
+      PostgresChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1073,31 +2236,31 @@ export const PostgresChangeStatusRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresChangeStatusRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1106,20 +2269,20 @@ export const PostgresChangeStatusRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresChangeStatusRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1163,753 +2326,6 @@ export function postgresChangeStatusRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'PostgresChangeStatusRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresChangeStatusReplicated$inboundSchema: z.ZodType<
-  PostgresChangeStatusReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresChangeStatusReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusReplicated$outboundSchema: z.ZodType<
-  PostgresChangeStatusReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusReplicated$ {
-  /** @deprecated use `PostgresChangeStatusReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusReplicated$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusReplicated$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusReplicated$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusReplicated$Outbound;
-}
-
-export function postgresChangeStatusReplicatedToJSON(
-  postgresChangeStatusReplicated: PostgresChangeStatusReplicated,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusReplicated$outboundSchema.parse(
-      postgresChangeStatusReplicated,
-    ),
-  );
-}
-
-export function postgresChangeStatusReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusGlobal$inboundSchema: z.ZodType<
-  PostgresChangeStatusGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresChangeStatusGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresChangeStatusGlobal$outboundSchema: z.ZodType<
-  PostgresChangeStatusGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusGlobal$ {
-  /** @deprecated use `PostgresChangeStatusGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusGlobal$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusGlobal$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusGlobal$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusGlobal$Outbound;
-}
-
-export function postgresChangeStatusGlobalToJSON(
-  postgresChangeStatusGlobal: PostgresChangeStatusGlobal,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusGlobal$outboundSchema.parse(postgresChangeStatusGlobal),
-  );
-}
-
-export function postgresChangeStatusGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusReplicatedJob$inboundSchema: z.ZodType<
-  PostgresChangeStatusReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresChangeStatusReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusReplicatedJob$outboundSchema: z.ZodType<
-  PostgresChangeStatusReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusReplicatedJob$ {
-  /** @deprecated use `PostgresChangeStatusReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresChangeStatusReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusReplicatedJob$Outbound;
-}
-
-export function postgresChangeStatusReplicatedJobToJSON(
-  postgresChangeStatusReplicatedJob: PostgresChangeStatusReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusReplicatedJob$outboundSchema.parse(
-      postgresChangeStatusReplicatedJob,
-    ),
-  );
-}
-
-export function postgresChangeStatusReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusGlobalJob$inboundSchema: z.ZodType<
-  PostgresChangeStatusGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresChangeStatusGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresChangeStatusGlobalJob$outboundSchema: z.ZodType<
-  PostgresChangeStatusGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusGlobalJob$ {
-  /** @deprecated use `PostgresChangeStatusGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusGlobalJob$Outbound;
-}
-
-export function postgresChangeStatusGlobalJobToJSON(
-  postgresChangeStatusGlobalJob: PostgresChangeStatusGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusGlobalJob$outboundSchema.parse(
-      postgresChangeStatusGlobalJob,
-    ),
-  );
-}
-
-export function postgresChangeStatusGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusModeSwarm$inboundSchema: z.ZodType<
-  PostgresChangeStatusModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresChangeStatusReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => PostgresChangeStatusGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresChangeStatusReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresChangeStatusGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresChangeStatusModeSwarm$Outbound = {
-  Replicated?: PostgresChangeStatusReplicated$Outbound | undefined;
-  Global?: PostgresChangeStatusGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresChangeStatusReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresChangeStatusGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusModeSwarm$outboundSchema: z.ZodType<
-  PostgresChangeStatusModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresChangeStatusReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => PostgresChangeStatusGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresChangeStatusReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresChangeStatusGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusModeSwarm$ {
-  /** @deprecated use `PostgresChangeStatusModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusModeSwarm$Outbound;
-}
-
-export function postgresChangeStatusModeSwarmToJSON(
-  postgresChangeStatusModeSwarm: PostgresChangeStatusModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusModeSwarm$outboundSchema.parse(
-      postgresChangeStatusModeSwarm,
-    ),
-  );
-}
-
-export function postgresChangeStatusModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusDriverOpts$inboundSchema: z.ZodType<
-  PostgresChangeStatusDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresChangeStatusDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresChangeStatusDriverOpts$outboundSchema: z.ZodType<
-  PostgresChangeStatusDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusDriverOpts$ {
-  /** @deprecated use `PostgresChangeStatusDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusDriverOpts$Outbound;
-}
-
-export function postgresChangeStatusDriverOptsToJSON(
-  postgresChangeStatusDriverOpts: PostgresChangeStatusDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusDriverOpts$outboundSchema.parse(
-      postgresChangeStatusDriverOpts,
-    ),
-  );
-}
-
-export function postgresChangeStatusDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresChangeStatusNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresChangeStatusDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresChangeStatusNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresChangeStatusDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresChangeStatusNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresChangeStatusDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusNetworkSwarm$ {
-  /** @deprecated use `PostgresChangeStatusNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusNetworkSwarm$Outbound;
-}
-
-export function postgresChangeStatusNetworkSwarmToJSON(
-  postgresChangeStatusNetworkSwarm: PostgresChangeStatusNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusNetworkSwarm$outboundSchema.parse(
-      postgresChangeStatusNetworkSwarm,
-    ),
-  );
-}
-
-export function postgresChangeStatusNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusProject$inboundSchema: z.ZodType<
-  PostgresChangeStatusProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresChangeStatusProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresChangeStatusProject$outboundSchema: z.ZodType<
-  PostgresChangeStatusProject$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusProject$ {
-  /** @deprecated use `PostgresChangeStatusProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusProject$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusProject$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusProject$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusProject$Outbound;
-}
-
-export function postgresChangeStatusProjectToJSON(
-  postgresChangeStatusProject: PostgresChangeStatusProject,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusProject$outboundSchema.parse(
-      postgresChangeStatusProject,
-    ),
-  );
-}
-
-export function postgresChangeStatusProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusEnvironment$inboundSchema: z.ZodType<
-  PostgresChangeStatusEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresChangeStatusProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresChangeStatusEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresChangeStatusProject$Outbound;
-};
-
-/** @internal */
-export const PostgresChangeStatusEnvironment$outboundSchema: z.ZodType<
-  PostgresChangeStatusEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresChangeStatusProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusEnvironment$ {
-  /** @deprecated use `PostgresChangeStatusEnvironment$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusEnvironment$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusEnvironment$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusEnvironment$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusEnvironment$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusEnvironment$Outbound;
-}
-
-export function postgresChangeStatusEnvironmentToJSON(
-  postgresChangeStatusEnvironment: PostgresChangeStatusEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusEnvironment$outboundSchema.parse(
-      postgresChangeStatusEnvironment,
-    ),
-  );
-}
-
-export function postgresChangeStatusEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusType
-> = z.nativeEnum(PostgresChangeStatusType);
-
-/** @internal */
-export const PostgresChangeStatusType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusType
-> = PostgresChangeStatusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusType$ {
-  /** @deprecated use `PostgresChangeStatusType$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusType$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusType$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusServiceType
-> = z.nativeEnum(PostgresChangeStatusServiceType);
-
-/** @internal */
-export const PostgresChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusServiceType
-> = PostgresChangeStatusServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusServiceType$ {
-  /** @deprecated use `PostgresChangeStatusServiceType$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusServiceType$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusServiceType$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresChangeStatusMount$inboundSchema: z.ZodType<
-  PostgresChangeStatusMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresChangeStatusType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresChangeStatusServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresChangeStatusMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresChangeStatusMount$outboundSchema: z.ZodType<
-  PostgresChangeStatusMount$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresChangeStatusType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresChangeStatusServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMount$ {
-  /** @deprecated use `PostgresChangeStatusMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMount$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMount$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMount$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMount$Outbound;
-}
-
-export function postgresChangeStatusMountToJSON(
-  postgresChangeStatusMount: PostgresChangeStatusMount,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusMount$outboundSchema.parse(postgresChangeStatusMount),
-  );
-}
-
-export function postgresChangeStatusMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusServerStatus
-> = z.nativeEnum(PostgresChangeStatusServerStatus);
-
-/** @internal */
-export const PostgresChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusServerStatus
-> = PostgresChangeStatusServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusServerStatus$ {
-  /** @deprecated use `PostgresChangeStatusServerStatus$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusServerStatus$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusServerStatus$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2093,24 +2509,38 @@ export function postgresChangeStatusMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusServerStatus
+> = z.nativeEnum(PostgresChangeStatusServerStatus);
+
+/** @internal */
+export const PostgresChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresChangeStatusServerStatus
+> = PostgresChangeStatusServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresChangeStatusServerStatus$ {
+  /** @deprecated use `PostgresChangeStatusServerStatus$inboundSchema` instead. */
+  export const inboundSchema = PostgresChangeStatusServerStatus$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusServerStatus$outboundSchema` instead. */
+  export const outboundSchema = PostgresChangeStatusServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresChangeStatusServer$inboundSchema: z.ZodType<
   PostgresChangeStatusServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresChangeStatusServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2121,26 +2551,33 @@ export const PostgresChangeStatusServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresChangeStatusServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresChangeStatusServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2149,19 +2586,12 @@ export const PostgresChangeStatusServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresChangeStatusServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresChangeStatusServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2172,6 +2602,13 @@ export const PostgresChangeStatusServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresChangeStatusServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2206,531 +2643,94 @@ export function postgresChangeStatusServerFromJSON(
 }
 
 /** @internal */
-export const PostgresChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusBackupType
-> = z.nativeEnum(PostgresChangeStatusBackupType);
-
-/** @internal */
-export const PostgresChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusBackupType
-> = PostgresChangeStatusBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusBackupType$ {
-  /** @deprecated use `PostgresChangeStatusBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusBackupType$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusBackupType$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusDatabaseType
-> = z.nativeEnum(PostgresChangeStatusDatabaseType);
-
-/** @internal */
-export const PostgresChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusDatabaseType
-> = PostgresChangeStatusDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusDatabaseType$ {
-  /** @deprecated use `PostgresChangeStatusDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusMetadataEnum
-> = z.nativeEnum(PostgresChangeStatusMetadataEnum);
-
-/** @internal */
-export const PostgresChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresChangeStatusMetadataEnum
-> = PostgresChangeStatusMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMetadataEnum$ {
-  /** @deprecated use `PostgresChangeStatusMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresChangeStatusPostgres$inboundSchema: z.ZodType<
-  PostgresChangeStatusPostgres,
+export const PostgresChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresChangeStatusUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type PostgresChangeStatusPostgres$Outbound = {
-  databaseUser: string;
+export type PostgresChangeStatusUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresChangeStatusPostgres$outboundSchema: z.ZodType<
-  PostgresChangeStatusPostgres$Outbound,
+export const PostgresChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresChangeStatusUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresChangeStatusPostgres
+  PostgresChangeStatusUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresChangeStatusPostgres$ {
-  /** @deprecated use `PostgresChangeStatusPostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusPostgres$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusPostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusPostgres$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusPostgres$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusPostgres$Outbound;
-}
-
-export function postgresChangeStatusPostgresToJSON(
-  postgresChangeStatusPostgres: PostgresChangeStatusPostgres,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusPostgres$outboundSchema.parse(
-      postgresChangeStatusPostgres,
-    ),
-  );
-}
-
-export function postgresChangeStatusPostgresFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusMariadb$inboundSchema: z.ZodType<
-  PostgresChangeStatusMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresChangeStatusMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresChangeStatusMariadb$outboundSchema: z.ZodType<
-  PostgresChangeStatusMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMariadb$ {
-  /** @deprecated use `PostgresChangeStatusMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMariadb$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMariadb$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMariadb$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMariadb$Outbound;
-}
-
-export function postgresChangeStatusMariadbToJSON(
-  postgresChangeStatusMariadb: PostgresChangeStatusMariadb,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusMariadb$outboundSchema.parse(
-      postgresChangeStatusMariadb,
-    ),
-  );
-}
-
-export function postgresChangeStatusMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusMongo$inboundSchema: z.ZodType<
-  PostgresChangeStatusMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresChangeStatusMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresChangeStatusMongo$outboundSchema: z.ZodType<
-  PostgresChangeStatusMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMongo$ {
-  /** @deprecated use `PostgresChangeStatusMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMongo$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMongo$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMongo$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMongo$Outbound;
-}
-
-export function postgresChangeStatusMongoToJSON(
-  postgresChangeStatusMongo: PostgresChangeStatusMongo,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusMongo$outboundSchema.parse(postgresChangeStatusMongo),
-  );
-}
-
-export function postgresChangeStatusMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusMysql$inboundSchema: z.ZodType<
-  PostgresChangeStatusMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresChangeStatusMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresChangeStatusMysql$outboundSchema: z.ZodType<
-  PostgresChangeStatusMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMysql$ {
-  /** @deprecated use `PostgresChangeStatusMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMysql$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMysql$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMysql$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMysql$Outbound;
-}
-
-export function postgresChangeStatusMysqlToJSON(
-  postgresChangeStatusMysql: PostgresChangeStatusMysql,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusMysql$outboundSchema.parse(postgresChangeStatusMysql),
-  );
-}
-
-export function postgresChangeStatusMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusMetadata$inboundSchema: z.ZodType<
-  PostgresChangeStatusMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresChangeStatusPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresChangeStatusMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => PostgresChangeStatusMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresChangeStatusMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresChangeStatusMetadata$Outbound = {
-  postgres?: PostgresChangeStatusPostgres$Outbound | undefined;
-  mariadb?: PostgresChangeStatusMariadb$Outbound | undefined;
-  mongo?: PostgresChangeStatusMongo$Outbound | undefined;
-  mysql?: PostgresChangeStatusMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusMetadata$outboundSchema: z.ZodType<
-  PostgresChangeStatusMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresChangeStatusPostgres$outboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => PostgresChangeStatusMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => PostgresChangeStatusMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresChangeStatusMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMetadata$ {
-  /** @deprecated use `PostgresChangeStatusMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMetadata$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusMetadata$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMetadata$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMetadata$Outbound;
-}
-
-export function postgresChangeStatusMetadataToJSON(
-  postgresChangeStatusMetadata: PostgresChangeStatusMetadata,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusMetadata$outboundSchema.parse(
-      postgresChangeStatusMetadata,
-    ),
-  );
-}
-
-export function postgresChangeStatusMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusMetadataUnion$inboundSchema: z.ZodType<
-  PostgresChangeStatusMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresChangeStatusMetadata$inboundSchema),
-  PostgresChangeStatusMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresChangeStatusMetadataUnion$Outbound =
-  | PostgresChangeStatusMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresChangeStatusMetadataUnion$outboundSchema: z.ZodType<
-  PostgresChangeStatusMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresChangeStatusMetadata$outboundSchema),
-  PostgresChangeStatusMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusMetadataUnion$ {
-  /** @deprecated use `PostgresChangeStatusMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusMetadataUnion$outboundSchema` instead. */
+export namespace PostgresChangeStatusUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresChangeStatusUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    PostgresChangeStatusMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusMetadataUnion$Outbound;
+    PostgresChangeStatusUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresChangeStatusUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresChangeStatusUpdateConfigSwarm$Outbound;
 }
 
-export function postgresChangeStatusMetadataUnionToJSON(
-  postgresChangeStatusMetadataUnion: PostgresChangeStatusMetadataUnion,
+export function postgresChangeStatusUpdateConfigSwarmToJSON(
+  postgresChangeStatusUpdateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresChangeStatusMetadataUnion$outboundSchema.parse(
-      postgresChangeStatusMetadataUnion,
+    PostgresChangeStatusUpdateConfigSwarm$outboundSchema.parse(
+      postgresChangeStatusUpdateConfigSwarm,
     ),
   );
 }
 
-export function postgresChangeStatusMetadataUnionFromJSON(
+export function postgresChangeStatusUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresChangeStatusMetadataUnion, SDKValidationError> {
+): SafeParseResult<PostgresChangeStatusUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresChangeStatusBackup$inboundSchema: z.ZodType<
-  PostgresChangeStatusBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresChangeStatusBackupType$inboundSchema,
-  databaseType: PostgresChangeStatusDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresChangeStatusMetadata$inboundSchema),
-      PostgresChangeStatusMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresChangeStatusBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: PostgresChangeStatusMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const PostgresChangeStatusBackup$outboundSchema: z.ZodType<
-  PostgresChangeStatusBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresChangeStatusBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresChangeStatusBackupType$outboundSchema,
-  databaseType: PostgresChangeStatusDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresChangeStatusMetadata$outboundSchema),
-      PostgresChangeStatusMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresChangeStatusBackup$ {
-  /** @deprecated use `PostgresChangeStatusBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresChangeStatusBackup$inboundSchema;
-  /** @deprecated use `PostgresChangeStatusBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresChangeStatusBackup$outboundSchema;
-  /** @deprecated use `PostgresChangeStatusBackup$Outbound` instead. */
-  export type Outbound = PostgresChangeStatusBackup$Outbound;
-}
-
-export function postgresChangeStatusBackupToJSON(
-  postgresChangeStatusBackup: PostgresChangeStatusBackup,
-): string {
-  return JSON.stringify(
-    PostgresChangeStatusBackup$outboundSchema.parse(postgresChangeStatusBackup),
-  );
-}
-
-export function postgresChangeStatusBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresChangeStatusBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresChangeStatusBackup' from JSON`,
+    (x) =>
+      PostgresChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresChangeStatusUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2740,89 +2740,89 @@ export const PostgresChangeStatusResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  description: z.nullable(z.string()),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
   applicationStatus:
     PostgresChangeStatusApplicationStatusResponse$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresChangeStatusBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresChangeStatusEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => PostgresChangeStatusMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresChangeStatusNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresChangeStatusNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresChangeStatusEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresChangeStatusMount$inboundSchema)),
   server: z.nullable(z.lazy(() => PostgresChangeStatusServer$inboundSchema)),
-  backups: z.array(z.lazy(() => PostgresChangeStatusBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresChangeStatusResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresChangeStatusBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresChangeStatusHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresChangeStatusRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresChangeStatusPlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresChangeStatusRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresChangeStatusModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresChangeStatusNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresChangeStatusEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresChangeStatusHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresChangeStatusModeSwarm$Outbound | null;
   mounts: Array<PostgresChangeStatusMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresChangeStatusNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresChangeStatusPlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresChangeStatusRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresChangeStatusRollbackConfigSwarm$Outbound | null;
   server: PostgresChangeStatusServer$Outbound | null;
-  backups: Array<PostgresChangeStatusBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresChangeStatusUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2831,53 +2831,53 @@ export const PostgresChangeStatusResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresChangeStatusResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  description: z.nullable(z.string()),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
   applicationStatus:
     PostgresChangeStatusApplicationStatusResponse$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresChangeStatusBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresChangeStatusEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => PostgresChangeStatusMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresChangeStatusNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresChangeStatusRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => PostgresChangeStatusModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresChangeStatusNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresChangeStatusEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresChangeStatusMount$outboundSchema)),
   server: z.nullable(z.lazy(() => PostgresChangeStatusServer$outboundSchema)),
-  backups: z.array(z.lazy(() => PostgresChangeStatusBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresChangeStatusUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

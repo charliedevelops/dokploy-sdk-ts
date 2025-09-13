@@ -6,12 +6,12 @@
 import { ApplicationOnePort } from "dokploy-sdk/models/operations";
 
 let value: ApplicationOnePort = {
-  portId: "<id>",
-  publishedPort: 4694.3,
-  publishMode: "ingress",
-  targetPort: 7137.15,
-  protocol: "tcp",
   applicationId: "<id>",
+  portId: "<id>",
+  protocol: "tcp",
+  publishMode: "ingress",
+  publishedPort: 7137.15,
+  targetPort: 617.97,
 };
 ```
 
@@ -19,9 +19,9 @@ let value: ApplicationOnePort = {
 
 | Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `portId`                                                                                     | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
-| `publishedPort`                                                                              | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
-| `publishMode`                                                                                | [operations.ApplicationOnePublishMode](../../models/operations/applicationonepublishmode.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
-| `targetPort`                                                                                 | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
-| `protocol`                                                                                   | [operations.ApplicationOneProtocol](../../models/operations/applicationoneprotocol.md)       | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `applicationId`                                                                              | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `portId`                                                                                     | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `protocol`                                                                                   | [operations.ApplicationOneProtocol](../../models/operations/applicationoneprotocol.md)       | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `publishMode`                                                                                | [operations.ApplicationOnePublishMode](../../models/operations/applicationonepublishmode.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `publishedPort`                                                                              | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `targetPort`                                                                                 | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |

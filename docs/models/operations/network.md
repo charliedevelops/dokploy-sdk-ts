@@ -6,11 +6,11 @@
 import { Network } from "dokploy-sdk/models/operations";
 
 let value: Network = {
+  time: "<value>",
   value: {
     inputMb: "<value>",
     outputMb: "<value>",
   },
-  time: "<value>",
 };
 ```
 
@@ -18,5 +18,5 @@ let value: Network = {
 
 | Field                                                              | Type                                                               | Required                                                           | Description                                                        |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `value`                                                            | [operations.NetworkValue](../../models/operations/networkvalue.md) | :heavy_check_mark:                                                 | N/A                                                                |
 | `time`                                                             | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
+| `value`                                                            | [operations.NetworkValue](../../models/operations/networkvalue.md) | :heavy_check_mark:                                                 | N/A                                                                |

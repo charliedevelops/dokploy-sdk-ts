@@ -8,19 +8,19 @@ Successful response
 import { BitbucketOneResponseBody } from "dokploy-sdk/models/operations";
 
 let value: BitbucketOneResponseBody = {
+  appPassword: null,
   bitbucketId: "<id>",
-  bitbucketUsername: null,
-  appPassword: "<value>",
+  bitbucketUsername: "<value>",
   bitbucketWorkspaceName: "<value>",
-  gitProviderId: "<id>",
   gitProvider: {
+    createdAt: "1721501526007",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "bitbucket",
-    createdAt: "1711662589864",
     organizationId: "<id>",
+    providerType: "github",
     userId: "<id>",
   },
+  gitProviderId: "<id>",
 };
 ```
 
@@ -28,9 +28,9 @@ let value: BitbucketOneResponseBody = {
 
 | Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
 | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `appPassword`                                                                            | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `bitbucketId`                                                                            | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `bitbucketUsername`                                                                      | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `appPassword`                                                                            | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `bitbucketWorkspaceName`                                                                 | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `gitProviderId`                                                                          | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
 | `gitProvider`                                                                            | [operations.BitbucketOneGitProvider](../../models/operations/bitbucketonegitprovider.md) | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `gitProviderId`                                                                          | *string*                                                                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |

@@ -14,12 +14,36 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Registry extends ClientSDK {
+  async registryAll(
+    security: operations.RegistryAllSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(registryRegistryAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async registryCreate(
     security: operations.RegistryCreateSecurity,
     request: operations.RegistryCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(registryRegistryCreate(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async registryOne(
+    security: operations.RegistryOneSecurity,
+    request: operations.RegistryOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(registryRegistryOne(
       this,
       security,
       request,
@@ -40,49 +64,25 @@ export class Registry extends ClientSDK {
     ));
   }
 
-  async registryUpdate(
-    security: operations.RegistryUpdateSecurity,
-    request: operations.RegistryUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(registryRegistryUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async registryAll(
-    security: operations.RegistryAllSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(registryRegistryAll(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async registryOne(
-    security: operations.RegistryOneSecurity,
-    request: operations.RegistryOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(registryRegistryOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async registryTestRegistry(
     security: operations.RegistryTestRegistrySecurity,
     request: operations.RegistryTestRegistryRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(registryRegistryTestRegistry(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async registryUpdate(
+    security: operations.RegistryUpdateSecurity,
+    request: operations.RegistryUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(registryRegistryUpdate(
       this,
       security,
       request,

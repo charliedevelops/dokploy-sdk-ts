@@ -21,13 +21,13 @@ export type OrganizationDeleteRequest = {
  * Successful response
  */
 export type OrganizationDeleteResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationDeleteResponse =
@@ -156,24 +156,24 @@ export const OrganizationDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationDeleteResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -182,13 +182,13 @@ export const OrganizationDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationDeleteResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

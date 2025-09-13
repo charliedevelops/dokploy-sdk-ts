@@ -37,180 +37,12 @@ export class User extends ClientSDK {
     ));
   }
 
-  async userOne(
-    security: operations.UserOneSecurity,
-    request: operations.UserOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userGet(
-    security: operations.UserGetSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGet(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userHaveRootAccess(
-    security: operations.UserHaveRootAccessSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserHaveRootAccess(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userGetBackups(
-    security: operations.UserGetBackupsSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetBackups(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userGetServerMetrics(
-    security: operations.UserGetServerMetricsSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetServerMetrics(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userUpdate(
-    security: operations.UserUpdateSecurity,
-    request: operations.UserUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userGetUserByToken(
-    security: operations.UserGetUserByTokenSecurity,
-    request: operations.UserGetUserByTokenRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetUserByToken(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userGetMetricsToken(
-    security: operations.UserGetMetricsTokenSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetMetricsToken(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userRemove(
-    security: operations.UserRemoveSecurity,
-    request: operations.UserRemoveRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserRemove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async userAssignPermissions(
     security: operations.UserAssignPermissionsSecurity,
     request: operations.UserAssignPermissionsRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(userUserAssignPermissions(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userGetInvitations(
-    security: operations.UserGetInvitationsSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetInvitations(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userGetContainerMetrics(
-    security: operations.UserGetContainerMetricsSecurity,
-    request: operations.UserGetContainerMetricsRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGetContainerMetrics(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userGenerateToken(
-    security: operations.UserGenerateTokenSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserGenerateToken(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async userDeleteApiKey(
-    security: operations.UserDeleteApiKeySecurity,
-    request: operations.UserDeleteApiKeyRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserDeleteApiKey(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async userCreateApiKey(
-    security: operations.UserCreateApiKeySecurity,
-    request: operations.UserCreateApiKeyRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(userUserCreateApiKey(
       this,
       security,
       request,
@@ -231,12 +63,180 @@ export class User extends ClientSDK {
     ));
   }
 
+  async userCreateApiKey(
+    security: operations.UserCreateApiKeySecurity,
+    request: operations.UserCreateApiKeyRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserCreateApiKey(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userDeleteApiKey(
+    security: operations.UserDeleteApiKeySecurity,
+    request: operations.UserDeleteApiKeyRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserDeleteApiKey(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userGenerateToken(
+    security: operations.UserGenerateTokenSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGenerateToken(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGet(
+    security: operations.UserGetSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGet(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGetBackups(
+    security: operations.UserGetBackupsSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetBackups(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGetContainerMetrics(
+    security: operations.UserGetContainerMetricsSecurity,
+    request: operations.UserGetContainerMetricsRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetContainerMetrics(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userGetInvitations(
+    security: operations.UserGetInvitationsSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetInvitations(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGetMetricsToken(
+    security: operations.UserGetMetricsTokenSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetMetricsToken(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGetServerMetrics(
+    security: operations.UserGetServerMetricsSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetServerMetrics(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userGetUserByToken(
+    security: operations.UserGetUserByTokenSecurity,
+    request: operations.UserGetUserByTokenRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserGetUserByToken(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userHaveRootAccess(
+    security: operations.UserHaveRootAccessSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserHaveRootAccess(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async userOne(
+    security: operations.UserOneSecurity,
+    request: operations.UserOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userRemove(
+    security: operations.UserRemoveSecurity,
+    request: operations.UserRemoveRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserRemove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async userSendInvitation(
     security: operations.UserSendInvitationSecurity,
     request: operations.UserSendInvitationRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(userUserSendInvitation(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async userUpdate(
+    security: operations.UserUpdateSecurity,
+    request: operations.UserUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(userUserUpdate(
       this,
       security,
       request,

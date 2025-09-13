@@ -25,17 +25,17 @@ export type GitlabGitlabProvidersProviderType = ClosedEnum<
 >;
 
 export type GitlabGitlabProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GitlabGitlabProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GitlabGitlabProvidersProviderType;
   userId: string;
 };
 
 export type GitlabGitlabProvidersResponseBody = {
-  gitlabId: string;
   gitProvider: GitlabGitlabProvidersGitProvider;
+  gitlabId: string;
   gitlabUrl: string;
 };
 
@@ -135,21 +135,21 @@ export const GitlabGitlabProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabGitlabProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabGitlabProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GitlabGitlabProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -159,11 +159,11 @@ export const GitlabGitlabProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabGitlabProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabGitlabProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabGitlabProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -206,15 +206,15 @@ export const GitlabGitlabProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  gitlabId: z.string(),
   gitProvider: z.lazy(() => GitlabGitlabProvidersGitProvider$inboundSchema),
+  gitlabId: z.string(),
   gitlabUrl: z.string(),
 });
 
 /** @internal */
 export type GitlabGitlabProvidersResponseBody$Outbound = {
-  gitlabId: string;
   gitProvider: GitlabGitlabProvidersGitProvider$Outbound;
+  gitlabId: string;
   gitlabUrl: string;
 };
 
@@ -224,8 +224,8 @@ export const GitlabGitlabProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabGitlabProvidersResponseBody
 > = z.object({
-  gitlabId: z.string(),
   gitProvider: z.lazy(() => GitlabGitlabProvidersGitProvider$outboundSchema),
+  gitlabId: z.string(),
   gitlabUrl: z.string(),
 });
 

@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.SecurityUpdateResponseBody = {
-  securityId: "<id>",
-  username: "Lyda42",
-  password: "aE5pHu0d6gM1R_u",
-  createdAt: "1706826607450",
   applicationId: "<id>",
+  createdAt: "1724584560338",
+  password: "sTIvaE5pHu0d6gM",
+  securityId: "<id>",
+  username: "Chanelle_Okuneva",
 };
 ```
 
@@ -19,8 +19,8 @@ const value: operations.SecurityUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

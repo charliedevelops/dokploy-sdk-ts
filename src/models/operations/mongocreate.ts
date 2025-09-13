@@ -14,15 +14,15 @@ export type MongoCreateSecurity = {
 };
 
 export type MongoCreateRequest = {
-  name: string;
   appName: string;
+  databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
   environmentId: string;
-  description?: string | null | undefined;
-  databaseUser: string;
-  databasePassword: string;
-  serverId?: string | null | undefined;
+  name: string;
   replicaSets?: boolean | null | undefined;
+  serverId?: string | null | undefined;
 };
 
 export type MongoCreateResponse = models.ErrorT | boolean;
@@ -95,28 +95,28 @@ export const MongoCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mongo:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  serverId: z.nullable(z.string()).optional(),
+  name: z.string(),
   replicaSets: z.nullable(z.boolean().default(false)),
+  serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MongoCreateRequest$Outbound = {
-  name: string;
   appName: string;
+  databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage: string;
   environmentId: string;
-  description?: string | null | undefined;
-  databaseUser: string;
-  databasePassword: string;
-  serverId?: string | null | undefined;
+  name: string;
   replicaSets: boolean | null;
+  serverId?: string | null | undefined;
 };
 
 /** @internal */
@@ -125,15 +125,15 @@ export const MongoCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mongo:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  serverId: z.nullable(z.string()).optional(),
+  name: z.string(),
   replicaSets: z.nullable(z.boolean().default(false)),
+  serverId: z.nullable(z.string()).optional(),
 });
 
 /**

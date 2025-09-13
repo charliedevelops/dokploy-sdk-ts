@@ -7,19 +7,19 @@
 
 ```typescript
 const value: operations.PreviewDeploymentOneResponseBody = {
-  previewDeploymentId: "<id>",
-  branch: "<value>",
-  pullRequestId: "<id>",
-  pullRequestNumber: "<value>",
-  pullRequestURL: "https://frank-maintainer.biz",
-  pullRequestTitle: "<value>",
-  pullRequestCommentId: "<id>",
-  previewStatus: "idle",
   appName: "<value>",
   applicationId: "<id>",
+  branch: "<value>",
+  createdAt: "1723488755606",
   domainId: "<id>",
-  createdAt: "1715843005920",
-  expiresAt: "1763803102654",
+  expiresAt: "1743110574287",
+  previewDeploymentId: "<id>",
+  previewStatus: "idle",
+  pullRequestCommentId: "<id>",
+  pullRequestId: "<id>",
+  pullRequestNumber: "<value>",
+  pullRequestTitle: "<value>",
+  pullRequestURL: "https://homely-utilization.org",
 };
 ```
 
@@ -27,8 +27,8 @@ const value: operations.PreviewDeploymentOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

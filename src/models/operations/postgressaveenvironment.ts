@@ -14,8 +14,8 @@ export type PostgresSaveEnvironmentSecurity = {
 };
 
 export type PostgresSaveEnvironmentRequest = {
-  postgresId: string;
   env?: string | null | undefined;
+  postgresId: string;
 };
 
 export type PostgresSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -90,14 +90,14 @@ export const PostgresSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   env: z.nullable(z.string()).optional(),
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresSaveEnvironmentRequest$Outbound = {
-  postgresId: string;
   env?: string | null | undefined;
+  postgresId: string;
 };
 
 /** @internal */
@@ -106,8 +106,8 @@ export const PostgresSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveEnvironmentRequest
 > = z.object({
-  postgresId: z.string(),
   env: z.nullable(z.string()).optional(),
+  postgresId: z.string(),
 });
 
 /**

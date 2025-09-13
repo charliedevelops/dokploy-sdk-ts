@@ -14,18 +14,18 @@ export type NotificationCreateEmailSecurity = {
 
 export type NotificationCreateEmailRequest = {
   appBuildError: boolean;
-  databaseBackup: boolean;
-  dokployRestart: boolean;
-  name: string;
   appDeploy: boolean;
+  databaseBackup: boolean;
   dockerCleanup: boolean;
-  serverThreshold: boolean;
-  smtpServer: string;
-  smtpPort: number;
-  username: string;
-  password: string;
+  dokployRestart: boolean;
   fromAddress: string;
+  name: string;
+  password: string;
+  serverThreshold: boolean;
+  smtpPort: number;
+  smtpServer: string;
   toAddresses: Array<string>;
+  username: string;
 };
 
 /** @internal */
@@ -99,35 +99,35 @@ export const NotificationCreateEmailRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
-  databaseBackup: z.boolean(),
-  dokployRestart: z.boolean(),
-  name: z.string(),
   appDeploy: z.boolean(),
+  databaseBackup: z.boolean(),
   dockerCleanup: z.boolean(),
-  serverThreshold: z.boolean(),
-  smtpServer: z.string(),
-  smtpPort: z.number(),
-  username: z.string(),
-  password: z.string(),
+  dokployRestart: z.boolean(),
   fromAddress: z.string(),
+  name: z.string(),
+  password: z.string(),
+  serverThreshold: z.boolean(),
+  smtpPort: z.number(),
+  smtpServer: z.string(),
   toAddresses: z.array(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type NotificationCreateEmailRequest$Outbound = {
   appBuildError: boolean;
-  databaseBackup: boolean;
-  dokployRestart: boolean;
-  name: string;
   appDeploy: boolean;
+  databaseBackup: boolean;
   dockerCleanup: boolean;
-  serverThreshold: boolean;
-  smtpServer: string;
-  smtpPort: number;
-  username: string;
-  password: string;
+  dokployRestart: boolean;
   fromAddress: string;
+  name: string;
+  password: string;
+  serverThreshold: boolean;
+  smtpPort: number;
+  smtpServer: string;
   toAddresses: Array<string>;
+  username: string;
 };
 
 /** @internal */
@@ -137,18 +137,18 @@ export const NotificationCreateEmailRequest$outboundSchema: z.ZodType<
   NotificationCreateEmailRequest
 > = z.object({
   appBuildError: z.boolean(),
-  databaseBackup: z.boolean(),
-  dokployRestart: z.boolean(),
-  name: z.string(),
   appDeploy: z.boolean(),
+  databaseBackup: z.boolean(),
   dockerCleanup: z.boolean(),
-  serverThreshold: z.boolean(),
-  smtpServer: z.string(),
-  smtpPort: z.number(),
-  username: z.string(),
-  password: z.string(),
+  dokployRestart: z.boolean(),
   fromAddress: z.string(),
+  name: z.string(),
+  password: z.string(),
+  serverThreshold: z.boolean(),
+  smtpPort: z.number(),
+  smtpServer: z.string(),
   toAddresses: z.array(z.string()),
+  username: z.string(),
 });
 
 /**

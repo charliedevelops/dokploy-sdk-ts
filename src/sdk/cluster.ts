@@ -12,25 +12,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Cluster extends ClientSDK {
-  async clusterGetNodes(
-    security: operations.ClusterGetNodesSecurity,
-    request?: operations.ClusterGetNodesRequest | undefined,
+  async clusterAddManager(
+    security: operations.ClusterAddManagerSecurity,
+    request?: operations.ClusterAddManagerRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(clusterClusterGetNodes(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async clusterRemoveWorker(
-    security: operations.ClusterRemoveWorkerSecurity,
-    request: operations.ClusterRemoveWorkerRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(clusterClusterRemoveWorker(
+    return unwrapAsync(clusterClusterAddManager(
       this,
       security,
       request,
@@ -51,12 +38,25 @@ export class Cluster extends ClientSDK {
     ));
   }
 
-  async clusterAddManager(
-    security: operations.ClusterAddManagerSecurity,
-    request?: operations.ClusterAddManagerRequest | undefined,
+  async clusterGetNodes(
+    security: operations.ClusterGetNodesSecurity,
+    request?: operations.ClusterGetNodesRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(clusterClusterAddManager(
+    return unwrapAsync(clusterClusterGetNodes(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async clusterRemoveWorker(
+    security: operations.ClusterRemoveWorkerSecurity,
+    request: operations.ClusterRemoveWorkerRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(clusterClusterRemoveWorker(
       this,
       security,
       request,

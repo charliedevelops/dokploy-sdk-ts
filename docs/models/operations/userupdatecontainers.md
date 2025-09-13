@@ -8,8 +8,8 @@ import { UserUpdateContainers } from "dokploy-sdk/models/operations";
 let value: UserUpdateContainers = {
   refreshRate: 7558.07,
   services: {
-    include: [],
-    exclude: [
+    exclude: [],
+    include: [
       "<value 1>",
       "<value 2>",
     ],

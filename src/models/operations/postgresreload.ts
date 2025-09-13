@@ -14,8 +14,8 @@ export type PostgresReloadSecurity = {
 };
 
 export type PostgresReloadRequest = {
-  postgresId: string;
   appName: string;
+  postgresId: string;
 };
 
 export type PostgresReloadResponse = models.ErrorT | boolean;
@@ -88,14 +88,14 @@ export const PostgresReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   appName: z.string(),
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresReloadRequest$Outbound = {
-  postgresId: string;
   appName: string;
+  postgresId: string;
 };
 
 /** @internal */
@@ -104,8 +104,8 @@ export const PostgresReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresReloadRequest
 > = z.object({
-  postgresId: z.string(),
   appName: z.string(),
+  postgresId: z.string(),
 });
 
 /**

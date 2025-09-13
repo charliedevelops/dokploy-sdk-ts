@@ -28,194 +28,6 @@ export type MongoDeployApplicationStatus = ClosedEnum<
   typeof MongoDeployApplicationStatus
 >;
 
-export type MongoDeployHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MongoDeployRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MongoDeploySpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoDeployPreference = {
-  spread: MongoDeploySpread;
-};
-
-export type MongoDeployPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoDeployPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoDeployPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoDeployPlatform> | undefined;
-};
-
-export type MongoDeployUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoDeployRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoDeployReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoDeployGlobal = {};
-
-export type MongoDeployReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoDeployGlobalJob = {};
-
-export type MongoDeployModeSwarm = {
-  replicated?: MongoDeployReplicated | undefined;
-  global?: MongoDeployGlobal | undefined;
-  replicatedJob?: MongoDeployReplicatedJob | undefined;
-  globalJob?: MongoDeployGlobalJob | undefined;
-};
-
-export type MongoDeployDriverOpts = {};
-
-export type MongoDeployNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoDeployDriverOpts | undefined;
-};
-
-export type MongoDeployProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoDeployEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoDeployProject;
-};
-
-export const MongoDeployType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoDeployType = ClosedEnum<typeof MongoDeployType>;
-
-export const MongoDeployServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MongoDeployServiceType = ClosedEnum<typeof MongoDeployServiceType>;
-
-export type MongoDeployMount = {
-  mountId: string;
-  type: MongoDeployType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoDeployServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MongoDeployServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoDeployServerStatus = ClosedEnum<
-  typeof MongoDeployServerStatus
->;
-
-export const MongoDeployMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MongoDeployMetricsConfigEnum = ClosedEnum<
-  typeof MongoDeployMetricsConfigEnum
->;
-
-export type MongoDeployMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MongoDeployMetricsConfigEnum;
-
-export type MongoDeployMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MongoDeployMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MongoDeployServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoDeployServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MongoDeployMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
-
 export const MongoDeployBackupType = {
   Database: "database",
   Compose: "compose",
@@ -240,29 +52,29 @@ export type MongoDeployMetadataEnum = ClosedEnum<
   typeof MongoDeployMetadataEnum
 >;
 
-export type MongoDeployPostgres = {
-  databaseUser: string;
-};
-
 export type MongoDeployMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoDeployMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoDeployMysql = {
   databaseRootPassword: string;
 };
 
+export type MongoDeployPostgres = {
+  databaseUser: string;
+};
+
 export type MongoDeployMetadata = {
-  postgres?: MongoDeployPostgres | undefined;
   mariadb?: MongoDeployMariadb | undefined;
   mongo?: MongoDeployMongo | undefined;
   mysql?: MongoDeployMysql | undefined;
+  postgres?: MongoDeployPostgres | undefined;
 };
 
 export type MongoDeployMetadataUnion =
@@ -270,62 +82,250 @@ export type MongoDeployMetadataUnion =
   | MongoDeployMetadataEnum;
 
 export type MongoDeployBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MongoDeployBackupType;
-  databaseType: MongoDeployDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MongoDeployDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MongoDeployMetadata | MongoDeployMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoDeployProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoDeployEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoDeployProject;
+  projectId: string;
+};
+
+export type MongoDeployHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MongoDeployGlobal = {};
+
+export type MongoDeployGlobalJob = {};
+
+export type MongoDeployReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoDeployReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoDeployModeSwarm = {
+  global?: MongoDeployGlobal | undefined;
+  globalJob?: MongoDeployGlobalJob | undefined;
+  replicated?: MongoDeployReplicated | undefined;
+  replicatedJob?: MongoDeployReplicatedJob | undefined;
+};
+
+export const MongoDeployServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MongoDeployServiceType = ClosedEnum<typeof MongoDeployServiceType>;
+
+export const MongoDeployType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoDeployType = ClosedEnum<typeof MongoDeployType>;
+
+export type MongoDeployMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MongoDeployServiceType;
+  type: MongoDeployType;
+  volumeName: string | null;
+};
+
+export type MongoDeployDriverOpts = {};
+
+export type MongoDeployNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoDeployDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoDeployPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoDeploySpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoDeployPreference = {
+  spread: MongoDeploySpread;
+};
+
+export type MongoDeployPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoDeployPlatform> | undefined;
+  preferences?: Array<MongoDeployPreference> | undefined;
+};
+
+export type MongoDeployRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoDeployRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MongoDeployMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MongoDeployMetricsConfigEnum = ClosedEnum<
+  typeof MongoDeployMetricsConfigEnum
+>;
+
+export type MongoDeployMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MongoDeployMetricsConfigEnum;
+
+export type MongoDeployMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MongoDeployMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MongoDeployServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoDeployServerStatus = ClosedEnum<
+  typeof MongoDeployServerStatus
+>;
+
+export type MongoDeployServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MongoDeployMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoDeployServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MongoDeployUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoDeployResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoDeployApplicationStatus;
-  healthCheckSwarm: MongoDeployHealthCheckSwarm | null;
-  restartPolicySwarm: MongoDeployRestartPolicySwarm | null;
-  placementSwarm: MongoDeployPlacementSwarm | null;
-  updateConfigSwarm: MongoDeployUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoDeployRollbackConfigSwarm | null;
-  modeSwarm: MongoDeployModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoDeployNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoDeployEnvironment;
-  mounts: Array<MongoDeployMount>;
-  server: MongoDeployServer | null;
   backups: Array<MongoDeployBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoDeployEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoDeployHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoDeployModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoDeployMount>;
+  name: string;
+  networkSwarm: Array<MongoDeployNetworkSwarm> | null;
+  placementSwarm: MongoDeployPlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoDeployRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoDeployRollbackConfigSwarm | null;
+  server: MongoDeployServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoDeployUpdateConfigSwarm | null;
 };
 
 export type MongoDeployResponse = MongoDeployResponseBody | models.ErrorT;
@@ -468,33 +468,693 @@ export namespace MongoDeployApplicationStatus$ {
 }
 
 /** @internal */
+export const MongoDeployBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployBackupType
+> = z.nativeEnum(MongoDeployBackupType);
+
+/** @internal */
+export const MongoDeployBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployBackupType
+> = MongoDeployBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployBackupType$ {
+  /** @deprecated use `MongoDeployBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployBackupType$inboundSchema;
+  /** @deprecated use `MongoDeployBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployDatabaseType
+> = z.nativeEnum(MongoDeployDatabaseType);
+
+/** @internal */
+export const MongoDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployDatabaseType
+> = MongoDeployDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployDatabaseType$ {
+  /** @deprecated use `MongoDeployDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployDatabaseType$inboundSchema;
+  /** @deprecated use `MongoDeployDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployMetadataEnum
+> = z.nativeEnum(MongoDeployMetadataEnum);
+
+/** @internal */
+export const MongoDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployMetadataEnum
+> = MongoDeployMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMetadataEnum$ {
+  /** @deprecated use `MongoDeployMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoDeployMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoDeployMariadb$inboundSchema: z.ZodType<
+  MongoDeployMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoDeployMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoDeployMariadb$outboundSchema: z.ZodType<
+  MongoDeployMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMariadb$ {
+  /** @deprecated use `MongoDeployMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMariadb$inboundSchema;
+  /** @deprecated use `MongoDeployMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMariadb$outboundSchema;
+  /** @deprecated use `MongoDeployMariadb$Outbound` instead. */
+  export type Outbound = MongoDeployMariadb$Outbound;
+}
+
+export function mongoDeployMariadbToJSON(
+  mongoDeployMariadb: MongoDeployMariadb,
+): string {
+  return JSON.stringify(
+    MongoDeployMariadb$outboundSchema.parse(mongoDeployMariadb),
+  );
+}
+
+export function mongoDeployMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployMongo$inboundSchema: z.ZodType<
+  MongoDeployMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoDeployMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoDeployMongo$outboundSchema: z.ZodType<
+  MongoDeployMongo$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMongo$ {
+  /** @deprecated use `MongoDeployMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMongo$inboundSchema;
+  /** @deprecated use `MongoDeployMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMongo$outboundSchema;
+  /** @deprecated use `MongoDeployMongo$Outbound` instead. */
+  export type Outbound = MongoDeployMongo$Outbound;
+}
+
+export function mongoDeployMongoToJSON(
+  mongoDeployMongo: MongoDeployMongo,
+): string {
+  return JSON.stringify(
+    MongoDeployMongo$outboundSchema.parse(mongoDeployMongo),
+  );
+}
+
+export function mongoDeployMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployMysql$inboundSchema: z.ZodType<
+  MongoDeployMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoDeployMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoDeployMysql$outboundSchema: z.ZodType<
+  MongoDeployMysql$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMysql$ {
+  /** @deprecated use `MongoDeployMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMysql$inboundSchema;
+  /** @deprecated use `MongoDeployMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMysql$outboundSchema;
+  /** @deprecated use `MongoDeployMysql$Outbound` instead. */
+  export type Outbound = MongoDeployMysql$Outbound;
+}
+
+export function mongoDeployMysqlToJSON(
+  mongoDeployMysql: MongoDeployMysql,
+): string {
+  return JSON.stringify(
+    MongoDeployMysql$outboundSchema.parse(mongoDeployMysql),
+  );
+}
+
+export function mongoDeployMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployPostgres$inboundSchema: z.ZodType<
+  MongoDeployPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoDeployPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoDeployPostgres$outboundSchema: z.ZodType<
+  MongoDeployPostgres$Outbound,
+  z.ZodTypeDef,
+  MongoDeployPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployPostgres$ {
+  /** @deprecated use `MongoDeployPostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployPostgres$inboundSchema;
+  /** @deprecated use `MongoDeployPostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployPostgres$outboundSchema;
+  /** @deprecated use `MongoDeployPostgres$Outbound` instead. */
+  export type Outbound = MongoDeployPostgres$Outbound;
+}
+
+export function mongoDeployPostgresToJSON(
+  mongoDeployPostgres: MongoDeployPostgres,
+): string {
+  return JSON.stringify(
+    MongoDeployPostgres$outboundSchema.parse(mongoDeployPostgres),
+  );
+}
+
+export function mongoDeployPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployMetadata$inboundSchema: z.ZodType<
+  MongoDeployMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoDeployMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoDeployMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoDeployMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoDeployPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MongoDeployMetadata$Outbound = {
+  mariadb?: MongoDeployMariadb$Outbound | undefined;
+  mongo?: MongoDeployMongo$Outbound | undefined;
+  mysql?: MongoDeployMysql$Outbound | undefined;
+  postgres?: MongoDeployPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoDeployMetadata$outboundSchema: z.ZodType<
+  MongoDeployMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoDeployMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoDeployMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoDeployMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoDeployPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMetadata$ {
+  /** @deprecated use `MongoDeployMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMetadata$inboundSchema;
+  /** @deprecated use `MongoDeployMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMetadata$outboundSchema;
+  /** @deprecated use `MongoDeployMetadata$Outbound` instead. */
+  export type Outbound = MongoDeployMetadata$Outbound;
+}
+
+export function mongoDeployMetadataToJSON(
+  mongoDeployMetadata: MongoDeployMetadata,
+): string {
+  return JSON.stringify(
+    MongoDeployMetadata$outboundSchema.parse(mongoDeployMetadata),
+  );
+}
+
+export function mongoDeployMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployMetadataUnion$inboundSchema: z.ZodType<
+  MongoDeployMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoDeployMetadata$inboundSchema),
+  MongoDeployMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoDeployMetadataUnion$Outbound =
+  | MongoDeployMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MongoDeployMetadataUnion$outboundSchema: z.ZodType<
+  MongoDeployMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMetadataUnion
+> = z.union([
+  z.lazy(() => MongoDeployMetadata$outboundSchema),
+  MongoDeployMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMetadataUnion$ {
+  /** @deprecated use `MongoDeployMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoDeployMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoDeployMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoDeployMetadataUnion$Outbound;
+}
+
+export function mongoDeployMetadataUnionToJSON(
+  mongoDeployMetadataUnion: MongoDeployMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoDeployMetadataUnion$outboundSchema.parse(mongoDeployMetadataUnion),
+  );
+}
+
+export function mongoDeployMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployBackup$inboundSchema: z.ZodType<
+  MongoDeployBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoDeployBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoDeployDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoDeployMetadata$inboundSchema),
+      MongoDeployMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoDeployBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoDeployMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoDeployBackup$outboundSchema: z.ZodType<
+  MongoDeployBackup$Outbound,
+  z.ZodTypeDef,
+  MongoDeployBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoDeployBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoDeployDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoDeployMetadata$outboundSchema),
+      MongoDeployMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployBackup$ {
+  /** @deprecated use `MongoDeployBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployBackup$inboundSchema;
+  /** @deprecated use `MongoDeployBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployBackup$outboundSchema;
+  /** @deprecated use `MongoDeployBackup$Outbound` instead. */
+  export type Outbound = MongoDeployBackup$Outbound;
+}
+
+export function mongoDeployBackupToJSON(
+  mongoDeployBackup: MongoDeployBackup,
+): string {
+  return JSON.stringify(
+    MongoDeployBackup$outboundSchema.parse(mongoDeployBackup),
+  );
+}
+
+export function mongoDeployBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployProject$inboundSchema: z.ZodType<
+  MongoDeployProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoDeployProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoDeployProject$outboundSchema: z.ZodType<
+  MongoDeployProject$Outbound,
+  z.ZodTypeDef,
+  MongoDeployProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployProject$ {
+  /** @deprecated use `MongoDeployProject$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployProject$inboundSchema;
+  /** @deprecated use `MongoDeployProject$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployProject$outboundSchema;
+  /** @deprecated use `MongoDeployProject$Outbound` instead. */
+  export type Outbound = MongoDeployProject$Outbound;
+}
+
+export function mongoDeployProjectToJSON(
+  mongoDeployProject: MongoDeployProject,
+): string {
+  return JSON.stringify(
+    MongoDeployProject$outboundSchema.parse(mongoDeployProject),
+  );
+}
+
+export function mongoDeployProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployEnvironment$inboundSchema: z.ZodType<
+  MongoDeployEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoDeployProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoDeployEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoDeployProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoDeployEnvironment$outboundSchema: z.ZodType<
+  MongoDeployEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoDeployEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoDeployProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployEnvironment$ {
+  /** @deprecated use `MongoDeployEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployEnvironment$inboundSchema;
+  /** @deprecated use `MongoDeployEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployEnvironment$outboundSchema;
+  /** @deprecated use `MongoDeployEnvironment$Outbound` instead. */
+  export type Outbound = MongoDeployEnvironment$Outbound;
+}
+
+export function mongoDeployEnvironmentToJSON(
+  mongoDeployEnvironment: MongoDeployEnvironment,
+): string {
+  return JSON.stringify(
+    MongoDeployEnvironment$outboundSchema.parse(mongoDeployEnvironment),
+  );
+}
+
+export function mongoDeployEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoDeployHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoDeployHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoDeployHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -503,18 +1163,18 @@ export const MongoDeployHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoDeployHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -552,48 +1212,129 @@ export function mongoDeployHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoDeployRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoDeployRestartPolicySwarm,
+export const MongoDeployGlobal$inboundSchema: z.ZodType<
+  MongoDeployGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoDeployGlobal$Outbound = {};
+
+/** @internal */
+export const MongoDeployGlobal$outboundSchema: z.ZodType<
+  MongoDeployGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoDeployGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployGlobal$ {
+  /** @deprecated use `MongoDeployGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployGlobal$inboundSchema;
+  /** @deprecated use `MongoDeployGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployGlobal$outboundSchema;
+  /** @deprecated use `MongoDeployGlobal$Outbound` instead. */
+  export type Outbound = MongoDeployGlobal$Outbound;
+}
+
+export function mongoDeployGlobalToJSON(
+  mongoDeployGlobal: MongoDeployGlobal,
+): string {
+  return JSON.stringify(
+    MongoDeployGlobal$outboundSchema.parse(mongoDeployGlobal),
+  );
+}
+
+export function mongoDeployGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployGlobalJob$inboundSchema: z.ZodType<
+  MongoDeployGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoDeployGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoDeployGlobalJob$outboundSchema: z.ZodType<
+  MongoDeployGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoDeployGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployGlobalJob$ {
+  /** @deprecated use `MongoDeployGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployGlobalJob$inboundSchema;
+  /** @deprecated use `MongoDeployGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployGlobalJob$outboundSchema;
+  /** @deprecated use `MongoDeployGlobalJob$Outbound` instead. */
+  export type Outbound = MongoDeployGlobalJob$Outbound;
+}
+
+export function mongoDeployGlobalJobToJSON(
+  mongoDeployGlobalJob: MongoDeployGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoDeployGlobalJob$outboundSchema.parse(mongoDeployGlobalJob),
+  );
+}
+
+export function mongoDeployGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployReplicated$inboundSchema: z.ZodType<
+  MongoDeployReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoDeployRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoDeployReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoDeployRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoDeployRestartPolicySwarm$Outbound,
+export const MongoDeployReplicated$outboundSchema: z.ZodType<
+  MongoDeployReplicated$Outbound,
   z.ZodTypeDef,
-  MongoDeployRestartPolicySwarm
+  MongoDeployReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -601,32 +1342,501 @@ export const MongoDeployRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoDeployRestartPolicySwarm$ {
-  /** @deprecated use `MongoDeployRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoDeployRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoDeployRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoDeployRestartPolicySwarm$Outbound;
+export namespace MongoDeployReplicated$ {
+  /** @deprecated use `MongoDeployReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployReplicated$inboundSchema;
+  /** @deprecated use `MongoDeployReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployReplicated$outboundSchema;
+  /** @deprecated use `MongoDeployReplicated$Outbound` instead. */
+  export type Outbound = MongoDeployReplicated$Outbound;
 }
 
-export function mongoDeployRestartPolicySwarmToJSON(
-  mongoDeployRestartPolicySwarm: MongoDeployRestartPolicySwarm,
+export function mongoDeployReplicatedToJSON(
+  mongoDeployReplicated: MongoDeployReplicated,
 ): string {
   return JSON.stringify(
-    MongoDeployRestartPolicySwarm$outboundSchema.parse(
-      mongoDeployRestartPolicySwarm,
-    ),
+    MongoDeployReplicated$outboundSchema.parse(mongoDeployReplicated),
   );
 }
 
-export function mongoDeployRestartPolicySwarmFromJSON(
+export function mongoDeployReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoDeployRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoDeployReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployRestartPolicySwarm' from JSON`,
+    (x) => MongoDeployReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployReplicatedJob$inboundSchema: z.ZodType<
+  MongoDeployReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoDeployReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoDeployReplicatedJob$outboundSchema: z.ZodType<
+  MongoDeployReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoDeployReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployReplicatedJob$ {
+  /** @deprecated use `MongoDeployReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoDeployReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoDeployReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoDeployReplicatedJob$Outbound;
+}
+
+export function mongoDeployReplicatedJobToJSON(
+  mongoDeployReplicatedJob: MongoDeployReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoDeployReplicatedJob$outboundSchema.parse(mongoDeployReplicatedJob),
+  );
+}
+
+export function mongoDeployReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployModeSwarm$inboundSchema: z.ZodType<
+  MongoDeployModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoDeployGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoDeployGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoDeployReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoDeployReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoDeployModeSwarm$Outbound = {
+  Global?: MongoDeployGlobal$Outbound | undefined;
+  GlobalJob?: MongoDeployGlobalJob$Outbound | undefined;
+  Replicated?: MongoDeployReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoDeployReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoDeployModeSwarm$outboundSchema: z.ZodType<
+  MongoDeployModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoDeployModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoDeployGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoDeployGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoDeployReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoDeployReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployModeSwarm$ {
+  /** @deprecated use `MongoDeployModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployModeSwarm$inboundSchema;
+  /** @deprecated use `MongoDeployModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployModeSwarm$outboundSchema;
+  /** @deprecated use `MongoDeployModeSwarm$Outbound` instead. */
+  export type Outbound = MongoDeployModeSwarm$Outbound;
+}
+
+export function mongoDeployModeSwarmToJSON(
+  mongoDeployModeSwarm: MongoDeployModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoDeployModeSwarm$outboundSchema.parse(mongoDeployModeSwarm),
+  );
+}
+
+export function mongoDeployModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployServiceType
+> = z.nativeEnum(MongoDeployServiceType);
+
+/** @internal */
+export const MongoDeployServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployServiceType
+> = MongoDeployServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployServiceType$ {
+  /** @deprecated use `MongoDeployServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployServiceType$inboundSchema;
+  /** @deprecated use `MongoDeployServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoDeployType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployType
+> = z.nativeEnum(MongoDeployType);
+
+/** @internal */
+export const MongoDeployType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployType
+> = MongoDeployType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployType$ {
+  /** @deprecated use `MongoDeployType$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployType$inboundSchema;
+  /** @deprecated use `MongoDeployType$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployType$outboundSchema;
+}
+
+/** @internal */
+export const MongoDeployMount$inboundSchema: z.ZodType<
+  MongoDeployMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoDeployServiceType$inboundSchema,
+  type: MongoDeployType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoDeployMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoDeployMount$outboundSchema: z.ZodType<
+  MongoDeployMount$Outbound,
+  z.ZodTypeDef,
+  MongoDeployMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoDeployServiceType$outboundSchema,
+  type: MongoDeployType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployMount$ {
+  /** @deprecated use `MongoDeployMount$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployMount$inboundSchema;
+  /** @deprecated use `MongoDeployMount$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployMount$outboundSchema;
+  /** @deprecated use `MongoDeployMount$Outbound` instead. */
+  export type Outbound = MongoDeployMount$Outbound;
+}
+
+export function mongoDeployMountToJSON(
+  mongoDeployMount: MongoDeployMount,
+): string {
+  return JSON.stringify(
+    MongoDeployMount$outboundSchema.parse(mongoDeployMount),
+  );
+}
+
+export function mongoDeployMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployDriverOpts$inboundSchema: z.ZodType<
+  MongoDeployDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoDeployDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoDeployDriverOpts$outboundSchema: z.ZodType<
+  MongoDeployDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoDeployDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployDriverOpts$ {
+  /** @deprecated use `MongoDeployDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployDriverOpts$inboundSchema;
+  /** @deprecated use `MongoDeployDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployDriverOpts$outboundSchema;
+  /** @deprecated use `MongoDeployDriverOpts$Outbound` instead. */
+  export type Outbound = MongoDeployDriverOpts$Outbound;
+}
+
+export function mongoDeployDriverOptsToJSON(
+  mongoDeployDriverOpts: MongoDeployDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoDeployDriverOpts$outboundSchema.parse(mongoDeployDriverOpts),
+  );
+}
+
+export function mongoDeployDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployNetworkSwarm$inboundSchema: z.ZodType<
+  MongoDeployNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoDeployDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoDeployNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoDeployDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoDeployNetworkSwarm$outboundSchema: z.ZodType<
+  MongoDeployNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoDeployNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoDeployDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployNetworkSwarm$ {
+  /** @deprecated use `MongoDeployNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoDeployNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoDeployNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoDeployNetworkSwarm$Outbound;
+}
+
+export function mongoDeployNetworkSwarmToJSON(
+  mongoDeployNetworkSwarm: MongoDeployNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoDeployNetworkSwarm$outboundSchema.parse(mongoDeployNetworkSwarm),
+  );
+}
+
+export function mongoDeployNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoDeployPlatform$inboundSchema: z.ZodType<
+  MongoDeployPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoDeployPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoDeployPlatform$outboundSchema: z.ZodType<
+  MongoDeployPlatform$Outbound,
+  z.ZodTypeDef,
+  MongoDeployPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployPlatform$ {
+  /** @deprecated use `MongoDeployPlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployPlatform$inboundSchema;
+  /** @deprecated use `MongoDeployPlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployPlatform$outboundSchema;
+  /** @deprecated use `MongoDeployPlatform$Outbound` instead. */
+  export type Outbound = MongoDeployPlatform$Outbound;
+}
+
+export function mongoDeployPlatformToJSON(
+  mongoDeployPlatform: MongoDeployPlatform,
+): string {
+  return JSON.stringify(
+    MongoDeployPlatform$outboundSchema.parse(mongoDeployPlatform),
+  );
+}
+
+export function mongoDeployPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoDeployPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoDeployPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployPlatform' from JSON`,
   );
 }
 
@@ -755,99 +1965,32 @@ export function mongoDeployPreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoDeployPlatform$inboundSchema: z.ZodType<
-  MongoDeployPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoDeployPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoDeployPlatform$outboundSchema: z.ZodType<
-  MongoDeployPlatform$Outbound,
-  z.ZodTypeDef,
-  MongoDeployPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployPlatform$ {
-  /** @deprecated use `MongoDeployPlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployPlatform$inboundSchema;
-  /** @deprecated use `MongoDeployPlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployPlatform$outboundSchema;
-  /** @deprecated use `MongoDeployPlatform$Outbound` instead. */
-  export type Outbound = MongoDeployPlatform$Outbound;
-}
-
-export function mongoDeployPlatformToJSON(
-  mongoDeployPlatform: MongoDeployPlatform,
-): string {
-  return JSON.stringify(
-    MongoDeployPlatform$outboundSchema.parse(mongoDeployPlatform),
-  );
-}
-
-export function mongoDeployPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoDeployPlacementSwarm$inboundSchema: z.ZodType<
   MongoDeployPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoDeployPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoDeployPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MongoDeployPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoDeployPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoDeployPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoDeployPlatform$Outbound> | undefined;
+  Preferences?: Array<MongoDeployPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -857,17 +2000,17 @@ export const MongoDeployPlacementSwarm$outboundSchema: z.ZodType<
   MongoDeployPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoDeployPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoDeployPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MongoDeployPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -903,58 +2046,48 @@ export function mongoDeployPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoDeployUpdateConfigSwarm,
+export const MongoDeployRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoDeployRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoDeployUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoDeployRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoDeployUpdateConfigSwarm$Outbound,
+export const MongoDeployRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoDeployRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoDeployUpdateConfigSwarm
+  MongoDeployRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -962,32 +2095,32 @@ export const MongoDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoDeployUpdateConfigSwarm$ {
-  /** @deprecated use `MongoDeployUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoDeployUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoDeployUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoDeployUpdateConfigSwarm$Outbound;
+export namespace MongoDeployRestartPolicySwarm$ {
+  /** @deprecated use `MongoDeployRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoDeployRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoDeployRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoDeployRestartPolicySwarm$Outbound;
 }
 
-export function mongoDeployUpdateConfigSwarmToJSON(
-  mongoDeployUpdateConfigSwarm: MongoDeployUpdateConfigSwarm,
+export function mongoDeployRestartPolicySwarmToJSON(
+  mongoDeployRestartPolicySwarm: MongoDeployRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoDeployUpdateConfigSwarm$outboundSchema.parse(
-      mongoDeployUpdateConfigSwarm,
+    MongoDeployRestartPolicySwarm$outboundSchema.parse(
+      mongoDeployRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoDeployUpdateConfigSwarmFromJSON(
+export function mongoDeployRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoDeployUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoDeployRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployUpdateConfigSwarm' from JSON`,
+    (x) => MongoDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -997,31 +2130,31 @@ export const MongoDeployRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoDeployRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1030,20 +2163,20 @@ export const MongoDeployRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoDeployRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1078,730 +2211,6 @@ export function mongoDeployRollbackConfigSwarmFromJSON(
     (x) => MongoDeployRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MongoDeployRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoDeployReplicated$inboundSchema: z.ZodType<
-  MongoDeployReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoDeployReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoDeployReplicated$outboundSchema: z.ZodType<
-  MongoDeployReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoDeployReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployReplicated$ {
-  /** @deprecated use `MongoDeployReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployReplicated$inboundSchema;
-  /** @deprecated use `MongoDeployReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployReplicated$outboundSchema;
-  /** @deprecated use `MongoDeployReplicated$Outbound` instead. */
-  export type Outbound = MongoDeployReplicated$Outbound;
-}
-
-export function mongoDeployReplicatedToJSON(
-  mongoDeployReplicated: MongoDeployReplicated,
-): string {
-  return JSON.stringify(
-    MongoDeployReplicated$outboundSchema.parse(mongoDeployReplicated),
-  );
-}
-
-export function mongoDeployReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployGlobal$inboundSchema: z.ZodType<
-  MongoDeployGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoDeployGlobal$Outbound = {};
-
-/** @internal */
-export const MongoDeployGlobal$outboundSchema: z.ZodType<
-  MongoDeployGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoDeployGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployGlobal$ {
-  /** @deprecated use `MongoDeployGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployGlobal$inboundSchema;
-  /** @deprecated use `MongoDeployGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployGlobal$outboundSchema;
-  /** @deprecated use `MongoDeployGlobal$Outbound` instead. */
-  export type Outbound = MongoDeployGlobal$Outbound;
-}
-
-export function mongoDeployGlobalToJSON(
-  mongoDeployGlobal: MongoDeployGlobal,
-): string {
-  return JSON.stringify(
-    MongoDeployGlobal$outboundSchema.parse(mongoDeployGlobal),
-  );
-}
-
-export function mongoDeployGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployReplicatedJob$inboundSchema: z.ZodType<
-  MongoDeployReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoDeployReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoDeployReplicatedJob$outboundSchema: z.ZodType<
-  MongoDeployReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoDeployReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployReplicatedJob$ {
-  /** @deprecated use `MongoDeployReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoDeployReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoDeployReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoDeployReplicatedJob$Outbound;
-}
-
-export function mongoDeployReplicatedJobToJSON(
-  mongoDeployReplicatedJob: MongoDeployReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoDeployReplicatedJob$outboundSchema.parse(mongoDeployReplicatedJob),
-  );
-}
-
-export function mongoDeployReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployGlobalJob$inboundSchema: z.ZodType<
-  MongoDeployGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoDeployGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoDeployGlobalJob$outboundSchema: z.ZodType<
-  MongoDeployGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoDeployGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployGlobalJob$ {
-  /** @deprecated use `MongoDeployGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployGlobalJob$inboundSchema;
-  /** @deprecated use `MongoDeployGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployGlobalJob$outboundSchema;
-  /** @deprecated use `MongoDeployGlobalJob$Outbound` instead. */
-  export type Outbound = MongoDeployGlobalJob$Outbound;
-}
-
-export function mongoDeployGlobalJobToJSON(
-  mongoDeployGlobalJob: MongoDeployGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoDeployGlobalJob$outboundSchema.parse(mongoDeployGlobalJob),
-  );
-}
-
-export function mongoDeployGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployModeSwarm$inboundSchema: z.ZodType<
-  MongoDeployModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoDeployReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoDeployGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoDeployReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MongoDeployGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoDeployModeSwarm$Outbound = {
-  Replicated?: MongoDeployReplicated$Outbound | undefined;
-  Global?: MongoDeployGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoDeployReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoDeployGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoDeployModeSwarm$outboundSchema: z.ZodType<
-  MongoDeployModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoDeployModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoDeployReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoDeployGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoDeployReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoDeployGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployModeSwarm$ {
-  /** @deprecated use `MongoDeployModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployModeSwarm$inboundSchema;
-  /** @deprecated use `MongoDeployModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployModeSwarm$outboundSchema;
-  /** @deprecated use `MongoDeployModeSwarm$Outbound` instead. */
-  export type Outbound = MongoDeployModeSwarm$Outbound;
-}
-
-export function mongoDeployModeSwarmToJSON(
-  mongoDeployModeSwarm: MongoDeployModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoDeployModeSwarm$outboundSchema.parse(mongoDeployModeSwarm),
-  );
-}
-
-export function mongoDeployModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployDriverOpts$inboundSchema: z.ZodType<
-  MongoDeployDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoDeployDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoDeployDriverOpts$outboundSchema: z.ZodType<
-  MongoDeployDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoDeployDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployDriverOpts$ {
-  /** @deprecated use `MongoDeployDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployDriverOpts$inboundSchema;
-  /** @deprecated use `MongoDeployDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployDriverOpts$outboundSchema;
-  /** @deprecated use `MongoDeployDriverOpts$Outbound` instead. */
-  export type Outbound = MongoDeployDriverOpts$Outbound;
-}
-
-export function mongoDeployDriverOptsToJSON(
-  mongoDeployDriverOpts: MongoDeployDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoDeployDriverOpts$outboundSchema.parse(mongoDeployDriverOpts),
-  );
-}
-
-export function mongoDeployDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployNetworkSwarm$inboundSchema: z.ZodType<
-  MongoDeployNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoDeployDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoDeployNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoDeployDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoDeployNetworkSwarm$outboundSchema: z.ZodType<
-  MongoDeployNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoDeployNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoDeployDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployNetworkSwarm$ {
-  /** @deprecated use `MongoDeployNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoDeployNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoDeployNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoDeployNetworkSwarm$Outbound;
-}
-
-export function mongoDeployNetworkSwarmToJSON(
-  mongoDeployNetworkSwarm: MongoDeployNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoDeployNetworkSwarm$outboundSchema.parse(mongoDeployNetworkSwarm),
-  );
-}
-
-export function mongoDeployNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployProject$inboundSchema: z.ZodType<
-  MongoDeployProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoDeployProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoDeployProject$outboundSchema: z.ZodType<
-  MongoDeployProject$Outbound,
-  z.ZodTypeDef,
-  MongoDeployProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployProject$ {
-  /** @deprecated use `MongoDeployProject$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployProject$inboundSchema;
-  /** @deprecated use `MongoDeployProject$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployProject$outboundSchema;
-  /** @deprecated use `MongoDeployProject$Outbound` instead. */
-  export type Outbound = MongoDeployProject$Outbound;
-}
-
-export function mongoDeployProjectToJSON(
-  mongoDeployProject: MongoDeployProject,
-): string {
-  return JSON.stringify(
-    MongoDeployProject$outboundSchema.parse(mongoDeployProject),
-  );
-}
-
-export function mongoDeployProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployEnvironment$inboundSchema: z.ZodType<
-  MongoDeployEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoDeployProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoDeployEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoDeployProject$Outbound;
-};
-
-/** @internal */
-export const MongoDeployEnvironment$outboundSchema: z.ZodType<
-  MongoDeployEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoDeployEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoDeployProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployEnvironment$ {
-  /** @deprecated use `MongoDeployEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployEnvironment$inboundSchema;
-  /** @deprecated use `MongoDeployEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployEnvironment$outboundSchema;
-  /** @deprecated use `MongoDeployEnvironment$Outbound` instead. */
-  export type Outbound = MongoDeployEnvironment$Outbound;
-}
-
-export function mongoDeployEnvironmentToJSON(
-  mongoDeployEnvironment: MongoDeployEnvironment,
-): string {
-  return JSON.stringify(
-    MongoDeployEnvironment$outboundSchema.parse(mongoDeployEnvironment),
-  );
-}
-
-export function mongoDeployEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployType
-> = z.nativeEnum(MongoDeployType);
-
-/** @internal */
-export const MongoDeployType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployType
-> = MongoDeployType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployType$ {
-  /** @deprecated use `MongoDeployType$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployType$inboundSchema;
-  /** @deprecated use `MongoDeployType$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployType$outboundSchema;
-}
-
-/** @internal */
-export const MongoDeployServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployServiceType
-> = z.nativeEnum(MongoDeployServiceType);
-
-/** @internal */
-export const MongoDeployServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployServiceType
-> = MongoDeployServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployServiceType$ {
-  /** @deprecated use `MongoDeployServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployServiceType$inboundSchema;
-  /** @deprecated use `MongoDeployServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoDeployMount$inboundSchema: z.ZodType<
-  MongoDeployMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoDeployType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoDeployServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoDeployMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoDeployMount$outboundSchema: z.ZodType<
-  MongoDeployMount$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoDeployType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoDeployServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMount$ {
-  /** @deprecated use `MongoDeployMount$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMount$inboundSchema;
-  /** @deprecated use `MongoDeployMount$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMount$outboundSchema;
-  /** @deprecated use `MongoDeployMount$Outbound` instead. */
-  export type Outbound = MongoDeployMount$Outbound;
-}
-
-export function mongoDeployMountToJSON(
-  mongoDeployMount: MongoDeployMount,
-): string {
-  return JSON.stringify(
-    MongoDeployMount$outboundSchema.parse(mongoDeployMount),
-  );
-}
-
-export function mongoDeployMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployServerStatus
-> = z.nativeEnum(MongoDeployServerStatus);
-
-/** @internal */
-export const MongoDeployServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployServerStatus
-> = MongoDeployServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployServerStatus$ {
-  /** @deprecated use `MongoDeployServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployServerStatus$inboundSchema;
-  /** @deprecated use `MongoDeployServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1964,24 +2373,38 @@ export function mongoDeployMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoDeployServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployServerStatus
+> = z.nativeEnum(MongoDeployServerStatus);
+
+/** @internal */
+export const MongoDeployServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoDeployServerStatus
+> = MongoDeployServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoDeployServerStatus$ {
+  /** @deprecated use `MongoDeployServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployServerStatus$inboundSchema;
+  /** @deprecated use `MongoDeployServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoDeployServer$inboundSchema: z.ZodType<
   MongoDeployServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoDeployServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1992,26 +2415,33 @@ export const MongoDeployServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoDeployServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoDeployServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2020,19 +2450,12 @@ export const MongoDeployServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoDeployServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoDeployServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2043,6 +2466,13 @@ export const MongoDeployServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoDeployServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2077,521 +2507,91 @@ export function mongoDeployServerFromJSON(
 }
 
 /** @internal */
-export const MongoDeployBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployBackupType
-> = z.nativeEnum(MongoDeployBackupType);
-
-/** @internal */
-export const MongoDeployBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployBackupType
-> = MongoDeployBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployBackupType$ {
-  /** @deprecated use `MongoDeployBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployBackupType$inboundSchema;
-  /** @deprecated use `MongoDeployBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployDatabaseType
-> = z.nativeEnum(MongoDeployDatabaseType);
-
-/** @internal */
-export const MongoDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployDatabaseType
-> = MongoDeployDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployDatabaseType$ {
-  /** @deprecated use `MongoDeployDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployDatabaseType$inboundSchema;
-  /** @deprecated use `MongoDeployDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MongoDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployMetadataEnum
-> = z.nativeEnum(MongoDeployMetadataEnum);
-
-/** @internal */
-export const MongoDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoDeployMetadataEnum
-> = MongoDeployMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMetadataEnum$ {
-  /** @deprecated use `MongoDeployMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoDeployMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoDeployPostgres$inboundSchema: z.ZodType<
-  MongoDeployPostgres,
+export const MongoDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoDeployUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MongoDeployPostgres$Outbound = {
-  databaseUser: string;
+export type MongoDeployUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoDeployPostgres$outboundSchema: z.ZodType<
-  MongoDeployPostgres$Outbound,
+export const MongoDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoDeployUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoDeployPostgres
+  MongoDeployUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoDeployPostgres$ {
-  /** @deprecated use `MongoDeployPostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployPostgres$inboundSchema;
-  /** @deprecated use `MongoDeployPostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployPostgres$outboundSchema;
-  /** @deprecated use `MongoDeployPostgres$Outbound` instead. */
-  export type Outbound = MongoDeployPostgres$Outbound;
+export namespace MongoDeployUpdateConfigSwarm$ {
+  /** @deprecated use `MongoDeployUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoDeployUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoDeployUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoDeployUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoDeployUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoDeployUpdateConfigSwarm$Outbound;
 }
 
-export function mongoDeployPostgresToJSON(
-  mongoDeployPostgres: MongoDeployPostgres,
+export function mongoDeployUpdateConfigSwarmToJSON(
+  mongoDeployUpdateConfigSwarm: MongoDeployUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoDeployPostgres$outboundSchema.parse(mongoDeployPostgres),
+    MongoDeployUpdateConfigSwarm$outboundSchema.parse(
+      mongoDeployUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mongoDeployPostgresFromJSON(
+export function mongoDeployUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoDeployPostgres, SDKValidationError> {
+): SafeParseResult<MongoDeployUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoDeployPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployMariadb$inboundSchema: z.ZodType<
-  MongoDeployMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoDeployMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoDeployMariadb$outboundSchema: z.ZodType<
-  MongoDeployMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMariadb$ {
-  /** @deprecated use `MongoDeployMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMariadb$inboundSchema;
-  /** @deprecated use `MongoDeployMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMariadb$outboundSchema;
-  /** @deprecated use `MongoDeployMariadb$Outbound` instead. */
-  export type Outbound = MongoDeployMariadb$Outbound;
-}
-
-export function mongoDeployMariadbToJSON(
-  mongoDeployMariadb: MongoDeployMariadb,
-): string {
-  return JSON.stringify(
-    MongoDeployMariadb$outboundSchema.parse(mongoDeployMariadb),
-  );
-}
-
-export function mongoDeployMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployMongo$inboundSchema: z.ZodType<
-  MongoDeployMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoDeployMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoDeployMongo$outboundSchema: z.ZodType<
-  MongoDeployMongo$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMongo$ {
-  /** @deprecated use `MongoDeployMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMongo$inboundSchema;
-  /** @deprecated use `MongoDeployMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMongo$outboundSchema;
-  /** @deprecated use `MongoDeployMongo$Outbound` instead. */
-  export type Outbound = MongoDeployMongo$Outbound;
-}
-
-export function mongoDeployMongoToJSON(
-  mongoDeployMongo: MongoDeployMongo,
-): string {
-  return JSON.stringify(
-    MongoDeployMongo$outboundSchema.parse(mongoDeployMongo),
-  );
-}
-
-export function mongoDeployMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployMysql$inboundSchema: z.ZodType<
-  MongoDeployMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoDeployMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoDeployMysql$outboundSchema: z.ZodType<
-  MongoDeployMysql$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMysql$ {
-  /** @deprecated use `MongoDeployMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMysql$inboundSchema;
-  /** @deprecated use `MongoDeployMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMysql$outboundSchema;
-  /** @deprecated use `MongoDeployMysql$Outbound` instead. */
-  export type Outbound = MongoDeployMysql$Outbound;
-}
-
-export function mongoDeployMysqlToJSON(
-  mongoDeployMysql: MongoDeployMysql,
-): string {
-  return JSON.stringify(
-    MongoDeployMysql$outboundSchema.parse(mongoDeployMysql),
-  );
-}
-
-export function mongoDeployMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployMetadata$inboundSchema: z.ZodType<
-  MongoDeployMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoDeployPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MongoDeployMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoDeployMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoDeployMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoDeployMetadata$Outbound = {
-  postgres?: MongoDeployPostgres$Outbound | undefined;
-  mariadb?: MongoDeployMariadb$Outbound | undefined;
-  mongo?: MongoDeployMongo$Outbound | undefined;
-  mysql?: MongoDeployMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoDeployMetadata$outboundSchema: z.ZodType<
-  MongoDeployMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoDeployPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MongoDeployMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoDeployMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoDeployMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMetadata$ {
-  /** @deprecated use `MongoDeployMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMetadata$inboundSchema;
-  /** @deprecated use `MongoDeployMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMetadata$outboundSchema;
-  /** @deprecated use `MongoDeployMetadata$Outbound` instead. */
-  export type Outbound = MongoDeployMetadata$Outbound;
-}
-
-export function mongoDeployMetadataToJSON(
-  mongoDeployMetadata: MongoDeployMetadata,
-): string {
-  return JSON.stringify(
-    MongoDeployMetadata$outboundSchema.parse(mongoDeployMetadata),
-  );
-}
-
-export function mongoDeployMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployMetadataUnion$inboundSchema: z.ZodType<
-  MongoDeployMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoDeployMetadata$inboundSchema),
-  MongoDeployMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoDeployMetadataUnion$Outbound =
-  | MongoDeployMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MongoDeployMetadataUnion$outboundSchema: z.ZodType<
-  MongoDeployMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoDeployMetadataUnion
-> = z.union([
-  z.lazy(() => MongoDeployMetadata$outboundSchema),
-  MongoDeployMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployMetadataUnion$ {
-  /** @deprecated use `MongoDeployMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoDeployMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoDeployMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoDeployMetadataUnion$Outbound;
-}
-
-export function mongoDeployMetadataUnionToJSON(
-  mongoDeployMetadataUnion: MongoDeployMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoDeployMetadataUnion$outboundSchema.parse(mongoDeployMetadataUnion),
-  );
-}
-
-export function mongoDeployMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoDeployBackup$inboundSchema: z.ZodType<
-  MongoDeployBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoDeployBackupType$inboundSchema,
-  databaseType: MongoDeployDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoDeployMetadata$inboundSchema),
-      MongoDeployMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoDeployBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoDeployMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoDeployBackup$outboundSchema: z.ZodType<
-  MongoDeployBackup$Outbound,
-  z.ZodTypeDef,
-  MongoDeployBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoDeployBackupType$outboundSchema,
-  databaseType: MongoDeployDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoDeployMetadata$outboundSchema),
-      MongoDeployMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoDeployBackup$ {
-  /** @deprecated use `MongoDeployBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoDeployBackup$inboundSchema;
-  /** @deprecated use `MongoDeployBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoDeployBackup$outboundSchema;
-  /** @deprecated use `MongoDeployBackup$Outbound` instead. */
-  export type Outbound = MongoDeployBackup$Outbound;
-}
-
-export function mongoDeployBackupToJSON(
-  mongoDeployBackup: MongoDeployBackup,
-): string {
-  return JSON.stringify(
-    MongoDeployBackup$outboundSchema.parse(mongoDeployBackup),
-  );
-}
-
-export function mongoDeployBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoDeployBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoDeployBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoDeployBackup' from JSON`,
+    (x) => MongoDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoDeployUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2601,86 +2601,86 @@ export const MongoDeployResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoDeployApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MongoDeployBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoDeployEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoDeployHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoDeployRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoDeployModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoDeployMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoDeployNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoDeployPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoDeployUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoDeployRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoDeployRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoDeployModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoDeployNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoDeployEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoDeployMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoDeployServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoDeployBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoDeployUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoDeployResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoDeployHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoDeployRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoDeployPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoDeployUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoDeployRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoDeployModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoDeployNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoDeployEnvironment$Outbound;
-  mounts: Array<MongoDeployMount$Outbound>;
-  server: MongoDeployServer$Outbound | null;
   backups: Array<MongoDeployBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoDeployEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoDeployHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoDeployModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoDeployMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoDeployNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoDeployPlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoDeployRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoDeployRollbackConfigSwarm$Outbound | null;
+  server: MongoDeployServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoDeployUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2689,50 +2689,50 @@ export const MongoDeployResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoDeployResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoDeployApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MongoDeployBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoDeployEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoDeployHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoDeployRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoDeployModeSwarm$outboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoDeployMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoDeployNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoDeployPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoDeployUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoDeployRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoDeployRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoDeployModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoDeployNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoDeployEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoDeployMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoDeployServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoDeployBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoDeployUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

@@ -28,196 +28,6 @@ export type MariadbStartApplicationStatus = ClosedEnum<
   typeof MariadbStartApplicationStatus
 >;
 
-export type MariadbStartHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MariadbStartRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MariadbStartSpread = {
-  spreadDescriptor: string;
-};
-
-export type MariadbStartPreference = {
-  spread: MariadbStartSpread;
-};
-
-export type MariadbStartPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MariadbStartPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbStartPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MariadbStartPlatform> | undefined;
-};
-
-export type MariadbStartUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbStartRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbStartReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbStartGlobal = {};
-
-export type MariadbStartReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbStartGlobalJob = {};
-
-export type MariadbStartModeSwarm = {
-  replicated?: MariadbStartReplicated | undefined;
-  global?: MariadbStartGlobal | undefined;
-  replicatedJob?: MariadbStartReplicatedJob | undefined;
-  globalJob?: MariadbStartGlobalJob | undefined;
-};
-
-export type MariadbStartDriverOpts = {};
-
-export type MariadbStartNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbStartDriverOpts | undefined;
-};
-
-export type MariadbStartProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MariadbStartEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbStartProject;
-};
-
-export const MariadbStartType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MariadbStartType = ClosedEnum<typeof MariadbStartType>;
-
-export const MariadbStartServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MariadbStartServiceType = ClosedEnum<
-  typeof MariadbStartServiceType
->;
-
-export type MariadbStartMount = {
-  mountId: string;
-  type: MariadbStartType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MariadbStartServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MariadbStartServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MariadbStartServerStatus = ClosedEnum<
-  typeof MariadbStartServerStatus
->;
-
-export const MariadbStartMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MariadbStartMetricsConfigEnum = ClosedEnum<
-  typeof MariadbStartMetricsConfigEnum
->;
-
-export type MariadbStartMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MariadbStartMetricsConfigEnum;
-
-export type MariadbStartMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MariadbStartMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MariadbStartServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MariadbStartServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MariadbStartMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
-
 export const MariadbStartBackupType = {
   Database: "database",
   Compose: "compose",
@@ -242,29 +52,29 @@ export type MariadbStartMetadataEnum = ClosedEnum<
   typeof MariadbStartMetadataEnum
 >;
 
-export type MariadbStartPostgres = {
-  databaseUser: string;
-};
-
 export type MariadbStartMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbStartMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbStartMysql = {
   databaseRootPassword: string;
 };
 
+export type MariadbStartPostgres = {
+  databaseUser: string;
+};
+
 export type MariadbStartMetadata = {
-  postgres?: MariadbStartPostgres | undefined;
   mariadb?: MariadbStartMariadb | undefined;
   mongo?: MariadbStartMongo | undefined;
   mysql?: MariadbStartMysql | undefined;
+  postgres?: MariadbStartPostgres | undefined;
 };
 
 export type MariadbStartMetadataUnion =
@@ -272,63 +82,253 @@ export type MariadbStartMetadataUnion =
   | MariadbStartMetadataEnum;
 
 export type MariadbStartBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MariadbStartBackupType;
-  databaseType: MariadbStartDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MariadbStartDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MariadbStartMetadata | MariadbStartMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MariadbStartProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MariadbStartEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbStartProject;
+  projectId: string;
+};
+
+export type MariadbStartHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MariadbStartGlobal = {};
+
+export type MariadbStartGlobalJob = {};
+
+export type MariadbStartReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbStartReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbStartModeSwarm = {
+  global?: MariadbStartGlobal | undefined;
+  globalJob?: MariadbStartGlobalJob | undefined;
+  replicated?: MariadbStartReplicated | undefined;
+  replicatedJob?: MariadbStartReplicatedJob | undefined;
+};
+
+export const MariadbStartServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MariadbStartServiceType = ClosedEnum<
+  typeof MariadbStartServiceType
+>;
+
+export const MariadbStartType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MariadbStartType = ClosedEnum<typeof MariadbStartType>;
+
+export type MariadbStartMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MariadbStartServiceType;
+  type: MariadbStartType;
+  volumeName: string | null;
+};
+
+export type MariadbStartDriverOpts = {};
+
+export type MariadbStartNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbStartDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbStartPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MariadbStartSpread = {
+  spreadDescriptor: string;
+};
+
+export type MariadbStartPreference = {
+  spread: MariadbStartSpread;
+};
+
+export type MariadbStartPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MariadbStartPlatform> | undefined;
+  preferences?: Array<MariadbStartPreference> | undefined;
+};
+
+export type MariadbStartRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MariadbStartRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MariadbStartMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MariadbStartMetricsConfigEnum = ClosedEnum<
+  typeof MariadbStartMetricsConfigEnum
+>;
+
+export type MariadbStartMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MariadbStartMetricsConfigEnum;
+
+export type MariadbStartMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MariadbStartMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MariadbStartServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MariadbStartServerStatus = ClosedEnum<
+  typeof MariadbStartServerStatus
+>;
+
+export type MariadbStartServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MariadbStartMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MariadbStartServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MariadbStartUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbStartResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbStartApplicationStatus;
+  backups: Array<MariadbStartBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbStartApplicationStatus;
-  healthCheckSwarm: MariadbStartHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbStartRestartPolicySwarm | null;
-  placementSwarm: MariadbStartPlacementSwarm | null;
-  updateConfigSwarm: MariadbStartUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbStartRollbackConfigSwarm | null;
-  modeSwarm: MariadbStartModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbStartNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbStartEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbStartHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbStartModeSwarm | null;
   mounts: Array<MariadbStartMount>;
+  name: string;
+  networkSwarm: Array<MariadbStartNetworkSwarm> | null;
+  placementSwarm: MariadbStartPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbStartRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbStartRollbackConfigSwarm | null;
   server: MariadbStartServer | null;
-  backups: Array<MariadbStartBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbStartUpdateConfigSwarm | null;
 };
 
 export type MariadbStartResponse = MariadbStartResponseBody | models.ErrorT;
@@ -471,33 +471,693 @@ export namespace MariadbStartApplicationStatus$ {
 }
 
 /** @internal */
+export const MariadbStartBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartBackupType
+> = z.nativeEnum(MariadbStartBackupType);
+
+/** @internal */
+export const MariadbStartBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartBackupType
+> = MariadbStartBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartBackupType$ {
+  /** @deprecated use `MariadbStartBackupType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartBackupType$inboundSchema;
+  /** @deprecated use `MariadbStartBackupType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStartDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartDatabaseType
+> = z.nativeEnum(MariadbStartDatabaseType);
+
+/** @internal */
+export const MariadbStartDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartDatabaseType
+> = MariadbStartDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartDatabaseType$ {
+  /** @deprecated use `MariadbStartDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartDatabaseType$inboundSchema;
+  /** @deprecated use `MariadbStartDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartMetadataEnum
+> = z.nativeEnum(MariadbStartMetadataEnum);
+
+/** @internal */
+export const MariadbStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartMetadataEnum
+> = MariadbStartMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMetadataEnum$ {
+  /** @deprecated use `MariadbStartMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMetadataEnum$inboundSchema;
+  /** @deprecated use `MariadbStartMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStartMariadb$inboundSchema: z.ZodType<
+  MariadbStartMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStartMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStartMariadb$outboundSchema: z.ZodType<
+  MariadbStartMariadb$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMariadb$ {
+  /** @deprecated use `MariadbStartMariadb$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMariadb$inboundSchema;
+  /** @deprecated use `MariadbStartMariadb$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMariadb$outboundSchema;
+  /** @deprecated use `MariadbStartMariadb$Outbound` instead. */
+  export type Outbound = MariadbStartMariadb$Outbound;
+}
+
+export function mariadbStartMariadbToJSON(
+  mariadbStartMariadb: MariadbStartMariadb,
+): string {
+  return JSON.stringify(
+    MariadbStartMariadb$outboundSchema.parse(mariadbStartMariadb),
+  );
+}
+
+export function mariadbStartMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartMongo$inboundSchema: z.ZodType<
+  MariadbStartMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStartMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStartMongo$outboundSchema: z.ZodType<
+  MariadbStartMongo$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMongo$ {
+  /** @deprecated use `MariadbStartMongo$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMongo$inboundSchema;
+  /** @deprecated use `MariadbStartMongo$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMongo$outboundSchema;
+  /** @deprecated use `MariadbStartMongo$Outbound` instead. */
+  export type Outbound = MariadbStartMongo$Outbound;
+}
+
+export function mariadbStartMongoToJSON(
+  mariadbStartMongo: MariadbStartMongo,
+): string {
+  return JSON.stringify(
+    MariadbStartMongo$outboundSchema.parse(mariadbStartMongo),
+  );
+}
+
+export function mariadbStartMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartMysql$inboundSchema: z.ZodType<
+  MariadbStartMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MariadbStartMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MariadbStartMysql$outboundSchema: z.ZodType<
+  MariadbStartMysql$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMysql$ {
+  /** @deprecated use `MariadbStartMysql$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMysql$inboundSchema;
+  /** @deprecated use `MariadbStartMysql$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMysql$outboundSchema;
+  /** @deprecated use `MariadbStartMysql$Outbound` instead. */
+  export type Outbound = MariadbStartMysql$Outbound;
+}
+
+export function mariadbStartMysqlToJSON(
+  mariadbStartMysql: MariadbStartMysql,
+): string {
+  return JSON.stringify(
+    MariadbStartMysql$outboundSchema.parse(mariadbStartMysql),
+  );
+}
+
+export function mariadbStartMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartPostgres$inboundSchema: z.ZodType<
+  MariadbStartPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStartPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStartPostgres$outboundSchema: z.ZodType<
+  MariadbStartPostgres$Outbound,
+  z.ZodTypeDef,
+  MariadbStartPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartPostgres$ {
+  /** @deprecated use `MariadbStartPostgres$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartPostgres$inboundSchema;
+  /** @deprecated use `MariadbStartPostgres$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartPostgres$outboundSchema;
+  /** @deprecated use `MariadbStartPostgres$Outbound` instead. */
+  export type Outbound = MariadbStartPostgres$Outbound;
+}
+
+export function mariadbStartPostgresToJSON(
+  mariadbStartPostgres: MariadbStartPostgres,
+): string {
+  return JSON.stringify(
+    MariadbStartPostgres$outboundSchema.parse(mariadbStartPostgres),
+  );
+}
+
+export function mariadbStartPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartMetadata$inboundSchema: z.ZodType<
+  MariadbStartMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MariadbStartMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MariadbStartMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MariadbStartMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MariadbStartPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MariadbStartMetadata$Outbound = {
+  mariadb?: MariadbStartMariadb$Outbound | undefined;
+  mongo?: MariadbStartMongo$Outbound | undefined;
+  mysql?: MariadbStartMysql$Outbound | undefined;
+  postgres?: MariadbStartPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbStartMetadata$outboundSchema: z.ZodType<
+  MariadbStartMetadata$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMetadata
+> = z.object({
+  mariadb: z.lazy(() => MariadbStartMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MariadbStartMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MariadbStartMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MariadbStartPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMetadata$ {
+  /** @deprecated use `MariadbStartMetadata$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMetadata$inboundSchema;
+  /** @deprecated use `MariadbStartMetadata$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMetadata$outboundSchema;
+  /** @deprecated use `MariadbStartMetadata$Outbound` instead. */
+  export type Outbound = MariadbStartMetadata$Outbound;
+}
+
+export function mariadbStartMetadataToJSON(
+  mariadbStartMetadata: MariadbStartMetadata,
+): string {
+  return JSON.stringify(
+    MariadbStartMetadata$outboundSchema.parse(mariadbStartMetadata),
+  );
+}
+
+export function mariadbStartMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartMetadataUnion$inboundSchema: z.ZodType<
+  MariadbStartMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MariadbStartMetadata$inboundSchema),
+  MariadbStartMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MariadbStartMetadataUnion$Outbound =
+  | MariadbStartMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MariadbStartMetadataUnion$outboundSchema: z.ZodType<
+  MariadbStartMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMetadataUnion
+> = z.union([
+  z.lazy(() => MariadbStartMetadata$outboundSchema),
+  MariadbStartMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMetadataUnion$ {
+  /** @deprecated use `MariadbStartMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMetadataUnion$inboundSchema;
+  /** @deprecated use `MariadbStartMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMetadataUnion$outboundSchema;
+  /** @deprecated use `MariadbStartMetadataUnion$Outbound` instead. */
+  export type Outbound = MariadbStartMetadataUnion$Outbound;
+}
+
+export function mariadbStartMetadataUnionToJSON(
+  mariadbStartMetadataUnion: MariadbStartMetadataUnion,
+): string {
+  return JSON.stringify(
+    MariadbStartMetadataUnion$outboundSchema.parse(mariadbStartMetadataUnion),
+  );
+}
+
+export function mariadbStartMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartBackup$inboundSchema: z.ZodType<
+  MariadbStartBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbStartBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbStartDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbStartMetadata$inboundSchema),
+      MariadbStartMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbStartBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MariadbStartMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MariadbStartBackup$outboundSchema: z.ZodType<
+  MariadbStartBackup$Outbound,
+  z.ZodTypeDef,
+  MariadbStartBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbStartBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbStartDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbStartMetadata$outboundSchema),
+      MariadbStartMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartBackup$ {
+  /** @deprecated use `MariadbStartBackup$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartBackup$inboundSchema;
+  /** @deprecated use `MariadbStartBackup$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartBackup$outboundSchema;
+  /** @deprecated use `MariadbStartBackup$Outbound` instead. */
+  export type Outbound = MariadbStartBackup$Outbound;
+}
+
+export function mariadbStartBackupToJSON(
+  mariadbStartBackup: MariadbStartBackup,
+): string {
+  return JSON.stringify(
+    MariadbStartBackup$outboundSchema.parse(mariadbStartBackup),
+  );
+}
+
+export function mariadbStartBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartProject$inboundSchema: z.ZodType<
+  MariadbStartProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbStartProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbStartProject$outboundSchema: z.ZodType<
+  MariadbStartProject$Outbound,
+  z.ZodTypeDef,
+  MariadbStartProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartProject$ {
+  /** @deprecated use `MariadbStartProject$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartProject$inboundSchema;
+  /** @deprecated use `MariadbStartProject$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartProject$outboundSchema;
+  /** @deprecated use `MariadbStartProject$Outbound` instead. */
+  export type Outbound = MariadbStartProject$Outbound;
+}
+
+export function mariadbStartProjectToJSON(
+  mariadbStartProject: MariadbStartProject,
+): string {
+  return JSON.stringify(
+    MariadbStartProject$outboundSchema.parse(mariadbStartProject),
+  );
+}
+
+export function mariadbStartProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartEnvironment$inboundSchema: z.ZodType<
+  MariadbStartEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbStartProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbStartEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbStartProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbStartEnvironment$outboundSchema: z.ZodType<
+  MariadbStartEnvironment$Outbound,
+  z.ZodTypeDef,
+  MariadbStartEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbStartProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartEnvironment$ {
+  /** @deprecated use `MariadbStartEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartEnvironment$inboundSchema;
+  /** @deprecated use `MariadbStartEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartEnvironment$outboundSchema;
+  /** @deprecated use `MariadbStartEnvironment$Outbound` instead. */
+  export type Outbound = MariadbStartEnvironment$Outbound;
+}
+
+export function mariadbStartEnvironmentToJSON(
+  mariadbStartEnvironment: MariadbStartEnvironment,
+): string {
+  return JSON.stringify(
+    MariadbStartEnvironment$outboundSchema.parse(mariadbStartEnvironment),
+  );
+}
+
+export function mariadbStartEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MariadbStartHealthCheckSwarm$inboundSchema: z.ZodType<
   MariadbStartHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbStartHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -506,18 +1166,18 @@ export const MariadbStartHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStartHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -555,48 +1215,129 @@ export function mariadbStartHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbStartRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbStartRestartPolicySwarm,
+export const MariadbStartGlobal$inboundSchema: z.ZodType<
+  MariadbStartGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStartGlobal$Outbound = {};
+
+/** @internal */
+export const MariadbStartGlobal$outboundSchema: z.ZodType<
+  MariadbStartGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbStartGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartGlobal$ {
+  /** @deprecated use `MariadbStartGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartGlobal$inboundSchema;
+  /** @deprecated use `MariadbStartGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartGlobal$outboundSchema;
+  /** @deprecated use `MariadbStartGlobal$Outbound` instead. */
+  export type Outbound = MariadbStartGlobal$Outbound;
+}
+
+export function mariadbStartGlobalToJSON(
+  mariadbStartGlobal: MariadbStartGlobal,
+): string {
+  return JSON.stringify(
+    MariadbStartGlobal$outboundSchema.parse(mariadbStartGlobal),
+  );
+}
+
+export function mariadbStartGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartGlobalJob$inboundSchema: z.ZodType<
+  MariadbStartGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStartGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbStartGlobalJob$outboundSchema: z.ZodType<
+  MariadbStartGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbStartGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartGlobalJob$ {
+  /** @deprecated use `MariadbStartGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbStartGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbStartGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbStartGlobalJob$Outbound;
+}
+
+export function mariadbStartGlobalJobToJSON(
+  mariadbStartGlobalJob: MariadbStartGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbStartGlobalJob$outboundSchema.parse(mariadbStartGlobalJob),
+  );
+}
+
+export function mariadbStartGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartReplicated$inboundSchema: z.ZodType<
+  MariadbStartReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MariadbStartRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MariadbStartReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MariadbStartRestartPolicySwarm$outboundSchema: z.ZodType<
-  MariadbStartRestartPolicySwarm$Outbound,
+export const MariadbStartReplicated$outboundSchema: z.ZodType<
+  MariadbStartReplicated$Outbound,
   z.ZodTypeDef,
-  MariadbStartRestartPolicySwarm
+  MariadbStartReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -604,32 +1345,501 @@ export const MariadbStartRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStartRestartPolicySwarm$ {
-  /** @deprecated use `MariadbStartRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbStartRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbStartRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbStartRestartPolicySwarm$Outbound;
+export namespace MariadbStartReplicated$ {
+  /** @deprecated use `MariadbStartReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartReplicated$inboundSchema;
+  /** @deprecated use `MariadbStartReplicated$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartReplicated$outboundSchema;
+  /** @deprecated use `MariadbStartReplicated$Outbound` instead. */
+  export type Outbound = MariadbStartReplicated$Outbound;
 }
 
-export function mariadbStartRestartPolicySwarmToJSON(
-  mariadbStartRestartPolicySwarm: MariadbStartRestartPolicySwarm,
+export function mariadbStartReplicatedToJSON(
+  mariadbStartReplicated: MariadbStartReplicated,
 ): string {
   return JSON.stringify(
-    MariadbStartRestartPolicySwarm$outboundSchema.parse(
-      mariadbStartRestartPolicySwarm,
-    ),
+    MariadbStartReplicated$outboundSchema.parse(mariadbStartReplicated),
   );
 }
 
-export function mariadbStartRestartPolicySwarmFromJSON(
+export function mariadbStartReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStartRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MariadbStartReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartRestartPolicySwarm' from JSON`,
+    (x) => MariadbStartReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartReplicatedJob$inboundSchema: z.ZodType<
+  MariadbStartReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbStartReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbStartReplicatedJob$outboundSchema: z.ZodType<
+  MariadbStartReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbStartReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartReplicatedJob$ {
+  /** @deprecated use `MariadbStartReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbStartReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbStartReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbStartReplicatedJob$Outbound;
+}
+
+export function mariadbStartReplicatedJobToJSON(
+  mariadbStartReplicatedJob: MariadbStartReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbStartReplicatedJob$outboundSchema.parse(mariadbStartReplicatedJob),
+  );
+}
+
+export function mariadbStartReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartModeSwarm$inboundSchema: z.ZodType<
+  MariadbStartModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbStartGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbStartGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MariadbStartReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MariadbStartReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbStartModeSwarm$Outbound = {
+  Global?: MariadbStartGlobal$Outbound | undefined;
+  GlobalJob?: MariadbStartGlobalJob$Outbound | undefined;
+  Replicated?: MariadbStartReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbStartReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbStartModeSwarm$outboundSchema: z.ZodType<
+  MariadbStartModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbStartModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbStartGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbStartGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MariadbStartReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MariadbStartReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartModeSwarm$ {
+  /** @deprecated use `MariadbStartModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbStartModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbStartModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbStartModeSwarm$Outbound;
+}
+
+export function mariadbStartModeSwarmToJSON(
+  mariadbStartModeSwarm: MariadbStartModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbStartModeSwarm$outboundSchema.parse(mariadbStartModeSwarm),
+  );
+}
+
+export function mariadbStartModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartServiceType
+> = z.nativeEnum(MariadbStartServiceType);
+
+/** @internal */
+export const MariadbStartServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartServiceType
+> = MariadbStartServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartServiceType$ {
+  /** @deprecated use `MariadbStartServiceType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartServiceType$inboundSchema;
+  /** @deprecated use `MariadbStartServiceType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStartType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartType
+> = z.nativeEnum(MariadbStartType);
+
+/** @internal */
+export const MariadbStartType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartType
+> = MariadbStartType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartType$ {
+  /** @deprecated use `MariadbStartType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartType$inboundSchema;
+  /** @deprecated use `MariadbStartType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStartMount$inboundSchema: z.ZodType<
+  MariadbStartMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbStartServiceType$inboundSchema,
+  type: MariadbStartType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbStartMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MariadbStartMount$outboundSchema: z.ZodType<
+  MariadbStartMount$Outbound,
+  z.ZodTypeDef,
+  MariadbStartMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbStartServiceType$outboundSchema,
+  type: MariadbStartType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartMount$ {
+  /** @deprecated use `MariadbStartMount$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartMount$inboundSchema;
+  /** @deprecated use `MariadbStartMount$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartMount$outboundSchema;
+  /** @deprecated use `MariadbStartMount$Outbound` instead. */
+  export type Outbound = MariadbStartMount$Outbound;
+}
+
+export function mariadbStartMountToJSON(
+  mariadbStartMount: MariadbStartMount,
+): string {
+  return JSON.stringify(
+    MariadbStartMount$outboundSchema.parse(mariadbStartMount),
+  );
+}
+
+export function mariadbStartMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartDriverOpts$inboundSchema: z.ZodType<
+  MariadbStartDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStartDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbStartDriverOpts$outboundSchema: z.ZodType<
+  MariadbStartDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbStartDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartDriverOpts$ {
+  /** @deprecated use `MariadbStartDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbStartDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbStartDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbStartDriverOpts$Outbound;
+}
+
+export function mariadbStartDriverOptsToJSON(
+  mariadbStartDriverOpts: MariadbStartDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbStartDriverOpts$outboundSchema.parse(mariadbStartDriverOpts),
+  );
+}
+
+export function mariadbStartDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbStartNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbStartDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbStartNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbStartDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbStartNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbStartNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbStartNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbStartDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartNetworkSwarm$ {
+  /** @deprecated use `MariadbStartNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbStartNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbStartNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbStartNetworkSwarm$Outbound;
+}
+
+export function mariadbStartNetworkSwarmToJSON(
+  mariadbStartNetworkSwarm: MariadbStartNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbStartNetworkSwarm$outboundSchema.parse(mariadbStartNetworkSwarm),
+  );
+}
+
+export function mariadbStartNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStartPlatform$inboundSchema: z.ZodType<
+  MariadbStartPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbStartPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbStartPlatform$outboundSchema: z.ZodType<
+  MariadbStartPlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbStartPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartPlatform$ {
+  /** @deprecated use `MariadbStartPlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartPlatform$inboundSchema;
+  /** @deprecated use `MariadbStartPlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartPlatform$outboundSchema;
+  /** @deprecated use `MariadbStartPlatform$Outbound` instead. */
+  export type Outbound = MariadbStartPlatform$Outbound;
+}
+
+export function mariadbStartPlatformToJSON(
+  mariadbStartPlatform: MariadbStartPlatform,
+): string {
+  return JSON.stringify(
+    MariadbStartPlatform$outboundSchema.parse(mariadbStartPlatform),
+  );
+}
+
+export function mariadbStartPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStartPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStartPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartPlatform' from JSON`,
   );
 }
 
@@ -758,99 +1968,32 @@ export function mariadbStartPreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbStartPlatform$inboundSchema: z.ZodType<
-  MariadbStartPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbStartPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbStartPlatform$outboundSchema: z.ZodType<
-  MariadbStartPlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbStartPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartPlatform$ {
-  /** @deprecated use `MariadbStartPlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartPlatform$inboundSchema;
-  /** @deprecated use `MariadbStartPlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartPlatform$outboundSchema;
-  /** @deprecated use `MariadbStartPlatform$Outbound` instead. */
-  export type Outbound = MariadbStartPlatform$Outbound;
-}
-
-export function mariadbStartPlatformToJSON(
-  mariadbStartPlatform: MariadbStartPlatform,
-): string {
-  return JSON.stringify(
-    MariadbStartPlatform$outboundSchema.parse(mariadbStartPlatform),
-  );
-}
-
-export function mariadbStartPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbStartPlacementSwarm$inboundSchema: z.ZodType<
   MariadbStartPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MariadbStartPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MariadbStartPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MariadbStartPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbStartPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbStartPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbStartPlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbStartPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -860,17 +2003,17 @@ export const MariadbStartPlacementSwarm$outboundSchema: z.ZodType<
   MariadbStartPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MariadbStartPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MariadbStartPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MariadbStartPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -906,58 +2049,48 @@ export function mariadbStartPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbStartUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbStartUpdateConfigSwarm,
+export const MariadbStartRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbStartRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbStartUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbStartRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbStartUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbStartUpdateConfigSwarm$Outbound,
+export const MariadbStartRestartPolicySwarm$outboundSchema: z.ZodType<
+  MariadbStartRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MariadbStartUpdateConfigSwarm
+  MariadbStartRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -965,32 +2098,32 @@ export const MariadbStartUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStartUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbStartUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbStartUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbStartUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbStartUpdateConfigSwarm$Outbound;
+export namespace MariadbStartRestartPolicySwarm$ {
+  /** @deprecated use `MariadbStartRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbStartRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbStartRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbStartRestartPolicySwarm$Outbound;
 }
 
-export function mariadbStartUpdateConfigSwarmToJSON(
-  mariadbStartUpdateConfigSwarm: MariadbStartUpdateConfigSwarm,
+export function mariadbStartRestartPolicySwarmToJSON(
+  mariadbStartRestartPolicySwarm: MariadbStartRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbStartUpdateConfigSwarm$outboundSchema.parse(
-      mariadbStartUpdateConfigSwarm,
+    MariadbStartRestartPolicySwarm$outboundSchema.parse(
+      mariadbStartRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbStartUpdateConfigSwarmFromJSON(
+export function mariadbStartRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStartUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MariadbStartRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartUpdateConfigSwarm' from JSON`,
+    (x) => MariadbStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1000,31 +2133,31 @@ export const MariadbStartRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MariadbStartRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1033,20 +2166,20 @@ export const MariadbStartRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStartRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1081,730 +2214,6 @@ export function mariadbStartRollbackConfigSwarmFromJSON(
     (x) => MariadbStartRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MariadbStartRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MariadbStartReplicated$inboundSchema: z.ZodType<
-  MariadbStartReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MariadbStartReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MariadbStartReplicated$outboundSchema: z.ZodType<
-  MariadbStartReplicated$Outbound,
-  z.ZodTypeDef,
-  MariadbStartReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartReplicated$ {
-  /** @deprecated use `MariadbStartReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartReplicated$inboundSchema;
-  /** @deprecated use `MariadbStartReplicated$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartReplicated$outboundSchema;
-  /** @deprecated use `MariadbStartReplicated$Outbound` instead. */
-  export type Outbound = MariadbStartReplicated$Outbound;
-}
-
-export function mariadbStartReplicatedToJSON(
-  mariadbStartReplicated: MariadbStartReplicated,
-): string {
-  return JSON.stringify(
-    MariadbStartReplicated$outboundSchema.parse(mariadbStartReplicated),
-  );
-}
-
-export function mariadbStartReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartGlobal$inboundSchema: z.ZodType<
-  MariadbStartGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStartGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbStartGlobal$outboundSchema: z.ZodType<
-  MariadbStartGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbStartGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartGlobal$ {
-  /** @deprecated use `MariadbStartGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartGlobal$inboundSchema;
-  /** @deprecated use `MariadbStartGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartGlobal$outboundSchema;
-  /** @deprecated use `MariadbStartGlobal$Outbound` instead. */
-  export type Outbound = MariadbStartGlobal$Outbound;
-}
-
-export function mariadbStartGlobalToJSON(
-  mariadbStartGlobal: MariadbStartGlobal,
-): string {
-  return JSON.stringify(
-    MariadbStartGlobal$outboundSchema.parse(mariadbStartGlobal),
-  );
-}
-
-export function mariadbStartGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartReplicatedJob$inboundSchema: z.ZodType<
-  MariadbStartReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbStartReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbStartReplicatedJob$outboundSchema: z.ZodType<
-  MariadbStartReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbStartReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartReplicatedJob$ {
-  /** @deprecated use `MariadbStartReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbStartReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbStartReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbStartReplicatedJob$Outbound;
-}
-
-export function mariadbStartReplicatedJobToJSON(
-  mariadbStartReplicatedJob: MariadbStartReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbStartReplicatedJob$outboundSchema.parse(mariadbStartReplicatedJob),
-  );
-}
-
-export function mariadbStartReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartGlobalJob$inboundSchema: z.ZodType<
-  MariadbStartGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStartGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbStartGlobalJob$outboundSchema: z.ZodType<
-  MariadbStartGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbStartGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartGlobalJob$ {
-  /** @deprecated use `MariadbStartGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbStartGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbStartGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbStartGlobalJob$Outbound;
-}
-
-export function mariadbStartGlobalJobToJSON(
-  mariadbStartGlobalJob: MariadbStartGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbStartGlobalJob$outboundSchema.parse(mariadbStartGlobalJob),
-  );
-}
-
-export function mariadbStartGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartModeSwarm$inboundSchema: z.ZodType<
-  MariadbStartModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbStartReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MariadbStartGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MariadbStartReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MariadbStartGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbStartModeSwarm$Outbound = {
-  Replicated?: MariadbStartReplicated$Outbound | undefined;
-  Global?: MariadbStartGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbStartReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbStartGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStartModeSwarm$outboundSchema: z.ZodType<
-  MariadbStartModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbStartModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbStartReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MariadbStartGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MariadbStartReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MariadbStartGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartModeSwarm$ {
-  /** @deprecated use `MariadbStartModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbStartModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbStartModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbStartModeSwarm$Outbound;
-}
-
-export function mariadbStartModeSwarmToJSON(
-  mariadbStartModeSwarm: MariadbStartModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbStartModeSwarm$outboundSchema.parse(mariadbStartModeSwarm),
-  );
-}
-
-export function mariadbStartModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartDriverOpts$inboundSchema: z.ZodType<
-  MariadbStartDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStartDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbStartDriverOpts$outboundSchema: z.ZodType<
-  MariadbStartDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbStartDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartDriverOpts$ {
-  /** @deprecated use `MariadbStartDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbStartDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbStartDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbStartDriverOpts$Outbound;
-}
-
-export function mariadbStartDriverOptsToJSON(
-  mariadbStartDriverOpts: MariadbStartDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbStartDriverOpts$outboundSchema.parse(mariadbStartDriverOpts),
-  );
-}
-
-export function mariadbStartDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbStartNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbStartDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbStartNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbStartDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStartNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbStartNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbStartNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbStartDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartNetworkSwarm$ {
-  /** @deprecated use `MariadbStartNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbStartNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbStartNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbStartNetworkSwarm$Outbound;
-}
-
-export function mariadbStartNetworkSwarmToJSON(
-  mariadbStartNetworkSwarm: MariadbStartNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbStartNetworkSwarm$outboundSchema.parse(mariadbStartNetworkSwarm),
-  );
-}
-
-export function mariadbStartNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartProject$inboundSchema: z.ZodType<
-  MariadbStartProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MariadbStartProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MariadbStartProject$outboundSchema: z.ZodType<
-  MariadbStartProject$Outbound,
-  z.ZodTypeDef,
-  MariadbStartProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartProject$ {
-  /** @deprecated use `MariadbStartProject$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartProject$inboundSchema;
-  /** @deprecated use `MariadbStartProject$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartProject$outboundSchema;
-  /** @deprecated use `MariadbStartProject$Outbound` instead. */
-  export type Outbound = MariadbStartProject$Outbound;
-}
-
-export function mariadbStartProjectToJSON(
-  mariadbStartProject: MariadbStartProject,
-): string {
-  return JSON.stringify(
-    MariadbStartProject$outboundSchema.parse(mariadbStartProject),
-  );
-}
-
-export function mariadbStartProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartEnvironment$inboundSchema: z.ZodType<
-  MariadbStartEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbStartProject$inboundSchema),
-});
-
-/** @internal */
-export type MariadbStartEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbStartProject$Outbound;
-};
-
-/** @internal */
-export const MariadbStartEnvironment$outboundSchema: z.ZodType<
-  MariadbStartEnvironment$Outbound,
-  z.ZodTypeDef,
-  MariadbStartEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbStartProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartEnvironment$ {
-  /** @deprecated use `MariadbStartEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartEnvironment$inboundSchema;
-  /** @deprecated use `MariadbStartEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartEnvironment$outboundSchema;
-  /** @deprecated use `MariadbStartEnvironment$Outbound` instead. */
-  export type Outbound = MariadbStartEnvironment$Outbound;
-}
-
-export function mariadbStartEnvironmentToJSON(
-  mariadbStartEnvironment: MariadbStartEnvironment,
-): string {
-  return JSON.stringify(
-    MariadbStartEnvironment$outboundSchema.parse(mariadbStartEnvironment),
-  );
-}
-
-export function mariadbStartEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartType
-> = z.nativeEnum(MariadbStartType);
-
-/** @internal */
-export const MariadbStartType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartType
-> = MariadbStartType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartType$ {
-  /** @deprecated use `MariadbStartType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartType$inboundSchema;
-  /** @deprecated use `MariadbStartType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStartServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartServiceType
-> = z.nativeEnum(MariadbStartServiceType);
-
-/** @internal */
-export const MariadbStartServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartServiceType
-> = MariadbStartServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartServiceType$ {
-  /** @deprecated use `MariadbStartServiceType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartServiceType$inboundSchema;
-  /** @deprecated use `MariadbStartServiceType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStartMount$inboundSchema: z.ZodType<
-  MariadbStartMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MariadbStartType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbStartServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MariadbStartMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MariadbStartMount$outboundSchema: z.ZodType<
-  MariadbStartMount$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMount
-> = z.object({
-  mountId: z.string(),
-  type: MariadbStartType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbStartServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMount$ {
-  /** @deprecated use `MariadbStartMount$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMount$inboundSchema;
-  /** @deprecated use `MariadbStartMount$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMount$outboundSchema;
-  /** @deprecated use `MariadbStartMount$Outbound` instead. */
-  export type Outbound = MariadbStartMount$Outbound;
-}
-
-export function mariadbStartMountToJSON(
-  mariadbStartMount: MariadbStartMount,
-): string {
-  return JSON.stringify(
-    MariadbStartMount$outboundSchema.parse(mariadbStartMount),
-  );
-}
-
-export function mariadbStartMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartServerStatus
-> = z.nativeEnum(MariadbStartServerStatus);
-
-/** @internal */
-export const MariadbStartServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartServerStatus
-> = MariadbStartServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartServerStatus$ {
-  /** @deprecated use `MariadbStartServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartServerStatus$inboundSchema;
-  /** @deprecated use `MariadbStartServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1967,24 +2376,38 @@ export function mariadbStartMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MariadbStartServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartServerStatus
+> = z.nativeEnum(MariadbStartServerStatus);
+
+/** @internal */
+export const MariadbStartServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStartServerStatus
+> = MariadbStartServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStartServerStatus$ {
+  /** @deprecated use `MariadbStartServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartServerStatus$inboundSchema;
+  /** @deprecated use `MariadbStartServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MariadbStartServer$inboundSchema: z.ZodType<
   MariadbStartServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbStartServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1995,26 +2418,33 @@ export const MariadbStartServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbStartServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MariadbStartServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2023,19 +2453,12 @@ export const MariadbStartServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStartServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbStartServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2046,6 +2469,13 @@ export const MariadbStartServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbStartServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2080,521 +2510,91 @@ export function mariadbStartServerFromJSON(
 }
 
 /** @internal */
-export const MariadbStartBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartBackupType
-> = z.nativeEnum(MariadbStartBackupType);
-
-/** @internal */
-export const MariadbStartBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartBackupType
-> = MariadbStartBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartBackupType$ {
-  /** @deprecated use `MariadbStartBackupType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartBackupType$inboundSchema;
-  /** @deprecated use `MariadbStartBackupType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStartDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartDatabaseType
-> = z.nativeEnum(MariadbStartDatabaseType);
-
-/** @internal */
-export const MariadbStartDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartDatabaseType
-> = MariadbStartDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartDatabaseType$ {
-  /** @deprecated use `MariadbStartDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartDatabaseType$inboundSchema;
-  /** @deprecated use `MariadbStartDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartMetadataEnum
-> = z.nativeEnum(MariadbStartMetadataEnum);
-
-/** @internal */
-export const MariadbStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStartMetadataEnum
-> = MariadbStartMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMetadataEnum$ {
-  /** @deprecated use `MariadbStartMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMetadataEnum$inboundSchema;
-  /** @deprecated use `MariadbStartMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStartPostgres$inboundSchema: z.ZodType<
-  MariadbStartPostgres,
+export const MariadbStartUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbStartUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MariadbStartPostgres$Outbound = {
-  databaseUser: string;
+export type MariadbStartUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MariadbStartPostgres$outboundSchema: z.ZodType<
-  MariadbStartPostgres$Outbound,
+export const MariadbStartUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbStartUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MariadbStartPostgres
+  MariadbStartUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStartPostgres$ {
-  /** @deprecated use `MariadbStartPostgres$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartPostgres$inboundSchema;
-  /** @deprecated use `MariadbStartPostgres$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartPostgres$outboundSchema;
-  /** @deprecated use `MariadbStartPostgres$Outbound` instead. */
-  export type Outbound = MariadbStartPostgres$Outbound;
+export namespace MariadbStartUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbStartUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStartUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbStartUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStartUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbStartUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbStartUpdateConfigSwarm$Outbound;
 }
 
-export function mariadbStartPostgresToJSON(
-  mariadbStartPostgres: MariadbStartPostgres,
+export function mariadbStartUpdateConfigSwarmToJSON(
+  mariadbStartUpdateConfigSwarm: MariadbStartUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbStartPostgres$outboundSchema.parse(mariadbStartPostgres),
+    MariadbStartUpdateConfigSwarm$outboundSchema.parse(
+      mariadbStartUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mariadbStartPostgresFromJSON(
+export function mariadbStartUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStartPostgres, SDKValidationError> {
+): SafeParseResult<MariadbStartUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStartPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartMariadb$inboundSchema: z.ZodType<
-  MariadbStartMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStartMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbStartMariadb$outboundSchema: z.ZodType<
-  MariadbStartMariadb$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMariadb$ {
-  /** @deprecated use `MariadbStartMariadb$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMariadb$inboundSchema;
-  /** @deprecated use `MariadbStartMariadb$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMariadb$outboundSchema;
-  /** @deprecated use `MariadbStartMariadb$Outbound` instead. */
-  export type Outbound = MariadbStartMariadb$Outbound;
-}
-
-export function mariadbStartMariadbToJSON(
-  mariadbStartMariadb: MariadbStartMariadb,
-): string {
-  return JSON.stringify(
-    MariadbStartMariadb$outboundSchema.parse(mariadbStartMariadb),
-  );
-}
-
-export function mariadbStartMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartMongo$inboundSchema: z.ZodType<
-  MariadbStartMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStartMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbStartMongo$outboundSchema: z.ZodType<
-  MariadbStartMongo$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMongo$ {
-  /** @deprecated use `MariadbStartMongo$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMongo$inboundSchema;
-  /** @deprecated use `MariadbStartMongo$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMongo$outboundSchema;
-  /** @deprecated use `MariadbStartMongo$Outbound` instead. */
-  export type Outbound = MariadbStartMongo$Outbound;
-}
-
-export function mariadbStartMongoToJSON(
-  mariadbStartMongo: MariadbStartMongo,
-): string {
-  return JSON.stringify(
-    MariadbStartMongo$outboundSchema.parse(mariadbStartMongo),
-  );
-}
-
-export function mariadbStartMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartMysql$inboundSchema: z.ZodType<
-  MariadbStartMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStartMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MariadbStartMysql$outboundSchema: z.ZodType<
-  MariadbStartMysql$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMysql$ {
-  /** @deprecated use `MariadbStartMysql$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMysql$inboundSchema;
-  /** @deprecated use `MariadbStartMysql$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMysql$outboundSchema;
-  /** @deprecated use `MariadbStartMysql$Outbound` instead. */
-  export type Outbound = MariadbStartMysql$Outbound;
-}
-
-export function mariadbStartMysqlToJSON(
-  mariadbStartMysql: MariadbStartMysql,
-): string {
-  return JSON.stringify(
-    MariadbStartMysql$outboundSchema.parse(mariadbStartMysql),
-  );
-}
-
-export function mariadbStartMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartMetadata$inboundSchema: z.ZodType<
-  MariadbStartMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MariadbStartPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbStartMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MariadbStartMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MariadbStartMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MariadbStartMetadata$Outbound = {
-  postgres?: MariadbStartPostgres$Outbound | undefined;
-  mariadb?: MariadbStartMariadb$Outbound | undefined;
-  mongo?: MariadbStartMongo$Outbound | undefined;
-  mysql?: MariadbStartMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStartMetadata$outboundSchema: z.ZodType<
-  MariadbStartMetadata$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMetadata
-> = z.object({
-  postgres: z.lazy(() => MariadbStartPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbStartMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MariadbStartMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MariadbStartMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMetadata$ {
-  /** @deprecated use `MariadbStartMetadata$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMetadata$inboundSchema;
-  /** @deprecated use `MariadbStartMetadata$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMetadata$outboundSchema;
-  /** @deprecated use `MariadbStartMetadata$Outbound` instead. */
-  export type Outbound = MariadbStartMetadata$Outbound;
-}
-
-export function mariadbStartMetadataToJSON(
-  mariadbStartMetadata: MariadbStartMetadata,
-): string {
-  return JSON.stringify(
-    MariadbStartMetadata$outboundSchema.parse(mariadbStartMetadata),
-  );
-}
-
-export function mariadbStartMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartMetadataUnion$inboundSchema: z.ZodType<
-  MariadbStartMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MariadbStartMetadata$inboundSchema),
-  MariadbStartMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MariadbStartMetadataUnion$Outbound =
-  | MariadbStartMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MariadbStartMetadataUnion$outboundSchema: z.ZodType<
-  MariadbStartMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MariadbStartMetadataUnion
-> = z.union([
-  z.lazy(() => MariadbStartMetadata$outboundSchema),
-  MariadbStartMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartMetadataUnion$ {
-  /** @deprecated use `MariadbStartMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartMetadataUnion$inboundSchema;
-  /** @deprecated use `MariadbStartMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartMetadataUnion$outboundSchema;
-  /** @deprecated use `MariadbStartMetadataUnion$Outbound` instead. */
-  export type Outbound = MariadbStartMetadataUnion$Outbound;
-}
-
-export function mariadbStartMetadataUnionToJSON(
-  mariadbStartMetadataUnion: MariadbStartMetadataUnion,
-): string {
-  return JSON.stringify(
-    MariadbStartMetadataUnion$outboundSchema.parse(mariadbStartMetadataUnion),
-  );
-}
-
-export function mariadbStartMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStartBackup$inboundSchema: z.ZodType<
-  MariadbStartBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbStartBackupType$inboundSchema,
-  databaseType: MariadbStartDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbStartMetadata$inboundSchema),
-      MariadbStartMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MariadbStartBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MariadbStartMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MariadbStartBackup$outboundSchema: z.ZodType<
-  MariadbStartBackup$Outbound,
-  z.ZodTypeDef,
-  MariadbStartBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbStartBackupType$outboundSchema,
-  databaseType: MariadbStartDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbStartMetadata$outboundSchema),
-      MariadbStartMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStartBackup$ {
-  /** @deprecated use `MariadbStartBackup$inboundSchema` instead. */
-  export const inboundSchema = MariadbStartBackup$inboundSchema;
-  /** @deprecated use `MariadbStartBackup$outboundSchema` instead. */
-  export const outboundSchema = MariadbStartBackup$outboundSchema;
-  /** @deprecated use `MariadbStartBackup$Outbound` instead. */
-  export type Outbound = MariadbStartBackup$Outbound;
-}
-
-export function mariadbStartBackupToJSON(
-  mariadbStartBackup: MariadbStartBackup,
-): string {
-  return JSON.stringify(
-    MariadbStartBackup$outboundSchema.parse(mariadbStartBackup),
-  );
-}
-
-export function mariadbStartBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStartBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStartBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStartBackup' from JSON`,
+    (x) => MariadbStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStartUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2604,88 +2604,88 @@ export const MariadbStartResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbStartApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MariadbStartBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbStartEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbStartApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbStartHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbStartRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbStartModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbStartMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbStartNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbStartPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbStartUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbStartRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbStartRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbStartModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbStartNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbStartEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MariadbStartMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MariadbStartServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MariadbStartBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbStartUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbStartResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MariadbStartBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MariadbStartHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbStartRestartPolicySwarm$Outbound | null;
-  placementSwarm: MariadbStartPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbStartUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MariadbStartRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MariadbStartModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbStartNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbStartEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbStartHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbStartModeSwarm$Outbound | null;
   mounts: Array<MariadbStartMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MariadbStartNetworkSwarm$Outbound> | null;
+  placementSwarm: MariadbStartPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbStartRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MariadbStartRollbackConfigSwarm$Outbound | null;
   server: MariadbStartServer$Outbound | null;
-  backups: Array<MariadbStartBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbStartUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2694,51 +2694,51 @@ export const MariadbStartResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStartResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbStartApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MariadbStartBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbStartEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbStartApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbStartHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbStartRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbStartModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbStartMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbStartNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbStartPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbStartUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbStartRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbStartRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbStartModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbStartNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbStartEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MariadbStartMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MariadbStartServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MariadbStartBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbStartUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

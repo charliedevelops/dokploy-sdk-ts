@@ -8,11 +8,11 @@ Successful response
 import { EnvironmentDuplicateResponseBody } from "dokploy-sdk/models/operations";
 
 let value: EnvironmentDuplicateResponseBody = {
+  createdAt: "1717798787003",
+  description: "psst inscribe whack self-reliant",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "nor hole lend whenever noisily round gadzooks",
-  createdAt: "1709886403338",
-  env: "<value>",
   projectId: "<id>",
 };
 ```
@@ -21,9 +21,9 @@ let value: EnvironmentDuplicateResponseBody = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `description`      | *string*           | :heavy_check_mark: | N/A                |
+| `env`              | *string*           | :heavy_check_mark: | N/A                |
 | `environmentId`    | *string*           | :heavy_check_mark: | N/A                |
 | `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_check_mark: | N/A                |
-| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `env`              | *string*           | :heavy_check_mark: | N/A                |
 | `projectId`        | *string*           | :heavy_check_mark: | N/A                |

@@ -21,11 +21,11 @@ export type SecurityDeleteRequest = {
  * Successful response
  */
 export type SecurityDeleteResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityDeleteResponse = SecurityDeleteResponseBody | models.ErrorT;
@@ -152,20 +152,20 @@ export const SecurityDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityDeleteResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -174,11 +174,11 @@ export const SecurityDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityDeleteResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.OrganizationOneResponseBody = {
+  createdAt: new Date("2024-07-01T12:56:12.822Z"),
   id: "<id>",
-  name: "<value>",
-  slug: "<value>",
   logo: null,
-  createdAt: new Date("2024-04-01T21:09:38.208Z"),
-  metadata: null,
+  metadata: "<value>",
+  name: "<value>",
   ownerId: "<id>",
+  slug: null,
 };
 ```
 
@@ -21,8 +21,8 @@ const value: operations.OrganizationOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

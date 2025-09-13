@@ -32,51 +32,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Compose extends ClientSDK {
-  async composeCreate(
-    security: operations.ComposeCreateSecurity,
-    request: operations.ComposeCreateRequest,
+  async composeCancelDeployment(
+    security: operations.ComposeCancelDeploymentSecurity,
+    request: operations.ComposeCancelDeploymentRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeOne(
-    security: operations.ComposeOneSecurity,
-    request: operations.ComposeOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeUpdate(
-    security: operations.ComposeUpdateSecurity,
-    request: operations.ComposeUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeDelete(
-    security: operations.ComposeDeleteSecurity,
-    request: operations.ComposeDeleteRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeDelete(
+    return unwrapAsync(composeComposeCancelDeployment(
       this,
       security,
       request,
@@ -97,12 +58,12 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeLoadMountsByService(
-    security: operations.ComposeLoadMountsByServiceSecurity,
-    request: operations.ComposeLoadMountsByServiceRequest,
+  async composeCreate(
+    security: operations.ComposeCreateSecurity,
+    request: operations.ComposeCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeLoadMountsByService(
+    return unwrapAsync(composeComposeCreate(
       this,
       security,
       request,
@@ -110,51 +71,12 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeFetchSourceType(
-    security: operations.ComposeFetchSourceTypeSecurity,
-    request: operations.ComposeFetchSourceTypeRequest,
+  async composeDelete(
+    security: operations.ComposeDeleteSecurity,
+    request: operations.ComposeDeleteRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeFetchSourceType(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeRandomizeCompose(
-    security: operations.ComposeRandomizeComposeSecurity,
-    request: operations.ComposeRandomizeComposeRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeRandomizeCompose(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeIsolatedDeployment(
-    security: operations.ComposeIsolatedDeploymentSecurity,
-    request: operations.ComposeIsolatedDeploymentRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeIsolatedDeployment(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeGetConvertedCompose(
-    security: operations.ComposeGetConvertedComposeSecurity,
-    request: operations.ComposeGetConvertedComposeRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeGetConvertedCompose(
+    return unwrapAsync(composeComposeDelete(
       this,
       security,
       request,
@@ -175,103 +97,12 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeRedeploy(
-    security: operations.ComposeRedeploySecurity,
-    request: operations.ComposeRedeployRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeRedeploy(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeStop(
-    security: operations.ComposeStopSecurity,
-    request: operations.ComposeStopRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeStart(
-    security: operations.ComposeStartSecurity,
-    request: operations.ComposeStartRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeGetDefaultCommand(
-    security: operations.ComposeGetDefaultCommandSecurity,
-    request: operations.ComposeGetDefaultCommandRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeGetDefaultCommand(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeRefreshToken(
-    security: operations.ComposeRefreshTokenSecurity,
-    request: operations.ComposeRefreshTokenRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeRefreshToken(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async composeDeployTemplate(
     security: operations.ComposeDeployTemplateSecurity,
     request: operations.ComposeDeployTemplateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(composeComposeDeployTemplate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeTemplates(
-    security: operations.ComposeTemplatesSecurity,
-    request?: operations.ComposeTemplatesRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeTemplates(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async composeGetTags(
-    security: operations.ComposeGetTagsSecurity,
-    request?: operations.ComposeGetTagsRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeGetTags(
       this,
       security,
       request,
@@ -292,12 +123,12 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeMove(
-    security: operations.ComposeMoveSecurity,
-    request: operations.ComposeMoveRequest,
+  async composeFetchSourceType(
+    security: operations.ComposeFetchSourceTypeSecurity,
+    request: operations.ComposeFetchSourceTypeRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeMove(
+    return unwrapAsync(composeComposeFetchSourceType(
       this,
       security,
       request,
@@ -305,12 +136,38 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeProcessTemplate(
-    security: operations.ComposeProcessTemplateSecurity,
-    request: operations.ComposeProcessTemplateRequest,
+  async composeGetConvertedCompose(
+    security: operations.ComposeGetConvertedComposeSecurity,
+    request: operations.ComposeGetConvertedComposeRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeProcessTemplate(
+    return unwrapAsync(composeComposeGetConvertedCompose(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeGetDefaultCommand(
+    security: operations.ComposeGetDefaultCommandSecurity,
+    request: operations.ComposeGetDefaultCommandRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeGetDefaultCommand(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeGetTags(
+    security: operations.ComposeGetTagsSecurity,
+    request?: operations.ComposeGetTagsRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeGetTags(
       this,
       security,
       request,
@@ -331,12 +188,155 @@ export class Compose extends ClientSDK {
     ));
   }
 
-  async composeCancelDeployment(
-    security: operations.ComposeCancelDeploymentSecurity,
-    request: operations.ComposeCancelDeploymentRequest,
+  async composeIsolatedDeployment(
+    security: operations.ComposeIsolatedDeploymentSecurity,
+    request: operations.ComposeIsolatedDeploymentRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(composeComposeCancelDeployment(
+    return unwrapAsync(composeComposeIsolatedDeployment(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeLoadMountsByService(
+    security: operations.ComposeLoadMountsByServiceSecurity,
+    request: operations.ComposeLoadMountsByServiceRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeLoadMountsByService(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeMove(
+    security: operations.ComposeMoveSecurity,
+    request: operations.ComposeMoveRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeOne(
+    security: operations.ComposeOneSecurity,
+    request: operations.ComposeOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeProcessTemplate(
+    security: operations.ComposeProcessTemplateSecurity,
+    request: operations.ComposeProcessTemplateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeProcessTemplate(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeRandomizeCompose(
+    security: operations.ComposeRandomizeComposeSecurity,
+    request: operations.ComposeRandomizeComposeRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeRandomizeCompose(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeRedeploy(
+    security: operations.ComposeRedeploySecurity,
+    request: operations.ComposeRedeployRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeRedeploy(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeRefreshToken(
+    security: operations.ComposeRefreshTokenSecurity,
+    request: operations.ComposeRefreshTokenRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeRefreshToken(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeStart(
+    security: operations.ComposeStartSecurity,
+    request: operations.ComposeStartRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeStop(
+    security: operations.ComposeStopSecurity,
+    request: operations.ComposeStopRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeStop(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeTemplates(
+    security: operations.ComposeTemplatesSecurity,
+    request?: operations.ComposeTemplatesRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeTemplates(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async composeUpdate(
+    security: operations.ComposeUpdateSecurity,
+    request: operations.ComposeUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(composeComposeUpdate(
       this,
       security,
       request,

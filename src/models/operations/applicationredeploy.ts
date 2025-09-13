@@ -14,8 +14,8 @@ export type ApplicationRedeploySecurity = {
 
 export type ApplicationRedeployRequest = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -89,15 +89,15 @@ export const ApplicationRedeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ApplicationRedeployRequest$Outbound = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -107,8 +107,8 @@ export const ApplicationRedeployRequest$outboundSchema: z.ZodType<
   ApplicationRedeployRequest
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**

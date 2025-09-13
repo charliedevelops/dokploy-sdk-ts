@@ -13,12 +13,12 @@ export type ServerCreateSecurity = {
 };
 
 export type ServerCreateRequest = {
-  name: string;
   description?: string | null | undefined;
   ipAddress: string;
+  name: string;
   port: number;
-  username: string;
   sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -89,22 +89,22 @@ export const ServerCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   ipAddress: z.string(),
+  name: z.string(),
   port: z.number(),
-  username: z.string(),
   sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ServerCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
   ipAddress: string;
+  name: string;
   port: number;
-  username: string;
   sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -113,12 +113,12 @@ export const ServerCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   ipAddress: z.string(),
+  name: z.string(),
   port: z.number(),
-  username: z.string(),
   sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**

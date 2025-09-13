@@ -25,17 +25,17 @@ export type GithubGithubProvidersProviderType = ClosedEnum<
 >;
 
 export type GithubGithubProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GithubGithubProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GithubGithubProvidersProviderType;
   userId: string;
 };
 
 export type GithubGithubProvidersResponseBody = {
-  githubId: string;
   gitProvider: GithubGithubProvidersGitProvider;
+  githubId: string;
 };
 
 export type GithubGithubProvidersResponse =
@@ -134,21 +134,21 @@ export const GithubGithubProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubGithubProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubGithubProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GithubGithubProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -158,11 +158,11 @@ export const GithubGithubProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubGithubProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubGithubProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubGithubProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -205,14 +205,14 @@ export const GithubGithubProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
   gitProvider: z.lazy(() => GithubGithubProvidersGitProvider$inboundSchema),
+  githubId: z.string(),
 });
 
 /** @internal */
 export type GithubGithubProvidersResponseBody$Outbound = {
-  githubId: string;
   gitProvider: GithubGithubProvidersGitProvider$Outbound;
+  githubId: string;
 };
 
 /** @internal */
@@ -221,8 +221,8 @@ export const GithubGithubProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubGithubProvidersResponseBody
 > = z.object({
-  githubId: z.string(),
   gitProvider: z.lazy(() => GithubGithubProvidersGitProvider$outboundSchema),
+  githubId: z.string(),
 });
 
 /**

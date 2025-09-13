@@ -14,24 +14,24 @@ export type ProjectUpdateSecurity = {
 };
 
 export type ProjectUpdateRequest = {
-  projectId: string;
-  name?: string | undefined;
-  description?: string | null | undefined;
   createdAt?: string | undefined;
-  organizationId?: string | undefined;
+  description?: string | null | undefined;
   env?: string | undefined;
+  name?: string | undefined;
+  organizationId?: string | undefined;
+  projectId: string;
 };
 
 /**
  * Successful response
  */
 export type ProjectUpdateResponseBody = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 export type ProjectUpdateResponse = ProjectUpdateResponseBody | models.ErrorT;
@@ -104,22 +104,22 @@ export const ProjectUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
   createdAt: z.string().optional(),
-  organizationId: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string().optional(),
+  organizationId: z.string().optional(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectUpdateRequest$Outbound = {
-  projectId: string;
-  name?: string | undefined;
-  description?: string | null | undefined;
   createdAt?: string | undefined;
-  organizationId?: string | undefined;
+  description?: string | null | undefined;
   env?: string | undefined;
+  name?: string | undefined;
+  organizationId?: string | undefined;
+  projectId: string;
 };
 
 /** @internal */
@@ -128,12 +128,12 @@ export const ProjectUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectUpdateRequest
 > = z.object({
-  projectId: z.string(),
-  name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
   createdAt: z.string().optional(),
-  organizationId: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string().optional(),
+  organizationId: z.string().optional(),
+  projectId: z.string(),
 });
 
 /**
@@ -173,22 +173,22 @@ export const ProjectUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectUpdateResponseBody$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 /** @internal */
@@ -197,12 +197,12 @@ export const ProjectUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectUpdateResponseBody
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /**

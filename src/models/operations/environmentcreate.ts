@@ -14,8 +14,8 @@ export type EnvironmentCreateSecurity = {
 };
 
 export type EnvironmentCreateRequest = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
   projectId: string;
 };
 
@@ -23,11 +23,11 @@ export type EnvironmentCreateRequest = {
  * Successful response
  */
 export type EnvironmentCreateResponseBody = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -103,15 +103,15 @@ export const EnvironmentCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
   projectId: string;
 };
 
@@ -121,8 +121,8 @@ export const EnvironmentCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
   projectId: z.string(),
 });
 
@@ -163,21 +163,21 @@ export const EnvironmentCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentCreateResponseBody$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -187,11 +187,11 @@ export const EnvironmentCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentCreateResponseBody
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 

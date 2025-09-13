@@ -21,12 +21,12 @@ export type ProjectRemoveRequest = {
  * Successful response
  */
 export type ProjectRemoveResponseBody = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 export type ProjectRemoveResponse = ProjectRemoveResponseBody | models.ErrorT;
@@ -153,22 +153,22 @@ export const ProjectRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectRemoveResponseBody$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 /** @internal */
@@ -177,12 +177,12 @@ export const ProjectRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectRemoveResponseBody
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /**

@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.OrganizationDeleteResponseBody = {
+  createdAt: new Date("2023-08-10T09:57:21.766Z"),
   id: "<id>",
-  name: "<value>",
-  slug: "<value>",
   logo: "<value>",
-  createdAt: new Date("2025-03-15T19:55:00.029Z"),
-  metadata: null,
+  metadata: "<value>",
+  name: "<value>",
   ownerId: "<id>",
+  slug: null,
 };
 ```
 
@@ -21,8 +21,8 @@ const value: operations.OrganizationDeleteResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

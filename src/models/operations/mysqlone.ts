@@ -28,112 +28,120 @@ export type MysqlOneApplicationStatus = ClosedEnum<
   typeof MysqlOneApplicationStatus
 >;
 
+export const MysqlOneBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type MysqlOneBackupType = ClosedEnum<typeof MysqlOneBackupType>;
+
+export const MysqlOneDatabaseType = {
+  Postgres: "postgres",
+  Mariadb: "mariadb",
+  Mysql: "mysql",
+  Mongo: "mongo",
+  WebServer: "web-server",
+} as const;
+export type MysqlOneDatabaseType = ClosedEnum<typeof MysqlOneDatabaseType>;
+
+export const MysqlOneMetadataEnum = {
+  Null: "null",
+} as const;
+export type MysqlOneMetadataEnum = ClosedEnum<typeof MysqlOneMetadataEnum>;
+
+export type MysqlOneMariadb = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlOneMongo = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlOneMysql = {
+  databaseRootPassword: string;
+};
+
+export type MysqlOnePostgres = {
+  databaseUser: string;
+};
+
+export type MysqlOneMetadata = {
+  mariadb?: MysqlOneMariadb | undefined;
+  mongo?: MysqlOneMongo | undefined;
+  mysql?: MysqlOneMysql | undefined;
+  postgres?: MysqlOnePostgres | undefined;
+};
+
+export type MysqlOneMetadataUnion = MysqlOneMetadata | MysqlOneMetadataEnum;
+
+export type MysqlOneBackup = {
+  appName: string;
+  backupId: string;
+  backupType: MysqlOneBackupType;
+  composeId: string | null;
+  database: string;
+  databaseType: MysqlOneDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlOneMetadata | MysqlOneMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlOneProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlOneEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlOneProject;
+  projectId: string;
+};
+
 export type MysqlOneHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MysqlOneRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type MysqlOneGlobal = {};
 
-export type MysqlOneSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlOnePreference = {
-  spread: MysqlOneSpread;
-};
-
-export type MysqlOnePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlOnePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlOnePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlOnePlatform> | undefined;
-};
-
-export type MysqlOneUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlOneRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type MysqlOneGlobalJob = {};
 
 export type MysqlOneReplicated = {
   replicas?: number | undefined;
 };
-
-export type MysqlOneGlobal = {};
 
 export type MysqlOneReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type MysqlOneGlobalJob = {};
-
 export type MysqlOneModeSwarm = {
-  replicated?: MysqlOneReplicated | undefined;
   global?: MysqlOneGlobal | undefined;
-  replicatedJob?: MysqlOneReplicatedJob | undefined;
   globalJob?: MysqlOneGlobalJob | undefined;
+  replicated?: MysqlOneReplicated | undefined;
+  replicatedJob?: MysqlOneReplicatedJob | undefined;
 };
-
-export type MysqlOneDriverOpts = {};
-
-export type MysqlOneNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlOneDriverOpts | undefined;
-};
-
-export type MysqlOneProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlOneEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlOneProject;
-};
-
-export const MysqlOneType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlOneType = ClosedEnum<typeof MysqlOneType>;
 
 export const MysqlOneServiceType = {
   Application: "application",
@@ -146,29 +154,74 @@ export const MysqlOneServiceType = {
 } as const;
 export type MysqlOneServiceType = ClosedEnum<typeof MysqlOneServiceType>;
 
+export const MysqlOneType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlOneType = ClosedEnum<typeof MysqlOneType>;
+
 export type MysqlOneMount = {
-  mountId: string;
-  type: MysqlOneType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlOneServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: MysqlOneServiceType;
+  type: MysqlOneType;
+  volumeName: string | null;
 };
 
-export const MysqlOneServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlOneServerStatus = ClosedEnum<typeof MysqlOneServerStatus>;
+export type MysqlOneDriverOpts = {};
+
+export type MysqlOneNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlOneDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlOnePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlOneSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlOnePreference = {
+  spread: MysqlOneSpread;
+};
+
+export type MysqlOnePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlOnePlatform> | undefined;
+  preferences?: Array<MysqlOnePreference> | undefined;
+};
+
+export type MysqlOneRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlOneRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const MysqlOneMetricsConfigEnum = {
   Null: "null",
@@ -191,20 +244,19 @@ export type MysqlOneMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const MysqlOneServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlOneServerStatus = ClosedEnum<typeof MysqlOneServerStatus>;
+
 export type MysqlOneServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlOneServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -212,113 +264,61 @@ export type MysqlOneServer = {
     | MysqlOneMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlOneServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const MysqlOneBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type MysqlOneBackupType = ClosedEnum<typeof MysqlOneBackupType>;
-
-export const MysqlOneDatabaseType = {
-  Postgres: "postgres",
-  Mariadb: "mariadb",
-  Mysql: "mysql",
-  Mongo: "mongo",
-  WebServer: "web-server",
-} as const;
-export type MysqlOneDatabaseType = ClosedEnum<typeof MysqlOneDatabaseType>;
-
-export const MysqlOneMetadataEnum = {
-  Null: "null",
-} as const;
-export type MysqlOneMetadataEnum = ClosedEnum<typeof MysqlOneMetadataEnum>;
-
-export type MysqlOnePostgres = {
-  databaseUser: string;
-};
-
-export type MysqlOneMariadb = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlOneMongo = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlOneMysql = {
-  databaseRootPassword: string;
-};
-
-export type MysqlOneMetadata = {
-  postgres?: MysqlOnePostgres | undefined;
-  mariadb?: MysqlOneMariadb | undefined;
-  mongo?: MysqlOneMongo | undefined;
-  mysql?: MysqlOneMysql | undefined;
-};
-
-export type MysqlOneMetadataUnion = MysqlOneMetadata | MysqlOneMetadataEnum;
-
-export type MysqlOneBackup = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: MysqlOneBackupType;
-  databaseType: MysqlOneDatabaseType;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlOneMetadata | MysqlOneMetadataEnum | null | undefined;
+export type MysqlOneUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlOneResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlOneApplicationStatus;
+  backups: Array<MysqlOneBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlOneApplicationStatus;
-  healthCheckSwarm: MysqlOneHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlOneRestartPolicySwarm | null;
-  placementSwarm: MysqlOnePlacementSwarm | null;
-  updateConfigSwarm: MysqlOneUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlOneRollbackConfigSwarm | null;
-  modeSwarm: MysqlOneModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlOneNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlOneEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlOneHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlOneModeSwarm | null;
   mounts: Array<MysqlOneMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlOneNetworkSwarm> | null;
+  placementSwarm: MysqlOnePlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlOneRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlOneRollbackConfigSwarm | null;
   server: MysqlOneServer | null;
-  backups: Array<MysqlOneBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlOneUpdateConfigSwarm | null;
 };
 
 export type MysqlOneResponse = MysqlOneResponseBody | models.ErrorT;
@@ -459,33 +459,675 @@ export namespace MysqlOneApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlOneBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneBackupType
+> = z.nativeEnum(MysqlOneBackupType);
+
+/** @internal */
+export const MysqlOneBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneBackupType
+> = MysqlOneBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneBackupType$ {
+  /** @deprecated use `MysqlOneBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneBackupType$inboundSchema;
+  /** @deprecated use `MysqlOneBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlOneDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneDatabaseType
+> = z.nativeEnum(MysqlOneDatabaseType);
+
+/** @internal */
+export const MysqlOneDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneDatabaseType
+> = MysqlOneDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneDatabaseType$ {
+  /** @deprecated use `MysqlOneDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlOneDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneMetadataEnum
+> = z.nativeEnum(MysqlOneMetadataEnum);
+
+/** @internal */
+export const MysqlOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneMetadataEnum
+> = MysqlOneMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMetadataEnum$ {
+  /** @deprecated use `MysqlOneMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlOneMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlOneMariadb$inboundSchema: z.ZodType<
+  MysqlOneMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlOneMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlOneMariadb$outboundSchema: z.ZodType<
+  MysqlOneMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMariadb$ {
+  /** @deprecated use `MysqlOneMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMariadb$inboundSchema;
+  /** @deprecated use `MysqlOneMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMariadb$outboundSchema;
+  /** @deprecated use `MysqlOneMariadb$Outbound` instead. */
+  export type Outbound = MysqlOneMariadb$Outbound;
+}
+
+export function mysqlOneMariadbToJSON(
+  mysqlOneMariadb: MysqlOneMariadb,
+): string {
+  return JSON.stringify(MysqlOneMariadb$outboundSchema.parse(mysqlOneMariadb));
+}
+
+export function mysqlOneMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneMongo$inboundSchema: z.ZodType<
+  MysqlOneMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlOneMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlOneMongo$outboundSchema: z.ZodType<
+  MysqlOneMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMongo$ {
+  /** @deprecated use `MysqlOneMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMongo$inboundSchema;
+  /** @deprecated use `MysqlOneMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMongo$outboundSchema;
+  /** @deprecated use `MysqlOneMongo$Outbound` instead. */
+  export type Outbound = MysqlOneMongo$Outbound;
+}
+
+export function mysqlOneMongoToJSON(mysqlOneMongo: MysqlOneMongo): string {
+  return JSON.stringify(MysqlOneMongo$outboundSchema.parse(mysqlOneMongo));
+}
+
+export function mysqlOneMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneMysql$inboundSchema: z.ZodType<
+  MysqlOneMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlOneMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlOneMysql$outboundSchema: z.ZodType<
+  MysqlOneMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMysql$ {
+  /** @deprecated use `MysqlOneMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMysql$inboundSchema;
+  /** @deprecated use `MysqlOneMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMysql$outboundSchema;
+  /** @deprecated use `MysqlOneMysql$Outbound` instead. */
+  export type Outbound = MysqlOneMysql$Outbound;
+}
+
+export function mysqlOneMysqlToJSON(mysqlOneMysql: MysqlOneMysql): string {
+  return JSON.stringify(MysqlOneMysql$outboundSchema.parse(mysqlOneMysql));
+}
+
+export function mysqlOneMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOnePostgres$inboundSchema: z.ZodType<
+  MysqlOnePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlOnePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlOnePostgres$outboundSchema: z.ZodType<
+  MysqlOnePostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlOnePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOnePostgres$ {
+  /** @deprecated use `MysqlOnePostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlOnePostgres$inboundSchema;
+  /** @deprecated use `MysqlOnePostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlOnePostgres$outboundSchema;
+  /** @deprecated use `MysqlOnePostgres$Outbound` instead. */
+  export type Outbound = MysqlOnePostgres$Outbound;
+}
+
+export function mysqlOnePostgresToJSON(
+  mysqlOnePostgres: MysqlOnePostgres,
+): string {
+  return JSON.stringify(
+    MysqlOnePostgres$outboundSchema.parse(mysqlOnePostgres),
+  );
+}
+
+export function mysqlOnePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOnePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOnePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOnePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneMetadata$inboundSchema: z.ZodType<
+  MysqlOneMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlOneMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlOneMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlOneMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlOnePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlOneMetadata$Outbound = {
+  mariadb?: MysqlOneMariadb$Outbound | undefined;
+  mongo?: MysqlOneMongo$Outbound | undefined;
+  mysql?: MysqlOneMysql$Outbound | undefined;
+  postgres?: MysqlOnePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlOneMetadata$outboundSchema: z.ZodType<
+  MysqlOneMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlOneMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlOneMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlOneMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlOnePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMetadata$ {
+  /** @deprecated use `MysqlOneMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMetadata$inboundSchema;
+  /** @deprecated use `MysqlOneMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMetadata$outboundSchema;
+  /** @deprecated use `MysqlOneMetadata$Outbound` instead. */
+  export type Outbound = MysqlOneMetadata$Outbound;
+}
+
+export function mysqlOneMetadataToJSON(
+  mysqlOneMetadata: MysqlOneMetadata,
+): string {
+  return JSON.stringify(
+    MysqlOneMetadata$outboundSchema.parse(mysqlOneMetadata),
+  );
+}
+
+export function mysqlOneMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneMetadataUnion$inboundSchema: z.ZodType<
+  MysqlOneMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlOneMetadata$inboundSchema),
+  MysqlOneMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlOneMetadataUnion$Outbound = MysqlOneMetadata$Outbound | string;
+
+/** @internal */
+export const MysqlOneMetadataUnion$outboundSchema: z.ZodType<
+  MysqlOneMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlOneMetadata$outboundSchema),
+  MysqlOneMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMetadataUnion$ {
+  /** @deprecated use `MysqlOneMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlOneMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlOneMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlOneMetadataUnion$Outbound;
+}
+
+export function mysqlOneMetadataUnionToJSON(
+  mysqlOneMetadataUnion: MysqlOneMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlOneMetadataUnion$outboundSchema.parse(mysqlOneMetadataUnion),
+  );
+}
+
+export function mysqlOneMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneBackup$inboundSchema: z.ZodType<
+  MysqlOneBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlOneBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlOneDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlOneMetadata$inboundSchema),
+      MysqlOneMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlOneBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlOneMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlOneBackup$outboundSchema: z.ZodType<
+  MysqlOneBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlOneBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlOneBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlOneDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlOneMetadata$outboundSchema),
+      MysqlOneMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneBackup$ {
+  /** @deprecated use `MysqlOneBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneBackup$inboundSchema;
+  /** @deprecated use `MysqlOneBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneBackup$outboundSchema;
+  /** @deprecated use `MysqlOneBackup$Outbound` instead. */
+  export type Outbound = MysqlOneBackup$Outbound;
+}
+
+export function mysqlOneBackupToJSON(mysqlOneBackup: MysqlOneBackup): string {
+  return JSON.stringify(MysqlOneBackup$outboundSchema.parse(mysqlOneBackup));
+}
+
+export function mysqlOneBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneProject$inboundSchema: z.ZodType<
+  MysqlOneProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlOneProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlOneProject$outboundSchema: z.ZodType<
+  MysqlOneProject$Outbound,
+  z.ZodTypeDef,
+  MysqlOneProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneProject$ {
+  /** @deprecated use `MysqlOneProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneProject$inboundSchema;
+  /** @deprecated use `MysqlOneProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneProject$outboundSchema;
+  /** @deprecated use `MysqlOneProject$Outbound` instead. */
+  export type Outbound = MysqlOneProject$Outbound;
+}
+
+export function mysqlOneProjectToJSON(
+  mysqlOneProject: MysqlOneProject,
+): string {
+  return JSON.stringify(MysqlOneProject$outboundSchema.parse(mysqlOneProject));
+}
+
+export function mysqlOneProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneEnvironment$inboundSchema: z.ZodType<
+  MysqlOneEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlOneProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlOneEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlOneProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlOneEnvironment$outboundSchema: z.ZodType<
+  MysqlOneEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlOneEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlOneProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneEnvironment$ {
+  /** @deprecated use `MysqlOneEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneEnvironment$inboundSchema;
+  /** @deprecated use `MysqlOneEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneEnvironment$outboundSchema;
+  /** @deprecated use `MysqlOneEnvironment$Outbound` instead. */
+  export type Outbound = MysqlOneEnvironment$Outbound;
+}
+
+export function mysqlOneEnvironmentToJSON(
+  mysqlOneEnvironment: MysqlOneEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlOneEnvironment$outboundSchema.parse(mysqlOneEnvironment),
+  );
+}
+
+export function mysqlOneEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlOneHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlOneHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlOneHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -494,18 +1136,18 @@ export const MysqlOneHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlOneHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -541,48 +1183,125 @@ export function mysqlOneHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlOneRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlOneRestartPolicySwarm,
+export const MysqlOneGlobal$inboundSchema: z.ZodType<
+  MysqlOneGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlOneGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlOneGlobal$outboundSchema: z.ZodType<
+  MysqlOneGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlOneGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneGlobal$ {
+  /** @deprecated use `MysqlOneGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneGlobal$inboundSchema;
+  /** @deprecated use `MysqlOneGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneGlobal$outboundSchema;
+  /** @deprecated use `MysqlOneGlobal$Outbound` instead. */
+  export type Outbound = MysqlOneGlobal$Outbound;
+}
+
+export function mysqlOneGlobalToJSON(mysqlOneGlobal: MysqlOneGlobal): string {
+  return JSON.stringify(MysqlOneGlobal$outboundSchema.parse(mysqlOneGlobal));
+}
+
+export function mysqlOneGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneGlobalJob$inboundSchema: z.ZodType<
+  MysqlOneGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlOneGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlOneGlobalJob$outboundSchema: z.ZodType<
+  MysqlOneGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlOneGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneGlobalJob$ {
+  /** @deprecated use `MysqlOneGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlOneGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlOneGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlOneGlobalJob$Outbound;
+}
+
+export function mysqlOneGlobalJobToJSON(
+  mysqlOneGlobalJob: MysqlOneGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlOneGlobalJob$outboundSchema.parse(mysqlOneGlobalJob),
+  );
+}
+
+export function mysqlOneGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneReplicated$inboundSchema: z.ZodType<
+  MysqlOneReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlOneRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlOneReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlOneRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlOneRestartPolicySwarm$Outbound,
+export const MysqlOneReplicated$outboundSchema: z.ZodType<
+  MysqlOneReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlOneRestartPolicySwarm
+  MysqlOneReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -590,30 +1309,493 @@ export const MysqlOneRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlOneRestartPolicySwarm$ {
-  /** @deprecated use `MysqlOneRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlOneRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlOneRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlOneRestartPolicySwarm$Outbound;
+export namespace MysqlOneReplicated$ {
+  /** @deprecated use `MysqlOneReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneReplicated$inboundSchema;
+  /** @deprecated use `MysqlOneReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneReplicated$outboundSchema;
+  /** @deprecated use `MysqlOneReplicated$Outbound` instead. */
+  export type Outbound = MysqlOneReplicated$Outbound;
 }
 
-export function mysqlOneRestartPolicySwarmToJSON(
-  mysqlOneRestartPolicySwarm: MysqlOneRestartPolicySwarm,
+export function mysqlOneReplicatedToJSON(
+  mysqlOneReplicated: MysqlOneReplicated,
 ): string {
   return JSON.stringify(
-    MysqlOneRestartPolicySwarm$outboundSchema.parse(mysqlOneRestartPolicySwarm),
+    MysqlOneReplicated$outboundSchema.parse(mysqlOneReplicated),
   );
 }
 
-export function mysqlOneRestartPolicySwarmFromJSON(
+export function mysqlOneReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlOneRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlOneReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneRestartPolicySwarm' from JSON`,
+    (x) => MysqlOneReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneReplicatedJob$inboundSchema: z.ZodType<
+  MysqlOneReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlOneReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlOneReplicatedJob$outboundSchema: z.ZodType<
+  MysqlOneReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlOneReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneReplicatedJob$ {
+  /** @deprecated use `MysqlOneReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlOneReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlOneReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlOneReplicatedJob$Outbound;
+}
+
+export function mysqlOneReplicatedJobToJSON(
+  mysqlOneReplicatedJob: MysqlOneReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlOneReplicatedJob$outboundSchema.parse(mysqlOneReplicatedJob),
+  );
+}
+
+export function mysqlOneReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneModeSwarm$inboundSchema: z.ZodType<
+  MysqlOneModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlOneGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlOneGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlOneReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlOneReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlOneModeSwarm$Outbound = {
+  Global?: MysqlOneGlobal$Outbound | undefined;
+  GlobalJob?: MysqlOneGlobalJob$Outbound | undefined;
+  Replicated?: MysqlOneReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlOneReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlOneModeSwarm$outboundSchema: z.ZodType<
+  MysqlOneModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlOneModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlOneGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlOneGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlOneReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlOneReplicatedJob$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneModeSwarm$ {
+  /** @deprecated use `MysqlOneModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlOneModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlOneModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlOneModeSwarm$Outbound;
+}
+
+export function mysqlOneModeSwarmToJSON(
+  mysqlOneModeSwarm: MysqlOneModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlOneModeSwarm$outboundSchema.parse(mysqlOneModeSwarm),
+  );
+}
+
+export function mysqlOneModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneServiceType
+> = z.nativeEnum(MysqlOneServiceType);
+
+/** @internal */
+export const MysqlOneServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneServiceType
+> = MysqlOneServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneServiceType$ {
+  /** @deprecated use `MysqlOneServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneServiceType$inboundSchema;
+  /** @deprecated use `MysqlOneServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlOneType$inboundSchema: z.ZodNativeEnum<typeof MysqlOneType> =
+  z.nativeEnum(MysqlOneType);
+
+/** @internal */
+export const MysqlOneType$outboundSchema: z.ZodNativeEnum<typeof MysqlOneType> =
+  MysqlOneType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneType$ {
+  /** @deprecated use `MysqlOneType$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneType$inboundSchema;
+  /** @deprecated use `MysqlOneType$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlOneMount$inboundSchema: z.ZodType<
+  MysqlOneMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlOneServiceType$inboundSchema,
+  type: MysqlOneType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlOneMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlOneMount$outboundSchema: z.ZodType<
+  MysqlOneMount$Outbound,
+  z.ZodTypeDef,
+  MysqlOneMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlOneServiceType$outboundSchema,
+  type: MysqlOneType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneMount$ {
+  /** @deprecated use `MysqlOneMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneMount$inboundSchema;
+  /** @deprecated use `MysqlOneMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneMount$outboundSchema;
+  /** @deprecated use `MysqlOneMount$Outbound` instead. */
+  export type Outbound = MysqlOneMount$Outbound;
+}
+
+export function mysqlOneMountToJSON(mysqlOneMount: MysqlOneMount): string {
+  return JSON.stringify(MysqlOneMount$outboundSchema.parse(mysqlOneMount));
+}
+
+export function mysqlOneMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneDriverOpts$inboundSchema: z.ZodType<
+  MysqlOneDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlOneDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlOneDriverOpts$outboundSchema: z.ZodType<
+  MysqlOneDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlOneDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneDriverOpts$ {
+  /** @deprecated use `MysqlOneDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlOneDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlOneDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlOneDriverOpts$Outbound;
+}
+
+export function mysqlOneDriverOptsToJSON(
+  mysqlOneDriverOpts: MysqlOneDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlOneDriverOpts$outboundSchema.parse(mysqlOneDriverOpts),
+  );
+}
+
+export function mysqlOneDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOneNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlOneNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlOneDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlOneNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlOneDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlOneNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlOneNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlOneNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlOneDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneNetworkSwarm$ {
+  /** @deprecated use `MysqlOneNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlOneNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlOneNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlOneNetworkSwarm$Outbound;
+}
+
+export function mysqlOneNetworkSwarmToJSON(
+  mysqlOneNetworkSwarm: MysqlOneNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlOneNetworkSwarm$outboundSchema.parse(mysqlOneNetworkSwarm),
+  );
+}
+
+export function mysqlOneNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOneNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlOnePlatform$inboundSchema: z.ZodType<
+  MysqlOnePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlOnePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlOnePlatform$outboundSchema: z.ZodType<
+  MysqlOnePlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlOnePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOnePlatform$ {
+  /** @deprecated use `MysqlOnePlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlOnePlatform$inboundSchema;
+  /** @deprecated use `MysqlOnePlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlOnePlatform$outboundSchema;
+  /** @deprecated use `MysqlOnePlatform$Outbound` instead. */
+  export type Outbound = MysqlOnePlatform$Outbound;
+}
+
+export function mysqlOnePlatformToJSON(
+  mysqlOnePlatform: MysqlOnePlatform,
+): string {
+  return JSON.stringify(
+    MysqlOnePlatform$outboundSchema.parse(mysqlOnePlatform),
+  );
+}
+
+export function mysqlOnePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlOnePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlOnePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOnePlatform' from JSON`,
   );
 }
 
@@ -738,98 +1920,31 @@ export function mysqlOnePreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlOnePlatform$inboundSchema: z.ZodType<
-  MysqlOnePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlOnePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlOnePlatform$outboundSchema: z.ZodType<
-  MysqlOnePlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlOnePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOnePlatform$ {
-  /** @deprecated use `MysqlOnePlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlOnePlatform$inboundSchema;
-  /** @deprecated use `MysqlOnePlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlOnePlatform$outboundSchema;
-  /** @deprecated use `MysqlOnePlatform$Outbound` instead. */
-  export type Outbound = MysqlOnePlatform$Outbound;
-}
-
-export function mysqlOnePlatformToJSON(
-  mysqlOnePlatform: MysqlOnePlatform,
-): string {
-  return JSON.stringify(
-    MysqlOnePlatform$outboundSchema.parse(mysqlOnePlatform),
-  );
-}
-
-export function mysqlOnePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOnePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOnePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOnePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlOnePlacementSwarm$inboundSchema: z.ZodType<
   MysqlOnePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlOnePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlOnePlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MysqlOnePreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlOnePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlOnePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlOnePlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlOnePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -839,16 +1954,16 @@ export const MysqlOnePlacementSwarm$outboundSchema: z.ZodType<
   MysqlOnePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlOnePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlOnePlatform$outboundSchema)).optional(),
+  preferences: z.array(z.lazy(() => MysqlOnePreference$outboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -884,58 +1999,48 @@ export function mysqlOnePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlOneUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlOneUpdateConfigSwarm,
+export const MysqlOneRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlOneRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlOneUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlOneRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlOneUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlOneUpdateConfigSwarm$Outbound,
+export const MysqlOneRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlOneRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlOneUpdateConfigSwarm
+  MysqlOneRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -943,30 +2048,30 @@ export const MysqlOneUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlOneUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlOneUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlOneUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlOneUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlOneUpdateConfigSwarm$Outbound;
+export namespace MysqlOneRestartPolicySwarm$ {
+  /** @deprecated use `MysqlOneRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlOneRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlOneRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlOneRestartPolicySwarm$Outbound;
 }
 
-export function mysqlOneUpdateConfigSwarmToJSON(
-  mysqlOneUpdateConfigSwarm: MysqlOneUpdateConfigSwarm,
+export function mysqlOneRestartPolicySwarmToJSON(
+  mysqlOneRestartPolicySwarm: MysqlOneRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlOneUpdateConfigSwarm$outboundSchema.parse(mysqlOneUpdateConfigSwarm),
+    MysqlOneRestartPolicySwarm$outboundSchema.parse(mysqlOneRestartPolicySwarm),
   );
 }
 
-export function mysqlOneUpdateConfigSwarmFromJSON(
+export function mysqlOneRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlOneUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlOneRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneUpdateConfigSwarm' from JSON`,
+    (x) => MysqlOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -976,31 +2081,31 @@ export const MysqlOneRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlOneRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1009,20 +2114,20 @@ export const MysqlOneRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlOneRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1057,716 +2162,6 @@ export function mysqlOneRollbackConfigSwarmFromJSON(
     (x) => MysqlOneRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlOneRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlOneReplicated$inboundSchema: z.ZodType<
-  MysqlOneReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlOneReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlOneReplicated$outboundSchema: z.ZodType<
-  MysqlOneReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlOneReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneReplicated$ {
-  /** @deprecated use `MysqlOneReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneReplicated$inboundSchema;
-  /** @deprecated use `MysqlOneReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneReplicated$outboundSchema;
-  /** @deprecated use `MysqlOneReplicated$Outbound` instead. */
-  export type Outbound = MysqlOneReplicated$Outbound;
-}
-
-export function mysqlOneReplicatedToJSON(
-  mysqlOneReplicated: MysqlOneReplicated,
-): string {
-  return JSON.stringify(
-    MysqlOneReplicated$outboundSchema.parse(mysqlOneReplicated),
-  );
-}
-
-export function mysqlOneReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneGlobal$inboundSchema: z.ZodType<
-  MysqlOneGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlOneGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlOneGlobal$outboundSchema: z.ZodType<
-  MysqlOneGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlOneGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneGlobal$ {
-  /** @deprecated use `MysqlOneGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneGlobal$inboundSchema;
-  /** @deprecated use `MysqlOneGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneGlobal$outboundSchema;
-  /** @deprecated use `MysqlOneGlobal$Outbound` instead. */
-  export type Outbound = MysqlOneGlobal$Outbound;
-}
-
-export function mysqlOneGlobalToJSON(mysqlOneGlobal: MysqlOneGlobal): string {
-  return JSON.stringify(MysqlOneGlobal$outboundSchema.parse(mysqlOneGlobal));
-}
-
-export function mysqlOneGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneReplicatedJob$inboundSchema: z.ZodType<
-  MysqlOneReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlOneReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlOneReplicatedJob$outboundSchema: z.ZodType<
-  MysqlOneReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlOneReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneReplicatedJob$ {
-  /** @deprecated use `MysqlOneReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlOneReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlOneReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlOneReplicatedJob$Outbound;
-}
-
-export function mysqlOneReplicatedJobToJSON(
-  mysqlOneReplicatedJob: MysqlOneReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlOneReplicatedJob$outboundSchema.parse(mysqlOneReplicatedJob),
-  );
-}
-
-export function mysqlOneReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneGlobalJob$inboundSchema: z.ZodType<
-  MysqlOneGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlOneGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlOneGlobalJob$outboundSchema: z.ZodType<
-  MysqlOneGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlOneGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneGlobalJob$ {
-  /** @deprecated use `MysqlOneGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlOneGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlOneGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlOneGlobalJob$Outbound;
-}
-
-export function mysqlOneGlobalJobToJSON(
-  mysqlOneGlobalJob: MysqlOneGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlOneGlobalJob$outboundSchema.parse(mysqlOneGlobalJob),
-  );
-}
-
-export function mysqlOneGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneModeSwarm$inboundSchema: z.ZodType<
-  MysqlOneModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlOneReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlOneGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlOneReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MysqlOneGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlOneModeSwarm$Outbound = {
-  Replicated?: MysqlOneReplicated$Outbound | undefined;
-  Global?: MysqlOneGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlOneReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlOneGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlOneModeSwarm$outboundSchema: z.ZodType<
-  MysqlOneModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlOneModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlOneReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlOneGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlOneReplicatedJob$outboundSchema).optional(),
-  globalJob: z.lazy(() => MysqlOneGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneModeSwarm$ {
-  /** @deprecated use `MysqlOneModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlOneModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlOneModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlOneModeSwarm$Outbound;
-}
-
-export function mysqlOneModeSwarmToJSON(
-  mysqlOneModeSwarm: MysqlOneModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlOneModeSwarm$outboundSchema.parse(mysqlOneModeSwarm),
-  );
-}
-
-export function mysqlOneModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneDriverOpts$inboundSchema: z.ZodType<
-  MysqlOneDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlOneDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlOneDriverOpts$outboundSchema: z.ZodType<
-  MysqlOneDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlOneDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneDriverOpts$ {
-  /** @deprecated use `MysqlOneDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlOneDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlOneDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlOneDriverOpts$Outbound;
-}
-
-export function mysqlOneDriverOptsToJSON(
-  mysqlOneDriverOpts: MysqlOneDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlOneDriverOpts$outboundSchema.parse(mysqlOneDriverOpts),
-  );
-}
-
-export function mysqlOneDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlOneNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlOneDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlOneNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlOneDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlOneNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlOneNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlOneNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlOneDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneNetworkSwarm$ {
-  /** @deprecated use `MysqlOneNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlOneNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlOneNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlOneNetworkSwarm$Outbound;
-}
-
-export function mysqlOneNetworkSwarmToJSON(
-  mysqlOneNetworkSwarm: MysqlOneNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlOneNetworkSwarm$outboundSchema.parse(mysqlOneNetworkSwarm),
-  );
-}
-
-export function mysqlOneNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneProject$inboundSchema: z.ZodType<
-  MysqlOneProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlOneProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlOneProject$outboundSchema: z.ZodType<
-  MysqlOneProject$Outbound,
-  z.ZodTypeDef,
-  MysqlOneProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneProject$ {
-  /** @deprecated use `MysqlOneProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneProject$inboundSchema;
-  /** @deprecated use `MysqlOneProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneProject$outboundSchema;
-  /** @deprecated use `MysqlOneProject$Outbound` instead. */
-  export type Outbound = MysqlOneProject$Outbound;
-}
-
-export function mysqlOneProjectToJSON(
-  mysqlOneProject: MysqlOneProject,
-): string {
-  return JSON.stringify(MysqlOneProject$outboundSchema.parse(mysqlOneProject));
-}
-
-export function mysqlOneProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneEnvironment$inboundSchema: z.ZodType<
-  MysqlOneEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlOneProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlOneEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlOneProject$Outbound;
-};
-
-/** @internal */
-export const MysqlOneEnvironment$outboundSchema: z.ZodType<
-  MysqlOneEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlOneEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlOneProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneEnvironment$ {
-  /** @deprecated use `MysqlOneEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneEnvironment$inboundSchema;
-  /** @deprecated use `MysqlOneEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneEnvironment$outboundSchema;
-  /** @deprecated use `MysqlOneEnvironment$Outbound` instead. */
-  export type Outbound = MysqlOneEnvironment$Outbound;
-}
-
-export function mysqlOneEnvironmentToJSON(
-  mysqlOneEnvironment: MysqlOneEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlOneEnvironment$outboundSchema.parse(mysqlOneEnvironment),
-  );
-}
-
-export function mysqlOneEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneType$inboundSchema: z.ZodNativeEnum<typeof MysqlOneType> =
-  z.nativeEnum(MysqlOneType);
-
-/** @internal */
-export const MysqlOneType$outboundSchema: z.ZodNativeEnum<typeof MysqlOneType> =
-  MysqlOneType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneType$ {
-  /** @deprecated use `MysqlOneType$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneType$inboundSchema;
-  /** @deprecated use `MysqlOneType$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlOneServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneServiceType
-> = z.nativeEnum(MysqlOneServiceType);
-
-/** @internal */
-export const MysqlOneServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneServiceType
-> = MysqlOneServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneServiceType$ {
-  /** @deprecated use `MysqlOneServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneServiceType$inboundSchema;
-  /** @deprecated use `MysqlOneServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlOneMount$inboundSchema: z.ZodType<
-  MysqlOneMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlOneType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlOneServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlOneMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlOneMount$outboundSchema: z.ZodType<
-  MysqlOneMount$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlOneType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlOneServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMount$ {
-  /** @deprecated use `MysqlOneMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMount$inboundSchema;
-  /** @deprecated use `MysqlOneMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMount$outboundSchema;
-  /** @deprecated use `MysqlOneMount$Outbound` instead. */
-  export type Outbound = MysqlOneMount$Outbound;
-}
-
-export function mysqlOneMountToJSON(mysqlOneMount: MysqlOneMount): string {
-  return JSON.stringify(MysqlOneMount$outboundSchema.parse(mysqlOneMount));
-}
-
-export function mysqlOneMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneServerStatus
-> = z.nativeEnum(MysqlOneServerStatus);
-
-/** @internal */
-export const MysqlOneServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneServerStatus
-> = MysqlOneServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneServerStatus$ {
-  /** @deprecated use `MysqlOneServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneServerStatus$inboundSchema;
-  /** @deprecated use `MysqlOneServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1929,24 +2324,38 @@ export function mysqlOneMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlOneServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneServerStatus
+> = z.nativeEnum(MysqlOneServerStatus);
+
+/** @internal */
+export const MysqlOneServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlOneServerStatus
+> = MysqlOneServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlOneServerStatus$ {
+  /** @deprecated use `MysqlOneServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneServerStatus$inboundSchema;
+  /** @deprecated use `MysqlOneServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlOneServer$inboundSchema: z.ZodType<
   MysqlOneServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlOneServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1957,26 +2366,33 @@ export const MysqlOneServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlOneServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlOneServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -1985,19 +2401,12 @@ export const MysqlOneServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlOneServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlOneServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2008,6 +2417,13 @@ export const MysqlOneServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlOneServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2038,505 +2454,89 @@ export function mysqlOneServerFromJSON(
 }
 
 /** @internal */
-export const MysqlOneBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneBackupType
-> = z.nativeEnum(MysqlOneBackupType);
-
-/** @internal */
-export const MysqlOneBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneBackupType
-> = MysqlOneBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneBackupType$ {
-  /** @deprecated use `MysqlOneBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneBackupType$inboundSchema;
-  /** @deprecated use `MysqlOneBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlOneDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneDatabaseType
-> = z.nativeEnum(MysqlOneDatabaseType);
-
-/** @internal */
-export const MysqlOneDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneDatabaseType
-> = MysqlOneDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneDatabaseType$ {
-  /** @deprecated use `MysqlOneDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlOneDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneMetadataEnum
-> = z.nativeEnum(MysqlOneMetadataEnum);
-
-/** @internal */
-export const MysqlOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlOneMetadataEnum
-> = MysqlOneMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMetadataEnum$ {
-  /** @deprecated use `MysqlOneMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlOneMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlOnePostgres$inboundSchema: z.ZodType<
-  MysqlOnePostgres,
+export const MysqlOneUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlOneUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlOnePostgres$Outbound = {
-  databaseUser: string;
+export type MysqlOneUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlOnePostgres$outboundSchema: z.ZodType<
-  MysqlOnePostgres$Outbound,
+export const MysqlOneUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlOneUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlOnePostgres
+  MysqlOneUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlOnePostgres$ {
-  /** @deprecated use `MysqlOnePostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlOnePostgres$inboundSchema;
-  /** @deprecated use `MysqlOnePostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlOnePostgres$outboundSchema;
-  /** @deprecated use `MysqlOnePostgres$Outbound` instead. */
-  export type Outbound = MysqlOnePostgres$Outbound;
+export namespace MysqlOneUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlOneUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlOneUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlOneUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlOneUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlOneUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlOneUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlOnePostgresToJSON(
-  mysqlOnePostgres: MysqlOnePostgres,
+export function mysqlOneUpdateConfigSwarmToJSON(
+  mysqlOneUpdateConfigSwarm: MysqlOneUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlOnePostgres$outboundSchema.parse(mysqlOnePostgres),
+    MysqlOneUpdateConfigSwarm$outboundSchema.parse(mysqlOneUpdateConfigSwarm),
   );
 }
 
-export function mysqlOnePostgresFromJSON(
+export function mysqlOneUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlOnePostgres, SDKValidationError> {
+): SafeParseResult<MysqlOneUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlOnePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOnePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneMariadb$inboundSchema: z.ZodType<
-  MysqlOneMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlOneMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlOneMariadb$outboundSchema: z.ZodType<
-  MysqlOneMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMariadb$ {
-  /** @deprecated use `MysqlOneMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMariadb$inboundSchema;
-  /** @deprecated use `MysqlOneMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMariadb$outboundSchema;
-  /** @deprecated use `MysqlOneMariadb$Outbound` instead. */
-  export type Outbound = MysqlOneMariadb$Outbound;
-}
-
-export function mysqlOneMariadbToJSON(
-  mysqlOneMariadb: MysqlOneMariadb,
-): string {
-  return JSON.stringify(MysqlOneMariadb$outboundSchema.parse(mysqlOneMariadb));
-}
-
-export function mysqlOneMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneMongo$inboundSchema: z.ZodType<
-  MysqlOneMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlOneMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlOneMongo$outboundSchema: z.ZodType<
-  MysqlOneMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMongo$ {
-  /** @deprecated use `MysqlOneMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMongo$inboundSchema;
-  /** @deprecated use `MysqlOneMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMongo$outboundSchema;
-  /** @deprecated use `MysqlOneMongo$Outbound` instead. */
-  export type Outbound = MysqlOneMongo$Outbound;
-}
-
-export function mysqlOneMongoToJSON(mysqlOneMongo: MysqlOneMongo): string {
-  return JSON.stringify(MysqlOneMongo$outboundSchema.parse(mysqlOneMongo));
-}
-
-export function mysqlOneMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneMysql$inboundSchema: z.ZodType<
-  MysqlOneMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlOneMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlOneMysql$outboundSchema: z.ZodType<
-  MysqlOneMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMysql$ {
-  /** @deprecated use `MysqlOneMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMysql$inboundSchema;
-  /** @deprecated use `MysqlOneMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMysql$outboundSchema;
-  /** @deprecated use `MysqlOneMysql$Outbound` instead. */
-  export type Outbound = MysqlOneMysql$Outbound;
-}
-
-export function mysqlOneMysqlToJSON(mysqlOneMysql: MysqlOneMysql): string {
-  return JSON.stringify(MysqlOneMysql$outboundSchema.parse(mysqlOneMysql));
-}
-
-export function mysqlOneMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneMetadata$inboundSchema: z.ZodType<
-  MysqlOneMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlOnePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlOneMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlOneMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlOneMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlOneMetadata$Outbound = {
-  postgres?: MysqlOnePostgres$Outbound | undefined;
-  mariadb?: MysqlOneMariadb$Outbound | undefined;
-  mongo?: MysqlOneMongo$Outbound | undefined;
-  mysql?: MysqlOneMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlOneMetadata$outboundSchema: z.ZodType<
-  MysqlOneMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlOnePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlOneMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlOneMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlOneMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMetadata$ {
-  /** @deprecated use `MysqlOneMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMetadata$inboundSchema;
-  /** @deprecated use `MysqlOneMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMetadata$outboundSchema;
-  /** @deprecated use `MysqlOneMetadata$Outbound` instead. */
-  export type Outbound = MysqlOneMetadata$Outbound;
-}
-
-export function mysqlOneMetadataToJSON(
-  mysqlOneMetadata: MysqlOneMetadata,
-): string {
-  return JSON.stringify(
-    MysqlOneMetadata$outboundSchema.parse(mysqlOneMetadata),
-  );
-}
-
-export function mysqlOneMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneMetadataUnion$inboundSchema: z.ZodType<
-  MysqlOneMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlOneMetadata$inboundSchema),
-  MysqlOneMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlOneMetadataUnion$Outbound = MysqlOneMetadata$Outbound | string;
-
-/** @internal */
-export const MysqlOneMetadataUnion$outboundSchema: z.ZodType<
-  MysqlOneMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlOneMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlOneMetadata$outboundSchema),
-  MysqlOneMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneMetadataUnion$ {
-  /** @deprecated use `MysqlOneMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlOneMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlOneMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlOneMetadataUnion$Outbound;
-}
-
-export function mysqlOneMetadataUnionToJSON(
-  mysqlOneMetadataUnion: MysqlOneMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlOneMetadataUnion$outboundSchema.parse(mysqlOneMetadataUnion),
-  );
-}
-
-export function mysqlOneMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlOneBackup$inboundSchema: z.ZodType<
-  MysqlOneBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlOneBackupType$inboundSchema,
-  databaseType: MysqlOneDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlOneMetadata$inboundSchema),
-      MysqlOneMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlOneBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlOneMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlOneBackup$outboundSchema: z.ZodType<
-  MysqlOneBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlOneBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlOneBackupType$outboundSchema,
-  databaseType: MysqlOneDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlOneMetadata$outboundSchema),
-      MysqlOneMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlOneBackup$ {
-  /** @deprecated use `MysqlOneBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlOneBackup$inboundSchema;
-  /** @deprecated use `MysqlOneBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlOneBackup$outboundSchema;
-  /** @deprecated use `MysqlOneBackup$Outbound` instead. */
-  export type Outbound = MysqlOneBackup$Outbound;
-}
-
-export function mysqlOneBackupToJSON(mysqlOneBackup: MysqlOneBackup): string {
-  return JSON.stringify(MysqlOneBackup$outboundSchema.parse(mysqlOneBackup));
-}
-
-export function mysqlOneBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlOneBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlOneBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlOneBackup' from JSON`,
+    (x) => MysqlOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlOneUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2546,88 +2546,88 @@ export const MysqlOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlOneApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlOneBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlOneEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlOneApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlOneHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlOneRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlOneModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlOneMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlOneNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlOnePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlOneUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlOneRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlOneRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlOneModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlOneNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlOneEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlOneMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlOneServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlOneBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlOneUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlOneResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlOneBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlOneHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlOneRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlOnePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlOneUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlOneRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlOneModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlOneNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlOneEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlOneHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlOneModeSwarm$Outbound | null;
   mounts: Array<MysqlOneMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlOneNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlOnePlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlOneRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlOneRollbackConfigSwarm$Outbound | null;
   server: MysqlOneServer$Outbound | null;
-  backups: Array<MysqlOneBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlOneUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2636,51 +2636,51 @@ export const MysqlOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlOneResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlOneApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlOneBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlOneEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlOneApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlOneHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlOneRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlOneModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlOneMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlOneNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlOnePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlOneUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlOneRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlOneRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlOneModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlOneNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlOneEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlOneMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlOneServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlOneBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlOneUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

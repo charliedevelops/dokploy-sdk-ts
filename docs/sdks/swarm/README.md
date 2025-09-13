@@ -5,22 +5,22 @@
 
 ### Available Operations
 
-* [swarmGetNodes](#swarmgetnodes)
-* [swarmGetNodeInfo](#swarmgetnodeinfo)
 * [swarmGetNodeApps](#swarmgetnodeapps)
+* [swarmGetNodeInfo](#swarmgetnodeinfo)
+* [swarmGetNodes](#swarmgetnodes)
 
-## swarmGetNodes
+## swarmGetNodeApps
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="swarm-getNodes" method="get" path="/swarm.getNodes" -->
+<!-- UsageSnippet language="typescript" operationID="swarm-getNodeApps" method="get" path="/swarm.getNodeApps" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.swarm.swarmGetNodes({
+  const result = await dokploy.swarm.swarmGetNodeApps({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   });
 
@@ -36,21 +36,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { swarmSwarmGetNodes } from "dokploy-sdk/funcs/swarmSwarmGetNodes.js";
+import { swarmSwarmGetNodeApps } from "dokploy-sdk/funcs/swarmSwarmGetNodeApps.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await swarmSwarmGetNodes(dokploy, {
+  const res = await swarmSwarmGetNodeApps(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("swarmSwarmGetNodes failed:", res.error);
+    console.log("swarmSwarmGetNodeApps failed:", res.error);
   }
 }
 
@@ -61,8 +61,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.SwarmGetNodesRequest](../../models/operations/swarmgetnodesrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.SwarmGetNodesSecurity](../../models/operations/swarmgetnodessecurity.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.SwarmGetNodeAppsRequest](../../models/operations/swarmgetnodeappsrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.SwarmGetNodeAppsSecurity](../../models/operations/swarmgetnodeappssecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -149,18 +149,18 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## swarmGetNodeApps
+## swarmGetNodes
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="swarm-getNodeApps" method="get" path="/swarm.getNodeApps" -->
+<!-- UsageSnippet language="typescript" operationID="swarm-getNodes" method="get" path="/swarm.getNodes" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.swarm.swarmGetNodeApps({
+  const result = await dokploy.swarm.swarmGetNodes({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   });
 
@@ -176,21 +176,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { swarmSwarmGetNodeApps } from "dokploy-sdk/funcs/swarmSwarmGetNodeApps.js";
+import { swarmSwarmGetNodes } from "dokploy-sdk/funcs/swarmSwarmGetNodes.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await swarmSwarmGetNodeApps(dokploy, {
+  const res = await swarmSwarmGetNodes(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("swarmSwarmGetNodeApps failed:", res.error);
+    console.log("swarmSwarmGetNodes failed:", res.error);
   }
 }
 
@@ -201,8 +201,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.SwarmGetNodeAppsRequest](../../models/operations/swarmgetnodeappsrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.SwarmGetNodeAppsSecurity](../../models/operations/swarmgetnodeappssecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.SwarmGetNodesRequest](../../models/operations/swarmgetnodesrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.SwarmGetNodesSecurity](../../models/operations/swarmgetnodessecurity.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

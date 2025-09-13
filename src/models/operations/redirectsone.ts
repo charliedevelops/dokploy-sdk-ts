@@ -21,13 +21,13 @@ export type RedirectsOneRequest = {
  * Successful response
  */
 export type RedirectsOneResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type RedirectsOneResponse = RedirectsOneResponseBody | models.ErrorT;
@@ -154,24 +154,24 @@ export const RedirectsOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type RedirectsOneResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -180,13 +180,13 @@ export const RedirectsOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsOneResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

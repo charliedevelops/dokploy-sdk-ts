@@ -14,8 +14,8 @@ export type ComposeRedeploySecurity = {
 
 export type ComposeRedeployRequest = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -87,15 +87,15 @@ export const ComposeRedeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeRedeployRequest$Outbound = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -105,8 +105,8 @@ export const ComposeRedeployRequest$outboundSchema: z.ZodType<
   ComposeRedeployRequest
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**

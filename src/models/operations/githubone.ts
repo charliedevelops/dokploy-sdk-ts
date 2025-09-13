@@ -27,11 +27,11 @@ export const GithubOneProviderType = {
 export type GithubOneProviderType = ClosedEnum<typeof GithubOneProviderType>;
 
 export type GithubOneGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GithubOneProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GithubOneProviderType;
   userId: string;
 };
 
@@ -39,16 +39,16 @@ export type GithubOneGitProvider = {
  * Successful response
  */
 export type GithubOneResponseBody = {
-  githubId: string;
-  githubAppName: string | null;
+  gitProvider: GithubOneGitProvider;
+  gitProviderId: string;
   githubAppId: number | null;
+  githubAppName: string | null;
   githubClientId: string | null;
   githubClientSecret: string | null;
+  githubId: string;
   githubInstallationId: string | null;
   githubPrivateKey: string | null;
   githubWebhookSecret: string | null;
-  gitProviderId: string;
-  gitProvider: GithubOneGitProvider;
 };
 
 export type GithubOneResponse = GithubOneResponseBody | models.ErrorT;
@@ -196,21 +196,21 @@ export const GithubOneGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubOneProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubOneProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GithubOneGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -220,11 +220,11 @@ export const GithubOneGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubOneGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubOneProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubOneProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -265,30 +265,30 @@ export const GithubOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
+  gitProvider: z.lazy(() => GithubOneGitProvider$inboundSchema),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
   githubClientId: z.nullable(z.string()),
   githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()),
   githubPrivateKey: z.nullable(z.string()),
   githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GithubOneGitProvider$inboundSchema),
 });
 
 /** @internal */
 export type GithubOneResponseBody$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
+  gitProvider: GithubOneGitProvider$Outbound;
+  gitProviderId: string;
   githubAppId: number | null;
+  githubAppName: string | null;
   githubClientId: string | null;
   githubClientSecret: string | null;
+  githubId: string;
   githubInstallationId: string | null;
   githubPrivateKey: string | null;
   githubWebhookSecret: string | null;
-  gitProviderId: string;
-  gitProvider: GithubOneGitProvider$Outbound;
 };
 
 /** @internal */
@@ -297,16 +297,16 @@ export const GithubOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubOneResponseBody
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
+  gitProvider: z.lazy(() => GithubOneGitProvider$outboundSchema),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
   githubClientId: z.nullable(z.string()),
   githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()),
   githubPrivateKey: z.nullable(z.string()),
   githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GithubOneGitProvider$outboundSchema),
 });
 
 /**

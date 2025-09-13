@@ -6,22 +6,22 @@
 import { MariadbOneBackup } from "dokploy-sdk/models/operations";
 
 let value: MariadbOneBackup = {
-  backupId: "<id>",
   appName: "<value>",
-  schedule: "<value>",
-  enabled: false,
-  database: "<value>",
-  prefix: "<value>",
-  serviceName: "<value>",
-  destinationId: "<id>",
-  keepLatestCount: 6669.35,
+  backupId: "<id>",
   backupType: "compose",
-  databaseType: "mariadb",
   composeId: "<id>",
-  postgresId: "<id>",
+  database: "<value>",
+  databaseType: "mongo",
+  destinationId: "<id>",
+  enabled: false,
+  keepLatestCount: 2099.5,
   mariadbId: "<id>",
-  mysqlId: "<id>",
   mongoId: "<id>",
+  mysqlId: "<id>",
+  postgresId: "<id>",
+  prefix: "<value>",
+  schedule: "<value>",
+  serviceName: "<value>",
   userId: "<id>",
 };
 ```
@@ -30,21 +30,21 @@ let value: MariadbOneBackup = {
 
 | Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `backupId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `appName`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `schedule`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `enabled`                                                                              | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `database`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `prefix`                                                                               | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `serviceName`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `destinationId`                                                                        | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `keepLatestCount`                                                                      | *number*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `backupId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `backupType`                                                                           | [operations.MariadbOneBackupType](../../models/operations/mariadbonebackuptype.md)     | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `databaseType`                                                                         | [operations.MariadbOneDatabaseType](../../models/operations/mariadbonedatabasetype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `composeId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `postgresId`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `database`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `databaseType`                                                                         | [operations.MariadbOneDatabaseType](../../models/operations/mariadbonedatabasetype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `destinationId`                                                                        | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `enabled`                                                                              | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `keepLatestCount`                                                                      | *number*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `mariadbId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `mysqlId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `mongoId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `userId`                                                                               | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `metadata`                                                                             | *operations.MariadbOneMetadataUnion*                                                   | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `mongoId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `mysqlId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `postgresId`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `prefix`                                                                               | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `schedule`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `serviceName`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `userId`                                                                               | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |

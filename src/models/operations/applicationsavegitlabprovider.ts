@@ -15,15 +15,15 @@ export type ApplicationSaveGitlabProviderSecurity = {
 
 export type ApplicationSaveGitlabProviderRequest = {
   applicationId: string;
+  enableSubmodules: boolean;
   gitlabBranch: string | null;
   gitlabBuildPath: string | null;
-  gitlabOwner: string | null;
-  gitlabRepository: string | null;
   gitlabId: string | null;
-  gitlabProjectId: number | null;
+  gitlabOwner: string | null;
   gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 export type ApplicationSaveGitlabProviderResponse = models.ErrorT | boolean;
@@ -102,29 +102,29 @@ export const ApplicationSaveGitlabProviderRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   gitlabBranch: z.nullable(z.string()),
   gitlabBuildPath: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabRepository: z.nullable(z.string()),
   gitlabId: z.nullable(z.string()),
-  gitlabProjectId: z.nullable(z.number()),
+  gitlabOwner: z.nullable(z.string()),
   gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /** @internal */
 export type ApplicationSaveGitlabProviderRequest$Outbound = {
   applicationId: string;
+  enableSubmodules: boolean;
   gitlabBranch: string | null;
   gitlabBuildPath: string | null;
-  gitlabOwner: string | null;
-  gitlabRepository: string | null;
   gitlabId: string | null;
-  gitlabProjectId: number | null;
+  gitlabOwner: string | null;
   gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 /** @internal */
@@ -134,15 +134,15 @@ export const ApplicationSaveGitlabProviderRequest$outboundSchema: z.ZodType<
   ApplicationSaveGitlabProviderRequest
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   gitlabBranch: z.nullable(z.string()),
   gitlabBuildPath: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabRepository: z.nullable(z.string()),
   gitlabId: z.nullable(z.string()),
-  gitlabProjectId: z.nullable(z.number()),
+  gitlabOwner: z.nullable(z.string()),
   gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /**

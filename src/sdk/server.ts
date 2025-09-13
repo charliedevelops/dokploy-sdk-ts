@@ -22,45 +22,6 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Server extends ClientSDK {
-  async serverCreate(
-    security: operations.ServerCreateSecurity,
-    request: operations.ServerCreateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async serverOne(
-    security: operations.ServerOneSecurity,
-    request: operations.ServerOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async serverGetDefaultCommand(
-    security: operations.ServerGetDefaultCommandSecurity,
-    request: operations.ServerGetDefaultCommandRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerGetDefaultCommand(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async serverAll(
     security: operations.ServerAllSecurity,
     options?: RequestOptions,
@@ -83,23 +44,12 @@ export class Server extends ClientSDK {
     ));
   }
 
-  async serverWithSSHKey(
-    security: operations.ServerWithSSHKeySecurity,
+  async serverCreate(
+    security: operations.ServerCreateSecurity,
+    request: operations.ServerCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerWithSSHKey(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async serverSetup(
-    security: operations.ServerSetupSecurity,
-    request: operations.ServerSetupRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerSetup(
+    return unwrapAsync(serverServerCreate(
       this,
       security,
       request,
@@ -107,12 +57,62 @@ export class Server extends ClientSDK {
     ));
   }
 
-  async serverValidate(
-    security: operations.ServerValidateSecurity,
-    request: operations.ServerValidateRequest,
+  async serverGetDefaultCommand(
+    security: operations.ServerGetDefaultCommandSecurity,
+    request: operations.ServerGetDefaultCommandRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerValidate(
+    return unwrapAsync(serverServerGetDefaultCommand(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async serverGetServerMetrics(
+    security: operations.ServerGetServerMetricsSecurity,
+    request: operations.ServerGetServerMetricsRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(serverServerGetServerMetrics(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async serverOne(
+    security: operations.ServerOneSecurity,
+    request: operations.ServerOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(serverServerOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async serverPublicIp(
+    security: operations.ServerPublicIpSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(serverServerPublicIp(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async serverRemove(
+    security: operations.ServerRemoveSecurity,
+    request: operations.ServerRemoveRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(serverServerRemove(
       this,
       security,
       request,
@@ -133,12 +133,12 @@ export class Server extends ClientSDK {
     ));
   }
 
-  async serverSetupMonitoring(
-    security: operations.ServerSetupMonitoringSecurity,
-    request: operations.ServerSetupMonitoringRequest,
+  async serverSetup(
+    security: operations.ServerSetupSecurity,
+    request: operations.ServerSetupRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerSetupMonitoring(
+    return unwrapAsync(serverServerSetup(
       this,
       security,
       request,
@@ -146,12 +146,12 @@ export class Server extends ClientSDK {
     ));
   }
 
-  async serverRemove(
-    security: operations.ServerRemoveSecurity,
-    request: operations.ServerRemoveRequest,
+  async serverSetupMonitoring(
+    security: operations.ServerSetupMonitoringSecurity,
+    request: operations.ServerSetupMonitoringRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerRemove(
+    return unwrapAsync(serverServerSetupMonitoring(
       this,
       security,
       request,
@@ -172,26 +172,26 @@ export class Server extends ClientSDK {
     ));
   }
 
-  async serverPublicIp(
-    security: operations.ServerPublicIpSecurity,
+  async serverValidate(
+    security: operations.ServerValidateSecurity,
+    request: operations.ServerValidateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerPublicIp(
+    return unwrapAsync(serverServerValidate(
       this,
       security,
+      request,
       options,
     ));
   }
 
-  async serverGetServerMetrics(
-    security: operations.ServerGetServerMetricsSecurity,
-    request: operations.ServerGetServerMetricsRequest,
+  async serverWithSSHKey(
+    security: operations.ServerWithSSHKeySecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(serverServerGetServerMetrics(
+    return unwrapAsync(serverServerWithSSHKey(
       this,
       security,
-      request,
       options,
     ));
   }

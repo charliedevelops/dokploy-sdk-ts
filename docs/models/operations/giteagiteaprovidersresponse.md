@@ -8,15 +8,15 @@
 ```typescript
 const value: operations.GiteaGiteaProvidersResponseBody[] = [
   {
-    giteaId: "<id>",
     gitProvider: {
+      createdAt: "1711586805857",
       gitProviderId: "<id>",
       name: "<value>",
-      providerType: "github",
-      createdAt: "1715522586443",
       organizationId: "<id>",
+      providerType: "gitlab",
       userId: "<id>",
     },
+    giteaId: "<id>",
   },
 ];
 ```
@@ -25,8 +25,8 @@ const value: operations.GiteaGiteaProvidersResponseBody[] = [
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

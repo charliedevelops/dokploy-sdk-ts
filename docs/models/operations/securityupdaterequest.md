@@ -6,9 +6,9 @@
 import { SecurityUpdateRequest } from "dokploy-sdk/models/operations";
 
 let value: SecurityUpdateRequest = {
+  password: "K7tMIcIaGXdffHv",
   securityId: "<id>",
-  username: "Isaiah66",
-  password: "MIcIaGXdffHvZbi",
+  username: "Leilani.Runolfsson",
 };
 ```
 
@@ -16,6 +16,6 @@ let value: SecurityUpdateRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
 | `securityId`       | *string*           | :heavy_check_mark: | N/A                |
 | `username`         | *string*           | :heavy_check_mark: | N/A                |
-| `password`         | *string*           | :heavy_check_mark: | N/A                |

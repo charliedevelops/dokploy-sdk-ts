@@ -13,10 +13,10 @@ export type ComposeDeployTemplateSecurity = {
 };
 
 export type ComposeDeployTemplateRequest = {
-  environmentId: string;
-  serverId?: string | undefined;
-  id: string;
   baseUrl?: string | undefined;
+  environmentId: string;
+  id: string;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -89,18 +89,18 @@ export const ComposeDeployTemplateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  environmentId: z.string(),
-  serverId: z.string().optional(),
-  id: z.string(),
   baseUrl: z.string().optional(),
+  environmentId: z.string(),
+  id: z.string(),
+  serverId: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeDeployTemplateRequest$Outbound = {
-  environmentId: string;
-  serverId?: string | undefined;
-  id: string;
   baseUrl?: string | undefined;
+  environmentId: string;
+  id: string;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -109,10 +109,10 @@ export const ComposeDeployTemplateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ComposeDeployTemplateRequest
 > = z.object({
-  environmentId: z.string(),
-  serverId: z.string().optional(),
-  id: z.string(),
   baseUrl: z.string().optional(),
+  environmentId: z.string(),
+  id: z.string(),
+  serverId: z.string().optional(),
 });
 
 /**

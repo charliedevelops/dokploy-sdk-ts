@@ -7,19 +7,19 @@
 
 ```typescript
 const value: operations.BitbucketOneResponseBody = {
+  appPassword: null,
   bitbucketId: "<id>",
-  bitbucketUsername: null,
-  appPassword: "<value>",
+  bitbucketUsername: "<value>",
   bitbucketWorkspaceName: "<value>",
-  gitProviderId: "<id>",
   gitProvider: {
+    createdAt: "1721501526007",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "bitbucket",
-    createdAt: "1711662589864",
     organizationId: "<id>",
+    providerType: "github",
     userId: "<id>",
   },
+  gitProviderId: "<id>",
 };
 ```
 
@@ -27,8 +27,8 @@ const value: operations.BitbucketOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

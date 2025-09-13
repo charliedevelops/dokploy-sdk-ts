@@ -14,8 +14,8 @@ export type RedisSaveEnvironmentSecurity = {
 };
 
 export type RedisSaveEnvironmentRequest = {
-  redisId: string;
   env?: string | null | undefined;
+  redisId: string;
 };
 
 export type RedisSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -90,14 +90,14 @@ export const RedisSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
   env: z.nullable(z.string()).optional(),
+  redisId: z.string(),
 });
 
 /** @internal */
 export type RedisSaveEnvironmentRequest$Outbound = {
-  redisId: string;
   env?: string | null | undefined;
+  redisId: string;
 };
 
 /** @internal */
@@ -106,8 +106,8 @@ export const RedisSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveEnvironmentRequest
 > = z.object({
-  redisId: z.string(),
   env: z.nullable(z.string()).optional(),
+  redisId: z.string(),
 });
 
 /**

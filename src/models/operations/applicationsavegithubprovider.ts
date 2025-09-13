@@ -24,14 +24,14 @@ export type ApplicationSaveGithubProviderTriggerType = ClosedEnum<
 
 export type ApplicationSaveGithubProviderRequest = {
   applicationId: string;
-  repository?: string | null | undefined;
   branch?: string | null | undefined;
-  owner: string | null;
   buildPath?: string | null | undefined;
-  githubId: string | null;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  githubId: string | null;
+  owner: string | null;
+  repository?: string | null | undefined;
   triggerType?: ApplicationSaveGithubProviderTriggerType | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationSaveGithubProviderResponse = models.ErrorT | boolean;
@@ -133,29 +133,29 @@ export const ApplicationSaveGithubProviderRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  repository: z.nullable(z.string()).optional(),
   branch: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()),
   buildPath: z.nullable(z.string()).optional(),
-  githubId: z.nullable(z.string()),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  githubId: z.nullable(z.string()),
+  owner: z.nullable(z.string()),
+  repository: z.nullable(z.string()).optional(),
   triggerType: ApplicationSaveGithubProviderTriggerType$inboundSchema.default(
     "push",
   ),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveGithubProviderRequest$Outbound = {
   applicationId: string;
-  repository?: string | null | undefined;
   branch?: string | null | undefined;
-  owner: string | null;
   buildPath?: string | null | undefined;
-  githubId: string | null;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  githubId: string | null;
+  owner: string | null;
+  repository?: string | null | undefined;
   triggerType: string;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -165,16 +165,16 @@ export const ApplicationSaveGithubProviderRequest$outboundSchema: z.ZodType<
   ApplicationSaveGithubProviderRequest
 > = z.object({
   applicationId: z.string(),
-  repository: z.nullable(z.string()).optional(),
   branch: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()),
   buildPath: z.nullable(z.string()).optional(),
-  githubId: z.nullable(z.string()),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  githubId: z.nullable(z.string()),
+  owner: z.nullable(z.string()),
+  repository: z.nullable(z.string()).optional(),
   triggerType: ApplicationSaveGithubProviderTriggerType$outboundSchema.default(
     "push",
   ),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

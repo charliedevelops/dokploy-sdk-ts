@@ -20,64 +20,25 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Mariadb extends ClientSDK {
+  async mariadbChangeStatus(
+    security: operations.MariadbChangeStatusSecurity,
+    request: operations.MariadbChangeStatusRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbChangeStatusResponse> {
+    return unwrapAsync(mariadbMariadbChangeStatus(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async mariadbCreate(
     security: operations.MariadbCreateSecurity,
     request: operations.MariadbCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.MariadbCreateResponse> {
     return unwrapAsync(mariadbMariadbCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbOne(
-    security: operations.MariadbOneSecurity,
-    request: operations.MariadbOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbOneResponse> {
-    return unwrapAsync(mariadbMariadbOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbStart(
-    security: operations.MariadbStartSecurity,
-    request: operations.MariadbStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbStartResponse> {
-    return unwrapAsync(mariadbMariadbStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbStop(
-    security: operations.MariadbStopSecurity,
-    request: operations.MariadbStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbStopResponse> {
-    return unwrapAsync(mariadbMariadbStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbSaveExternalPort(
-    security: operations.MariadbSaveExternalPortSecurity,
-    request: operations.MariadbSaveExternalPortRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbSaveExternalPortResponse> {
-    return unwrapAsync(mariadbMariadbSaveExternalPort(
       this,
       security,
       request,
@@ -98,12 +59,51 @@ export class Mariadb extends ClientSDK {
     ));
   }
 
-  async mariadbChangeStatus(
-    security: operations.MariadbChangeStatusSecurity,
-    request: operations.MariadbChangeStatusRequest,
+  async mariadbMove(
+    security: operations.MariadbMoveSecurity,
+    request: operations.MariadbMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.MariadbChangeStatusResponse> {
-    return unwrapAsync(mariadbMariadbChangeStatus(
+  ): Promise<operations.MariadbMoveResponse> {
+    return unwrapAsync(mariadbMariadbMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mariadbOne(
+    security: operations.MariadbOneSecurity,
+    request: operations.MariadbOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbOneResponse> {
+    return unwrapAsync(mariadbMariadbOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mariadbRebuild(
+    security: operations.MariadbRebuildSecurity,
+    request: operations.MariadbRebuildRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbRebuildResponse> {
+    return unwrapAsync(mariadbMariadbRebuild(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mariadbReload(
+    security: operations.MariadbReloadSecurity,
+    request: operations.MariadbReloadRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbReloadResponse> {
+    return unwrapAsync(mariadbMariadbReload(
       this,
       security,
       request,
@@ -137,12 +137,38 @@ export class Mariadb extends ClientSDK {
     ));
   }
 
-  async mariadbReload(
-    security: operations.MariadbReloadSecurity,
-    request: operations.MariadbReloadRequest,
+  async mariadbSaveExternalPort(
+    security: operations.MariadbSaveExternalPortSecurity,
+    request: operations.MariadbSaveExternalPortRequest,
     options?: RequestOptions,
-  ): Promise<operations.MariadbReloadResponse> {
-    return unwrapAsync(mariadbMariadbReload(
+  ): Promise<operations.MariadbSaveExternalPortResponse> {
+    return unwrapAsync(mariadbMariadbSaveExternalPort(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mariadbStart(
+    security: operations.MariadbStartSecurity,
+    request: operations.MariadbStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbStartResponse> {
+    return unwrapAsync(mariadbMariadbStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mariadbStop(
+    security: operations.MariadbStopSecurity,
+    request: operations.MariadbStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MariadbStopResponse> {
+    return unwrapAsync(mariadbMariadbStop(
       this,
       security,
       request,
@@ -156,32 +182,6 @@ export class Mariadb extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.MariadbUpdateResponse> {
     return unwrapAsync(mariadbMariadbUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbMove(
-    security: operations.MariadbMoveSecurity,
-    request: operations.MariadbMoveRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbMoveResponse> {
-    return unwrapAsync(mariadbMariadbMove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mariadbRebuild(
-    security: operations.MariadbRebuildSecurity,
-    request: operations.MariadbRebuildRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MariadbRebuildResponse> {
-    return unwrapAsync(mariadbMariadbRebuild(
       this,
       security,
       request,

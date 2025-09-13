@@ -13,13 +13,6 @@ export type MountsUpdateSecurity = {
   authorization: string;
 };
 
-export const MountsUpdateType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MountsUpdateType = ClosedEnum<typeof MountsUpdateType>;
-
 export const MountsUpdateServiceType = {
   Application: "application",
   Postgres: "postgres",
@@ -33,22 +26,29 @@ export type MountsUpdateServiceType = ClosedEnum<
   typeof MountsUpdateServiceType
 >;
 
+export const MountsUpdateType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MountsUpdateType = ClosedEnum<typeof MountsUpdateType>;
+
 export type MountsUpdateRequest = {
-  mountId: string;
-  type?: MountsUpdateType | undefined;
-  hostPath?: string | null | undefined;
-  volumeName?: string | null | undefined;
-  filePath?: string | null | undefined;
-  content?: string | null | undefined;
-  serviceType?: MountsUpdateServiceType | undefined;
-  mountPath?: string | undefined;
   applicationId?: string | null | undefined;
-  postgresId?: string | null | undefined;
+  composeId?: string | null | undefined;
+  content?: string | null | undefined;
+  filePath?: string | null | undefined;
+  hostPath?: string | null | undefined;
   mariadbId?: string | null | undefined;
   mongoId?: string | null | undefined;
+  mountId: string;
+  mountPath?: string | undefined;
   mysqlId?: string | null | undefined;
+  postgresId?: string | null | undefined;
   redisId?: string | null | undefined;
-  composeId?: string | null | undefined;
+  serviceType?: MountsUpdateServiceType | undefined;
+  type?: MountsUpdateType | undefined;
+  volumeName?: string | null | undefined;
 };
 
 /** @internal */
@@ -114,27 +114,6 @@ export function mountsUpdateSecurityFromJSON(
 }
 
 /** @internal */
-export const MountsUpdateType$inboundSchema: z.ZodNativeEnum<
-  typeof MountsUpdateType
-> = z.nativeEnum(MountsUpdateType);
-
-/** @internal */
-export const MountsUpdateType$outboundSchema: z.ZodNativeEnum<
-  typeof MountsUpdateType
-> = MountsUpdateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MountsUpdateType$ {
-  /** @deprecated use `MountsUpdateType$inboundSchema` instead. */
-  export const inboundSchema = MountsUpdateType$inboundSchema;
-  /** @deprecated use `MountsUpdateType$outboundSchema` instead. */
-  export const outboundSchema = MountsUpdateType$outboundSchema;
-}
-
-/** @internal */
 export const MountsUpdateServiceType$inboundSchema: z.ZodNativeEnum<
   typeof MountsUpdateServiceType
 > = z.nativeEnum(MountsUpdateServiceType);
@@ -156,45 +135,66 @@ export namespace MountsUpdateServiceType$ {
 }
 
 /** @internal */
+export const MountsUpdateType$inboundSchema: z.ZodNativeEnum<
+  typeof MountsUpdateType
+> = z.nativeEnum(MountsUpdateType);
+
+/** @internal */
+export const MountsUpdateType$outboundSchema: z.ZodNativeEnum<
+  typeof MountsUpdateType
+> = MountsUpdateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MountsUpdateType$ {
+  /** @deprecated use `MountsUpdateType$inboundSchema` instead. */
+  export const inboundSchema = MountsUpdateType$inboundSchema;
+  /** @deprecated use `MountsUpdateType$outboundSchema` instead. */
+  export const outboundSchema = MountsUpdateType$outboundSchema;
+}
+
+/** @internal */
 export const MountsUpdateRequest$inboundSchema: z.ZodType<
   MountsUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mountId: z.string(),
-  type: MountsUpdateType$inboundSchema.optional(),
-  hostPath: z.nullable(z.string()).optional(),
-  volumeName: z.nullable(z.string()).optional(),
-  filePath: z.nullable(z.string()).optional(),
-  content: z.nullable(z.string()).optional(),
-  serviceType: MountsUpdateServiceType$inboundSchema.default("application"),
-  mountPath: z.string().optional(),
   applicationId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
+  composeId: z.nullable(z.string()).optional(),
+  content: z.nullable(z.string()).optional(),
+  filePath: z.nullable(z.string()).optional(),
+  hostPath: z.nullable(z.string()).optional(),
   mariadbId: z.nullable(z.string()).optional(),
   mongoId: z.nullable(z.string()).optional(),
+  mountId: z.string(),
+  mountPath: z.string().optional(),
   mysqlId: z.nullable(z.string()).optional(),
+  postgresId: z.nullable(z.string()).optional(),
   redisId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
+  serviceType: MountsUpdateServiceType$inboundSchema.default("application"),
+  type: MountsUpdateType$inboundSchema.optional(),
+  volumeName: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MountsUpdateRequest$Outbound = {
-  mountId: string;
-  type?: string | undefined;
-  hostPath?: string | null | undefined;
-  volumeName?: string | null | undefined;
-  filePath?: string | null | undefined;
-  content?: string | null | undefined;
-  serviceType: string;
-  mountPath?: string | undefined;
   applicationId?: string | null | undefined;
-  postgresId?: string | null | undefined;
+  composeId?: string | null | undefined;
+  content?: string | null | undefined;
+  filePath?: string | null | undefined;
+  hostPath?: string | null | undefined;
   mariadbId?: string | null | undefined;
   mongoId?: string | null | undefined;
+  mountId: string;
+  mountPath?: string | undefined;
   mysqlId?: string | null | undefined;
+  postgresId?: string | null | undefined;
   redisId?: string | null | undefined;
-  composeId?: string | null | undefined;
+  serviceType: string;
+  type?: string | undefined;
+  volumeName?: string | null | undefined;
 };
 
 /** @internal */
@@ -203,21 +203,21 @@ export const MountsUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MountsUpdateRequest
 > = z.object({
-  mountId: z.string(),
-  type: MountsUpdateType$outboundSchema.optional(),
-  hostPath: z.nullable(z.string()).optional(),
-  volumeName: z.nullable(z.string()).optional(),
-  filePath: z.nullable(z.string()).optional(),
-  content: z.nullable(z.string()).optional(),
-  serviceType: MountsUpdateServiceType$outboundSchema.default("application"),
-  mountPath: z.string().optional(),
   applicationId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
+  composeId: z.nullable(z.string()).optional(),
+  content: z.nullable(z.string()).optional(),
+  filePath: z.nullable(z.string()).optional(),
+  hostPath: z.nullable(z.string()).optional(),
   mariadbId: z.nullable(z.string()).optional(),
   mongoId: z.nullable(z.string()).optional(),
+  mountId: z.string(),
+  mountPath: z.string().optional(),
   mysqlId: z.nullable(z.string()).optional(),
+  postgresId: z.nullable(z.string()).optional(),
   redisId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
+  serviceType: MountsUpdateServiceType$outboundSchema.default("application"),
+  type: MountsUpdateType$outboundSchema.optional(),
+  volumeName: z.nullable(z.string()).optional(),
 });
 
 /**

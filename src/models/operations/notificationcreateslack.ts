@@ -14,14 +14,14 @@ export type NotificationCreateSlackSecurity = {
 
 export type NotificationCreateSlackRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  channel: string;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  channel: string;
 };
 
 /** @internal */
@@ -95,27 +95,27 @@ export const NotificationCreateSlackRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  channel: z.string(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  channel: z.string(),
 });
 
 /** @internal */
 export type NotificationCreateSlackRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  channel: string;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  channel: string;
 };
 
 /** @internal */
@@ -125,14 +125,14 @@ export const NotificationCreateSlackRequest$outboundSchema: z.ZodType<
   NotificationCreateSlackRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  channel: z.string(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  channel: z.string(),
 });
 
 /**

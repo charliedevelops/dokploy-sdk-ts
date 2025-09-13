@@ -14,20 +14,20 @@ export type SecurityUpdateSecurity = {
 };
 
 export type SecurityUpdateRequest = {
+  password: string;
   securityId: string;
   username: string;
-  password: string;
 };
 
 /**
  * Successful response
  */
 export type SecurityUpdateResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityUpdateResponse = SecurityUpdateResponseBody | models.ErrorT;
@@ -100,16 +100,16 @@ export const SecurityUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
 });
 
 /** @internal */
 export type SecurityUpdateRequest$Outbound = {
+  password: string;
   securityId: string;
   username: string;
-  password: string;
 };
 
 /** @internal */
@@ -118,9 +118,9 @@ export const SecurityUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityUpdateRequest
 > = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
 });
 
 /**
@@ -160,20 +160,20 @@ export const SecurityUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityUpdateResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -182,11 +182,11 @@ export const SecurityUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityUpdateResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

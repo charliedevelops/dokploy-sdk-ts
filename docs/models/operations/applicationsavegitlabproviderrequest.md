@@ -7,14 +7,14 @@ import { ApplicationSaveGitlabProviderRequest } from "dokploy-sdk/models/operati
 
 let value: ApplicationSaveGitlabProviderRequest = {
   applicationId: "<id>",
+  enableSubmodules: false,
   gitlabBranch: "<value>",
   gitlabBuildPath: "<value>",
-  gitlabOwner: "<value>",
-  gitlabRepository: "<value>",
   gitlabId: "<id>",
-  gitlabProjectId: 9227.42,
+  gitlabOwner: "<value>",
   gitlabPathNamespace: "<value>",
-  enableSubmodules: true,
+  gitlabProjectId: 1065.84,
+  gitlabRepository: "<value>",
 };
 ```
 
@@ -23,12 +23,12 @@ let value: ApplicationSaveGitlabProviderRequest = {
 | Field                 | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
 | `applicationId`       | *string*              | :heavy_check_mark:    | N/A                   |
+| `enableSubmodules`    | *boolean*             | :heavy_check_mark:    | N/A                   |
 | `gitlabBranch`        | *string*              | :heavy_check_mark:    | N/A                   |
 | `gitlabBuildPath`     | *string*              | :heavy_check_mark:    | N/A                   |
-| `gitlabOwner`         | *string*              | :heavy_check_mark:    | N/A                   |
-| `gitlabRepository`    | *string*              | :heavy_check_mark:    | N/A                   |
 | `gitlabId`            | *string*              | :heavy_check_mark:    | N/A                   |
-| `gitlabProjectId`     | *number*              | :heavy_check_mark:    | N/A                   |
+| `gitlabOwner`         | *string*              | :heavy_check_mark:    | N/A                   |
 | `gitlabPathNamespace` | *string*              | :heavy_check_mark:    | N/A                   |
+| `gitlabProjectId`     | *number*              | :heavy_check_mark:    | N/A                   |
+| `gitlabRepository`    | *string*              | :heavy_check_mark:    | N/A                   |
 | `watchPaths`          | *string*[]            | :heavy_minus_sign:    | N/A                   |
-| `enableSubmodules`    | *boolean*             | :heavy_check_mark:    | N/A                   |

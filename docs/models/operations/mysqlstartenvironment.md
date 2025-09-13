@@ -6,20 +6,20 @@
 import { MysqlStartEnvironment } from "dokploy-sdk/models/operations";
 
 let value: MysqlStartEnvironment = {
+  createdAt: "1711537479211",
+  description: "whether onto form beyond by less overload loyally ouch fooey",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "psst parsnip phew huzzah",
-  createdAt: "1714654761570",
-  env: "<value>",
-  projectId: "<id>",
   project: {
-    projectId: "<id>",
-    name: "<value>",
-    description: null,
-    createdAt: "1717966087532",
-    organizationId: "<id>",
+    createdAt: "1712931505026",
+    description: "pish mouser interestingly fond",
     env: "<value>",
+    name: "<value>",
+    organizationId: "<id>",
+    projectId: "<id>",
   },
+  projectId: "<id>",
 };
 ```
 
@@ -27,10 +27,10 @@ let value: MysqlStartEnvironment = {
 
 | Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `createdAt`                                                                  | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `description`                                                                | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `env`                                                                        | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
 | `environmentId`                                                              | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
 | `name`                                                                       | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
-| `description`                                                                | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
-| `createdAt`                                                                  | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
-| `env`                                                                        | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
-| `projectId`                                                                  | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
 | `project`                                                                    | [operations.MysqlStartProject](../../models/operations/mysqlstartproject.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `projectId`                                                                  | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |

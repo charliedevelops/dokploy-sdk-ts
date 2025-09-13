@@ -20,64 +20,25 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Mysql extends ClientSDK {
+  async mysqlChangeStatus(
+    security: operations.MysqlChangeStatusSecurity,
+    request: operations.MysqlChangeStatusRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlChangeStatusResponse> {
+    return unwrapAsync(mysqlMysqlChangeStatus(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async mysqlCreate(
     security: operations.MysqlCreateSecurity,
     request: operations.MysqlCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.MysqlCreateResponse> {
     return unwrapAsync(mysqlMysqlCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlOne(
-    security: operations.MysqlOneSecurity,
-    request: operations.MysqlOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlOneResponse> {
-    return unwrapAsync(mysqlMysqlOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlStart(
-    security: operations.MysqlStartSecurity,
-    request: operations.MysqlStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlStartResponse> {
-    return unwrapAsync(mysqlMysqlStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlStop(
-    security: operations.MysqlStopSecurity,
-    request: operations.MysqlStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlStopResponse> {
-    return unwrapAsync(mysqlMysqlStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlSaveExternalPort(
-    security: operations.MysqlSaveExternalPortSecurity,
-    request: operations.MysqlSaveExternalPortRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlSaveExternalPortResponse> {
-    return unwrapAsync(mysqlMysqlSaveExternalPort(
       this,
       security,
       request,
@@ -98,12 +59,38 @@ export class Mysql extends ClientSDK {
     ));
   }
 
-  async mysqlChangeStatus(
-    security: operations.MysqlChangeStatusSecurity,
-    request: operations.MysqlChangeStatusRequest,
+  async mysqlMove(
+    security: operations.MysqlMoveSecurity,
+    request: operations.MysqlMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.MysqlChangeStatusResponse> {
-    return unwrapAsync(mysqlMysqlChangeStatus(
+  ): Promise<operations.MysqlMoveResponse> {
+    return unwrapAsync(mysqlMysqlMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mysqlOne(
+    security: operations.MysqlOneSecurity,
+    request: operations.MysqlOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlOneResponse> {
+    return unwrapAsync(mysqlMysqlOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mysqlRebuild(
+    security: operations.MysqlRebuildSecurity,
+    request: operations.MysqlRebuildRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlRebuildResponse> {
+    return unwrapAsync(mysqlMysqlRebuild(
       this,
       security,
       request,
@@ -150,38 +137,51 @@ export class Mysql extends ClientSDK {
     ));
   }
 
+  async mysqlSaveExternalPort(
+    security: operations.MysqlSaveExternalPortSecurity,
+    request: operations.MysqlSaveExternalPortRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlSaveExternalPortResponse> {
+    return unwrapAsync(mysqlMysqlSaveExternalPort(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mysqlStart(
+    security: operations.MysqlStartSecurity,
+    request: operations.MysqlStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlStartResponse> {
+    return unwrapAsync(mysqlMysqlStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mysqlStop(
+    security: operations.MysqlStopSecurity,
+    request: operations.MysqlStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MysqlStopResponse> {
+    return unwrapAsync(mysqlMysqlStop(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async mysqlUpdate(
     security: operations.MysqlUpdateSecurity,
     request: operations.MysqlUpdateRequest,
     options?: RequestOptions,
   ): Promise<operations.MysqlUpdateResponse> {
     return unwrapAsync(mysqlMysqlUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlMove(
-    security: operations.MysqlMoveSecurity,
-    request: operations.MysqlMoveRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlMoveResponse> {
-    return unwrapAsync(mysqlMysqlMove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mysqlRebuild(
-    security: operations.MysqlRebuildSecurity,
-    request: operations.MysqlRebuildRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MysqlRebuildResponse> {
-    return unwrapAsync(mysqlMysqlRebuild(
       this,
       security,
       request,

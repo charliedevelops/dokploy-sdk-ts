@@ -29,12 +29,38 @@ export class Gitea extends ClientSDK {
     ));
   }
 
-  async giteaOne(
-    security: operations.GiteaOneSecurity,
-    request: operations.GiteaOneRequest,
+  async giteaGetGiteaBranches(
+    security: operations.GiteaGetGiteaBranchesSecurity,
+    request: operations.GiteaGetGiteaBranchesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GiteaOneResponse> {
-    return unwrapAsync(giteaGiteaOne(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(giteaGiteaGetGiteaBranches(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async giteaGetGiteaRepositories(
+    security: operations.GiteaGetGiteaRepositoriesSecurity,
+    request: operations.GiteaGetGiteaRepositoriesRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(giteaGiteaGetGiteaRepositories(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async giteaGetGiteaUrl(
+    security: operations.GiteaGetGiteaUrlSecurity,
+    request: operations.GiteaGetGiteaUrlRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GiteaGetGiteaUrlResponse> {
+    return unwrapAsync(giteaGiteaGetGiteaUrl(
       this,
       security,
       request,
@@ -53,25 +79,12 @@ export class Gitea extends ClientSDK {
     ));
   }
 
-  async giteaGetGiteaRepositories(
-    security: operations.GiteaGetGiteaRepositoriesSecurity,
-    request: operations.GiteaGetGiteaRepositoriesRequest,
+  async giteaOne(
+    security: operations.GiteaOneSecurity,
+    request: operations.GiteaOneRequest,
     options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(giteaGiteaGetGiteaRepositories(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async giteaGetGiteaBranches(
-    security: operations.GiteaGetGiteaBranchesSecurity,
-    request: operations.GiteaGetGiteaBranchesRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(giteaGiteaGetGiteaBranches(
+  ): Promise<operations.GiteaOneResponse> {
+    return unwrapAsync(giteaGiteaOne(
       this,
       security,
       request,
@@ -98,19 +111,6 @@ export class Gitea extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GiteaUpdateResponse> {
     return unwrapAsync(giteaGiteaUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async giteaGetGiteaUrl(
-    security: operations.GiteaGetGiteaUrlSecurity,
-    request: operations.GiteaGetGiteaUrlRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GiteaGetGiteaUrlResponse> {
-    return unwrapAsync(giteaGiteaGetGiteaUrl(
       this,
       security,
       request,

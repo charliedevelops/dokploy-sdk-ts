@@ -18,13 +18,6 @@ export type DomainOneRequest = {
   domainId: string;
 };
 
-export const DomainOneDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
-} as const;
-export type DomainOneDomainType = ClosedEnum<typeof DomainOneDomainType>;
-
 export const DomainOneCertificateType = {
   Letsencrypt: "letsencrypt",
   None: "none",
@@ -34,26 +27,33 @@ export type DomainOneCertificateType = ClosedEnum<
   typeof DomainOneCertificateType
 >;
 
+export const DomainOneDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type DomainOneDomainType = ClosedEnum<typeof DomainOneDomainType>;
+
 /**
  * Successful response
  */
 export type DomainOneResponseBody = {
+  applicationId: string | null;
+  certificateType: DomainOneCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: DomainOneDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: DomainOneDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: DomainOneCertificateType;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 export type DomainOneResponse = DomainOneResponseBody | models.ErrorT;
@@ -175,27 +175,6 @@ export function domainOneRequestFromJSON(
 }
 
 /** @internal */
-export const DomainOneDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof DomainOneDomainType
-> = z.nativeEnum(DomainOneDomainType);
-
-/** @internal */
-export const DomainOneDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof DomainOneDomainType
-> = DomainOneDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainOneDomainType$ {
-  /** @deprecated use `DomainOneDomainType$inboundSchema` instead. */
-  export const inboundSchema = DomainOneDomainType$inboundSchema;
-  /** @deprecated use `DomainOneDomainType$outboundSchema` instead. */
-  export const outboundSchema = DomainOneDomainType$outboundSchema;
-}
-
-/** @internal */
 export const DomainOneCertificateType$inboundSchema: z.ZodNativeEnum<
   typeof DomainOneCertificateType
 > = z.nativeEnum(DomainOneCertificateType);
@@ -217,47 +196,68 @@ export namespace DomainOneCertificateType$ {
 }
 
 /** @internal */
+export const DomainOneDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof DomainOneDomainType
+> = z.nativeEnum(DomainOneDomainType);
+
+/** @internal */
+export const DomainOneDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof DomainOneDomainType
+> = DomainOneDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DomainOneDomainType$ {
+  /** @deprecated use `DomainOneDomainType$inboundSchema` instead. */
+  export const inboundSchema = DomainOneDomainType$inboundSchema;
+  /** @deprecated use `DomainOneDomainType$outboundSchema` instead. */
+  export const outboundSchema = DomainOneDomainType$outboundSchema;
+}
+
+/** @internal */
 export const DomainOneResponseBody$inboundSchema: z.ZodType<
   DomainOneResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainOneCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainOneDomainType$inboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainOneDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainOneCertificateType$inboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /** @internal */
 export type DomainOneResponseBody$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: string | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 /** @internal */
@@ -266,22 +266,22 @@ export const DomainOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DomainOneResponseBody
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainOneCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainOneDomainType$outboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainOneDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainOneCertificateType$outboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /**

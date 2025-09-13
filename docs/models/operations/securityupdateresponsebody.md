@@ -8,11 +8,11 @@ Successful response
 import { SecurityUpdateResponseBody } from "dokploy-sdk/models/operations";
 
 let value: SecurityUpdateResponseBody = {
-  securityId: "<id>",
-  username: "Lyda42",
-  password: "aE5pHu0d6gM1R_u",
-  createdAt: "1706826607450",
   applicationId: "<id>",
+  createdAt: "1724584560338",
+  password: "sTIvaE5pHu0d6gM",
+  securityId: "<id>",
+  username: "Chanelle_Okuneva",
 };
 ```
 
@@ -20,8 +20,8 @@ let value: SecurityUpdateResponseBody = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
 | `securityId`       | *string*           | :heavy_check_mark: | N/A                |
 | `username`         | *string*           | :heavy_check_mark: | N/A                |
-| `password`         | *string*           | :heavy_check_mark: | N/A                |
-| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |

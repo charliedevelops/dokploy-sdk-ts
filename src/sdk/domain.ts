@@ -17,19 +17,6 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Domain extends ClientSDK {
-  async domainCreate(
-    security: operations.DomainCreateSecurity,
-    request: operations.DomainCreateRequest,
-    options?: RequestOptions,
-  ): Promise<operations.DomainCreateResponse> {
-    return unwrapAsync(domainDomainCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async domainByApplicationId(
     security: operations.DomainByApplicationIdSecurity,
     request: operations.DomainByApplicationIdRequest,
@@ -56,19 +43,6 @@ export class Domain extends ClientSDK {
     ));
   }
 
-  async domainGenerateDomain(
-    security: operations.DomainGenerateDomainSecurity,
-    request: operations.DomainGenerateDomainRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(domainDomainGenerateDomain(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async domainCanGenerateTraefikMeDomains(
     security: operations.DomainCanGenerateTraefikMeDomainsSecurity,
     request: operations.DomainCanGenerateTraefikMeDomainsRequest,
@@ -82,12 +56,38 @@ export class Domain extends ClientSDK {
     ));
   }
 
-  async domainUpdate(
-    security: operations.DomainUpdateSecurity,
-    request: operations.DomainUpdateRequest,
+  async domainCreate(
+    security: operations.DomainCreateSecurity,
+    request: operations.DomainCreateRequest,
     options?: RequestOptions,
-  ): Promise<operations.DomainUpdateResponse> {
-    return unwrapAsync(domainDomainUpdate(
+  ): Promise<operations.DomainCreateResponse> {
+    return unwrapAsync(domainDomainCreate(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async domainDelete(
+    security: operations.DomainDeleteSecurity,
+    request: operations.DomainDeleteRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DomainDeleteResponse> {
+    return unwrapAsync(domainDomainDelete(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async domainGenerateDomain(
+    security: operations.DomainGenerateDomainSecurity,
+    request: operations.DomainGenerateDomainRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(domainDomainGenerateDomain(
       this,
       security,
       request,
@@ -108,12 +108,12 @@ export class Domain extends ClientSDK {
     ));
   }
 
-  async domainDelete(
-    security: operations.DomainDeleteSecurity,
-    request: operations.DomainDeleteRequest,
+  async domainUpdate(
+    security: operations.DomainUpdateSecurity,
+    request: operations.DomainUpdateRequest,
     options?: RequestOptions,
-  ): Promise<operations.DomainDeleteResponse> {
-    return unwrapAsync(domainDomainDelete(
+  ): Promise<operations.DomainUpdateResponse> {
+    return unwrapAsync(domainDomainUpdate(
       this,
       security,
       request,

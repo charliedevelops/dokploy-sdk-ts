@@ -15,10 +15,10 @@ let value: BitbucketCreateRequest = {
 
 | Field                    | Type                     | Required                 | Description              |
 | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `appPassword`            | *string*                 | :heavy_minus_sign:       | N/A                      |
+| `authId`                 | *string*                 | :heavy_check_mark:       | N/A                      |
 | `bitbucketId`            | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `bitbucketUsername`      | *string*                 | :heavy_minus_sign:       | N/A                      |
-| `appPassword`            | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `bitbucketWorkspaceName` | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `gitProviderId`          | *string*                 | :heavy_minus_sign:       | N/A                      |
-| `authId`                 | *string*                 | :heavy_check_mark:       | N/A                      |
 | `name`                   | *string*                 | :heavy_check_mark:       | N/A                      |

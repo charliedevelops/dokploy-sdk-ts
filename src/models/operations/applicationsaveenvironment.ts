@@ -15,8 +15,8 @@ export type ApplicationSaveEnvironmentSecurity = {
 
 export type ApplicationSaveEnvironmentRequest = {
   applicationId: string;
-  env?: string | null | undefined;
   buildArgs?: string | null | undefined;
+  env?: string | null | undefined;
 };
 
 export type ApplicationSaveEnvironmentResponse = models.ErrorT | boolean;
@@ -94,15 +94,15 @@ export const ApplicationSaveEnvironmentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  env: z.nullable(z.string()).optional(),
   buildArgs: z.nullable(z.string()).optional(),
+  env: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveEnvironmentRequest$Outbound = {
   applicationId: string;
-  env?: string | null | undefined;
   buildArgs?: string | null | undefined;
+  env?: string | null | undefined;
 };
 
 /** @internal */
@@ -112,8 +112,8 @@ export const ApplicationSaveEnvironmentRequest$outboundSchema: z.ZodType<
   ApplicationSaveEnvironmentRequest
 > = z.object({
   applicationId: z.string(),
-  env: z.nullable(z.string()).optional(),
   buildArgs: z.nullable(z.string()).optional(),
+  env: z.nullable(z.string()).optional(),
 });
 
 /**

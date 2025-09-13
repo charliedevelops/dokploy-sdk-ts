@@ -13,12 +13,12 @@ export type DestinationCreateSecurity = {
 };
 
 export type DestinationCreateRequest = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -91,24 +91,24 @@ export const DestinationCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationCreateRequest$Outbound = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -119,12 +119,12 @@ export const DestinationCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationCreateRequest
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });

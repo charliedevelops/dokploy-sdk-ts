@@ -20,77 +20,25 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Redis extends ClientSDK {
+  async redisChangeStatus(
+    security: operations.RedisChangeStatusSecurity,
+    request: operations.RedisChangeStatusRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisChangeStatusResponse> {
+    return unwrapAsync(redisRedisChangeStatus(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async redisCreate(
     security: operations.RedisCreateSecurity,
     request: operations.RedisCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.RedisCreateResponse> {
     return unwrapAsync(redisRedisCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisOne(
-    security: operations.RedisOneSecurity,
-    request: operations.RedisOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisOneResponse> {
-    return unwrapAsync(redisRedisOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisStart(
-    security: operations.RedisStartSecurity,
-    request: operations.RedisStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisStartResponse> {
-    return unwrapAsync(redisRedisStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisReload(
-    security: operations.RedisReloadSecurity,
-    request: operations.RedisReloadRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisReloadResponse> {
-    return unwrapAsync(redisRedisReload(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisStop(
-    security: operations.RedisStopSecurity,
-    request: operations.RedisStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisStopResponse> {
-    return unwrapAsync(redisRedisStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisSaveExternalPort(
-    security: operations.RedisSaveExternalPortSecurity,
-    request: operations.RedisSaveExternalPortRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisSaveExternalPortResponse> {
-    return unwrapAsync(redisRedisSaveExternalPort(
       this,
       security,
       request,
@@ -111,12 +59,51 @@ export class Redis extends ClientSDK {
     ));
   }
 
-  async redisChangeStatus(
-    security: operations.RedisChangeStatusSecurity,
-    request: operations.RedisChangeStatusRequest,
+  async redisMove(
+    security: operations.RedisMoveSecurity,
+    request: operations.RedisMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.RedisChangeStatusResponse> {
-    return unwrapAsync(redisRedisChangeStatus(
+  ): Promise<operations.RedisMoveResponse> {
+    return unwrapAsync(redisRedisMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async redisOne(
+    security: operations.RedisOneSecurity,
+    request: operations.RedisOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisOneResponse> {
+    return unwrapAsync(redisRedisOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async redisRebuild(
+    security: operations.RedisRebuildSecurity,
+    request: operations.RedisRebuildRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisRebuildResponse> {
+    return unwrapAsync(redisRedisRebuild(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async redisReload(
+    security: operations.RedisReloadSecurity,
+    request: operations.RedisReloadRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisReloadResponse> {
+    return unwrapAsync(redisRedisReload(
       this,
       security,
       request,
@@ -150,38 +137,51 @@ export class Redis extends ClientSDK {
     ));
   }
 
+  async redisSaveExternalPort(
+    security: operations.RedisSaveExternalPortSecurity,
+    request: operations.RedisSaveExternalPortRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisSaveExternalPortResponse> {
+    return unwrapAsync(redisRedisSaveExternalPort(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async redisStart(
+    security: operations.RedisStartSecurity,
+    request: operations.RedisStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisStartResponse> {
+    return unwrapAsync(redisRedisStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async redisStop(
+    security: operations.RedisStopSecurity,
+    request: operations.RedisStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RedisStopResponse> {
+    return unwrapAsync(redisRedisStop(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async redisUpdate(
     security: operations.RedisUpdateSecurity,
     request: operations.RedisUpdateRequest,
     options?: RequestOptions,
   ): Promise<operations.RedisUpdateResponse> {
     return unwrapAsync(redisRedisUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisMove(
-    security: operations.RedisMoveSecurity,
-    request: operations.RedisMoveRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisMoveResponse> {
-    return unwrapAsync(redisRedisMove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async redisRebuild(
-    security: operations.RedisRebuildSecurity,
-    request: operations.RedisRebuildRequest,
-    options?: RequestOptions,
-  ): Promise<operations.RedisRebuildResponse> {
-    return unwrapAsync(redisRedisRebuild(
       this,
       security,
       request,

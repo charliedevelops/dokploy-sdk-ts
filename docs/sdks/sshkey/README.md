@@ -5,12 +5,79 @@
 
 ### Available Operations
 
-* [sshKeyCreate](#sshkeycreate)
-* [sshKeyRemove](#sshkeyremove)
-* [sshKeyOne](#sshkeyone)
 * [sshKeyAll](#sshkeyall)
+* [sshKeyCreate](#sshkeycreate)
 * [sshKeyGenerate](#sshkeygenerate)
+* [sshKeyOne](#sshkeyone)
+* [sshKeyRemove](#sshkeyremove)
 * [sshKeyUpdate](#sshkeyupdate)
+
+## sshKeyAll
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="sshKey-all" method="get" path="/sshKey.all" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.sshKey.sshKeyAll({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { sshKeySshKeyAll } from "dokploy-sdk/funcs/sshKeySshKeyAll.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await sshKeySshKeyAll(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sshKeySshKeyAll failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `security`                                                                                                                                                                     | [operations.SshKeyAllSecurity](../../models/operations/sshkeyallsecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## sshKeyCreate
 
@@ -27,9 +94,9 @@ async function run() {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     name: "<value>",
+    organizationId: "<id>",
     privateKey: "<value>",
     publicKey: "<value>",
-    organizationId: "<id>",
   });
 
   console.log(result);
@@ -55,9 +122,9 @@ async function run() {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     name: "<value>",
+    organizationId: "<id>",
     privateKey: "<value>",
     publicKey: "<value>",
-    organizationId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -90,22 +157,20 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## sshKeyRemove
+## sshKeyGenerate
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="sshKey-remove" method="post" path="/sshKey.remove" -->
+<!-- UsageSnippet language="typescript" operationID="sshKey-generate" method="post" path="/sshKey.generate" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.sshKey.sshKeyRemove({
+  const result = await dokploy.sshKey.sshKeyGenerate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    sshKeyId: "<id>",
-  });
+  }, {});
 
   console.log(result);
 }
@@ -119,23 +184,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { sshKeySshKeyRemove } from "dokploy-sdk/funcs/sshKeySshKeyRemove.js";
+import { sshKeySshKeyGenerate } from "dokploy-sdk/funcs/sshKeySshKeyGenerate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await sshKeySshKeyRemove(dokploy, {
+  const res = await sshKeySshKeyGenerate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    sshKeyId: "<id>",
-  });
+  }, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sshKeySshKeyRemove failed:", res.error);
+    console.log("sshKeySshKeyGenerate failed:", res.error);
   }
 }
 
@@ -146,8 +209,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.SshKeyRemoveRequest](../../models/operations/sshkeyremoverequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.SshKeyRemoveSecurity](../../models/operations/sshkeyremovesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.SshKeyGenerateRequest](../../models/operations/sshkeygeneraterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.SshKeyGenerateSecurity](../../models/operations/sshkeygeneratesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -234,19 +297,21 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## sshKeyAll
+## sshKeyRemove
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="sshKey-all" method="get" path="/sshKey.all" -->
+<!-- UsageSnippet language="typescript" operationID="sshKey-remove" method="post" path="/sshKey.remove" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.sshKey.sshKeyAll({
+  const result = await dokploy.sshKey.sshKeyRemove({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    sshKeyId: "<id>",
   });
 
   console.log(result);
@@ -261,21 +326,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { sshKeySshKeyAll } from "dokploy-sdk/funcs/sshKeySshKeyAll.js";
+import { sshKeySshKeyRemove } from "dokploy-sdk/funcs/sshKeySshKeyRemove.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await sshKeySshKeyAll(dokploy, {
+  const res = await sshKeySshKeyRemove(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    sshKeyId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sshKeySshKeyAll failed:", res.error);
+    console.log("sshKeySshKeyRemove failed:", res.error);
   }
 }
 
@@ -286,75 +353,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.SshKeyAllSecurity](../../models/operations/sshkeyallsecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## sshKeyGenerate
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="sshKey-generate" method="post" path="/sshKey.generate" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.sshKey.sshKeyGenerate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {});
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { sshKeySshKeyGenerate } from "dokploy-sdk/funcs/sshKeySshKeyGenerate.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await sshKeySshKeyGenerate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {});
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("sshKeySshKeyGenerate failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.SshKeyGenerateRequest](../../models/operations/sshkeygeneraterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.SshKeyGenerateSecurity](../../models/operations/sshkeygeneratesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.SshKeyRemoveRequest](../../models/operations/sshkeyremoverequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.SshKeyRemoveSecurity](../../models/operations/sshkeyremovesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

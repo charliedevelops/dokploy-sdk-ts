@@ -8,11 +8,11 @@ import { BitbucketBitbucketProvidersResponseBody } from "dokploy-sdk/models/oper
 let value: BitbucketBitbucketProvidersResponseBody = {
   bitbucketId: "<id>",
   gitProvider: {
+    createdAt: "1734665593804",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "gitea",
-    createdAt: "1719022349061",
     organizationId: "<id>",
+    providerType: "gitlab",
     userId: "<id>",
   },
 };
