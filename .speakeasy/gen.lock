@@ -5,10 +5,11 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.615.2
   generationVersion: 2.698.4
-  releaseVersion: 0.0.2
-  configChecksum: 0476083f8fdb7a8da917817a84979ff4
+  releaseVersion: 0.0.5
+  configChecksum: 914d6ee72801180588c07e847bf137ef
   repoURL: https://github.com/charliedevelops/dokploy-sdk-ts.git
   installationURL: https://github.com/charliedevelops/dokploy-sdk-ts
+  published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
