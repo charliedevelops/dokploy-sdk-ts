@@ -9,8 +9,8 @@ sources:
             location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api
 targets:
     dokploy:
-        target: ""
-        source: ""
+        target: typescript
+        source: Dokploy API
     typescript:
         target: typescript
         source: Dokploy API
