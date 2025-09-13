@@ -1,0 +1,40 @@
+speakeasyVersion: 1.615.2
+sources:
+    Dokploy API:
+        sourceNamespace: dokploy-api
+        sourceRevisionDigest: sha256:3d4517a3dfb81e139fc097c6131f8270036e2396ea168aa0c8e14d964269dbe0
+        sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    typescript:
+        source: Dokploy API
+        sourceNamespace: dokploy-api
+        sourceRevisionDigest: sha256:3d4517a3dfb81e139fc097c6131f8270036e2396ea168aa0c8e14d964269dbe0
+        sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
+        codeSamplesNamespace: dokploy-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:39de5e6afe48f5f991dd914e42471772bcdc24e7500c1b6293873f3b1aa09980
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Dokploy API:
+            inputs:
+                - location: https://raw.githubusercontent.com/charliedevelops/dokploy-api/refs/heads/main/API.json
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api
+    targets:
+        dokploy:
+            target: ""
+            source: ""
+        typescript:
+            target: typescript
+            source: Dokploy API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false

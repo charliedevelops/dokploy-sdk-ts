@@ -1,0 +1,22 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Dokploy API:
+        inputs:
+            - location: https://raw.githubusercontent.com/charliedevelops/dokploy-api/refs/heads/main/API.json
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api
+targets:
+    dokploy:
+        target: ""
+        source: ""
+    typescript:
+        target: typescript
+        source: Dokploy API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false

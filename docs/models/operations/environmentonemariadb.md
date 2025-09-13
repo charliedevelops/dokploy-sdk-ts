@@ -1,0 +1,81 @@
+# EnvironmentOneMariadb
+
+## Example Usage
+
+```typescript
+import { EnvironmentOneMariadb } from "dokploy-sdk/models/operations";
+
+let value: EnvironmentOneMariadb = {
+  mariadbId: "<id>",
+  name: "<value>",
+  appName: "<value>",
+  description: null,
+  databaseName: "<value>",
+  databaseUser: "<value>",
+  databasePassword: "<value>",
+  databaseRootPassword: "<value>",
+  dockerImage: "<value>",
+  command: "<value>",
+  env: "<value>",
+  memoryReservation: "<value>",
+  memoryLimit: "<value>",
+  cpuReservation: "<value>",
+  cpuLimit: null,
+  externalPort: null,
+  applicationStatus: "error",
+  healthCheckSwarm: 175.38,
+  restartPolicySwarm: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  placementSwarm: "<value>",
+  updateConfigSwarm: 7770.11,
+  rollbackConfigSwarm: {
+    "key": "<value>",
+  },
+  modeSwarm: "<value>",
+  labelsSwarm: [
+    "<value 1>",
+  ],
+  networkSwarm: null,
+  replicas: 1195.25,
+  createdAt: "1719286800848",
+  environmentId: "<id>",
+  serverId: "<id>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `mariadbId`                                                                                                            | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `name`                                                                                                                 | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `appName`                                                                                                              | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `description`                                                                                                          | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `databaseName`                                                                                                         | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `databaseUser`                                                                                                         | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `databasePassword`                                                                                                     | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `databaseRootPassword`                                                                                                 | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `dockerImage`                                                                                                          | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `command`                                                                                                              | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `env`                                                                                                                  | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `memoryReservation`                                                                                                    | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `memoryLimit`                                                                                                          | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `cpuReservation`                                                                                                       | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `cpuLimit`                                                                                                             | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `externalPort`                                                                                                         | *number*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `applicationStatus`                                                                                                    | [operations.EnvironmentOneMariadbApplicationStatus](../../models/operations/environmentonemariadbapplicationstatus.md) | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `healthCheckSwarm`                                                                                                     | *operations.EnvironmentOneMariadbHealthCheckSwarmUnion*                                                                | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `restartPolicySwarm`                                                                                                   | *operations.EnvironmentOneMariadbRestartPolicySwarmUnion*                                                              | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `placementSwarm`                                                                                                       | *operations.EnvironmentOneMariadbPlacementSwarmUnion*                                                                  | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `updateConfigSwarm`                                                                                                    | *operations.EnvironmentOneMariadbUpdateConfigSwarmUnion*                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `rollbackConfigSwarm`                                                                                                  | *operations.EnvironmentOneMariadbRollbackConfigSwarmUnion*                                                             | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `modeSwarm`                                                                                                            | *operations.EnvironmentOneMariadbModeSwarmUnion*                                                                       | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `labelsSwarm`                                                                                                          | *operations.EnvironmentOneMariadbLabelsSwarmUnion*                                                                     | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `networkSwarm`                                                                                                         | *operations.EnvironmentOneMariadbNetworkSwarmUnion*                                                                    | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `replicas`                                                                                                             | *number*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `createdAt`                                                                                                            | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `environmentId`                                                                                                        | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `serverId`                                                                                                             | *string*                                                                                                               | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |

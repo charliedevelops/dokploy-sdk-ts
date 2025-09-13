@@ -1,0 +1,15 @@
+# SettingsCleanUnusedVolumesRequest
+
+## Example Usage
+
+```typescript
+import { SettingsCleanUnusedVolumesRequest } from "dokploy-sdk/models/operations";
+
+let value: SettingsCleanUnusedVolumesRequest = {};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `serverId`         | *string*           | :heavy_minus_sign: | N/A                |

@@ -1,0 +1,34 @@
+# ScheduleUpdateRequest
+
+## Example Usage
+
+```typescript
+import { ScheduleUpdateRequest } from "dokploy-sdk/models/operations";
+
+let value: ScheduleUpdateRequest = {
+  scheduleId: "<id>",
+  name: "<value>",
+  cronExpression: "<value>",
+  command: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `scheduleId`                                                                                   | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `name`                                                                                         | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `cronExpression`                                                                               | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `appName`                                                                                      | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `serviceName`                                                                                  | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `shellType`                                                                                    | [operations.ScheduleUpdateShellType](../../models/operations/scheduleupdateshelltype.md)       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `scheduleType`                                                                                 | [operations.ScheduleUpdateScheduleType](../../models/operations/scheduleupdatescheduletype.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `command`                                                                                      | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `script`                                                                                       | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `applicationId`                                                                                | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `composeId`                                                                                    | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `serverId`                                                                                     | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `userId`                                                                                       | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `enabled`                                                                                      | *boolean*                                                                                      | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `createdAt`                                                                                    | *string*                                                                                       | :heavy_minus_sign:                                                                             | N/A                                                                                            |

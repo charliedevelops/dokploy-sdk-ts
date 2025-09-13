@@ -1,0 +1,17 @@
+# PostgresChangeStatusNetworkSwarm
+
+## Example Usage
+
+```typescript
+import { PostgresChangeStatusNetworkSwarm } from "dokploy-sdk/models/operations";
+
+let value: PostgresChangeStatusNetworkSwarm = {};
+```
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `target`                                                                                               | *string*                                                                                               | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `aliases`                                                                                              | *string*[]                                                                                             | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `driverOpts`                                                                                           | [operations.PostgresChangeStatusDriverOpts](../../models/operations/postgreschangestatusdriveropts.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |

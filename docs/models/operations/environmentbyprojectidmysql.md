@@ -1,0 +1,89 @@
+# EnvironmentByProjectIdMysql
+
+## Example Usage
+
+```typescript
+import { EnvironmentByProjectIdMysql } from "dokploy-sdk/models/operations";
+
+let value: EnvironmentByProjectIdMysql = {
+  mysqlId: "<id>",
+  name: "<value>",
+  appName: "<value>",
+  description:
+    "fortunately terribly where internalise er once clonk modulo aha wilderness",
+  databaseName: "<value>",
+  databaseUser: "<value>",
+  databasePassword: "<value>",
+  databaseRootPassword: "<value>",
+  dockerImage: "<value>",
+  command: "<value>",
+  env: "<value>",
+  memoryReservation: "<value>",
+  memoryLimit: "<value>",
+  cpuReservation: null,
+  cpuLimit: "<value>",
+  externalPort: 3966.75,
+  applicationStatus: "done",
+  healthCheckSwarm: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  restartPolicySwarm: [],
+  placementSwarm: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  updateConfigSwarm: "<value>",
+  rollbackConfigSwarm: null,
+  modeSwarm: {
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
+  },
+  labelsSwarm: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  networkSwarm: null,
+  replicas: 9736.24,
+  createdAt: "1704692574183",
+  environmentId: "<id>",
+  serverId: "<id>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `mysqlId`                                                                                                                          | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `name`                                                                                                                             | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `appName`                                                                                                                          | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `description`                                                                                                                      | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `databaseName`                                                                                                                     | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `databaseUser`                                                                                                                     | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `databasePassword`                                                                                                                 | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `databaseRootPassword`                                                                                                             | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `dockerImage`                                                                                                                      | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `command`                                                                                                                          | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `env`                                                                                                                              | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `memoryReservation`                                                                                                                | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `memoryLimit`                                                                                                                      | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `cpuReservation`                                                                                                                   | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `cpuLimit`                                                                                                                         | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `externalPort`                                                                                                                     | *number*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `applicationStatus`                                                                                                                | [operations.EnvironmentByProjectIdMysqlApplicationStatus](../../models/operations/environmentbyprojectidmysqlapplicationstatus.md) | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `healthCheckSwarm`                                                                                                                 | *operations.EnvironmentByProjectIdMysqlHealthCheckSwarmUnion*                                                                      | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `restartPolicySwarm`                                                                                                               | *operations.EnvironmentByProjectIdMysqlRestartPolicySwarmUnion*                                                                    | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `placementSwarm`                                                                                                                   | *operations.EnvironmentByProjectIdMysqlPlacementSwarmUnion*                                                                        | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `updateConfigSwarm`                                                                                                                | *operations.EnvironmentByProjectIdMysqlUpdateConfigSwarmUnion*                                                                     | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `rollbackConfigSwarm`                                                                                                              | *operations.EnvironmentByProjectIdMysqlRollbackConfigSwarmUnion*                                                                   | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `modeSwarm`                                                                                                                        | *operations.EnvironmentByProjectIdMysqlModeSwarmUnion*                                                                             | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `labelsSwarm`                                                                                                                      | *operations.EnvironmentByProjectIdMysqlLabelsSwarmUnion*                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `networkSwarm`                                                                                                                     | *operations.EnvironmentByProjectIdMysqlNetworkSwarmUnion*                                                                          | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `replicas`                                                                                                                         | *number*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `createdAt`                                                                                                                        | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `environmentId`                                                                                                                    | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `serverId`                                                                                                                         | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |

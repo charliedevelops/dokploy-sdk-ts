@@ -1,0 +1,19 @@
+# MongoRemoveMariadb
+
+## Example Usage
+
+```typescript
+import { MongoRemoveMariadb } from "dokploy-sdk/models/operations";
+
+let value: MongoRemoveMariadb = {
+  databaseUser: "<value>",
+  databasePassword: "<value>",
+};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `databaseUser`     | *string*           | :heavy_check_mark: | N/A                |
+| `databasePassword` | *string*           | :heavy_check_mark: | N/A                |
