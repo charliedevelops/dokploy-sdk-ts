@@ -11,6 +11,12 @@ targets:
     dokploy:
         target: typescript
         source: Dokploy API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false
     typescript:
         target: typescript
         source: Dokploy API
