@@ -1,6 +1,6 @@
 {
   "name": "dokploy-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
@@ -19,6 +19,10 @@
     }
   },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charliedevelops/dokploy-sdk-ts.git"
+  },
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
     "build": "tshy",
