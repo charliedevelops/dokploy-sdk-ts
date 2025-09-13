@@ -6,9 +6,16 @@ sources:
         sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
         tags:
             - latest
-            - speakeasy-sdk-regen-1757762271
+            - speakeasy-sdk-regen-1757762943
             - 1.0.0
 targets:
+    dokploy:
+        source: Dokploy API
+        sourceNamespace: dokploy-api
+        sourceRevisionDigest: sha256:3d4517a3dfb81e139fc097c6131f8270036e2396ea168aa0c8e14d964269dbe0
+        sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
+        codeSamplesNamespace: dokploy-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:9298360e11b131df23f777afd2a2cdcb79630dbf21ff097cbd63d41d1b51f373
     typescript:
         source: Dokploy API
         sourceNamespace: dokploy-api
