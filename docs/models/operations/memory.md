@@ -6,11 +6,11 @@
 import { Memory } from "dokploy-sdk/models/operations";
 
 let value: Memory = {
-  value: {
-    used: "<value>",
-    total: "<value>",
-  },
   time: "<value>",
+  value: {
+    total: "<value>",
+    used: "<value>",
+  },
 };
 ```
 
@@ -18,5 +18,5 @@ let value: Memory = {
 
 | Field                                                            | Type                                                             | Required                                                         | Description                                                      |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `value`                                                          | [operations.MemoryValue](../../models/operations/memoryvalue.md) | :heavy_check_mark:                                               | N/A                                                              |
 | `time`                                                           | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              |
+| `value`                                                          | [operations.MemoryValue](../../models/operations/memoryvalue.md) | :heavy_check_mark:                                               | N/A                                                              |

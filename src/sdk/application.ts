@@ -34,38 +34,38 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Application extends ClientSDK {
+  async applicationCancelDeployment(
+    security: operations.ApplicationCancelDeploymentSecurity,
+    request: operations.ApplicationCancelDeploymentRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(applicationApplicationCancelDeployment(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationCleanQueues(
+    security: operations.ApplicationCleanQueuesSecurity,
+    request: operations.ApplicationCleanQueuesRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(applicationApplicationCleanQueues(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async applicationCreate(
     security: operations.ApplicationCreateSecurity,
     request: operations.ApplicationCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.ApplicationCreateResponse> {
     return unwrapAsync(applicationApplicationCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationOne(
-    security: operations.ApplicationOneSecurity,
-    request: operations.ApplicationOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationOneResponse> {
-    return unwrapAsync(applicationApplicationOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationReload(
-    security: operations.ApplicationReloadSecurity,
-    request: operations.ApplicationReloadRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationReloadResponse> {
-    return unwrapAsync(applicationApplicationReload(
       this,
       security,
       request,
@@ -86,142 +86,12 @@ export class Application extends ClientSDK {
     ));
   }
 
-  async applicationStop(
-    security: operations.ApplicationStopSecurity,
-    request: operations.ApplicationStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationStopResponse> {
-    return unwrapAsync(applicationApplicationStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationStart(
-    security: operations.ApplicationStartSecurity,
-    request: operations.ApplicationStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationStartResponse> {
-    return unwrapAsync(applicationApplicationStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationRedeploy(
-    security: operations.ApplicationRedeploySecurity,
-    request: operations.ApplicationRedeployRequest,
+  async applicationDeploy(
+    security: operations.ApplicationDeploySecurity,
+    request: operations.ApplicationDeployRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationRedeploy(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveEnvironment(
-    security: operations.ApplicationSaveEnvironmentSecurity,
-    request: operations.ApplicationSaveEnvironmentRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveEnvironmentResponse> {
-    return unwrapAsync(applicationApplicationSaveEnvironment(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveBuildType(
-    security: operations.ApplicationSaveBuildTypeSecurity,
-    request: operations.ApplicationSaveBuildTypeRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveBuildTypeResponse> {
-    return unwrapAsync(applicationApplicationSaveBuildType(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveGithubProvider(
-    security: operations.ApplicationSaveGithubProviderSecurity,
-    request: operations.ApplicationSaveGithubProviderRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveGithubProviderResponse> {
-    return unwrapAsync(applicationApplicationSaveGithubProvider(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveGitlabProvider(
-    security: operations.ApplicationSaveGitlabProviderSecurity,
-    request: operations.ApplicationSaveGitlabProviderRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveGitlabProviderResponse> {
-    return unwrapAsync(applicationApplicationSaveGitlabProvider(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveBitbucketProvider(
-    security: operations.ApplicationSaveBitbucketProviderSecurity,
-    request: operations.ApplicationSaveBitbucketProviderRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveBitbucketProviderResponse> {
-    return unwrapAsync(applicationApplicationSaveBitbucketProvider(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveGiteaProvider(
-    security: operations.ApplicationSaveGiteaProviderSecurity,
-    request: operations.ApplicationSaveGiteaProviderRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveGiteaProviderResponse> {
-    return unwrapAsync(applicationApplicationSaveGiteaProvider(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveDockerProvider(
-    security: operations.ApplicationSaveDockerProviderSecurity,
-    request: operations.ApplicationSaveDockerProviderRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveDockerProviderResponse> {
-    return unwrapAsync(applicationApplicationSaveDockerProvider(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationSaveGitProdiver(
-    security: operations.ApplicationSaveGitProdiverSecurity,
-    request: operations.ApplicationSaveGitProdiverRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ApplicationSaveGitProdiverResponse> {
-    return unwrapAsync(applicationApplicationSaveGitProdiver(
+    return unwrapAsync(applicationApplicationDeploy(
       this,
       security,
       request,
@@ -255,12 +125,12 @@ export class Application extends ClientSDK {
     ));
   }
 
-  async applicationUpdate(
-    security: operations.ApplicationUpdateSecurity,
-    request: operations.ApplicationUpdateRequest,
+  async applicationMove(
+    security: operations.ApplicationMoveSecurity,
+    request: operations.ApplicationMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.ApplicationUpdateResponse> {
-    return unwrapAsync(applicationApplicationUpdate(
+  ): Promise<operations.ApplicationMoveResponse> {
+    return unwrapAsync(applicationApplicationMove(
       this,
       security,
       request,
@@ -268,64 +138,12 @@ export class Application extends ClientSDK {
     ));
   }
 
-  async applicationRefreshToken(
-    security: operations.ApplicationRefreshTokenSecurity,
-    request: operations.ApplicationRefreshTokenRequest,
+  async applicationOne(
+    security: operations.ApplicationOneSecurity,
+    request: operations.ApplicationOneRequest,
     options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationRefreshToken(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationDeploy(
-    security: operations.ApplicationDeploySecurity,
-    request: operations.ApplicationDeployRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationDeploy(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationCleanQueues(
-    security: operations.ApplicationCleanQueuesSecurity,
-    request: operations.ApplicationCleanQueuesRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationCleanQueues(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationReadTraefikConfig(
-    security: operations.ApplicationReadTraefikConfigSecurity,
-    request: operations.ApplicationReadTraefikConfigRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationReadTraefikConfig(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async applicationUpdateTraefikConfig(
-    security: operations.ApplicationUpdateTraefikConfigSecurity,
-    request: operations.ApplicationUpdateTraefikConfigRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationUpdateTraefikConfig(
+  ): Promise<operations.ApplicationOneResponse> {
+    return unwrapAsync(applicationApplicationOne(
       this,
       security,
       request,
@@ -346,12 +164,12 @@ export class Application extends ClientSDK {
     ));
   }
 
-  async applicationMove(
-    security: operations.ApplicationMoveSecurity,
-    request: operations.ApplicationMoveRequest,
+  async applicationReadTraefikConfig(
+    security: operations.ApplicationReadTraefikConfigSecurity,
+    request: operations.ApplicationReadTraefikConfigRequest,
     options?: RequestOptions,
-  ): Promise<operations.ApplicationMoveResponse> {
-    return unwrapAsync(applicationApplicationMove(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(applicationApplicationReadTraefikConfig(
       this,
       security,
       request,
@@ -359,12 +177,194 @@ export class Application extends ClientSDK {
     ));
   }
 
-  async applicationCancelDeployment(
-    security: operations.ApplicationCancelDeploymentSecurity,
-    request: operations.ApplicationCancelDeploymentRequest,
+  async applicationRedeploy(
+    security: operations.ApplicationRedeploySecurity,
+    request: operations.ApplicationRedeployRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(applicationApplicationCancelDeployment(
+    return unwrapAsync(applicationApplicationRedeploy(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationRefreshToken(
+    security: operations.ApplicationRefreshTokenSecurity,
+    request: operations.ApplicationRefreshTokenRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(applicationApplicationRefreshToken(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationReload(
+    security: operations.ApplicationReloadSecurity,
+    request: operations.ApplicationReloadRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationReloadResponse> {
+    return unwrapAsync(applicationApplicationReload(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveBitbucketProvider(
+    security: operations.ApplicationSaveBitbucketProviderSecurity,
+    request: operations.ApplicationSaveBitbucketProviderRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveBitbucketProviderResponse> {
+    return unwrapAsync(applicationApplicationSaveBitbucketProvider(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveBuildType(
+    security: operations.ApplicationSaveBuildTypeSecurity,
+    request: operations.ApplicationSaveBuildTypeRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveBuildTypeResponse> {
+    return unwrapAsync(applicationApplicationSaveBuildType(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveDockerProvider(
+    security: operations.ApplicationSaveDockerProviderSecurity,
+    request: operations.ApplicationSaveDockerProviderRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveDockerProviderResponse> {
+    return unwrapAsync(applicationApplicationSaveDockerProvider(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveEnvironment(
+    security: operations.ApplicationSaveEnvironmentSecurity,
+    request: operations.ApplicationSaveEnvironmentRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveEnvironmentResponse> {
+    return unwrapAsync(applicationApplicationSaveEnvironment(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveGitProdiver(
+    security: operations.ApplicationSaveGitProdiverSecurity,
+    request: operations.ApplicationSaveGitProdiverRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveGitProdiverResponse> {
+    return unwrapAsync(applicationApplicationSaveGitProdiver(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveGiteaProvider(
+    security: operations.ApplicationSaveGiteaProviderSecurity,
+    request: operations.ApplicationSaveGiteaProviderRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveGiteaProviderResponse> {
+    return unwrapAsync(applicationApplicationSaveGiteaProvider(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveGithubProvider(
+    security: operations.ApplicationSaveGithubProviderSecurity,
+    request: operations.ApplicationSaveGithubProviderRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveGithubProviderResponse> {
+    return unwrapAsync(applicationApplicationSaveGithubProvider(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationSaveGitlabProvider(
+    security: operations.ApplicationSaveGitlabProviderSecurity,
+    request: operations.ApplicationSaveGitlabProviderRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationSaveGitlabProviderResponse> {
+    return unwrapAsync(applicationApplicationSaveGitlabProvider(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationStart(
+    security: operations.ApplicationStartSecurity,
+    request: operations.ApplicationStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationStartResponse> {
+    return unwrapAsync(applicationApplicationStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationStop(
+    security: operations.ApplicationStopSecurity,
+    request: operations.ApplicationStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationStopResponse> {
+    return unwrapAsync(applicationApplicationStop(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationUpdate(
+    security: operations.ApplicationUpdateSecurity,
+    request: operations.ApplicationUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ApplicationUpdateResponse> {
+    return unwrapAsync(applicationApplicationUpdate(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async applicationUpdateTraefikConfig(
+    security: operations.ApplicationUpdateTraefikConfigSecurity,
+    request: operations.ApplicationUpdateTraefikConfigRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(applicationApplicationUpdateTraefikConfig(
       this,
       security,
       request,

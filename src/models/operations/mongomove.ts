@@ -30,18 +30,44 @@ export type MongoMoveApplicationStatus = ClosedEnum<
 >;
 
 export type MongoMoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MongoMoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type MongoMoveGlobal = {};
+
+export type MongoMoveGlobalJob = {};
+
+export type MongoMoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoMoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoMoveModeSwarm = {
+  global?: MongoMoveGlobal | undefined;
+  globalJob?: MongoMoveGlobalJob | undefined;
+  replicated?: MongoMoveReplicated | undefined;
+  replicatedJob?: MongoMoveReplicatedJob | undefined;
+};
+
+export type MongoMoveDriverOpts = {};
+
+export type MongoMoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoMoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoMovePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type MongoMoveSpread = {
@@ -52,96 +78,70 @@ export type MongoMovePreference = {
   spread: MongoMoveSpread;
 };
 
-export type MongoMovePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type MongoMovePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<MongoMovePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<MongoMovePlatform> | undefined;
+  preferences?: Array<MongoMovePreference> | undefined;
 };
 
-export type MongoMoveUpdateConfigSwarm = {
-  parallelism: number;
+export type MongoMoveRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type MongoMoveRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type MongoMoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoMoveGlobal = {};
-
-export type MongoMoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoMoveGlobalJob = {};
-
-export type MongoMoveModeSwarm = {
-  replicated?: MongoMoveReplicated | undefined;
-  global?: MongoMoveGlobal | undefined;
-  replicatedJob?: MongoMoveReplicatedJob | undefined;
-  globalJob?: MongoMoveGlobalJob | undefined;
-};
-
-export type MongoMoveDriverOpts = {};
-
-export type MongoMoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoMoveDriverOpts | undefined;
+export type MongoMoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoMoveResponseBody = {
+  appName: string;
+  applicationStatus: MongoMoveApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoMoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoMoveModeSwarm | null;
   mongoId: string;
   name: string;
-  appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MongoMoveApplicationStatus;
-  healthCheckSwarm: MongoMoveHealthCheckSwarm | null;
-  restartPolicySwarm: MongoMoveRestartPolicySwarm | null;
-  placementSwarm: MongoMovePlacementSwarm | null;
-  updateConfigSwarm: MongoMoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoMoveRollbackConfigSwarm | null;
-  modeSwarm: MongoMoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
   networkSwarm: Array<MongoMoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
+  placementSwarm: MongoMovePlacementSwarm | null;
   replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoMoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoMoveRollbackConfigSwarm | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoMoveUpdateConfigSwarm | null;
 };
 
 export type MongoMoveResponse = MongoMoveResponseBody | models.ErrorT;
@@ -292,28 +292,28 @@ export const MongoMoveHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoMoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -322,18 +322,18 @@ export const MongoMoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoMoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -369,48 +369,127 @@ export function mongoMoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoMoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoMoveRestartPolicySwarm,
+export const MongoMoveGlobal$inboundSchema: z.ZodType<
+  MongoMoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoMoveGlobal$Outbound = {};
+
+/** @internal */
+export const MongoMoveGlobal$outboundSchema: z.ZodType<
+  MongoMoveGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoMoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveGlobal$ {
+  /** @deprecated use `MongoMoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveGlobal$inboundSchema;
+  /** @deprecated use `MongoMoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveGlobal$outboundSchema;
+  /** @deprecated use `MongoMoveGlobal$Outbound` instead. */
+  export type Outbound = MongoMoveGlobal$Outbound;
+}
+
+export function mongoMoveGlobalToJSON(
+  mongoMoveGlobal: MongoMoveGlobal,
+): string {
+  return JSON.stringify(MongoMoveGlobal$outboundSchema.parse(mongoMoveGlobal));
+}
+
+export function mongoMoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveGlobalJob$inboundSchema: z.ZodType<
+  MongoMoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoMoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoMoveGlobalJob$outboundSchema: z.ZodType<
+  MongoMoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoMoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveGlobalJob$ {
+  /** @deprecated use `MongoMoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveGlobalJob$inboundSchema;
+  /** @deprecated use `MongoMoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveGlobalJob$outboundSchema;
+  /** @deprecated use `MongoMoveGlobalJob$Outbound` instead. */
+  export type Outbound = MongoMoveGlobalJob$Outbound;
+}
+
+export function mongoMoveGlobalJobToJSON(
+  mongoMoveGlobalJob: MongoMoveGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoMoveGlobalJob$outboundSchema.parse(mongoMoveGlobalJob),
+  );
+}
+
+export function mongoMoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveReplicated$inboundSchema: z.ZodType<
+  MongoMoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoMoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoMoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoMoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoMoveRestartPolicySwarm$Outbound,
+export const MongoMoveReplicated$outboundSchema: z.ZodType<
+  MongoMoveReplicated$Outbound,
   z.ZodTypeDef,
-  MongoMoveRestartPolicySwarm
+  MongoMoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -418,32 +497,361 @@ export const MongoMoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoMoveRestartPolicySwarm$ {
-  /** @deprecated use `MongoMoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoMoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoMoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoMoveRestartPolicySwarm$Outbound;
+export namespace MongoMoveReplicated$ {
+  /** @deprecated use `MongoMoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveReplicated$inboundSchema;
+  /** @deprecated use `MongoMoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveReplicated$outboundSchema;
+  /** @deprecated use `MongoMoveReplicated$Outbound` instead. */
+  export type Outbound = MongoMoveReplicated$Outbound;
 }
 
-export function mongoMoveRestartPolicySwarmToJSON(
-  mongoMoveRestartPolicySwarm: MongoMoveRestartPolicySwarm,
+export function mongoMoveReplicatedToJSON(
+  mongoMoveReplicated: MongoMoveReplicated,
 ): string {
   return JSON.stringify(
-    MongoMoveRestartPolicySwarm$outboundSchema.parse(
-      mongoMoveRestartPolicySwarm,
-    ),
+    MongoMoveReplicated$outboundSchema.parse(mongoMoveReplicated),
   );
 }
 
-export function mongoMoveRestartPolicySwarmFromJSON(
+export function mongoMoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoMoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoMoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveRestartPolicySwarm' from JSON`,
+    (x) => MongoMoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveReplicatedJob$inboundSchema: z.ZodType<
+  MongoMoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoMoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoMoveReplicatedJob$outboundSchema: z.ZodType<
+  MongoMoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoMoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveReplicatedJob$ {
+  /** @deprecated use `MongoMoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoMoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoMoveReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoMoveReplicatedJob$Outbound;
+}
+
+export function mongoMoveReplicatedJobToJSON(
+  mongoMoveReplicatedJob: MongoMoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoMoveReplicatedJob$outboundSchema.parse(mongoMoveReplicatedJob),
+  );
+}
+
+export function mongoMoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveModeSwarm$inboundSchema: z.ZodType<
+  MongoMoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoMoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoMoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoMoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoMoveReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoMoveModeSwarm$Outbound = {
+  Global?: MongoMoveGlobal$Outbound | undefined;
+  GlobalJob?: MongoMoveGlobalJob$Outbound | undefined;
+  Replicated?: MongoMoveReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoMoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoMoveModeSwarm$outboundSchema: z.ZodType<
+  MongoMoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoMoveModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoMoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoMoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoMoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoMoveReplicatedJob$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveModeSwarm$ {
+  /** @deprecated use `MongoMoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveModeSwarm$inboundSchema;
+  /** @deprecated use `MongoMoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveModeSwarm$outboundSchema;
+  /** @deprecated use `MongoMoveModeSwarm$Outbound` instead. */
+  export type Outbound = MongoMoveModeSwarm$Outbound;
+}
+
+export function mongoMoveModeSwarmToJSON(
+  mongoMoveModeSwarm: MongoMoveModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoMoveModeSwarm$outboundSchema.parse(mongoMoveModeSwarm),
+  );
+}
+
+export function mongoMoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveDriverOpts$inboundSchema: z.ZodType<
+  MongoMoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoMoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoMoveDriverOpts$outboundSchema: z.ZodType<
+  MongoMoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoMoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveDriverOpts$ {
+  /** @deprecated use `MongoMoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveDriverOpts$inboundSchema;
+  /** @deprecated use `MongoMoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveDriverOpts$outboundSchema;
+  /** @deprecated use `MongoMoveDriverOpts$Outbound` instead. */
+  export type Outbound = MongoMoveDriverOpts$Outbound;
+}
+
+export function mongoMoveDriverOptsToJSON(
+  mongoMoveDriverOpts: MongoMoveDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoMoveDriverOpts$outboundSchema.parse(mongoMoveDriverOpts),
+  );
+}
+
+export function mongoMoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMoveNetworkSwarm$inboundSchema: z.ZodType<
+  MongoMoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoMoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoMoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoMoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoMoveNetworkSwarm$outboundSchema: z.ZodType<
+  MongoMoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoMoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoMoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMoveNetworkSwarm$ {
+  /** @deprecated use `MongoMoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoMoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoMoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoMoveNetworkSwarm$Outbound;
+}
+
+export function mongoMoveNetworkSwarmToJSON(
+  mongoMoveNetworkSwarm: MongoMoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoMoveNetworkSwarm$outboundSchema.parse(mongoMoveNetworkSwarm),
+  );
+}
+
+export function mongoMoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoMovePlatform$inboundSchema: z.ZodType<
+  MongoMovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoMovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoMovePlatform$outboundSchema: z.ZodType<
+  MongoMovePlatform$Outbound,
+  z.ZodTypeDef,
+  MongoMovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoMovePlatform$ {
+  /** @deprecated use `MongoMovePlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoMovePlatform$inboundSchema;
+  /** @deprecated use `MongoMovePlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoMovePlatform$outboundSchema;
+  /** @deprecated use `MongoMovePlatform$Outbound` instead. */
+  export type Outbound = MongoMovePlatform$Outbound;
+}
+
+export function mongoMovePlatformToJSON(
+  mongoMovePlatform: MongoMovePlatform,
+): string {
+  return JSON.stringify(
+    MongoMovePlatform$outboundSchema.parse(mongoMovePlatform),
+  );
+}
+
+export function mongoMovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoMovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoMovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMovePlatform' from JSON`,
   );
 }
 
@@ -570,98 +978,31 @@ export function mongoMovePreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoMovePlatform$inboundSchema: z.ZodType<
-  MongoMovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoMovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoMovePlatform$outboundSchema: z.ZodType<
-  MongoMovePlatform$Outbound,
-  z.ZodTypeDef,
-  MongoMovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMovePlatform$ {
-  /** @deprecated use `MongoMovePlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoMovePlatform$inboundSchema;
-  /** @deprecated use `MongoMovePlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoMovePlatform$outboundSchema;
-  /** @deprecated use `MongoMovePlatform$Outbound` instead. */
-  export type Outbound = MongoMovePlatform$Outbound;
-}
-
-export function mongoMovePlatformToJSON(
-  mongoMovePlatform: MongoMovePlatform,
-): string {
-  return JSON.stringify(
-    MongoMovePlatform$outboundSchema.parse(mongoMovePlatform),
-  );
-}
-
-export function mongoMovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoMovePlacementSwarm$inboundSchema: z.ZodType<
   MongoMovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoMovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoMovePlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MongoMovePreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoMovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoMovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoMovePlatform$Outbound> | undefined;
+  Preferences?: Array<MongoMovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -671,16 +1012,16 @@ export const MongoMovePlacementSwarm$outboundSchema: z.ZodType<
   MongoMovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoMovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoMovePlatform$outboundSchema)).optional(),
+  preferences: z.array(z.lazy(() => MongoMovePreference$outboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -716,58 +1057,48 @@ export function mongoMovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoMoveUpdateConfigSwarm,
+export const MongoMoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoMoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoMoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoMoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoMoveUpdateConfigSwarm$Outbound,
+export const MongoMoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoMoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoMoveUpdateConfigSwarm
+  MongoMoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -775,30 +1106,32 @@ export const MongoMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoMoveUpdateConfigSwarm$ {
-  /** @deprecated use `MongoMoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoMoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoMoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoMoveUpdateConfigSwarm$Outbound;
+export namespace MongoMoveRestartPolicySwarm$ {
+  /** @deprecated use `MongoMoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoMoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoMoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoMoveRestartPolicySwarm$Outbound;
 }
 
-export function mongoMoveUpdateConfigSwarmToJSON(
-  mongoMoveUpdateConfigSwarm: MongoMoveUpdateConfigSwarm,
+export function mongoMoveRestartPolicySwarmToJSON(
+  mongoMoveRestartPolicySwarm: MongoMoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoMoveUpdateConfigSwarm$outboundSchema.parse(mongoMoveUpdateConfigSwarm),
+    MongoMoveRestartPolicySwarm$outboundSchema.parse(
+      mongoMoveRestartPolicySwarm,
+    ),
   );
 }
 
-export function mongoMoveUpdateConfigSwarmFromJSON(
+export function mongoMoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoMoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoMoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveUpdateConfigSwarm' from JSON`,
+    (x) => MongoMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -808,31 +1141,31 @@ export const MongoMoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoMoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -841,20 +1174,20 @@ export const MongoMoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoMoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -892,33 +1225,58 @@ export function mongoMoveRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoMoveReplicated$inboundSchema: z.ZodType<
-  MongoMoveReplicated,
+export const MongoMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoMoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type MongoMoveReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type MongoMoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoMoveReplicated$outboundSchema: z.ZodType<
-  MongoMoveReplicated$Outbound,
+export const MongoMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoMoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoMoveReplicated
+  MongoMoveUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -926,388 +1284,30 @@ export const MongoMoveReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoMoveReplicated$ {
-  /** @deprecated use `MongoMoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveReplicated$inboundSchema;
-  /** @deprecated use `MongoMoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveReplicated$outboundSchema;
-  /** @deprecated use `MongoMoveReplicated$Outbound` instead. */
-  export type Outbound = MongoMoveReplicated$Outbound;
+export namespace MongoMoveUpdateConfigSwarm$ {
+  /** @deprecated use `MongoMoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoMoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoMoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoMoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoMoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoMoveUpdateConfigSwarm$Outbound;
 }
 
-export function mongoMoveReplicatedToJSON(
-  mongoMoveReplicated: MongoMoveReplicated,
+export function mongoMoveUpdateConfigSwarmToJSON(
+  mongoMoveUpdateConfigSwarm: MongoMoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoMoveReplicated$outboundSchema.parse(mongoMoveReplicated),
+    MongoMoveUpdateConfigSwarm$outboundSchema.parse(mongoMoveUpdateConfigSwarm),
   );
 }
 
-export function mongoMoveReplicatedFromJSON(
+export function mongoMoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoMoveReplicated, SDKValidationError> {
+): SafeParseResult<MongoMoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoMoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveGlobal$inboundSchema: z.ZodType<
-  MongoMoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoMoveGlobal$Outbound = {};
-
-/** @internal */
-export const MongoMoveGlobal$outboundSchema: z.ZodType<
-  MongoMoveGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoMoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveGlobal$ {
-  /** @deprecated use `MongoMoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveGlobal$inboundSchema;
-  /** @deprecated use `MongoMoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveGlobal$outboundSchema;
-  /** @deprecated use `MongoMoveGlobal$Outbound` instead. */
-  export type Outbound = MongoMoveGlobal$Outbound;
-}
-
-export function mongoMoveGlobalToJSON(
-  mongoMoveGlobal: MongoMoveGlobal,
-): string {
-  return JSON.stringify(MongoMoveGlobal$outboundSchema.parse(mongoMoveGlobal));
-}
-
-export function mongoMoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveReplicatedJob$inboundSchema: z.ZodType<
-  MongoMoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoMoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoMoveReplicatedJob$outboundSchema: z.ZodType<
-  MongoMoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoMoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveReplicatedJob$ {
-  /** @deprecated use `MongoMoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoMoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoMoveReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoMoveReplicatedJob$Outbound;
-}
-
-export function mongoMoveReplicatedJobToJSON(
-  mongoMoveReplicatedJob: MongoMoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoMoveReplicatedJob$outboundSchema.parse(mongoMoveReplicatedJob),
-  );
-}
-
-export function mongoMoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveGlobalJob$inboundSchema: z.ZodType<
-  MongoMoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoMoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoMoveGlobalJob$outboundSchema: z.ZodType<
-  MongoMoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoMoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveGlobalJob$ {
-  /** @deprecated use `MongoMoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveGlobalJob$inboundSchema;
-  /** @deprecated use `MongoMoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveGlobalJob$outboundSchema;
-  /** @deprecated use `MongoMoveGlobalJob$Outbound` instead. */
-  export type Outbound = MongoMoveGlobalJob$Outbound;
-}
-
-export function mongoMoveGlobalJobToJSON(
-  mongoMoveGlobalJob: MongoMoveGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoMoveGlobalJob$outboundSchema.parse(mongoMoveGlobalJob),
-  );
-}
-
-export function mongoMoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveModeSwarm$inboundSchema: z.ZodType<
-  MongoMoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoMoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoMoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoMoveReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MongoMoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoMoveModeSwarm$Outbound = {
-  Replicated?: MongoMoveReplicated$Outbound | undefined;
-  Global?: MongoMoveGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoMoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoMoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoMoveModeSwarm$outboundSchema: z.ZodType<
-  MongoMoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoMoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoMoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoMoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoMoveReplicatedJob$outboundSchema).optional(),
-  globalJob: z.lazy(() => MongoMoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveModeSwarm$ {
-  /** @deprecated use `MongoMoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveModeSwarm$inboundSchema;
-  /** @deprecated use `MongoMoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveModeSwarm$outboundSchema;
-  /** @deprecated use `MongoMoveModeSwarm$Outbound` instead. */
-  export type Outbound = MongoMoveModeSwarm$Outbound;
-}
-
-export function mongoMoveModeSwarmToJSON(
-  mongoMoveModeSwarm: MongoMoveModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoMoveModeSwarm$outboundSchema.parse(mongoMoveModeSwarm),
-  );
-}
-
-export function mongoMoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveDriverOpts$inboundSchema: z.ZodType<
-  MongoMoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoMoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoMoveDriverOpts$outboundSchema: z.ZodType<
-  MongoMoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoMoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveDriverOpts$ {
-  /** @deprecated use `MongoMoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveDriverOpts$inboundSchema;
-  /** @deprecated use `MongoMoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveDriverOpts$outboundSchema;
-  /** @deprecated use `MongoMoveDriverOpts$Outbound` instead. */
-  export type Outbound = MongoMoveDriverOpts$Outbound;
-}
-
-export function mongoMoveDriverOptsToJSON(
-  mongoMoveDriverOpts: MongoMoveDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoMoveDriverOpts$outboundSchema.parse(mongoMoveDriverOpts),
-  );
-}
-
-export function mongoMoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoMoveNetworkSwarm$inboundSchema: z.ZodType<
-  MongoMoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoMoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoMoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoMoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoMoveNetworkSwarm$outboundSchema: z.ZodType<
-  MongoMoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoMoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoMoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoMoveNetworkSwarm$ {
-  /** @deprecated use `MongoMoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoMoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoMoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoMoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoMoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoMoveNetworkSwarm$Outbound;
-}
-
-export function mongoMoveNetworkSwarmToJSON(
-  mongoMoveNetworkSwarm: MongoMoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoMoveNetworkSwarm$outboundSchema.parse(mongoMoveNetworkSwarm),
-  );
-}
-
-export function mongoMoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoMoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoMoveNetworkSwarm' from JSON`,
+    (x) => MongoMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoMoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1317,78 +1317,78 @@ export const MongoMoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoMoveApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoMoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoMoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoMoveModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoMoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoMovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoMoveUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoMoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoMoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoMoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoMoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoMoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoMoveResponseBody$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoMoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoMoveModeSwarm$Outbound | null;
   mongoId: string;
   name: string;
-  appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MongoMoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoMoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoMovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoMoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoMoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoMoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
   networkSwarm: Array<MongoMoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
+  placementSwarm: MongoMovePlacementSwarm$Outbound | null;
   replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoMoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoMoveRollbackConfigSwarm$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoMoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -1397,46 +1397,46 @@ export const MongoMoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoMoveResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoMoveApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoMoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoMoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoMoveModeSwarm$outboundSchema)),
+  mongoId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoMoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoMovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoMoveUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoMoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoMoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoMoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoMoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoMoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

@@ -14,18 +14,18 @@ export type NotificationUpdateTelegramSecurity = {
 
 export type NotificationUpdateTelegramRequest = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
   botToken?: string | undefined;
   chatId?: string | undefined;
+  databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   messageThreadId?: string | undefined;
+  name?: string | undefined;
   notificationId: string;
-  telegramId: string;
   organizationId?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  telegramId: string;
 };
 
 /** @internal */
@@ -101,35 +101,35 @@ export const NotificationUpdateTelegramRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
   botToken: z.string().optional(),
   chatId: z.string().optional(),
+  databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   messageThreadId: z.string().optional(),
+  name: z.string().optional(),
   notificationId: z.string(),
-  telegramId: z.string(),
   organizationId: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  telegramId: z.string(),
 });
 
 /** @internal */
 export type NotificationUpdateTelegramRequest$Outbound = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
   botToken?: string | undefined;
   chatId?: string | undefined;
+  databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   messageThreadId?: string | undefined;
+  name?: string | undefined;
   notificationId: string;
-  telegramId: string;
   organizationId?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  telegramId: string;
 };
 
 /** @internal */
@@ -139,18 +139,18 @@ export const NotificationUpdateTelegramRequest$outboundSchema: z.ZodType<
   NotificationUpdateTelegramRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
   botToken: z.string().optional(),
   chatId: z.string().optional(),
+  databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   messageThreadId: z.string().optional(),
+  name: z.string().optional(),
   notificationId: z.string(),
-  telegramId: z.string(),
   organizationId: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  telegramId: z.string(),
 });
 
 /**

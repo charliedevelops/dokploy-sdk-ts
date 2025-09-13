@@ -14,8 +14,8 @@ export type ApplicationDeploySecurity = {
 
 export type ApplicationDeployRequest = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -87,15 +87,15 @@ export const ApplicationDeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ApplicationDeployRequest$Outbound = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -105,8 +105,8 @@ export const ApplicationDeployRequest$outboundSchema: z.ZodType<
   ApplicationDeployRequest
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**

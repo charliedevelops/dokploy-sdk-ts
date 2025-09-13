@@ -54,45 +54,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Settings extends ClientSDK {
-  async settingsReloadServer(
-    security: operations.SettingsReloadServerSecurity,
+  async settingsAssignDomainServer(
+    security: operations.SettingsAssignDomainServerSecurity,
+    request: operations.SettingsAssignDomainServerRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReloadServer(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsCleanRedis(
-    security: operations.SettingsCleanRedisSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCleanRedis(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsReloadRedis(
-    security: operations.SettingsReloadRedisSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReloadRedis(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsReloadTraefik(
-    security: operations.SettingsReloadTraefikSecurity,
-    request?: operations.SettingsReloadTraefikRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReloadTraefik(
+    return unwrapAsync(settingsSettingsAssignDomainServer(
       this,
       security,
       request,
@@ -100,12 +67,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsToggleDashboard(
-    security: operations.SettingsToggleDashboardSecurity,
-    request: operations.SettingsToggleDashboardRequest,
+  async settingsCheckGPUStatus(
+    security: operations.SettingsCheckGPUStatusSecurity,
+    request?: operations.SettingsCheckGPUStatusRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsToggleDashboard(
+    return unwrapAsync(settingsSettingsCheckGPUStatus(
       this,
       security,
       request,
@@ -113,38 +80,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsCleanUnusedImages(
-    security: operations.SettingsCleanUnusedImagesSecurity,
-    request?: operations.SettingsCleanUnusedImagesRequest | undefined,
+  async settingsCleanAll(
+    security: operations.SettingsCleanAllSecurity,
+    request?: operations.SettingsCleanAllRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCleanUnusedImages(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsCleanUnusedVolumes(
-    security: operations.SettingsCleanUnusedVolumesSecurity,
-    request?: operations.SettingsCleanUnusedVolumesRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCleanUnusedVolumes(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsCleanStoppedContainers(
-    security: operations.SettingsCleanStoppedContainersSecurity,
-    request?: operations.SettingsCleanStoppedContainersRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCleanStoppedContainers(
+    return unwrapAsync(settingsSettingsCleanAll(
       this,
       security,
       request,
@@ -178,19 +119,6 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsCleanAll(
-    security: operations.SettingsCleanAllSecurity,
-    request?: operations.SettingsCleanAllRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCleanAll(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async settingsCleanMonitoring(
     security: operations.SettingsCleanMonitoringSecurity,
     options?: RequestOptions,
@@ -202,28 +130,13 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsSaveSSHPrivateKey(
-    security: operations.SettingsSaveSSHPrivateKeySecurity,
-    request: operations.SettingsSaveSSHPrivateKeyRequest,
+  async settingsCleanRedis(
+    security: operations.SettingsCleanRedisSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsSaveSSHPrivateKey(
+    return unwrapAsync(settingsSettingsCleanRedis(
       this,
       security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsAssignDomainServer(
-    security: operations.SettingsAssignDomainServerSecurity,
-    request: operations.SettingsAssignDomainServerRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsAssignDomainServer(
-      this,
-      security,
-      request,
       options,
     ));
   }
@@ -239,12 +152,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsUpdateDockerCleanup(
-    security: operations.SettingsUpdateDockerCleanupSecurity,
-    request: operations.SettingsUpdateDockerCleanupRequest,
+  async settingsCleanStoppedContainers(
+    security: operations.SettingsCleanStoppedContainersSecurity,
+    request?: operations.SettingsCleanStoppedContainersRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateDockerCleanup(
+    return unwrapAsync(settingsSettingsCleanStoppedContainers(
       this,
       security,
       request,
@@ -252,23 +165,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsReadTraefikConfig(
-    security: operations.SettingsReadTraefikConfigSecurity,
+  async settingsCleanUnusedImages(
+    security: operations.SettingsCleanUnusedImagesSecurity,
+    request?: operations.SettingsCleanUnusedImagesRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadTraefikConfig(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsUpdateTraefikConfig(
-    security: operations.SettingsUpdateTraefikConfigSecurity,
-    request: operations.SettingsUpdateTraefikConfigRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateTraefikConfig(
+    return unwrapAsync(settingsSettingsCleanUnusedImages(
       this,
       security,
       request,
@@ -276,23 +178,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsReadWebServerTraefikConfig(
-    security: operations.SettingsReadWebServerTraefikConfigSecurity,
+  async settingsCleanUnusedVolumes(
+    security: operations.SettingsCleanUnusedVolumesSecurity,
+    request?: operations.SettingsCleanUnusedVolumesRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadWebServerTraefikConfig(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsUpdateWebServerTraefikConfig(
-    security: operations.SettingsUpdateWebServerTraefikConfigSecurity,
-    request: operations.SettingsUpdateWebServerTraefikConfigRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateWebServerTraefikConfig(
+    return unwrapAsync(settingsSettingsCleanUnusedVolumes(
       this,
       security,
       request,
@@ -300,23 +191,78 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsReadMiddlewareTraefikConfig(
-    security: operations.SettingsReadMiddlewareTraefikConfigSecurity,
+  async settingsGetDokployCloudIps(
+    security: operations.SettingsGetDokployCloudIpsSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadMiddlewareTraefikConfig(
+    return unwrapAsync(settingsSettingsGetDokployCloudIps(
       this,
       security,
       options,
     ));
   }
 
-  async settingsUpdateMiddlewareTraefikConfig(
-    security: operations.SettingsUpdateMiddlewareTraefikConfigSecurity,
-    request: operations.SettingsUpdateMiddlewareTraefikConfigRequest,
+  async settingsGetDokployVersion(
+    security: operations.SettingsGetDokployVersionSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateMiddlewareTraefikConfig(
+    return unwrapAsync(settingsSettingsGetDokployVersion(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsGetIp(
+    security: operations.SettingsGetIpSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsGetIp(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsGetLogCleanupStatus(
+    security: operations.SettingsGetLogCleanupStatusSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsGetLogCleanupStatus(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsGetOpenApiDocument(
+    security: operations.SettingsGetOpenApiDocumentSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsGetOpenApiDocument(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsGetReleaseTag(
+    security: operations.SettingsGetReleaseTagSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsGetReleaseTag(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsGetTraefikPorts(
+    security: operations.SettingsGetTraefikPortsSecurity,
+    request?: operations.SettingsGetTraefikPortsRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsGetTraefikPorts(
       this,
       security,
       request,
@@ -335,122 +281,13 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsUpdateServer(
-    security: operations.SettingsUpdateServerSecurity,
+  async settingsHaveActivateRequests(
+    security: operations.SettingsHaveActivateRequestsSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateServer(
+    return unwrapAsync(settingsSettingsHaveActivateRequests(
       this,
       security,
-      options,
-    ));
-  }
-
-  async settingsGetDokployVersion(
-    security: operations.SettingsGetDokployVersionSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetDokployVersion(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsGetReleaseTag(
-    security: operations.SettingsGetReleaseTagSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetReleaseTag(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsReadDirectories(
-    security: operations.SettingsReadDirectoriesSecurity,
-    request?: operations.SettingsReadDirectoriesRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadDirectories(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsUpdateTraefikFile(
-    security: operations.SettingsUpdateTraefikFileSecurity,
-    request: operations.SettingsUpdateTraefikFileRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateTraefikFile(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsReadTraefikFile(
-    security: operations.SettingsReadTraefikFileSecurity,
-    request: operations.SettingsReadTraefikFileRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadTraefikFile(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsGetIp(
-    security: operations.SettingsGetIpSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetIp(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsGetOpenApiDocument(
-    security: operations.SettingsGetOpenApiDocumentSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetOpenApiDocument(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async settingsReadTraefikEnv(
-    security: operations.SettingsReadTraefikEnvSecurity,
-    request?: operations.SettingsReadTraefikEnvRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsReadTraefikEnv(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async settingsWriteTraefikEnv(
-    security: operations.SettingsWriteTraefikEnvSecurity,
-    request: operations.SettingsWriteTraefikEnvRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsWriteTraefikEnv(
-      this,
-      security,
-      request,
       options,
     ));
   }
@@ -470,26 +307,13 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsHaveActivateRequests(
-    security: operations.SettingsHaveActivateRequestsSecurity,
+  async settingsHealth(
+    security: operations.SettingsHealthSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsHaveActivateRequests(
+    return unwrapAsync(settingsSettingsHealth(
       this,
       security,
-      options,
-    ));
-  }
-
-  async settingsToggleRequests(
-    security: operations.SettingsToggleRequestsSecurity,
-    request: operations.SettingsToggleRequestsRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsToggleRequests(
-      this,
-      security,
-      request,
       options,
     ));
   }
@@ -516,13 +340,122 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsHealth(
-    security: operations.SettingsHealthSecurity,
+  async settingsReadDirectories(
+    security: operations.SettingsReadDirectoriesSecurity,
+    request?: operations.SettingsReadDirectoriesRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsHealth(
+    return unwrapAsync(settingsSettingsReadDirectories(
       this,
       security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsReadMiddlewareTraefikConfig(
+    security: operations.SettingsReadMiddlewareTraefikConfigSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReadMiddlewareTraefikConfig(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsReadTraefikConfig(
+    security: operations.SettingsReadTraefikConfigSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReadTraefikConfig(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsReadTraefikEnv(
+    security: operations.SettingsReadTraefikEnvSecurity,
+    request?: operations.SettingsReadTraefikEnvRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReadTraefikEnv(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsReadTraefikFile(
+    security: operations.SettingsReadTraefikFileSecurity,
+    request: operations.SettingsReadTraefikFileRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReadTraefikFile(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsReadWebServerTraefikConfig(
+    security: operations.SettingsReadWebServerTraefikConfigSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReadWebServerTraefikConfig(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsReloadRedis(
+    security: operations.SettingsReloadRedisSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReloadRedis(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsReloadServer(
+    security: operations.SettingsReloadServerSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReloadServer(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async settingsReloadTraefik(
+    security: operations.SettingsReloadTraefikSecurity,
+    request?: operations.SettingsReloadTraefikRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsReloadTraefik(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsSaveSSHPrivateKey(
+    security: operations.SettingsSaveSSHPrivateKeySecurity,
+    request: operations.SettingsSaveSSHPrivateKeyRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsSaveSSHPrivateKey(
+      this,
+      security,
+      request,
       options,
     ));
   }
@@ -540,12 +473,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsCheckGPUStatus(
-    security: operations.SettingsCheckGPUStatusSecurity,
-    request?: operations.SettingsCheckGPUStatusRequest | undefined,
+  async settingsToggleDashboard(
+    security: operations.SettingsToggleDashboardSecurity,
+    request: operations.SettingsToggleDashboardRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsCheckGPUStatus(
+    return unwrapAsync(settingsSettingsToggleDashboard(
       this,
       security,
       request,
@@ -553,12 +486,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsUpdateTraefikPorts(
-    security: operations.SettingsUpdateTraefikPortsSecurity,
-    request: operations.SettingsUpdateTraefikPortsRequest,
+  async settingsToggleRequests(
+    security: operations.SettingsToggleRequestsSecurity,
+    request: operations.SettingsToggleRequestsRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsUpdateTraefikPorts(
+    return unwrapAsync(settingsSettingsToggleRequests(
       this,
       security,
       request,
@@ -566,12 +499,12 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsGetTraefikPorts(
-    security: operations.SettingsGetTraefikPortsSecurity,
-    request?: operations.SettingsGetTraefikPortsRequest | undefined,
+  async settingsUpdateDockerCleanup(
+    security: operations.SettingsUpdateDockerCleanupSecurity,
+    request: operations.SettingsUpdateDockerCleanupRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetTraefikPorts(
+    return unwrapAsync(settingsSettingsUpdateDockerCleanup(
       this,
       security,
       request,
@@ -592,24 +525,91 @@ export class Settings extends ClientSDK {
     ));
   }
 
-  async settingsGetLogCleanupStatus(
-    security: operations.SettingsGetLogCleanupStatusSecurity,
+  async settingsUpdateMiddlewareTraefikConfig(
+    security: operations.SettingsUpdateMiddlewareTraefikConfigSecurity,
+    request: operations.SettingsUpdateMiddlewareTraefikConfigRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetLogCleanupStatus(
+    return unwrapAsync(settingsSettingsUpdateMiddlewareTraefikConfig(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsUpdateServer(
+    security: operations.SettingsUpdateServerSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsUpdateServer(
       this,
       security,
       options,
     ));
   }
 
-  async settingsGetDokployCloudIps(
-    security: operations.SettingsGetDokployCloudIpsSecurity,
+  async settingsUpdateTraefikConfig(
+    security: operations.SettingsUpdateTraefikConfigSecurity,
+    request: operations.SettingsUpdateTraefikConfigRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(settingsSettingsGetDokployCloudIps(
+    return unwrapAsync(settingsSettingsUpdateTraefikConfig(
       this,
       security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsUpdateTraefikFile(
+    security: operations.SettingsUpdateTraefikFileSecurity,
+    request: operations.SettingsUpdateTraefikFileRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsUpdateTraefikFile(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsUpdateTraefikPorts(
+    security: operations.SettingsUpdateTraefikPortsSecurity,
+    request: operations.SettingsUpdateTraefikPortsRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsUpdateTraefikPorts(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsUpdateWebServerTraefikConfig(
+    security: operations.SettingsUpdateWebServerTraefikConfigSecurity,
+    request: operations.SettingsUpdateWebServerTraefikConfigRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsUpdateWebServerTraefikConfig(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async settingsWriteTraefikEnv(
+    security: operations.SettingsWriteTraefikEnvSecurity,
+    request: operations.SettingsWriteTraefikEnvRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(settingsSettingsWriteTraefikEnv(
+      this,
+      security,
+      request,
       options,
     ));
   }

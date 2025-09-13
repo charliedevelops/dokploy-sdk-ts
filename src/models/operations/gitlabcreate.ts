@@ -13,18 +13,18 @@ export type GitlabCreateSecurity = {
 };
 
 export type GitlabCreateRequest = {
-  gitlabId?: string | undefined;
-  gitlabUrl: string;
-  applicationId?: string | undefined;
-  redirectUri?: string | undefined;
-  secret?: string | undefined;
   accessToken?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  groupName?: string | undefined;
+  applicationId?: string | undefined;
+  authId: string;
   expiresAt?: number | null | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
+  gitlabId?: string | undefined;
+  gitlabUrl: string;
+  groupName?: string | undefined;
   name: string;
+  redirectUri?: string | undefined;
+  refreshToken?: string | null | undefined;
+  secret?: string | undefined;
 };
 
 /** @internal */
@@ -95,34 +95,34 @@ export const GitlabCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  gitlabId: z.string().optional(),
-  gitlabUrl: z.string(),
-  applicationId: z.string().optional(),
-  redirectUri: z.string().optional(),
-  secret: z.string().optional(),
   accessToken: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  groupName: z.string().optional(),
+  applicationId: z.string().optional(),
+  authId: z.string(),
   expiresAt: z.nullable(z.number()).optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
+  gitlabId: z.string().optional(),
+  gitlabUrl: z.string(),
+  groupName: z.string().optional(),
   name: z.string(),
+  redirectUri: z.string().optional(),
+  refreshToken: z.nullable(z.string()).optional(),
+  secret: z.string().optional(),
 });
 
 /** @internal */
 export type GitlabCreateRequest$Outbound = {
-  gitlabId?: string | undefined;
-  gitlabUrl: string;
-  applicationId?: string | undefined;
-  redirectUri?: string | undefined;
-  secret?: string | undefined;
   accessToken?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  groupName?: string | undefined;
+  applicationId?: string | undefined;
+  authId: string;
   expiresAt?: number | null | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
+  gitlabId?: string | undefined;
+  gitlabUrl: string;
+  groupName?: string | undefined;
   name: string;
+  redirectUri?: string | undefined;
+  refreshToken?: string | null | undefined;
+  secret?: string | undefined;
 };
 
 /** @internal */
@@ -131,18 +131,18 @@ export const GitlabCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabCreateRequest
 > = z.object({
-  gitlabId: z.string().optional(),
-  gitlabUrl: z.string(),
-  applicationId: z.string().optional(),
-  redirectUri: z.string().optional(),
-  secret: z.string().optional(),
   accessToken: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  groupName: z.string().optional(),
+  applicationId: z.string().optional(),
+  authId: z.string(),
   expiresAt: z.nullable(z.number()).optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
+  gitlabId: z.string().optional(),
+  gitlabUrl: z.string(),
+  groupName: z.string().optional(),
   name: z.string(),
+  redirectUri: z.string().optional(),
+  refreshToken: z.nullable(z.string()).optional(),
+  secret: z.string().optional(),
 });
 
 /**

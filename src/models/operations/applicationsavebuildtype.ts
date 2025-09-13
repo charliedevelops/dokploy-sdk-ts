@@ -29,13 +29,13 @@ export type ApplicationSaveBuildTypeBuildType = ClosedEnum<
 export type ApplicationSaveBuildTypeRequest = {
   applicationId: string;
   buildType: ApplicationSaveBuildTypeBuildType;
-  dockerfile?: string | null | undefined;
-  dockerContextPath: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerfile?: string | null | undefined;
   herokuVersion?: string | null | undefined;
-  railpackVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
   isStaticSpa?: boolean | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
 };
 
 export type ApplicationSaveBuildTypeResponse = models.ErrorT | boolean;
@@ -134,26 +134,26 @@ export const ApplicationSaveBuildTypeRequest$inboundSchema: z.ZodType<
 > = z.object({
   applicationId: z.string(),
   buildType: ApplicationSaveBuildTypeBuildType$inboundSchema,
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()).optional(),
   herokuVersion: z.nullable(z.string()).optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
   isStaticSpa: z.nullable(z.boolean()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveBuildTypeRequest$Outbound = {
   applicationId: string;
   buildType: string;
-  dockerfile?: string | null | undefined;
-  dockerContextPath: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerfile?: string | null | undefined;
   herokuVersion?: string | null | undefined;
-  railpackVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
   isStaticSpa?: boolean | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
 };
 
 /** @internal */
@@ -164,13 +164,13 @@ export const ApplicationSaveBuildTypeRequest$outboundSchema: z.ZodType<
 > = z.object({
   applicationId: z.string(),
   buildType: ApplicationSaveBuildTypeBuildType$outboundSchema,
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()).optional(),
   herokuVersion: z.nullable(z.string()).optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
   isStaticSpa: z.nullable(z.boolean()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
 });
 
 /**

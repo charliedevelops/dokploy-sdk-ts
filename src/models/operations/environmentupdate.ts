@@ -14,11 +14,11 @@ export type EnvironmentUpdateSecurity = {
 };
 
 export type EnvironmentUpdateRequest = {
+  createdAt?: string | undefined;
+  description?: string | null | undefined;
+  env?: string | undefined;
   environmentId: string;
   name?: string | undefined;
-  description?: string | null | undefined;
-  createdAt?: string | undefined;
-  env?: string | undefined;
   projectId?: string | undefined;
 };
 
@@ -26,11 +26,11 @@ export type EnvironmentUpdateRequest = {
  * Successful response
  */
 export type EnvironmentUpdateResponseBody = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -106,21 +106,21 @@ export const EnvironmentUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  env: z.string().optional(),
   environmentId: z.string(),
   name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
-  env: z.string().optional(),
   projectId: z.string().optional(),
 });
 
 /** @internal */
 export type EnvironmentUpdateRequest$Outbound = {
+  createdAt?: string | undefined;
+  description?: string | null | undefined;
+  env?: string | undefined;
   environmentId: string;
   name?: string | undefined;
-  description?: string | null | undefined;
-  createdAt?: string | undefined;
-  env?: string | undefined;
   projectId?: string | undefined;
 };
 
@@ -130,11 +130,11 @@ export const EnvironmentUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentUpdateRequest
 > = z.object({
+  createdAt: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  env: z.string().optional(),
   environmentId: z.string(),
   name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
-  env: z.string().optional(),
   projectId: z.string().optional(),
 });
 
@@ -175,21 +175,21 @@ export const EnvironmentUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentUpdateResponseBody$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -199,11 +199,11 @@ export const EnvironmentUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentUpdateResponseBody
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 

@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.SecurityOneResponseBody = {
-  securityId: "<id>",
-  username: "Michael_Kutch89",
-  password: "PLsybUK2SiZLgVV",
-  createdAt: "1729743434813",
   applicationId: "<id>",
+  createdAt: "1726684989002",
+  password: "sPVu8PLsybUK2Si",
+  securityId: "<id>",
+  username: "Annette_Klocko",
 };
 ```
 
@@ -19,8 +19,8 @@ const value: operations.SecurityOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -14,5 +14,5 @@ let value: MongoSaveEnvironmentRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `mongoId`          | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_minus_sign: | N/A                |
+| `mongoId`          | *string*           | :heavy_check_mark: | N/A                |

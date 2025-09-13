@@ -12,5 +12,5 @@ let value: AdminSetupMonitoringServices = {};
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `include`          | *string*[]         | :heavy_minus_sign: | N/A                |
 | `exclude`          | *string*[]         | :heavy_minus_sign: | N/A                |
+| `include`          | *string*[]         | :heavy_minus_sign: | N/A                |

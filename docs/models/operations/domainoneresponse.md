@@ -7,22 +7,22 @@
 
 ```typescript
 const value: operations.DomainOneResponseBody = {
-  domainId: "<id>",
-  host: "serpentine-address.org",
-  https: true,
-  port: 3868.29,
-  path: "/home/user",
-  serviceName: "<value>",
-  domainType: "preview",
-  uniqueConfigKey: 9138.92,
-  createdAt: "1727978482213",
-  composeId: null,
-  customCertResolver: "<value>",
-  applicationId: null,
-  previewDeploymentId: null,
+  applicationId: "<id>",
   certificateType: "letsencrypt",
+  composeId: "<id>",
+  createdAt: "1709120676710",
+  customCertResolver: "<value>",
+  domainId: "<id>",
+  domainType: "preview",
+  host: "early-tectonics.net",
+  https: false,
   internalPath: "<value>",
-  stripPath: false,
+  path: "/etc",
+  port: 876.42,
+  previewDeploymentId: null,
+  serviceName: "<value>",
+  stripPath: true,
+  uniqueConfigKey: 8265.46,
 };
 ```
 
@@ -30,8 +30,8 @@ const value: operations.DomainOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -6,33 +6,34 @@
 import { GitProviderGetAllResponseBody } from "dokploy-sdk/models/operations";
 
 let value: GitProviderGetAllResponseBody = {
-  gitProviderId: "<id>",
-  name: "<value>",
-  providerType: "gitea",
-  createdAt: "1725687930153",
-  organizationId: "<id>",
-  userId: "<id>",
-  gitlab: {
-    gitlabId: "<id>",
-    gitlabUrl: "https://internal-schedule.org",
-    applicationId: "<id>",
-    redirectUri: "https://twin-presume.biz",
-    secret: "<value>",
-    accessToken: "<value>",
-    refreshToken: "<value>",
-    groupName: "<value>",
-    expiresAt: 1740.43,
-    gitProviderId: "<id>",
-  },
   bitbucket: {
+    appPassword: "<value>",
     bitbucketId: "<id>",
     bitbucketUsername: "<value>",
-    appPassword: "<value>",
     bitbucketWorkspaceName: "<value>",
     gitProviderId: "<id>",
   },
+  createdAt: "1717694387124",
+  gitProviderId: "<id>",
+  gitea: {
+    accessToken: "<value>",
+    clientId: "<id>",
+    clientSecret: "<value>",
+    expiresAt: 8752.72,
+    gitProviderId: "<id>",
+    giteaId: "<id>",
+    giteaUrl: "https://flustered-horde.com",
+    lastAuthenticatedAt: 3958.19,
+    redirectUri: "https://orderly-pigpen.com/",
+    refreshToken: "<value>",
+    scopes: null,
+  },
   github: null,
-  gitea: null,
+  gitlab: null,
+  name: "<value>",
+  organizationId: "<id>",
+  providerType: "gitlab",
+  userId: "<id>",
 };
 ```
 
@@ -40,13 +41,13 @@ let value: GitProviderGetAllResponseBody = {
 
 | Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
 | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `gitProviderId`                                                                                      | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `name`                                                                                               | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `providerType`                                                                                       | [operations.GitProviderGetAllProviderType](../../models/operations/gitprovidergetallprovidertype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `createdAt`                                                                                          | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `organizationId`                                                                                     | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `userId`                                                                                             | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `gitlab`                                                                                             | [operations.GitProviderGetAllGitlab](../../models/operations/gitprovidergetallgitlab.md)             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
 | `bitbucket`                                                                                          | [operations.GitProviderGetAllBitbucket](../../models/operations/gitprovidergetallbitbucket.md)       | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `github`                                                                                             | [operations.GitProviderGetAllGithub](../../models/operations/gitprovidergetallgithub.md)             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `createdAt`                                                                                          | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `gitProviderId`                                                                                      | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
 | `gitea`                                                                                              | [operations.GitProviderGetAllGitea](../../models/operations/gitprovidergetallgitea.md)               | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `github`                                                                                             | [operations.GitProviderGetAllGithub](../../models/operations/gitprovidergetallgithub.md)             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `gitlab`                                                                                             | [operations.GitProviderGetAllGitlab](../../models/operations/gitprovidergetallgitlab.md)             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `name`                                                                                               | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `organizationId`                                                                                     | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `providerType`                                                                                       | [operations.GitProviderGetAllProviderType](../../models/operations/gitprovidergetallprovidertype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `userId`                                                                                             | *string*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

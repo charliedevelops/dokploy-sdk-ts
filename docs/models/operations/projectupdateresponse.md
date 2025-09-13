@@ -7,12 +7,12 @@
 
 ```typescript
 const value: operations.ProjectUpdateResponseBody = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "gasp tremendously ascertain state as ugh",
-  createdAt: "1710330291233",
-  organizationId: "<id>",
+  createdAt: "1718374333706",
+  description: "aha barring hopelessly and quickly cosset furiously",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -20,8 +20,8 @@ const value: operations.ProjectUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

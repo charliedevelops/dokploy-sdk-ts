@@ -14,20 +14,20 @@ export type EnvironmentDuplicateSecurity = {
 };
 
 export type EnvironmentDuplicateRequest = {
+  description?: string | null | undefined;
   environmentId: string;
   name: string;
-  description?: string | null | undefined;
 };
 
 /**
  * Successful response
  */
 export type EnvironmentDuplicateResponseBody = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -105,16 +105,16 @@ export const EnvironmentDuplicateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type EnvironmentDuplicateRequest$Outbound = {
+  description?: string | null | undefined;
   environmentId: string;
   name: string;
-  description?: string | null | undefined;
 };
 
 /** @internal */
@@ -123,9 +123,9 @@ export const EnvironmentDuplicateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentDuplicateRequest
 > = z.object({
+  description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()).optional(),
 });
 
 /**
@@ -167,21 +167,21 @@ export const EnvironmentDuplicateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentDuplicateResponseBody$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -191,11 +191,11 @@ export const EnvironmentDuplicateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentDuplicateResponseBody
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 

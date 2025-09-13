@@ -14,8 +14,8 @@ export type MysqlReloadSecurity = {
 };
 
 export type MysqlReloadRequest = {
-  mysqlId: string;
   appName: string;
+  mysqlId: string;
 };
 
 export type MysqlReloadResponse = models.ErrorT | boolean;
@@ -88,14 +88,14 @@ export const MysqlReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   appName: z.string(),
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlReloadRequest$Outbound = {
-  mysqlId: string;
   appName: string;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -104,8 +104,8 @@ export const MysqlReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlReloadRequest
 > = z.object({
-  mysqlId: z.string(),
   appName: z.string(),
+  mysqlId: z.string(),
 });
 
 /**

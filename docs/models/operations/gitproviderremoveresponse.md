@@ -15,8 +15,8 @@ const value: operations.GitProviderRemoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

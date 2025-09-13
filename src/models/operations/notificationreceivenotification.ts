@@ -28,13 +28,13 @@ export type NotificationReceiveNotificationType = ClosedEnum<
 >;
 
 export type NotificationReceiveNotificationRequest = {
-  serverType?: ServerType | undefined;
-  type: NotificationReceiveNotificationType;
-  value: number;
-  threshold: number;
   message: string;
+  serverType?: ServerType | undefined;
+  threshold: number;
   timestamp: string;
   token: string;
+  type: NotificationReceiveNotificationType;
+  value: number;
 };
 
 /** @internal */
@@ -158,34 +158,34 @@ export const NotificationReceiveNotificationRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  ServerType: ServerType$inboundSchema.default("Dokploy"),
-  Type: NotificationReceiveNotificationType$inboundSchema,
-  Value: z.number(),
-  Threshold: z.number(),
   Message: z.string(),
+  ServerType: ServerType$inboundSchema.default("Dokploy"),
+  Threshold: z.number(),
   Timestamp: z.string(),
   Token: z.string(),
+  Type: NotificationReceiveNotificationType$inboundSchema,
+  Value: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "ServerType": "serverType",
-    "Type": "type",
-    "Value": "value",
-    "Threshold": "threshold",
     "Message": "message",
+    "ServerType": "serverType",
+    "Threshold": "threshold",
     "Timestamp": "timestamp",
     "Token": "token",
+    "Type": "type",
+    "Value": "value",
   });
 });
 
 /** @internal */
 export type NotificationReceiveNotificationRequest$Outbound = {
-  ServerType: string;
-  Type: string;
-  Value: number;
-  Threshold: number;
   Message: string;
+  ServerType: string;
+  Threshold: number;
   Timestamp: string;
   Token: string;
+  Type: string;
+  Value: number;
 };
 
 /** @internal */
@@ -194,22 +194,22 @@ export const NotificationReceiveNotificationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationReceiveNotificationRequest
 > = z.object({
-  serverType: ServerType$outboundSchema.default("Dokploy"),
-  type: NotificationReceiveNotificationType$outboundSchema,
-  value: z.number(),
-  threshold: z.number(),
   message: z.string(),
+  serverType: ServerType$outboundSchema.default("Dokploy"),
+  threshold: z.number(),
   timestamp: z.string(),
   token: z.string(),
+  type: NotificationReceiveNotificationType$outboundSchema,
+  value: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    serverType: "ServerType",
-    type: "Type",
-    value: "Value",
-    threshold: "Threshold",
     message: "Message",
+    serverType: "ServerType",
+    threshold: "Threshold",
     timestamp: "Timestamp",
     token: "Token",
+    type: "Type",
+    value: "Value",
   });
 });
 

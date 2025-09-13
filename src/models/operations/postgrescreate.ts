@@ -14,14 +14,14 @@ export type PostgresCreateSecurity = {
 };
 
 export type PostgresCreateRequest = {
-  name: string;
   appName: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -95,27 +95,27 @@ export const PostgresCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("postgres:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type PostgresCreateRequest$Outbound = {
-  name: string;
   appName: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage: string;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -125,14 +125,14 @@ export const PostgresCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("postgres:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 

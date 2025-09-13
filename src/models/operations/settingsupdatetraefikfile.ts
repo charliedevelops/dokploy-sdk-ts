@@ -14,8 +14,8 @@ export type SettingsUpdateTraefikFileSecurity = {
 
 export type SettingsUpdateTraefikFileRequest = {
   path: string;
-  traefikConfig: string;
   serverId?: string | undefined;
+  traefikConfig: string;
 };
 
 /** @internal */
@@ -90,15 +90,15 @@ export const SettingsUpdateTraefikFileRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   path: z.string(),
-  traefikConfig: z.string(),
   serverId: z.string().optional(),
+  traefikConfig: z.string(),
 });
 
 /** @internal */
 export type SettingsUpdateTraefikFileRequest$Outbound = {
   path: string;
-  traefikConfig: string;
   serverId?: string | undefined;
+  traefikConfig: string;
 };
 
 /** @internal */
@@ -108,8 +108,8 @@ export const SettingsUpdateTraefikFileRequest$outboundSchema: z.ZodType<
   SettingsUpdateTraefikFileRequest
 > = z.object({
   path: z.string(),
-  traefikConfig: z.string(),
   serverId: z.string().optional(),
+  traefikConfig: z.string(),
 });
 
 /**

@@ -21,11 +21,11 @@ export type SecurityOneRequest = {
  * Successful response
  */
 export type SecurityOneResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityOneResponse = SecurityOneResponseBody | models.ErrorT;
@@ -152,20 +152,20 @@ export const SecurityOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityOneResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -174,11 +174,11 @@ export const SecurityOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityOneResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

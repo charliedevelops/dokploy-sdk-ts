@@ -24,12 +24,12 @@ export class Redirects extends ClientSDK {
     ));
   }
 
-  async redirectsOne(
-    security: operations.RedirectsOneSecurity,
-    request: operations.RedirectsOneRequest,
+  async redirectsDelete(
+    security: operations.RedirectsDeleteSecurity,
+    request: operations.RedirectsDeleteRequest,
     options?: RequestOptions,
-  ): Promise<operations.RedirectsOneResponse> {
-    return unwrapAsync(redirectsRedirectsOne(
+  ): Promise<operations.RedirectsDeleteResponse> {
+    return unwrapAsync(redirectsRedirectsDelete(
       this,
       security,
       request,
@@ -37,12 +37,12 @@ export class Redirects extends ClientSDK {
     ));
   }
 
-  async redirectsDelete(
-    security: operations.RedirectsDeleteSecurity,
-    request: operations.RedirectsDeleteRequest,
+  async redirectsOne(
+    security: operations.RedirectsOneSecurity,
+    request: operations.RedirectsOneRequest,
     options?: RequestOptions,
-  ): Promise<operations.RedirectsDeleteResponse> {
-    return unwrapAsync(redirectsRedirectsDelete(
+  ): Promise<operations.RedirectsOneResponse> {
+    return unwrapAsync(redirectsRedirectsOne(
       this,
       security,
       request,

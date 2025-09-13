@@ -13,9 +13,9 @@ export type StripeCreateCheckoutSessionSecurity = {
 };
 
 export type StripeCreateCheckoutSessionRequest = {
+  isAnnual: boolean;
   productId: string;
   serverQuantity: number;
-  isAnnual: boolean;
 };
 
 /** @internal */
@@ -91,16 +91,16 @@ export const StripeCreateCheckoutSessionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  isAnnual: z.boolean(),
   productId: z.string(),
   serverQuantity: z.number(),
-  isAnnual: z.boolean(),
 });
 
 /** @internal */
 export type StripeCreateCheckoutSessionRequest$Outbound = {
+  isAnnual: boolean;
   productId: string;
   serverQuantity: number;
-  isAnnual: boolean;
 };
 
 /** @internal */
@@ -109,9 +109,9 @@ export const StripeCreateCheckoutSessionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   StripeCreateCheckoutSessionRequest
 > = z.object({
+  isAnnual: z.boolean(),
   productId: z.string(),
   serverQuantity: z.number(),
-  isAnnual: z.boolean(),
 });
 
 /**

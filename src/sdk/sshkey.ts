@@ -14,6 +14,17 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class SshKey extends ClientSDK {
+  async sshKeyAll(
+    security: operations.SshKeyAllSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(sshKeySshKeyAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async sshKeyCreate(
     security: operations.SshKeyCreateSecurity,
     request: operations.SshKeyCreateRequest,
@@ -27,12 +38,12 @@ export class SshKey extends ClientSDK {
     ));
   }
 
-  async sshKeyRemove(
-    security: operations.SshKeyRemoveSecurity,
-    request: operations.SshKeyRemoveRequest,
+  async sshKeyGenerate(
+    security: operations.SshKeyGenerateSecurity,
+    request: operations.SshKeyGenerateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(sshKeySshKeyRemove(
+    return unwrapAsync(sshKeySshKeyGenerate(
       this,
       security,
       request,
@@ -53,23 +64,12 @@ export class SshKey extends ClientSDK {
     ));
   }
 
-  async sshKeyAll(
-    security: operations.SshKeyAllSecurity,
+  async sshKeyRemove(
+    security: operations.SshKeyRemoveSecurity,
+    request: operations.SshKeyRemoveRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(sshKeySshKeyAll(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async sshKeyGenerate(
-    security: operations.SshKeyGenerateSecurity,
-    request: operations.SshKeyGenerateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(sshKeySshKeyGenerate(
+    return unwrapAsync(sshKeySshKeyRemove(
       this,
       security,
       request,

@@ -28,196 +28,6 @@ export type PostgresDeployApplicationStatus = ClosedEnum<
   typeof PostgresDeployApplicationStatus
 >;
 
-export type PostgresDeployHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresDeployRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresDeploySpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresDeployPreference = {
-  spread: PostgresDeploySpread;
-};
-
-export type PostgresDeployPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresDeployPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresDeployPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresDeployPlatform> | undefined;
-};
-
-export type PostgresDeployUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresDeployRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresDeployReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresDeployGlobal = {};
-
-export type PostgresDeployReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresDeployGlobalJob = {};
-
-export type PostgresDeployModeSwarm = {
-  replicated?: PostgresDeployReplicated | undefined;
-  global?: PostgresDeployGlobal | undefined;
-  replicatedJob?: PostgresDeployReplicatedJob | undefined;
-  globalJob?: PostgresDeployGlobalJob | undefined;
-};
-
-export type PostgresDeployDriverOpts = {};
-
-export type PostgresDeployNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresDeployDriverOpts | undefined;
-};
-
-export type PostgresDeployProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresDeployEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresDeployProject;
-};
-
-export const PostgresDeployType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresDeployType = ClosedEnum<typeof PostgresDeployType>;
-
-export const PostgresDeployServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresDeployServiceType = ClosedEnum<
-  typeof PostgresDeployServiceType
->;
-
-export type PostgresDeployMount = {
-  mountId: string;
-  type: PostgresDeployType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresDeployServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresDeployServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresDeployServerStatus = ClosedEnum<
-  typeof PostgresDeployServerStatus
->;
-
-export const PostgresDeployMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresDeployMetricsConfigEnum = ClosedEnum<
-  typeof PostgresDeployMetricsConfigEnum
->;
-
-export type PostgresDeployMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresDeployMetricsConfigEnum;
-
-export type PostgresDeployMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresDeployMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresDeployServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresDeployServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresDeployMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
-
 export const PostgresDeployBackupType = {
   Database: "database",
   Compose: "compose",
@@ -244,29 +54,29 @@ export type PostgresDeployMetadataEnum = ClosedEnum<
   typeof PostgresDeployMetadataEnum
 >;
 
-export type PostgresDeployPostgres = {
-  databaseUser: string;
-};
-
 export type PostgresDeployMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresDeployMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresDeployMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresDeployPostgres = {
+  databaseUser: string;
+};
+
 export type PostgresDeployMetadata = {
-  postgres?: PostgresDeployPostgres | undefined;
   mariadb?: PostgresDeployMariadb | undefined;
   mongo?: PostgresDeployMongo | undefined;
   mysql?: PostgresDeployMysql | undefined;
+  postgres?: PostgresDeployPostgres | undefined;
 };
 
 export type PostgresDeployMetadataUnion =
@@ -274,66 +84,256 @@ export type PostgresDeployMetadataUnion =
   | PostgresDeployMetadataEnum;
 
 export type PostgresDeployBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresDeployBackupType;
-  databaseType: PostgresDeployDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresDeployDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | PostgresDeployMetadata
     | PostgresDeployMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresDeployProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresDeployEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresDeployProject;
+  projectId: string;
+};
+
+export type PostgresDeployHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresDeployGlobal = {};
+
+export type PostgresDeployGlobalJob = {};
+
+export type PostgresDeployReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresDeployReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresDeployModeSwarm = {
+  global?: PostgresDeployGlobal | undefined;
+  globalJob?: PostgresDeployGlobalJob | undefined;
+  replicated?: PostgresDeployReplicated | undefined;
+  replicatedJob?: PostgresDeployReplicatedJob | undefined;
+};
+
+export const PostgresDeployServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresDeployServiceType = ClosedEnum<
+  typeof PostgresDeployServiceType
+>;
+
+export const PostgresDeployType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresDeployType = ClosedEnum<typeof PostgresDeployType>;
+
+export type PostgresDeployMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresDeployServiceType;
+  type: PostgresDeployType;
+  volumeName: string | null;
+};
+
+export type PostgresDeployDriverOpts = {};
+
+export type PostgresDeployNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresDeployDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresDeployPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresDeploySpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresDeployPreference = {
+  spread: PostgresDeploySpread;
+};
+
+export type PostgresDeployPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresDeployPlatform> | undefined;
+  preferences?: Array<PostgresDeployPreference> | undefined;
+};
+
+export type PostgresDeployRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresDeployRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresDeployMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresDeployMetricsConfigEnum = ClosedEnum<
+  typeof PostgresDeployMetricsConfigEnum
+>;
+
+export type PostgresDeployMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresDeployMetricsConfigEnum;
+
+export type PostgresDeployMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresDeployMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresDeployServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresDeployServerStatus = ClosedEnum<
+  typeof PostgresDeployServerStatus
+>;
+
+export type PostgresDeployServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresDeployMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresDeployServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresDeployUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresDeployResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresDeployApplicationStatus;
+  backups: Array<PostgresDeployBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresDeployApplicationStatus;
-  healthCheckSwarm: PostgresDeployHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresDeployRestartPolicySwarm | null;
-  placementSwarm: PostgresDeployPlacementSwarm | null;
-  updateConfigSwarm: PostgresDeployUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresDeployRollbackConfigSwarm | null;
-  modeSwarm: PostgresDeployModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresDeployNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresDeployEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresDeployHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresDeployModeSwarm | null;
   mounts: Array<PostgresDeployMount>;
+  name: string;
+  networkSwarm: Array<PostgresDeployNetworkSwarm> | null;
+  placementSwarm: PostgresDeployPlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresDeployRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresDeployRollbackConfigSwarm | null;
   server: PostgresDeployServer | null;
-  backups: Array<PostgresDeployBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresDeployUpdateConfigSwarm | null;
 };
 
 export type PostgresDeployResponse = PostgresDeployResponseBody | models.ErrorT;
@@ -476,33 +476,695 @@ export namespace PostgresDeployApplicationStatus$ {
 }
 
 /** @internal */
+export const PostgresDeployBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployBackupType
+> = z.nativeEnum(PostgresDeployBackupType);
+
+/** @internal */
+export const PostgresDeployBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployBackupType
+> = PostgresDeployBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployBackupType$ {
+  /** @deprecated use `PostgresDeployBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployBackupType$inboundSchema;
+  /** @deprecated use `PostgresDeployBackupType$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployDatabaseType
+> = z.nativeEnum(PostgresDeployDatabaseType);
+
+/** @internal */
+export const PostgresDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployDatabaseType
+> = PostgresDeployDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployDatabaseType$ {
+  /** @deprecated use `PostgresDeployDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresDeployDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployMetadataEnum
+> = z.nativeEnum(PostgresDeployMetadataEnum);
+
+/** @internal */
+export const PostgresDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployMetadataEnum
+> = PostgresDeployMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMetadataEnum$ {
+  /** @deprecated use `PostgresDeployMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresDeployMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresDeployMariadb$inboundSchema: z.ZodType<
+  PostgresDeployMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresDeployMariadb$outboundSchema: z.ZodType<
+  PostgresDeployMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMariadb$ {
+  /** @deprecated use `PostgresDeployMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMariadb$inboundSchema;
+  /** @deprecated use `PostgresDeployMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMariadb$outboundSchema;
+  /** @deprecated use `PostgresDeployMariadb$Outbound` instead. */
+  export type Outbound = PostgresDeployMariadb$Outbound;
+}
+
+export function postgresDeployMariadbToJSON(
+  postgresDeployMariadb: PostgresDeployMariadb,
+): string {
+  return JSON.stringify(
+    PostgresDeployMariadb$outboundSchema.parse(postgresDeployMariadb),
+  );
+}
+
+export function postgresDeployMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployMongo$inboundSchema: z.ZodType<
+  PostgresDeployMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresDeployMongo$outboundSchema: z.ZodType<
+  PostgresDeployMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMongo$ {
+  /** @deprecated use `PostgresDeployMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMongo$inboundSchema;
+  /** @deprecated use `PostgresDeployMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMongo$outboundSchema;
+  /** @deprecated use `PostgresDeployMongo$Outbound` instead. */
+  export type Outbound = PostgresDeployMongo$Outbound;
+}
+
+export function postgresDeployMongoToJSON(
+  postgresDeployMongo: PostgresDeployMongo,
+): string {
+  return JSON.stringify(
+    PostgresDeployMongo$outboundSchema.parse(postgresDeployMongo),
+  );
+}
+
+export function postgresDeployMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployMysql$inboundSchema: z.ZodType<
+  PostgresDeployMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresDeployMysql$outboundSchema: z.ZodType<
+  PostgresDeployMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMysql$ {
+  /** @deprecated use `PostgresDeployMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMysql$inboundSchema;
+  /** @deprecated use `PostgresDeployMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMysql$outboundSchema;
+  /** @deprecated use `PostgresDeployMysql$Outbound` instead. */
+  export type Outbound = PostgresDeployMysql$Outbound;
+}
+
+export function postgresDeployMysqlToJSON(
+  postgresDeployMysql: PostgresDeployMysql,
+): string {
+  return JSON.stringify(
+    PostgresDeployMysql$outboundSchema.parse(postgresDeployMysql),
+  );
+}
+
+export function postgresDeployMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployPostgres$inboundSchema: z.ZodType<
+  PostgresDeployPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresDeployPostgres$outboundSchema: z.ZodType<
+  PostgresDeployPostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployPostgres$ {
+  /** @deprecated use `PostgresDeployPostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployPostgres$inboundSchema;
+  /** @deprecated use `PostgresDeployPostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployPostgres$outboundSchema;
+  /** @deprecated use `PostgresDeployPostgres$Outbound` instead. */
+  export type Outbound = PostgresDeployPostgres$Outbound;
+}
+
+export function postgresDeployPostgresToJSON(
+  postgresDeployPostgres: PostgresDeployPostgres,
+): string {
+  return JSON.stringify(
+    PostgresDeployPostgres$outboundSchema.parse(postgresDeployPostgres),
+  );
+}
+
+export function postgresDeployPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployMetadata$inboundSchema: z.ZodType<
+  PostgresDeployMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresDeployMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => PostgresDeployMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresDeployMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresDeployPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostgresDeployMetadata$Outbound = {
+  mariadb?: PostgresDeployMariadb$Outbound | undefined;
+  mongo?: PostgresDeployMongo$Outbound | undefined;
+  mysql?: PostgresDeployMysql$Outbound | undefined;
+  postgres?: PostgresDeployPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresDeployMetadata$outboundSchema: z.ZodType<
+  PostgresDeployMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresDeployMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => PostgresDeployMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresDeployMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresDeployPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMetadata$ {
+  /** @deprecated use `PostgresDeployMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMetadata$inboundSchema;
+  /** @deprecated use `PostgresDeployMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMetadata$outboundSchema;
+  /** @deprecated use `PostgresDeployMetadata$Outbound` instead. */
+  export type Outbound = PostgresDeployMetadata$Outbound;
+}
+
+export function postgresDeployMetadataToJSON(
+  postgresDeployMetadata: PostgresDeployMetadata,
+): string {
+  return JSON.stringify(
+    PostgresDeployMetadata$outboundSchema.parse(postgresDeployMetadata),
+  );
+}
+
+export function postgresDeployMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployMetadataUnion$inboundSchema: z.ZodType<
+  PostgresDeployMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresDeployMetadata$inboundSchema),
+  PostgresDeployMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresDeployMetadataUnion$Outbound =
+  | PostgresDeployMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresDeployMetadataUnion$outboundSchema: z.ZodType<
+  PostgresDeployMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresDeployMetadata$outboundSchema),
+  PostgresDeployMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMetadataUnion$ {
+  /** @deprecated use `PostgresDeployMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresDeployMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresDeployMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresDeployMetadataUnion$Outbound;
+}
+
+export function postgresDeployMetadataUnionToJSON(
+  postgresDeployMetadataUnion: PostgresDeployMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresDeployMetadataUnion$outboundSchema.parse(
+      postgresDeployMetadataUnion,
+    ),
+  );
+}
+
+export function postgresDeployMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployBackup$inboundSchema: z.ZodType<
+  PostgresDeployBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresDeployBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresDeployDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresDeployMetadata$inboundSchema),
+      PostgresDeployMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresDeployBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: PostgresDeployMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresDeployBackup$outboundSchema: z.ZodType<
+  PostgresDeployBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresDeployBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresDeployDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresDeployMetadata$outboundSchema),
+      PostgresDeployMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployBackup$ {
+  /** @deprecated use `PostgresDeployBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployBackup$inboundSchema;
+  /** @deprecated use `PostgresDeployBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployBackup$outboundSchema;
+  /** @deprecated use `PostgresDeployBackup$Outbound` instead. */
+  export type Outbound = PostgresDeployBackup$Outbound;
+}
+
+export function postgresDeployBackupToJSON(
+  postgresDeployBackup: PostgresDeployBackup,
+): string {
+  return JSON.stringify(
+    PostgresDeployBackup$outboundSchema.parse(postgresDeployBackup),
+  );
+}
+
+export function postgresDeployBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployProject$inboundSchema: z.ZodType<
+  PostgresDeployProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresDeployProject$outboundSchema: z.ZodType<
+  PostgresDeployProject$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployProject$ {
+  /** @deprecated use `PostgresDeployProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployProject$inboundSchema;
+  /** @deprecated use `PostgresDeployProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployProject$outboundSchema;
+  /** @deprecated use `PostgresDeployProject$Outbound` instead. */
+  export type Outbound = PostgresDeployProject$Outbound;
+}
+
+export function postgresDeployProjectToJSON(
+  postgresDeployProject: PostgresDeployProject,
+): string {
+  return JSON.stringify(
+    PostgresDeployProject$outboundSchema.parse(postgresDeployProject),
+  );
+}
+
+export function postgresDeployProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployEnvironment$inboundSchema: z.ZodType<
+  PostgresDeployEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresDeployProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresDeployEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresDeployProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresDeployEnvironment$outboundSchema: z.ZodType<
+  PostgresDeployEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresDeployProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployEnvironment$ {
+  /** @deprecated use `PostgresDeployEnvironment$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployEnvironment$inboundSchema;
+  /** @deprecated use `PostgresDeployEnvironment$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployEnvironment$outboundSchema;
+  /** @deprecated use `PostgresDeployEnvironment$Outbound` instead. */
+  export type Outbound = PostgresDeployEnvironment$Outbound;
+}
+
+export function postgresDeployEnvironmentToJSON(
+  postgresDeployEnvironment: PostgresDeployEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresDeployEnvironment$outboundSchema.parse(postgresDeployEnvironment),
+  );
+}
+
+export function postgresDeployEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresDeployHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresDeployHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresDeployHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -511,18 +1173,18 @@ export const PostgresDeployHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresDeployHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -560,48 +1222,129 @@ export function postgresDeployHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresDeployRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresDeployRestartPolicySwarm,
+export const PostgresDeployGlobal$inboundSchema: z.ZodType<
+  PostgresDeployGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresDeployGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresDeployGlobal$outboundSchema: z.ZodType<
+  PostgresDeployGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployGlobal$ {
+  /** @deprecated use `PostgresDeployGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployGlobal$inboundSchema;
+  /** @deprecated use `PostgresDeployGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployGlobal$outboundSchema;
+  /** @deprecated use `PostgresDeployGlobal$Outbound` instead. */
+  export type Outbound = PostgresDeployGlobal$Outbound;
+}
+
+export function postgresDeployGlobalToJSON(
+  postgresDeployGlobal: PostgresDeployGlobal,
+): string {
+  return JSON.stringify(
+    PostgresDeployGlobal$outboundSchema.parse(postgresDeployGlobal),
+  );
+}
+
+export function postgresDeployGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployGlobalJob$inboundSchema: z.ZodType<
+  PostgresDeployGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresDeployGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresDeployGlobalJob$outboundSchema: z.ZodType<
+  PostgresDeployGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployGlobalJob$ {
+  /** @deprecated use `PostgresDeployGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresDeployGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresDeployGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresDeployGlobalJob$Outbound;
+}
+
+export function postgresDeployGlobalJobToJSON(
+  postgresDeployGlobalJob: PostgresDeployGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresDeployGlobalJob$outboundSchema.parse(postgresDeployGlobalJob),
+  );
+}
+
+export function postgresDeployGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployReplicated$inboundSchema: z.ZodType<
+  PostgresDeployReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresDeployRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresDeployReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresDeployRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresDeployRestartPolicySwarm$Outbound,
+export const PostgresDeployReplicated$outboundSchema: z.ZodType<
+  PostgresDeployReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresDeployRestartPolicySwarm
+  PostgresDeployReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -609,32 +1352,503 @@ export const PostgresDeployRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresDeployRestartPolicySwarm$ {
-  /** @deprecated use `PostgresDeployRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresDeployRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresDeployRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresDeployRestartPolicySwarm$Outbound;
+export namespace PostgresDeployReplicated$ {
+  /** @deprecated use `PostgresDeployReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployReplicated$inboundSchema;
+  /** @deprecated use `PostgresDeployReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployReplicated$outboundSchema;
+  /** @deprecated use `PostgresDeployReplicated$Outbound` instead. */
+  export type Outbound = PostgresDeployReplicated$Outbound;
 }
 
-export function postgresDeployRestartPolicySwarmToJSON(
-  postgresDeployRestartPolicySwarm: PostgresDeployRestartPolicySwarm,
+export function postgresDeployReplicatedToJSON(
+  postgresDeployReplicated: PostgresDeployReplicated,
 ): string {
   return JSON.stringify(
-    PostgresDeployRestartPolicySwarm$outboundSchema.parse(
-      postgresDeployRestartPolicySwarm,
+    PostgresDeployReplicated$outboundSchema.parse(postgresDeployReplicated),
+  );
+}
+
+export function postgresDeployReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployReplicatedJob$inboundSchema: z.ZodType<
+  PostgresDeployReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresDeployReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresDeployReplicatedJob$outboundSchema: z.ZodType<
+  PostgresDeployReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployReplicatedJob$ {
+  /** @deprecated use `PostgresDeployReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresDeployReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresDeployReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresDeployReplicatedJob$Outbound;
+}
+
+export function postgresDeployReplicatedJobToJSON(
+  postgresDeployReplicatedJob: PostgresDeployReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresDeployReplicatedJob$outboundSchema.parse(
+      postgresDeployReplicatedJob,
     ),
   );
 }
 
-export function postgresDeployRestartPolicySwarmFromJSON(
+export function postgresDeployReplicatedJobFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresDeployRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresDeployReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployRestartPolicySwarm' from JSON`,
+    (x) => PostgresDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployModeSwarm$inboundSchema: z.ZodType<
+  PostgresDeployModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresDeployGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresDeployGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => PostgresDeployReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => PostgresDeployReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresDeployModeSwarm$Outbound = {
+  Global?: PostgresDeployGlobal$Outbound | undefined;
+  GlobalJob?: PostgresDeployGlobalJob$Outbound | undefined;
+  Replicated?: PostgresDeployReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresDeployReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresDeployModeSwarm$outboundSchema: z.ZodType<
+  PostgresDeployModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresDeployGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresDeployGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => PostgresDeployReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => PostgresDeployReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployModeSwarm$ {
+  /** @deprecated use `PostgresDeployModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresDeployModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresDeployModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresDeployModeSwarm$Outbound;
+}
+
+export function postgresDeployModeSwarmToJSON(
+  postgresDeployModeSwarm: PostgresDeployModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresDeployModeSwarm$outboundSchema.parse(postgresDeployModeSwarm),
+  );
+}
+
+export function postgresDeployModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployServiceType
+> = z.nativeEnum(PostgresDeployServiceType);
+
+/** @internal */
+export const PostgresDeployServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployServiceType
+> = PostgresDeployServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployServiceType$ {
+  /** @deprecated use `PostgresDeployServiceType$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployServiceType$inboundSchema;
+  /** @deprecated use `PostgresDeployServiceType$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresDeployType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployType
+> = z.nativeEnum(PostgresDeployType);
+
+/** @internal */
+export const PostgresDeployType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployType
+> = PostgresDeployType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployType$ {
+  /** @deprecated use `PostgresDeployType$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployType$inboundSchema;
+  /** @deprecated use `PostgresDeployType$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresDeployMount$inboundSchema: z.ZodType<
+  PostgresDeployMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresDeployServiceType$inboundSchema,
+  type: PostgresDeployType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresDeployMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresDeployMount$outboundSchema: z.ZodType<
+  PostgresDeployMount$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresDeployServiceType$outboundSchema,
+  type: PostgresDeployType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployMount$ {
+  /** @deprecated use `PostgresDeployMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployMount$inboundSchema;
+  /** @deprecated use `PostgresDeployMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployMount$outboundSchema;
+  /** @deprecated use `PostgresDeployMount$Outbound` instead. */
+  export type Outbound = PostgresDeployMount$Outbound;
+}
+
+export function postgresDeployMountToJSON(
+  postgresDeployMount: PostgresDeployMount,
+): string {
+  return JSON.stringify(
+    PostgresDeployMount$outboundSchema.parse(postgresDeployMount),
+  );
+}
+
+export function postgresDeployMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployDriverOpts$inboundSchema: z.ZodType<
+  PostgresDeployDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresDeployDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresDeployDriverOpts$outboundSchema: z.ZodType<
+  PostgresDeployDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployDriverOpts$ {
+  /** @deprecated use `PostgresDeployDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresDeployDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresDeployDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresDeployDriverOpts$Outbound;
+}
+
+export function postgresDeployDriverOptsToJSON(
+  postgresDeployDriverOpts: PostgresDeployDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresDeployDriverOpts$outboundSchema.parse(postgresDeployDriverOpts),
+  );
+}
+
+export function postgresDeployDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresDeployNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresDeployDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresDeployNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresDeployDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresDeployNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresDeployNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresDeployDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployNetworkSwarm$ {
+  /** @deprecated use `PostgresDeployNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresDeployNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresDeployNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresDeployNetworkSwarm$Outbound;
+}
+
+export function postgresDeployNetworkSwarmToJSON(
+  postgresDeployNetworkSwarm: PostgresDeployNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresDeployNetworkSwarm$outboundSchema.parse(postgresDeployNetworkSwarm),
+  );
+}
+
+export function postgresDeployNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresDeployPlatform$inboundSchema: z.ZodType<
+  PostgresDeployPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresDeployPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresDeployPlatform$outboundSchema: z.ZodType<
+  PostgresDeployPlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresDeployPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployPlatform$ {
+  /** @deprecated use `PostgresDeployPlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployPlatform$inboundSchema;
+  /** @deprecated use `PostgresDeployPlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployPlatform$outboundSchema;
+  /** @deprecated use `PostgresDeployPlatform$Outbound` instead. */
+  export type Outbound = PostgresDeployPlatform$Outbound;
+}
+
+export function postgresDeployPlatformToJSON(
+  postgresDeployPlatform: PostgresDeployPlatform,
+): string {
+  return JSON.stringify(
+    PostgresDeployPlatform$outboundSchema.parse(postgresDeployPlatform),
+  );
+}
+
+export function postgresDeployPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresDeployPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresDeployPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployPlatform' from JSON`,
   );
 }
 
@@ -763,99 +1977,32 @@ export function postgresDeployPreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresDeployPlatform$inboundSchema: z.ZodType<
-  PostgresDeployPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresDeployPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresDeployPlatform$outboundSchema: z.ZodType<
-  PostgresDeployPlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployPlatform$ {
-  /** @deprecated use `PostgresDeployPlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployPlatform$inboundSchema;
-  /** @deprecated use `PostgresDeployPlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployPlatform$outboundSchema;
-  /** @deprecated use `PostgresDeployPlatform$Outbound` instead. */
-  export type Outbound = PostgresDeployPlatform$Outbound;
-}
-
-export function postgresDeployPlatformToJSON(
-  postgresDeployPlatform: PostgresDeployPlatform,
-): string {
-  return JSON.stringify(
-    PostgresDeployPlatform$outboundSchema.parse(postgresDeployPlatform),
-  );
-}
-
-export function postgresDeployPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresDeployPlacementSwarm$inboundSchema: z.ZodType<
   PostgresDeployPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => PostgresDeployPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresDeployPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => PostgresDeployPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresDeployPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresDeployPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresDeployPlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresDeployPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -865,17 +2012,17 @@ export const PostgresDeployPlacementSwarm$outboundSchema: z.ZodType<
   PostgresDeployPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => PostgresDeployPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresDeployPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => PostgresDeployPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -913,58 +2060,48 @@ export function postgresDeployPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresDeployUpdateConfigSwarm,
+export const PostgresDeployRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresDeployRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresDeployUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresDeployRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresDeployUpdateConfigSwarm$Outbound,
+export const PostgresDeployRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresDeployRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresDeployUpdateConfigSwarm
+  PostgresDeployRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -972,32 +2109,32 @@ export const PostgresDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresDeployUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresDeployUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresDeployUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresDeployUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresDeployUpdateConfigSwarm$Outbound;
+export namespace PostgresDeployRestartPolicySwarm$ {
+  /** @deprecated use `PostgresDeployRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresDeployRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresDeployRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresDeployRestartPolicySwarm$Outbound;
 }
 
-export function postgresDeployUpdateConfigSwarmToJSON(
-  postgresDeployUpdateConfigSwarm: PostgresDeployUpdateConfigSwarm,
+export function postgresDeployRestartPolicySwarmToJSON(
+  postgresDeployRestartPolicySwarm: PostgresDeployRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresDeployUpdateConfigSwarm$outboundSchema.parse(
-      postgresDeployUpdateConfigSwarm,
+    PostgresDeployRestartPolicySwarm$outboundSchema.parse(
+      postgresDeployRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresDeployUpdateConfigSwarmFromJSON(
+export function postgresDeployRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresDeployUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresDeployRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployUpdateConfigSwarm' from JSON`,
+    (x) => PostgresDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1007,31 +2144,31 @@ export const PostgresDeployRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresDeployRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1040,20 +2177,20 @@ export const PostgresDeployRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresDeployRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1089,732 +2226,6 @@ export function postgresDeployRollbackConfigSwarmFromJSON(
     (x) => PostgresDeployRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostgresDeployRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresDeployReplicated$inboundSchema: z.ZodType<
-  PostgresDeployReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresDeployReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresDeployReplicated$outboundSchema: z.ZodType<
-  PostgresDeployReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployReplicated$ {
-  /** @deprecated use `PostgresDeployReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployReplicated$inboundSchema;
-  /** @deprecated use `PostgresDeployReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployReplicated$outboundSchema;
-  /** @deprecated use `PostgresDeployReplicated$Outbound` instead. */
-  export type Outbound = PostgresDeployReplicated$Outbound;
-}
-
-export function postgresDeployReplicatedToJSON(
-  postgresDeployReplicated: PostgresDeployReplicated,
-): string {
-  return JSON.stringify(
-    PostgresDeployReplicated$outboundSchema.parse(postgresDeployReplicated),
-  );
-}
-
-export function postgresDeployReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployGlobal$inboundSchema: z.ZodType<
-  PostgresDeployGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresDeployGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresDeployGlobal$outboundSchema: z.ZodType<
-  PostgresDeployGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployGlobal$ {
-  /** @deprecated use `PostgresDeployGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployGlobal$inboundSchema;
-  /** @deprecated use `PostgresDeployGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployGlobal$outboundSchema;
-  /** @deprecated use `PostgresDeployGlobal$Outbound` instead. */
-  export type Outbound = PostgresDeployGlobal$Outbound;
-}
-
-export function postgresDeployGlobalToJSON(
-  postgresDeployGlobal: PostgresDeployGlobal,
-): string {
-  return JSON.stringify(
-    PostgresDeployGlobal$outboundSchema.parse(postgresDeployGlobal),
-  );
-}
-
-export function postgresDeployGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployReplicatedJob$inboundSchema: z.ZodType<
-  PostgresDeployReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresDeployReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresDeployReplicatedJob$outboundSchema: z.ZodType<
-  PostgresDeployReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployReplicatedJob$ {
-  /** @deprecated use `PostgresDeployReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresDeployReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresDeployReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresDeployReplicatedJob$Outbound;
-}
-
-export function postgresDeployReplicatedJobToJSON(
-  postgresDeployReplicatedJob: PostgresDeployReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresDeployReplicatedJob$outboundSchema.parse(
-      postgresDeployReplicatedJob,
-    ),
-  );
-}
-
-export function postgresDeployReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployGlobalJob$inboundSchema: z.ZodType<
-  PostgresDeployGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresDeployGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresDeployGlobalJob$outboundSchema: z.ZodType<
-  PostgresDeployGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployGlobalJob$ {
-  /** @deprecated use `PostgresDeployGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresDeployGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresDeployGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresDeployGlobalJob$Outbound;
-}
-
-export function postgresDeployGlobalJobToJSON(
-  postgresDeployGlobalJob: PostgresDeployGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresDeployGlobalJob$outboundSchema.parse(postgresDeployGlobalJob),
-  );
-}
-
-export function postgresDeployGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployModeSwarm$inboundSchema: z.ZodType<
-  PostgresDeployModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresDeployReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => PostgresDeployGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresDeployReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresDeployGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresDeployModeSwarm$Outbound = {
-  Replicated?: PostgresDeployReplicated$Outbound | undefined;
-  Global?: PostgresDeployGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresDeployReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresDeployGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresDeployModeSwarm$outboundSchema: z.ZodType<
-  PostgresDeployModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresDeployReplicated$outboundSchema).optional(),
-  global: z.lazy(() => PostgresDeployGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresDeployReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresDeployGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployModeSwarm$ {
-  /** @deprecated use `PostgresDeployModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresDeployModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresDeployModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresDeployModeSwarm$Outbound;
-}
-
-export function postgresDeployModeSwarmToJSON(
-  postgresDeployModeSwarm: PostgresDeployModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresDeployModeSwarm$outboundSchema.parse(postgresDeployModeSwarm),
-  );
-}
-
-export function postgresDeployModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployDriverOpts$inboundSchema: z.ZodType<
-  PostgresDeployDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresDeployDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresDeployDriverOpts$outboundSchema: z.ZodType<
-  PostgresDeployDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployDriverOpts$ {
-  /** @deprecated use `PostgresDeployDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresDeployDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresDeployDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresDeployDriverOpts$Outbound;
-}
-
-export function postgresDeployDriverOptsToJSON(
-  postgresDeployDriverOpts: PostgresDeployDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresDeployDriverOpts$outboundSchema.parse(postgresDeployDriverOpts),
-  );
-}
-
-export function postgresDeployDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresDeployNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresDeployDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresDeployNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresDeployDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresDeployNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresDeployNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresDeployDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployNetworkSwarm$ {
-  /** @deprecated use `PostgresDeployNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresDeployNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresDeployNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresDeployNetworkSwarm$Outbound;
-}
-
-export function postgresDeployNetworkSwarmToJSON(
-  postgresDeployNetworkSwarm: PostgresDeployNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresDeployNetworkSwarm$outboundSchema.parse(postgresDeployNetworkSwarm),
-  );
-}
-
-export function postgresDeployNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployProject$inboundSchema: z.ZodType<
-  PostgresDeployProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresDeployProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresDeployProject$outboundSchema: z.ZodType<
-  PostgresDeployProject$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployProject$ {
-  /** @deprecated use `PostgresDeployProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployProject$inboundSchema;
-  /** @deprecated use `PostgresDeployProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployProject$outboundSchema;
-  /** @deprecated use `PostgresDeployProject$Outbound` instead. */
-  export type Outbound = PostgresDeployProject$Outbound;
-}
-
-export function postgresDeployProjectToJSON(
-  postgresDeployProject: PostgresDeployProject,
-): string {
-  return JSON.stringify(
-    PostgresDeployProject$outboundSchema.parse(postgresDeployProject),
-  );
-}
-
-export function postgresDeployProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployEnvironment$inboundSchema: z.ZodType<
-  PostgresDeployEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresDeployProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresDeployEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresDeployProject$Outbound;
-};
-
-/** @internal */
-export const PostgresDeployEnvironment$outboundSchema: z.ZodType<
-  PostgresDeployEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresDeployProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployEnvironment$ {
-  /** @deprecated use `PostgresDeployEnvironment$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployEnvironment$inboundSchema;
-  /** @deprecated use `PostgresDeployEnvironment$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployEnvironment$outboundSchema;
-  /** @deprecated use `PostgresDeployEnvironment$Outbound` instead. */
-  export type Outbound = PostgresDeployEnvironment$Outbound;
-}
-
-export function postgresDeployEnvironmentToJSON(
-  postgresDeployEnvironment: PostgresDeployEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresDeployEnvironment$outboundSchema.parse(postgresDeployEnvironment),
-  );
-}
-
-export function postgresDeployEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployType
-> = z.nativeEnum(PostgresDeployType);
-
-/** @internal */
-export const PostgresDeployType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployType
-> = PostgresDeployType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployType$ {
-  /** @deprecated use `PostgresDeployType$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployType$inboundSchema;
-  /** @deprecated use `PostgresDeployType$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresDeployServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployServiceType
-> = z.nativeEnum(PostgresDeployServiceType);
-
-/** @internal */
-export const PostgresDeployServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployServiceType
-> = PostgresDeployServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployServiceType$ {
-  /** @deprecated use `PostgresDeployServiceType$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployServiceType$inboundSchema;
-  /** @deprecated use `PostgresDeployServiceType$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresDeployMount$inboundSchema: z.ZodType<
-  PostgresDeployMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresDeployType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresDeployServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresDeployMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresDeployMount$outboundSchema: z.ZodType<
-  PostgresDeployMount$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresDeployType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresDeployServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMount$ {
-  /** @deprecated use `PostgresDeployMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMount$inboundSchema;
-  /** @deprecated use `PostgresDeployMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMount$outboundSchema;
-  /** @deprecated use `PostgresDeployMount$Outbound` instead. */
-  export type Outbound = PostgresDeployMount$Outbound;
-}
-
-export function postgresDeployMountToJSON(
-  postgresDeployMount: PostgresDeployMount,
-): string {
-  return JSON.stringify(
-    PostgresDeployMount$outboundSchema.parse(postgresDeployMount),
-  );
-}
-
-export function postgresDeployMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployServerStatus
-> = z.nativeEnum(PostgresDeployServerStatus);
-
-/** @internal */
-export const PostgresDeployServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployServerStatus
-> = PostgresDeployServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployServerStatus$ {
-  /** @deprecated use `PostgresDeployServerStatus$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployServerStatus$inboundSchema;
-  /** @deprecated use `PostgresDeployServerStatus$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1979,24 +2390,38 @@ export function postgresDeployMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresDeployServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployServerStatus
+> = z.nativeEnum(PostgresDeployServerStatus);
+
+/** @internal */
+export const PostgresDeployServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresDeployServerStatus
+> = PostgresDeployServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresDeployServerStatus$ {
+  /** @deprecated use `PostgresDeployServerStatus$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployServerStatus$inboundSchema;
+  /** @deprecated use `PostgresDeployServerStatus$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresDeployServer$inboundSchema: z.ZodType<
   PostgresDeployServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresDeployServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2007,26 +2432,33 @@ export const PostgresDeployServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresDeployServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresDeployServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2035,19 +2467,12 @@ export const PostgresDeployServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresDeployServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresDeployServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2058,6 +2483,13 @@ export const PostgresDeployServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresDeployServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2092,523 +2524,91 @@ export function postgresDeployServerFromJSON(
 }
 
 /** @internal */
-export const PostgresDeployBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployBackupType
-> = z.nativeEnum(PostgresDeployBackupType);
-
-/** @internal */
-export const PostgresDeployBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployBackupType
-> = PostgresDeployBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployBackupType$ {
-  /** @deprecated use `PostgresDeployBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployBackupType$inboundSchema;
-  /** @deprecated use `PostgresDeployBackupType$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployDatabaseType
-> = z.nativeEnum(PostgresDeployDatabaseType);
-
-/** @internal */
-export const PostgresDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployDatabaseType
-> = PostgresDeployDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployDatabaseType$ {
-  /** @deprecated use `PostgresDeployDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresDeployDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployMetadataEnum
-> = z.nativeEnum(PostgresDeployMetadataEnum);
-
-/** @internal */
-export const PostgresDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresDeployMetadataEnum
-> = PostgresDeployMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMetadataEnum$ {
-  /** @deprecated use `PostgresDeployMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresDeployMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresDeployPostgres$inboundSchema: z.ZodType<
-  PostgresDeployPostgres,
+export const PostgresDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresDeployUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type PostgresDeployPostgres$Outbound = {
-  databaseUser: string;
+export type PostgresDeployUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresDeployPostgres$outboundSchema: z.ZodType<
-  PostgresDeployPostgres$Outbound,
+export const PostgresDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresDeployUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresDeployPostgres
+  PostgresDeployUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresDeployPostgres$ {
-  /** @deprecated use `PostgresDeployPostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployPostgres$inboundSchema;
-  /** @deprecated use `PostgresDeployPostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployPostgres$outboundSchema;
-  /** @deprecated use `PostgresDeployPostgres$Outbound` instead. */
-  export type Outbound = PostgresDeployPostgres$Outbound;
+export namespace PostgresDeployUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresDeployUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresDeployUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresDeployUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresDeployUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresDeployUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresDeployUpdateConfigSwarm$Outbound;
 }
 
-export function postgresDeployPostgresToJSON(
-  postgresDeployPostgres: PostgresDeployPostgres,
+export function postgresDeployUpdateConfigSwarmToJSON(
+  postgresDeployUpdateConfigSwarm: PostgresDeployUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresDeployPostgres$outboundSchema.parse(postgresDeployPostgres),
-  );
-}
-
-export function postgresDeployPostgresFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployMariadb$inboundSchema: z.ZodType<
-  PostgresDeployMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresDeployMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresDeployMariadb$outboundSchema: z.ZodType<
-  PostgresDeployMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMariadb$ {
-  /** @deprecated use `PostgresDeployMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMariadb$inboundSchema;
-  /** @deprecated use `PostgresDeployMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMariadb$outboundSchema;
-  /** @deprecated use `PostgresDeployMariadb$Outbound` instead. */
-  export type Outbound = PostgresDeployMariadb$Outbound;
-}
-
-export function postgresDeployMariadbToJSON(
-  postgresDeployMariadb: PostgresDeployMariadb,
-): string {
-  return JSON.stringify(
-    PostgresDeployMariadb$outboundSchema.parse(postgresDeployMariadb),
-  );
-}
-
-export function postgresDeployMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployMongo$inboundSchema: z.ZodType<
-  PostgresDeployMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresDeployMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresDeployMongo$outboundSchema: z.ZodType<
-  PostgresDeployMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMongo$ {
-  /** @deprecated use `PostgresDeployMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMongo$inboundSchema;
-  /** @deprecated use `PostgresDeployMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMongo$outboundSchema;
-  /** @deprecated use `PostgresDeployMongo$Outbound` instead. */
-  export type Outbound = PostgresDeployMongo$Outbound;
-}
-
-export function postgresDeployMongoToJSON(
-  postgresDeployMongo: PostgresDeployMongo,
-): string {
-  return JSON.stringify(
-    PostgresDeployMongo$outboundSchema.parse(postgresDeployMongo),
-  );
-}
-
-export function postgresDeployMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployMysql$inboundSchema: z.ZodType<
-  PostgresDeployMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresDeployMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresDeployMysql$outboundSchema: z.ZodType<
-  PostgresDeployMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMysql$ {
-  /** @deprecated use `PostgresDeployMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMysql$inboundSchema;
-  /** @deprecated use `PostgresDeployMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMysql$outboundSchema;
-  /** @deprecated use `PostgresDeployMysql$Outbound` instead. */
-  export type Outbound = PostgresDeployMysql$Outbound;
-}
-
-export function postgresDeployMysqlToJSON(
-  postgresDeployMysql: PostgresDeployMysql,
-): string {
-  return JSON.stringify(
-    PostgresDeployMysql$outboundSchema.parse(postgresDeployMysql),
-  );
-}
-
-export function postgresDeployMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployMetadata$inboundSchema: z.ZodType<
-  PostgresDeployMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresDeployPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresDeployMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => PostgresDeployMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresDeployMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresDeployMetadata$Outbound = {
-  postgres?: PostgresDeployPostgres$Outbound | undefined;
-  mariadb?: PostgresDeployMariadb$Outbound | undefined;
-  mongo?: PostgresDeployMongo$Outbound | undefined;
-  mysql?: PostgresDeployMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresDeployMetadata$outboundSchema: z.ZodType<
-  PostgresDeployMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresDeployPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresDeployMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => PostgresDeployMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresDeployMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMetadata$ {
-  /** @deprecated use `PostgresDeployMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMetadata$inboundSchema;
-  /** @deprecated use `PostgresDeployMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMetadata$outboundSchema;
-  /** @deprecated use `PostgresDeployMetadata$Outbound` instead. */
-  export type Outbound = PostgresDeployMetadata$Outbound;
-}
-
-export function postgresDeployMetadataToJSON(
-  postgresDeployMetadata: PostgresDeployMetadata,
-): string {
-  return JSON.stringify(
-    PostgresDeployMetadata$outboundSchema.parse(postgresDeployMetadata),
-  );
-}
-
-export function postgresDeployMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployMetadataUnion$inboundSchema: z.ZodType<
-  PostgresDeployMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresDeployMetadata$inboundSchema),
-  PostgresDeployMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresDeployMetadataUnion$Outbound =
-  | PostgresDeployMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresDeployMetadataUnion$outboundSchema: z.ZodType<
-  PostgresDeployMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresDeployMetadata$outboundSchema),
-  PostgresDeployMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployMetadataUnion$ {
-  /** @deprecated use `PostgresDeployMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresDeployMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresDeployMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresDeployMetadataUnion$Outbound;
-}
-
-export function postgresDeployMetadataUnionToJSON(
-  postgresDeployMetadataUnion: PostgresDeployMetadataUnion,
-): string {
-  return JSON.stringify(
-    PostgresDeployMetadataUnion$outboundSchema.parse(
-      postgresDeployMetadataUnion,
+    PostgresDeployUpdateConfigSwarm$outboundSchema.parse(
+      postgresDeployUpdateConfigSwarm,
     ),
   );
 }
 
-export function postgresDeployMetadataUnionFromJSON(
+export function postgresDeployUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresDeployMetadataUnion, SDKValidationError> {
+): SafeParseResult<PostgresDeployUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresDeployBackup$inboundSchema: z.ZodType<
-  PostgresDeployBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresDeployBackupType$inboundSchema,
-  databaseType: PostgresDeployDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresDeployMetadata$inboundSchema),
-      PostgresDeployMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresDeployBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: PostgresDeployMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const PostgresDeployBackup$outboundSchema: z.ZodType<
-  PostgresDeployBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresDeployBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresDeployBackupType$outboundSchema,
-  databaseType: PostgresDeployDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresDeployMetadata$outboundSchema),
-      PostgresDeployMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresDeployBackup$ {
-  /** @deprecated use `PostgresDeployBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresDeployBackup$inboundSchema;
-  /** @deprecated use `PostgresDeployBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresDeployBackup$outboundSchema;
-  /** @deprecated use `PostgresDeployBackup$Outbound` instead. */
-  export type Outbound = PostgresDeployBackup$Outbound;
-}
-
-export function postgresDeployBackupToJSON(
-  postgresDeployBackup: PostgresDeployBackup,
-): string {
-  return JSON.stringify(
-    PostgresDeployBackup$outboundSchema.parse(postgresDeployBackup),
-  );
-}
-
-export function postgresDeployBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresDeployBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresDeployBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresDeployBackup' from JSON`,
+    (x) => PostgresDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresDeployUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2618,86 +2618,86 @@ export const PostgresDeployResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresDeployApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresDeployBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresDeployEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresDeployApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresDeployHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresDeployRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresDeployModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresDeployMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresDeployNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresDeployPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresDeployUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresDeployRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresDeployRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresDeployModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresDeployNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresDeployEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresDeployMount$inboundSchema)),
   server: z.nullable(z.lazy(() => PostgresDeployServer$inboundSchema)),
-  backups: z.array(z.lazy(() => PostgresDeployBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresDeployUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresDeployResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresDeployBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresDeployHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresDeployRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresDeployPlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresDeployUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresDeployRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresDeployModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresDeployNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresDeployEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresDeployHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresDeployModeSwarm$Outbound | null;
   mounts: Array<PostgresDeployMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresDeployNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresDeployPlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresDeployRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresDeployRollbackConfigSwarm$Outbound | null;
   server: PostgresDeployServer$Outbound | null;
-  backups: Array<PostgresDeployBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresDeployUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2706,50 +2706,50 @@ export const PostgresDeployResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresDeployResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresDeployApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresDeployBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresDeployEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresDeployApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresDeployHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresDeployRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresDeployModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresDeployMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresDeployNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresDeployPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresDeployUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresDeployRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresDeployRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresDeployModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresDeployNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresDeployEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresDeployMount$outboundSchema)),
   server: z.nullable(z.lazy(() => PostgresDeployServer$outboundSchema)),
-  backups: z.array(z.lazy(() => PostgresDeployBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresDeployUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

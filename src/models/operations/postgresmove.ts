@@ -30,18 +30,44 @@ export type PostgresMoveApplicationStatus = ClosedEnum<
 >;
 
 export type PostgresMoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type PostgresMoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type PostgresMoveGlobal = {};
+
+export type PostgresMoveGlobalJob = {};
+
+export type PostgresMoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresMoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresMoveModeSwarm = {
+  global?: PostgresMoveGlobal | undefined;
+  globalJob?: PostgresMoveGlobalJob | undefined;
+  replicated?: PostgresMoveReplicated | undefined;
+  replicatedJob?: PostgresMoveReplicatedJob | undefined;
+};
+
+export type PostgresMoveDriverOpts = {};
+
+export type PostgresMoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresMoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresMovePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type PostgresMoveSpread = {
@@ -52,96 +78,70 @@ export type PostgresMovePreference = {
   spread: PostgresMoveSpread;
 };
 
-export type PostgresMovePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type PostgresMovePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresMovePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<PostgresMovePlatform> | undefined;
+  preferences?: Array<PostgresMovePreference> | undefined;
 };
 
-export type PostgresMoveUpdateConfigSwarm = {
-  parallelism: number;
+export type PostgresMoveRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type PostgresMoveRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type PostgresMoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresMoveGlobal = {};
-
-export type PostgresMoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresMoveGlobalJob = {};
-
-export type PostgresMoveModeSwarm = {
-  replicated?: PostgresMoveReplicated | undefined;
-  global?: PostgresMoveGlobal | undefined;
-  replicatedJob?: PostgresMoveReplicatedJob | undefined;
-  globalJob?: PostgresMoveGlobalJob | undefined;
-};
-
-export type PostgresMoveDriverOpts = {};
-
-export type PostgresMoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresMoveDriverOpts | undefined;
+export type PostgresMoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresMoveResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresMoveApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresMoveApplicationStatus;
-  healthCheckSwarm: PostgresMoveHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresMoveRestartPolicySwarm | null;
-  placementSwarm: PostgresMovePlacementSwarm | null;
-  updateConfigSwarm: PostgresMoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresMoveRollbackConfigSwarm | null;
-  modeSwarm: PostgresMoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresMoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresMoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresMoveModeSwarm | null;
+  name: string;
+  networkSwarm: Array<PostgresMoveNetworkSwarm> | null;
+  placementSwarm: PostgresMovePlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresMoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresMoveRollbackConfigSwarm | null;
   serverId: string | null;
+  updateConfigSwarm: PostgresMoveUpdateConfigSwarm | null;
 };
 
 export type PostgresMoveResponse = PostgresMoveResponseBody | models.ErrorT;
@@ -292,28 +292,28 @@ export const PostgresMoveHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresMoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -322,18 +322,18 @@ export const PostgresMoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresMoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -371,48 +371,129 @@ export function postgresMoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresMoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresMoveRestartPolicySwarm,
+export const PostgresMoveGlobal$inboundSchema: z.ZodType<
+  PostgresMoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresMoveGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresMoveGlobal$outboundSchema: z.ZodType<
+  PostgresMoveGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveGlobal$ {
+  /** @deprecated use `PostgresMoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveGlobal$inboundSchema;
+  /** @deprecated use `PostgresMoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveGlobal$outboundSchema;
+  /** @deprecated use `PostgresMoveGlobal$Outbound` instead. */
+  export type Outbound = PostgresMoveGlobal$Outbound;
+}
+
+export function postgresMoveGlobalToJSON(
+  postgresMoveGlobal: PostgresMoveGlobal,
+): string {
+  return JSON.stringify(
+    PostgresMoveGlobal$outboundSchema.parse(postgresMoveGlobal),
+  );
+}
+
+export function postgresMoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveGlobalJob$inboundSchema: z.ZodType<
+  PostgresMoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresMoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresMoveGlobalJob$outboundSchema: z.ZodType<
+  PostgresMoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveGlobalJob$ {
+  /** @deprecated use `PostgresMoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresMoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresMoveGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresMoveGlobalJob$Outbound;
+}
+
+export function postgresMoveGlobalJobToJSON(
+  postgresMoveGlobalJob: PostgresMoveGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresMoveGlobalJob$outboundSchema.parse(postgresMoveGlobalJob),
+  );
+}
+
+export function postgresMoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveReplicated$inboundSchema: z.ZodType<
+  PostgresMoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresMoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresMoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresMoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresMoveRestartPolicySwarm$Outbound,
+export const PostgresMoveReplicated$outboundSchema: z.ZodType<
+  PostgresMoveReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresMoveRestartPolicySwarm
+  PostgresMoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -420,32 +501,363 @@ export const PostgresMoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresMoveRestartPolicySwarm$ {
-  /** @deprecated use `PostgresMoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresMoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresMoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresMoveRestartPolicySwarm$Outbound;
+export namespace PostgresMoveReplicated$ {
+  /** @deprecated use `PostgresMoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveReplicated$inboundSchema;
+  /** @deprecated use `PostgresMoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveReplicated$outboundSchema;
+  /** @deprecated use `PostgresMoveReplicated$Outbound` instead. */
+  export type Outbound = PostgresMoveReplicated$Outbound;
 }
 
-export function postgresMoveRestartPolicySwarmToJSON(
-  postgresMoveRestartPolicySwarm: PostgresMoveRestartPolicySwarm,
+export function postgresMoveReplicatedToJSON(
+  postgresMoveReplicated: PostgresMoveReplicated,
 ): string {
   return JSON.stringify(
-    PostgresMoveRestartPolicySwarm$outboundSchema.parse(
-      postgresMoveRestartPolicySwarm,
-    ),
+    PostgresMoveReplicated$outboundSchema.parse(postgresMoveReplicated),
   );
 }
 
-export function postgresMoveRestartPolicySwarmFromJSON(
+export function postgresMoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresMoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresMoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveRestartPolicySwarm' from JSON`,
+    (x) => PostgresMoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveReplicatedJob$inboundSchema: z.ZodType<
+  PostgresMoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresMoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresMoveReplicatedJob$outboundSchema: z.ZodType<
+  PostgresMoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveReplicatedJob$ {
+  /** @deprecated use `PostgresMoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresMoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresMoveReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresMoveReplicatedJob$Outbound;
+}
+
+export function postgresMoveReplicatedJobToJSON(
+  postgresMoveReplicatedJob: PostgresMoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresMoveReplicatedJob$outboundSchema.parse(postgresMoveReplicatedJob),
+  );
+}
+
+export function postgresMoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveModeSwarm$inboundSchema: z.ZodType<
+  PostgresMoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresMoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresMoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => PostgresMoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => PostgresMoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresMoveModeSwarm$Outbound = {
+  Global?: PostgresMoveGlobal$Outbound | undefined;
+  GlobalJob?: PostgresMoveGlobalJob$Outbound | undefined;
+  Replicated?: PostgresMoveReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresMoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresMoveModeSwarm$outboundSchema: z.ZodType<
+  PostgresMoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresMoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresMoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => PostgresMoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => PostgresMoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveModeSwarm$ {
+  /** @deprecated use `PostgresMoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresMoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresMoveModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresMoveModeSwarm$Outbound;
+}
+
+export function postgresMoveModeSwarmToJSON(
+  postgresMoveModeSwarm: PostgresMoveModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresMoveModeSwarm$outboundSchema.parse(postgresMoveModeSwarm),
+  );
+}
+
+export function postgresMoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveDriverOpts$inboundSchema: z.ZodType<
+  PostgresMoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresMoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresMoveDriverOpts$outboundSchema: z.ZodType<
+  PostgresMoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveDriverOpts$ {
+  /** @deprecated use `PostgresMoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresMoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresMoveDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresMoveDriverOpts$Outbound;
+}
+
+export function postgresMoveDriverOptsToJSON(
+  postgresMoveDriverOpts: PostgresMoveDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresMoveDriverOpts$outboundSchema.parse(postgresMoveDriverOpts),
+  );
+}
+
+export function postgresMoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMoveNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresMoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresMoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresMoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresMoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresMoveNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresMoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresMoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresMoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMoveNetworkSwarm$ {
+  /** @deprecated use `PostgresMoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresMoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresMoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresMoveNetworkSwarm$Outbound;
+}
+
+export function postgresMoveNetworkSwarmToJSON(
+  postgresMoveNetworkSwarm: PostgresMoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresMoveNetworkSwarm$outboundSchema.parse(postgresMoveNetworkSwarm),
+  );
+}
+
+export function postgresMoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresMovePlatform$inboundSchema: z.ZodType<
+  PostgresMovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresMovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresMovePlatform$outboundSchema: z.ZodType<
+  PostgresMovePlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresMovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresMovePlatform$ {
+  /** @deprecated use `PostgresMovePlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresMovePlatform$inboundSchema;
+  /** @deprecated use `PostgresMovePlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresMovePlatform$outboundSchema;
+  /** @deprecated use `PostgresMovePlatform$Outbound` instead. */
+  export type Outbound = PostgresMovePlatform$Outbound;
+}
+
+export function postgresMovePlatformToJSON(
+  postgresMovePlatform: PostgresMovePlatform,
+): string {
+  return JSON.stringify(
+    PostgresMovePlatform$outboundSchema.parse(postgresMovePlatform),
+  );
+}
+
+export function postgresMovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresMovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresMovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMovePlatform' from JSON`,
   );
 }
 
@@ -574,99 +986,32 @@ export function postgresMovePreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresMovePlatform$inboundSchema: z.ZodType<
-  PostgresMovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresMovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresMovePlatform$outboundSchema: z.ZodType<
-  PostgresMovePlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresMovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMovePlatform$ {
-  /** @deprecated use `PostgresMovePlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresMovePlatform$inboundSchema;
-  /** @deprecated use `PostgresMovePlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresMovePlatform$outboundSchema;
-  /** @deprecated use `PostgresMovePlatform$Outbound` instead. */
-  export type Outbound = PostgresMovePlatform$Outbound;
-}
-
-export function postgresMovePlatformToJSON(
-  postgresMovePlatform: PostgresMovePlatform,
-): string {
-  return JSON.stringify(
-    PostgresMovePlatform$outboundSchema.parse(postgresMovePlatform),
-  );
-}
-
-export function postgresMovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresMovePlacementSwarm$inboundSchema: z.ZodType<
   PostgresMovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => PostgresMovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresMovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => PostgresMovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresMovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresMovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresMovePlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresMovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -676,17 +1021,17 @@ export const PostgresMovePlacementSwarm$outboundSchema: z.ZodType<
   PostgresMovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => PostgresMovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresMovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => PostgresMovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -722,58 +1067,48 @@ export function postgresMovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresMoveUpdateConfigSwarm,
+export const PostgresMoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresMoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresMoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresMoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresMoveUpdateConfigSwarm$Outbound,
+export const PostgresMoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresMoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresMoveUpdateConfigSwarm
+  PostgresMoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -781,32 +1116,32 @@ export const PostgresMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresMoveUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresMoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresMoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresMoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresMoveUpdateConfigSwarm$Outbound;
+export namespace PostgresMoveRestartPolicySwarm$ {
+  /** @deprecated use `PostgresMoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresMoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresMoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresMoveRestartPolicySwarm$Outbound;
 }
 
-export function postgresMoveUpdateConfigSwarmToJSON(
-  postgresMoveUpdateConfigSwarm: PostgresMoveUpdateConfigSwarm,
+export function postgresMoveRestartPolicySwarmToJSON(
+  postgresMoveRestartPolicySwarm: PostgresMoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresMoveUpdateConfigSwarm$outboundSchema.parse(
-      postgresMoveUpdateConfigSwarm,
+    PostgresMoveRestartPolicySwarm$outboundSchema.parse(
+      postgresMoveRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresMoveUpdateConfigSwarmFromJSON(
+export function postgresMoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresMoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresMoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveUpdateConfigSwarm' from JSON`,
+    (x) => PostgresMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -816,31 +1151,31 @@ export const PostgresMoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresMoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -849,20 +1184,20 @@ export const PostgresMoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresMoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -900,33 +1235,58 @@ export function postgresMoveRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresMoveReplicated$inboundSchema: z.ZodType<
-  PostgresMoveReplicated,
+export const PostgresMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresMoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type PostgresMoveReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type PostgresMoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresMoveReplicated$outboundSchema: z.ZodType<
-  PostgresMoveReplicated$Outbound,
+export const PostgresMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresMoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresMoveReplicated
+  PostgresMoveUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -934,392 +1294,32 @@ export const PostgresMoveReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresMoveReplicated$ {
-  /** @deprecated use `PostgresMoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveReplicated$inboundSchema;
-  /** @deprecated use `PostgresMoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveReplicated$outboundSchema;
-  /** @deprecated use `PostgresMoveReplicated$Outbound` instead. */
-  export type Outbound = PostgresMoveReplicated$Outbound;
+export namespace PostgresMoveUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresMoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresMoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresMoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresMoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresMoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresMoveUpdateConfigSwarm$Outbound;
 }
 
-export function postgresMoveReplicatedToJSON(
-  postgresMoveReplicated: PostgresMoveReplicated,
+export function postgresMoveUpdateConfigSwarmToJSON(
+  postgresMoveUpdateConfigSwarm: PostgresMoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresMoveReplicated$outboundSchema.parse(postgresMoveReplicated),
+    PostgresMoveUpdateConfigSwarm$outboundSchema.parse(
+      postgresMoveUpdateConfigSwarm,
+    ),
   );
 }
 
-export function postgresMoveReplicatedFromJSON(
+export function postgresMoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresMoveReplicated, SDKValidationError> {
+): SafeParseResult<PostgresMoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresMoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveGlobal$inboundSchema: z.ZodType<
-  PostgresMoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresMoveGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresMoveGlobal$outboundSchema: z.ZodType<
-  PostgresMoveGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveGlobal$ {
-  /** @deprecated use `PostgresMoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveGlobal$inboundSchema;
-  /** @deprecated use `PostgresMoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveGlobal$outboundSchema;
-  /** @deprecated use `PostgresMoveGlobal$Outbound` instead. */
-  export type Outbound = PostgresMoveGlobal$Outbound;
-}
-
-export function postgresMoveGlobalToJSON(
-  postgresMoveGlobal: PostgresMoveGlobal,
-): string {
-  return JSON.stringify(
-    PostgresMoveGlobal$outboundSchema.parse(postgresMoveGlobal),
-  );
-}
-
-export function postgresMoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveReplicatedJob$inboundSchema: z.ZodType<
-  PostgresMoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresMoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresMoveReplicatedJob$outboundSchema: z.ZodType<
-  PostgresMoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveReplicatedJob$ {
-  /** @deprecated use `PostgresMoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresMoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresMoveReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresMoveReplicatedJob$Outbound;
-}
-
-export function postgresMoveReplicatedJobToJSON(
-  postgresMoveReplicatedJob: PostgresMoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresMoveReplicatedJob$outboundSchema.parse(postgresMoveReplicatedJob),
-  );
-}
-
-export function postgresMoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveGlobalJob$inboundSchema: z.ZodType<
-  PostgresMoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresMoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresMoveGlobalJob$outboundSchema: z.ZodType<
-  PostgresMoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveGlobalJob$ {
-  /** @deprecated use `PostgresMoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresMoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresMoveGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresMoveGlobalJob$Outbound;
-}
-
-export function postgresMoveGlobalJobToJSON(
-  postgresMoveGlobalJob: PostgresMoveGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresMoveGlobalJob$outboundSchema.parse(postgresMoveGlobalJob),
-  );
-}
-
-export function postgresMoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveModeSwarm$inboundSchema: z.ZodType<
-  PostgresMoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresMoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => PostgresMoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresMoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresMoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresMoveModeSwarm$Outbound = {
-  Replicated?: PostgresMoveReplicated$Outbound | undefined;
-  Global?: PostgresMoveGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresMoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresMoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresMoveModeSwarm$outboundSchema: z.ZodType<
-  PostgresMoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresMoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => PostgresMoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresMoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresMoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveModeSwarm$ {
-  /** @deprecated use `PostgresMoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresMoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresMoveModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresMoveModeSwarm$Outbound;
-}
-
-export function postgresMoveModeSwarmToJSON(
-  postgresMoveModeSwarm: PostgresMoveModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresMoveModeSwarm$outboundSchema.parse(postgresMoveModeSwarm),
-  );
-}
-
-export function postgresMoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveDriverOpts$inboundSchema: z.ZodType<
-  PostgresMoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresMoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresMoveDriverOpts$outboundSchema: z.ZodType<
-  PostgresMoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveDriverOpts$ {
-  /** @deprecated use `PostgresMoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresMoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresMoveDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresMoveDriverOpts$Outbound;
-}
-
-export function postgresMoveDriverOptsToJSON(
-  postgresMoveDriverOpts: PostgresMoveDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresMoveDriverOpts$outboundSchema.parse(postgresMoveDriverOpts),
-  );
-}
-
-export function postgresMoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresMoveNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresMoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresMoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresMoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresMoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresMoveNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresMoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresMoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresMoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresMoveNetworkSwarm$ {
-  /** @deprecated use `PostgresMoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresMoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresMoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresMoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresMoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresMoveNetworkSwarm$Outbound;
-}
-
-export function postgresMoveNetworkSwarmToJSON(
-  postgresMoveNetworkSwarm: PostgresMoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresMoveNetworkSwarm$outboundSchema.parse(postgresMoveNetworkSwarm),
-  );
-}
-
-export function postgresMoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresMoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresMoveNetworkSwarm' from JSON`,
+    (x) => PostgresMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresMoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1329,78 +1329,78 @@ export const PostgresMoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresMoveApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresMoveApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresMoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresMoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresMoveModeSwarm$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresMoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresMovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresMoveUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresMoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresMoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresMoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresMoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresMoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresMoveResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresMoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresMoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresMovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresMoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresMoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresMoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresMoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresMoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresMoveModeSwarm$Outbound | null;
+  name: string;
+  networkSwarm: Array<PostgresMoveNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresMovePlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresMoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresMoveRollbackConfigSwarm$Outbound | null;
   serverId: string | null;
+  updateConfigSwarm: PostgresMoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -1409,46 +1409,46 @@ export const PostgresMoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresMoveResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresMoveApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresMoveApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresMoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresMoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresMoveModeSwarm$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresMoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresMovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresMoveUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresMoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresMoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresMoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresMoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresMoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

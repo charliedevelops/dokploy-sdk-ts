@@ -18,15 +18,6 @@ export type DomainByApplicationIdRequest = {
   applicationId: string;
 };
 
-export const DomainByApplicationIdDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
-} as const;
-export type DomainByApplicationIdDomainType = ClosedEnum<
-  typeof DomainByApplicationIdDomainType
->;
-
 export const DomainByApplicationIdCertificateType = {
   Letsencrypt: "letsencrypt",
   None: "none",
@@ -36,23 +27,32 @@ export type DomainByApplicationIdCertificateType = ClosedEnum<
   typeof DomainByApplicationIdCertificateType
 >;
 
+export const DomainByApplicationIdDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type DomainByApplicationIdDomainType = ClosedEnum<
+  typeof DomainByApplicationIdDomainType
+>;
+
 export type DomainByApplicationIdResponseBody = {
+  applicationId: string | null;
+  certificateType: DomainByApplicationIdCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: DomainByApplicationIdDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: DomainByApplicationIdDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: DomainByApplicationIdCertificateType;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 export type DomainByApplicationIdResponse =
@@ -180,27 +180,6 @@ export function domainByApplicationIdRequestFromJSON(
 }
 
 /** @internal */
-export const DomainByApplicationIdDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof DomainByApplicationIdDomainType
-> = z.nativeEnum(DomainByApplicationIdDomainType);
-
-/** @internal */
-export const DomainByApplicationIdDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof DomainByApplicationIdDomainType
-> = DomainByApplicationIdDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainByApplicationIdDomainType$ {
-  /** @deprecated use `DomainByApplicationIdDomainType$inboundSchema` instead. */
-  export const inboundSchema = DomainByApplicationIdDomainType$inboundSchema;
-  /** @deprecated use `DomainByApplicationIdDomainType$outboundSchema` instead. */
-  export const outboundSchema = DomainByApplicationIdDomainType$outboundSchema;
-}
-
-/** @internal */
 export const DomainByApplicationIdCertificateType$inboundSchema:
   z.ZodNativeEnum<typeof DomainByApplicationIdCertificateType> = z.nativeEnum(
     DomainByApplicationIdCertificateType,
@@ -225,47 +204,68 @@ export namespace DomainByApplicationIdCertificateType$ {
 }
 
 /** @internal */
+export const DomainByApplicationIdDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof DomainByApplicationIdDomainType
+> = z.nativeEnum(DomainByApplicationIdDomainType);
+
+/** @internal */
+export const DomainByApplicationIdDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof DomainByApplicationIdDomainType
+> = DomainByApplicationIdDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DomainByApplicationIdDomainType$ {
+  /** @deprecated use `DomainByApplicationIdDomainType$inboundSchema` instead. */
+  export const inboundSchema = DomainByApplicationIdDomainType$inboundSchema;
+  /** @deprecated use `DomainByApplicationIdDomainType$outboundSchema` instead. */
+  export const outboundSchema = DomainByApplicationIdDomainType$outboundSchema;
+}
+
+/** @internal */
 export const DomainByApplicationIdResponseBody$inboundSchema: z.ZodType<
   DomainByApplicationIdResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainByApplicationIdCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainByApplicationIdDomainType$inboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainByApplicationIdDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainByApplicationIdCertificateType$inboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /** @internal */
 export type DomainByApplicationIdResponseBody$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: string | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 /** @internal */
@@ -274,22 +274,22 @@ export const DomainByApplicationIdResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DomainByApplicationIdResponseBody
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainByApplicationIdCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainByApplicationIdDomainType$outboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainByApplicationIdDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainByApplicationIdCertificateType$outboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /**

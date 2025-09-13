@@ -21,16 +21,16 @@ export type RegistryUpdateRegistryType = ClosedEnum<
 >;
 
 export type RegistryUpdateRequest = {
+  createdAt?: string | undefined;
+  imagePrefix?: string | null | undefined;
+  organizationId?: string | undefined;
+  password?: string | undefined;
   registryId: string;
   registryName?: string | undefined;
-  imagePrefix?: string | null | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  registryUrl?: string | undefined;
-  createdAt?: string | undefined;
   registryType?: RegistryUpdateRegistryType | undefined;
-  organizationId?: string | undefined;
+  registryUrl?: string | undefined;
   serverId?: string | undefined;
+  username?: string | undefined;
 };
 
 /** @internal */
@@ -122,30 +122,30 @@ export const RegistryUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string().optional(),
+  imagePrefix: z.nullable(z.string()).optional(),
+  organizationId: z.string().optional(),
+  password: z.string().optional(),
   registryId: z.string(),
   registryName: z.string().optional(),
-  imagePrefix: z.nullable(z.string()).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  registryUrl: z.string().optional(),
-  createdAt: z.string().optional(),
   registryType: RegistryUpdateRegistryType$inboundSchema.optional(),
-  organizationId: z.string().optional(),
+  registryUrl: z.string().optional(),
   serverId: z.string().optional(),
+  username: z.string().optional(),
 });
 
 /** @internal */
 export type RegistryUpdateRequest$Outbound = {
+  createdAt?: string | undefined;
+  imagePrefix?: string | null | undefined;
+  organizationId?: string | undefined;
+  password?: string | undefined;
   registryId: string;
   registryName?: string | undefined;
-  imagePrefix?: string | null | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  registryUrl?: string | undefined;
-  createdAt?: string | undefined;
   registryType?: string | undefined;
-  organizationId?: string | undefined;
+  registryUrl?: string | undefined;
   serverId?: string | undefined;
+  username?: string | undefined;
 };
 
 /** @internal */
@@ -154,16 +154,16 @@ export const RegistryUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RegistryUpdateRequest
 > = z.object({
+  createdAt: z.string().optional(),
+  imagePrefix: z.nullable(z.string()).optional(),
+  organizationId: z.string().optional(),
+  password: z.string().optional(),
   registryId: z.string(),
   registryName: z.string().optional(),
-  imagePrefix: z.nullable(z.string()).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  registryUrl: z.string().optional(),
-  createdAt: z.string().optional(),
   registryType: RegistryUpdateRegistryType$outboundSchema.optional(),
-  organizationId: z.string().optional(),
+  registryUrl: z.string().optional(),
   serverId: z.string().optional(),
+  username: z.string().optional(),
 });
 
 /**

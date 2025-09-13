@@ -21,13 +21,13 @@ export type RedirectsDeleteRequest = {
  * Successful response
  */
 export type RedirectsDeleteResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type RedirectsDeleteResponse =
@@ -156,24 +156,24 @@ export const RedirectsDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type RedirectsDeleteResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -182,13 +182,13 @@ export const RedirectsDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsDeleteResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

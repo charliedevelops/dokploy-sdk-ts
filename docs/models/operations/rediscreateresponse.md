@@ -7,41 +7,40 @@
 
 ```typescript
 const value: operations.RedisCreateResponseBody = {
-  redisId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description: "positively warm clonk where spectacles",
-  databasePassword: "<value>",
-  dockerImage: "<value>",
+  applicationStatus: "idle",
   command: "<value>",
-  env: "<value>",
-  memoryReservation: null,
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
   cpuLimit: "<value>",
-  externalPort: 2587.53,
-  createdAt: "1722312911347",
-  applicationStatus: "running",
-  healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 7166.48,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 3682.67,
-    order: "<value>",
-  },
-  modeSwarm: {},
-  labelsSwarm: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
-  networkSwarm: [],
-  replicas: 5974.79,
+  cpuReservation: "<value>",
+  createdAt: "1705761760268",
+  databasePassword: "<value>",
+  description: "torn what but psst speedily imaginative supposing pfft",
+  dockerImage: "<value>",
+  env: "<value>",
   environmentId: "<id>",
-  serverId: "<id>",
+  externalPort: 1917.04,
+  healthCheckSwarm: null,
+  labelsSwarm: {},
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  name: "<value>",
+  networkSwarm: [
+    {},
+  ],
+  placementSwarm: {},
+  redisId: "<id>",
+  replicas: 4246.96,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 6562.59,
+  },
+  serverId: null,
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 2954.01,
+  },
 };
 ```
 
@@ -49,8 +48,8 @@ const value: operations.RedisCreateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -7,22 +7,22 @@
 
 ```typescript
 const value: operations.DomainCreateResponseBody = {
-  domainId: "<id>",
-  host: "emotional-brief.name",
-  https: false,
-  port: null,
-  path: "/Library",
-  serviceName: "<value>",
-  domainType: "application",
-  uniqueConfigKey: 1062.2,
-  createdAt: "1714143304215",
-  composeId: "<id>",
-  customCertResolver: null,
   applicationId: "<id>",
-  previewDeploymentId: "<id>",
   certificateType: "letsencrypt",
+  composeId: "<id>",
+  createdAt: "1727961937235",
+  customCertResolver: null,
+  domainId: "<id>",
+  domainType: "compose",
+  host: "stylish-rawhide.info",
+  https: true,
   internalPath: "<value>",
+  path: "/bin",
+  port: 7323.82,
+  previewDeploymentId: "<id>",
+  serviceName: "<value>",
   stripPath: true,
+  uniqueConfigKey: 6616.14,
 };
 ```
 
@@ -30,8 +30,8 @@ const value: operations.DomainCreateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

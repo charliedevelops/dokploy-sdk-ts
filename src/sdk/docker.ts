@@ -15,32 +15,6 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Docker extends ClientSDK {
-  async dockerGetContainers(
-    security: operations.DockerGetContainersSecurity,
-    request?: operations.DockerGetContainersRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(dockerDockerGetContainers(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async dockerRestartContainer(
-    security: operations.DockerRestartContainerSecurity,
-    request: operations.DockerRestartContainerRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(dockerDockerRestartContainer(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async dockerGetConfig(
     security: operations.DockerGetConfigSecurity,
     request: operations.DockerGetConfigRequest,
@@ -54,12 +28,12 @@ export class Docker extends ClientSDK {
     ));
   }
 
-  async dockerGetContainersByAppNameMatch(
-    security: operations.DockerGetContainersByAppNameMatchSecurity,
-    request: operations.DockerGetContainersByAppNameMatchRequest,
+  async dockerGetContainers(
+    security: operations.DockerGetContainersSecurity,
+    request?: operations.DockerGetContainersRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(dockerDockerGetContainersByAppNameMatch(
+    return unwrapAsync(dockerDockerGetContainers(
       this,
       security,
       request,
@@ -80,12 +54,12 @@ export class Docker extends ClientSDK {
     ));
   }
 
-  async dockerGetStackContainersByAppName(
-    security: operations.DockerGetStackContainersByAppNameSecurity,
-    request: operations.DockerGetStackContainersByAppNameRequest,
+  async dockerGetContainersByAppNameMatch(
+    security: operations.DockerGetContainersByAppNameMatchSecurity,
+    request: operations.DockerGetContainersByAppNameMatchRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(dockerDockerGetStackContainersByAppName(
+    return unwrapAsync(dockerDockerGetContainersByAppNameMatch(
       this,
       security,
       request,
@@ -99,6 +73,32 @@ export class Docker extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(dockerDockerGetServiceContainersByAppName(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async dockerGetStackContainersByAppName(
+    security: operations.DockerGetStackContainersByAppNameSecurity,
+    request: operations.DockerGetStackContainersByAppNameRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(dockerDockerGetStackContainersByAppName(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async dockerRestartContainer(
+    security: operations.DockerRestartContainerSecurity,
+    request: operations.DockerRestartContainerRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(dockerDockerRestartContainer(
       this,
       security,
       request,

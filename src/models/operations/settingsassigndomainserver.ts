@@ -23,10 +23,10 @@ export type SettingsAssignDomainServerCertificateType = ClosedEnum<
 >;
 
 export type SettingsAssignDomainServerRequest = {
-  host: string | null;
   certificateType: SettingsAssignDomainServerCertificateType;
-  letsEncryptEmail?: string | null | undefined;
+  host: string | null;
   https?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
 };
 
 /** @internal */
@@ -124,18 +124,18 @@ export const SettingsAssignDomainServerRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.nullable(z.string()),
   certificateType: SettingsAssignDomainServerCertificateType$inboundSchema,
-  letsEncryptEmail: z.nullable(z.string()).optional(),
+  host: z.nullable(z.string()),
   https: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type SettingsAssignDomainServerRequest$Outbound = {
-  host: string | null;
   certificateType: string;
-  letsEncryptEmail?: string | null | undefined;
+  host: string | null;
   https?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
 };
 
 /** @internal */
@@ -144,10 +144,10 @@ export const SettingsAssignDomainServerRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SettingsAssignDomainServerRequest
 > = z.object({
-  host: z.nullable(z.string()),
   certificateType: SettingsAssignDomainServerCertificateType$outboundSchema,
-  letsEncryptEmail: z.nullable(z.string()).optional(),
+  host: z.nullable(z.string()),
   https: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
 });
 
 /**

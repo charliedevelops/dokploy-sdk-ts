@@ -24,12 +24,12 @@ export class Security extends ClientSDK {
     ));
   }
 
-  async securityOne(
-    security: operations.SecurityOneSecurity,
-    request: operations.SecurityOneRequest,
+  async securityDelete(
+    security: operations.SecurityDeleteSecurity,
+    request: operations.SecurityDeleteRequest,
     options?: RequestOptions,
-  ): Promise<operations.SecurityOneResponse> {
-    return unwrapAsync(securitySecurityOne(
+  ): Promise<operations.SecurityDeleteResponse> {
+    return unwrapAsync(securitySecurityDelete(
       this,
       security,
       request,
@@ -37,12 +37,12 @@ export class Security extends ClientSDK {
     ));
   }
 
-  async securityDelete(
-    security: operations.SecurityDeleteSecurity,
-    request: operations.SecurityDeleteRequest,
+  async securityOne(
+    security: operations.SecurityOneSecurity,
+    request: operations.SecurityOneRequest,
     options?: RequestOptions,
-  ): Promise<operations.SecurityDeleteResponse> {
-    return unwrapAsync(securitySecurityDelete(
+  ): Promise<operations.SecurityOneResponse> {
+    return unwrapAsync(securitySecurityOne(
       this,
       security,
       request,

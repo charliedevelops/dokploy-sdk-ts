@@ -14,14 +14,14 @@ export type ApplicationSaveBitbucketProviderSecurity = {
 };
 
 export type ApplicationSaveBitbucketProviderRequest = {
+  applicationId: string;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
+  bitbucketId: string | null;
   bitbucketOwner: string | null;
   bitbucketRepository: string | null;
-  bitbucketId: string | null;
-  applicationId: string;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationSaveBitbucketProviderResponse = models.ErrorT | boolean;
@@ -105,26 +105,26 @@ export const ApplicationSaveBitbucketProviderRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
   bitbucketOwner: z.nullable(z.string()),
   bitbucketRepository: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  applicationId: z.string(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveBitbucketProviderRequest$Outbound = {
+  applicationId: string;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
+  bitbucketId: string | null;
   bitbucketOwner: string | null;
   bitbucketRepository: string | null;
-  bitbucketId: string | null;
-  applicationId: string;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -133,14 +133,14 @@ export const ApplicationSaveBitbucketProviderRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveBitbucketProviderRequest
 > = z.object({
+  applicationId: z.string(),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
   bitbucketOwner: z.nullable(z.string()),
   bitbucketRepository: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  applicationId: z.string(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

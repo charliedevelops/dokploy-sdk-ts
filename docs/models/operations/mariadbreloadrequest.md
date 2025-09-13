@@ -6,8 +6,8 @@
 import { MariadbReloadRequest } from "dokploy-sdk/models/operations";
 
 let value: MariadbReloadRequest = {
-  mariadbId: "<id>",
   appName: "<value>",
+  mariadbId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MariadbReloadRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `mariadbId`        | *string*           | :heavy_check_mark: | N/A                |
 | `appName`          | *string*           | :heavy_check_mark: | N/A                |
+| `mariadbId`        | *string*           | :heavy_check_mark: | N/A                |

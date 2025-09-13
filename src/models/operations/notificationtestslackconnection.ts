@@ -13,8 +13,8 @@ export type NotificationTestSlackConnectionSecurity = {
 };
 
 export type NotificationTestSlackConnectionRequest = {
-  webhookUrl: string;
   channel: string;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -96,14 +96,14 @@ export const NotificationTestSlackConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhookUrl: z.string(),
   channel: z.string(),
+  webhookUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationTestSlackConnectionRequest$Outbound = {
-  webhookUrl: string;
   channel: string;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -112,8 +112,8 @@ export const NotificationTestSlackConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestSlackConnectionRequest
 > = z.object({
-  webhookUrl: z.string(),
   channel: z.string(),
+  webhookUrl: z.string(),
 });
 
 /**

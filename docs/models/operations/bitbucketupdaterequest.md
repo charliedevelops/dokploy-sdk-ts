@@ -16,9 +16,9 @@ let value: BitbucketUpdateRequest = {
 
 | Field                    | Type                     | Required                 | Description              |
 | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `appPassword`            | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `bitbucketId`            | *string*                 | :heavy_check_mark:       | N/A                      |
 | `bitbucketUsername`      | *string*                 | :heavy_minus_sign:       | N/A                      |
-| `appPassword`            | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `bitbucketWorkspaceName` | *string*                 | :heavy_minus_sign:       | N/A                      |
 | `gitProviderId`          | *string*                 | :heavy_check_mark:       | N/A                      |
 | `name`                   | *string*                 | :heavy_check_mark:       | N/A                      |

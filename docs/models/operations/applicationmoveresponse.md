@@ -7,8 +7,8 @@
 
 ```typescript
 const value: operations.ApplicationMoveResponseBody = {
-  name: "<value>",
   environmentId: "<id>",
+  name: "<value>",
 };
 ```
 
@@ -16,8 +16,8 @@ const value: operations.ApplicationMoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

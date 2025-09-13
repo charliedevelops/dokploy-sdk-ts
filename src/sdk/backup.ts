@@ -32,77 +32,12 @@ export class Backup extends ClientSDK {
     ));
   }
 
-  async backupOne(
-    security: operations.BackupOneSecurity,
-    request: operations.BackupOneRequest,
+  async backupListBackupFiles(
+    security: operations.BackupListBackupFilesSecurity,
+    request: operations.BackupListBackupFilesRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async backupUpdate(
-    security: operations.BackupUpdateSecurity,
-    request: operations.BackupUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async backupRemove(
-    security: operations.BackupRemoveSecurity,
-    request: operations.BackupRemoveRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupRemove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async backupManualBackupPostgres(
-    security: operations.BackupManualBackupPostgresSecurity,
-    request: operations.BackupManualBackupPostgresRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupManualBackupPostgres(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async backupManualBackupMySql(
-    security: operations.BackupManualBackupMySqlSecurity,
-    request: operations.BackupManualBackupMySqlRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupManualBackupMySql(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async backupManualBackupMariadb(
-    security: operations.BackupManualBackupMariadbSecurity,
-    request: operations.BackupManualBackupMariadbRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupManualBackupMariadb(
+    return unwrapAsync(backupBackupListBackupFiles(
       this,
       security,
       request,
@@ -123,12 +58,51 @@ export class Backup extends ClientSDK {
     ));
   }
 
+  async backupManualBackupMariadb(
+    security: operations.BackupManualBackupMariadbSecurity,
+    request: operations.BackupManualBackupMariadbRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(backupBackupManualBackupMariadb(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async backupManualBackupMongo(
     security: operations.BackupManualBackupMongoSecurity,
     request: operations.BackupManualBackupMongoRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(backupBackupManualBackupMongo(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async backupManualBackupMySql(
+    security: operations.BackupManualBackupMySqlSecurity,
+    request: operations.BackupManualBackupMySqlRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(backupBackupManualBackupMySql(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async backupManualBackupPostgres(
+    security: operations.BackupManualBackupPostgresSecurity,
+    request: operations.BackupManualBackupPostgresRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(backupBackupManualBackupPostgres(
       this,
       security,
       request,
@@ -149,12 +123,38 @@ export class Backup extends ClientSDK {
     ));
   }
 
-  async backupListBackupFiles(
-    security: operations.BackupListBackupFilesSecurity,
-    request: operations.BackupListBackupFilesRequest,
+  async backupOne(
+    security: operations.BackupOneSecurity,
+    request: operations.BackupOneRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(backupBackupListBackupFiles(
+    return unwrapAsync(backupBackupOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async backupRemove(
+    security: operations.BackupRemoveSecurity,
+    request: operations.BackupRemoveRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(backupBackupRemove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async backupUpdate(
+    security: operations.BackupUpdateSecurity,
+    request: operations.BackupUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(backupBackupUpdate(
       this,
       security,
       request,

@@ -28,112 +28,120 @@ export type MysqlStopApplicationStatus = ClosedEnum<
   typeof MysqlStopApplicationStatus
 >;
 
+export const MysqlStopBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type MysqlStopBackupType = ClosedEnum<typeof MysqlStopBackupType>;
+
+export const MysqlStopDatabaseType = {
+  Postgres: "postgres",
+  Mariadb: "mariadb",
+  Mysql: "mysql",
+  Mongo: "mongo",
+  WebServer: "web-server",
+} as const;
+export type MysqlStopDatabaseType = ClosedEnum<typeof MysqlStopDatabaseType>;
+
+export const MysqlStopMetadataEnum = {
+  Null: "null",
+} as const;
+export type MysqlStopMetadataEnum = ClosedEnum<typeof MysqlStopMetadataEnum>;
+
+export type MysqlStopMariadb = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlStopMongo = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlStopMysql = {
+  databaseRootPassword: string;
+};
+
+export type MysqlStopPostgres = {
+  databaseUser: string;
+};
+
+export type MysqlStopMetadata = {
+  mariadb?: MysqlStopMariadb | undefined;
+  mongo?: MysqlStopMongo | undefined;
+  mysql?: MysqlStopMysql | undefined;
+  postgres?: MysqlStopPostgres | undefined;
+};
+
+export type MysqlStopMetadataUnion = MysqlStopMetadata | MysqlStopMetadataEnum;
+
+export type MysqlStopBackup = {
+  appName: string;
+  backupId: string;
+  backupType: MysqlStopBackupType;
+  composeId: string | null;
+  database: string;
+  databaseType: MysqlStopDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlStopMetadata | MysqlStopMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlStopProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlStopEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlStopProject;
+  projectId: string;
+};
+
 export type MysqlStopHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MysqlStopRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type MysqlStopGlobal = {};
 
-export type MysqlStopSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlStopPreference = {
-  spread: MysqlStopSpread;
-};
-
-export type MysqlStopPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlStopPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlStopPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlStopPlatform> | undefined;
-};
-
-export type MysqlStopUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlStopRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type MysqlStopGlobalJob = {};
 
 export type MysqlStopReplicated = {
   replicas?: number | undefined;
 };
-
-export type MysqlStopGlobal = {};
 
 export type MysqlStopReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type MysqlStopGlobalJob = {};
-
 export type MysqlStopModeSwarm = {
-  replicated?: MysqlStopReplicated | undefined;
   global?: MysqlStopGlobal | undefined;
-  replicatedJob?: MysqlStopReplicatedJob | undefined;
   globalJob?: MysqlStopGlobalJob | undefined;
+  replicated?: MysqlStopReplicated | undefined;
+  replicatedJob?: MysqlStopReplicatedJob | undefined;
 };
-
-export type MysqlStopDriverOpts = {};
-
-export type MysqlStopNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlStopDriverOpts | undefined;
-};
-
-export type MysqlStopProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlStopEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlStopProject;
-};
-
-export const MysqlStopType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlStopType = ClosedEnum<typeof MysqlStopType>;
 
 export const MysqlStopServiceType = {
   Application: "application",
@@ -146,29 +154,74 @@ export const MysqlStopServiceType = {
 } as const;
 export type MysqlStopServiceType = ClosedEnum<typeof MysqlStopServiceType>;
 
+export const MysqlStopType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlStopType = ClosedEnum<typeof MysqlStopType>;
+
 export type MysqlStopMount = {
-  mountId: string;
-  type: MysqlStopType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlStopServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: MysqlStopServiceType;
+  type: MysqlStopType;
+  volumeName: string | null;
 };
 
-export const MysqlStopServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlStopServerStatus = ClosedEnum<typeof MysqlStopServerStatus>;
+export type MysqlStopDriverOpts = {};
+
+export type MysqlStopNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlStopDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlStopPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlStopSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlStopPreference = {
+  spread: MysqlStopSpread;
+};
+
+export type MysqlStopPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlStopPlatform> | undefined;
+  preferences?: Array<MysqlStopPreference> | undefined;
+};
+
+export type MysqlStopRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlStopRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const MysqlStopMetricsConfigEnum = {
   Null: "null",
@@ -191,20 +244,19 @@ export type MysqlStopMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const MysqlStopServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlStopServerStatus = ClosedEnum<typeof MysqlStopServerStatus>;
+
 export type MysqlStopServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlStopServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -212,113 +264,61 @@ export type MysqlStopServer = {
     | MysqlStopMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlStopServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const MysqlStopBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type MysqlStopBackupType = ClosedEnum<typeof MysqlStopBackupType>;
-
-export const MysqlStopDatabaseType = {
-  Postgres: "postgres",
-  Mariadb: "mariadb",
-  Mysql: "mysql",
-  Mongo: "mongo",
-  WebServer: "web-server",
-} as const;
-export type MysqlStopDatabaseType = ClosedEnum<typeof MysqlStopDatabaseType>;
-
-export const MysqlStopMetadataEnum = {
-  Null: "null",
-} as const;
-export type MysqlStopMetadataEnum = ClosedEnum<typeof MysqlStopMetadataEnum>;
-
-export type MysqlStopPostgres = {
-  databaseUser: string;
-};
-
-export type MysqlStopMariadb = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlStopMongo = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlStopMysql = {
-  databaseRootPassword: string;
-};
-
-export type MysqlStopMetadata = {
-  postgres?: MysqlStopPostgres | undefined;
-  mariadb?: MysqlStopMariadb | undefined;
-  mongo?: MysqlStopMongo | undefined;
-  mysql?: MysqlStopMysql | undefined;
-};
-
-export type MysqlStopMetadataUnion = MysqlStopMetadata | MysqlStopMetadataEnum;
-
-export type MysqlStopBackup = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: MysqlStopBackupType;
-  databaseType: MysqlStopDatabaseType;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlStopMetadata | MysqlStopMetadataEnum | null | undefined;
+export type MysqlStopUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlStopResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlStopApplicationStatus;
+  backups: Array<MysqlStopBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlStopApplicationStatus;
-  healthCheckSwarm: MysqlStopHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlStopRestartPolicySwarm | null;
-  placementSwarm: MysqlStopPlacementSwarm | null;
-  updateConfigSwarm: MysqlStopUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlStopRollbackConfigSwarm | null;
-  modeSwarm: MysqlStopModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlStopNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlStopEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlStopHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlStopModeSwarm | null;
   mounts: Array<MysqlStopMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlStopNetworkSwarm> | null;
+  placementSwarm: MysqlStopPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlStopRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlStopRollbackConfigSwarm | null;
   server: MysqlStopServer | null;
-  backups: Array<MysqlStopBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlStopUpdateConfigSwarm | null;
 };
 
 export type MysqlStopResponse = MysqlStopResponseBody | models.ErrorT;
@@ -461,33 +461,683 @@ export namespace MysqlStopApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlStopBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopBackupType
+> = z.nativeEnum(MysqlStopBackupType);
+
+/** @internal */
+export const MysqlStopBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopBackupType
+> = MysqlStopBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopBackupType$ {
+  /** @deprecated use `MysqlStopBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopBackupType$inboundSchema;
+  /** @deprecated use `MysqlStopBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStopDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopDatabaseType
+> = z.nativeEnum(MysqlStopDatabaseType);
+
+/** @internal */
+export const MysqlStopDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopDatabaseType
+> = MysqlStopDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopDatabaseType$ {
+  /** @deprecated use `MysqlStopDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlStopDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopMetadataEnum
+> = z.nativeEnum(MysqlStopMetadataEnum);
+
+/** @internal */
+export const MysqlStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopMetadataEnum
+> = MysqlStopMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMetadataEnum$ {
+  /** @deprecated use `MysqlStopMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlStopMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStopMariadb$inboundSchema: z.ZodType<
+  MysqlStopMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStopMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStopMariadb$outboundSchema: z.ZodType<
+  MysqlStopMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMariadb$ {
+  /** @deprecated use `MysqlStopMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMariadb$inboundSchema;
+  /** @deprecated use `MysqlStopMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMariadb$outboundSchema;
+  /** @deprecated use `MysqlStopMariadb$Outbound` instead. */
+  export type Outbound = MysqlStopMariadb$Outbound;
+}
+
+export function mysqlStopMariadbToJSON(
+  mysqlStopMariadb: MysqlStopMariadb,
+): string {
+  return JSON.stringify(
+    MysqlStopMariadb$outboundSchema.parse(mysqlStopMariadb),
+  );
+}
+
+export function mysqlStopMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopMongo$inboundSchema: z.ZodType<
+  MysqlStopMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStopMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStopMongo$outboundSchema: z.ZodType<
+  MysqlStopMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMongo$ {
+  /** @deprecated use `MysqlStopMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMongo$inboundSchema;
+  /** @deprecated use `MysqlStopMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMongo$outboundSchema;
+  /** @deprecated use `MysqlStopMongo$Outbound` instead. */
+  export type Outbound = MysqlStopMongo$Outbound;
+}
+
+export function mysqlStopMongoToJSON(mysqlStopMongo: MysqlStopMongo): string {
+  return JSON.stringify(MysqlStopMongo$outboundSchema.parse(mysqlStopMongo));
+}
+
+export function mysqlStopMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopMysql$inboundSchema: z.ZodType<
+  MysqlStopMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlStopMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlStopMysql$outboundSchema: z.ZodType<
+  MysqlStopMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMysql$ {
+  /** @deprecated use `MysqlStopMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMysql$inboundSchema;
+  /** @deprecated use `MysqlStopMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMysql$outboundSchema;
+  /** @deprecated use `MysqlStopMysql$Outbound` instead. */
+  export type Outbound = MysqlStopMysql$Outbound;
+}
+
+export function mysqlStopMysqlToJSON(mysqlStopMysql: MysqlStopMysql): string {
+  return JSON.stringify(MysqlStopMysql$outboundSchema.parse(mysqlStopMysql));
+}
+
+export function mysqlStopMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopPostgres$inboundSchema: z.ZodType<
+  MysqlStopPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStopPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStopPostgres$outboundSchema: z.ZodType<
+  MysqlStopPostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlStopPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopPostgres$ {
+  /** @deprecated use `MysqlStopPostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopPostgres$inboundSchema;
+  /** @deprecated use `MysqlStopPostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopPostgres$outboundSchema;
+  /** @deprecated use `MysqlStopPostgres$Outbound` instead. */
+  export type Outbound = MysqlStopPostgres$Outbound;
+}
+
+export function mysqlStopPostgresToJSON(
+  mysqlStopPostgres: MysqlStopPostgres,
+): string {
+  return JSON.stringify(
+    MysqlStopPostgres$outboundSchema.parse(mysqlStopPostgres),
+  );
+}
+
+export function mysqlStopPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopMetadata$inboundSchema: z.ZodType<
+  MysqlStopMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlStopMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlStopMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlStopMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlStopPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlStopMetadata$Outbound = {
+  mariadb?: MysqlStopMariadb$Outbound | undefined;
+  mongo?: MysqlStopMongo$Outbound | undefined;
+  mysql?: MysqlStopMysql$Outbound | undefined;
+  postgres?: MysqlStopPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlStopMetadata$outboundSchema: z.ZodType<
+  MysqlStopMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlStopMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlStopMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlStopMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlStopPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMetadata$ {
+  /** @deprecated use `MysqlStopMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMetadata$inboundSchema;
+  /** @deprecated use `MysqlStopMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMetadata$outboundSchema;
+  /** @deprecated use `MysqlStopMetadata$Outbound` instead. */
+  export type Outbound = MysqlStopMetadata$Outbound;
+}
+
+export function mysqlStopMetadataToJSON(
+  mysqlStopMetadata: MysqlStopMetadata,
+): string {
+  return JSON.stringify(
+    MysqlStopMetadata$outboundSchema.parse(mysqlStopMetadata),
+  );
+}
+
+export function mysqlStopMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopMetadataUnion$inboundSchema: z.ZodType<
+  MysqlStopMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlStopMetadata$inboundSchema),
+  MysqlStopMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlStopMetadataUnion$Outbound =
+  | MysqlStopMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlStopMetadataUnion$outboundSchema: z.ZodType<
+  MysqlStopMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlStopMetadata$outboundSchema),
+  MysqlStopMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMetadataUnion$ {
+  /** @deprecated use `MysqlStopMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlStopMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlStopMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlStopMetadataUnion$Outbound;
+}
+
+export function mysqlStopMetadataUnionToJSON(
+  mysqlStopMetadataUnion: MysqlStopMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlStopMetadataUnion$outboundSchema.parse(mysqlStopMetadataUnion),
+  );
+}
+
+export function mysqlStopMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopBackup$inboundSchema: z.ZodType<
+  MysqlStopBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlStopBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlStopDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlStopMetadata$inboundSchema),
+      MysqlStopMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlStopBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlStopMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlStopBackup$outboundSchema: z.ZodType<
+  MysqlStopBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlStopBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlStopBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlStopDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlStopMetadata$outboundSchema),
+      MysqlStopMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopBackup$ {
+  /** @deprecated use `MysqlStopBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopBackup$inboundSchema;
+  /** @deprecated use `MysqlStopBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopBackup$outboundSchema;
+  /** @deprecated use `MysqlStopBackup$Outbound` instead. */
+  export type Outbound = MysqlStopBackup$Outbound;
+}
+
+export function mysqlStopBackupToJSON(
+  mysqlStopBackup: MysqlStopBackup,
+): string {
+  return JSON.stringify(MysqlStopBackup$outboundSchema.parse(mysqlStopBackup));
+}
+
+export function mysqlStopBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopProject$inboundSchema: z.ZodType<
+  MysqlStopProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlStopProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlStopProject$outboundSchema: z.ZodType<
+  MysqlStopProject$Outbound,
+  z.ZodTypeDef,
+  MysqlStopProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopProject$ {
+  /** @deprecated use `MysqlStopProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopProject$inboundSchema;
+  /** @deprecated use `MysqlStopProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopProject$outboundSchema;
+  /** @deprecated use `MysqlStopProject$Outbound` instead. */
+  export type Outbound = MysqlStopProject$Outbound;
+}
+
+export function mysqlStopProjectToJSON(
+  mysqlStopProject: MysqlStopProject,
+): string {
+  return JSON.stringify(
+    MysqlStopProject$outboundSchema.parse(mysqlStopProject),
+  );
+}
+
+export function mysqlStopProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopEnvironment$inboundSchema: z.ZodType<
+  MysqlStopEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlStopProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlStopEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlStopProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlStopEnvironment$outboundSchema: z.ZodType<
+  MysqlStopEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlStopEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlStopProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopEnvironment$ {
+  /** @deprecated use `MysqlStopEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopEnvironment$inboundSchema;
+  /** @deprecated use `MysqlStopEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopEnvironment$outboundSchema;
+  /** @deprecated use `MysqlStopEnvironment$Outbound` instead. */
+  export type Outbound = MysqlStopEnvironment$Outbound;
+}
+
+export function mysqlStopEnvironmentToJSON(
+  mysqlStopEnvironment: MysqlStopEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlStopEnvironment$outboundSchema.parse(mysqlStopEnvironment),
+  );
+}
+
+export function mysqlStopEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlStopHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlStopHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlStopHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -496,18 +1146,18 @@ export const MysqlStopHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStopHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -543,48 +1193,127 @@ export function mysqlStopHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlStopRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlStopRestartPolicySwarm,
+export const MysqlStopGlobal$inboundSchema: z.ZodType<
+  MysqlStopGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStopGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlStopGlobal$outboundSchema: z.ZodType<
+  MysqlStopGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlStopGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopGlobal$ {
+  /** @deprecated use `MysqlStopGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopGlobal$inboundSchema;
+  /** @deprecated use `MysqlStopGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopGlobal$outboundSchema;
+  /** @deprecated use `MysqlStopGlobal$Outbound` instead. */
+  export type Outbound = MysqlStopGlobal$Outbound;
+}
+
+export function mysqlStopGlobalToJSON(
+  mysqlStopGlobal: MysqlStopGlobal,
+): string {
+  return JSON.stringify(MysqlStopGlobal$outboundSchema.parse(mysqlStopGlobal));
+}
+
+export function mysqlStopGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopGlobalJob$inboundSchema: z.ZodType<
+  MysqlStopGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStopGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlStopGlobalJob$outboundSchema: z.ZodType<
+  MysqlStopGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlStopGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopGlobalJob$ {
+  /** @deprecated use `MysqlStopGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlStopGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlStopGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlStopGlobalJob$Outbound;
+}
+
+export function mysqlStopGlobalJobToJSON(
+  mysqlStopGlobalJob: MysqlStopGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlStopGlobalJob$outboundSchema.parse(mysqlStopGlobalJob),
+  );
+}
+
+export function mysqlStopGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopReplicated$inboundSchema: z.ZodType<
+  MysqlStopReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlStopRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlStopReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlStopRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlStopRestartPolicySwarm$Outbound,
+export const MysqlStopReplicated$outboundSchema: z.ZodType<
+  MysqlStopReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlStopRestartPolicySwarm
+  MysqlStopReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -592,32 +1321,495 @@ export const MysqlStopRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStopRestartPolicySwarm$ {
-  /** @deprecated use `MysqlStopRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlStopRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlStopRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlStopRestartPolicySwarm$Outbound;
+export namespace MysqlStopReplicated$ {
+  /** @deprecated use `MysqlStopReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopReplicated$inboundSchema;
+  /** @deprecated use `MysqlStopReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopReplicated$outboundSchema;
+  /** @deprecated use `MysqlStopReplicated$Outbound` instead. */
+  export type Outbound = MysqlStopReplicated$Outbound;
 }
 
-export function mysqlStopRestartPolicySwarmToJSON(
-  mysqlStopRestartPolicySwarm: MysqlStopRestartPolicySwarm,
+export function mysqlStopReplicatedToJSON(
+  mysqlStopReplicated: MysqlStopReplicated,
 ): string {
   return JSON.stringify(
-    MysqlStopRestartPolicySwarm$outboundSchema.parse(
-      mysqlStopRestartPolicySwarm,
-    ),
+    MysqlStopReplicated$outboundSchema.parse(mysqlStopReplicated),
   );
 }
 
-export function mysqlStopRestartPolicySwarmFromJSON(
+export function mysqlStopReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStopRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlStopReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopRestartPolicySwarm' from JSON`,
+    (x) => MysqlStopReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopReplicatedJob$inboundSchema: z.ZodType<
+  MysqlStopReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlStopReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlStopReplicatedJob$outboundSchema: z.ZodType<
+  MysqlStopReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlStopReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopReplicatedJob$ {
+  /** @deprecated use `MysqlStopReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlStopReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlStopReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlStopReplicatedJob$Outbound;
+}
+
+export function mysqlStopReplicatedJobToJSON(
+  mysqlStopReplicatedJob: MysqlStopReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlStopReplicatedJob$outboundSchema.parse(mysqlStopReplicatedJob),
+  );
+}
+
+export function mysqlStopReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopModeSwarm$inboundSchema: z.ZodType<
+  MysqlStopModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlStopGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlStopGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlStopReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlStopReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlStopModeSwarm$Outbound = {
+  Global?: MysqlStopGlobal$Outbound | undefined;
+  GlobalJob?: MysqlStopGlobalJob$Outbound | undefined;
+  Replicated?: MysqlStopReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlStopReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlStopModeSwarm$outboundSchema: z.ZodType<
+  MysqlStopModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlStopModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlStopGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlStopGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlStopReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlStopReplicatedJob$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopModeSwarm$ {
+  /** @deprecated use `MysqlStopModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlStopModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlStopModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlStopModeSwarm$Outbound;
+}
+
+export function mysqlStopModeSwarmToJSON(
+  mysqlStopModeSwarm: MysqlStopModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlStopModeSwarm$outboundSchema.parse(mysqlStopModeSwarm),
+  );
+}
+
+export function mysqlStopModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopServiceType
+> = z.nativeEnum(MysqlStopServiceType);
+
+/** @internal */
+export const MysqlStopServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopServiceType
+> = MysqlStopServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopServiceType$ {
+  /** @deprecated use `MysqlStopServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopServiceType$inboundSchema;
+  /** @deprecated use `MysqlStopServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStopType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopType
+> = z.nativeEnum(MysqlStopType);
+
+/** @internal */
+export const MysqlStopType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopType
+> = MysqlStopType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopType$ {
+  /** @deprecated use `MysqlStopType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopType$inboundSchema;
+  /** @deprecated use `MysqlStopType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStopMount$inboundSchema: z.ZodType<
+  MysqlStopMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlStopServiceType$inboundSchema,
+  type: MysqlStopType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlStopMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlStopMount$outboundSchema: z.ZodType<
+  MysqlStopMount$Outbound,
+  z.ZodTypeDef,
+  MysqlStopMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlStopServiceType$outboundSchema,
+  type: MysqlStopType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopMount$ {
+  /** @deprecated use `MysqlStopMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopMount$inboundSchema;
+  /** @deprecated use `MysqlStopMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopMount$outboundSchema;
+  /** @deprecated use `MysqlStopMount$Outbound` instead. */
+  export type Outbound = MysqlStopMount$Outbound;
+}
+
+export function mysqlStopMountToJSON(mysqlStopMount: MysqlStopMount): string {
+  return JSON.stringify(MysqlStopMount$outboundSchema.parse(mysqlStopMount));
+}
+
+export function mysqlStopMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopDriverOpts$inboundSchema: z.ZodType<
+  MysqlStopDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStopDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlStopDriverOpts$outboundSchema: z.ZodType<
+  MysqlStopDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlStopDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopDriverOpts$ {
+  /** @deprecated use `MysqlStopDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlStopDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlStopDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlStopDriverOpts$Outbound;
+}
+
+export function mysqlStopDriverOptsToJSON(
+  mysqlStopDriverOpts: MysqlStopDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlStopDriverOpts$outboundSchema.parse(mysqlStopDriverOpts),
+  );
+}
+
+export function mysqlStopDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlStopNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlStopDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlStopNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlStopDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlStopNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlStopNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlStopNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlStopDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopNetworkSwarm$ {
+  /** @deprecated use `MysqlStopNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlStopNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlStopNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlStopNetworkSwarm$Outbound;
+}
+
+export function mysqlStopNetworkSwarmToJSON(
+  mysqlStopNetworkSwarm: MysqlStopNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlStopNetworkSwarm$outboundSchema.parse(mysqlStopNetworkSwarm),
+  );
+}
+
+export function mysqlStopNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStopPlatform$inboundSchema: z.ZodType<
+  MysqlStopPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlStopPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlStopPlatform$outboundSchema: z.ZodType<
+  MysqlStopPlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlStopPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopPlatform$ {
+  /** @deprecated use `MysqlStopPlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopPlatform$inboundSchema;
+  /** @deprecated use `MysqlStopPlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopPlatform$outboundSchema;
+  /** @deprecated use `MysqlStopPlatform$Outbound` instead. */
+  export type Outbound = MysqlStopPlatform$Outbound;
+}
+
+export function mysqlStopPlatformToJSON(
+  mysqlStopPlatform: MysqlStopPlatform,
+): string {
+  return JSON.stringify(
+    MysqlStopPlatform$outboundSchema.parse(mysqlStopPlatform),
+  );
+}
+
+export function mysqlStopPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStopPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStopPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopPlatform' from JSON`,
   );
 }
 
@@ -744,98 +1936,31 @@ export function mysqlStopPreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlStopPlatform$inboundSchema: z.ZodType<
-  MysqlStopPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlStopPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlStopPlatform$outboundSchema: z.ZodType<
-  MysqlStopPlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlStopPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopPlatform$ {
-  /** @deprecated use `MysqlStopPlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopPlatform$inboundSchema;
-  /** @deprecated use `MysqlStopPlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopPlatform$outboundSchema;
-  /** @deprecated use `MysqlStopPlatform$Outbound` instead. */
-  export type Outbound = MysqlStopPlatform$Outbound;
-}
-
-export function mysqlStopPlatformToJSON(
-  mysqlStopPlatform: MysqlStopPlatform,
-): string {
-  return JSON.stringify(
-    MysqlStopPlatform$outboundSchema.parse(mysqlStopPlatform),
-  );
-}
-
-export function mysqlStopPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlStopPlacementSwarm$inboundSchema: z.ZodType<
   MysqlStopPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlStopPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlStopPlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MysqlStopPreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlStopPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlStopPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlStopPlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlStopPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -845,16 +1970,16 @@ export const MysqlStopPlacementSwarm$outboundSchema: z.ZodType<
   MysqlStopPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlStopPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlStopPlatform$outboundSchema)).optional(),
+  preferences: z.array(z.lazy(() => MysqlStopPreference$outboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -890,58 +2015,48 @@ export function mysqlStopPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlStopUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlStopUpdateConfigSwarm,
+export const MysqlStopRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlStopRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlStopUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlStopRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlStopUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlStopUpdateConfigSwarm$Outbound,
+export const MysqlStopRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlStopRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlStopUpdateConfigSwarm
+  MysqlStopRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -949,30 +2064,32 @@ export const MysqlStopUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStopUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlStopUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlStopUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlStopUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlStopUpdateConfigSwarm$Outbound;
+export namespace MysqlStopRestartPolicySwarm$ {
+  /** @deprecated use `MysqlStopRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlStopRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlStopRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlStopRestartPolicySwarm$Outbound;
 }
 
-export function mysqlStopUpdateConfigSwarmToJSON(
-  mysqlStopUpdateConfigSwarm: MysqlStopUpdateConfigSwarm,
+export function mysqlStopRestartPolicySwarmToJSON(
+  mysqlStopRestartPolicySwarm: MysqlStopRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlStopUpdateConfigSwarm$outboundSchema.parse(mysqlStopUpdateConfigSwarm),
+    MysqlStopRestartPolicySwarm$outboundSchema.parse(
+      mysqlStopRestartPolicySwarm,
+    ),
   );
 }
 
-export function mysqlStopUpdateConfigSwarmFromJSON(
+export function mysqlStopRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStopUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlStopRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopUpdateConfigSwarm' from JSON`,
+    (x) => MysqlStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -982,31 +2099,31 @@ export const MysqlStopRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlStopRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1015,20 +2132,20 @@ export const MysqlStopRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStopRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1063,722 +2180,6 @@ export function mysqlStopRollbackConfigSwarmFromJSON(
     (x) => MysqlStopRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlStopRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlStopReplicated$inboundSchema: z.ZodType<
-  MysqlStopReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlStopReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlStopReplicated$outboundSchema: z.ZodType<
-  MysqlStopReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlStopReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopReplicated$ {
-  /** @deprecated use `MysqlStopReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopReplicated$inboundSchema;
-  /** @deprecated use `MysqlStopReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopReplicated$outboundSchema;
-  /** @deprecated use `MysqlStopReplicated$Outbound` instead. */
-  export type Outbound = MysqlStopReplicated$Outbound;
-}
-
-export function mysqlStopReplicatedToJSON(
-  mysqlStopReplicated: MysqlStopReplicated,
-): string {
-  return JSON.stringify(
-    MysqlStopReplicated$outboundSchema.parse(mysqlStopReplicated),
-  );
-}
-
-export function mysqlStopReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopGlobal$inboundSchema: z.ZodType<
-  MysqlStopGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStopGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlStopGlobal$outboundSchema: z.ZodType<
-  MysqlStopGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlStopGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopGlobal$ {
-  /** @deprecated use `MysqlStopGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopGlobal$inboundSchema;
-  /** @deprecated use `MysqlStopGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopGlobal$outboundSchema;
-  /** @deprecated use `MysqlStopGlobal$Outbound` instead. */
-  export type Outbound = MysqlStopGlobal$Outbound;
-}
-
-export function mysqlStopGlobalToJSON(
-  mysqlStopGlobal: MysqlStopGlobal,
-): string {
-  return JSON.stringify(MysqlStopGlobal$outboundSchema.parse(mysqlStopGlobal));
-}
-
-export function mysqlStopGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopReplicatedJob$inboundSchema: z.ZodType<
-  MysqlStopReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlStopReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlStopReplicatedJob$outboundSchema: z.ZodType<
-  MysqlStopReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlStopReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopReplicatedJob$ {
-  /** @deprecated use `MysqlStopReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlStopReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlStopReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlStopReplicatedJob$Outbound;
-}
-
-export function mysqlStopReplicatedJobToJSON(
-  mysqlStopReplicatedJob: MysqlStopReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlStopReplicatedJob$outboundSchema.parse(mysqlStopReplicatedJob),
-  );
-}
-
-export function mysqlStopReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopGlobalJob$inboundSchema: z.ZodType<
-  MysqlStopGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStopGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlStopGlobalJob$outboundSchema: z.ZodType<
-  MysqlStopGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlStopGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopGlobalJob$ {
-  /** @deprecated use `MysqlStopGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlStopGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlStopGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlStopGlobalJob$Outbound;
-}
-
-export function mysqlStopGlobalJobToJSON(
-  mysqlStopGlobalJob: MysqlStopGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlStopGlobalJob$outboundSchema.parse(mysqlStopGlobalJob),
-  );
-}
-
-export function mysqlStopGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopModeSwarm$inboundSchema: z.ZodType<
-  MysqlStopModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlStopReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlStopGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlStopReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MysqlStopGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlStopModeSwarm$Outbound = {
-  Replicated?: MysqlStopReplicated$Outbound | undefined;
-  Global?: MysqlStopGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlStopReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlStopGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStopModeSwarm$outboundSchema: z.ZodType<
-  MysqlStopModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlStopModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlStopReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlStopGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlStopReplicatedJob$outboundSchema).optional(),
-  globalJob: z.lazy(() => MysqlStopGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopModeSwarm$ {
-  /** @deprecated use `MysqlStopModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlStopModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlStopModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlStopModeSwarm$Outbound;
-}
-
-export function mysqlStopModeSwarmToJSON(
-  mysqlStopModeSwarm: MysqlStopModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlStopModeSwarm$outboundSchema.parse(mysqlStopModeSwarm),
-  );
-}
-
-export function mysqlStopModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopDriverOpts$inboundSchema: z.ZodType<
-  MysqlStopDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStopDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlStopDriverOpts$outboundSchema: z.ZodType<
-  MysqlStopDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlStopDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopDriverOpts$ {
-  /** @deprecated use `MysqlStopDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlStopDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlStopDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlStopDriverOpts$Outbound;
-}
-
-export function mysqlStopDriverOptsToJSON(
-  mysqlStopDriverOpts: MysqlStopDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlStopDriverOpts$outboundSchema.parse(mysqlStopDriverOpts),
-  );
-}
-
-export function mysqlStopDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlStopNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlStopDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlStopNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlStopDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStopNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlStopNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlStopNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlStopDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopNetworkSwarm$ {
-  /** @deprecated use `MysqlStopNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlStopNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlStopNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlStopNetworkSwarm$Outbound;
-}
-
-export function mysqlStopNetworkSwarmToJSON(
-  mysqlStopNetworkSwarm: MysqlStopNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlStopNetworkSwarm$outboundSchema.parse(mysqlStopNetworkSwarm),
-  );
-}
-
-export function mysqlStopNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopProject$inboundSchema: z.ZodType<
-  MysqlStopProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlStopProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlStopProject$outboundSchema: z.ZodType<
-  MysqlStopProject$Outbound,
-  z.ZodTypeDef,
-  MysqlStopProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopProject$ {
-  /** @deprecated use `MysqlStopProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopProject$inboundSchema;
-  /** @deprecated use `MysqlStopProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopProject$outboundSchema;
-  /** @deprecated use `MysqlStopProject$Outbound` instead. */
-  export type Outbound = MysqlStopProject$Outbound;
-}
-
-export function mysqlStopProjectToJSON(
-  mysqlStopProject: MysqlStopProject,
-): string {
-  return JSON.stringify(
-    MysqlStopProject$outboundSchema.parse(mysqlStopProject),
-  );
-}
-
-export function mysqlStopProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopEnvironment$inboundSchema: z.ZodType<
-  MysqlStopEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlStopProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlStopEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlStopProject$Outbound;
-};
-
-/** @internal */
-export const MysqlStopEnvironment$outboundSchema: z.ZodType<
-  MysqlStopEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlStopEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlStopProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopEnvironment$ {
-  /** @deprecated use `MysqlStopEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopEnvironment$inboundSchema;
-  /** @deprecated use `MysqlStopEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopEnvironment$outboundSchema;
-  /** @deprecated use `MysqlStopEnvironment$Outbound` instead. */
-  export type Outbound = MysqlStopEnvironment$Outbound;
-}
-
-export function mysqlStopEnvironmentToJSON(
-  mysqlStopEnvironment: MysqlStopEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlStopEnvironment$outboundSchema.parse(mysqlStopEnvironment),
-  );
-}
-
-export function mysqlStopEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopType
-> = z.nativeEnum(MysqlStopType);
-
-/** @internal */
-export const MysqlStopType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopType
-> = MysqlStopType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopType$ {
-  /** @deprecated use `MysqlStopType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopType$inboundSchema;
-  /** @deprecated use `MysqlStopType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStopServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopServiceType
-> = z.nativeEnum(MysqlStopServiceType);
-
-/** @internal */
-export const MysqlStopServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopServiceType
-> = MysqlStopServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopServiceType$ {
-  /** @deprecated use `MysqlStopServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopServiceType$inboundSchema;
-  /** @deprecated use `MysqlStopServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStopMount$inboundSchema: z.ZodType<
-  MysqlStopMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlStopType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlStopServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlStopMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlStopMount$outboundSchema: z.ZodType<
-  MysqlStopMount$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlStopType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlStopServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMount$ {
-  /** @deprecated use `MysqlStopMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMount$inboundSchema;
-  /** @deprecated use `MysqlStopMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMount$outboundSchema;
-  /** @deprecated use `MysqlStopMount$Outbound` instead. */
-  export type Outbound = MysqlStopMount$Outbound;
-}
-
-export function mysqlStopMountToJSON(mysqlStopMount: MysqlStopMount): string {
-  return JSON.stringify(MysqlStopMount$outboundSchema.parse(mysqlStopMount));
-}
-
-export function mysqlStopMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopServerStatus
-> = z.nativeEnum(MysqlStopServerStatus);
-
-/** @internal */
-export const MysqlStopServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopServerStatus
-> = MysqlStopServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopServerStatus$ {
-  /** @deprecated use `MysqlStopServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopServerStatus$inboundSchema;
-  /** @deprecated use `MysqlStopServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1941,24 +2342,38 @@ export function mysqlStopMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlStopServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopServerStatus
+> = z.nativeEnum(MysqlStopServerStatus);
+
+/** @internal */
+export const MysqlStopServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStopServerStatus
+> = MysqlStopServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStopServerStatus$ {
+  /** @deprecated use `MysqlStopServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopServerStatus$inboundSchema;
+  /** @deprecated use `MysqlStopServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlStopServer$inboundSchema: z.ZodType<
   MysqlStopServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlStopServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1969,26 +2384,33 @@ export const MysqlStopServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlStopServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlStopServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -1997,19 +2419,12 @@ export const MysqlStopServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStopServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlStopServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2020,6 +2435,13 @@ export const MysqlStopServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlStopServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2052,511 +2474,89 @@ export function mysqlStopServerFromJSON(
 }
 
 /** @internal */
-export const MysqlStopBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopBackupType
-> = z.nativeEnum(MysqlStopBackupType);
-
-/** @internal */
-export const MysqlStopBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopBackupType
-> = MysqlStopBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopBackupType$ {
-  /** @deprecated use `MysqlStopBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopBackupType$inboundSchema;
-  /** @deprecated use `MysqlStopBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStopDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopDatabaseType
-> = z.nativeEnum(MysqlStopDatabaseType);
-
-/** @internal */
-export const MysqlStopDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopDatabaseType
-> = MysqlStopDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopDatabaseType$ {
-  /** @deprecated use `MysqlStopDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlStopDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopMetadataEnum
-> = z.nativeEnum(MysqlStopMetadataEnum);
-
-/** @internal */
-export const MysqlStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStopMetadataEnum
-> = MysqlStopMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMetadataEnum$ {
-  /** @deprecated use `MysqlStopMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlStopMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStopPostgres$inboundSchema: z.ZodType<
-  MysqlStopPostgres,
+export const MysqlStopUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlStopUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlStopPostgres$Outbound = {
-  databaseUser: string;
+export type MysqlStopUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlStopPostgres$outboundSchema: z.ZodType<
-  MysqlStopPostgres$Outbound,
+export const MysqlStopUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlStopUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlStopPostgres
+  MysqlStopUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStopPostgres$ {
-  /** @deprecated use `MysqlStopPostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopPostgres$inboundSchema;
-  /** @deprecated use `MysqlStopPostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopPostgres$outboundSchema;
-  /** @deprecated use `MysqlStopPostgres$Outbound` instead. */
-  export type Outbound = MysqlStopPostgres$Outbound;
+export namespace MysqlStopUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlStopUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStopUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlStopUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStopUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlStopUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlStopUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlStopPostgresToJSON(
-  mysqlStopPostgres: MysqlStopPostgres,
+export function mysqlStopUpdateConfigSwarmToJSON(
+  mysqlStopUpdateConfigSwarm: MysqlStopUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlStopPostgres$outboundSchema.parse(mysqlStopPostgres),
+    MysqlStopUpdateConfigSwarm$outboundSchema.parse(mysqlStopUpdateConfigSwarm),
   );
 }
 
-export function mysqlStopPostgresFromJSON(
+export function mysqlStopUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStopPostgres, SDKValidationError> {
+): SafeParseResult<MysqlStopUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStopPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopMariadb$inboundSchema: z.ZodType<
-  MysqlStopMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStopMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlStopMariadb$outboundSchema: z.ZodType<
-  MysqlStopMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMariadb$ {
-  /** @deprecated use `MysqlStopMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMariadb$inboundSchema;
-  /** @deprecated use `MysqlStopMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMariadb$outboundSchema;
-  /** @deprecated use `MysqlStopMariadb$Outbound` instead. */
-  export type Outbound = MysqlStopMariadb$Outbound;
-}
-
-export function mysqlStopMariadbToJSON(
-  mysqlStopMariadb: MysqlStopMariadb,
-): string {
-  return JSON.stringify(
-    MysqlStopMariadb$outboundSchema.parse(mysqlStopMariadb),
-  );
-}
-
-export function mysqlStopMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopMongo$inboundSchema: z.ZodType<
-  MysqlStopMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStopMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlStopMongo$outboundSchema: z.ZodType<
-  MysqlStopMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMongo$ {
-  /** @deprecated use `MysqlStopMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMongo$inboundSchema;
-  /** @deprecated use `MysqlStopMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMongo$outboundSchema;
-  /** @deprecated use `MysqlStopMongo$Outbound` instead. */
-  export type Outbound = MysqlStopMongo$Outbound;
-}
-
-export function mysqlStopMongoToJSON(mysqlStopMongo: MysqlStopMongo): string {
-  return JSON.stringify(MysqlStopMongo$outboundSchema.parse(mysqlStopMongo));
-}
-
-export function mysqlStopMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopMysql$inboundSchema: z.ZodType<
-  MysqlStopMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStopMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlStopMysql$outboundSchema: z.ZodType<
-  MysqlStopMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMysql$ {
-  /** @deprecated use `MysqlStopMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMysql$inboundSchema;
-  /** @deprecated use `MysqlStopMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMysql$outboundSchema;
-  /** @deprecated use `MysqlStopMysql$Outbound` instead. */
-  export type Outbound = MysqlStopMysql$Outbound;
-}
-
-export function mysqlStopMysqlToJSON(mysqlStopMysql: MysqlStopMysql): string {
-  return JSON.stringify(MysqlStopMysql$outboundSchema.parse(mysqlStopMysql));
-}
-
-export function mysqlStopMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopMetadata$inboundSchema: z.ZodType<
-  MysqlStopMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlStopPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlStopMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlStopMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlStopMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlStopMetadata$Outbound = {
-  postgres?: MysqlStopPostgres$Outbound | undefined;
-  mariadb?: MysqlStopMariadb$Outbound | undefined;
-  mongo?: MysqlStopMongo$Outbound | undefined;
-  mysql?: MysqlStopMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStopMetadata$outboundSchema: z.ZodType<
-  MysqlStopMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlStopPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlStopMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlStopMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlStopMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMetadata$ {
-  /** @deprecated use `MysqlStopMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMetadata$inboundSchema;
-  /** @deprecated use `MysqlStopMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMetadata$outboundSchema;
-  /** @deprecated use `MysqlStopMetadata$Outbound` instead. */
-  export type Outbound = MysqlStopMetadata$Outbound;
-}
-
-export function mysqlStopMetadataToJSON(
-  mysqlStopMetadata: MysqlStopMetadata,
-): string {
-  return JSON.stringify(
-    MysqlStopMetadata$outboundSchema.parse(mysqlStopMetadata),
-  );
-}
-
-export function mysqlStopMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopMetadataUnion$inboundSchema: z.ZodType<
-  MysqlStopMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlStopMetadata$inboundSchema),
-  MysqlStopMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlStopMetadataUnion$Outbound =
-  | MysqlStopMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlStopMetadataUnion$outboundSchema: z.ZodType<
-  MysqlStopMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlStopMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlStopMetadata$outboundSchema),
-  MysqlStopMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopMetadataUnion$ {
-  /** @deprecated use `MysqlStopMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlStopMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlStopMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlStopMetadataUnion$Outbound;
-}
-
-export function mysqlStopMetadataUnionToJSON(
-  mysqlStopMetadataUnion: MysqlStopMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlStopMetadataUnion$outboundSchema.parse(mysqlStopMetadataUnion),
-  );
-}
-
-export function mysqlStopMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStopBackup$inboundSchema: z.ZodType<
-  MysqlStopBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlStopBackupType$inboundSchema,
-  databaseType: MysqlStopDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlStopMetadata$inboundSchema),
-      MysqlStopMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlStopBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlStopMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlStopBackup$outboundSchema: z.ZodType<
-  MysqlStopBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlStopBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlStopBackupType$outboundSchema,
-  databaseType: MysqlStopDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlStopMetadata$outboundSchema),
-      MysqlStopMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStopBackup$ {
-  /** @deprecated use `MysqlStopBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlStopBackup$inboundSchema;
-  /** @deprecated use `MysqlStopBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlStopBackup$outboundSchema;
-  /** @deprecated use `MysqlStopBackup$Outbound` instead. */
-  export type Outbound = MysqlStopBackup$Outbound;
-}
-
-export function mysqlStopBackupToJSON(
-  mysqlStopBackup: MysqlStopBackup,
-): string {
-  return JSON.stringify(MysqlStopBackup$outboundSchema.parse(mysqlStopBackup));
-}
-
-export function mysqlStopBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStopBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStopBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStopBackup' from JSON`,
+    (x) => MysqlStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStopUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2566,88 +2566,88 @@ export const MysqlStopResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlStopApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlStopBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlStopEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlStopApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlStopHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlStopRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlStopModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlStopMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlStopNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlStopPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlStopUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlStopRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlStopRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlStopModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlStopNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlStopEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlStopMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlStopServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlStopBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlStopUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlStopResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlStopBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlStopHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlStopRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlStopPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlStopUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlStopRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlStopModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlStopNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlStopEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlStopHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlStopModeSwarm$Outbound | null;
   mounts: Array<MysqlStopMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlStopNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlStopPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlStopRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlStopRollbackConfigSwarm$Outbound | null;
   server: MysqlStopServer$Outbound | null;
-  backups: Array<MysqlStopBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlStopUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2656,51 +2656,51 @@ export const MysqlStopResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStopResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlStopApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlStopBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlStopEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlStopApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlStopHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlStopRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlStopModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlStopMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlStopNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlStopPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlStopUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlStopRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlStopRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlStopModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlStopNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlStopEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlStopMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlStopServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlStopBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlStopUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

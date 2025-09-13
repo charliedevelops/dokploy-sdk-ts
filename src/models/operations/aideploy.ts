@@ -12,27 +12,27 @@ export type AiDeploySecurity = {
   authorization: string;
 };
 
+export type ConfigFile = {
+  content: string;
+  filePath: string;
+};
+
 export type AiDeployDomain = {
   host: string;
   port: number;
   serviceName: string;
 };
 
-export type ConfigFile = {
-  filePath: string;
-  content: string;
-};
-
 export type AiDeployRequest = {
+  configFiles?: Array<ConfigFile> | undefined;
+  description: string;
+  dockerCompose: string;
+  domains?: Array<AiDeployDomain> | undefined;
+  envVariables: string;
   environmentId: string;
   id: string;
-  dockerCompose: string;
-  envVariables: string;
-  serverId?: string | undefined;
   name: string;
-  description: string;
-  domains?: Array<AiDeployDomain> | undefined;
-  configFiles?: Array<ConfigFile> | undefined;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -98,6 +98,59 @@ export function aiDeploySecurityFromJSON(
 }
 
 /** @internal */
+export const ConfigFile$inboundSchema: z.ZodType<
+  ConfigFile,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  content: z.string(),
+  filePath: z.string(),
+});
+
+/** @internal */
+export type ConfigFile$Outbound = {
+  content: string;
+  filePath: string;
+};
+
+/** @internal */
+export const ConfigFile$outboundSchema: z.ZodType<
+  ConfigFile$Outbound,
+  z.ZodTypeDef,
+  ConfigFile
+> = z.object({
+  content: z.string(),
+  filePath: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ConfigFile$ {
+  /** @deprecated use `ConfigFile$inboundSchema` instead. */
+  export const inboundSchema = ConfigFile$inboundSchema;
+  /** @deprecated use `ConfigFile$outboundSchema` instead. */
+  export const outboundSchema = ConfigFile$outboundSchema;
+  /** @deprecated use `ConfigFile$Outbound` instead. */
+  export type Outbound = ConfigFile$Outbound;
+}
+
+export function configFileToJSON(configFile: ConfigFile): string {
+  return JSON.stringify(ConfigFile$outboundSchema.parse(configFile));
+}
+
+export function configFileFromJSON(
+  jsonString: string,
+): SafeParseResult<ConfigFile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ConfigFile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConfigFile' from JSON`,
+  );
+}
+
+/** @internal */
 export const AiDeployDomain$inboundSchema: z.ZodType<
   AiDeployDomain,
   z.ZodTypeDef,
@@ -154,86 +207,33 @@ export function aiDeployDomainFromJSON(
 }
 
 /** @internal */
-export const ConfigFile$inboundSchema: z.ZodType<
-  ConfigFile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filePath: z.string(),
-  content: z.string(),
-});
-
-/** @internal */
-export type ConfigFile$Outbound = {
-  filePath: string;
-  content: string;
-};
-
-/** @internal */
-export const ConfigFile$outboundSchema: z.ZodType<
-  ConfigFile$Outbound,
-  z.ZodTypeDef,
-  ConfigFile
-> = z.object({
-  filePath: z.string(),
-  content: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigFile$ {
-  /** @deprecated use `ConfigFile$inboundSchema` instead. */
-  export const inboundSchema = ConfigFile$inboundSchema;
-  /** @deprecated use `ConfigFile$outboundSchema` instead. */
-  export const outboundSchema = ConfigFile$outboundSchema;
-  /** @deprecated use `ConfigFile$Outbound` instead. */
-  export type Outbound = ConfigFile$Outbound;
-}
-
-export function configFileToJSON(configFile: ConfigFile): string {
-  return JSON.stringify(ConfigFile$outboundSchema.parse(configFile));
-}
-
-export function configFileFromJSON(
-  jsonString: string,
-): SafeParseResult<ConfigFile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ConfigFile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConfigFile' from JSON`,
-  );
-}
-
-/** @internal */
 export const AiDeployRequest$inboundSchema: z.ZodType<
   AiDeployRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  configFiles: z.array(z.lazy(() => ConfigFile$inboundSchema)).optional(),
+  description: z.string(),
+  dockerCompose: z.string(),
+  domains: z.array(z.lazy(() => AiDeployDomain$inboundSchema)).optional(),
+  envVariables: z.string(),
   environmentId: z.string(),
   id: z.string(),
-  dockerCompose: z.string(),
-  envVariables: z.string(),
-  serverId: z.string().optional(),
   name: z.string(),
-  description: z.string(),
-  domains: z.array(z.lazy(() => AiDeployDomain$inboundSchema)).optional(),
-  configFiles: z.array(z.lazy(() => ConfigFile$inboundSchema)).optional(),
+  serverId: z.string().optional(),
 });
 
 /** @internal */
 export type AiDeployRequest$Outbound = {
+  configFiles?: Array<ConfigFile$Outbound> | undefined;
+  description: string;
+  dockerCompose: string;
+  domains?: Array<AiDeployDomain$Outbound> | undefined;
+  envVariables: string;
   environmentId: string;
   id: string;
-  dockerCompose: string;
-  envVariables: string;
-  serverId?: string | undefined;
   name: string;
-  description: string;
-  domains?: Array<AiDeployDomain$Outbound> | undefined;
-  configFiles?: Array<ConfigFile$Outbound> | undefined;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -242,15 +242,15 @@ export const AiDeployRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AiDeployRequest
 > = z.object({
+  configFiles: z.array(z.lazy(() => ConfigFile$outboundSchema)).optional(),
+  description: z.string(),
+  dockerCompose: z.string(),
+  domains: z.array(z.lazy(() => AiDeployDomain$outboundSchema)).optional(),
+  envVariables: z.string(),
   environmentId: z.string(),
   id: z.string(),
-  dockerCompose: z.string(),
-  envVariables: z.string(),
-  serverId: z.string().optional(),
   name: z.string(),
-  description: z.string(),
-  domains: z.array(z.lazy(() => AiDeployDomain$outboundSchema)).optional(),
-  configFiles: z.array(z.lazy(() => ConfigFile$outboundSchema)).optional(),
+  serverId: z.string().optional(),
 });
 
 /**

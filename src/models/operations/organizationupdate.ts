@@ -14,22 +14,22 @@ export type OrganizationUpdateSecurity = {
 };
 
 export type OrganizationUpdateRequest = {
-  organizationId: string;
-  name: string;
   logo?: string | undefined;
+  name: string;
+  organizationId: string;
 };
 
 /**
  * Successful response
  */
 export type OrganizationUpdateResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationUpdateResponse =
@@ -104,16 +104,16 @@ export const OrganizationUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  organizationId: z.string(),
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
+  organizationId: z.string(),
 });
 
 /** @internal */
 export type OrganizationUpdateRequest$Outbound = {
-  organizationId: string;
-  name: string;
   logo?: string | undefined;
+  name: string;
+  organizationId: string;
 };
 
 /** @internal */
@@ -122,9 +122,9 @@ export const OrganizationUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationUpdateRequest
 > = z.object({
-  organizationId: z.string(),
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
+  organizationId: z.string(),
 });
 
 /**
@@ -164,24 +164,24 @@ export const OrganizationUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationUpdateResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -190,13 +190,13 @@ export const OrganizationUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationUpdateResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

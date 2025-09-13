@@ -13,6 +13,12 @@ export type BackupCreateSecurity = {
   authorization: string;
 };
 
+export const BackupCreateBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type BackupCreateBackupType = ClosedEnum<typeof BackupCreateBackupType>;
+
 export const BackupCreateDatabaseType = {
   Postgres: "postgres",
   Mariadb: "mariadb",
@@ -24,29 +30,23 @@ export type BackupCreateDatabaseType = ClosedEnum<
   typeof BackupCreateDatabaseType
 >;
 
-export const BackupCreateBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type BackupCreateBackupType = ClosedEnum<typeof BackupCreateBackupType>;
-
 export type BackupCreateRequest = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
-  destinationId: string;
-  keepLatestCount?: number | null | undefined;
-  database: string;
-  mariadbId?: string | null | undefined;
-  mysqlId?: string | null | undefined;
-  postgresId?: string | null | undefined;
-  mongoId?: string | null | undefined;
-  databaseType: BackupCreateDatabaseType;
-  userId?: string | null | undefined;
   backupType?: BackupCreateBackupType | undefined;
   composeId?: string | null | undefined;
-  serviceName?: string | null | undefined;
+  database: string;
+  databaseType: BackupCreateDatabaseType;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  mariadbId?: string | null | undefined;
   metadata?: any | null | undefined;
+  mongoId?: string | null | undefined;
+  mysqlId?: string | null | undefined;
+  postgresId?: string | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName?: string | null | undefined;
+  userId?: string | null | undefined;
 };
 
 /** @internal */
@@ -112,27 +112,6 @@ export function backupCreateSecurityFromJSON(
 }
 
 /** @internal */
-export const BackupCreateDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof BackupCreateDatabaseType
-> = z.nativeEnum(BackupCreateDatabaseType);
-
-/** @internal */
-export const BackupCreateDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof BackupCreateDatabaseType
-> = BackupCreateDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupCreateDatabaseType$ {
-  /** @deprecated use `BackupCreateDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = BackupCreateDatabaseType$inboundSchema;
-  /** @deprecated use `BackupCreateDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = BackupCreateDatabaseType$outboundSchema;
-}
-
-/** @internal */
 export const BackupCreateBackupType$inboundSchema: z.ZodNativeEnum<
   typeof BackupCreateBackupType
 > = z.nativeEnum(BackupCreateBackupType);
@@ -154,47 +133,68 @@ export namespace BackupCreateBackupType$ {
 }
 
 /** @internal */
+export const BackupCreateDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof BackupCreateDatabaseType
+> = z.nativeEnum(BackupCreateDatabaseType);
+
+/** @internal */
+export const BackupCreateDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof BackupCreateDatabaseType
+> = BackupCreateDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace BackupCreateDatabaseType$ {
+  /** @deprecated use `BackupCreateDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = BackupCreateDatabaseType$inboundSchema;
+  /** @deprecated use `BackupCreateDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = BackupCreateDatabaseType$outboundSchema;
+}
+
+/** @internal */
 export const BackupCreateRequest$inboundSchema: z.ZodType<
   BackupCreateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  database: z.string(),
-  mariadbId: z.nullable(z.string()).optional(),
-  mysqlId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
-  mongoId: z.nullable(z.string()).optional(),
-  databaseType: BackupCreateDatabaseType$inboundSchema,
-  userId: z.nullable(z.string()).optional(),
   backupType: BackupCreateBackupType$inboundSchema.optional(),
   composeId: z.nullable(z.string()).optional(),
-  serviceName: z.nullable(z.string()).optional(),
+  database: z.string(),
+  databaseType: BackupCreateDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  mariadbId: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.any()).optional(),
+  mongoId: z.nullable(z.string()).optional(),
+  mysqlId: z.nullable(z.string()).optional(),
+  postgresId: z.nullable(z.string()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()).optional(),
+  userId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type BackupCreateRequest$Outbound = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
-  destinationId: string;
-  keepLatestCount?: number | null | undefined;
-  database: string;
-  mariadbId?: string | null | undefined;
-  mysqlId?: string | null | undefined;
-  postgresId?: string | null | undefined;
-  mongoId?: string | null | undefined;
-  databaseType: string;
-  userId?: string | null | undefined;
   backupType?: string | undefined;
   composeId?: string | null | undefined;
-  serviceName?: string | null | undefined;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  mariadbId?: string | null | undefined;
   metadata?: any | null | undefined;
+  mongoId?: string | null | undefined;
+  mysqlId?: string | null | undefined;
+  postgresId?: string | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName?: string | null | undefined;
+  userId?: string | null | undefined;
 };
 
 /** @internal */
@@ -203,22 +203,22 @@ export const BackupCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackupCreateRequest
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  database: z.string(),
-  mariadbId: z.nullable(z.string()).optional(),
-  mysqlId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
-  mongoId: z.nullable(z.string()).optional(),
-  databaseType: BackupCreateDatabaseType$outboundSchema,
-  userId: z.nullable(z.string()).optional(),
   backupType: BackupCreateBackupType$outboundSchema.optional(),
   composeId: z.nullable(z.string()).optional(),
-  serviceName: z.nullable(z.string()).optional(),
+  database: z.string(),
+  databaseType: BackupCreateDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  mariadbId: z.nullable(z.string()).optional(),
   metadata: z.nullable(z.any()).optional(),
+  mongoId: z.nullable(z.string()).optional(),
+  mysqlId: z.nullable(z.string()).optional(),
+  postgresId: z.nullable(z.string()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()).optional(),
+  userId: z.nullable(z.string()).optional(),
 });
 
 /**

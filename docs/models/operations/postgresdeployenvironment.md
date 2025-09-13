@@ -6,20 +6,21 @@
 import { PostgresDeployEnvironment } from "dokploy-sdk/models/operations";
 
 let value: PostgresDeployEnvironment = {
+  createdAt: "1730322938756",
+  description: "nor dependent spice clinking",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "publicity wretched sashay boo nervously aw safely including",
-  createdAt: "1720627581902",
-  env: "<value>",
-  projectId: "<id>",
   project: {
-    projectId: "<id>",
-    name: "<value>",
-    description: "patiently that in phew drat until great gripping regular nor",
-    createdAt: "1735025392039",
-    organizationId: "<id>",
+    createdAt: "1721924550637",
+    description:
+      "instantly reboot joyous opposite nor rural inasmuch comestible wherever bah",
     env: "<value>",
+    name: "<value>",
+    organizationId: "<id>",
+    projectId: "<id>",
   },
+  projectId: "<id>",
 };
 ```
 
@@ -27,10 +28,10 @@ let value: PostgresDeployEnvironment = {
 
 | Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `createdAt`                                                                          | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `description`                                                                        | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `env`                                                                                | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `environmentId`                                                                      | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `name`                                                                               | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `description`                                                                        | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `createdAt`                                                                          | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `env`                                                                                | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `projectId`                                                                          | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
 | `project`                                                                            | [operations.PostgresDeployProject](../../models/operations/postgresdeployproject.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `projectId`                                                                          | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |

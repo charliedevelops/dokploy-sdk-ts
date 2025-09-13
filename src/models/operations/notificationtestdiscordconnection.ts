@@ -13,8 +13,8 @@ export type NotificationTestDiscordConnectionSecurity = {
 };
 
 export type NotificationTestDiscordConnectionRequest = {
-  webhookUrl: string;
   decoration?: boolean | undefined;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -97,14 +97,14 @@ export const NotificationTestDiscordConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhookUrl: z.string(),
   decoration: z.boolean().optional(),
+  webhookUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationTestDiscordConnectionRequest$Outbound = {
-  webhookUrl: string;
   decoration?: boolean | undefined;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -113,8 +113,8 @@ export const NotificationTestDiscordConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestDiscordConnectionRequest
 > = z.object({
-  webhookUrl: z.string(),
   decoration: z.boolean().optional(),
+  webhookUrl: z.string(),
 });
 
 /**

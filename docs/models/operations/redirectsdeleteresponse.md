@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.RedirectsDeleteResponseBody = {
+  applicationId: "<id>",
+  createdAt: "1729166219861",
+  permanent: false,
   redirectId: "<id>",
   regex: "<value>",
   replacement: "<value>",
-  permanent: false,
-  uniqueConfigKey: 9866.95,
-  createdAt: "1705689001342",
-  applicationId: "<id>",
+  uniqueConfigKey: 486.87,
 };
 ```
 
@@ -21,8 +21,8 @@ const value: operations.RedirectsDeleteResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

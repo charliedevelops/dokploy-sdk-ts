@@ -27,11 +27,11 @@ export const GitlabOneProviderType = {
 export type GitlabOneProviderType = ClosedEnum<typeof GitlabOneProviderType>;
 
 export type GitlabOneGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GitlabOneProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GitlabOneProviderType;
   userId: string;
 };
 
@@ -39,17 +39,17 @@ export type GitlabOneGitProvider = {
  * Successful response
  */
 export type GitlabOneResponseBody = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProvider: GitlabOneGitProvider;
+  gitProviderId: string;
   gitlabId: string;
   gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
   groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-  gitProvider: GitlabOneGitProvider;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
 };
 
 export type GitlabOneResponse = GitlabOneResponseBody | models.ErrorT;
@@ -197,21 +197,21 @@ export const GitlabOneGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabOneProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabOneProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GitlabOneGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -221,11 +221,11 @@ export const GitlabOneGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabOneGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabOneProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabOneProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -266,32 +266,32 @@ export const GitlabOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProvider: z.lazy(() => GitlabOneGitProvider$inboundSchema),
+  gitProviderId: z.string(),
   gitlabId: z.string(),
   gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GitlabOneGitProvider$inboundSchema),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
 });
 
 /** @internal */
 export type GitlabOneResponseBody$Outbound = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProvider: GitlabOneGitProvider$Outbound;
+  gitProviderId: string;
   gitlabId: string;
   gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
   groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-  gitProvider: GitlabOneGitProvider$Outbound;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
 };
 
 /** @internal */
@@ -300,17 +300,17 @@ export const GitlabOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabOneResponseBody
 > = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProvider: z.lazy(() => GitlabOneGitProvider$outboundSchema),
+  gitProviderId: z.string(),
   gitlabId: z.string(),
   gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GitlabOneGitProvider$outboundSchema),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
 });
 
 /**

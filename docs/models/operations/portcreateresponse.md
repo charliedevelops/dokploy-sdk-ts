@@ -7,12 +7,12 @@
 
 ```typescript
 const value: operations.PortCreateResponseBody = {
-  portId: "<id>",
-  publishedPort: 813.61,
-  publishMode: "host",
-  targetPort: 3242.98,
-  protocol: "tcp",
   applicationId: "<id>",
+  portId: "<id>",
+  protocol: "tcp",
+  publishMode: "host",
+  publishedPort: 3242.98,
+  targetPort: 3001.39,
 };
 ```
 
@@ -20,8 +20,8 @@ const value: operations.PortCreateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

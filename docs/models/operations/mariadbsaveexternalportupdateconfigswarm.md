@@ -6,8 +6,8 @@
 import { MariadbSaveExternalPortUpdateConfigSwarm } from "dokploy-sdk/models/operations";
 
 let value: MariadbSaveExternalPortUpdateConfigSwarm = {
-  parallelism: 2796.63,
   order: "<value>",
+  parallelism: 2796.63,
 };
 ```
 
@@ -15,9 +15,9 @@ let value: MariadbSaveExternalPortUpdateConfigSwarm = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |
 | `delay`            | *number*           | :heavy_minus_sign: | N/A                |
 | `failureAction`    | *string*           | :heavy_minus_sign: | N/A                |
-| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `maxFailureRatio`  | *number*           | :heavy_minus_sign: | N/A                |
+| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `order`            | *string*           | :heavy_check_mark: | N/A                |
+| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |

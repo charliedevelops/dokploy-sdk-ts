@@ -14,25 +14,23 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Destination extends ClientSDK {
+  async destinationAll(
+    security: operations.DestinationAllSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(destinationDestinationAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async destinationCreate(
     security: operations.DestinationCreateSecurity,
     request: operations.DestinationCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(destinationDestinationCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async destinationTestConnection(
-    security: operations.DestinationTestConnectionSecurity,
-    request: operations.DestinationTestConnectionRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(destinationDestinationTestConnection(
       this,
       security,
       request,
@@ -53,23 +51,25 @@ export class Destination extends ClientSDK {
     ));
   }
 
-  async destinationAll(
-    security: operations.DestinationAllSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(destinationDestinationAll(
-      this,
-      security,
-      options,
-    ));
-  }
-
   async destinationRemove(
     security: operations.DestinationRemoveSecurity,
     request: operations.DestinationRemoveRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(destinationDestinationRemove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async destinationTestConnection(
+    security: operations.DestinationTestConnectionSecurity,
+    request: operations.DestinationTestConnectionRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(destinationDestinationTestConnection(
       this,
       security,
       request,

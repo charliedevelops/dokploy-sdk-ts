@@ -6,8 +6,8 @@
 import { MysqlReloadRequest } from "dokploy-sdk/models/operations";
 
 let value: MysqlReloadRequest = {
-  mysqlId: "<id>",
   appName: "<value>",
+  mysqlId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MysqlReloadRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `mysqlId`          | *string*           | :heavy_check_mark: | N/A                |
 | `appName`          | *string*           | :heavy_check_mark: | N/A                |
+| `mysqlId`          | *string*           | :heavy_check_mark: | N/A                |

@@ -23,14 +23,14 @@ export type SettingsUpdateTraefikPortsProtocol = ClosedEnum<
 >;
 
 export type AdditionalPort = {
-  targetPort: number;
-  publishedPort: number;
   protocol: SettingsUpdateTraefikPortsProtocol;
+  publishedPort: number;
+  targetPort: number;
 };
 
 export type SettingsUpdateTraefikPortsRequest = {
-  serverId?: string | undefined;
   additionalPorts: Array<AdditionalPort>;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -127,16 +127,16 @@ export const AdditionalPort$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  targetPort: z.number(),
-  publishedPort: z.number(),
   protocol: SettingsUpdateTraefikPortsProtocol$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type AdditionalPort$Outbound = {
-  targetPort: number;
-  publishedPort: number;
   protocol: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -145,9 +145,9 @@ export const AdditionalPort$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AdditionalPort
 > = z.object({
-  targetPort: z.number(),
-  publishedPort: z.number(),
   protocol: SettingsUpdateTraefikPortsProtocol$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**
@@ -183,14 +183,14 @@ export const SettingsUpdateTraefikPortsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string().optional(),
   additionalPorts: z.array(z.lazy(() => AdditionalPort$inboundSchema)),
+  serverId: z.string().optional(),
 });
 
 /** @internal */
 export type SettingsUpdateTraefikPortsRequest$Outbound = {
-  serverId?: string | undefined;
   additionalPorts: Array<AdditionalPort$Outbound>;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -199,8 +199,8 @@ export const SettingsUpdateTraefikPortsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SettingsUpdateTraefikPortsRequest
 > = z.object({
-  serverId: z.string().optional(),
   additionalPorts: z.array(z.lazy(() => AdditionalPort$outboundSchema)),
+  serverId: z.string().optional(),
 });
 
 /**

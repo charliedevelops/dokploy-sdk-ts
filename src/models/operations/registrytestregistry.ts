@@ -21,13 +21,13 @@ export type RegistryTestRegistryRegistryType = ClosedEnum<
 >;
 
 export type RegistryTestRegistryRequest = {
-  registryName?: string | undefined;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: RegistryTestRegistryRegistryType;
   imagePrefix?: string | null | undefined;
+  password: string;
+  registryName?: string | undefined;
+  registryType: RegistryTestRegistryRegistryType;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
 
 /** @internal */
@@ -121,24 +121,24 @@ export const RegistryTestRegistryRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  registryName: z.string().optional(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryTestRegistryRegistryType$inboundSchema,
   imagePrefix: z.nullable(z.string()).optional(),
+  password: z.string(),
+  registryName: z.string().optional(),
+  registryType: RegistryTestRegistryRegistryType$inboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /** @internal */
 export type RegistryTestRegistryRequest$Outbound = {
-  registryName?: string | undefined;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: string;
   imagePrefix?: string | null | undefined;
+  password: string;
+  registryName?: string | undefined;
+  registryType: string;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
 
 /** @internal */
@@ -147,13 +147,13 @@ export const RegistryTestRegistryRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RegistryTestRegistryRequest
 > = z.object({
-  registryName: z.string().optional(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryTestRegistryRegistryType$outboundSchema,
   imagePrefix: z.nullable(z.string()).optional(),
+  password: z.string(),
+  registryName: z.string().optional(),
+  registryType: RegistryTestRegistryRegistryType$outboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /**

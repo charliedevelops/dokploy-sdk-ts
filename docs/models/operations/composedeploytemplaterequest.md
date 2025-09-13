@@ -15,7 +15,7 @@ let value: ComposeDeployTemplateRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `environmentId`    | *string*           | :heavy_check_mark: | N/A                |
-| `serverId`         | *string*           | :heavy_minus_sign: | N/A                |
-| `id`               | *string*           | :heavy_check_mark: | N/A                |
 | `baseUrl`          | *string*           | :heavy_minus_sign: | N/A                |
+| `environmentId`    | *string*           | :heavy_check_mark: | N/A                |
+| `id`               | *string*           | :heavy_check_mark: | N/A                |
+| `serverId`         | *string*           | :heavy_minus_sign: | N/A                |

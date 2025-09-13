@@ -20,64 +20,25 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Mongo extends ClientSDK {
+  async mongoChangeStatus(
+    security: operations.MongoChangeStatusSecurity,
+    request: operations.MongoChangeStatusRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoChangeStatusResponse> {
+    return unwrapAsync(mongoMongoChangeStatus(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async mongoCreate(
     security: operations.MongoCreateSecurity,
     request: operations.MongoCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.MongoCreateResponse> {
     return unwrapAsync(mongoMongoCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoOne(
-    security: operations.MongoOneSecurity,
-    request: operations.MongoOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoOneResponse> {
-    return unwrapAsync(mongoMongoOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoStart(
-    security: operations.MongoStartSecurity,
-    request: operations.MongoStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoStartResponse> {
-    return unwrapAsync(mongoMongoStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoStop(
-    security: operations.MongoStopSecurity,
-    request: operations.MongoStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoStopResponse> {
-    return unwrapAsync(mongoMongoStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoSaveExternalPort(
-    security: operations.MongoSaveExternalPortSecurity,
-    request: operations.MongoSaveExternalPortRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoSaveExternalPortResponse> {
-    return unwrapAsync(mongoMongoSaveExternalPort(
       this,
       security,
       request,
@@ -98,12 +59,38 @@ export class Mongo extends ClientSDK {
     ));
   }
 
-  async mongoChangeStatus(
-    security: operations.MongoChangeStatusSecurity,
-    request: operations.MongoChangeStatusRequest,
+  async mongoMove(
+    security: operations.MongoMoveSecurity,
+    request: operations.MongoMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.MongoChangeStatusResponse> {
-    return unwrapAsync(mongoMongoChangeStatus(
+  ): Promise<operations.MongoMoveResponse> {
+    return unwrapAsync(mongoMongoMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mongoOne(
+    security: operations.MongoOneSecurity,
+    request: operations.MongoOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoOneResponse> {
+    return unwrapAsync(mongoMongoOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mongoRebuild(
+    security: operations.MongoRebuildSecurity,
+    request: operations.MongoRebuildRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoRebuildResponse> {
+    return unwrapAsync(mongoMongoRebuild(
       this,
       security,
       request,
@@ -150,38 +137,51 @@ export class Mongo extends ClientSDK {
     ));
   }
 
+  async mongoSaveExternalPort(
+    security: operations.MongoSaveExternalPortSecurity,
+    request: operations.MongoSaveExternalPortRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoSaveExternalPortResponse> {
+    return unwrapAsync(mongoMongoSaveExternalPort(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mongoStart(
+    security: operations.MongoStartSecurity,
+    request: operations.MongoStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoStartResponse> {
+    return unwrapAsync(mongoMongoStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async mongoStop(
+    security: operations.MongoStopSecurity,
+    request: operations.MongoStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.MongoStopResponse> {
+    return unwrapAsync(mongoMongoStop(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async mongoUpdate(
     security: operations.MongoUpdateSecurity,
     request: operations.MongoUpdateRequest,
     options?: RequestOptions,
   ): Promise<operations.MongoUpdateResponse> {
     return unwrapAsync(mongoMongoUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoMove(
-    security: operations.MongoMoveSecurity,
-    request: operations.MongoMoveRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoMoveResponse> {
-    return unwrapAsync(mongoMongoMove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async mongoRebuild(
-    security: operations.MongoRebuildSecurity,
-    request: operations.MongoRebuildRequest,
-    options?: RequestOptions,
-  ): Promise<operations.MongoRebuildResponse> {
-    return unwrapAsync(mongoMongoRebuild(
       this,
       security,
       request,

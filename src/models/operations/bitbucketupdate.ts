@@ -14,9 +14,9 @@ export type BitbucketUpdateSecurity = {
 };
 
 export type BitbucketUpdateRequest = {
+  appPassword?: string | null | undefined;
   bitbucketId: string;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | null | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId: string;
   name: string;
@@ -27,9 +27,9 @@ export type BitbucketUpdateRequest = {
  * Successful response
  */
 export type BitbucketUpdateResponseBody = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
   gitProviderId: string;
 };
@@ -106,9 +106,9 @@ export const BitbucketUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()).optional(),
   bitbucketId: z.string(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.nullable(z.string()).optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string(),
   name: z.string(),
@@ -117,9 +117,9 @@ export const BitbucketUpdateRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type BitbucketUpdateRequest$Outbound = {
+  appPassword?: string | null | undefined;
   bitbucketId: string;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | null | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId: string;
   name: string;
@@ -132,9 +132,9 @@ export const BitbucketUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketUpdateRequest
 > = z.object({
+  appPassword: z.nullable(z.string()).optional(),
   bitbucketId: z.string(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.nullable(z.string()).optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string(),
   name: z.string(),
@@ -178,18 +178,18 @@ export const BitbucketUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });
 
 /** @internal */
 export type BitbucketUpdateResponseBody$Outbound = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
   gitProviderId: string;
 };
@@ -200,9 +200,9 @@ export const BitbucketUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketUpdateResponseBody
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });

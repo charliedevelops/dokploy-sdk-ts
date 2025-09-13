@@ -14,5 +14,5 @@ let value: NotificationTestDiscordConnectionRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `webhookUrl`       | *string*           | :heavy_check_mark: | N/A                |
 | `decoration`       | *boolean*          | :heavy_minus_sign: | N/A                |
+| `webhookUrl`       | *string*           | :heavy_check_mark: | N/A                |

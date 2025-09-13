@@ -7,11 +7,12 @@
 
 ```typescript
 const value: operations.EnvironmentRemoveResponseBody = {
+  createdAt: "1707587612923",
+  description:
+    "now outside compete uncomfortable huzzah bathrobe off mmm gadzooks",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "meanwhile willfully where true adaptation",
-  createdAt: "1709609979688",
-  env: "<value>",
   projectId: "<id>",
 };
 ```
@@ -20,8 +21,8 @@ const value: operations.EnvironmentRemoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

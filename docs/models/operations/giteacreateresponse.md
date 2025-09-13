@@ -7,9 +7,9 @@
 
 ```typescript
 const value: operations.GiteaCreateResponseBody = {
+  clientId: "<id>",
   giteaId: "<id>",
   giteaUrl: "https://serpentine-overcoat.com/",
-  clientId: "<id>",
 };
 ```
 
@@ -17,8 +17,8 @@ const value: operations.GiteaCreateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

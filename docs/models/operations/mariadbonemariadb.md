@@ -6,8 +6,8 @@
 import { MariadbOneMariadb } from "dokploy-sdk/models/operations";
 
 let value: MariadbOneMariadb = {
-  databaseUser: "<value>",
   databasePassword: "<value>",
+  databaseUser: "<value>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MariadbOneMariadb = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `databaseUser`     | *string*           | :heavy_check_mark: | N/A                |
 | `databasePassword` | *string*           | :heavy_check_mark: | N/A                |
+| `databaseUser`     | *string*           | :heavy_check_mark: | N/A                |

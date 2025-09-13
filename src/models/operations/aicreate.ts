@@ -13,11 +13,11 @@ export type AiCreateSecurity = {
 };
 
 export type AiCreateRequest = {
-  name: string;
-  apiUrl: string;
   apiKey: string;
-  model: string;
+  apiUrl: string;
   isEnabled: boolean;
+  model: string;
+  name: string;
 };
 
 /** @internal */
@@ -88,20 +88,20 @@ export const AiCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  apiUrl: z.string(),
   apiKey: z.string(),
-  model: z.string(),
+  apiUrl: z.string(),
   isEnabled: z.boolean(),
+  model: z.string(),
+  name: z.string(),
 });
 
 /** @internal */
 export type AiCreateRequest$Outbound = {
-  name: string;
-  apiUrl: string;
   apiKey: string;
-  model: string;
+  apiUrl: string;
   isEnabled: boolean;
+  model: string;
+  name: string;
 };
 
 /** @internal */
@@ -110,11 +110,11 @@ export const AiCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AiCreateRequest
 > = z.object({
-  name: z.string(),
-  apiUrl: z.string(),
   apiKey: z.string(),
-  model: z.string(),
+  apiUrl: z.string(),
   isEnabled: z.boolean(),
+  model: z.string(),
+  name: z.string(),
 });
 
 /**

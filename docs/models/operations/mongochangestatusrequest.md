@@ -6,8 +6,8 @@
 import { MongoChangeStatusRequest } from "dokploy-sdk/models/operations";
 
 let value: MongoChangeStatusRequest = {
-  mongoId: "<id>",
   applicationStatus: "idle",
+  mongoId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MongoChangeStatusRequest = {
 
 | Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `mongoId`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
 | `applicationStatus`                                                                                                          | [operations.MongoChangeStatusApplicationStatusRequest](../../models/operations/mongochangestatusapplicationstatusrequest.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |
+| `mongoId`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |

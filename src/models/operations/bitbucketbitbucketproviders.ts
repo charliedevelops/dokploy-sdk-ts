@@ -25,11 +25,11 @@ export type BitbucketBitbucketProvidersProviderType = ClosedEnum<
 >;
 
 export type BitbucketBitbucketProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: BitbucketBitbucketProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: BitbucketBitbucketProvidersProviderType;
   userId: string;
 };
 
@@ -138,21 +138,21 @@ export const BitbucketBitbucketProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketBitbucketProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketBitbucketProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type BitbucketBitbucketProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -162,11 +162,11 @@ export const BitbucketBitbucketProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketBitbucketProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketBitbucketProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketBitbucketProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 

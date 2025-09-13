@@ -14,13 +14,13 @@ export type CertificatesCreateSecurity = {
 };
 
 export type CertificatesCreateRequest = {
-  certificateId?: string | undefined;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath?: string | undefined;
   autoRenew?: boolean | null | undefined;
+  certificateData: string;
+  certificateId?: string | undefined;
+  certificatePath?: string | undefined;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId?: string | null | undefined;
 };
 
@@ -28,13 +28,13 @@ export type CertificatesCreateRequest = {
  * Successful response
  */
 export type CertificatesCreateResponseBody = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -110,25 +110,25 @@ export const CertificatesCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  certificateId: z.string().optional(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string().optional(),
   autoRenew: z.nullable(z.boolean()).optional(),
+  certificateData: z.string(),
+  certificateId: z.string().optional(),
+  certificatePath: z.string().optional(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type CertificatesCreateRequest$Outbound = {
-  certificateId?: string | undefined;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath?: string | undefined;
   autoRenew?: boolean | null | undefined;
+  certificateData: string;
+  certificateId?: string | undefined;
+  certificatePath?: string | undefined;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId?: string | null | undefined;
 };
 
@@ -138,13 +138,13 @@ export const CertificatesCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CertificatesCreateRequest
 > = z.object({
-  certificateId: z.string().optional(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string().optional(),
   autoRenew: z.nullable(z.boolean()).optional(),
+  certificateData: z.string(),
+  certificateId: z.string().optional(),
+  certificatePath: z.string().optional(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
@@ -185,25 +185,25 @@ export const CertificatesCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 
 /** @internal */
 export type CertificatesCreateResponseBody$Outbound = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -213,13 +213,13 @@ export const CertificatesCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CertificatesCreateResponseBody
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 

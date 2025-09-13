@@ -5,85 +5,13 @@
 
 ### Available Operations
 
-* [organizationCreate](#organizationcreate)
 * [organizationAll](#organizationall)
-* [organizationOne](#organizationone)
-* [organizationUpdate](#organizationupdate)
-* [organizationDelete](#organizationdelete)
 * [organizationAllInvitations](#organizationallinvitations)
+* [organizationCreate](#organizationcreate)
+* [organizationDelete](#organizationdelete)
+* [organizationOne](#organizationone)
 * [organizationRemoveInvitation](#organizationremoveinvitation)
-
-## organizationCreate
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="organization-create" method="post" path="/organization.create" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.organization.organizationCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { organizationOrganizationCreate } from "dokploy-sdk/funcs/organizationOrganizationCreate.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await organizationOrganizationCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("organizationOrganizationCreate failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.OrganizationCreateRequest](../../models/operations/organizationcreaterequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.OrganizationCreateSecurity](../../models/operations/organizationcreatesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.OrganizationCreateResponse](../../models/operations/organizationcreateresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+* [organizationUpdate](#organizationupdate)
 
 ## organizationAll
 
@@ -152,21 +80,19 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## organizationOne
+## organizationAllInvitations
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="organization-one" method="get" path="/organization.one" -->
+<!-- UsageSnippet language="typescript" operationID="organization-allInvitations" method="get" path="/organization.allInvitations" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.organization.organizationOne({
+  const result = await dokploy.organization.organizationAllInvitations({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    organizationId: "<id>",
   });
 
   console.log(result);
@@ -181,23 +107,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { organizationOrganizationOne } from "dokploy-sdk/funcs/organizationOrganizationOne.js";
+import { organizationOrganizationAllInvitations } from "dokploy-sdk/funcs/organizationOrganizationAllInvitations.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await organizationOrganizationOne(dokploy, {
+  const res = await organizationOrganizationAllInvitations(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    organizationId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationOrganizationOne failed:", res.error);
+    console.log("organizationOrganizationAllInvitations failed:", res.error);
   }
 }
 
@@ -208,15 +132,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.OrganizationOneRequest](../../models/operations/organizationonerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.OrganizationOneSecurity](../../models/operations/organizationonesecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `security`                                                                                                                                                                     | [operations.OrganizationAllInvitationsSecurity](../../models/operations/organizationallinvitationssecurity.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.OrganizationOneResponse](../../models/operations/organizationoneresponse.md)\>**
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
 
 ### Errors
 
@@ -224,21 +147,20 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## organizationUpdate
+## organizationCreate
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="organization-update" method="post" path="/organization.update" -->
+<!-- UsageSnippet language="typescript" operationID="organization-create" method="post" path="/organization.create" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.organization.organizationUpdate({
+  const result = await dokploy.organization.organizationCreate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    organizationId: "<id>",
     name: "<value>",
   });
 
@@ -254,24 +176,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { organizationOrganizationUpdate } from "dokploy-sdk/funcs/organizationOrganizationUpdate.js";
+import { organizationOrganizationCreate } from "dokploy-sdk/funcs/organizationOrganizationCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await organizationOrganizationUpdate(dokploy, {
+  const res = await organizationOrganizationCreate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    organizationId: "<id>",
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationOrganizationUpdate failed:", res.error);
+    console.log("organizationOrganizationCreate failed:", res.error);
   }
 }
 
@@ -282,15 +203,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.OrganizationUpdateRequest](../../models/operations/organizationupdaterequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.OrganizationUpdateSecurity](../../models/operations/organizationupdatesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.OrganizationCreateRequest](../../models/operations/organizationcreaterequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.OrganizationCreateSecurity](../../models/operations/organizationcreatesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.OrganizationUpdateResponse](../../models/operations/organizationupdateresponse.md)\>**
+**Promise\<[operations.OrganizationCreateResponse](../../models/operations/organizationcreateresponse.md)\>**
 
 ### Errors
 
@@ -370,19 +291,21 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## organizationAllInvitations
+## organizationOne
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="organization-allInvitations" method="get" path="/organization.allInvitations" -->
+<!-- UsageSnippet language="typescript" operationID="organization-one" method="get" path="/organization.one" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.organization.organizationAllInvitations({
+  const result = await dokploy.organization.organizationOne({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    organizationId: "<id>",
   });
 
   console.log(result);
@@ -397,21 +320,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { organizationOrganizationAllInvitations } from "dokploy-sdk/funcs/organizationOrganizationAllInvitations.js";
+import { organizationOrganizationOne } from "dokploy-sdk/funcs/organizationOrganizationOne.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await organizationOrganizationAllInvitations(dokploy, {
+  const res = await organizationOrganizationOne(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    organizationId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("organizationOrganizationAllInvitations failed:", res.error);
+    console.log("organizationOrganizationOne failed:", res.error);
   }
 }
 
@@ -422,14 +347,15 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.OrganizationAllInvitationsSecurity](../../models/operations/organizationallinvitationssecurity.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.OrganizationOneRequest](../../models/operations/organizationonerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.OrganizationOneSecurity](../../models/operations/organizationonesecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
+**Promise\<[operations.OrganizationOneResponse](../../models/operations/organizationoneresponse.md)\>**
 
 ### Errors
 
@@ -502,6 +428,80 @@ run();
 ### Response
 
 **Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## organizationUpdate
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="organization-update" method="post" path="/organization.update" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.organization.organizationUpdate({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    name: "<value>",
+    organizationId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { organizationOrganizationUpdate } from "dokploy-sdk/funcs/organizationOrganizationUpdate.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await organizationOrganizationUpdate(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    name: "<value>",
+    organizationId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("organizationOrganizationUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.OrganizationUpdateRequest](../../models/operations/organizationupdaterequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.OrganizationUpdateSecurity](../../models/operations/organizationupdatesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.OrganizationUpdateResponse](../../models/operations/organizationupdateresponse.md)\>**
 
 ### Errors
 

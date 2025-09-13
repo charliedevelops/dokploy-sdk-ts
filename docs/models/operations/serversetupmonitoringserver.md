@@ -6,16 +6,16 @@
 import { ServerSetupMonitoringServer } from "dokploy-sdk/models/operations";
 
 let value: ServerSetupMonitoringServer = {
-  refreshRate: 6011.09,
-  port: 3069.77,
-  token: "<value>",
-  urlCallback: "https://cool-lender.org/",
-  retentionDays: 1807.95,
   cronJob: "<value>",
+  port: 6011.09,
+  refreshRate: 3069.77,
+  retentionDays: 3180.42,
   thresholds: {
-    cpu: 4056.95,
-    memory: 3236.65,
+    cpu: 1394.41,
+    memory: 5211.2,
   },
+  token: "<value>",
+  urlCallback: "https://delicious-haircut.biz",
 };
 ```
 
@@ -23,10 +23,10 @@ let value: ServerSetupMonitoringServer = {
 
 | Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
 | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `refreshRate`                                                                                            | *number*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `cronJob`                                                                                                | *string*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
 | `port`                                                                                                   | *number*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `refreshRate`                                                                                            | *number*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `retentionDays`                                                                                          | *number*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `thresholds`                                                                                             | [operations.ServerSetupMonitoringThresholds](../../models/operations/serversetupmonitoringthresholds.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
 | `token`                                                                                                  | *string*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
 | `urlCallback`                                                                                            | *string*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `retentionDays`                                                                                          | *number*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `cronJob`                                                                                                | *string*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `thresholds`                                                                                             | [operations.ServerSetupMonitoringThresholds](../../models/operations/serversetupmonitoringthresholds.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

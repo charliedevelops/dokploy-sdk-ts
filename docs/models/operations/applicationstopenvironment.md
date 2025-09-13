@@ -6,22 +6,20 @@
 import { ApplicationStopEnvironment } from "dokploy-sdk/models/operations";
 
 let value: ApplicationStopEnvironment = {
+  createdAt: "1714297776328",
+  description: "past knottily anenst which merrily likely",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description:
-    "mentor phooey councilman before abaft bathhouse bank slather aha",
-  createdAt: "1734994822806",
-  env: "<value>",
-  projectId: "<id>",
   project: {
-    projectId: "<id>",
-    name: "<value>",
-    description:
-      "overfeed valuable uh-huh bah why certainly reference yuck blah when",
-    createdAt: "1735181652484",
-    organizationId: "<id>",
+    createdAt: "1730454078929",
+    description: "fuss nervously rich uh-huh",
     env: "<value>",
+    name: "<value>",
+    organizationId: "<id>",
+    projectId: "<id>",
   },
+  projectId: "<id>",
 };
 ```
 
@@ -29,10 +27,10 @@ let value: ApplicationStopEnvironment = {
 
 | Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `createdAt`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `description`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `env`                                                                                  | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `environmentId`                                                                        | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `name`                                                                                 | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `description`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `createdAt`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `env`                                                                                  | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `projectId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `project`                                                                              | [operations.ApplicationStopProject](../../models/operations/applicationstopproject.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `projectId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |

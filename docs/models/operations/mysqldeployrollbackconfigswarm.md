@@ -6,8 +6,8 @@
 import { MysqlDeployRollbackConfigSwarm } from "dokploy-sdk/models/operations";
 
 let value: MysqlDeployRollbackConfigSwarm = {
-  parallelism: 7807.09,
   order: "<value>",
+  parallelism: 7807.09,
 };
 ```
 
@@ -15,9 +15,9 @@ let value: MysqlDeployRollbackConfigSwarm = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |
 | `delay`            | *number*           | :heavy_minus_sign: | N/A                |
 | `failureAction`    | *string*           | :heavy_minus_sign: | N/A                |
-| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `maxFailureRatio`  | *number*           | :heavy_minus_sign: | N/A                |
+| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `order`            | *string*           | :heavy_check_mark: | N/A                |
+| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |

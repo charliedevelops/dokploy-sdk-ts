@@ -14,6 +14,53 @@ export type GitProviderGetAllSecurity = {
   authorization: string;
 };
 
+export type GitProviderGetAllBitbucket = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
+
+export type GitProviderGetAllGitea = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+export type GitProviderGetAllGithub = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+export type GitProviderGetAllGitlab = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
 export const GitProviderGetAllProviderType = {
   Github: "github",
   Gitlab: "gitlab",
@@ -24,64 +71,17 @@ export type GitProviderGetAllProviderType = ClosedEnum<
   typeof GitProviderGetAllProviderType
 >;
 
-export type GitProviderGetAllGitlab = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-};
-
-export type GitProviderGetAllBitbucket = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
-};
-
-export type GitProviderGetAllGithub = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
-};
-
-export type GitProviderGetAllGitea = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
 export type GitProviderGetAllResponseBody = {
-  gitProviderId: string;
-  name: string;
-  providerType: GitProviderGetAllProviderType;
-  createdAt: string;
-  organizationId: string;
-  userId: string;
-  gitlab: GitProviderGetAllGitlab | null;
   bitbucket: GitProviderGetAllBitbucket | null;
-  github: GitProviderGetAllGithub | null;
+  createdAt: string;
+  gitProviderId: string;
   gitea: GitProviderGetAllGitea | null;
+  github: GitProviderGetAllGithub | null;
+  gitlab: GitProviderGetAllGitlab | null;
+  name: string;
+  organizationId: string;
+  providerType: GitProviderGetAllProviderType;
+  userId: string;
 };
 
 export type GitProviderGetAllResponse =
@@ -151,125 +151,23 @@ export function gitProviderGetAllSecurityFromJSON(
 }
 
 /** @internal */
-export const GitProviderGetAllProviderType$inboundSchema: z.ZodNativeEnum<
-  typeof GitProviderGetAllProviderType
-> = z.nativeEnum(GitProviderGetAllProviderType);
-
-/** @internal */
-export const GitProviderGetAllProviderType$outboundSchema: z.ZodNativeEnum<
-  typeof GitProviderGetAllProviderType
-> = GitProviderGetAllProviderType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitProviderGetAllProviderType$ {
-  /** @deprecated use `GitProviderGetAllProviderType$inboundSchema` instead. */
-  export const inboundSchema = GitProviderGetAllProviderType$inboundSchema;
-  /** @deprecated use `GitProviderGetAllProviderType$outboundSchema` instead. */
-  export const outboundSchema = GitProviderGetAllProviderType$outboundSchema;
-}
-
-/** @internal */
-export const GitProviderGetAllGitlab$inboundSchema: z.ZodType<
-  GitProviderGetAllGitlab,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type GitProviderGetAllGitlab$Outbound = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const GitProviderGetAllGitlab$outboundSchema: z.ZodType<
-  GitProviderGetAllGitlab$Outbound,
-  z.ZodTypeDef,
-  GitProviderGetAllGitlab
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitProviderGetAllGitlab$ {
-  /** @deprecated use `GitProviderGetAllGitlab$inboundSchema` instead. */
-  export const inboundSchema = GitProviderGetAllGitlab$inboundSchema;
-  /** @deprecated use `GitProviderGetAllGitlab$outboundSchema` instead. */
-  export const outboundSchema = GitProviderGetAllGitlab$outboundSchema;
-  /** @deprecated use `GitProviderGetAllGitlab$Outbound` instead. */
-  export type Outbound = GitProviderGetAllGitlab$Outbound;
-}
-
-export function gitProviderGetAllGitlabToJSON(
-  gitProviderGetAllGitlab: GitProviderGetAllGitlab,
-): string {
-  return JSON.stringify(
-    GitProviderGetAllGitlab$outboundSchema.parse(gitProviderGetAllGitlab),
-  );
-}
-
-export function gitProviderGetAllGitlabFromJSON(
-  jsonString: string,
-): SafeParseResult<GitProviderGetAllGitlab, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitProviderGetAllGitlab$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitProviderGetAllGitlab' from JSON`,
-  );
-}
-
-/** @internal */
 export const GitProviderGetAllBitbucket$inboundSchema: z.ZodType<
   GitProviderGetAllBitbucket,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });
 
 /** @internal */
 export type GitProviderGetAllBitbucket$Outbound = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
   gitProviderId: string;
 };
@@ -280,9 +178,9 @@ export const GitProviderGetAllBitbucket$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitProviderGetAllBitbucket
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });
@@ -319,115 +217,37 @@ export function gitProviderGetAllBitbucketFromJSON(
 }
 
 /** @internal */
-export const GitProviderGetAllGithub$inboundSchema: z.ZodType<
-  GitProviderGetAllGithub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type GitProviderGetAllGithub$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const GitProviderGetAllGithub$outboundSchema: z.ZodType<
-  GitProviderGetAllGithub$Outbound,
-  z.ZodTypeDef,
-  GitProviderGetAllGithub
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitProviderGetAllGithub$ {
-  /** @deprecated use `GitProviderGetAllGithub$inboundSchema` instead. */
-  export const inboundSchema = GitProviderGetAllGithub$inboundSchema;
-  /** @deprecated use `GitProviderGetAllGithub$outboundSchema` instead. */
-  export const outboundSchema = GitProviderGetAllGithub$outboundSchema;
-  /** @deprecated use `GitProviderGetAllGithub$Outbound` instead. */
-  export type Outbound = GitProviderGetAllGithub$Outbound;
-}
-
-export function gitProviderGetAllGithubToJSON(
-  gitProviderGetAllGithub: GitProviderGetAllGithub,
-): string {
-  return JSON.stringify(
-    GitProviderGetAllGithub$outboundSchema.parse(gitProviderGetAllGithub),
-  );
-}
-
-export function gitProviderGetAllGithubFromJSON(
-  jsonString: string,
-): SafeParseResult<GitProviderGetAllGithub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitProviderGetAllGithub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitProviderGetAllGithub' from JSON`,
-  );
-}
-
-/** @internal */
 export const GitProviderGetAllGitea$inboundSchema: z.ZodType<
   GitProviderGetAllGitea,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
+  accessToken: z.nullable(z.string()),
   clientId: z.nullable(z.string()),
   clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
   lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
 });
 
 /** @internal */
 export type GitProviderGetAllGitea$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
+  accessToken: string | null;
   clientId: string | null;
   clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
   expiresAt: number | null;
-  scopes: string | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
   lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
 };
 
 /** @internal */
@@ -436,17 +256,17 @@ export const GitProviderGetAllGitea$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitProviderGetAllGitea
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
+  accessToken: z.nullable(z.string()),
   clientId: z.nullable(z.string()),
   clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
   lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
 });
 
 /**
@@ -481,35 +301,215 @@ export function gitProviderGetAllGiteaFromJSON(
 }
 
 /** @internal */
+export const GitProviderGetAllGithub$inboundSchema: z.ZodType<
+  GitProviderGetAllGithub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type GitProviderGetAllGithub$Outbound = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+/** @internal */
+export const GitProviderGetAllGithub$outboundSchema: z.ZodType<
+  GitProviderGetAllGithub$Outbound,
+  z.ZodTypeDef,
+  GitProviderGetAllGithub
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GitProviderGetAllGithub$ {
+  /** @deprecated use `GitProviderGetAllGithub$inboundSchema` instead. */
+  export const inboundSchema = GitProviderGetAllGithub$inboundSchema;
+  /** @deprecated use `GitProviderGetAllGithub$outboundSchema` instead. */
+  export const outboundSchema = GitProviderGetAllGithub$outboundSchema;
+  /** @deprecated use `GitProviderGetAllGithub$Outbound` instead. */
+  export type Outbound = GitProviderGetAllGithub$Outbound;
+}
+
+export function gitProviderGetAllGithubToJSON(
+  gitProviderGetAllGithub: GitProviderGetAllGithub,
+): string {
+  return JSON.stringify(
+    GitProviderGetAllGithub$outboundSchema.parse(gitProviderGetAllGithub),
+  );
+}
+
+export function gitProviderGetAllGithubFromJSON(
+  jsonString: string,
+): SafeParseResult<GitProviderGetAllGithub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitProviderGetAllGithub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitProviderGetAllGithub' from JSON`,
+  );
+}
+
+/** @internal */
+export const GitProviderGetAllGitlab$inboundSchema: z.ZodType<
+  GitProviderGetAllGitlab,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type GitProviderGetAllGitlab$Outbound = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+/** @internal */
+export const GitProviderGetAllGitlab$outboundSchema: z.ZodType<
+  GitProviderGetAllGitlab$Outbound,
+  z.ZodTypeDef,
+  GitProviderGetAllGitlab
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GitProviderGetAllGitlab$ {
+  /** @deprecated use `GitProviderGetAllGitlab$inboundSchema` instead. */
+  export const inboundSchema = GitProviderGetAllGitlab$inboundSchema;
+  /** @deprecated use `GitProviderGetAllGitlab$outboundSchema` instead. */
+  export const outboundSchema = GitProviderGetAllGitlab$outboundSchema;
+  /** @deprecated use `GitProviderGetAllGitlab$Outbound` instead. */
+  export type Outbound = GitProviderGetAllGitlab$Outbound;
+}
+
+export function gitProviderGetAllGitlabToJSON(
+  gitProviderGetAllGitlab: GitProviderGetAllGitlab,
+): string {
+  return JSON.stringify(
+    GitProviderGetAllGitlab$outboundSchema.parse(gitProviderGetAllGitlab),
+  );
+}
+
+export function gitProviderGetAllGitlabFromJSON(
+  jsonString: string,
+): SafeParseResult<GitProviderGetAllGitlab, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitProviderGetAllGitlab$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitProviderGetAllGitlab' from JSON`,
+  );
+}
+
+/** @internal */
+export const GitProviderGetAllProviderType$inboundSchema: z.ZodNativeEnum<
+  typeof GitProviderGetAllProviderType
+> = z.nativeEnum(GitProviderGetAllProviderType);
+
+/** @internal */
+export const GitProviderGetAllProviderType$outboundSchema: z.ZodNativeEnum<
+  typeof GitProviderGetAllProviderType
+> = GitProviderGetAllProviderType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GitProviderGetAllProviderType$ {
+  /** @deprecated use `GitProviderGetAllProviderType$inboundSchema` instead. */
+  export const inboundSchema = GitProviderGetAllProviderType$inboundSchema;
+  /** @deprecated use `GitProviderGetAllProviderType$outboundSchema` instead. */
+  export const outboundSchema = GitProviderGetAllProviderType$outboundSchema;
+}
+
+/** @internal */
 export const GitProviderGetAllResponseBody$inboundSchema: z.ZodType<
   GitProviderGetAllResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  gitProviderId: z.string(),
-  name: z.string(),
-  providerType: GitProviderGetAllProviderType$inboundSchema,
-  createdAt: z.string(),
-  organizationId: z.string(),
-  userId: z.string(),
-  gitlab: z.nullable(z.lazy(() => GitProviderGetAllGitlab$inboundSchema)),
   bitbucket: z.nullable(z.lazy(() => GitProviderGetAllBitbucket$inboundSchema)),
-  github: z.nullable(z.lazy(() => GitProviderGetAllGithub$inboundSchema)),
+  createdAt: z.string(),
+  gitProviderId: z.string(),
   gitea: z.nullable(z.lazy(() => GitProviderGetAllGitea$inboundSchema)),
+  github: z.nullable(z.lazy(() => GitProviderGetAllGithub$inboundSchema)),
+  gitlab: z.nullable(z.lazy(() => GitProviderGetAllGitlab$inboundSchema)),
+  name: z.string(),
+  organizationId: z.string(),
+  providerType: GitProviderGetAllProviderType$inboundSchema,
+  userId: z.string(),
 });
 
 /** @internal */
 export type GitProviderGetAllResponseBody$Outbound = {
-  gitProviderId: string;
-  name: string;
-  providerType: string;
-  createdAt: string;
-  organizationId: string;
-  userId: string;
-  gitlab: GitProviderGetAllGitlab$Outbound | null;
   bitbucket: GitProviderGetAllBitbucket$Outbound | null;
-  github: GitProviderGetAllGithub$Outbound | null;
+  createdAt: string;
+  gitProviderId: string;
   gitea: GitProviderGetAllGitea$Outbound | null;
+  github: GitProviderGetAllGithub$Outbound | null;
+  gitlab: GitProviderGetAllGitlab$Outbound | null;
+  name: string;
+  organizationId: string;
+  providerType: string;
+  userId: string;
 };
 
 /** @internal */
@@ -518,18 +518,18 @@ export const GitProviderGetAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitProviderGetAllResponseBody
 > = z.object({
-  gitProviderId: z.string(),
-  name: z.string(),
-  providerType: GitProviderGetAllProviderType$outboundSchema,
-  createdAt: z.string(),
-  organizationId: z.string(),
-  userId: z.string(),
-  gitlab: z.nullable(z.lazy(() => GitProviderGetAllGitlab$outboundSchema)),
   bitbucket: z.nullable(
     z.lazy(() => GitProviderGetAllBitbucket$outboundSchema),
   ),
-  github: z.nullable(z.lazy(() => GitProviderGetAllGithub$outboundSchema)),
+  createdAt: z.string(),
+  gitProviderId: z.string(),
   gitea: z.nullable(z.lazy(() => GitProviderGetAllGitea$outboundSchema)),
+  github: z.nullable(z.lazy(() => GitProviderGetAllGithub$outboundSchema)),
+  gitlab: z.nullable(z.lazy(() => GitProviderGetAllGitlab$outboundSchema)),
+  name: z.string(),
+  organizationId: z.string(),
+  providerType: GitProviderGetAllProviderType$outboundSchema,
+  userId: z.string(),
 });
 
 /**

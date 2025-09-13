@@ -13,11 +13,11 @@ export type SshKeyCreateSecurity = {
 };
 
 export type SshKeyCreateRequest = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
+  organizationId: string;
   privateKey: string;
   publicKey: string;
-  organizationId: string;
 };
 
 /** @internal */
@@ -88,20 +88,20 @@ export const SshKeyCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
+  organizationId: z.string(),
   privateKey: z.string(),
   publicKey: z.string(),
-  organizationId: z.string(),
 });
 
 /** @internal */
 export type SshKeyCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
+  organizationId: string;
   privateKey: string;
   publicKey: string;
-  organizationId: string;
 };
 
 /** @internal */
@@ -110,11 +110,11 @@ export const SshKeyCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SshKeyCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
+  organizationId: z.string(),
   privateKey: z.string(),
   publicKey: z.string(),
-  organizationId: z.string(),
 });
 
 /**

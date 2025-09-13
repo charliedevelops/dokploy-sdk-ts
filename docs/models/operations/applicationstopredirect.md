@@ -6,13 +6,13 @@
 import { ApplicationStopRedirect } from "dokploy-sdk/models/operations";
 
 let value: ApplicationStopRedirect = {
+  applicationId: "<id>",
+  createdAt: "1708833180591",
+  permanent: true,
   redirectId: "<id>",
   regex: "<value>",
   replacement: "<value>",
-  permanent: true,
-  uniqueConfigKey: 2187.86,
-  createdAt: "1707151172424",
-  applicationId: "<id>",
+  uniqueConfigKey: 950.52,
 };
 ```
 
@@ -20,10 +20,10 @@ let value: ApplicationStopRedirect = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `redirectId`       | *string*           | :heavy_check_mark: | N/A                |
 | `regex`            | *string*           | :heavy_check_mark: | N/A                |
 | `replacement`      | *string*           | :heavy_check_mark: | N/A                |
-| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `uniqueConfigKey`  | *number*           | :heavy_check_mark: | N/A                |
-| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |

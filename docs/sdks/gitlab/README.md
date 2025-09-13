@@ -6,10 +6,10 @@
 ### Available Operations
 
 * [gitlabCreate](#gitlabcreate)
-* [gitlabOne](#gitlabone)
-* [gitlabGitlabProviders](#gitlabgitlabproviders)
-* [gitlabGetGitlabRepositories](#gitlabgetgitlabrepositories)
 * [gitlabGetGitlabBranches](#gitlabgetgitlabbranches)
+* [gitlabGetGitlabRepositories](#gitlabgetgitlabrepositories)
+* [gitlabGitlabProviders](#gitlabgitlabproviders)
+* [gitlabOne](#gitlabone)
 * [gitlabTestConnection](#gitlabtestconnection)
 * [gitlabUpdate](#gitlabupdate)
 
@@ -27,8 +27,8 @@ async function run() {
   const result = await dokploy.gitlab.gitlabCreate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    gitlabUrl: "https://gloomy-sand.org/",
     authId: "<id>",
+    gitlabUrl: "https://gloomy-sand.org/",
     name: "<value>",
   });
 
@@ -54,8 +54,8 @@ async function run() {
   const res = await gitlabGitlabCreate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    gitlabUrl: "https://gloomy-sand.org/",
     authId: "<id>",
+    gitlabUrl: "https://gloomy-sand.org/",
     name: "<value>",
   });
   if (res.ok) {
@@ -75,217 +75,6 @@ run();
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.GitlabCreateRequest](../../models/operations/gitlabcreaterequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `security`                                                                                                                                                                     | [operations.GitlabCreateSecurity](../../models/operations/gitlabcreatesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## gitlabOne
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="gitlab-one" method="get" path="/gitlab.one" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.gitlab.gitlabOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    gitlabId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { gitlabGitlabOne } from "dokploy-sdk/funcs/gitlabGitlabOne.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await gitlabGitlabOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    gitlabId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("gitlabGitlabOne failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GitlabOneRequest](../../models/operations/gitlabonerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GitlabOneSecurity](../../models/operations/gitlabonesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GitlabOneResponse](../../models/operations/gitlaboneresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## gitlabGitlabProviders
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="gitlab-gitlabProviders" method="get" path="/gitlab.gitlabProviders" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.gitlab.gitlabGitlabProviders({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { gitlabGitlabGitlabProviders } from "dokploy-sdk/funcs/gitlabGitlabGitlabProviders.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await gitlabGitlabGitlabProviders(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("gitlabGitlabGitlabProviders failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.GitlabGitlabProvidersSecurity](../../models/operations/gitlabgitlabproviderssecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GitlabGitlabProvidersResponse](../../models/operations/gitlabgitlabprovidersresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## gitlabGetGitlabRepositories
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="gitlab-getGitlabRepositories" method="get" path="/gitlab.getGitlabRepositories" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.gitlab.gitlabGetGitlabRepositories({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    gitlabId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { gitlabGitlabGetGitlabRepositories } from "dokploy-sdk/funcs/gitlabGitlabGetGitlabRepositories.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await gitlabGitlabGetGitlabRepositories(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    gitlabId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("gitlabGitlabGetGitlabRepositories failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GitlabGetGitlabRepositoriesRequest](../../models/operations/gitlabgetgitlabrepositoriesrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GitlabGetGitlabRepositoriesSecurity](../../models/operations/gitlabgetgitlabrepositoriessecurity.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -367,6 +156,217 @@ run();
 ### Response
 
 **Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## gitlabGetGitlabRepositories
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="gitlab-getGitlabRepositories" method="get" path="/gitlab.getGitlabRepositories" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.gitlab.gitlabGetGitlabRepositories({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    gitlabId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { gitlabGitlabGetGitlabRepositories } from "dokploy-sdk/funcs/gitlabGitlabGetGitlabRepositories.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await gitlabGitlabGetGitlabRepositories(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    gitlabId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("gitlabGitlabGetGitlabRepositories failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GitlabGetGitlabRepositoriesRequest](../../models/operations/gitlabgetgitlabrepositoriesrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.GitlabGetGitlabRepositoriesSecurity](../../models/operations/gitlabgetgitlabrepositoriessecurity.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## gitlabGitlabProviders
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="gitlab-gitlabProviders" method="get" path="/gitlab.gitlabProviders" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.gitlab.gitlabGitlabProviders({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { gitlabGitlabGitlabProviders } from "dokploy-sdk/funcs/gitlabGitlabGitlabProviders.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await gitlabGitlabGitlabProviders(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("gitlabGitlabGitlabProviders failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `security`                                                                                                                                                                     | [operations.GitlabGitlabProvidersSecurity](../../models/operations/gitlabgitlabproviderssecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GitlabGitlabProvidersResponse](../../models/operations/gitlabgitlabprovidersresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## gitlabOne
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="gitlab-one" method="get" path="/gitlab.one" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.gitlab.gitlabOne({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    gitlabId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { gitlabGitlabOne } from "dokploy-sdk/funcs/gitlabGitlabOne.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await gitlabGitlabOne(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    gitlabId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("gitlabGitlabOne failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GitlabOneRequest](../../models/operations/gitlabonerequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.GitlabOneSecurity](../../models/operations/gitlabonesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GitlabOneResponse](../../models/operations/gitlaboneresponse.md)\>**
 
 ### Errors
 
@@ -456,9 +456,9 @@ async function run() {
   const result = await dokploy.gitlab.gitlabUpdate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
+    gitProviderId: "<id>",
     gitlabId: "<id>",
     gitlabUrl: "https://white-analogy.name",
-    gitProviderId: "<id>",
     name: "<value>",
   });
 
@@ -484,9 +484,9 @@ async function run() {
   const res = await gitlabGitlabUpdate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
+    gitProviderId: "<id>",
     gitlabId: "<id>",
     gitlabUrl: "https://white-analogy.name",
-    gitProviderId: "<id>",
     name: "<value>",
   });
   if (res.ok) {

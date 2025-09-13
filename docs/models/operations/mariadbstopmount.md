@@ -6,21 +6,21 @@
 import { MariadbStopMount } from "dokploy-sdk/models/operations";
 
 let value: MariadbStopMount = {
-  mountId: "<id>",
-  type: "bind",
-  hostPath: "<value>",
-  volumeName: "<value>",
-  filePath: "/sys/correctly_remorseful.mp4",
-  content: "<value>",
-  serviceType: "mongo",
-  mountPath: "<value>",
   applicationId: "<id>",
-  postgresId: "<id>",
+  composeId: "<id>",
+  content: "<value>",
+  filePath: "/sys/correctly_remorseful.mp4",
+  hostPath: "<value>",
   mariadbId: "<id>",
   mongoId: "<id>",
+  mountId: "<id>",
+  mountPath: "<value>",
   mysqlId: "<id>",
+  postgresId: "<id>",
   redisId: "<id>",
-  composeId: "<id>",
+  serviceType: "mongo",
+  type: "file",
+  volumeName: "<value>",
 };
 ```
 
@@ -28,18 +28,18 @@ let value: MariadbStopMount = {
 
 | Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `mountId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `type`                                                                                 | [operations.MariadbStopType](../../models/operations/mariadbstoptype.md)               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `hostPath`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `volumeName`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `filePath`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `content`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `serviceType`                                                                          | [operations.MariadbStopServiceType](../../models/operations/mariadbstopservicetype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `mountPath`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `applicationId`                                                                        | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `postgresId`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `composeId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `content`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `filePath`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `hostPath`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `mariadbId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `mongoId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `mountId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `mountPath`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `mysqlId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `postgresId`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `redisId`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `composeId`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `serviceType`                                                                          | [operations.MariadbStopServiceType](../../models/operations/mariadbstopservicetype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `type`                                                                                 | [operations.MariadbStopType](../../models/operations/mariadbstoptype.md)               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `volumeName`                                                                           | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |

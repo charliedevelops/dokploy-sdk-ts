@@ -6,12 +6,12 @@
 import { PostgresSaveExternalPortProject } from "dokploy-sdk/models/operations";
 
 let value: PostgresSaveExternalPortProject = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "runny great meh aw",
-  createdAt: "1727040844714",
-  organizationId: "<id>",
+  createdAt: "1712483264090",
+  description: "scary preside um pro between gently saw",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -19,9 +19,9 @@ let value: PostgresSaveExternalPortProject = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `projectId`        | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `description`      | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
+| `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `projectId`        | *string*           | :heavy_check_mark: | N/A                |

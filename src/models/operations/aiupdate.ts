@@ -14,12 +14,12 @@ export type AiUpdateSecurity = {
 
 export type AiUpdateRequest = {
   aiId: string;
-  name?: string | undefined;
-  apiUrl?: string | undefined;
   apiKey?: string | undefined;
-  model?: string | undefined;
-  isEnabled?: boolean | undefined;
+  apiUrl?: string | undefined;
   createdAt?: string | undefined;
+  isEnabled?: boolean | undefined;
+  model?: string | undefined;
+  name?: string | undefined;
 };
 
 /** @internal */
@@ -91,23 +91,23 @@ export const AiUpdateRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   aiId: z.string(),
-  name: z.string().optional(),
-  apiUrl: z.string().optional(),
   apiKey: z.string().optional(),
-  model: z.string().optional(),
-  isEnabled: z.boolean().optional(),
+  apiUrl: z.string().optional(),
   createdAt: z.string().optional(),
+  isEnabled: z.boolean().optional(),
+  model: z.string().optional(),
+  name: z.string().optional(),
 });
 
 /** @internal */
 export type AiUpdateRequest$Outbound = {
   aiId: string;
-  name?: string | undefined;
-  apiUrl?: string | undefined;
   apiKey?: string | undefined;
-  model?: string | undefined;
-  isEnabled?: boolean | undefined;
+  apiUrl?: string | undefined;
   createdAt?: string | undefined;
+  isEnabled?: boolean | undefined;
+  model?: string | undefined;
+  name?: string | undefined;
 };
 
 /** @internal */
@@ -117,12 +117,12 @@ export const AiUpdateRequest$outboundSchema: z.ZodType<
   AiUpdateRequest
 > = z.object({
   aiId: z.string(),
-  name: z.string().optional(),
-  apiUrl: z.string().optional(),
   apiKey: z.string().optional(),
-  model: z.string().optional(),
-  isEnabled: z.boolean().optional(),
+  apiUrl: z.string().optional(),
   createdAt: z.string().optional(),
+  isEnabled: z.boolean().optional(),
+  model: z.string().optional(),
+  name: z.string().optional(),
 });
 
 /**

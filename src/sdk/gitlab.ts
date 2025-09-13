@@ -28,12 +28,25 @@ export class Gitlab extends ClientSDK {
     ));
   }
 
-  async gitlabOne(
-    security: operations.GitlabOneSecurity,
-    request: operations.GitlabOneRequest,
+  async gitlabGetGitlabBranches(
+    security: operations.GitlabGetGitlabBranchesSecurity,
+    request: operations.GitlabGetGitlabBranchesRequest,
     options?: RequestOptions,
-  ): Promise<operations.GitlabOneResponse> {
-    return unwrapAsync(gitlabGitlabOne(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(gitlabGitlabGetGitlabBranches(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async gitlabGetGitlabRepositories(
+    security: operations.GitlabGetGitlabRepositoriesSecurity,
+    request: operations.GitlabGetGitlabRepositoriesRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(gitlabGitlabGetGitlabRepositories(
       this,
       security,
       request,
@@ -52,25 +65,12 @@ export class Gitlab extends ClientSDK {
     ));
   }
 
-  async gitlabGetGitlabRepositories(
-    security: operations.GitlabGetGitlabRepositoriesSecurity,
-    request: operations.GitlabGetGitlabRepositoriesRequest,
+  async gitlabOne(
+    security: operations.GitlabOneSecurity,
+    request: operations.GitlabOneRequest,
     options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(gitlabGitlabGetGitlabRepositories(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async gitlabGetGitlabBranches(
-    security: operations.GitlabGetGitlabBranchesSecurity,
-    request: operations.GitlabGetGitlabBranchesRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(gitlabGitlabGetGitlabBranches(
+  ): Promise<operations.GitlabOneResponse> {
+    return unwrapAsync(gitlabGitlabOne(
       this,
       security,
       request,

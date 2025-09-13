@@ -6,8 +6,8 @@
 import { Cpu } from "dokploy-sdk/models/operations";
 
 let value: Cpu = {
-  value: "<value>",
   time: "<value>",
+  value: "<value>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: Cpu = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
 | `time`             | *string*           | :heavy_check_mark: | N/A                |
+| `value`            | *string*           | :heavy_check_mark: | N/A                |

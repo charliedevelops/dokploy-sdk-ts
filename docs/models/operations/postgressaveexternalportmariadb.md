@@ -6,8 +6,8 @@
 import { PostgresSaveExternalPortMariadb } from "dokploy-sdk/models/operations";
 
 let value: PostgresSaveExternalPortMariadb = {
-  databaseUser: "<value>",
   databasePassword: "<value>",
+  databaseUser: "<value>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: PostgresSaveExternalPortMariadb = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `databaseUser`     | *string*           | :heavy_check_mark: | N/A                |
 | `databasePassword` | *string*           | :heavy_check_mark: | N/A                |
+| `databaseUser`     | *string*           | :heavy_check_mark: | N/A                |

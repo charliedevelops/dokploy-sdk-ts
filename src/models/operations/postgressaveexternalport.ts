@@ -15,8 +15,8 @@ export type PostgresSaveExternalPortSecurity = {
 };
 
 export type PostgresSaveExternalPortRequest = {
-  postgresId: string;
   externalPort: number | null;
+  postgresId: string;
 };
 
 export const PostgresSaveExternalPortApplicationStatus = {
@@ -28,198 +28,6 @@ export const PostgresSaveExternalPortApplicationStatus = {
 export type PostgresSaveExternalPortApplicationStatus = ClosedEnum<
   typeof PostgresSaveExternalPortApplicationStatus
 >;
-
-export type PostgresSaveExternalPortHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresSaveExternalPortRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresSaveExternalPortSpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresSaveExternalPortPreference = {
-  spread: PostgresSaveExternalPortSpread;
-};
-
-export type PostgresSaveExternalPortPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresSaveExternalPortPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresSaveExternalPortPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresSaveExternalPortPlatform> | undefined;
-};
-
-export type PostgresSaveExternalPortUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresSaveExternalPortRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresSaveExternalPortReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresSaveExternalPortGlobal = {};
-
-export type PostgresSaveExternalPortReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresSaveExternalPortGlobalJob = {};
-
-export type PostgresSaveExternalPortModeSwarm = {
-  replicated?: PostgresSaveExternalPortReplicated | undefined;
-  global?: PostgresSaveExternalPortGlobal | undefined;
-  replicatedJob?: PostgresSaveExternalPortReplicatedJob | undefined;
-  globalJob?: PostgresSaveExternalPortGlobalJob | undefined;
-};
-
-export type PostgresSaveExternalPortDriverOpts = {};
-
-export type PostgresSaveExternalPortNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresSaveExternalPortDriverOpts | undefined;
-};
-
-export type PostgresSaveExternalPortProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresSaveExternalPortEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresSaveExternalPortProject;
-};
-
-export const PostgresSaveExternalPortType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresSaveExternalPortType = ClosedEnum<
-  typeof PostgresSaveExternalPortType
->;
-
-export const PostgresSaveExternalPortServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresSaveExternalPortServiceType = ClosedEnum<
-  typeof PostgresSaveExternalPortServiceType
->;
-
-export type PostgresSaveExternalPortMount = {
-  mountId: string;
-  type: PostgresSaveExternalPortType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresSaveExternalPortServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresSaveExternalPortServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresSaveExternalPortServerStatus = ClosedEnum<
-  typeof PostgresSaveExternalPortServerStatus
->;
-
-export const PostgresSaveExternalPortMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresSaveExternalPortMetricsConfigEnum = ClosedEnum<
-  typeof PostgresSaveExternalPortMetricsConfigEnum
->;
-
-export type PostgresSaveExternalPortMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresSaveExternalPortMetricsConfigEnum;
-
-export type PostgresSaveExternalPortMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresSaveExternalPortMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresSaveExternalPortServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresSaveExternalPortServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresSaveExternalPortMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const PostgresSaveExternalPortBackupType = {
   Database: "database",
@@ -247,29 +55,29 @@ export type PostgresSaveExternalPortMetadataEnum = ClosedEnum<
   typeof PostgresSaveExternalPortMetadataEnum
 >;
 
-export type PostgresSaveExternalPortPostgres = {
-  databaseUser: string;
-};
-
 export type PostgresSaveExternalPortMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresSaveExternalPortMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresSaveExternalPortMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresSaveExternalPortPostgres = {
+  databaseUser: string;
+};
+
 export type PostgresSaveExternalPortMetadata = {
-  postgres?: PostgresSaveExternalPortPostgres | undefined;
   mariadb?: PostgresSaveExternalPortMariadb | undefined;
   mongo?: PostgresSaveExternalPortMongo | undefined;
   mysql?: PostgresSaveExternalPortMysql | undefined;
+  postgres?: PostgresSaveExternalPortPostgres | undefined;
 };
 
 export type PostgresSaveExternalPortMetadataUnion =
@@ -277,66 +85,258 @@ export type PostgresSaveExternalPortMetadataUnion =
   | PostgresSaveExternalPortMetadataEnum;
 
 export type PostgresSaveExternalPortBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresSaveExternalPortBackupType;
-  databaseType: PostgresSaveExternalPortDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresSaveExternalPortDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | PostgresSaveExternalPortMetadata
     | PostgresSaveExternalPortMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresSaveExternalPortProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresSaveExternalPortEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresSaveExternalPortProject;
+  projectId: string;
+};
+
+export type PostgresSaveExternalPortHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresSaveExternalPortGlobal = {};
+
+export type PostgresSaveExternalPortGlobalJob = {};
+
+export type PostgresSaveExternalPortReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresSaveExternalPortReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresSaveExternalPortModeSwarm = {
+  global?: PostgresSaveExternalPortGlobal | undefined;
+  globalJob?: PostgresSaveExternalPortGlobalJob | undefined;
+  replicated?: PostgresSaveExternalPortReplicated | undefined;
+  replicatedJob?: PostgresSaveExternalPortReplicatedJob | undefined;
+};
+
+export const PostgresSaveExternalPortServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresSaveExternalPortServiceType = ClosedEnum<
+  typeof PostgresSaveExternalPortServiceType
+>;
+
+export const PostgresSaveExternalPortType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresSaveExternalPortType = ClosedEnum<
+  typeof PostgresSaveExternalPortType
+>;
+
+export type PostgresSaveExternalPortMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresSaveExternalPortServiceType;
+  type: PostgresSaveExternalPortType;
+  volumeName: string | null;
+};
+
+export type PostgresSaveExternalPortDriverOpts = {};
+
+export type PostgresSaveExternalPortNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresSaveExternalPortDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresSaveExternalPortPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresSaveExternalPortSpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresSaveExternalPortPreference = {
+  spread: PostgresSaveExternalPortSpread;
+};
+
+export type PostgresSaveExternalPortPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresSaveExternalPortPlatform> | undefined;
+  preferences?: Array<PostgresSaveExternalPortPreference> | undefined;
+};
+
+export type PostgresSaveExternalPortRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresSaveExternalPortRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresSaveExternalPortMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresSaveExternalPortMetricsConfigEnum = ClosedEnum<
+  typeof PostgresSaveExternalPortMetricsConfigEnum
+>;
+
+export type PostgresSaveExternalPortMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresSaveExternalPortMetricsConfigEnum;
+
+export type PostgresSaveExternalPortMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresSaveExternalPortMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresSaveExternalPortServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresSaveExternalPortServerStatus = ClosedEnum<
+  typeof PostgresSaveExternalPortServerStatus
+>;
+
+export type PostgresSaveExternalPortServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresSaveExternalPortMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresSaveExternalPortServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresSaveExternalPortUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresSaveExternalPortResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresSaveExternalPortApplicationStatus;
+  backups: Array<PostgresSaveExternalPortBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresSaveExternalPortApplicationStatus;
-  healthCheckSwarm: PostgresSaveExternalPortHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresSaveExternalPortRestartPolicySwarm | null;
-  placementSwarm: PostgresSaveExternalPortPlacementSwarm | null;
-  updateConfigSwarm: PostgresSaveExternalPortUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresSaveExternalPortRollbackConfigSwarm | null;
-  modeSwarm: PostgresSaveExternalPortModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresSaveExternalPortNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresSaveExternalPortEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresSaveExternalPortHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresSaveExternalPortModeSwarm | null;
   mounts: Array<PostgresSaveExternalPortMount>;
+  name: string;
+  networkSwarm: Array<PostgresSaveExternalPortNetworkSwarm> | null;
+  placementSwarm: PostgresSaveExternalPortPlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresSaveExternalPortRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresSaveExternalPortRollbackConfigSwarm | null;
   server: PostgresSaveExternalPortServer | null;
-  backups: Array<PostgresSaveExternalPortBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresSaveExternalPortUpdateConfigSwarm | null;
 };
 
 export type PostgresSaveExternalPortResponse =
@@ -413,14 +413,14 @@ export const PostgresSaveExternalPortRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   externalPort: z.nullable(z.number()),
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresSaveExternalPortRequest$Outbound = {
-  postgresId: string;
   externalPort: number | null;
+  postgresId: string;
 };
 
 /** @internal */
@@ -429,8 +429,8 @@ export const PostgresSaveExternalPortRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveExternalPortRequest
 > = z.object({
-  postgresId: z.string(),
   externalPort: z.nullable(z.number()),
+  postgresId: z.string(),
 });
 
 /**
@@ -490,33 +490,732 @@ export namespace PostgresSaveExternalPortApplicationStatus$ {
 }
 
 /** @internal */
+export const PostgresSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresSaveExternalPortBackupType
+> = z.nativeEnum(PostgresSaveExternalPortBackupType);
+
+/** @internal */
+export const PostgresSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresSaveExternalPortBackupType
+> = PostgresSaveExternalPortBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortBackupType$ {
+  /** @deprecated use `PostgresSaveExternalPortBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortBackupType$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortBackupType$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresSaveExternalPortDatabaseType$inboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortDatabaseType> = z.nativeEnum(
+    PostgresSaveExternalPortDatabaseType,
+  );
+
+/** @internal */
+export const PostgresSaveExternalPortDatabaseType$outboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortDatabaseType> =
+    PostgresSaveExternalPortDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortDatabaseType$ {
+  /** @deprecated use `PostgresSaveExternalPortDatabaseType$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortDatabaseType$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMetadataEnum$inboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortMetadataEnum> = z.nativeEnum(
+    PostgresSaveExternalPortMetadataEnum,
+  );
+
+/** @internal */
+export const PostgresSaveExternalPortMetadataEnum$outboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortMetadataEnum> =
+    PostgresSaveExternalPortMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMetadataEnum$ {
+  /** @deprecated use `PostgresSaveExternalPortMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMariadb$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortMariadb$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMariadb$ {
+  /** @deprecated use `PostgresSaveExternalPortMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortMariadb$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortMariadb$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMariadb$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMariadb$Outbound;
+}
+
+export function postgresSaveExternalPortMariadbToJSON(
+  postgresSaveExternalPortMariadb: PostgresSaveExternalPortMariadb,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMariadb$outboundSchema.parse(
+      postgresSaveExternalPortMariadb,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMongo$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortMongo$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMongo$ {
+  /** @deprecated use `PostgresSaveExternalPortMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortMongo$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortMongo$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMongo$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMongo$Outbound;
+}
+
+export function postgresSaveExternalPortMongoToJSON(
+  postgresSaveExternalPortMongo: PostgresSaveExternalPortMongo,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMongo$outboundSchema.parse(
+      postgresSaveExternalPortMongo,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMysql$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortMysql$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMysql$ {
+  /** @deprecated use `PostgresSaveExternalPortMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortMysql$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortMysql$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMysql$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMysql$Outbound;
+}
+
+export function postgresSaveExternalPortMysqlToJSON(
+  postgresSaveExternalPortMysql: PostgresSaveExternalPortMysql,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMysql$outboundSchema.parse(
+      postgresSaveExternalPortMysql,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortPostgres$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortPostgres$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortPostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortPostgres$ {
+  /** @deprecated use `PostgresSaveExternalPortPostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortPostgres$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortPostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortPostgres$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortPostgres$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortPostgres$Outbound;
+}
+
+export function postgresSaveExternalPortPostgresToJSON(
+  postgresSaveExternalPortPostgres: PostgresSaveExternalPortPostgres,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortPostgres$outboundSchema.parse(
+      postgresSaveExternalPortPostgres,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMetadata$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresSaveExternalPortMariadb$inboundSchema)
+    .optional(),
+  mongo: z.lazy(() => PostgresSaveExternalPortMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresSaveExternalPortMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresSaveExternalPortPostgres$inboundSchema)
+    .optional(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortMetadata$Outbound = {
+  mariadb?: PostgresSaveExternalPortMariadb$Outbound | undefined;
+  mongo?: PostgresSaveExternalPortMongo$Outbound | undefined;
+  mysql?: PostgresSaveExternalPortMysql$Outbound | undefined;
+  postgres?: PostgresSaveExternalPortPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortMetadata$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresSaveExternalPortMariadb$outboundSchema)
+    .optional(),
+  mongo: z.lazy(() => PostgresSaveExternalPortMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresSaveExternalPortMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresSaveExternalPortPostgres$outboundSchema)
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMetadata$ {
+  /** @deprecated use `PostgresSaveExternalPortMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortMetadata$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortMetadata$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMetadata$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMetadata$Outbound;
+}
+
+export function postgresSaveExternalPortMetadataToJSON(
+  postgresSaveExternalPortMetadata: PostgresSaveExternalPortMetadata,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMetadata$outboundSchema.parse(
+      postgresSaveExternalPortMetadata,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresSaveExternalPortMetadata$inboundSchema),
+  PostgresSaveExternalPortMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresSaveExternalPortMetadataUnion$Outbound =
+  | PostgresSaveExternalPortMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresSaveExternalPortMetadata$outboundSchema),
+  PostgresSaveExternalPortMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMetadataUnion$ {
+  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMetadataUnion$Outbound;
+}
+
+export function postgresSaveExternalPortMetadataUnionToJSON(
+  postgresSaveExternalPortMetadataUnion: PostgresSaveExternalPortMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMetadataUnion$outboundSchema.parse(
+      postgresSaveExternalPortMetadataUnion,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostgresSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortBackup$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresSaveExternalPortBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresSaveExternalPortDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresSaveExternalPortMetadata$inboundSchema),
+      PostgresSaveExternalPortMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?:
+    | PostgresSaveExternalPortMetadata$Outbound
+    | string
+    | null
+    | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortBackup$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresSaveExternalPortBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresSaveExternalPortDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresSaveExternalPortMetadata$outboundSchema),
+      PostgresSaveExternalPortMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortBackup$ {
+  /** @deprecated use `PostgresSaveExternalPortBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortBackup$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortBackup$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortBackup$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortBackup$Outbound;
+}
+
+export function postgresSaveExternalPortBackupToJSON(
+  postgresSaveExternalPortBackup: PostgresSaveExternalPortBackup,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortBackup$outboundSchema.parse(
+      postgresSaveExternalPortBackup,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortProject$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortProject$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortProject$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortProject$ {
+  /** @deprecated use `PostgresSaveExternalPortProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortProject$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortProject$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortProject$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortProject$Outbound;
+}
+
+export function postgresSaveExternalPortProjectToJSON(
+  postgresSaveExternalPortProject: PostgresSaveExternalPortProject,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortProject$outboundSchema.parse(
+      postgresSaveExternalPortProject,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortEnvironment$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresSaveExternalPortProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresSaveExternalPortProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortEnvironment$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresSaveExternalPortProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortEnvironment$ {
+  /** @deprecated use `PostgresSaveExternalPortEnvironment$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortEnvironment$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortEnvironment$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortEnvironment$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortEnvironment$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortEnvironment$Outbound;
+}
+
+export function postgresSaveExternalPortEnvironmentToJSON(
+  postgresSaveExternalPortEnvironment: PostgresSaveExternalPortEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortEnvironment$outboundSchema.parse(
+      postgresSaveExternalPortEnvironment,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostgresSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresSaveExternalPortHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresSaveExternalPortHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresSaveExternalPortHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -525,18 +1224,18 @@ export const PostgresSaveExternalPortHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveExternalPortHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -583,89 +1282,672 @@ export function postgresSaveExternalPortHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresSaveExternalPortRestartPolicySwarm$inboundSchema:
-  z.ZodType<PostgresSaveExternalPortRestartPolicySwarm, z.ZodTypeDef, unknown> =
-    z.object({
-      Condition: z.string().optional(),
-      Delay: z.number().optional(),
-      MaxAttempts: z.number().optional(),
-      Window: z.number().optional(),
-    }).transform((v) => {
-      return remap$(v, {
-        "Condition": "condition",
-        "Delay": "delay",
-        "MaxAttempts": "maxAttempts",
-        "Window": "window",
-      });
-    });
+export const PostgresSaveExternalPortGlobal$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
 
 /** @internal */
-export type PostgresSaveExternalPortRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
-};
+export type PostgresSaveExternalPortGlobal$Outbound = {};
 
 /** @internal */
-export const PostgresSaveExternalPortRestartPolicySwarm$outboundSchema:
-  z.ZodType<
-    PostgresSaveExternalPortRestartPolicySwarm$Outbound,
-    z.ZodTypeDef,
-    PostgresSaveExternalPortRestartPolicySwarm
-  > = z.object({
-    condition: z.string().optional(),
-    delay: z.number().optional(),
-    maxAttempts: z.number().optional(),
-    window: z.number().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      condition: "Condition",
-      delay: "Delay",
-      maxAttempts: "MaxAttempts",
-      window: "Window",
-    });
-  });
+export const PostgresSaveExternalPortGlobal$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortGlobal
+> = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresSaveExternalPortRestartPolicySwarm$ {
-  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortRestartPolicySwarm$Outbound;
+export namespace PostgresSaveExternalPortGlobal$ {
+  /** @deprecated use `PostgresSaveExternalPortGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortGlobal$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortGlobal$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortGlobal$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortGlobal$Outbound;
 }
 
-export function postgresSaveExternalPortRestartPolicySwarmToJSON(
-  postgresSaveExternalPortRestartPolicySwarm:
-    PostgresSaveExternalPortRestartPolicySwarm,
+export function postgresSaveExternalPortGlobalToJSON(
+  postgresSaveExternalPortGlobal: PostgresSaveExternalPortGlobal,
 ): string {
   return JSON.stringify(
-    PostgresSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
-      postgresSaveExternalPortRestartPolicySwarm,
+    PostgresSaveExternalPortGlobal$outboundSchema.parse(
+      postgresSaveExternalPortGlobal,
     ),
   );
 }
 
-export function postgresSaveExternalPortRestartPolicySwarmFromJSON(
+export function postgresSaveExternalPortGlobalFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PostgresSaveExternalPortRestartPolicySwarm,
-  SDKValidationError
-> {
+): SafeParseResult<PostgresSaveExternalPortGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresSaveExternalPortGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortGlobalJob$ {
+  /** @deprecated use `PostgresSaveExternalPortGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortGlobalJob$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortGlobalJob$Outbound;
+}
+
+export function postgresSaveExternalPortGlobalJobToJSON(
+  postgresSaveExternalPortGlobalJob: PostgresSaveExternalPortGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortGlobalJob$outboundSchema.parse(
+      postgresSaveExternalPortGlobalJob,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortReplicated$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortReplicated,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Replicas: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Replicas": "replicas",
+  });
+});
+
+/** @internal */
+export type PostgresSaveExternalPortReplicated$Outbound = {
+  Replicas?: number | undefined;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortReplicated$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortReplicated$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortReplicated
+> = z.object({
+  replicas: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    replicas: "Replicas",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortReplicated$ {
+  /** @deprecated use `PostgresSaveExternalPortReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortReplicated$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortReplicated$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortReplicated$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortReplicated$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortReplicated$Outbound;
+}
+
+export function postgresSaveExternalPortReplicatedToJSON(
+  postgresSaveExternalPortReplicated: PostgresSaveExternalPortReplicated,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortReplicated$outboundSchema.parse(
+      postgresSaveExternalPortReplicated,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      PostgresSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PostgresSaveExternalPortRestartPolicySwarm' from JSON`,
+      PostgresSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresSaveExternalPortReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortReplicatedJob$ {
+  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortReplicatedJob$Outbound;
+}
+
+export function postgresSaveExternalPortReplicatedJobToJSON(
+  postgresSaveExternalPortReplicatedJob: PostgresSaveExternalPortReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortReplicatedJob$outboundSchema.parse(
+      postgresSaveExternalPortReplicatedJob,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostgresSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresSaveExternalPortGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresSaveExternalPortGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => PostgresSaveExternalPortReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() =>
+    PostgresSaveExternalPortReplicatedJob$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresSaveExternalPortModeSwarm$Outbound = {
+  Global?: PostgresSaveExternalPortGlobal$Outbound | undefined;
+  GlobalJob?: PostgresSaveExternalPortGlobalJob$Outbound | undefined;
+  Replicated?: PostgresSaveExternalPortReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresSaveExternalPortReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresSaveExternalPortGlobal$outboundSchema)
+    .optional(),
+  globalJob: z.lazy(() => PostgresSaveExternalPortGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => PostgresSaveExternalPortReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() =>
+    PostgresSaveExternalPortReplicatedJob$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortModeSwarm$ {
+  /** @deprecated use `PostgresSaveExternalPortModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortModeSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortModeSwarm$Outbound;
+}
+
+export function postgresSaveExternalPortModeSwarmToJSON(
+  postgresSaveExternalPortModeSwarm: PostgresSaveExternalPortModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortModeSwarm$outboundSchema.parse(
+      postgresSaveExternalPortModeSwarm,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresSaveExternalPortServiceType
+> = z.nativeEnum(PostgresSaveExternalPortServiceType);
+
+/** @internal */
+export const PostgresSaveExternalPortServiceType$outboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortServiceType> =
+    PostgresSaveExternalPortServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortServiceType$ {
+  /** @deprecated use `PostgresSaveExternalPortServiceType$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortServiceType$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortServiceType$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresSaveExternalPortType
+> = z.nativeEnum(PostgresSaveExternalPortType);
+
+/** @internal */
+export const PostgresSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresSaveExternalPortType
+> = PostgresSaveExternalPortType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortType$ {
+  /** @deprecated use `PostgresSaveExternalPortType$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortType$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortType$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresSaveExternalPortMount$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresSaveExternalPortServiceType$inboundSchema,
+  type: PostgresSaveExternalPortType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresSaveExternalPortMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortMount$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortMount$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresSaveExternalPortServiceType$outboundSchema,
+  type: PostgresSaveExternalPortType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortMount$ {
+  /** @deprecated use `PostgresSaveExternalPortMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortMount$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortMount$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortMount$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortMount$Outbound;
+}
+
+export function postgresSaveExternalPortMountToJSON(
+  postgresSaveExternalPortMount: PostgresSaveExternalPortMount,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortMount$outboundSchema.parse(
+      postgresSaveExternalPortMount,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresSaveExternalPortDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortDriverOpts$ {
+  /** @deprecated use `PostgresSaveExternalPortDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortDriverOpts$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortDriverOpts$Outbound;
+}
+
+export function postgresSaveExternalPortDriverOptsToJSON(
+  postgresSaveExternalPortDriverOpts: PostgresSaveExternalPortDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortDriverOpts$outboundSchema.parse(
+      postgresSaveExternalPortDriverOpts,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostgresSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresSaveExternalPortDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresSaveExternalPortNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresSaveExternalPortDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresSaveExternalPortDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortNetworkSwarm$ {
+  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortNetworkSwarm$Outbound;
+}
+
+export function postgresSaveExternalPortNetworkSwarmToJSON(
+  postgresSaveExternalPortNetworkSwarm: PostgresSaveExternalPortNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortNetworkSwarm$outboundSchema.parse(
+      postgresSaveExternalPortNetworkSwarm,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostgresSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresSaveExternalPortPlatform$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresSaveExternalPortPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortPlatform$outboundSchema: z.ZodType<
+  PostgresSaveExternalPortPlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresSaveExternalPortPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortPlatform$ {
+  /** @deprecated use `PostgresSaveExternalPortPlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresSaveExternalPortPlatform$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortPlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresSaveExternalPortPlatform$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortPlatform$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortPlatform$Outbound;
+}
+
+export function postgresSaveExternalPortPlatformToJSON(
+  postgresSaveExternalPortPlatform: PostgresSaveExternalPortPlatform,
+): string {
+  return JSON.stringify(
+    PostgresSaveExternalPortPlatform$outboundSchema.parse(
+      postgresSaveExternalPortPlatform,
+    ),
+  );
+}
+
+export function postgresSaveExternalPortPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresSaveExternalPortPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresSaveExternalPortPlatform' from JSON`,
   );
 }
 
@@ -800,103 +2082,34 @@ export function postgresSaveExternalPortPreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresSaveExternalPortPlatform$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresSaveExternalPortPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortPlatform$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortPlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortPlatform$ {
-  /** @deprecated use `PostgresSaveExternalPortPlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortPlatform$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortPlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortPlatform$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortPlatform$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortPlatform$Outbound;
-}
-
-export function postgresSaveExternalPortPlatformToJSON(
-  postgresSaveExternalPortPlatform: PostgresSaveExternalPortPlatform,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortPlatform$outboundSchema.parse(
-      postgresSaveExternalPortPlatform,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresSaveExternalPortPlacementSwarm$inboundSchema: z.ZodType<
   PostgresSaveExternalPortPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => PostgresSaveExternalPortPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(
     z.lazy(() => PostgresSaveExternalPortPlatform$inboundSchema),
   ).optional(),
+  Preferences: z.array(
+    z.lazy(() => PostgresSaveExternalPortPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresSaveExternalPortPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresSaveExternalPortPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresSaveExternalPortPlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresSaveExternalPortPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -906,19 +2119,19 @@ export const PostgresSaveExternalPortPlacementSwarm$outboundSchema: z.ZodType<
   PostgresSaveExternalPortPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => PostgresSaveExternalPortPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(
     z.lazy(() => PostgresSaveExternalPortPlatform$outboundSchema),
   ).optional(),
+  preferences: z.array(
+    z.lazy(() => PostgresSaveExternalPortPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -960,59 +2173,47 @@ export function postgresSaveExternalPortPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortUpdateConfigSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Parallelism: z.number(),
-  Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Parallelism": "parallelism",
-    "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
-  });
-});
+export const PostgresSaveExternalPortRestartPolicySwarm$inboundSchema:
+  z.ZodType<PostgresSaveExternalPortRestartPolicySwarm, z.ZodTypeDef, unknown> =
+    z.object({
+      Condition: z.string().optional(),
+      Delay: z.number().optional(),
+      MaxAttempts: z.number().optional(),
+      Window: z.number().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "Condition": "condition",
+        "Delay": "delay",
+        "MaxAttempts": "maxAttempts",
+        "Window": "window",
+      });
+    });
 
 /** @internal */
-export type PostgresSaveExternalPortUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresSaveExternalPortRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema:
+export const PostgresSaveExternalPortRestartPolicySwarm$outboundSchema:
   z.ZodType<
-    PostgresSaveExternalPortUpdateConfigSwarm$Outbound,
+    PostgresSaveExternalPortRestartPolicySwarm$Outbound,
     z.ZodTypeDef,
-    PostgresSaveExternalPortUpdateConfigSwarm
+    PostgresSaveExternalPortRestartPolicySwarm
   > = z.object({
-    parallelism: z.number(),
+    condition: z.string().optional(),
     delay: z.number().optional(),
-    failureAction: z.string().optional(),
-    monitor: z.number().optional(),
-    maxFailureRatio: z.number().optional(),
-    order: z.string(),
+    maxAttempts: z.number().optional(),
+    window: z.number().optional(),
   }).transform((v) => {
     return remap$(v, {
-      parallelism: "Parallelism",
+      condition: "Condition",
       delay: "Delay",
-      failureAction: "FailureAction",
-      monitor: "Monitor",
-      maxFailureRatio: "MaxFailureRatio",
-      order: "Order",
+      maxAttempts: "MaxAttempts",
+      window: "Window",
     });
   });
 
@@ -1020,41 +2221,41 @@ export const PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresSaveExternalPortUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+export namespace PostgresSaveExternalPortRestartPolicySwarm$ {
+  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+    PostgresSaveExternalPortRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortUpdateConfigSwarm$Outbound;
+    PostgresSaveExternalPortRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortRestartPolicySwarm$Outbound;
 }
 
-export function postgresSaveExternalPortUpdateConfigSwarmToJSON(
-  postgresSaveExternalPortUpdateConfigSwarm:
-    PostgresSaveExternalPortUpdateConfigSwarm,
+export function postgresSaveExternalPortRestartPolicySwarmToJSON(
+  postgresSaveExternalPortRestartPolicySwarm:
+    PostgresSaveExternalPortRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
-      postgresSaveExternalPortUpdateConfigSwarm,
+    PostgresSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
+      postgresSaveExternalPortRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresSaveExternalPortUpdateConfigSwarmFromJSON(
+export function postgresSaveExternalPortRestartPolicySwarmFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  PostgresSaveExternalPortUpdateConfigSwarm,
+  PostgresSaveExternalPortRestartPolicySwarm,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(
+      PostgresSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'PostgresSaveExternalPortUpdateConfigSwarm' from JSON`,
+    `Failed to parse 'PostgresSaveExternalPortRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1065,31 +2266,31 @@ export const PostgresSaveExternalPortRollbackConfigSwarm$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    Parallelism: z.number(),
     Delay: z.number().optional(),
     FailureAction: z.string().optional(),
-    Monitor: z.number().optional(),
     MaxFailureRatio: z.number().optional(),
+    Monitor: z.number().optional(),
     Order: z.string(),
+    Parallelism: z.number(),
   }).transform((v) => {
     return remap$(v, {
-      "Parallelism": "parallelism",
       "Delay": "delay",
       "FailureAction": "failureAction",
-      "Monitor": "monitor",
       "MaxFailureRatio": "maxFailureRatio",
+      "Monitor": "monitor",
       "Order": "order",
+      "Parallelism": "parallelism",
     });
   });
 
 /** @internal */
 export type PostgresSaveExternalPortRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1099,20 +2300,20 @@ export const PostgresSaveExternalPortRollbackConfigSwarm$outboundSchema:
     z.ZodTypeDef,
     PostgresSaveExternalPortRollbackConfigSwarm
   > = z.object({
-    parallelism: z.number(),
     delay: z.number().optional(),
     failureAction: z.string().optional(),
-    monitor: z.number().optional(),
     maxFailureRatio: z.number().optional(),
+    monitor: z.number().optional(),
     order: z.string(),
+    parallelism: z.number(),
   }).transform((v) => {
     return remap$(v, {
-      parallelism: "Parallelism",
       delay: "Delay",
       failureAction: "FailureAction",
-      monitor: "Monitor",
       maxFailureRatio: "MaxFailureRatio",
+      monitor: "Monitor",
       order: "Order",
+      parallelism: "Parallelism",
     });
   });
 
@@ -1156,779 +2357,6 @@ export function postgresSaveExternalPortRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'PostgresSaveExternalPortRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortReplicated$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresSaveExternalPortReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortReplicated$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortReplicated$ {
-  /** @deprecated use `PostgresSaveExternalPortReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortReplicated$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortReplicated$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortReplicated$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortReplicated$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortReplicated$Outbound;
-}
-
-export function postgresSaveExternalPortReplicatedToJSON(
-  postgresSaveExternalPortReplicated: PostgresSaveExternalPortReplicated,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortReplicated$outboundSchema.parse(
-      postgresSaveExternalPortReplicated,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostgresSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortGlobal$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresSaveExternalPortGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresSaveExternalPortGlobal$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortGlobal$ {
-  /** @deprecated use `PostgresSaveExternalPortGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortGlobal$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortGlobal$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortGlobal$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortGlobal$Outbound;
-}
-
-export function postgresSaveExternalPortGlobalToJSON(
-  postgresSaveExternalPortGlobal: PostgresSaveExternalPortGlobal,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortGlobal$outboundSchema.parse(
-      postgresSaveExternalPortGlobal,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresSaveExternalPortReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortReplicatedJob$ {
-  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortReplicatedJob$Outbound;
-}
-
-export function postgresSaveExternalPortReplicatedJobToJSON(
-  postgresSaveExternalPortReplicatedJob: PostgresSaveExternalPortReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortReplicatedJob$outboundSchema.parse(
-      postgresSaveExternalPortReplicatedJob,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostgresSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresSaveExternalPortGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortGlobalJob$ {
-  /** @deprecated use `PostgresSaveExternalPortGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortGlobalJob$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortGlobalJob$Outbound;
-}
-
-export function postgresSaveExternalPortGlobalJobToJSON(
-  postgresSaveExternalPortGlobalJob: PostgresSaveExternalPortGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortGlobalJob$outboundSchema.parse(
-      postgresSaveExternalPortGlobalJob,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresSaveExternalPortReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => PostgresSaveExternalPortGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() =>
-    PostgresSaveExternalPortReplicatedJob$inboundSchema
-  ).optional(),
-  GlobalJob: z.lazy(() => PostgresSaveExternalPortGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresSaveExternalPortModeSwarm$Outbound = {
-  Replicated?: PostgresSaveExternalPortReplicated$Outbound | undefined;
-  Global?: PostgresSaveExternalPortGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresSaveExternalPortReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresSaveExternalPortGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresSaveExternalPortReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => PostgresSaveExternalPortGlobal$outboundSchema)
-    .optional(),
-  replicatedJob: z.lazy(() =>
-    PostgresSaveExternalPortReplicatedJob$outboundSchema
-  ).optional(),
-  globalJob: z.lazy(() => PostgresSaveExternalPortGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortModeSwarm$ {
-  /** @deprecated use `PostgresSaveExternalPortModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortModeSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortModeSwarm$Outbound;
-}
-
-export function postgresSaveExternalPortModeSwarmToJSON(
-  postgresSaveExternalPortModeSwarm: PostgresSaveExternalPortModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortModeSwarm$outboundSchema.parse(
-      postgresSaveExternalPortModeSwarm,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresSaveExternalPortDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortDriverOpts$ {
-  /** @deprecated use `PostgresSaveExternalPortDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortDriverOpts$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortDriverOpts$Outbound;
-}
-
-export function postgresSaveExternalPortDriverOptsToJSON(
-  postgresSaveExternalPortDriverOpts: PostgresSaveExternalPortDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortDriverOpts$outboundSchema.parse(
-      postgresSaveExternalPortDriverOpts,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostgresSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresSaveExternalPortDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresSaveExternalPortNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresSaveExternalPortDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresSaveExternalPortDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortNetworkSwarm$ {
-  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortNetworkSwarm$Outbound;
-}
-
-export function postgresSaveExternalPortNetworkSwarmToJSON(
-  postgresSaveExternalPortNetworkSwarm: PostgresSaveExternalPortNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortNetworkSwarm$outboundSchema.parse(
-      postgresSaveExternalPortNetworkSwarm,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostgresSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortProject$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortProject$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortProject$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortProject$ {
-  /** @deprecated use `PostgresSaveExternalPortProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortProject$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortProject$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortProject$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortProject$Outbound;
-}
-
-export function postgresSaveExternalPortProjectToJSON(
-  postgresSaveExternalPortProject: PostgresSaveExternalPortProject,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortProject$outboundSchema.parse(
-      postgresSaveExternalPortProject,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortEnvironment$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresSaveExternalPortProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresSaveExternalPortProject$Outbound;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortEnvironment$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresSaveExternalPortProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortEnvironment$ {
-  /** @deprecated use `PostgresSaveExternalPortEnvironment$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortEnvironment$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortEnvironment$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortEnvironment$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortEnvironment$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortEnvironment$Outbound;
-}
-
-export function postgresSaveExternalPortEnvironmentToJSON(
-  postgresSaveExternalPortEnvironment: PostgresSaveExternalPortEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortEnvironment$outboundSchema.parse(
-      postgresSaveExternalPortEnvironment,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostgresSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresSaveExternalPortType
-> = z.nativeEnum(PostgresSaveExternalPortType);
-
-/** @internal */
-export const PostgresSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresSaveExternalPortType
-> = PostgresSaveExternalPortType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortType$ {
-  /** @deprecated use `PostgresSaveExternalPortType$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortType$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortType$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresSaveExternalPortServiceType
-> = z.nativeEnum(PostgresSaveExternalPortServiceType);
-
-/** @internal */
-export const PostgresSaveExternalPortServiceType$outboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortServiceType> =
-    PostgresSaveExternalPortServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortServiceType$ {
-  /** @deprecated use `PostgresSaveExternalPortServiceType$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortServiceType$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortServiceType$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMount$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresSaveExternalPortType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresSaveExternalPortServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortMount$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMount$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresSaveExternalPortType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresSaveExternalPortServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMount$ {
-  /** @deprecated use `PostgresSaveExternalPortMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortMount$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortMount$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMount$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMount$Outbound;
-}
-
-export function postgresSaveExternalPortMountToJSON(
-  postgresSaveExternalPortMount: PostgresSaveExternalPortMount,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMount$outboundSchema.parse(
-      postgresSaveExternalPortMount,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortServerStatus$inboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortServerStatus> = z.nativeEnum(
-    PostgresSaveExternalPortServerStatus,
-  );
-
-/** @internal */
-export const PostgresSaveExternalPortServerStatus$outboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortServerStatus> =
-    PostgresSaveExternalPortServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortServerStatus$ {
-  /** @deprecated use `PostgresSaveExternalPortServerStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortServerStatus$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortServerStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2115,24 +2543,41 @@ export function postgresSaveExternalPortMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresSaveExternalPortServerStatus$inboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortServerStatus> = z.nativeEnum(
+    PostgresSaveExternalPortServerStatus,
+  );
+
+/** @internal */
+export const PostgresSaveExternalPortServerStatus$outboundSchema:
+  z.ZodNativeEnum<typeof PostgresSaveExternalPortServerStatus> =
+    PostgresSaveExternalPortServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresSaveExternalPortServerStatus$ {
+  /** @deprecated use `PostgresSaveExternalPortServerStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PostgresSaveExternalPortServerStatus$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortServerStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PostgresSaveExternalPortServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresSaveExternalPortServer$inboundSchema: z.ZodType<
   PostgresSaveExternalPortServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresSaveExternalPortServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2143,26 +2588,33 @@ export const PostgresSaveExternalPortServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresSaveExternalPortServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresSaveExternalPortServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2171,19 +2623,12 @@ export const PostgresSaveExternalPortServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveExternalPortServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresSaveExternalPortServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2194,6 +2639,13 @@ export const PostgresSaveExternalPortServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresSaveExternalPortServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2230,553 +2682,101 @@ export function postgresSaveExternalPortServerFromJSON(
 }
 
 /** @internal */
-export const PostgresSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresSaveExternalPortBackupType
-> = z.nativeEnum(PostgresSaveExternalPortBackupType);
+export const PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresSaveExternalPortUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
 
 /** @internal */
-export const PostgresSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresSaveExternalPortBackupType
-> = PostgresSaveExternalPortBackupType$inboundSchema;
+export type PostgresSaveExternalPortUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema:
+  z.ZodType<
+    PostgresSaveExternalPortUpdateConfigSwarm$Outbound,
+    z.ZodTypeDef,
+    PostgresSaveExternalPortUpdateConfigSwarm
+  > = z.object({
+    delay: z.number().optional(),
+    failureAction: z.string().optional(),
+    maxFailureRatio: z.number().optional(),
+    monitor: z.number().optional(),
+    order: z.string(),
+    parallelism: z.number(),
+  }).transform((v) => {
+    return remap$(v, {
+      delay: "Delay",
+      failureAction: "FailureAction",
+      maxFailureRatio: "MaxFailureRatio",
+      monitor: "Monitor",
+      order: "Order",
+      parallelism: "Parallelism",
+    });
+  });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresSaveExternalPortBackupType$ {
-  /** @deprecated use `PostgresSaveExternalPortBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortBackupType$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortBackupType$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresSaveExternalPortDatabaseType$inboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortDatabaseType> = z.nativeEnum(
-    PostgresSaveExternalPortDatabaseType,
-  );
-
-/** @internal */
-export const PostgresSaveExternalPortDatabaseType$outboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortDatabaseType> =
-    PostgresSaveExternalPortDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortDatabaseType$ {
-  /** @deprecated use `PostgresSaveExternalPortDatabaseType$inboundSchema` instead. */
+export namespace PostgresSaveExternalPortUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
   export const inboundSchema =
-    PostgresSaveExternalPortDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortDatabaseType$outboundSchema` instead. */
+    PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    PostgresSaveExternalPortDatabaseType$outboundSchema;
+    PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresSaveExternalPortUpdateConfigSwarm$Outbound;
 }
 
-/** @internal */
-export const PostgresSaveExternalPortMetadataEnum$inboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortMetadataEnum> = z.nativeEnum(
-    PostgresSaveExternalPortMetadataEnum,
-  );
-
-/** @internal */
-export const PostgresSaveExternalPortMetadataEnum$outboundSchema:
-  z.ZodNativeEnum<typeof PostgresSaveExternalPortMetadataEnum> =
-    PostgresSaveExternalPortMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMetadataEnum$ {
-  /** @deprecated use `PostgresSaveExternalPortMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresSaveExternalPortPostgres$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortPostgres,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortPostgres$Outbound = {
-  databaseUser: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortPostgres$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortPostgres$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortPostgres
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortPostgres$ {
-  /** @deprecated use `PostgresSaveExternalPortPostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortPostgres$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortPostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortPostgres$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortPostgres$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortPostgres$Outbound;
-}
-
-export function postgresSaveExternalPortPostgresToJSON(
-  postgresSaveExternalPortPostgres: PostgresSaveExternalPortPostgres,
+export function postgresSaveExternalPortUpdateConfigSwarmToJSON(
+  postgresSaveExternalPortUpdateConfigSwarm:
+    PostgresSaveExternalPortUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresSaveExternalPortPostgres$outboundSchema.parse(
-      postgresSaveExternalPortPostgres,
+    PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
+      postgresSaveExternalPortUpdateConfigSwarm,
     ),
   );
 }
 
-export function postgresSaveExternalPortPostgresFromJSON(
+export function postgresSaveExternalPortUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMariadb$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortMariadb$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMariadb$ {
-  /** @deprecated use `PostgresSaveExternalPortMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortMariadb$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortMariadb$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMariadb$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMariadb$Outbound;
-}
-
-export function postgresSaveExternalPortMariadbToJSON(
-  postgresSaveExternalPortMariadb: PostgresSaveExternalPortMariadb,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMariadb$outboundSchema.parse(
-      postgresSaveExternalPortMariadb,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMongo$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortMongo$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMongo$ {
-  /** @deprecated use `PostgresSaveExternalPortMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortMongo$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortMongo$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMongo$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMongo$Outbound;
-}
-
-export function postgresSaveExternalPortMongoToJSON(
-  postgresSaveExternalPortMongo: PostgresSaveExternalPortMongo,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMongo$outboundSchema.parse(
-      postgresSaveExternalPortMongo,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMysql$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortMysql$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMysql$ {
-  /** @deprecated use `PostgresSaveExternalPortMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortMysql$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortMysql$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMysql$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMysql$Outbound;
-}
-
-export function postgresSaveExternalPortMysqlToJSON(
-  postgresSaveExternalPortMysql: PostgresSaveExternalPortMysql,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMysql$outboundSchema.parse(
-      postgresSaveExternalPortMysql,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMetadata$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresSaveExternalPortPostgres$inboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => PostgresSaveExternalPortMariadb$inboundSchema)
-    .optional(),
-  mongo: z.lazy(() => PostgresSaveExternalPortMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresSaveExternalPortMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortMetadata$Outbound = {
-  postgres?: PostgresSaveExternalPortPostgres$Outbound | undefined;
-  mariadb?: PostgresSaveExternalPortMariadb$Outbound | undefined;
-  mongo?: PostgresSaveExternalPortMongo$Outbound | undefined;
-  mysql?: PostgresSaveExternalPortMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortMetadata$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresSaveExternalPortPostgres$outboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => PostgresSaveExternalPortMariadb$outboundSchema)
-    .optional(),
-  mongo: z.lazy(() => PostgresSaveExternalPortMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresSaveExternalPortMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMetadata$ {
-  /** @deprecated use `PostgresSaveExternalPortMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortMetadata$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortMetadata$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMetadata$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMetadata$Outbound;
-}
-
-export function postgresSaveExternalPortMetadataToJSON(
-  postgresSaveExternalPortMetadata: PostgresSaveExternalPortMetadata,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMetadata$outboundSchema.parse(
-      postgresSaveExternalPortMetadata,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresSaveExternalPortMetadata$inboundSchema),
-  PostgresSaveExternalPortMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresSaveExternalPortMetadataUnion$Outbound =
-  | PostgresSaveExternalPortMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresSaveExternalPortMetadata$outboundSchema),
-  PostgresSaveExternalPortMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortMetadataUnion$ {
-  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    PostgresSaveExternalPortMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    PostgresSaveExternalPortMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortMetadataUnion$Outbound;
-}
-
-export function postgresSaveExternalPortMetadataUnionToJSON(
-  postgresSaveExternalPortMetadataUnion: PostgresSaveExternalPortMetadataUnion,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortMetadataUnion$outboundSchema.parse(
-      postgresSaveExternalPortMetadataUnion,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortMetadataUnion, SDKValidationError> {
+): SafeParseResult<
+  PostgresSaveExternalPortUpdateConfigSwarm,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      PostgresSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresSaveExternalPortBackup$inboundSchema: z.ZodType<
-  PostgresSaveExternalPortBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresSaveExternalPortBackupType$inboundSchema,
-  databaseType: PostgresSaveExternalPortDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresSaveExternalPortMetadata$inboundSchema),
-      PostgresSaveExternalPortMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresSaveExternalPortBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?:
-    | PostgresSaveExternalPortMetadata$Outbound
-    | string
-    | null
-    | undefined;
-};
-
-/** @internal */
-export const PostgresSaveExternalPortBackup$outboundSchema: z.ZodType<
-  PostgresSaveExternalPortBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveExternalPortBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresSaveExternalPortBackupType$outboundSchema,
-  databaseType: PostgresSaveExternalPortDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresSaveExternalPortMetadata$outboundSchema),
-      PostgresSaveExternalPortMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveExternalPortBackup$ {
-  /** @deprecated use `PostgresSaveExternalPortBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveExternalPortBackup$inboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveExternalPortBackup$outboundSchema;
-  /** @deprecated use `PostgresSaveExternalPortBackup$Outbound` instead. */
-  export type Outbound = PostgresSaveExternalPortBackup$Outbound;
-}
-
-export function postgresSaveExternalPortBackupToJSON(
-  postgresSaveExternalPortBackup: PostgresSaveExternalPortBackup,
-): string {
-  return JSON.stringify(
-    PostgresSaveExternalPortBackup$outboundSchema.parse(
-      postgresSaveExternalPortBackup,
-    ),
-  );
-}
-
-export function postgresSaveExternalPortBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveExternalPortBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveExternalPortBackup' from JSON`,
+      PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostgresSaveExternalPortUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2786,94 +2786,94 @@ export const PostgresSaveExternalPortResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresSaveExternalPortApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresSaveExternalPortBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresSaveExternalPortEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresSaveExternalPortApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => PostgresSaveExternalPortMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresSaveExternalPortNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresSaveExternalPortNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresSaveExternalPortEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresSaveExternalPortMount$inboundSchema)),
   server: z.nullable(
     z.lazy(() => PostgresSaveExternalPortServer$inboundSchema),
   ),
-  backups: z.array(z.lazy(() => PostgresSaveExternalPortBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresSaveExternalPortResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresSaveExternalPortBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
+  environment: PostgresSaveExternalPortEnvironment$Outbound;
+  environmentId: string;
   externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
   healthCheckSwarm: PostgresSaveExternalPortHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresSaveExternalPortModeSwarm$Outbound | null;
+  mounts: Array<PostgresSaveExternalPortMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresSaveExternalPortNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresSaveExternalPortPlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
   restartPolicySwarm:
     | PostgresSaveExternalPortRestartPolicySwarm$Outbound
     | null;
-  placementSwarm: PostgresSaveExternalPortPlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresSaveExternalPortUpdateConfigSwarm$Outbound | null;
   rollbackConfigSwarm:
     | PostgresSaveExternalPortRollbackConfigSwarm$Outbound
     | null;
-  modeSwarm: PostgresSaveExternalPortModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresSaveExternalPortNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  environment: PostgresSaveExternalPortEnvironment$Outbound;
-  mounts: Array<PostgresSaveExternalPortMount$Outbound>;
   server: PostgresSaveExternalPortServer$Outbound | null;
-  backups: Array<PostgresSaveExternalPortBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresSaveExternalPortUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2882,54 +2882,54 @@ export const PostgresSaveExternalPortResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveExternalPortResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresSaveExternalPortApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresSaveExternalPortBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresSaveExternalPortEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresSaveExternalPortApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => PostgresSaveExternalPortMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresSaveExternalPortNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresSaveExternalPortRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => PostgresSaveExternalPortModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresSaveExternalPortNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresSaveExternalPortEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresSaveExternalPortMount$outboundSchema)),
   server: z.nullable(
     z.lazy(() => PostgresSaveExternalPortServer$outboundSchema),
   ),
-  backups: z.array(z.lazy(() => PostgresSaveExternalPortBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

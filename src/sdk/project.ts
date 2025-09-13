@@ -14,12 +14,36 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Project extends ClientSDK {
+  async projectAll(
+    security: operations.ProjectAllSecurity,
+    options?: RequestOptions,
+  ): Promise<operations.ProjectAllResponse> {
+    return unwrapAsync(projectProjectAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async projectCreate(
     security: operations.ProjectCreateSecurity,
     request: operations.ProjectCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.ProjectCreateResponse> {
     return unwrapAsync(projectProjectCreate(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async projectDuplicate(
+    security: operations.ProjectDuplicateSecurity,
+    request: operations.ProjectDuplicateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(projectProjectDuplicate(
       this,
       security,
       request,
@@ -36,17 +60,6 @@ export class Project extends ClientSDK {
       this,
       security,
       request,
-      options,
-    ));
-  }
-
-  async projectAll(
-    security: operations.ProjectAllSecurity,
-    options?: RequestOptions,
-  ): Promise<operations.ProjectAllResponse> {
-    return unwrapAsync(projectProjectAll(
-      this,
-      security,
       options,
     ));
   }
@@ -70,19 +83,6 @@ export class Project extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ProjectUpdateResponse> {
     return unwrapAsync(projectProjectUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async projectDuplicate(
-    security: operations.ProjectDuplicateSecurity,
-    request: operations.ProjectDuplicateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(projectProjectDuplicate(
       this,
       security,
       request,

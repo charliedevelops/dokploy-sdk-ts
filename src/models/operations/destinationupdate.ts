@@ -13,14 +13,14 @@ export type DestinationUpdateSecurity = {
 };
 
 export type DestinationUpdateRequest = {
-  name: string;
   accessKey: string;
   bucket: string;
-  region: string;
-  endpoint: string;
-  secretAccessKey: string;
   destinationId: string;
+  endpoint: string;
+  name: string;
   provider: string | null;
+  region: string;
+  secretAccessKey: string;
   serverId?: string | undefined;
 };
 
@@ -92,27 +92,27 @@ export const DestinationUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  secretAccessKey: z.string(),
   destinationId: z.string(),
+  endpoint: z.string(),
+  name: z.string(),
   provider: z.nullable(z.string()),
+  region: z.string(),
+  secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationUpdateRequest$Outbound = {
-  name: string;
   accessKey: string;
   bucket: string;
-  region: string;
-  endpoint: string;
-  secretAccessKey: string;
   destinationId: string;
+  endpoint: string;
+  name: string;
   provider: string | null;
+  region: string;
+  secretAccessKey: string;
   serverId?: string | undefined;
 };
 
@@ -122,14 +122,14 @@ export const DestinationUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationUpdateRequest
 > = z.object({
-  name: z.string(),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  secretAccessKey: z.string(),
   destinationId: z.string(),
+  endpoint: z.string(),
+  name: z.string(),
   provider: z.nullable(z.string()),
+  region: z.string(),
+  secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 

@@ -14,38 +14,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class VolumeBackups extends ClientSDK {
-  async volumeBackupsList(
-    security: operations.VolumeBackupsListSecurity,
-    request: operations.VolumeBackupsListRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(volumeBackupsVolumeBackupsList(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async volumeBackupsCreate(
     security: operations.VolumeBackupsCreateSecurity,
     request: operations.VolumeBackupsCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(volumeBackupsVolumeBackupsCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async volumeBackupsOne(
-    security: operations.VolumeBackupsOneSecurity,
-    request: operations.VolumeBackupsOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(volumeBackupsVolumeBackupsOne(
       this,
       security,
       request,
@@ -66,12 +40,25 @@ export class VolumeBackups extends ClientSDK {
     ));
   }
 
-  async volumeBackupsUpdate(
-    security: operations.VolumeBackupsUpdateSecurity,
-    request: operations.VolumeBackupsUpdateRequest,
+  async volumeBackupsList(
+    security: operations.VolumeBackupsListSecurity,
+    request: operations.VolumeBackupsListRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(volumeBackupsVolumeBackupsUpdate(
+    return unwrapAsync(volumeBackupsVolumeBackupsList(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async volumeBackupsOne(
+    security: operations.VolumeBackupsOneSecurity,
+    request: operations.VolumeBackupsOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(volumeBackupsVolumeBackupsOne(
       this,
       security,
       request,
@@ -85,6 +72,19 @@ export class VolumeBackups extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(volumeBackupsVolumeBackupsRunManually(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async volumeBackupsUpdate(
+    security: operations.VolumeBackupsUpdateSecurity,
+    request: operations.VolumeBackupsUpdateRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(volumeBackupsVolumeBackupsUpdate(
       this,
       security,
       request,

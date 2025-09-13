@@ -15,5 +15,5 @@ let value: ApplicationDeployRequest = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
-| `title`            | *string*           | :heavy_minus_sign: | N/A                |
 | `description`      | *string*           | :heavy_minus_sign: | N/A                |
+| `title`            | *string*           | :heavy_minus_sign: | N/A                |

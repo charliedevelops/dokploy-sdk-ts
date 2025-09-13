@@ -6,8 +6,8 @@
 import { MysqlSaveExternalPortRequest } from "dokploy-sdk/models/operations";
 
 let value: MysqlSaveExternalPortRequest = {
-  mysqlId: "<id>",
   externalPort: 4496.54,
+  mysqlId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MysqlSaveExternalPortRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `mysqlId`          | *string*           | :heavy_check_mark: | N/A                |
 | `externalPort`     | *number*           | :heavy_check_mark: | N/A                |
+| `mysqlId`          | *string*           | :heavy_check_mark: | N/A                |

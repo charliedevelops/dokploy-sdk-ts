@@ -25,18 +25,44 @@ export type MysqlUpdateApplicationStatus = ClosedEnum<
 >;
 
 export type MysqlUpdateHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MysqlUpdateRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type MysqlUpdateGlobal = {};
+
+export type MysqlUpdateGlobalJob = {};
+
+export type MysqlUpdateReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MysqlUpdateReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MysqlUpdateModeSwarm = {
+  global?: MysqlUpdateGlobal | undefined;
+  globalJob?: MysqlUpdateGlobalJob | undefined;
+  replicated?: MysqlUpdateReplicated | undefined;
+  replicatedJob?: MysqlUpdateReplicatedJob | undefined;
+};
+
+export type MysqlUpdateDriverOpts = {};
+
+export type MysqlUpdateNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlUpdateDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlUpdatePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type MysqlUpdateSpread = {
@@ -47,93 +73,67 @@ export type MysqlUpdatePreference = {
   spread: MysqlUpdateSpread;
 };
 
-export type MysqlUpdatePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type MysqlUpdatePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlUpdatePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<MysqlUpdatePlatform> | undefined;
+  preferences?: Array<MysqlUpdatePreference> | undefined;
 };
 
-export type MysqlUpdateUpdateConfigSwarm = {
-  parallelism: number;
+export type MysqlUpdateRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type MysqlUpdateRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type MysqlUpdateReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MysqlUpdateGlobal = {};
-
-export type MysqlUpdateReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MysqlUpdateGlobalJob = {};
-
-export type MysqlUpdateModeSwarm = {
-  replicated?: MysqlUpdateReplicated | undefined;
-  global?: MysqlUpdateGlobal | undefined;
-  replicatedJob?: MysqlUpdateReplicatedJob | undefined;
-  globalJob?: MysqlUpdateGlobalJob | undefined;
-};
-
-export type MysqlUpdateDriverOpts = {};
-
-export type MysqlUpdateNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlUpdateDriverOpts | undefined;
+export type MysqlUpdateUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 export type MysqlUpdateRequest = {
-  mysqlId: string;
-  name?: string | undefined;
   appName?: string | undefined;
-  description?: string | null | undefined;
+  applicationStatus?: MysqlUpdateApplicationStatus | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   databaseName?: string | undefined;
-  databaseUser?: string | undefined;
   databasePassword?: string | undefined;
   databaseRootPassword?: string | undefined;
+  databaseUser?: string | undefined;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
-  command?: string | null | undefined;
   env?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  externalPort?: number | null | undefined;
-  applicationStatus?: MysqlUpdateApplicationStatus | undefined;
-  healthCheckSwarm?: MysqlUpdateHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: MysqlUpdateRestartPolicySwarm | null | undefined;
-  placementSwarm?: MysqlUpdatePlacementSwarm | null | undefined;
-  updateConfigSwarm?: MysqlUpdateUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: MysqlUpdateRollbackConfigSwarm | null | undefined;
-  modeSwarm?: MysqlUpdateModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<MysqlUpdateNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  createdAt?: string | undefined;
   environmentId?: string | undefined;
+  externalPort?: number | null | undefined;
+  healthCheckSwarm?: MysqlUpdateHealthCheckSwarm | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: MysqlUpdateModeSwarm | null | undefined;
+  mysqlId: string;
+  name?: string | undefined;
+  networkSwarm?: Array<MysqlUpdateNetworkSwarm> | null | undefined;
+  placementSwarm?: MysqlUpdatePlacementSwarm | null | undefined;
+  replicas?: number | undefined;
+  restartPolicySwarm?: MysqlUpdateRestartPolicySwarm | null | undefined;
+  rollbackConfigSwarm?: MysqlUpdateRollbackConfigSwarm | null | undefined;
+  updateConfigSwarm?: MysqlUpdateUpdateConfigSwarm | null | undefined;
 };
 
 export type MysqlUpdateResponse = models.ErrorT | boolean;
@@ -227,28 +227,28 @@ export const MysqlUpdateHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlUpdateHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -257,18 +257,18 @@ export const MysqlUpdateHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlUpdateHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -306,48 +306,129 @@ export function mysqlUpdateHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlUpdateRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlUpdateRestartPolicySwarm,
+export const MysqlUpdateGlobal$inboundSchema: z.ZodType<
+  MysqlUpdateGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlUpdateGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlUpdateGlobal$outboundSchema: z.ZodType<
+  MysqlUpdateGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateGlobal$ {
+  /** @deprecated use `MysqlUpdateGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateGlobal$inboundSchema;
+  /** @deprecated use `MysqlUpdateGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateGlobal$outboundSchema;
+  /** @deprecated use `MysqlUpdateGlobal$Outbound` instead. */
+  export type Outbound = MysqlUpdateGlobal$Outbound;
+}
+
+export function mysqlUpdateGlobalToJSON(
+  mysqlUpdateGlobal: MysqlUpdateGlobal,
+): string {
+  return JSON.stringify(
+    MysqlUpdateGlobal$outboundSchema.parse(mysqlUpdateGlobal),
+  );
+}
+
+export function mysqlUpdateGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateGlobalJob$inboundSchema: z.ZodType<
+  MysqlUpdateGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlUpdateGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlUpdateGlobalJob$outboundSchema: z.ZodType<
+  MysqlUpdateGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateGlobalJob$ {
+  /** @deprecated use `MysqlUpdateGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlUpdateGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlUpdateGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlUpdateGlobalJob$Outbound;
+}
+
+export function mysqlUpdateGlobalJobToJSON(
+  mysqlUpdateGlobalJob: MysqlUpdateGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlUpdateGlobalJob$outboundSchema.parse(mysqlUpdateGlobalJob),
+  );
+}
+
+export function mysqlUpdateGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateReplicated$inboundSchema: z.ZodType<
+  MysqlUpdateReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlUpdateRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlUpdateReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlUpdateRestartPolicySwarm$Outbound,
+export const MysqlUpdateReplicated$outboundSchema: z.ZodType<
+  MysqlUpdateReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlUpdateRestartPolicySwarm
+  MysqlUpdateReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -355,32 +436,363 @@ export const MysqlUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlUpdateRestartPolicySwarm$ {
-  /** @deprecated use `MysqlUpdateRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlUpdateRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlUpdateRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlUpdateRestartPolicySwarm$Outbound;
+export namespace MysqlUpdateReplicated$ {
+  /** @deprecated use `MysqlUpdateReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateReplicated$inboundSchema;
+  /** @deprecated use `MysqlUpdateReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateReplicated$outboundSchema;
+  /** @deprecated use `MysqlUpdateReplicated$Outbound` instead. */
+  export type Outbound = MysqlUpdateReplicated$Outbound;
 }
 
-export function mysqlUpdateRestartPolicySwarmToJSON(
-  mysqlUpdateRestartPolicySwarm: MysqlUpdateRestartPolicySwarm,
+export function mysqlUpdateReplicatedToJSON(
+  mysqlUpdateReplicated: MysqlUpdateReplicated,
 ): string {
   return JSON.stringify(
-    MysqlUpdateRestartPolicySwarm$outboundSchema.parse(
-      mysqlUpdateRestartPolicySwarm,
-    ),
+    MysqlUpdateReplicated$outboundSchema.parse(mysqlUpdateReplicated),
   );
 }
 
-export function mysqlUpdateRestartPolicySwarmFromJSON(
+export function mysqlUpdateReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlUpdateRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlUpdateReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlUpdateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateRestartPolicySwarm' from JSON`,
+    (x) => MysqlUpdateReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateReplicatedJob$inboundSchema: z.ZodType<
+  MysqlUpdateReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlUpdateReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlUpdateReplicatedJob$outboundSchema: z.ZodType<
+  MysqlUpdateReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateReplicatedJob$ {
+  /** @deprecated use `MysqlUpdateReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlUpdateReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlUpdateReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlUpdateReplicatedJob$Outbound;
+}
+
+export function mysqlUpdateReplicatedJobToJSON(
+  mysqlUpdateReplicatedJob: MysqlUpdateReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlUpdateReplicatedJob$outboundSchema.parse(mysqlUpdateReplicatedJob),
+  );
+}
+
+export function mysqlUpdateReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateModeSwarm$inboundSchema: z.ZodType<
+  MysqlUpdateModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlUpdateGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlUpdateGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlUpdateReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlUpdateReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlUpdateModeSwarm$Outbound = {
+  Global?: MysqlUpdateGlobal$Outbound | undefined;
+  GlobalJob?: MysqlUpdateGlobalJob$Outbound | undefined;
+  Replicated?: MysqlUpdateReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlUpdateReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlUpdateModeSwarm$outboundSchema: z.ZodType<
+  MysqlUpdateModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlUpdateGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlUpdateGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlUpdateReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlUpdateReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateModeSwarm$ {
+  /** @deprecated use `MysqlUpdateModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlUpdateModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlUpdateModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlUpdateModeSwarm$Outbound;
+}
+
+export function mysqlUpdateModeSwarmToJSON(
+  mysqlUpdateModeSwarm: MysqlUpdateModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlUpdateModeSwarm$outboundSchema.parse(mysqlUpdateModeSwarm),
+  );
+}
+
+export function mysqlUpdateModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateDriverOpts$inboundSchema: z.ZodType<
+  MysqlUpdateDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlUpdateDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlUpdateDriverOpts$outboundSchema: z.ZodType<
+  MysqlUpdateDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateDriverOpts$ {
+  /** @deprecated use `MysqlUpdateDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlUpdateDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlUpdateDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlUpdateDriverOpts$Outbound;
+}
+
+export function mysqlUpdateDriverOptsToJSON(
+  mysqlUpdateDriverOpts: MysqlUpdateDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlUpdateDriverOpts$outboundSchema.parse(mysqlUpdateDriverOpts),
+  );
+}
+
+export function mysqlUpdateDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdateNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlUpdateNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlUpdateDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlUpdateNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlUpdateDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlUpdateNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlUpdateNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdateNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlUpdateDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdateNetworkSwarm$ {
+  /** @deprecated use `MysqlUpdateNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlUpdateNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlUpdateNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlUpdateNetworkSwarm$Outbound;
+}
+
+export function mysqlUpdateNetworkSwarmToJSON(
+  mysqlUpdateNetworkSwarm: MysqlUpdateNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlUpdateNetworkSwarm$outboundSchema.parse(mysqlUpdateNetworkSwarm),
+  );
+}
+
+export function mysqlUpdateNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdateNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlUpdatePlatform$inboundSchema: z.ZodType<
+  MysqlUpdatePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlUpdatePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlUpdatePlatform$outboundSchema: z.ZodType<
+  MysqlUpdatePlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlUpdatePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlUpdatePlatform$ {
+  /** @deprecated use `MysqlUpdatePlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdatePlatform$inboundSchema;
+  /** @deprecated use `MysqlUpdatePlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdatePlatform$outboundSchema;
+  /** @deprecated use `MysqlUpdatePlatform$Outbound` instead. */
+  export type Outbound = MysqlUpdatePlatform$Outbound;
+}
+
+export function mysqlUpdatePlatformToJSON(
+  mysqlUpdatePlatform: MysqlUpdatePlatform,
+): string {
+  return JSON.stringify(
+    MysqlUpdatePlatform$outboundSchema.parse(mysqlUpdatePlatform),
+  );
+}
+
+export function mysqlUpdatePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlUpdatePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlUpdatePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdatePlatform' from JSON`,
   );
 }
 
@@ -509,99 +921,32 @@ export function mysqlUpdatePreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlUpdatePlatform$inboundSchema: z.ZodType<
-  MysqlUpdatePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlUpdatePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlUpdatePlatform$outboundSchema: z.ZodType<
-  MysqlUpdatePlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdatePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdatePlatform$ {
-  /** @deprecated use `MysqlUpdatePlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdatePlatform$inboundSchema;
-  /** @deprecated use `MysqlUpdatePlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdatePlatform$outboundSchema;
-  /** @deprecated use `MysqlUpdatePlatform$Outbound` instead. */
-  export type Outbound = MysqlUpdatePlatform$Outbound;
-}
-
-export function mysqlUpdatePlatformToJSON(
-  mysqlUpdatePlatform: MysqlUpdatePlatform,
-): string {
-  return JSON.stringify(
-    MysqlUpdatePlatform$outboundSchema.parse(mysqlUpdatePlatform),
-  );
-}
-
-export function mysqlUpdatePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdatePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdatePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdatePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlUpdatePlacementSwarm$inboundSchema: z.ZodType<
   MysqlUpdatePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlUpdatePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlUpdatePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MysqlUpdatePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlUpdatePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlUpdatePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlUpdatePlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlUpdatePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -611,17 +956,17 @@ export const MysqlUpdatePlacementSwarm$outboundSchema: z.ZodType<
   MysqlUpdatePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlUpdatePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlUpdatePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MysqlUpdatePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -657,58 +1002,48 @@ export function mysqlUpdatePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlUpdateUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlUpdateUpdateConfigSwarm,
+export const MysqlUpdateRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlUpdateRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlUpdateUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlUpdateRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlUpdateUpdateConfigSwarm$Outbound,
+export const MysqlUpdateRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlUpdateRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlUpdateUpdateConfigSwarm
+  MysqlUpdateRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -716,32 +1051,32 @@ export const MysqlUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlUpdateUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlUpdateUpdateConfigSwarm$Outbound;
+export namespace MysqlUpdateRestartPolicySwarm$ {
+  /** @deprecated use `MysqlUpdateRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlUpdateRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlUpdateRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlUpdateRestartPolicySwarm$Outbound;
 }
 
-export function mysqlUpdateUpdateConfigSwarmToJSON(
-  mysqlUpdateUpdateConfigSwarm: MysqlUpdateUpdateConfigSwarm,
+export function mysqlUpdateRestartPolicySwarmToJSON(
+  mysqlUpdateRestartPolicySwarm: MysqlUpdateRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlUpdateUpdateConfigSwarm$outboundSchema.parse(
-      mysqlUpdateUpdateConfigSwarm,
+    MysqlUpdateRestartPolicySwarm$outboundSchema.parse(
+      mysqlUpdateRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlUpdateUpdateConfigSwarmFromJSON(
+export function mysqlUpdateRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlUpdateUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlUpdateRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlUpdateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateUpdateConfigSwarm' from JSON`,
+    (x) => MysqlUpdateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -751,31 +1086,31 @@ export const MysqlUpdateRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlUpdateRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -784,20 +1119,20 @@ export const MysqlUpdateRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlUpdateRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -835,33 +1170,58 @@ export function mysqlUpdateRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlUpdateReplicated$inboundSchema: z.ZodType<
-  MysqlUpdateReplicated,
+export const MysqlUpdateUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlUpdateUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type MysqlUpdateReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type MysqlUpdateUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlUpdateReplicated$outboundSchema: z.ZodType<
-  MysqlUpdateReplicated$Outbound,
+export const MysqlUpdateUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlUpdateUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlUpdateReplicated
+  MysqlUpdateUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -869,392 +1229,32 @@ export const MysqlUpdateReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlUpdateReplicated$ {
-  /** @deprecated use `MysqlUpdateReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateReplicated$inboundSchema;
-  /** @deprecated use `MysqlUpdateReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateReplicated$outboundSchema;
-  /** @deprecated use `MysqlUpdateReplicated$Outbound` instead. */
-  export type Outbound = MysqlUpdateReplicated$Outbound;
+export namespace MysqlUpdateUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlUpdateUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlUpdateUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlUpdateUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlUpdateUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlUpdateReplicatedToJSON(
-  mysqlUpdateReplicated: MysqlUpdateReplicated,
+export function mysqlUpdateUpdateConfigSwarmToJSON(
+  mysqlUpdateUpdateConfigSwarm: MysqlUpdateUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlUpdateReplicated$outboundSchema.parse(mysqlUpdateReplicated),
+    MysqlUpdateUpdateConfigSwarm$outboundSchema.parse(
+      mysqlUpdateUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mysqlUpdateReplicatedFromJSON(
+export function mysqlUpdateUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlUpdateReplicated, SDKValidationError> {
+): SafeParseResult<MysqlUpdateUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlUpdateReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateGlobal$inboundSchema: z.ZodType<
-  MysqlUpdateGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlUpdateGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlUpdateGlobal$outboundSchema: z.ZodType<
-  MysqlUpdateGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateGlobal$ {
-  /** @deprecated use `MysqlUpdateGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateGlobal$inboundSchema;
-  /** @deprecated use `MysqlUpdateGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateGlobal$outboundSchema;
-  /** @deprecated use `MysqlUpdateGlobal$Outbound` instead. */
-  export type Outbound = MysqlUpdateGlobal$Outbound;
-}
-
-export function mysqlUpdateGlobalToJSON(
-  mysqlUpdateGlobal: MysqlUpdateGlobal,
-): string {
-  return JSON.stringify(
-    MysqlUpdateGlobal$outboundSchema.parse(mysqlUpdateGlobal),
-  );
-}
-
-export function mysqlUpdateGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateReplicatedJob$inboundSchema: z.ZodType<
-  MysqlUpdateReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlUpdateReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlUpdateReplicatedJob$outboundSchema: z.ZodType<
-  MysqlUpdateReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateReplicatedJob$ {
-  /** @deprecated use `MysqlUpdateReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlUpdateReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlUpdateReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlUpdateReplicatedJob$Outbound;
-}
-
-export function mysqlUpdateReplicatedJobToJSON(
-  mysqlUpdateReplicatedJob: MysqlUpdateReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlUpdateReplicatedJob$outboundSchema.parse(mysqlUpdateReplicatedJob),
-  );
-}
-
-export function mysqlUpdateReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateGlobalJob$inboundSchema: z.ZodType<
-  MysqlUpdateGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlUpdateGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlUpdateGlobalJob$outboundSchema: z.ZodType<
-  MysqlUpdateGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateGlobalJob$ {
-  /** @deprecated use `MysqlUpdateGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlUpdateGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlUpdateGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlUpdateGlobalJob$Outbound;
-}
-
-export function mysqlUpdateGlobalJobToJSON(
-  mysqlUpdateGlobalJob: MysqlUpdateGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlUpdateGlobalJob$outboundSchema.parse(mysqlUpdateGlobalJob),
-  );
-}
-
-export function mysqlUpdateGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateModeSwarm$inboundSchema: z.ZodType<
-  MysqlUpdateModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlUpdateReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlUpdateGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlUpdateReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MysqlUpdateGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlUpdateModeSwarm$Outbound = {
-  Replicated?: MysqlUpdateReplicated$Outbound | undefined;
-  Global?: MysqlUpdateGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlUpdateReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlUpdateGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlUpdateModeSwarm$outboundSchema: z.ZodType<
-  MysqlUpdateModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlUpdateReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlUpdateGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlUpdateReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlUpdateGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateModeSwarm$ {
-  /** @deprecated use `MysqlUpdateModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlUpdateModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlUpdateModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlUpdateModeSwarm$Outbound;
-}
-
-export function mysqlUpdateModeSwarmToJSON(
-  mysqlUpdateModeSwarm: MysqlUpdateModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlUpdateModeSwarm$outboundSchema.parse(mysqlUpdateModeSwarm),
-  );
-}
-
-export function mysqlUpdateModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateDriverOpts$inboundSchema: z.ZodType<
-  MysqlUpdateDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlUpdateDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlUpdateDriverOpts$outboundSchema: z.ZodType<
-  MysqlUpdateDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateDriverOpts$ {
-  /** @deprecated use `MysqlUpdateDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlUpdateDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlUpdateDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlUpdateDriverOpts$Outbound;
-}
-
-export function mysqlUpdateDriverOptsToJSON(
-  mysqlUpdateDriverOpts: MysqlUpdateDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlUpdateDriverOpts$outboundSchema.parse(mysqlUpdateDriverOpts),
-  );
-}
-
-export function mysqlUpdateDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlUpdateNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlUpdateNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlUpdateDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlUpdateNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlUpdateDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlUpdateNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlUpdateNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlUpdateNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlUpdateDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlUpdateNetworkSwarm$ {
-  /** @deprecated use `MysqlUpdateNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlUpdateNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlUpdateNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlUpdateNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlUpdateNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlUpdateNetworkSwarm$Outbound;
-}
-
-export function mysqlUpdateNetworkSwarmToJSON(
-  mysqlUpdateNetworkSwarm: MysqlUpdateNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlUpdateNetworkSwarm$outboundSchema.parse(mysqlUpdateNetworkSwarm),
-  );
-}
-
-export function mysqlUpdateNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlUpdateNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlUpdateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlUpdateNetworkSwarm' from JSON`,
+    (x) => MysqlUpdateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlUpdateUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1264,85 +1264,85 @@ export const MysqlUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
+  applicationStatus: MysqlUpdateApplicationStatus$inboundSchema.optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   databaseName: z.string().optional(),
-  databaseUser: z.string().optional(),
   databasePassword: z.string().optional(),
   databaseRootPassword: z.string().optional(),
+  databaseUser: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mysql:8"),
-  command: z.nullable(z.string()).optional(),
   env: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
   externalPort: z.nullable(z.number()).optional(),
-  applicationStatus: MysqlUpdateApplicationStatus$inboundSchema.optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlUpdateHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlUpdateRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
+  modeSwarm: z.nullable(z.lazy(() => MysqlUpdateModeSwarm$inboundSchema))
+    .optional(),
+  mysqlId: z.string(),
+  name: z.string().optional(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlUpdateNetworkSwarm$inboundSchema)),
   ).optional(),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlUpdatePlacementSwarm$inboundSchema),
   ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlUpdateUpdateConfigSwarm$inboundSchema),
+  replicas: z.number().optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlUpdateRestartPolicySwarm$inboundSchema),
   ).optional(),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlUpdateRollbackConfigSwarm$inboundSchema),
   ).optional(),
-  modeSwarm: z.nullable(z.lazy(() => MysqlUpdateModeSwarm$inboundSchema))
-    .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlUpdateNetworkSwarm$inboundSchema)),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlUpdateUpdateConfigSwarm$inboundSchema),
   ).optional(),
-  replicas: z.number().optional(),
-  createdAt: z.string().optional(),
-  environmentId: z.string().optional(),
 });
 
 /** @internal */
 export type MysqlUpdateRequest$Outbound = {
-  mysqlId: string;
-  name?: string | undefined;
   appName?: string | undefined;
-  description?: string | null | undefined;
+  applicationStatus?: string | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   databaseName?: string | undefined;
-  databaseUser?: string | undefined;
   databasePassword?: string | undefined;
   databaseRootPassword?: string | undefined;
+  databaseUser?: string | undefined;
+  description?: string | null | undefined;
   dockerImage: string;
-  command?: string | null | undefined;
   env?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
+  environmentId?: string | undefined;
   externalPort?: number | null | undefined;
-  applicationStatus?: string | undefined;
   healthCheckSwarm?: MysqlUpdateHealthCheckSwarm$Outbound | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: MysqlUpdateModeSwarm$Outbound | null | undefined;
+  mysqlId: string;
+  name?: string | undefined;
+  networkSwarm?: Array<MysqlUpdateNetworkSwarm$Outbound> | null | undefined;
+  placementSwarm?: MysqlUpdatePlacementSwarm$Outbound | null | undefined;
+  replicas?: number | undefined;
   restartPolicySwarm?:
     | MysqlUpdateRestartPolicySwarm$Outbound
     | null
     | undefined;
-  placementSwarm?: MysqlUpdatePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?: MysqlUpdateUpdateConfigSwarm$Outbound | null | undefined;
   rollbackConfigSwarm?:
     | MysqlUpdateRollbackConfigSwarm$Outbound
     | null
     | undefined;
-  modeSwarm?: MysqlUpdateModeSwarm$Outbound | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<MysqlUpdateNetworkSwarm$Outbound> | null | undefined;
-  replicas?: number | undefined;
-  createdAt?: string | undefined;
-  environmentId?: string | undefined;
+  updateConfigSwarm?: MysqlUpdateUpdateConfigSwarm$Outbound | null | undefined;
 };
 
 /** @internal */
@@ -1351,47 +1351,47 @@ export const MysqlUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlUpdateRequest
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string().optional(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
+  applicationStatus: MysqlUpdateApplicationStatus$outboundSchema.optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   databaseName: z.string().optional(),
-  databaseUser: z.string().optional(),
   databasePassword: z.string().optional(),
   databaseRootPassword: z.string().optional(),
+  databaseUser: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mysql:8"),
-  command: z.nullable(z.string()).optional(),
   env: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
+  environmentId: z.string().optional(),
   externalPort: z.nullable(z.number()).optional(),
-  applicationStatus: MysqlUpdateApplicationStatus$outboundSchema.optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlUpdateHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlUpdateRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
+  modeSwarm: z.nullable(z.lazy(() => MysqlUpdateModeSwarm$outboundSchema))
+    .optional(),
+  mysqlId: z.string(),
+  name: z.string().optional(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlUpdateNetworkSwarm$outboundSchema)),
   ).optional(),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlUpdatePlacementSwarm$outboundSchema),
   ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlUpdateUpdateConfigSwarm$outboundSchema),
+  replicas: z.number().optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlUpdateRestartPolicySwarm$outboundSchema),
   ).optional(),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlUpdateRollbackConfigSwarm$outboundSchema),
   ).optional(),
-  modeSwarm: z.nullable(z.lazy(() => MysqlUpdateModeSwarm$outboundSchema))
-    .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlUpdateNetworkSwarm$outboundSchema)),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlUpdateUpdateConfigSwarm$outboundSchema),
   ).optional(),
-  replicas: z.number().optional(),
-  createdAt: z.string().optional(),
-  environmentId: z.string().optional(),
 });
 
 /**

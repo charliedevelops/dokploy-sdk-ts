@@ -21,13 +21,13 @@ export type RegistryCreateRegistryType = ClosedEnum<
 >;
 
 export type RegistryCreateRequest = {
-  registryName: string;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: RegistryCreateRegistryType;
   imagePrefix: string | null;
+  password: string;
+  registryName: string;
+  registryType: RegistryCreateRegistryType;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
 
 /** @internal */
@@ -119,24 +119,24 @@ export const RegistryCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  registryName: z.string(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryCreateRegistryType$inboundSchema,
   imagePrefix: z.nullable(z.string()),
+  password: z.string(),
+  registryName: z.string(),
+  registryType: RegistryCreateRegistryType$inboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /** @internal */
 export type RegistryCreateRequest$Outbound = {
-  registryName: string;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: string;
   imagePrefix: string | null;
+  password: string;
+  registryName: string;
+  registryType: string;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
 
 /** @internal */
@@ -145,13 +145,13 @@ export const RegistryCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RegistryCreateRequest
 > = z.object({
-  registryName: z.string(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryCreateRegistryType$outboundSchema,
   imagePrefix: z.nullable(z.string()),
+  password: z.string(),
+  registryName: z.string(),
+  registryType: RegistryCreateRegistryType$outboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /**

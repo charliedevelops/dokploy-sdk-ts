@@ -15,6 +15,17 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Bitbucket extends ClientSDK {
+  async bitbucketBitbucketProviders(
+    security: operations.BitbucketBitbucketProvidersSecurity,
+    options?: RequestOptions,
+  ): Promise<operations.BitbucketBitbucketProvidersResponse> {
+    return unwrapAsync(bitbucketBitbucketBitbucketProviders(
+      this,
+      security,
+      options,
+    ));
+  }
+
   async bitbucketCreate(
     security: operations.BitbucketCreateSecurity,
     request: operations.BitbucketCreateRequest,
@@ -28,26 +39,15 @@ export class Bitbucket extends ClientSDK {
     ));
   }
 
-  async bitbucketOne(
-    security: operations.BitbucketOneSecurity,
-    request: operations.BitbucketOneRequest,
+  async bitbucketGetBitbucketBranches(
+    security: operations.BitbucketGetBitbucketBranchesSecurity,
+    request: operations.BitbucketGetBitbucketBranchesRequest,
     options?: RequestOptions,
-  ): Promise<operations.BitbucketOneResponse> {
-    return unwrapAsync(bitbucketBitbucketOne(
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(bitbucketBitbucketGetBitbucketBranches(
       this,
       security,
       request,
-      options,
-    ));
-  }
-
-  async bitbucketBitbucketProviders(
-    security: operations.BitbucketBitbucketProvidersSecurity,
-    options?: RequestOptions,
-  ): Promise<operations.BitbucketBitbucketProvidersResponse> {
-    return unwrapAsync(bitbucketBitbucketBitbucketProviders(
-      this,
-      security,
       options,
     ));
   }
@@ -65,12 +65,12 @@ export class Bitbucket extends ClientSDK {
     ));
   }
 
-  async bitbucketGetBitbucketBranches(
-    security: operations.BitbucketGetBitbucketBranchesSecurity,
-    request: operations.BitbucketGetBitbucketBranchesRequest,
+  async bitbucketOne(
+    security: operations.BitbucketOneSecurity,
+    request: operations.BitbucketOneRequest,
     options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(bitbucketBitbucketGetBitbucketBranches(
+  ): Promise<operations.BitbucketOneResponse> {
+    return unwrapAsync(bitbucketBitbucketOne(
       this,
       security,
       request,

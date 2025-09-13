@@ -15,13 +15,13 @@ export type ApplicationSaveGiteaProviderSecurity = {
 
 export type ApplicationSaveGiteaProviderRequest = {
   applicationId: string;
+  enableSubmodules: boolean;
   giteaBranch: string | null;
   giteaBuildPath: string | null;
+  giteaId: string | null;
   giteaOwner: string | null;
   giteaRepository: string | null;
-  giteaId: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 export type ApplicationSaveGiteaProviderResponse = models.ErrorT | boolean;
@@ -100,25 +100,25 @@ export const ApplicationSaveGiteaProviderRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   giteaBranch: z.nullable(z.string()),
   giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
   giteaOwner: z.nullable(z.string()),
   giteaRepository: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /** @internal */
 export type ApplicationSaveGiteaProviderRequest$Outbound = {
   applicationId: string;
+  enableSubmodules: boolean;
   giteaBranch: string | null;
   giteaBuildPath: string | null;
+  giteaId: string | null;
   giteaOwner: string | null;
   giteaRepository: string | null;
-  giteaId: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 /** @internal */
@@ -128,13 +128,13 @@ export const ApplicationSaveGiteaProviderRequest$outboundSchema: z.ZodType<
   ApplicationSaveGiteaProviderRequest
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   giteaBranch: z.nullable(z.string()),
   giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
   giteaOwner: z.nullable(z.string()),
   giteaRepository: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /**

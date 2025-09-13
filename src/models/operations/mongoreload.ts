@@ -14,8 +14,8 @@ export type MongoReloadSecurity = {
 };
 
 export type MongoReloadRequest = {
-  mongoId: string;
   appName: string;
+  mongoId: string;
 };
 
 export type MongoReloadResponse = models.ErrorT | boolean;
@@ -88,14 +88,14 @@ export const MongoReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   appName: z.string(),
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoReloadRequest$Outbound = {
-  mongoId: string;
   appName: string;
+  mongoId: string;
 };
 
 /** @internal */
@@ -104,8 +104,8 @@ export const MongoReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoReloadRequest
 > = z.object({
-  mongoId: z.string(),
   appName: z.string(),
+  mongoId: z.string(),
 });
 
 /**

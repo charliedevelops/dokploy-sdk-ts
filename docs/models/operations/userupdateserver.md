@@ -6,17 +6,17 @@
 import { UserUpdateServer } from "dokploy-sdk/models/operations";
 
 let value: UserUpdateServer = {
-  type: "Dokploy",
-  refreshRate: 5166.94,
-  port: 5326.76,
-  token: "<value>",
-  urlCallback: "<value>",
-  retentionDays: 7663.31,
   cronJob: "<value>",
+  port: 2660.27,
+  refreshRate: 5166.94,
+  retentionDays: 5326.76,
   thresholds: {
-    cpu: 5312.52,
-    memory: 790.33,
+    cpu: 7663.31,
+    memory: 5312.52,
   },
+  token: "<value>",
+  type: "Dokploy",
+  urlCallback: "<value>",
 };
 ```
 
@@ -24,11 +24,11 @@ let value: UserUpdateServer = {
 
 | Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `type`                                                                             | [operations.UserUpdateType](../../models/operations/userupdatetype.md)             | :heavy_check_mark:                                                                 | N/A                                                                                |
-| `refreshRate`                                                                      | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
-| `port`                                                                             | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
-| `token`                                                                            | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
-| `urlCallback`                                                                      | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
-| `retentionDays`                                                                    | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
 | `cronJob`                                                                          | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `port`                                                                             | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `refreshRate`                                                                      | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `retentionDays`                                                                    | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
 | `thresholds`                                                                       | [operations.UserUpdateThresholds](../../models/operations/userupdatethresholds.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `token`                                                                            | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `type`                                                                             | [operations.UserUpdateType](../../models/operations/userupdatetype.md)             | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `urlCallback`                                                                      | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |

@@ -16,5 +16,5 @@ let value: SettingsUpdateTraefikFileRequest = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `path`             | *string*           | :heavy_check_mark: | N/A                |
-| `traefikConfig`    | *string*           | :heavy_check_mark: | N/A                |
 | `serverId`         | *string*           | :heavy_minus_sign: | N/A                |
+| `traefikConfig`    | *string*           | :heavy_check_mark: | N/A                |

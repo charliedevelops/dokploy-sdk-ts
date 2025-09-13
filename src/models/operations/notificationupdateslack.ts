@@ -14,17 +14,17 @@ export type NotificationUpdateSlackSecurity = {
 
 export type NotificationUpdateSlackRequest = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
+  channel?: string | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
-  webhookUrl?: string | undefined;
-  channel?: string | undefined;
   notificationId: string;
-  slackId: string;
   organizationId?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  slackId: string;
+  webhookUrl?: string | undefined;
 };
 
 /** @internal */
@@ -98,33 +98,33 @@ export const NotificationUpdateSlackRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
+  channel: z.string().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
-  webhookUrl: z.string().optional(),
-  channel: z.string().optional(),
   notificationId: z.string(),
-  slackId: z.string(),
   organizationId: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  slackId: z.string(),
+  webhookUrl: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateSlackRequest$Outbound = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
+  channel?: string | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverThreshold?: boolean | undefined;
-  webhookUrl?: string | undefined;
-  channel?: string | undefined;
   notificationId: string;
-  slackId: string;
   organizationId?: string | undefined;
+  serverThreshold?: boolean | undefined;
+  slackId: string;
+  webhookUrl?: string | undefined;
 };
 
 /** @internal */
@@ -134,17 +134,17 @@ export const NotificationUpdateSlackRequest$outboundSchema: z.ZodType<
   NotificationUpdateSlackRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
+  channel: z.string().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverThreshold: z.boolean().optional(),
-  webhookUrl: z.string().optional(),
-  channel: z.string().optional(),
   notificationId: z.string(),
-  slackId: z.string(),
   organizationId: z.string().optional(),
+  serverThreshold: z.boolean().optional(),
+  slackId: z.string(),
+  webhookUrl: z.string().optional(),
 });
 
 /**

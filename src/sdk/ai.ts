@@ -17,75 +17,12 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Ai extends ClientSDK {
-  async aiOne(
-    security: operations.AiOneSecurity,
-    request: operations.AiOneRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async aiGetModels(
-    security: operations.AiGetModelsSecurity,
-    request: operations.AiGetModelsRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiGetModels(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
   async aiCreate(
     security: operations.AiCreateSecurity,
     request: operations.AiCreateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
     return unwrapAsync(aiAiCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async aiUpdate(
-    security: operations.AiUpdateSecurity,
-    request: operations.AiUpdateRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async aiGetAll(
-    security: operations.AiGetAllSecurity,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiGetAll(
-      this,
-      security,
-      options,
-    ));
-  }
-
-  async aiGet(
-    security: operations.AiGetSecurity,
-    request: operations.AiGetRequest,
-    options?: RequestOptions,
-  ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiGet(
       this,
       security,
       request,
@@ -106,6 +43,69 @@ export class Ai extends ClientSDK {
     ));
   }
 
+  async aiDeploy(
+    security: operations.AiDeploySecurity,
+    request: operations.AiDeployRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(aiAiDeploy(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async aiGet(
+    security: operations.AiGetSecurity,
+    request: operations.AiGetRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(aiAiGet(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async aiGetAll(
+    security: operations.AiGetAllSecurity,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(aiAiGetAll(
+      this,
+      security,
+      options,
+    ));
+  }
+
+  async aiGetModels(
+    security: operations.AiGetModelsSecurity,
+    request: operations.AiGetModelsRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(aiAiGetModels(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async aiOne(
+    security: operations.AiOneSecurity,
+    request: operations.AiOneRequest,
+    options?: RequestOptions,
+  ): Promise<models.ErrorT | undefined> {
+    return unwrapAsync(aiAiOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async aiSuggest(
     security: operations.AiSuggestSecurity,
     request: operations.AiSuggestRequest,
@@ -119,12 +119,12 @@ export class Ai extends ClientSDK {
     ));
   }
 
-  async aiDeploy(
-    security: operations.AiDeploySecurity,
-    request: operations.AiDeployRequest,
+  async aiUpdate(
+    security: operations.AiUpdateSecurity,
+    request: operations.AiUpdateRequest,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(aiAiDeploy(
+    return unwrapAsync(aiAiUpdate(
       this,
       security,
       request,

@@ -14,8 +14,8 @@ export type MariadbReloadSecurity = {
 };
 
 export type MariadbReloadRequest = {
-  mariadbId: string;
   appName: string;
+  mariadbId: string;
 };
 
 export type MariadbReloadResponse = models.ErrorT | boolean;
@@ -88,14 +88,14 @@ export const MariadbReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
   appName: z.string(),
+  mariadbId: z.string(),
 });
 
 /** @internal */
 export type MariadbReloadRequest$Outbound = {
-  mariadbId: string;
   appName: string;
+  mariadbId: string;
 };
 
 /** @internal */
@@ -104,8 +104,8 @@ export const MariadbReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbReloadRequest
 > = z.object({
-  mariadbId: z.string(),
   appName: z.string(),
+  mariadbId: z.string(),
 });
 
 /**

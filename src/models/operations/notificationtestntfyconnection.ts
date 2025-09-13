@@ -13,10 +13,10 @@ export type NotificationTestNtfyConnectionSecurity = {
 };
 
 export type NotificationTestNtfyConnectionRequest = {
-  serverUrl: string;
-  topic: string;
   accessToken: string;
   priority: number;
+  serverUrl: string;
+  topic: string;
 };
 
 /** @internal */
@@ -93,18 +93,18 @@ export const NotificationTestNtfyConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverUrl: z.string(),
-  topic: z.string(),
   accessToken: z.string(),
   priority: z.number(),
+  serverUrl: z.string(),
+  topic: z.string(),
 });
 
 /** @internal */
 export type NotificationTestNtfyConnectionRequest$Outbound = {
-  serverUrl: string;
-  topic: string;
   accessToken: string;
   priority: number;
+  serverUrl: string;
+  topic: string;
 };
 
 /** @internal */
@@ -113,10 +113,10 @@ export const NotificationTestNtfyConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestNtfyConnectionRequest
 > = z.object({
-  serverUrl: z.string(),
-  topic: z.string(),
   accessToken: z.string(),
   priority: z.number(),
+  serverUrl: z.string(),
+  topic: z.string(),
 });
 
 /**

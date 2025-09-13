@@ -24,12 +24,12 @@ export class Port extends ClientSDK {
     ));
   }
 
-  async portOne(
-    security: operations.PortOneSecurity,
-    request: operations.PortOneRequest,
+  async portDelete(
+    security: operations.PortDeleteSecurity,
+    request: operations.PortDeleteRequest,
     options?: RequestOptions,
-  ): Promise<operations.PortOneResponse> {
-    return unwrapAsync(portPortOne(
+  ): Promise<operations.PortDeleteResponse> {
+    return unwrapAsync(portPortDelete(
       this,
       security,
       request,
@@ -37,12 +37,12 @@ export class Port extends ClientSDK {
     ));
   }
 
-  async portDelete(
-    security: operations.PortDeleteSecurity,
-    request: operations.PortDeleteRequest,
+  async portOne(
+    security: operations.PortOneSecurity,
+    request: operations.PortOneRequest,
     options?: RequestOptions,
-  ): Promise<operations.PortDeleteResponse> {
-    return unwrapAsync(portPortDelete(
+  ): Promise<operations.PortOneResponse> {
+    return unwrapAsync(portPortOne(
       this,
       security,
       request,

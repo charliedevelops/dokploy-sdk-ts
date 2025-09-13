@@ -29,19 +29,19 @@ export type PreviewDeploymentAllPreviewStatus = ClosedEnum<
 >;
 
 export type PreviewDeploymentAllResponseBody = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: PreviewDeploymentAllPreviewStatus;
   appName: string;
   applicationId: string;
-  domainId: string | null;
+  branch: string;
   createdAt: string;
+  domainId: string | null;
   expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: PreviewDeploymentAllPreviewStatus;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
 };
 
 export type PreviewDeploymentAllResponse =
@@ -196,36 +196,36 @@ export const PreviewDeploymentAllResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: PreviewDeploymentAllPreviewStatus$inboundSchema,
   appName: z.string(),
   applicationId: z.string(),
-  domainId: z.nullable(z.string()),
+  branch: z.string(),
   createdAt: z.string(),
+  domainId: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: PreviewDeploymentAllPreviewStatus$inboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
 });
 
 /** @internal */
 export type PreviewDeploymentAllResponseBody$Outbound = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: string;
   appName: string;
   applicationId: string;
-  domainId: string | null;
+  branch: string;
   createdAt: string;
+  domainId: string | null;
   expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: string;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
 };
 
 /** @internal */
@@ -234,19 +234,19 @@ export const PreviewDeploymentAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PreviewDeploymentAllResponseBody
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: PreviewDeploymentAllPreviewStatus$outboundSchema,
   appName: z.string(),
   applicationId: z.string(),
-  domainId: z.nullable(z.string()),
+  branch: z.string(),
   createdAt: z.string(),
+  domainId: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: PreviewDeploymentAllPreviewStatus$outboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
 });
 
 /**

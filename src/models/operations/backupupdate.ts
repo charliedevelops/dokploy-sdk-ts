@@ -25,16 +25,16 @@ export type BackupUpdateDatabaseType = ClosedEnum<
 >;
 
 export type BackupUpdateRequest = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
   backupId: string;
-  destinationId: string;
   database: string;
-  keepLatestCount?: number | null | undefined;
-  serviceName: string | null;
-  metadata?: any | null | undefined;
   databaseType: BackupUpdateDatabaseType;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  metadata?: any | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
 };
 
 /** @internal */
@@ -126,30 +126,30 @@ export const BackupUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
   backupId: z.string(),
-  destinationId: z.string(),
   database: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  serviceName: z.nullable(z.string()),
-  metadata: z.nullable(z.any()).optional(),
   databaseType: BackupUpdateDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  metadata: z.nullable(z.any()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
 });
 
 /** @internal */
 export type BackupUpdateRequest$Outbound = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
   backupId: string;
-  destinationId: string;
   database: string;
-  keepLatestCount?: number | null | undefined;
-  serviceName: string | null;
-  metadata?: any | null | undefined;
   databaseType: string;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  metadata?: any | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
 };
 
 /** @internal */
@@ -158,16 +158,16 @@ export const BackupUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackupUpdateRequest
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
   backupId: z.string(),
-  destinationId: z.string(),
   database: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  serviceName: z.nullable(z.string()),
-  metadata: z.nullable(z.any()).optional(),
   databaseType: BackupUpdateDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  metadata: z.nullable(z.any()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
 });
 
 /**

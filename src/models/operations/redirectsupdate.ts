@@ -14,23 +14,23 @@ export type RedirectsUpdateSecurity = {
 };
 
 export type RedirectsUpdateRequest = {
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
 };
 
 /**
  * Successful response
  */
 export type RedirectsUpdateResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type RedirectsUpdateResponse =
@@ -105,18 +105,18 @@ export const RedirectsUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
 });
 
 /** @internal */
 export type RedirectsUpdateRequest$Outbound = {
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
 };
 
 /** @internal */
@@ -125,10 +125,10 @@ export const RedirectsUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsUpdateRequest
 > = z.object({
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
 });
 
 /**
@@ -168,24 +168,24 @@ export const RedirectsUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type RedirectsUpdateResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -194,13 +194,13 @@ export const RedirectsUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsUpdateResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

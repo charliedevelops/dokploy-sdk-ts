@@ -6,22 +6,20 @@
 import { MongoStartServer } from "dokploy-sdk/models/operations";
 
 let value: MongoStartServer = {
-  serverId: "<id>",
-  name: "<value>",
-  description: "swing list oily primary",
-  ipAddress: "7bf4:9afa:9089:a8af:badc:4a95:291a:08ae",
-  port: 9969.73,
-  username: "Bernita.Conn",
   appName: "<value>",
-  enableDockerCleanup: false,
-  createdAt: "1706282107364",
-  organizationId: "<id>",
-  serverStatus: "inactive",
   command: "<value>",
+  createdAt: "1709446162376",
+  description: "better extremely wilted mushy",
+  enableDockerCleanup: true,
+  ipAddress: "f49a:fa90:89a8:afba:dc4a:9529:1a08:aef2",
+  metricsConfig: [],
+  name: "<value>",
+  organizationId: "<id>",
+  port: 2964.55,
+  serverId: "<id>",
+  serverStatus: "inactive",
   sshKeyId: "<id>",
-  metricsConfig: [
-    "<value 1>",
-  ],
+  username: "Payton_Stehr57",
 };
 ```
 
@@ -29,17 +27,17 @@ let value: MongoStartServer = {
 
 | Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `serverId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `name`                                                                                 | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `description`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `ipAddress`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `port`                                                                                 | *number*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `username`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `appName`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `enableDockerCleanup`                                                                  | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `createdAt`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `organizationId`                                                                       | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `serverStatus`                                                                         | [operations.MongoStartServerStatus](../../models/operations/mongostartserverstatus.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `command`                                                                              | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
-| `sshKeyId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `createdAt`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `description`                                                                          | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `enableDockerCleanup`                                                                  | *boolean*                                                                              | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `ipAddress`                                                                            | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
 | `metricsConfig`                                                                        | *operations.MongoStartMetricsConfigUnion2*                                             | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `name`                                                                                 | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `organizationId`                                                                       | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `port`                                                                                 | *number*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `serverId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `serverStatus`                                                                         | [operations.MongoStartServerStatus](../../models/operations/mongostartserverstatus.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `sshKeyId`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `username`                                                                             | *string*                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |

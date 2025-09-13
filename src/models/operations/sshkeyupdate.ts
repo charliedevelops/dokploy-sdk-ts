@@ -13,9 +13,9 @@ export type SshKeyUpdateSecurity = {
 };
 
 export type SshKeyUpdateRequest = {
-  name?: string | undefined;
   description?: string | null | undefined;
   lastUsedAt?: string | null | undefined;
+  name?: string | undefined;
   sshKeyId: string;
 };
 
@@ -87,17 +87,17 @@ export const SshKeyUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   lastUsedAt: z.nullable(z.string()).optional(),
+  name: z.string().optional(),
   sshKeyId: z.string(),
 });
 
 /** @internal */
 export type SshKeyUpdateRequest$Outbound = {
-  name?: string | undefined;
   description?: string | null | undefined;
   lastUsedAt?: string | null | undefined;
+  name?: string | undefined;
   sshKeyId: string;
 };
 
@@ -107,9 +107,9 @@ export const SshKeyUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SshKeyUpdateRequest
 > = z.object({
-  name: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   lastUsedAt: z.nullable(z.string()).optional(),
+  name: z.string().optional(),
   sshKeyId: z.string(),
 });
 

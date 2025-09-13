@@ -13,12 +13,12 @@ export type DestinationTestConnectionSecurity = {
 };
 
 export type DestinationTestConnectionRequest = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -94,24 +94,24 @@ export const DestinationTestConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationTestConnectionRequest$Outbound = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -122,12 +122,12 @@ export const DestinationTestConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationTestConnectionRequest
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });

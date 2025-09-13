@@ -5,19 +5,93 @@
 
 ### Available Operations
 
-* [mongoCreate](#mongocreate)
-* [mongoOne](#mongoone)
-* [mongoStart](#mongostart)
-* [mongoStop](#mongostop)
-* [mongoSaveExternalPort](#mongosaveexternalport)
-* [mongoDeploy](#mongodeploy)
 * [mongoChangeStatus](#mongochangestatus)
+* [mongoCreate](#mongocreate)
+* [mongoDeploy](#mongodeploy)
+* [mongoMove](#mongomove)
+* [mongoOne](#mongoone)
+* [mongoRebuild](#mongorebuild)
 * [mongoReload](#mongoreload)
 * [mongoRemove](#mongoremove)
 * [mongoSaveEnvironment](#mongosaveenvironment)
+* [mongoSaveExternalPort](#mongosaveexternalport)
+* [mongoStart](#mongostart)
+* [mongoStop](#mongostop)
 * [mongoUpdate](#mongoupdate)
-* [mongoMove](#mongomove)
-* [mongoRebuild](#mongorebuild)
+
+## mongoChangeStatus
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-changeStatus" method="post" path="/mongo.changeStatus" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoChangeStatus({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    applicationStatus: "error",
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoChangeStatus } from "dokploy-sdk/funcs/mongoMongoChangeStatus.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoChangeStatus(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    applicationStatus: "error",
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoChangeStatus failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoChangeStatusRequest](../../models/operations/mongochangestatusrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoChangeStatusSecurity](../../models/operations/mongochangestatussecurity.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoChangeStatusResponse](../../models/operations/mongochangestatusresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## mongoCreate
 
@@ -33,11 +107,11 @@ async function run() {
   const result = await dokploy.mongo.mongoCreate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    name: "<value>",
     appName: "<value>",
-    environmentId: "<id>",
-    databaseUser: "<value>",
     databasePassword: "<value>",
+    databaseUser: "<value>",
+    environmentId: "<id>",
+    name: "<value>",
   });
 
   console.log(result);
@@ -62,11 +136,11 @@ async function run() {
   const res = await mongoMongoCreate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    name: "<value>",
     appName: "<value>",
-    environmentId: "<id>",
-    databaseUser: "<value>",
     databasePassword: "<value>",
+    databaseUser: "<value>",
+    environmentId: "<id>",
+    name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -92,296 +166,6 @@ run();
 ### Response
 
 **Promise\<[operations.MongoCreateResponse](../../models/operations/mongocreateresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoOne
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-one" method="get" path="/mongo.one" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoOne } from "dokploy-sdk/funcs/mongoMongoOne.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoOne failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoOneRequest](../../models/operations/mongoonerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoOneSecurity](../../models/operations/mongoonesecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoOneResponse](../../models/operations/mongooneresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoStart
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-start" method="post" path="/mongo.start" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoStart({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoStart } from "dokploy-sdk/funcs/mongoMongoStart.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoStart(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoStart failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoStartRequest](../../models/operations/mongostartrequest.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoStartSecurity](../../models/operations/mongostartsecurity.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoStartResponse](../../models/operations/mongostartresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoStop
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-stop" method="post" path="/mongo.stop" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoStop({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoStop } from "dokploy-sdk/funcs/mongoMongoStop.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoStop(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoStop failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoStopRequest](../../models/operations/mongostoprequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoStopSecurity](../../models/operations/mongostopsecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoStopResponse](../../models/operations/mongostopresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoSaveExternalPort
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-saveExternalPort" method="post" path="/mongo.saveExternalPort" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoSaveExternalPort({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-    externalPort: null,
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoSaveExternalPort } from "dokploy-sdk/funcs/mongoMongoSaveExternalPort.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoSaveExternalPort(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-    externalPort: null,
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoSaveExternalPort failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoSaveExternalPortRequest](../../models/operations/mongosaveexternalportrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoSaveExternalPortSecurity](../../models/operations/mongosaveexternalportsecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoSaveExternalPortResponse](../../models/operations/mongosaveexternalportresponse.md)\>**
 
 ### Errors
 
@@ -461,22 +245,22 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## mongoChangeStatus
+## mongoMove
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="mongo-changeStatus" method="post" path="/mongo.changeStatus" -->
+<!-- UsageSnippet language="typescript" operationID="mongo-move" method="post" path="/mongo.move" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.mongo.mongoChangeStatus({
+  const result = await dokploy.mongo.mongoMove({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     mongoId: "<id>",
-    applicationStatus: "error",
+    targetEnvironmentId: "<id>",
   });
 
   console.log(result);
@@ -491,24 +275,24 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoChangeStatus } from "dokploy-sdk/funcs/mongoMongoChangeStatus.js";
+import { mongoMongoMove } from "dokploy-sdk/funcs/mongoMongoMove.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await mongoMongoChangeStatus(dokploy, {
+  const res = await mongoMongoMove(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
     mongoId: "<id>",
-    applicationStatus: "error",
+    targetEnvironmentId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mongoMongoChangeStatus failed:", res.error);
+    console.log("mongoMongoMove failed:", res.error);
   }
 }
 
@@ -519,15 +303,159 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoChangeStatusRequest](../../models/operations/mongochangestatusrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoChangeStatusSecurity](../../models/operations/mongochangestatussecurity.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.MongoMoveRequest](../../models/operations/mongomoverequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoMoveSecurity](../../models/operations/mongomovesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.MongoChangeStatusResponse](../../models/operations/mongochangestatusresponse.md)\>**
+**Promise\<[operations.MongoMoveResponse](../../models/operations/mongomoveresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## mongoOne
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-one" method="get" path="/mongo.one" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoOne({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoOne } from "dokploy-sdk/funcs/mongoMongoOne.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoOne(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoOne failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoOneRequest](../../models/operations/mongoonerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoOneSecurity](../../models/operations/mongoonesecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoOneResponse](../../models/operations/mongooneresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## mongoRebuild
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-rebuild" method="post" path="/mongo.rebuild" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoRebuild({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoRebuild } from "dokploy-sdk/funcs/mongoMongoRebuild.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoRebuild(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoRebuild failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoRebuildRequest](../../models/operations/mongorebuildrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoRebuildSecurity](../../models/operations/mongorebuildsecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoRebuildResponse](../../models/operations/mongorebuildresponse.md)\>**
 
 ### Errors
 
@@ -549,8 +477,8 @@ async function run() {
   const result = await dokploy.mongo.mongoReload({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    mongoId: "<id>",
     appName: "<value>",
+    mongoId: "<id>",
   });
 
   console.log(result);
@@ -575,8 +503,8 @@ async function run() {
   const res = await mongoMongoReload(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    mongoId: "<id>",
     appName: "<value>",
+    mongoId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -753,6 +681,224 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
+## mongoSaveExternalPort
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-saveExternalPort" method="post" path="/mongo.saveExternalPort" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoSaveExternalPort({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    externalPort: null,
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoSaveExternalPort } from "dokploy-sdk/funcs/mongoMongoSaveExternalPort.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoSaveExternalPort(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    externalPort: null,
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoSaveExternalPort failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoSaveExternalPortRequest](../../models/operations/mongosaveexternalportrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoSaveExternalPortSecurity](../../models/operations/mongosaveexternalportsecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoSaveExternalPortResponse](../../models/operations/mongosaveexternalportresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## mongoStart
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-start" method="post" path="/mongo.start" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoStart({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoStart } from "dokploy-sdk/funcs/mongoMongoStart.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoStart(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoStart failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoStartRequest](../../models/operations/mongostartrequest.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoStartSecurity](../../models/operations/mongostartsecurity.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoStartResponse](../../models/operations/mongostartresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## mongoStop
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="mongo-stop" method="post" path="/mongo.stop" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.mongo.mongoStop({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { mongoMongoStop } from "dokploy-sdk/funcs/mongoMongoStop.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await mongoMongoStop(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    mongoId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mongoMongoStop failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.MongoStopRequest](../../models/operations/mongostoprequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.MongoStopSecurity](../../models/operations/mongostopsecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.MongoStopResponse](../../models/operations/mongostopresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
 ## mongoUpdate
 
 ### Example Usage
@@ -818,152 +964,6 @@ run();
 ### Response
 
 **Promise\<[operations.MongoUpdateResponse](../../models/operations/mongoupdateresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoMove
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-move" method="post" path="/mongo.move" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoMove({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-    targetEnvironmentId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoMove } from "dokploy-sdk/funcs/mongoMongoMove.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoMove(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-    targetEnvironmentId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoMove failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoMoveRequest](../../models/operations/mongomoverequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoMoveSecurity](../../models/operations/mongomovesecurity.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoMoveResponse](../../models/operations/mongomoveresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## mongoRebuild
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="mongo-rebuild" method="post" path="/mongo.rebuild" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.mongo.mongoRebuild({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { mongoMongoRebuild } from "dokploy-sdk/funcs/mongoMongoRebuild.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await mongoMongoRebuild(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    mongoId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mongoMongoRebuild failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.MongoRebuildRequest](../../models/operations/mongorebuildrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.MongoRebuildSecurity](../../models/operations/mongorebuildsecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.MongoRebuildResponse](../../models/operations/mongorebuildresponse.md)\>**
 
 ### Errors
 

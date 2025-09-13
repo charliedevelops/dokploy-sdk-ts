@@ -14,11 +14,11 @@ export type ApplicationSaveDockerProviderSecurity = {
 };
 
 export type ApplicationSaveDockerProviderRequest = {
-  dockerImage?: string | null | undefined;
   applicationId: string;
-  username?: string | null | undefined;
+  dockerImage?: string | null | undefined;
   password?: string | null | undefined;
   registryUrl?: string | null | undefined;
+  username?: string | null | undefined;
 };
 
 export type ApplicationSaveDockerProviderResponse = models.ErrorT | boolean;
@@ -96,20 +96,20 @@ export const ApplicationSaveDockerProviderRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dockerImage: z.nullable(z.string()).optional(),
   applicationId: z.string(),
-  username: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
   password: z.nullable(z.string()).optional(),
   registryUrl: z.nullable(z.string()).optional(),
+  username: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveDockerProviderRequest$Outbound = {
-  dockerImage?: string | null | undefined;
   applicationId: string;
-  username?: string | null | undefined;
+  dockerImage?: string | null | undefined;
   password?: string | null | undefined;
   registryUrl?: string | null | undefined;
+  username?: string | null | undefined;
 };
 
 /** @internal */
@@ -118,11 +118,11 @@ export const ApplicationSaveDockerProviderRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveDockerProviderRequest
 > = z.object({
-  dockerImage: z.nullable(z.string()).optional(),
   applicationId: z.string(),
-  username: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
   password: z.nullable(z.string()).optional(),
   registryUrl: z.nullable(z.string()).optional(),
+  username: z.nullable(z.string()).optional(),
 });
 
 /**

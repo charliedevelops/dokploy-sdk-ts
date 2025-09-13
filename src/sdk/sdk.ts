@@ -50,14 +50,9 @@ export class Dokploy extends ClientSDK {
     return (this._admin ??= new Admin(this._options));
   }
 
-  private _docker?: Docker;
-  get docker(): Docker {
-    return (this._docker ??= new Docker(this._options));
-  }
-
-  private _project?: Project;
-  get project(): Project {
-    return (this._project ??= new Project(this._options));
+  private _ai?: Ai;
+  get ai(): Ai {
+    return (this._ai ??= new Ai(this._options));
   }
 
   private _application?: Application;
@@ -65,69 +60,14 @@ export class Dokploy extends ClientSDK {
     return (this._application ??= new Application(this._options));
   }
 
-  private _mysql?: Mysql;
-  get mysql(): Mysql {
-    return (this._mysql ??= new Mysql(this._options));
-  }
-
-  private _postgres?: Postgres;
-  get postgres(): Postgres {
-    return (this._postgres ??= new Postgres(this._options));
-  }
-
-  private _redis?: Redis;
-  get redis(): Redis {
-    return (this._redis ??= new Redis(this._options));
-  }
-
-  private _mongo?: Mongo;
-  get mongo(): Mongo {
-    return (this._mongo ??= new Mongo(this._options));
-  }
-
-  private _mariadb?: Mariadb;
-  get mariadb(): Mariadb {
-    return (this._mariadb ??= new Mariadb(this._options));
-  }
-
-  private _compose?: Compose;
-  get compose(): Compose {
-    return (this._compose ??= new Compose(this._options));
-  }
-
-  private _user?: User;
-  get user(): User {
-    return (this._user ??= new User(this._options));
-  }
-
-  private _domain?: Domain;
-  get domain(): Domain {
-    return (this._domain ??= new Domain(this._options));
-  }
-
-  private _destination?: Destination;
-  get destination(): Destination {
-    return (this._destination ??= new Destination(this._options));
-  }
-
   private _backup?: Backup;
   get backup(): Backup {
     return (this._backup ??= new Backup(this._options));
   }
 
-  private _deployment?: Deployment;
-  get deployment(): Deployment {
-    return (this._deployment ??= new Deployment(this._options));
-  }
-
-  private _previewDeployment?: PreviewDeployment;
-  get previewDeployment(): PreviewDeployment {
-    return (this._previewDeployment ??= new PreviewDeployment(this._options));
-  }
-
-  private _mounts?: Mounts;
-  get mounts(): Mounts {
-    return (this._mounts ??= new Mounts(this._options));
+  private _bitbucket?: Bitbucket;
+  get bitbucket(): Bitbucket {
+    return (this._bitbucket ??= new Bitbucket(this._options));
   }
 
   private _certificates?: Certificates;
@@ -135,44 +75,39 @@ export class Dokploy extends ClientSDK {
     return (this._certificates ??= new Certificates(this._options));
   }
 
-  private _settings?: Settings;
-  get settings(): Settings {
-    return (this._settings ??= new Settings(this._options));
-  }
-
-  private _security?: Security;
-  get security(): Security {
-    return (this._security ??= new Security(this._options));
-  }
-
-  private _redirects?: Redirects;
-  get redirects(): Redirects {
-    return (this._redirects ??= new Redirects(this._options));
-  }
-
-  private _port?: Port;
-  get port(): Port {
-    return (this._port ??= new Port(this._options));
-  }
-
-  private _registry?: Registry;
-  get registry(): Registry {
-    return (this._registry ??= new Registry(this._options));
-  }
-
   private _cluster?: Cluster;
   get cluster(): Cluster {
     return (this._cluster ??= new Cluster(this._options));
   }
 
-  private _notification?: Notification;
-  get notification(): Notification {
-    return (this._notification ??= new Notification(this._options));
+  private _compose?: Compose;
+  get compose(): Compose {
+    return (this._compose ??= new Compose(this._options));
   }
 
-  private _sshKey?: SshKey;
-  get sshKey(): SshKey {
-    return (this._sshKey ??= new SshKey(this._options));
+  private _deployment?: Deployment;
+  get deployment(): Deployment {
+    return (this._deployment ??= new Deployment(this._options));
+  }
+
+  private _destination?: Destination;
+  get destination(): Destination {
+    return (this._destination ??= new Destination(this._options));
+  }
+
+  private _docker?: Docker;
+  get docker(): Docker {
+    return (this._docker ??= new Docker(this._options));
+  }
+
+  private _domain?: Domain;
+  get domain(): Domain {
+    return (this._domain ??= new Domain(this._options));
+  }
+
+  private _environment?: Environment;
+  get environment(): Environment {
+    return (this._environment ??= new Environment(this._options));
   }
 
   private _gitProvider?: GitProvider;
@@ -185,9 +120,9 @@ export class Dokploy extends ClientSDK {
     return (this._gitea ??= new Gitea(this._options));
   }
 
-  private _bitbucket?: Bitbucket;
-  get bitbucket(): Bitbucket {
-    return (this._bitbucket ??= new Bitbucket(this._options));
+  private _github?: Github;
+  get github(): Github {
+    return (this._github ??= new Github(this._options));
   }
 
   private _gitlab?: Gitlab;
@@ -195,14 +130,99 @@ export class Dokploy extends ClientSDK {
     return (this._gitlab ??= new Gitlab(this._options));
   }
 
-  private _github?: Github;
-  get github(): Github {
-    return (this._github ??= new Github(this._options));
+  private _mariadb?: Mariadb;
+  get mariadb(): Mariadb {
+    return (this._mariadb ??= new Mariadb(this._options));
+  }
+
+  private _mongo?: Mongo;
+  get mongo(): Mongo {
+    return (this._mongo ??= new Mongo(this._options));
+  }
+
+  private _mounts?: Mounts;
+  get mounts(): Mounts {
+    return (this._mounts ??= new Mounts(this._options));
+  }
+
+  private _mysql?: Mysql;
+  get mysql(): Mysql {
+    return (this._mysql ??= new Mysql(this._options));
+  }
+
+  private _notification?: Notification;
+  get notification(): Notification {
+    return (this._notification ??= new Notification(this._options));
+  }
+
+  private _organization?: Organization;
+  get organization(): Organization {
+    return (this._organization ??= new Organization(this._options));
+  }
+
+  private _port?: Port;
+  get port(): Port {
+    return (this._port ??= new Port(this._options));
+  }
+
+  private _postgres?: Postgres;
+  get postgres(): Postgres {
+    return (this._postgres ??= new Postgres(this._options));
+  }
+
+  private _previewDeployment?: PreviewDeployment;
+  get previewDeployment(): PreviewDeployment {
+    return (this._previewDeployment ??= new PreviewDeployment(this._options));
+  }
+
+  private _project?: Project;
+  get project(): Project {
+    return (this._project ??= new Project(this._options));
+  }
+
+  private _redirects?: Redirects;
+  get redirects(): Redirects {
+    return (this._redirects ??= new Redirects(this._options));
+  }
+
+  private _redis?: Redis;
+  get redis(): Redis {
+    return (this._redis ??= new Redis(this._options));
+  }
+
+  private _registry?: Registry;
+  get registry(): Registry {
+    return (this._registry ??= new Registry(this._options));
+  }
+
+  private _rollback?: Rollback;
+  get rollback(): Rollback {
+    return (this._rollback ??= new Rollback(this._options));
+  }
+
+  private _schedule?: Schedule;
+  get schedule(): Schedule {
+    return (this._schedule ??= new Schedule(this._options));
+  }
+
+  private _security?: Security;
+  get security(): Security {
+    return (this._security ??= new Security(this._options));
   }
 
   private _server?: Server;
   get server(): Server {
     return (this._server ??= new Server(this._options));
+  }
+
+  private _settings?: Settings;
+  get settings(): Settings {
+    return (this._settings ??= new Settings(this._options));
+  }
+
+  private _sshKey?: SshKey;
+  get sshKey(): SshKey {
+    return (this._sshKey ??= new SshKey(this._options));
   }
 
   private _stripe?: Stripe;
@@ -215,33 +235,13 @@ export class Dokploy extends ClientSDK {
     return (this._swarm ??= new Swarm(this._options));
   }
 
-  private _ai?: Ai;
-  get ai(): Ai {
-    return (this._ai ??= new Ai(this._options));
-  }
-
-  private _organization?: Organization;
-  get organization(): Organization {
-    return (this._organization ??= new Organization(this._options));
-  }
-
-  private _schedule?: Schedule;
-  get schedule(): Schedule {
-    return (this._schedule ??= new Schedule(this._options));
-  }
-
-  private _rollback?: Rollback;
-  get rollback(): Rollback {
-    return (this._rollback ??= new Rollback(this._options));
+  private _user?: User;
+  get user(): User {
+    return (this._user ??= new User(this._options));
   }
 
   private _volumeBackups?: VolumeBackups;
   get volumeBackups(): VolumeBackups {
     return (this._volumeBackups ??= new VolumeBackups(this._options));
-  }
-
-  private _environment?: Environment;
-  get environment(): Environment {
-    return (this._environment ??= new Environment(this._options));
   }
 }

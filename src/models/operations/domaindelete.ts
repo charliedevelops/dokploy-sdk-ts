@@ -18,13 +18,6 @@ export type DomainDeleteRequest = {
   domainId: string;
 };
 
-export const DomainDeleteDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
-} as const;
-export type DomainDeleteDomainType = ClosedEnum<typeof DomainDeleteDomainType>;
-
 export const DomainDeleteCertificateType = {
   Letsencrypt: "letsencrypt",
   None: "none",
@@ -34,26 +27,33 @@ export type DomainDeleteCertificateType = ClosedEnum<
   typeof DomainDeleteCertificateType
 >;
 
+export const DomainDeleteDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type DomainDeleteDomainType = ClosedEnum<typeof DomainDeleteDomainType>;
+
 /**
  * Successful response
  */
 export type DomainDeleteResponseBody = {
+  applicationId: string | null;
+  certificateType: DomainDeleteCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: DomainDeleteDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: DomainDeleteDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: DomainDeleteCertificateType;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 export type DomainDeleteResponse = DomainDeleteResponseBody | models.ErrorT;
@@ -175,27 +175,6 @@ export function domainDeleteRequestFromJSON(
 }
 
 /** @internal */
-export const DomainDeleteDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof DomainDeleteDomainType
-> = z.nativeEnum(DomainDeleteDomainType);
-
-/** @internal */
-export const DomainDeleteDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof DomainDeleteDomainType
-> = DomainDeleteDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainDeleteDomainType$ {
-  /** @deprecated use `DomainDeleteDomainType$inboundSchema` instead. */
-  export const inboundSchema = DomainDeleteDomainType$inboundSchema;
-  /** @deprecated use `DomainDeleteDomainType$outboundSchema` instead. */
-  export const outboundSchema = DomainDeleteDomainType$outboundSchema;
-}
-
-/** @internal */
 export const DomainDeleteCertificateType$inboundSchema: z.ZodNativeEnum<
   typeof DomainDeleteCertificateType
 > = z.nativeEnum(DomainDeleteCertificateType);
@@ -217,47 +196,68 @@ export namespace DomainDeleteCertificateType$ {
 }
 
 /** @internal */
+export const DomainDeleteDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof DomainDeleteDomainType
+> = z.nativeEnum(DomainDeleteDomainType);
+
+/** @internal */
+export const DomainDeleteDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof DomainDeleteDomainType
+> = DomainDeleteDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DomainDeleteDomainType$ {
+  /** @deprecated use `DomainDeleteDomainType$inboundSchema` instead. */
+  export const inboundSchema = DomainDeleteDomainType$inboundSchema;
+  /** @deprecated use `DomainDeleteDomainType$outboundSchema` instead. */
+  export const outboundSchema = DomainDeleteDomainType$outboundSchema;
+}
+
+/** @internal */
 export const DomainDeleteResponseBody$inboundSchema: z.ZodType<
   DomainDeleteResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainDeleteCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainDeleteDomainType$inboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainDeleteDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainDeleteCertificateType$inboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /** @internal */
 export type DomainDeleteResponseBody$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: string | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 /** @internal */
@@ -266,22 +266,22 @@ export const DomainDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DomainDeleteResponseBody
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainDeleteCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainDeleteDomainType$outboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainDeleteDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainDeleteCertificateType$outboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /**

@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.CertificatesRemoveResponseBody = {
-  certificateId: "<id>",
-  name: "<value>",
-  certificateData: "<value>",
-  privateKey: "<value>",
-  certificatePath: "<value>",
   autoRenew: true,
+  certificateData: "<value>",
+  certificateId: "<id>",
+  certificatePath: "<value>",
+  name: "<value>",
   organizationId: "<id>",
+  privateKey: "<value>",
   serverId: "<id>",
 };
 ```
@@ -22,8 +22,8 @@ const value: operations.CertificatesRemoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

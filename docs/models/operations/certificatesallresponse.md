@@ -8,13 +8,13 @@
 ```typescript
 const value: operations.CertificatesAllResponseBody[] = [
   {
-    certificateId: "<id>",
-    name: "<value>",
-    certificateData: "<value>",
-    privateKey: "<value>",
-    certificatePath: "<value>",
     autoRenew: false,
+    certificateData: "<value>",
+    certificateId: "<id>",
+    certificatePath: "<value>",
+    name: "<value>",
     organizationId: "<id>",
+    privateKey: "<value>",
     serverId: null,
   },
 ];
@@ -24,8 +24,8 @@ const value: operations.CertificatesAllResponseBody[] = [
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

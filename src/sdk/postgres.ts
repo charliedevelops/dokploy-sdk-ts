@@ -20,64 +20,25 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Postgres extends ClientSDK {
+  async postgresChangeStatus(
+    security: operations.PostgresChangeStatusSecurity,
+    request: operations.PostgresChangeStatusRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresChangeStatusResponse> {
+    return unwrapAsync(postgresPostgresChangeStatus(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
   async postgresCreate(
     security: operations.PostgresCreateSecurity,
     request: operations.PostgresCreateRequest,
     options?: RequestOptions,
   ): Promise<operations.PostgresCreateResponse> {
     return unwrapAsync(postgresPostgresCreate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresOne(
-    security: operations.PostgresOneSecurity,
-    request: operations.PostgresOneRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresOneResponse> {
-    return unwrapAsync(postgresPostgresOne(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresStart(
-    security: operations.PostgresStartSecurity,
-    request: operations.PostgresStartRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresStartResponse> {
-    return unwrapAsync(postgresPostgresStart(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresStop(
-    security: operations.PostgresStopSecurity,
-    request: operations.PostgresStopRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresStopResponse> {
-    return unwrapAsync(postgresPostgresStop(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresSaveExternalPort(
-    security: operations.PostgresSaveExternalPortSecurity,
-    request: operations.PostgresSaveExternalPortRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresSaveExternalPortResponse> {
-    return unwrapAsync(postgresPostgresSaveExternalPort(
       this,
       security,
       request,
@@ -98,12 +59,51 @@ export class Postgres extends ClientSDK {
     ));
   }
 
-  async postgresChangeStatus(
-    security: operations.PostgresChangeStatusSecurity,
-    request: operations.PostgresChangeStatusRequest,
+  async postgresMove(
+    security: operations.PostgresMoveSecurity,
+    request: operations.PostgresMoveRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostgresChangeStatusResponse> {
-    return unwrapAsync(postgresPostgresChangeStatus(
+  ): Promise<operations.PostgresMoveResponse> {
+    return unwrapAsync(postgresPostgresMove(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async postgresOne(
+    security: operations.PostgresOneSecurity,
+    request: operations.PostgresOneRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresOneResponse> {
+    return unwrapAsync(postgresPostgresOne(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async postgresRebuild(
+    security: operations.PostgresRebuildSecurity,
+    request: operations.PostgresRebuildRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresRebuildResponse> {
+    return unwrapAsync(postgresPostgresRebuild(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async postgresReload(
+    security: operations.PostgresReloadSecurity,
+    request: operations.PostgresReloadRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresReloadResponse> {
+    return unwrapAsync(postgresPostgresReload(
       this,
       security,
       request,
@@ -137,12 +137,38 @@ export class Postgres extends ClientSDK {
     ));
   }
 
-  async postgresReload(
-    security: operations.PostgresReloadSecurity,
-    request: operations.PostgresReloadRequest,
+  async postgresSaveExternalPort(
+    security: operations.PostgresSaveExternalPortSecurity,
+    request: operations.PostgresSaveExternalPortRequest,
     options?: RequestOptions,
-  ): Promise<operations.PostgresReloadResponse> {
-    return unwrapAsync(postgresPostgresReload(
+  ): Promise<operations.PostgresSaveExternalPortResponse> {
+    return unwrapAsync(postgresPostgresSaveExternalPort(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async postgresStart(
+    security: operations.PostgresStartSecurity,
+    request: operations.PostgresStartRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresStartResponse> {
+    return unwrapAsync(postgresPostgresStart(
+      this,
+      security,
+      request,
+      options,
+    ));
+  }
+
+  async postgresStop(
+    security: operations.PostgresStopSecurity,
+    request: operations.PostgresStopRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostgresStopResponse> {
+    return unwrapAsync(postgresPostgresStop(
       this,
       security,
       request,
@@ -156,32 +182,6 @@ export class Postgres extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.PostgresUpdateResponse> {
     return unwrapAsync(postgresPostgresUpdate(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresMove(
-    security: operations.PostgresMoveSecurity,
-    request: operations.PostgresMoveRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresMoveResponse> {
-    return unwrapAsync(postgresPostgresMove(
-      this,
-      security,
-      request,
-      options,
-    ));
-  }
-
-  async postgresRebuild(
-    security: operations.PostgresRebuildSecurity,
-    request: operations.PostgresRebuildRequest,
-    options?: RequestOptions,
-  ): Promise<operations.PostgresRebuildResponse> {
-    return unwrapAsync(postgresPostgresRebuild(
       this,
       security,
       request,

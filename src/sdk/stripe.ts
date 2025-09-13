@@ -12,11 +12,11 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Stripe extends ClientSDK {
-  async stripeGetProducts(
-    security: operations.StripeGetProductsSecurity,
+  async stripeCanCreateMoreServers(
+    security: operations.StripeCanCreateMoreServersSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(stripeStripeGetProducts(
+    return unwrapAsync(stripeStripeCanCreateMoreServers(
       this,
       security,
       options,
@@ -47,11 +47,11 @@ export class Stripe extends ClientSDK {
     ));
   }
 
-  async stripeCanCreateMoreServers(
-    security: operations.StripeCanCreateMoreServersSecurity,
+  async stripeGetProducts(
+    security: operations.StripeGetProductsSecurity,
     options?: RequestOptions,
   ): Promise<models.ErrorT | undefined> {
-    return unwrapAsync(stripeStripeCanCreateMoreServers(
+    return unwrapAsync(stripeStripeGetProducts(
       this,
       security,
       options,

@@ -13,19 +13,19 @@ export type NotificationUpdateNtfySecurity = {
 };
 
 export type NotificationUpdateNtfyRequest = {
+  accessToken?: string | undefined;
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
-  topic?: string | undefined;
-  accessToken?: string | undefined;
-  priority?: number | undefined;
   notificationId: string;
   ntfyId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
+  topic?: string | undefined;
 };
 
 /** @internal */
@@ -98,36 +98,36 @@ export const NotificationUpdateNtfyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  accessToken: z.string().optional(),
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
-  topic: z.string().optional(),
-  accessToken: z.string().optional(),
-  priority: z.number().optional(),
   notificationId: z.string(),
   ntfyId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
+  topic: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateNtfyRequest$Outbound = {
+  accessToken?: string | undefined;
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
-  topic?: string | undefined;
-  accessToken?: string | undefined;
-  priority?: number | undefined;
   notificationId: string;
   ntfyId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
+  topic?: string | undefined;
 };
 
 /** @internal */
@@ -136,19 +136,19 @@ export const NotificationUpdateNtfyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationUpdateNtfyRequest
 > = z.object({
+  accessToken: z.string().optional(),
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
-  topic: z.string().optional(),
-  accessToken: z.string().optional(),
-  priority: z.number().optional(),
   notificationId: z.string(),
   ntfyId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
+  topic: z.string().optional(),
 });
 
 /**

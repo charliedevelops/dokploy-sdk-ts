@@ -14,8 +14,8 @@ export type RedisReloadSecurity = {
 };
 
 export type RedisReloadRequest = {
-  redisId: string;
   appName: string;
+  redisId: string;
 };
 
 export type RedisReloadResponse = models.ErrorT | boolean;
@@ -88,14 +88,14 @@ export const RedisReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
   appName: z.string(),
+  redisId: z.string(),
 });
 
 /** @internal */
 export type RedisReloadRequest$Outbound = {
-  redisId: string;
   appName: string;
+  redisId: string;
 };
 
 /** @internal */
@@ -104,8 +104,8 @@ export const RedisReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisReloadRequest
 > = z.object({
-  redisId: z.string(),
   appName: z.string(),
+  redisId: z.string(),
 });
 
 /**

@@ -42,24 +42,24 @@ export type DeploymentAllByTypeStatus = ClosedEnum<
 >;
 
 export type DeploymentAllByTypeResponseBody = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
   deploymentId: string;
-  title: string;
   description: string | null;
-  status: DeploymentAllByTypeStatus | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
   logPath: string;
   pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
   previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
   rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: DeploymentAllByTypeStatus | null;
+  title: string;
   volumeBackupId: string | null;
 };
 
@@ -236,47 +236,47 @@ export const DeploymentAllByTypeResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
   deploymentId: z.string(),
-  title: z.string(),
   description: z.nullable(z.string()),
-  status: z.nullable(DeploymentAllByTypeStatus$inboundSchema),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
   logPath: z.string(),
   pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
   previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
   rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(DeploymentAllByTypeStatus$inboundSchema),
+  title: z.string(),
   volumeBackupId: z.nullable(z.string()),
 });
 
 /** @internal */
 export type DeploymentAllByTypeResponseBody$Outbound = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
   deploymentId: string;
-  title: string;
   description: string | null;
-  status: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
   logPath: string;
   pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
   previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
   rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: string | null;
+  title: string;
   volumeBackupId: string | null;
 };
 
@@ -286,24 +286,24 @@ export const DeploymentAllByTypeResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeploymentAllByTypeResponseBody
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
   deploymentId: z.string(),
-  title: z.string(),
   description: z.nullable(z.string()),
-  status: z.nullable(DeploymentAllByTypeStatus$outboundSchema),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
   logPath: z.string(),
   pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
   previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
   rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(DeploymentAllByTypeStatus$outboundSchema),
+  title: z.string(),
   volumeBackupId: z.nullable(z.string()),
 });
 

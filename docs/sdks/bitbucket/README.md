@@ -5,159 +5,13 @@
 
 ### Available Operations
 
-* [bitbucketCreate](#bitbucketcreate)
-* [bitbucketOne](#bitbucketone)
 * [bitbucketBitbucketProviders](#bitbucketbitbucketproviders)
-* [bitbucketGetBitbucketRepositories](#bitbucketgetbitbucketrepositories)
+* [bitbucketCreate](#bitbucketcreate)
 * [bitbucketGetBitbucketBranches](#bitbucketgetbitbucketbranches)
+* [bitbucketGetBitbucketRepositories](#bitbucketgetbitbucketrepositories)
+* [bitbucketOne](#bitbucketone)
 * [bitbucketTestConnection](#bitbuckettestconnection)
 * [bitbucketUpdate](#bitbucketupdate)
-
-## bitbucketCreate
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="bitbucket-create" method="post" path="/bitbucket.create" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.bitbucket.bitbucketCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    authId: "<id>",
-    name: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { bitbucketBitbucketCreate } from "dokploy-sdk/funcs/bitbucketBitbucketCreate.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await bitbucketBitbucketCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    authId: "<id>",
-    name: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("bitbucketBitbucketCreate failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.BitbucketCreateRequest](../../models/operations/bitbucketcreaterequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.BitbucketCreateSecurity](../../models/operations/bitbucketcreatesecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## bitbucketOne
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="bitbucket-one" method="get" path="/bitbucket.one" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.bitbucket.bitbucketOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    bitbucketId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { bitbucketBitbucketOne } from "dokploy-sdk/funcs/bitbucketBitbucketOne.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await bitbucketBitbucketOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    bitbucketId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("bitbucketBitbucketOne failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.BitbucketOneRequest](../../models/operations/bitbucketonerequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.BitbucketOneSecurity](../../models/operations/bitbucketonesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.BitbucketOneResponse](../../models/operations/bitbucketoneresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## bitbucketBitbucketProviders
 
@@ -226,21 +80,22 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## bitbucketGetBitbucketRepositories
+## bitbucketCreate
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="bitbucket-getBitbucketRepositories" method="get" path="/bitbucket.getBitbucketRepositories" -->
+<!-- UsageSnippet language="typescript" operationID="bitbucket-create" method="post" path="/bitbucket.create" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy();
 
 async function run() {
-  const result = await dokploy.bitbucket.bitbucketGetBitbucketRepositories({
+  const result = await dokploy.bitbucket.bitbucketCreate({
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    bitbucketId: "<id>",
+    authId: "<id>",
+    name: "<value>",
   });
 
   console.log(result);
@@ -255,23 +110,24 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { bitbucketBitbucketGetBitbucketRepositories } from "dokploy-sdk/funcs/bitbucketBitbucketGetBitbucketRepositories.js";
+import { bitbucketBitbucketCreate } from "dokploy-sdk/funcs/bitbucketBitbucketCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const dokploy = new DokployCore();
 
 async function run() {
-  const res = await bitbucketBitbucketGetBitbucketRepositories(dokploy, {
+  const res = await bitbucketBitbucketCreate(dokploy, {
     authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
   }, {
-    bitbucketId: "<id>",
+    authId: "<id>",
+    name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("bitbucketBitbucketGetBitbucketRepositories failed:", res.error);
+    console.log("bitbucketBitbucketCreate failed:", res.error);
   }
 }
 
@@ -282,8 +138,8 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.BitbucketGetBitbucketRepositoriesRequest](../../models/operations/bitbucketgetbitbucketrepositoriesrequest.md)                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.BitbucketGetBitbucketRepositoriesSecurity](../../models/operations/bitbucketgetbitbucketrepositoriessecurity.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.BitbucketCreateRequest](../../models/operations/bitbucketcreaterequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.BitbucketCreateSecurity](../../models/operations/bitbucketcreatesecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -365,6 +221,150 @@ run();
 ### Response
 
 **Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## bitbucketGetBitbucketRepositories
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="bitbucket-getBitbucketRepositories" method="get" path="/bitbucket.getBitbucketRepositories" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.bitbucket.bitbucketGetBitbucketRepositories({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    bitbucketId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { bitbucketBitbucketGetBitbucketRepositories } from "dokploy-sdk/funcs/bitbucketBitbucketGetBitbucketRepositories.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await bitbucketBitbucketGetBitbucketRepositories(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    bitbucketId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("bitbucketBitbucketGetBitbucketRepositories failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.BitbucketGetBitbucketRepositoriesRequest](../../models/operations/bitbucketgetbitbucketrepositoriesrequest.md)                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.BitbucketGetBitbucketRepositoriesSecurity](../../models/operations/bitbucketgetbitbucketrepositoriessecurity.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## bitbucketOne
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="bitbucket-one" method="get" path="/bitbucket.one" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy();
+
+async function run() {
+  const result = await dokploy.bitbucket.bitbucketOne({
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    bitbucketId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { bitbucketBitbucketOne } from "dokploy-sdk/funcs/bitbucketBitbucketOne.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore();
+
+async function run() {
+  const res = await bitbucketBitbucketOne(dokploy, {
+    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  }, {
+    bitbucketId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("bitbucketBitbucketOne failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.BitbucketOneRequest](../../models/operations/bitbucketonerequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `security`                                                                                                                                                                     | [operations.BitbucketOneSecurity](../../models/operations/bitbucketonesecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.BitbucketOneResponse](../../models/operations/bitbucketoneresponse.md)\>**
 
 ### Errors
 

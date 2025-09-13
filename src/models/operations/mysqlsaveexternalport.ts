@@ -15,8 +15,8 @@ export type MysqlSaveExternalPortSecurity = {
 };
 
 export type MysqlSaveExternalPortRequest = {
-  mysqlId: string;
   externalPort: number | null;
+  mysqlId: string;
 };
 
 export const MysqlSaveExternalPortApplicationStatus = {
@@ -28,198 +28,6 @@ export const MysqlSaveExternalPortApplicationStatus = {
 export type MysqlSaveExternalPortApplicationStatus = ClosedEnum<
   typeof MysqlSaveExternalPortApplicationStatus
 >;
-
-export type MysqlSaveExternalPortHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MysqlSaveExternalPortRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MysqlSaveExternalPortSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlSaveExternalPortPreference = {
-  spread: MysqlSaveExternalPortSpread;
-};
-
-export type MysqlSaveExternalPortPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlSaveExternalPortPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlSaveExternalPortPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlSaveExternalPortPlatform> | undefined;
-};
-
-export type MysqlSaveExternalPortUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlSaveExternalPortRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlSaveExternalPortReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MysqlSaveExternalPortGlobal = {};
-
-export type MysqlSaveExternalPortReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MysqlSaveExternalPortGlobalJob = {};
-
-export type MysqlSaveExternalPortModeSwarm = {
-  replicated?: MysqlSaveExternalPortReplicated | undefined;
-  global?: MysqlSaveExternalPortGlobal | undefined;
-  replicatedJob?: MysqlSaveExternalPortReplicatedJob | undefined;
-  globalJob?: MysqlSaveExternalPortGlobalJob | undefined;
-};
-
-export type MysqlSaveExternalPortDriverOpts = {};
-
-export type MysqlSaveExternalPortNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlSaveExternalPortDriverOpts | undefined;
-};
-
-export type MysqlSaveExternalPortProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlSaveExternalPortEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlSaveExternalPortProject;
-};
-
-export const MysqlSaveExternalPortType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlSaveExternalPortType = ClosedEnum<
-  typeof MysqlSaveExternalPortType
->;
-
-export const MysqlSaveExternalPortServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MysqlSaveExternalPortServiceType = ClosedEnum<
-  typeof MysqlSaveExternalPortServiceType
->;
-
-export type MysqlSaveExternalPortMount = {
-  mountId: string;
-  type: MysqlSaveExternalPortType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlSaveExternalPortServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MysqlSaveExternalPortServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlSaveExternalPortServerStatus = ClosedEnum<
-  typeof MysqlSaveExternalPortServerStatus
->;
-
-export const MysqlSaveExternalPortMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MysqlSaveExternalPortMetricsConfigEnum = ClosedEnum<
-  typeof MysqlSaveExternalPortMetricsConfigEnum
->;
-
-export type MysqlSaveExternalPortMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MysqlSaveExternalPortMetricsConfigEnum;
-
-export type MysqlSaveExternalPortMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MysqlSaveExternalPortMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MysqlSaveExternalPortServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlSaveExternalPortServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MysqlSaveExternalPortMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MysqlSaveExternalPortBackupType = {
   Database: "database",
@@ -247,29 +55,29 @@ export type MysqlSaveExternalPortMetadataEnum = ClosedEnum<
   typeof MysqlSaveExternalPortMetadataEnum
 >;
 
-export type MysqlSaveExternalPortPostgres = {
-  databaseUser: string;
-};
-
 export type MysqlSaveExternalPortMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlSaveExternalPortMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlSaveExternalPortMysql = {
   databaseRootPassword: string;
 };
 
+export type MysqlSaveExternalPortPostgres = {
+  databaseUser: string;
+};
+
 export type MysqlSaveExternalPortMetadata = {
-  postgres?: MysqlSaveExternalPortPostgres | undefined;
   mariadb?: MysqlSaveExternalPortMariadb | undefined;
   mongo?: MysqlSaveExternalPortMongo | undefined;
   mysql?: MysqlSaveExternalPortMysql | undefined;
+  postgres?: MysqlSaveExternalPortPostgres | undefined;
 };
 
 export type MysqlSaveExternalPortMetadataUnion =
@@ -277,67 +85,259 @@ export type MysqlSaveExternalPortMetadataUnion =
   | MysqlSaveExternalPortMetadataEnum;
 
 export type MysqlSaveExternalPortBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MysqlSaveExternalPortBackupType;
-  databaseType: MysqlSaveExternalPortDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MysqlSaveExternalPortDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MysqlSaveExternalPortMetadata
     | MysqlSaveExternalPortMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlSaveExternalPortProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlSaveExternalPortEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlSaveExternalPortProject;
+  projectId: string;
+};
+
+export type MysqlSaveExternalPortHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MysqlSaveExternalPortGlobal = {};
+
+export type MysqlSaveExternalPortGlobalJob = {};
+
+export type MysqlSaveExternalPortReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MysqlSaveExternalPortReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MysqlSaveExternalPortModeSwarm = {
+  global?: MysqlSaveExternalPortGlobal | undefined;
+  globalJob?: MysqlSaveExternalPortGlobalJob | undefined;
+  replicated?: MysqlSaveExternalPortReplicated | undefined;
+  replicatedJob?: MysqlSaveExternalPortReplicatedJob | undefined;
+};
+
+export const MysqlSaveExternalPortServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MysqlSaveExternalPortServiceType = ClosedEnum<
+  typeof MysqlSaveExternalPortServiceType
+>;
+
+export const MysqlSaveExternalPortType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlSaveExternalPortType = ClosedEnum<
+  typeof MysqlSaveExternalPortType
+>;
+
+export type MysqlSaveExternalPortMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MysqlSaveExternalPortServiceType;
+  type: MysqlSaveExternalPortType;
+  volumeName: string | null;
+};
+
+export type MysqlSaveExternalPortDriverOpts = {};
+
+export type MysqlSaveExternalPortNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlSaveExternalPortDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlSaveExternalPortPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlSaveExternalPortSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlSaveExternalPortPreference = {
+  spread: MysqlSaveExternalPortSpread;
+};
+
+export type MysqlSaveExternalPortPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlSaveExternalPortPlatform> | undefined;
+  preferences?: Array<MysqlSaveExternalPortPreference> | undefined;
+};
+
+export type MysqlSaveExternalPortRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlSaveExternalPortRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MysqlSaveExternalPortMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MysqlSaveExternalPortMetricsConfigEnum = ClosedEnum<
+  typeof MysqlSaveExternalPortMetricsConfigEnum
+>;
+
+export type MysqlSaveExternalPortMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MysqlSaveExternalPortMetricsConfigEnum;
+
+export type MysqlSaveExternalPortMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MysqlSaveExternalPortMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MysqlSaveExternalPortServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlSaveExternalPortServerStatus = ClosedEnum<
+  typeof MysqlSaveExternalPortServerStatus
+>;
+
+export type MysqlSaveExternalPortServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MysqlSaveExternalPortMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlSaveExternalPortServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MysqlSaveExternalPortUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlSaveExternalPortResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlSaveExternalPortApplicationStatus;
+  backups: Array<MysqlSaveExternalPortBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlSaveExternalPortApplicationStatus;
-  healthCheckSwarm: MysqlSaveExternalPortHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlSaveExternalPortRestartPolicySwarm | null;
-  placementSwarm: MysqlSaveExternalPortPlacementSwarm | null;
-  updateConfigSwarm: MysqlSaveExternalPortUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlSaveExternalPortRollbackConfigSwarm | null;
-  modeSwarm: MysqlSaveExternalPortModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlSaveExternalPortNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlSaveExternalPortEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlSaveExternalPortHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlSaveExternalPortModeSwarm | null;
   mounts: Array<MysqlSaveExternalPortMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlSaveExternalPortNetworkSwarm> | null;
+  placementSwarm: MysqlSaveExternalPortPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlSaveExternalPortRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlSaveExternalPortRollbackConfigSwarm | null;
   server: MysqlSaveExternalPortServer | null;
-  backups: Array<MysqlSaveExternalPortBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlSaveExternalPortUpdateConfigSwarm | null;
 };
 
 export type MysqlSaveExternalPortResponse =
@@ -414,14 +414,14 @@ export const MysqlSaveExternalPortRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   externalPort: z.nullable(z.number()),
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlSaveExternalPortRequest$Outbound = {
-  mysqlId: string;
   externalPort: number | null;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -430,8 +430,8 @@ export const MysqlSaveExternalPortRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveExternalPortRequest
 > = z.object({
-  mysqlId: z.string(),
   externalPort: z.nullable(z.number()),
+  mysqlId: z.string(),
 });
 
 /**
@@ -492,33 +492,713 @@ export namespace MysqlSaveExternalPortApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortBackupType
+> = z.nativeEnum(MysqlSaveExternalPortBackupType);
+
+/** @internal */
+export const MysqlSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortBackupType
+> = MysqlSaveExternalPortBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortBackupType$ {
+  /** @deprecated use `MysqlSaveExternalPortBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortBackupType$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortDatabaseType
+> = z.nativeEnum(MysqlSaveExternalPortDatabaseType);
+
+/** @internal */
+export const MysqlSaveExternalPortDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortDatabaseType
+> = MysqlSaveExternalPortDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortDatabaseType$ {
+  /** @deprecated use `MysqlSaveExternalPortDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortDatabaseType$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortMetadataEnum
+> = z.nativeEnum(MysqlSaveExternalPortMetadataEnum);
+
+/** @internal */
+export const MysqlSaveExternalPortMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortMetadataEnum
+> = MysqlSaveExternalPortMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMetadataEnum$ {
+  /** @deprecated use `MysqlSaveExternalPortMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMariadb$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortMariadb$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMariadb$ {
+  /** @deprecated use `MysqlSaveExternalPortMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMariadb$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortMariadb$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMariadb$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMariadb$Outbound;
+}
+
+export function mysqlSaveExternalPortMariadbToJSON(
+  mysqlSaveExternalPortMariadb: MysqlSaveExternalPortMariadb,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMariadb$outboundSchema.parse(
+      mysqlSaveExternalPortMariadb,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMongo$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortMongo$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMongo$ {
+  /** @deprecated use `MysqlSaveExternalPortMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMongo$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortMongo$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMongo$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMongo$Outbound;
+}
+
+export function mysqlSaveExternalPortMongoToJSON(
+  mysqlSaveExternalPortMongo: MysqlSaveExternalPortMongo,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMongo$outboundSchema.parse(mysqlSaveExternalPortMongo),
+  );
+}
+
+export function mysqlSaveExternalPortMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMysql$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortMysql$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMysql$ {
+  /** @deprecated use `MysqlSaveExternalPortMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMysql$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortMysql$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMysql$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMysql$Outbound;
+}
+
+export function mysqlSaveExternalPortMysqlToJSON(
+  mysqlSaveExternalPortMysql: MysqlSaveExternalPortMysql,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMysql$outboundSchema.parse(mysqlSaveExternalPortMysql),
+  );
+}
+
+export function mysqlSaveExternalPortMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortPostgres$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortPostgres$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortPostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortPostgres$ {
+  /** @deprecated use `MysqlSaveExternalPortPostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortPostgres$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortPostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortPostgres$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortPostgres$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortPostgres$Outbound;
+}
+
+export function mysqlSaveExternalPortPostgresToJSON(
+  mysqlSaveExternalPortPostgres: MysqlSaveExternalPortPostgres,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortPostgres$outboundSchema.parse(
+      mysqlSaveExternalPortPostgres,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMetadata$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlSaveExternalPortMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlSaveExternalPortMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlSaveExternalPortMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlSaveExternalPortPostgres$inboundSchema)
+    .optional(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortMetadata$Outbound = {
+  mariadb?: MysqlSaveExternalPortMariadb$Outbound | undefined;
+  mongo?: MysqlSaveExternalPortMongo$Outbound | undefined;
+  mysql?: MysqlSaveExternalPortMysql$Outbound | undefined;
+  postgres?: MysqlSaveExternalPortPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortMetadata$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlSaveExternalPortMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlSaveExternalPortMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlSaveExternalPortMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlSaveExternalPortPostgres$outboundSchema)
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMetadata$ {
+  /** @deprecated use `MysqlSaveExternalPortMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMetadata$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortMetadata$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMetadata$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMetadata$Outbound;
+}
+
+export function mysqlSaveExternalPortMetadataToJSON(
+  mysqlSaveExternalPortMetadata: MysqlSaveExternalPortMetadata,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMetadata$outboundSchema.parse(
+      mysqlSaveExternalPortMetadata,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlSaveExternalPortMetadata$inboundSchema),
+  MysqlSaveExternalPortMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlSaveExternalPortMetadataUnion$Outbound =
+  | MysqlSaveExternalPortMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlSaveExternalPortMetadata$outboundSchema),
+  MysqlSaveExternalPortMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMetadataUnion$ {
+  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMetadataUnion$Outbound;
+}
+
+export function mysqlSaveExternalPortMetadataUnionToJSON(
+  mysqlSaveExternalPortMetadataUnion: MysqlSaveExternalPortMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMetadataUnion$outboundSchema.parse(
+      mysqlSaveExternalPortMetadataUnion,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      MysqlSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortBackup$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlSaveExternalPortBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlSaveExternalPortDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlSaveExternalPortMetadata$inboundSchema),
+      MysqlSaveExternalPortMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlSaveExternalPortMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortBackup$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlSaveExternalPortBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlSaveExternalPortDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlSaveExternalPortMetadata$outboundSchema),
+      MysqlSaveExternalPortMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortBackup$ {
+  /** @deprecated use `MysqlSaveExternalPortBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortBackup$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortBackup$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortBackup$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortBackup$Outbound;
+}
+
+export function mysqlSaveExternalPortBackupToJSON(
+  mysqlSaveExternalPortBackup: MysqlSaveExternalPortBackup,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortBackup$outboundSchema.parse(
+      mysqlSaveExternalPortBackup,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortProject$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortProject$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortProject$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortProject$ {
+  /** @deprecated use `MysqlSaveExternalPortProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortProject$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortProject$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortProject$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortProject$Outbound;
+}
+
+export function mysqlSaveExternalPortProjectToJSON(
+  mysqlSaveExternalPortProject: MysqlSaveExternalPortProject,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortProject$outboundSchema.parse(
+      mysqlSaveExternalPortProject,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortEnvironment$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlSaveExternalPortProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlSaveExternalPortProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortEnvironment$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlSaveExternalPortProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortEnvironment$ {
+  /** @deprecated use `MysqlSaveExternalPortEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortEnvironment$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortEnvironment$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortEnvironment$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortEnvironment$Outbound;
+}
+
+export function mysqlSaveExternalPortEnvironmentToJSON(
+  mysqlSaveExternalPortEnvironment: MysqlSaveExternalPortEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortEnvironment$outboundSchema.parse(
+      mysqlSaveExternalPortEnvironment,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlSaveExternalPortHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlSaveExternalPortHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlSaveExternalPortHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -527,18 +1207,18 @@ export const MysqlSaveExternalPortHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveExternalPortHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -579,48 +1259,133 @@ export function mysqlSaveExternalPortHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortRestartPolicySwarm,
+export const MysqlSaveExternalPortGlobal$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlSaveExternalPortGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlSaveExternalPortGlobal$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortGlobal$ {
+  /** @deprecated use `MysqlSaveExternalPortGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortGlobal$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortGlobal$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortGlobal$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortGlobal$Outbound;
+}
+
+export function mysqlSaveExternalPortGlobalToJSON(
+  mysqlSaveExternalPortGlobal: MysqlSaveExternalPortGlobal,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortGlobal$outboundSchema.parse(
+      mysqlSaveExternalPortGlobal,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlSaveExternalPortGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortGlobalJob$ {
+  /** @deprecated use `MysqlSaveExternalPortGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortGlobalJob$Outbound;
+}
+
+export function mysqlSaveExternalPortGlobalJobToJSON(
+  mysqlSaveExternalPortGlobalJob: MysqlSaveExternalPortGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortGlobalJob$outboundSchema.parse(
+      mysqlSaveExternalPortGlobalJob,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortReplicated$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlSaveExternalPortRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlSaveExternalPortReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortRestartPolicySwarm$Outbound,
+export const MysqlSaveExternalPortReplicated$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlSaveExternalPortRestartPolicySwarm
+  MysqlSaveExternalPortReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -628,41 +1393,522 @@ export const MysqlSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlSaveExternalPortRestartPolicySwarm$ {
-  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MysqlSaveExternalPortRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortRestartPolicySwarm$Outbound;
+export namespace MysqlSaveExternalPortReplicated$ {
+  /** @deprecated use `MysqlSaveExternalPortReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortReplicated$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortReplicated$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortReplicated$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortReplicated$Outbound;
 }
 
-export function mysqlSaveExternalPortRestartPolicySwarmToJSON(
-  mysqlSaveExternalPortRestartPolicySwarm:
-    MysqlSaveExternalPortRestartPolicySwarm,
+export function mysqlSaveExternalPortReplicatedToJSON(
+  mysqlSaveExternalPortReplicated: MysqlSaveExternalPortReplicated,
 ): string {
   return JSON.stringify(
-    MysqlSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
-      mysqlSaveExternalPortRestartPolicySwarm,
+    MysqlSaveExternalPortReplicated$outboundSchema.parse(
+      mysqlSaveExternalPortReplicated,
     ),
   );
 }
 
-export function mysqlSaveExternalPortRestartPolicySwarmFromJSON(
+export function mysqlSaveExternalPortReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<
-  MysqlSaveExternalPortRestartPolicySwarm,
-  SDKValidationError
-> {
+): SafeParseResult<MysqlSaveExternalPortReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlSaveExternalPortReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortReplicatedJob$ {
+  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortReplicatedJob$Outbound;
+}
+
+export function mysqlSaveExternalPortReplicatedJobToJSON(
+  mysqlSaveExternalPortReplicatedJob: MysqlSaveExternalPortReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortReplicatedJob$outboundSchema.parse(
+      mysqlSaveExternalPortReplicatedJob,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MysqlSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'MysqlSaveExternalPortRestartPolicySwarm' from JSON`,
+      MysqlSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlSaveExternalPortGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlSaveExternalPortGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => MysqlSaveExternalPortReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => MysqlSaveExternalPortReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlSaveExternalPortModeSwarm$Outbound = {
+  Global?: MysqlSaveExternalPortGlobal$Outbound | undefined;
+  GlobalJob?: MysqlSaveExternalPortGlobalJob$Outbound | undefined;
+  Replicated?: MysqlSaveExternalPortReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlSaveExternalPortReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlSaveExternalPortGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlSaveExternalPortGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => MysqlSaveExternalPortReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => MysqlSaveExternalPortReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortModeSwarm$ {
+  /** @deprecated use `MysqlSaveExternalPortModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortModeSwarm$Outbound;
+}
+
+export function mysqlSaveExternalPortModeSwarmToJSON(
+  mysqlSaveExternalPortModeSwarm: MysqlSaveExternalPortModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortModeSwarm$outboundSchema.parse(
+      mysqlSaveExternalPortModeSwarm,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortServiceType
+> = z.nativeEnum(MysqlSaveExternalPortServiceType);
+
+/** @internal */
+export const MysqlSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortServiceType
+> = MysqlSaveExternalPortServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortServiceType$ {
+  /** @deprecated use `MysqlSaveExternalPortServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortServiceType$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortType
+> = z.nativeEnum(MysqlSaveExternalPortType);
+
+/** @internal */
+export const MysqlSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortType
+> = MysqlSaveExternalPortType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortType$ {
+  /** @deprecated use `MysqlSaveExternalPortType$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortType$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortType$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlSaveExternalPortMount$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlSaveExternalPortServiceType$inboundSchema,
+  type: MysqlSaveExternalPortType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlSaveExternalPortMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortMount$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortMount$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlSaveExternalPortServiceType$outboundSchema,
+  type: MysqlSaveExternalPortType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortMount$ {
+  /** @deprecated use `MysqlSaveExternalPortMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortMount$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortMount$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortMount$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortMount$Outbound;
+}
+
+export function mysqlSaveExternalPortMountToJSON(
+  mysqlSaveExternalPortMount: MysqlSaveExternalPortMount,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortMount$outboundSchema.parse(mysqlSaveExternalPortMount),
+  );
+}
+
+export function mysqlSaveExternalPortMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlSaveExternalPortDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortDriverOpts$ {
+  /** @deprecated use `MysqlSaveExternalPortDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortDriverOpts$Outbound;
+}
+
+export function mysqlSaveExternalPortDriverOptsToJSON(
+  mysqlSaveExternalPortDriverOpts: MysqlSaveExternalPortDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortDriverOpts$outboundSchema.parse(
+      mysqlSaveExternalPortDriverOpts,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlSaveExternalPortDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlSaveExternalPortNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlSaveExternalPortDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlSaveExternalPortDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortNetworkSwarm$ {
+  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortNetworkSwarm$Outbound;
+}
+
+export function mysqlSaveExternalPortNetworkSwarmToJSON(
+  mysqlSaveExternalPortNetworkSwarm: MysqlSaveExternalPortNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortNetworkSwarm$outboundSchema.parse(
+      mysqlSaveExternalPortNetworkSwarm,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlSaveExternalPortPlatform$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlSaveExternalPortPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortPlatform$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortPlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortPlatform$ {
+  /** @deprecated use `MysqlSaveExternalPortPlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortPlatform$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortPlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlSaveExternalPortPlatform$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortPlatform$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortPlatform$Outbound;
+}
+
+export function mysqlSaveExternalPortPlatformToJSON(
+  mysqlSaveExternalPortPlatform: MysqlSaveExternalPortPlatform,
+): string {
+  return JSON.stringify(
+    MysqlSaveExternalPortPlatform$outboundSchema.parse(
+      mysqlSaveExternalPortPlatform,
+    ),
+  );
+}
+
+export function mysqlSaveExternalPortPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlSaveExternalPortPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortPlatform' from JSON`,
   );
 }
 
@@ -795,102 +2041,33 @@ export function mysqlSaveExternalPortPreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlSaveExternalPortPlatform$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlSaveExternalPortPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortPlatform$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortPlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortPlatform$ {
-  /** @deprecated use `MysqlSaveExternalPortPlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortPlatform$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortPlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortPlatform$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortPlatform$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortPlatform$Outbound;
-}
-
-export function mysqlSaveExternalPortPlatformToJSON(
-  mysqlSaveExternalPortPlatform: MysqlSaveExternalPortPlatform,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortPlatform$outboundSchema.parse(
-      mysqlSaveExternalPortPlatform,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlSaveExternalPortPlacementSwarm$inboundSchema: z.ZodType<
   MysqlSaveExternalPortPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => MysqlSaveExternalPortPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlSaveExternalPortPlatform$inboundSchema))
     .optional(),
+  Preferences: z.array(
+    z.lazy(() => MysqlSaveExternalPortPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlSaveExternalPortPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlSaveExternalPortPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlSaveExternalPortPlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlSaveExternalPortPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -900,18 +2077,18 @@ export const MysqlSaveExternalPortPlacementSwarm$outboundSchema: z.ZodType<
   MysqlSaveExternalPortPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => MysqlSaveExternalPortPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlSaveExternalPortPlatform$outboundSchema))
     .optional(),
+  preferences: z.array(
+    z.lazy(() => MysqlSaveExternalPortPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -952,58 +2129,48 @@ export function mysqlSaveExternalPortPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortUpdateConfigSwarm,
+export const MysqlSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlSaveExternalPortUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlSaveExternalPortRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortUpdateConfigSwarm$Outbound,
+export const MysqlSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlSaveExternalPortUpdateConfigSwarm
+  MysqlSaveExternalPortRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1011,36 +2178,41 @@ export const MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlSaveExternalPortUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+export namespace MysqlSaveExternalPortRestartPolicySwarm$ {
+  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+    MysqlSaveExternalPortRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortUpdateConfigSwarm$Outbound;
+    MysqlSaveExternalPortRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortRestartPolicySwarm$Outbound;
 }
 
-export function mysqlSaveExternalPortUpdateConfigSwarmToJSON(
-  mysqlSaveExternalPortUpdateConfigSwarm:
-    MysqlSaveExternalPortUpdateConfigSwarm,
+export function mysqlSaveExternalPortRestartPolicySwarmToJSON(
+  mysqlSaveExternalPortRestartPolicySwarm:
+    MysqlSaveExternalPortRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
-      mysqlSaveExternalPortUpdateConfigSwarm,
+    MysqlSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
+      mysqlSaveExternalPortRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlSaveExternalPortUpdateConfigSwarmFromJSON(
+export function mysqlSaveExternalPortRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<
+  MysqlSaveExternalPortRestartPolicySwarm,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortUpdateConfigSwarm' from JSON`,
+      MysqlSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'MysqlSaveExternalPortRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1050,31 +2222,31 @@ export const MysqlSaveExternalPortRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlSaveExternalPortRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1083,20 +2255,20 @@ export const MysqlSaveExternalPortRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveExternalPortRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1140,758 +2312,6 @@ export function mysqlSaveExternalPortRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'MysqlSaveExternalPortRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortReplicated$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlSaveExternalPortReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortReplicated$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortReplicated$ {
-  /** @deprecated use `MysqlSaveExternalPortReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortReplicated$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortReplicated$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortReplicated$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortReplicated$Outbound;
-}
-
-export function mysqlSaveExternalPortReplicatedToJSON(
-  mysqlSaveExternalPortReplicated: MysqlSaveExternalPortReplicated,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortReplicated$outboundSchema.parse(
-      mysqlSaveExternalPortReplicated,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortGlobal$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlSaveExternalPortGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlSaveExternalPortGlobal$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortGlobal$ {
-  /** @deprecated use `MysqlSaveExternalPortGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortGlobal$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortGlobal$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortGlobal$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortGlobal$Outbound;
-}
-
-export function mysqlSaveExternalPortGlobalToJSON(
-  mysqlSaveExternalPortGlobal: MysqlSaveExternalPortGlobal,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortGlobal$outboundSchema.parse(
-      mysqlSaveExternalPortGlobal,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlSaveExternalPortReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortReplicatedJob$ {
-  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortReplicatedJob$Outbound;
-}
-
-export function mysqlSaveExternalPortReplicatedJobToJSON(
-  mysqlSaveExternalPortReplicatedJob: MysqlSaveExternalPortReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortReplicatedJob$outboundSchema.parse(
-      mysqlSaveExternalPortReplicatedJob,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MysqlSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlSaveExternalPortGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortGlobalJob$ {
-  /** @deprecated use `MysqlSaveExternalPortGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortGlobalJob$Outbound;
-}
-
-export function mysqlSaveExternalPortGlobalJobToJSON(
-  mysqlSaveExternalPortGlobalJob: MysqlSaveExternalPortGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortGlobalJob$outboundSchema.parse(
-      mysqlSaveExternalPortGlobalJob,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlSaveExternalPortReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MysqlSaveExternalPortGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlSaveExternalPortReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MysqlSaveExternalPortGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlSaveExternalPortModeSwarm$Outbound = {
-  Replicated?: MysqlSaveExternalPortReplicated$Outbound | undefined;
-  Global?: MysqlSaveExternalPortGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlSaveExternalPortReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlSaveExternalPortGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlSaveExternalPortReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MysqlSaveExternalPortGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlSaveExternalPortReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlSaveExternalPortGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortModeSwarm$ {
-  /** @deprecated use `MysqlSaveExternalPortModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortModeSwarm$Outbound;
-}
-
-export function mysqlSaveExternalPortModeSwarmToJSON(
-  mysqlSaveExternalPortModeSwarm: MysqlSaveExternalPortModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortModeSwarm$outboundSchema.parse(
-      mysqlSaveExternalPortModeSwarm,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlSaveExternalPortDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortDriverOpts$ {
-  /** @deprecated use `MysqlSaveExternalPortDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortDriverOpts$Outbound;
-}
-
-export function mysqlSaveExternalPortDriverOptsToJSON(
-  mysqlSaveExternalPortDriverOpts: MysqlSaveExternalPortDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortDriverOpts$outboundSchema.parse(
-      mysqlSaveExternalPortDriverOpts,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlSaveExternalPortDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlSaveExternalPortNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlSaveExternalPortDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlSaveExternalPortDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortNetworkSwarm$ {
-  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortNetworkSwarm$Outbound;
-}
-
-export function mysqlSaveExternalPortNetworkSwarmToJSON(
-  mysqlSaveExternalPortNetworkSwarm: MysqlSaveExternalPortNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortNetworkSwarm$outboundSchema.parse(
-      mysqlSaveExternalPortNetworkSwarm,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortProject$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortProject$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortProject$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortProject$ {
-  /** @deprecated use `MysqlSaveExternalPortProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortProject$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortProject$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortProject$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortProject$Outbound;
-}
-
-export function mysqlSaveExternalPortProjectToJSON(
-  mysqlSaveExternalPortProject: MysqlSaveExternalPortProject,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortProject$outboundSchema.parse(
-      mysqlSaveExternalPortProject,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortEnvironment$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlSaveExternalPortProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlSaveExternalPortProject$Outbound;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortEnvironment$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlSaveExternalPortProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortEnvironment$ {
-  /** @deprecated use `MysqlSaveExternalPortEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortEnvironment$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortEnvironment$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortEnvironment$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortEnvironment$Outbound;
-}
-
-export function mysqlSaveExternalPortEnvironmentToJSON(
-  mysqlSaveExternalPortEnvironment: MysqlSaveExternalPortEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortEnvironment$outboundSchema.parse(
-      mysqlSaveExternalPortEnvironment,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortType
-> = z.nativeEnum(MysqlSaveExternalPortType);
-
-/** @internal */
-export const MysqlSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortType
-> = MysqlSaveExternalPortType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortType$ {
-  /** @deprecated use `MysqlSaveExternalPortType$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortType$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortType$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortServiceType
-> = z.nativeEnum(MysqlSaveExternalPortServiceType);
-
-/** @internal */
-export const MysqlSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortServiceType
-> = MysqlSaveExternalPortServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortServiceType$ {
-  /** @deprecated use `MysqlSaveExternalPortServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortServiceType$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMount$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlSaveExternalPortType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlSaveExternalPortServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortMount$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMount$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlSaveExternalPortType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlSaveExternalPortServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMount$ {
-  /** @deprecated use `MysqlSaveExternalPortMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMount$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortMount$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMount$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMount$Outbound;
-}
-
-export function mysqlSaveExternalPortMountToJSON(
-  mysqlSaveExternalPortMount: MysqlSaveExternalPortMount,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMount$outboundSchema.parse(mysqlSaveExternalPortMount),
-  );
-}
-
-export function mysqlSaveExternalPortMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortServerStatus
-> = z.nativeEnum(MysqlSaveExternalPortServerStatus);
-
-/** @internal */
-export const MysqlSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortServerStatus
-> = MysqlSaveExternalPortServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortServerStatus$ {
-  /** @deprecated use `MysqlSaveExternalPortServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortServerStatus$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortServerStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2075,24 +2495,39 @@ export function mysqlSaveExternalPortMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortServerStatus
+> = z.nativeEnum(MysqlSaveExternalPortServerStatus);
+
+/** @internal */
+export const MysqlSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlSaveExternalPortServerStatus
+> = MysqlSaveExternalPortServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlSaveExternalPortServerStatus$ {
+  /** @deprecated use `MysqlSaveExternalPortServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlSaveExternalPortServerStatus$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortServerStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlSaveExternalPortServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlSaveExternalPortServer$inboundSchema: z.ZodType<
   MysqlSaveExternalPortServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlSaveExternalPortServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2103,26 +2538,33 @@ export const MysqlSaveExternalPortServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlSaveExternalPortServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlSaveExternalPortServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2131,19 +2573,12 @@ export const MysqlSaveExternalPortServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveExternalPortServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlSaveExternalPortServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2154,6 +2589,13 @@ export const MysqlSaveExternalPortServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlSaveExternalPortServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2190,537 +2632,95 @@ export function mysqlSaveExternalPortServerFromJSON(
 }
 
 /** @internal */
-export const MysqlSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortBackupType
-> = z.nativeEnum(MysqlSaveExternalPortBackupType);
+export const MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlSaveExternalPortUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
 
 /** @internal */
-export const MysqlSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortBackupType
-> = MysqlSaveExternalPortBackupType$inboundSchema;
+export type MysqlSaveExternalPortUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlSaveExternalPortUpdateConfigSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlSaveExternalPortUpdateConfigSwarm
+> = z.object({
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlSaveExternalPortBackupType$ {
-  /** @deprecated use `MysqlSaveExternalPortBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortBackupType$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortDatabaseType
-> = z.nativeEnum(MysqlSaveExternalPortDatabaseType);
-
-/** @internal */
-export const MysqlSaveExternalPortDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortDatabaseType
-> = MysqlSaveExternalPortDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortDatabaseType$ {
-  /** @deprecated use `MysqlSaveExternalPortDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortDatabaseType$outboundSchema` instead. */
+export namespace MysqlSaveExternalPortUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MysqlSaveExternalPortDatabaseType$outboundSchema;
+    MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlSaveExternalPortUpdateConfigSwarm$Outbound;
 }
 
-/** @internal */
-export const MysqlSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortMetadataEnum
-> = z.nativeEnum(MysqlSaveExternalPortMetadataEnum);
-
-/** @internal */
-export const MysqlSaveExternalPortMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlSaveExternalPortMetadataEnum
-> = MysqlSaveExternalPortMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMetadataEnum$ {
-  /** @deprecated use `MysqlSaveExternalPortMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlSaveExternalPortPostgres$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortPostgres,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortPostgres$Outbound = {
-  databaseUser: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortPostgres$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortPostgres$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortPostgres
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortPostgres$ {
-  /** @deprecated use `MysqlSaveExternalPortPostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortPostgres$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortPostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortPostgres$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortPostgres$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortPostgres$Outbound;
-}
-
-export function mysqlSaveExternalPortPostgresToJSON(
-  mysqlSaveExternalPortPostgres: MysqlSaveExternalPortPostgres,
+export function mysqlSaveExternalPortUpdateConfigSwarmToJSON(
+  mysqlSaveExternalPortUpdateConfigSwarm:
+    MysqlSaveExternalPortUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlSaveExternalPortPostgres$outboundSchema.parse(
-      mysqlSaveExternalPortPostgres,
+    MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
+      mysqlSaveExternalPortUpdateConfigSwarm,
     ),
   );
 }
 
-export function mysqlSaveExternalPortPostgresFromJSON(
+export function mysqlSaveExternalPortUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMariadb$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortMariadb$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMariadb$ {
-  /** @deprecated use `MysqlSaveExternalPortMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMariadb$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortMariadb$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMariadb$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMariadb$Outbound;
-}
-
-export function mysqlSaveExternalPortMariadbToJSON(
-  mysqlSaveExternalPortMariadb: MysqlSaveExternalPortMariadb,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMariadb$outboundSchema.parse(
-      mysqlSaveExternalPortMariadb,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMongo$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortMongo$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMongo$ {
-  /** @deprecated use `MysqlSaveExternalPortMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMongo$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortMongo$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMongo$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMongo$Outbound;
-}
-
-export function mysqlSaveExternalPortMongoToJSON(
-  mysqlSaveExternalPortMongo: MysqlSaveExternalPortMongo,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMongo$outboundSchema.parse(mysqlSaveExternalPortMongo),
-  );
-}
-
-export function mysqlSaveExternalPortMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMysql$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortMysql$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMysql$ {
-  /** @deprecated use `MysqlSaveExternalPortMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMysql$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortMysql$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMysql$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMysql$Outbound;
-}
-
-export function mysqlSaveExternalPortMysqlToJSON(
-  mysqlSaveExternalPortMysql: MysqlSaveExternalPortMysql,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMysql$outboundSchema.parse(mysqlSaveExternalPortMysql),
-  );
-}
-
-export function mysqlSaveExternalPortMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMetadata$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlSaveExternalPortPostgres$inboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MysqlSaveExternalPortMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlSaveExternalPortMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlSaveExternalPortMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortMetadata$Outbound = {
-  postgres?: MysqlSaveExternalPortPostgres$Outbound | undefined;
-  mariadb?: MysqlSaveExternalPortMariadb$Outbound | undefined;
-  mongo?: MysqlSaveExternalPortMongo$Outbound | undefined;
-  mysql?: MysqlSaveExternalPortMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortMetadata$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlSaveExternalPortPostgres$outboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MysqlSaveExternalPortMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlSaveExternalPortMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlSaveExternalPortMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMetadata$ {
-  /** @deprecated use `MysqlSaveExternalPortMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMetadata$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortMetadata$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMetadata$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMetadata$Outbound;
-}
-
-export function mysqlSaveExternalPortMetadataToJSON(
-  mysqlSaveExternalPortMetadata: MysqlSaveExternalPortMetadata,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMetadata$outboundSchema.parse(
-      mysqlSaveExternalPortMetadata,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlSaveExternalPortMetadata$inboundSchema),
-  MysqlSaveExternalPortMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlSaveExternalPortMetadataUnion$Outbound =
-  | MysqlSaveExternalPortMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlSaveExternalPortMetadata$outboundSchema),
-  MysqlSaveExternalPortMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortMetadataUnion$ {
-  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlSaveExternalPortMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortMetadataUnion$Outbound;
-}
-
-export function mysqlSaveExternalPortMetadataUnionToJSON(
-  mysqlSaveExternalPortMetadataUnion: MysqlSaveExternalPortMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortMetadataUnion$outboundSchema.parse(
-      mysqlSaveExternalPortMetadataUnion,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortMetadataUnion, SDKValidationError> {
+): SafeParseResult<MysqlSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MysqlSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlSaveExternalPortBackup$inboundSchema: z.ZodType<
-  MysqlSaveExternalPortBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlSaveExternalPortBackupType$inboundSchema,
-  databaseType: MysqlSaveExternalPortDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlSaveExternalPortMetadata$inboundSchema),
-      MysqlSaveExternalPortMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlSaveExternalPortBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlSaveExternalPortMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlSaveExternalPortBackup$outboundSchema: z.ZodType<
-  MysqlSaveExternalPortBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveExternalPortBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlSaveExternalPortBackupType$outboundSchema,
-  databaseType: MysqlSaveExternalPortDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlSaveExternalPortMetadata$outboundSchema),
-      MysqlSaveExternalPortMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveExternalPortBackup$ {
-  /** @deprecated use `MysqlSaveExternalPortBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveExternalPortBackup$inboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveExternalPortBackup$outboundSchema;
-  /** @deprecated use `MysqlSaveExternalPortBackup$Outbound` instead. */
-  export type Outbound = MysqlSaveExternalPortBackup$Outbound;
-}
-
-export function mysqlSaveExternalPortBackupToJSON(
-  mysqlSaveExternalPortBackup: MysqlSaveExternalPortBackup,
-): string {
-  return JSON.stringify(
-    MysqlSaveExternalPortBackup$outboundSchema.parse(
-      mysqlSaveExternalPortBackup,
-    ),
-  );
-}
-
-export function mysqlSaveExternalPortBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveExternalPortBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveExternalPortBackup' from JSON`,
+      MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlSaveExternalPortUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2730,90 +2730,90 @@ export const MysqlSaveExternalPortResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlSaveExternalPortApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlSaveExternalPortBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlSaveExternalPortEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlSaveExternalPortApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MysqlSaveExternalPortMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlSaveExternalPortNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlSaveExternalPortNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlSaveExternalPortEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlSaveExternalPortMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlSaveExternalPortServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlSaveExternalPortBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlSaveExternalPortResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlSaveExternalPortBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlSaveExternalPortHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlSaveExternalPortRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlSaveExternalPortPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlSaveExternalPortUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlSaveExternalPortRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlSaveExternalPortModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlSaveExternalPortNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlSaveExternalPortEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlSaveExternalPortHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlSaveExternalPortModeSwarm$Outbound | null;
   mounts: Array<MysqlSaveExternalPortMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlSaveExternalPortNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlSaveExternalPortPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlSaveExternalPortRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlSaveExternalPortRollbackConfigSwarm$Outbound | null;
   server: MysqlSaveExternalPortServer$Outbound | null;
-  backups: Array<MysqlSaveExternalPortBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlSaveExternalPortUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2822,53 +2822,53 @@ export const MysqlSaveExternalPortResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveExternalPortResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlSaveExternalPortApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlSaveExternalPortBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlSaveExternalPortEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlSaveExternalPortApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MysqlSaveExternalPortMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlSaveExternalPortNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlSaveExternalPortRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MysqlSaveExternalPortModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlSaveExternalPortNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlSaveExternalPortEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlSaveExternalPortMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlSaveExternalPortServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlSaveExternalPortBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**
