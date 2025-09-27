@@ -3,33 +3,28 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type OrganizationUpdateSecurity = {
-  authorization: string;
-};
-
 export type OrganizationUpdateRequest = {
-  organizationId: string;
-  name: string;
   logo?: string | undefined;
+  name: string;
+  organizationId: string;
 };
 
 /**
  * Successful response
  */
 export type OrganizationUpdateResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationUpdateResponse =
@@ -37,83 +32,21 @@ export type OrganizationUpdateResponse =
   | models.ErrorT;
 
 /** @internal */
-export const OrganizationUpdateSecurity$inboundSchema: z.ZodType<
-  OrganizationUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type OrganizationUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const OrganizationUpdateSecurity$outboundSchema: z.ZodType<
-  OrganizationUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  OrganizationUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationUpdateSecurity$ {
-  /** @deprecated use `OrganizationUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = OrganizationUpdateSecurity$inboundSchema;
-  /** @deprecated use `OrganizationUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = OrganizationUpdateSecurity$outboundSchema;
-  /** @deprecated use `OrganizationUpdateSecurity$Outbound` instead. */
-  export type Outbound = OrganizationUpdateSecurity$Outbound;
-}
-
-export function organizationUpdateSecurityToJSON(
-  organizationUpdateSecurity: OrganizationUpdateSecurity,
-): string {
-  return JSON.stringify(
-    OrganizationUpdateSecurity$outboundSchema.parse(organizationUpdateSecurity),
-  );
-}
-
-export function organizationUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<OrganizationUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OrganizationUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OrganizationUpdateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const OrganizationUpdateRequest$inboundSchema: z.ZodType<
   OrganizationUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  organizationId: z.string(),
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
+  organizationId: z.string(),
 });
 
 /** @internal */
 export type OrganizationUpdateRequest$Outbound = {
-  organizationId: string;
-  name: string;
   logo?: string | undefined;
+  name: string;
+  organizationId: string;
 };
 
 /** @internal */
@@ -122,9 +55,9 @@ export const OrganizationUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationUpdateRequest
 > = z.object({
-  organizationId: z.string(),
-  name: z.string(),
   logo: z.string().optional(),
+  name: z.string(),
+  organizationId: z.string(),
 });
 
 /**
@@ -164,24 +97,24 @@ export const OrganizationUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationUpdateResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -190,13 +123,13 @@ export const OrganizationUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationUpdateResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

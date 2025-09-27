@@ -3,26 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PortOneSecurity = {
-  authorization: string;
-};
-
 export type PortOneRequest = {
   portId: string;
 };
-
-export const PortOnePublishMode = {
-  Ingress: "ingress",
-  Host: "host",
-} as const;
-export type PortOnePublishMode = ClosedEnum<typeof PortOnePublishMode>;
 
 export const PortOneProtocol = {
   Tcp: "tcp",
@@ -30,79 +19,25 @@ export const PortOneProtocol = {
 } as const;
 export type PortOneProtocol = ClosedEnum<typeof PortOneProtocol>;
 
+export const PortOnePublishMode = {
+  Ingress: "ingress",
+  Host: "host",
+} as const;
+export type PortOnePublishMode = ClosedEnum<typeof PortOnePublishMode>;
+
 /**
  * Successful response
  */
 export type PortOneResponseBody = {
-  portId: string;
-  publishedPort: number;
-  publishMode: PortOnePublishMode;
-  targetPort: number;
-  protocol: PortOneProtocol;
   applicationId: string;
+  portId: string;
+  protocol: PortOneProtocol;
+  publishMode: PortOnePublishMode;
+  publishedPort: number;
+  targetPort: number;
 };
 
 export type PortOneResponse = PortOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const PortOneSecurity$inboundSchema: z.ZodType<
-  PortOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PortOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PortOneSecurity$outboundSchema: z.ZodType<
-  PortOneSecurity$Outbound,
-  z.ZodTypeDef,
-  PortOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortOneSecurity$ {
-  /** @deprecated use `PortOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = PortOneSecurity$inboundSchema;
-  /** @deprecated use `PortOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = PortOneSecurity$outboundSchema;
-  /** @deprecated use `PortOneSecurity$Outbound` instead. */
-  export type Outbound = PortOneSecurity$Outbound;
-}
-
-export function portOneSecurityToJSON(
-  portOneSecurity: PortOneSecurity,
-): string {
-  return JSON.stringify(PortOneSecurity$outboundSchema.parse(portOneSecurity));
-}
-
-export function portOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PortOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PortOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PortOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PortOneRequest$inboundSchema: z.ZodType<
@@ -155,27 +90,6 @@ export function portOneRequestFromJSON(
 }
 
 /** @internal */
-export const PortOnePublishMode$inboundSchema: z.ZodNativeEnum<
-  typeof PortOnePublishMode
-> = z.nativeEnum(PortOnePublishMode);
-
-/** @internal */
-export const PortOnePublishMode$outboundSchema: z.ZodNativeEnum<
-  typeof PortOnePublishMode
-> = PortOnePublishMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortOnePublishMode$ {
-  /** @deprecated use `PortOnePublishMode$inboundSchema` instead. */
-  export const inboundSchema = PortOnePublishMode$inboundSchema;
-  /** @deprecated use `PortOnePublishMode$outboundSchema` instead. */
-  export const outboundSchema = PortOnePublishMode$outboundSchema;
-}
-
-/** @internal */
 export const PortOneProtocol$inboundSchema: z.ZodNativeEnum<
   typeof PortOneProtocol
 > = z.nativeEnum(PortOneProtocol);
@@ -197,27 +111,48 @@ export namespace PortOneProtocol$ {
 }
 
 /** @internal */
+export const PortOnePublishMode$inboundSchema: z.ZodNativeEnum<
+  typeof PortOnePublishMode
+> = z.nativeEnum(PortOnePublishMode);
+
+/** @internal */
+export const PortOnePublishMode$outboundSchema: z.ZodNativeEnum<
+  typeof PortOnePublishMode
+> = PortOnePublishMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PortOnePublishMode$ {
+  /** @deprecated use `PortOnePublishMode$inboundSchema` instead. */
+  export const inboundSchema = PortOnePublishMode$inboundSchema;
+  /** @deprecated use `PortOnePublishMode$outboundSchema` instead. */
+  export const outboundSchema = PortOnePublishMode$outboundSchema;
+}
+
+/** @internal */
 export const PortOneResponseBody$inboundSchema: z.ZodType<
   PortOneResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortOnePublishMode$inboundSchema,
-  targetPort: z.number(),
-  protocol: PortOneProtocol$inboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortOneProtocol$inboundSchema,
+  publishMode: PortOnePublishMode$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type PortOneResponseBody$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
   applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -226,12 +161,12 @@ export const PortOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PortOneResponseBody
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortOnePublishMode$outboundSchema,
-  targetPort: z.number(),
-  protocol: PortOneProtocol$outboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortOneProtocol$outboundSchema,
+  publishMode: PortOnePublishMode$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**

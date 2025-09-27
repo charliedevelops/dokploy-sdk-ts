@@ -1,9 +1,9 @@
-speakeasyVersion: 1.615.2
+speakeasyVersion: 1.631.0
 sources:
     Dokploy API:
         sourceNamespace: dokploy-api
-        sourceRevisionDigest: sha256:3d4517a3dfb81e139fc097c6131f8270036e2396ea168aa0c8e14d964269dbe0
-        sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
+        sourceRevisionDigest: sha256:4dc175c5fd273b53ce03d25702db7fe5d3fdc5cb6bcb3c02c1ace80a17bfb7d0
+        sourceBlobDigest: sha256:2bdb7d3656fe40f5635dd040ec7db89ecb2869e95326e57445f5b9407bbaf408
         tags:
             - latest
             - 1.0.0
@@ -18,10 +18,10 @@ targets:
     typescript:
         source: Dokploy API
         sourceNamespace: dokploy-api
-        sourceRevisionDigest: sha256:3d4517a3dfb81e139fc097c6131f8270036e2396ea168aa0c8e14d964269dbe0
-        sourceBlobDigest: sha256:e9a09bd4c3668899d5a7dcb0002cfa69fd53ba8e9664de8ab9dc028b03f1dbfb
+        sourceRevisionDigest: sha256:4dc175c5fd273b53ce03d25702db7fe5d3fdc5cb6bcb3c02c1ace80a17bfb7d0
+        sourceBlobDigest: sha256:2bdb7d3656fe40f5635dd040ec7db89ecb2869e95326e57445f5b9407bbaf408
         codeSamplesNamespace: dokploy-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:38db6d5c740941a93dd8ee823d99faa36b438e6a261e59e6c8109f129e2626ce
+        codeSamplesRevisionDigest: sha256:b59cdd4647b296b849104f6590a3e07a1f93381cab47e474b42418fa2e0ae12d
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -29,22 +29,12 @@ workflow:
         Dokploy API:
             inputs:
                 - location: https://raw.githubusercontent.com/charliedevelops/dokploy-api/refs/heads/main/API.json
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api
     targets:
-        dokploy:
-            target: typescript
-            source: Dokploy API
-            publish:
-                npm:
-                    token: $npm_token
-            codeSamples:
-                registry:
-                    location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api-typescript-code-samples
-                labelOverride:
-                    fixedValue: Typescript (SDK)
-                blocking: false
         typescript:
             target: typescript
             source: Dokploy API

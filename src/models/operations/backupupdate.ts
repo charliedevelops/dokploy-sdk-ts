@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type BackupUpdateSecurity = {
-  authorization: string;
-};
 
 export const BackupUpdateDatabaseType = {
   Postgres: "postgres",
@@ -25,79 +20,17 @@ export type BackupUpdateDatabaseType = ClosedEnum<
 >;
 
 export type BackupUpdateRequest = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
   backupId: string;
-  destinationId: string;
   database: string;
-  keepLatestCount?: number | null | undefined;
-  serviceName: string | null;
-  metadata?: any | null | undefined;
   databaseType: BackupUpdateDatabaseType;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  metadata?: any | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
 };
-
-/** @internal */
-export const BackupUpdateSecurity$inboundSchema: z.ZodType<
-  BackupUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupUpdateSecurity$outboundSchema: z.ZodType<
-  BackupUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupUpdateSecurity$ {
-  /** @deprecated use `BackupUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupUpdateSecurity$inboundSchema;
-  /** @deprecated use `BackupUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupUpdateSecurity$outboundSchema;
-  /** @deprecated use `BackupUpdateSecurity$Outbound` instead. */
-  export type Outbound = BackupUpdateSecurity$Outbound;
-}
-
-export function backupUpdateSecurityToJSON(
-  backupUpdateSecurity: BackupUpdateSecurity,
-): string {
-  return JSON.stringify(
-    BackupUpdateSecurity$outboundSchema.parse(backupUpdateSecurity),
-  );
-}
-
-export function backupUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupUpdateDatabaseType$inboundSchema: z.ZodNativeEnum<
@@ -126,30 +59,30 @@ export const BackupUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
   backupId: z.string(),
-  destinationId: z.string(),
   database: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  serviceName: z.nullable(z.string()),
-  metadata: z.nullable(z.any()).optional(),
   databaseType: BackupUpdateDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  metadata: z.nullable(z.any()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
 });
 
 /** @internal */
 export type BackupUpdateRequest$Outbound = {
-  schedule: string;
-  enabled?: boolean | null | undefined;
-  prefix: string;
   backupId: string;
-  destinationId: string;
   database: string;
-  keepLatestCount?: number | null | undefined;
-  serviceName: string | null;
-  metadata?: any | null | undefined;
   databaseType: string;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
+  metadata?: any | null | undefined;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
 };
 
 /** @internal */
@@ -158,16 +91,16 @@ export const BackupUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BackupUpdateRequest
 > = z.object({
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()).optional(),
-  prefix: z.string(),
   backupId: z.string(),
-  destinationId: z.string(),
   database: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  serviceName: z.nullable(z.string()),
-  metadata: z.nullable(z.any()).optional(),
   databaseType: BackupUpdateDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
+  metadata: z.nullable(z.any()).optional(),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
 });
 
 /**

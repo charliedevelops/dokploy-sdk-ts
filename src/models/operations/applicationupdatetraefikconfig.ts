@@ -3,87 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ApplicationUpdateTraefikConfigSecurity = {
-  authorization: string;
-};
 
 export type ApplicationUpdateTraefikConfigRequest = {
   applicationId: string;
   traefikConfig: string;
 };
-
-/** @internal */
-export const ApplicationUpdateTraefikConfigSecurity$inboundSchema: z.ZodType<
-  ApplicationUpdateTraefikConfigSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationUpdateTraefikConfigSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationUpdateTraefikConfigSecurity$outboundSchema: z.ZodType<
-  ApplicationUpdateTraefikConfigSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationUpdateTraefikConfigSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationUpdateTraefikConfigSecurity$ {
-  /** @deprecated use `ApplicationUpdateTraefikConfigSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationUpdateTraefikConfigSecurity$inboundSchema;
-  /** @deprecated use `ApplicationUpdateTraefikConfigSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationUpdateTraefikConfigSecurity$outboundSchema;
-  /** @deprecated use `ApplicationUpdateTraefikConfigSecurity$Outbound` instead. */
-  export type Outbound = ApplicationUpdateTraefikConfigSecurity$Outbound;
-}
-
-export function applicationUpdateTraefikConfigSecurityToJSON(
-  applicationUpdateTraefikConfigSecurity:
-    ApplicationUpdateTraefikConfigSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationUpdateTraefikConfigSecurity$outboundSchema.parse(
-      applicationUpdateTraefikConfigSecurity,
-    ),
-  );
-}
-
-export function applicationUpdateTraefikConfigSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationUpdateTraefikConfigSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationUpdateTraefikConfigSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationUpdateTraefikConfigSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationUpdateTraefikConfigRequest$inboundSchema: z.ZodType<

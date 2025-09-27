@@ -6,8 +6,8 @@
 import { NotificationTestSlackConnectionRequest } from "dokploy-sdk/models/operations";
 
 let value: NotificationTestSlackConnectionRequest = {
-  webhookUrl: "https://exhausted-baseboard.org",
   channel: "<value>",
+  webhookUrl: "https://exhausted-baseboard.org",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: NotificationTestSlackConnectionRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `webhookUrl`       | *string*           | :heavy_check_mark: | N/A                |
 | `channel`          | *string*           | :heavy_check_mark: | N/A                |
+| `webhookUrl`       | *string*           | :heavy_check_mark: | N/A                |

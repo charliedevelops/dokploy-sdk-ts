@@ -3,19 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type EnvironmentCreateSecurity = {
-  authorization: string;
-};
-
 export type EnvironmentCreateRequest = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
   projectId: string;
 };
 
@@ -23,11 +18,11 @@ export type EnvironmentCreateRequest = {
  * Successful response
  */
 export type EnvironmentCreateResponseBody = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -36,82 +31,20 @@ export type EnvironmentCreateResponse =
   | models.ErrorT;
 
 /** @internal */
-export const EnvironmentCreateSecurity$inboundSchema: z.ZodType<
-  EnvironmentCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type EnvironmentCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const EnvironmentCreateSecurity$outboundSchema: z.ZodType<
-  EnvironmentCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  EnvironmentCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentCreateSecurity$ {
-  /** @deprecated use `EnvironmentCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentCreateSecurity$inboundSchema;
-  /** @deprecated use `EnvironmentCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentCreateSecurity$outboundSchema;
-  /** @deprecated use `EnvironmentCreateSecurity$Outbound` instead. */
-  export type Outbound = EnvironmentCreateSecurity$Outbound;
-}
-
-export function environmentCreateSecurityToJSON(
-  environmentCreateSecurity: EnvironmentCreateSecurity,
-): string {
-  return JSON.stringify(
-    EnvironmentCreateSecurity$outboundSchema.parse(environmentCreateSecurity),
-  );
-}
-
-export function environmentCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentCreateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const EnvironmentCreateRequest$inboundSchema: z.ZodType<
   EnvironmentCreateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
   projectId: string;
 };
 
@@ -121,8 +54,8 @@ export const EnvironmentCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
   projectId: z.string(),
 });
 
@@ -163,21 +96,21 @@ export const EnvironmentCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentCreateResponseBody$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -187,11 +120,11 @@ export const EnvironmentCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentCreateResponseBody
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 

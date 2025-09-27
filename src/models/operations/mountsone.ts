@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type MountsOneSecurity = {
-  authorization: string;
-};
-
 export type MountsOneRequest = {
   mountId: string;
 };
-
-/** @internal */
-export const MountsOneSecurity$inboundSchema: z.ZodType<
-  MountsOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MountsOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MountsOneSecurity$outboundSchema: z.ZodType<
-  MountsOneSecurity$Outbound,
-  z.ZodTypeDef,
-  MountsOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MountsOneSecurity$ {
-  /** @deprecated use `MountsOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = MountsOneSecurity$inboundSchema;
-  /** @deprecated use `MountsOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = MountsOneSecurity$outboundSchema;
-  /** @deprecated use `MountsOneSecurity$Outbound` instead. */
-  export type Outbound = MountsOneSecurity$Outbound;
-}
-
-export function mountsOneSecurityToJSON(
-  mountsOneSecurity: MountsOneSecurity,
-): string {
-  return JSON.stringify(
-    MountsOneSecurity$outboundSchema.parse(mountsOneSecurity),
-  );
-}
-
-export function mountsOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MountsOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MountsOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MountsOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MountsOneRequest$inboundSchema: z.ZodType<

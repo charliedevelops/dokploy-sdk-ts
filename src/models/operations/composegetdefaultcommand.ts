@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeGetDefaultCommandSecurity = {
-  authorization: string;
-};
-
 export type ComposeGetDefaultCommandRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeGetDefaultCommandSecurity$inboundSchema: z.ZodType<
-  ComposeGetDefaultCommandSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeGetDefaultCommandSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeGetDefaultCommandSecurity$outboundSchema: z.ZodType<
-  ComposeGetDefaultCommandSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeGetDefaultCommandSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeGetDefaultCommandSecurity$ {
-  /** @deprecated use `ComposeGetDefaultCommandSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeGetDefaultCommandSecurity$inboundSchema;
-  /** @deprecated use `ComposeGetDefaultCommandSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeGetDefaultCommandSecurity$outboundSchema;
-  /** @deprecated use `ComposeGetDefaultCommandSecurity$Outbound` instead. */
-  export type Outbound = ComposeGetDefaultCommandSecurity$Outbound;
-}
-
-export function composeGetDefaultCommandSecurityToJSON(
-  composeGetDefaultCommandSecurity: ComposeGetDefaultCommandSecurity,
-): string {
-  return JSON.stringify(
-    ComposeGetDefaultCommandSecurity$outboundSchema.parse(
-      composeGetDefaultCommandSecurity,
-    ),
-  );
-}
-
-export function composeGetDefaultCommandSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeGetDefaultCommandSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeGetDefaultCommandSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeGetDefaultCommandSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeGetDefaultCommandRequest$inboundSchema: z.ZodType<

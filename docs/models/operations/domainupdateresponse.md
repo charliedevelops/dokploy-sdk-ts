@@ -7,22 +7,22 @@
 
 ```typescript
 const value: operations.DomainUpdateResponseBody = {
-  domainId: "<id>",
-  host: "haunting-wasabi.info",
-  https: false,
-  port: 6580.24,
-  path: "/etc",
-  serviceName: "<value>",
-  domainType: "application",
-  uniqueConfigKey: 7877.47,
-  createdAt: "1735216356957",
-  composeId: "<id>",
-  customCertResolver: "<value>",
-  applicationId: null,
-  previewDeploymentId: "<id>",
+  applicationId: "<id>",
   certificateType: "custom",
+  composeId: "<id>",
+  createdAt: "1722732567473",
+  customCertResolver: "<value>",
+  domainId: "<id>",
+  domainType: "application",
+  host: "brave-comparison.org",
+  https: false,
   internalPath: "<value>",
-  stripPath: true,
+  path: "/var/spool",
+  port: 183.63,
+  previewDeploymentId: "<id>",
+  serviceName: "<value>",
+  stripPath: false,
+  uniqueConfigKey: 2847.72,
 };
 ```
 
@@ -30,8 +30,8 @@ const value: operations.DomainUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

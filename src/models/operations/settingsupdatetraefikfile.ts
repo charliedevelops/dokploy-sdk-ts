@@ -3,85 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsUpdateTraefikFileSecurity = {
-  authorization: string;
-};
-
 export type SettingsUpdateTraefikFileRequest = {
   path: string;
-  traefikConfig: string;
   serverId?: string | undefined;
+  traefikConfig: string;
 };
-
-/** @internal */
-export const SettingsUpdateTraefikFileSecurity$inboundSchema: z.ZodType<
-  SettingsUpdateTraefikFileSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsUpdateTraefikFileSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateTraefikFileSecurity$outboundSchema: z.ZodType<
-  SettingsUpdateTraefikFileSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsUpdateTraefikFileSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateTraefikFileSecurity$ {
-  /** @deprecated use `SettingsUpdateTraefikFileSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsUpdateTraefikFileSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateTraefikFileSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsUpdateTraefikFileSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateTraefikFileSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateTraefikFileSecurity$Outbound;
-}
-
-export function settingsUpdateTraefikFileSecurityToJSON(
-  settingsUpdateTraefikFileSecurity: SettingsUpdateTraefikFileSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateTraefikFileSecurity$outboundSchema.parse(
-      settingsUpdateTraefikFileSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateTraefikFileSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsUpdateTraefikFileSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsUpdateTraefikFileSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsUpdateTraefikFileSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateTraefikFileRequest$inboundSchema: z.ZodType<
@@ -90,15 +20,15 @@ export const SettingsUpdateTraefikFileRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   path: z.string(),
-  traefikConfig: z.string(),
   serverId: z.string().optional(),
+  traefikConfig: z.string(),
 });
 
 /** @internal */
 export type SettingsUpdateTraefikFileRequest$Outbound = {
   path: string;
-  traefikConfig: string;
   serverId?: string | undefined;
+  traefikConfig: string;
 };
 
 /** @internal */
@@ -108,8 +38,8 @@ export const SettingsUpdateTraefikFileRequest$outboundSchema: z.ZodType<
   SettingsUpdateTraefikFileRequest
 > = z.object({
   path: z.string(),
-  traefikConfig: z.string(),
   serverId: z.string().optional(),
+  traefikConfig: z.string(),
 });
 
 /**

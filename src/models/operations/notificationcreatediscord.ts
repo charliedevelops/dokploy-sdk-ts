@@ -3,91 +3,21 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationCreateDiscordSecurity = {
-  authorization: string;
-};
-
 export type NotificationCreateDiscordRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  decoration: boolean;
 };
-
-/** @internal */
-export const NotificationCreateDiscordSecurity$inboundSchema: z.ZodType<
-  NotificationCreateDiscordSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationCreateDiscordSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationCreateDiscordSecurity$outboundSchema: z.ZodType<
-  NotificationCreateDiscordSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationCreateDiscordSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationCreateDiscordSecurity$ {
-  /** @deprecated use `NotificationCreateDiscordSecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationCreateDiscordSecurity$inboundSchema;
-  /** @deprecated use `NotificationCreateDiscordSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationCreateDiscordSecurity$outboundSchema;
-  /** @deprecated use `NotificationCreateDiscordSecurity$Outbound` instead. */
-  export type Outbound = NotificationCreateDiscordSecurity$Outbound;
-}
-
-export function notificationCreateDiscordSecurityToJSON(
-  notificationCreateDiscordSecurity: NotificationCreateDiscordSecurity,
-): string {
-  return JSON.stringify(
-    NotificationCreateDiscordSecurity$outboundSchema.parse(
-      notificationCreateDiscordSecurity,
-    ),
-  );
-}
-
-export function notificationCreateDiscordSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationCreateDiscordSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationCreateDiscordSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationCreateDiscordSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationCreateDiscordRequest$inboundSchema: z.ZodType<
@@ -96,27 +26,27 @@ export const NotificationCreateDiscordRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  decoration: z.boolean(),
 });
 
 /** @internal */
 export type NotificationCreateDiscordRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  decoration: boolean;
 };
 
 /** @internal */
@@ -126,14 +56,14 @@ export const NotificationCreateDiscordRequest$outboundSchema: z.ZodType<
   NotificationCreateDiscordRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  decoration: z.boolean(),
 });
 
 /**

@@ -3,26 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PortDeleteSecurity = {
-  authorization: string;
-};
-
 export type PortDeleteRequest = {
   portId: string;
 };
-
-export const PortDeletePublishMode = {
-  Ingress: "ingress",
-  Host: "host",
-} as const;
-export type PortDeletePublishMode = ClosedEnum<typeof PortDeletePublishMode>;
 
 export const PortDeleteProtocol = {
   Tcp: "tcp",
@@ -30,81 +19,25 @@ export const PortDeleteProtocol = {
 } as const;
 export type PortDeleteProtocol = ClosedEnum<typeof PortDeleteProtocol>;
 
+export const PortDeletePublishMode = {
+  Ingress: "ingress",
+  Host: "host",
+} as const;
+export type PortDeletePublishMode = ClosedEnum<typeof PortDeletePublishMode>;
+
 /**
  * Successful response
  */
 export type PortDeleteResponseBody = {
-  portId: string;
-  publishedPort: number;
-  publishMode: PortDeletePublishMode;
-  targetPort: number;
-  protocol: PortDeleteProtocol;
   applicationId: string;
+  portId: string;
+  protocol: PortDeleteProtocol;
+  publishMode: PortDeletePublishMode;
+  publishedPort: number;
+  targetPort: number;
 };
 
 export type PortDeleteResponse = PortDeleteResponseBody | models.ErrorT;
-
-/** @internal */
-export const PortDeleteSecurity$inboundSchema: z.ZodType<
-  PortDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PortDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PortDeleteSecurity$outboundSchema: z.ZodType<
-  PortDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  PortDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortDeleteSecurity$ {
-  /** @deprecated use `PortDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = PortDeleteSecurity$inboundSchema;
-  /** @deprecated use `PortDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = PortDeleteSecurity$outboundSchema;
-  /** @deprecated use `PortDeleteSecurity$Outbound` instead. */
-  export type Outbound = PortDeleteSecurity$Outbound;
-}
-
-export function portDeleteSecurityToJSON(
-  portDeleteSecurity: PortDeleteSecurity,
-): string {
-  return JSON.stringify(
-    PortDeleteSecurity$outboundSchema.parse(portDeleteSecurity),
-  );
-}
-
-export function portDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PortDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PortDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PortDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PortDeleteRequest$inboundSchema: z.ZodType<
@@ -161,27 +94,6 @@ export function portDeleteRequestFromJSON(
 }
 
 /** @internal */
-export const PortDeletePublishMode$inboundSchema: z.ZodNativeEnum<
-  typeof PortDeletePublishMode
-> = z.nativeEnum(PortDeletePublishMode);
-
-/** @internal */
-export const PortDeletePublishMode$outboundSchema: z.ZodNativeEnum<
-  typeof PortDeletePublishMode
-> = PortDeletePublishMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortDeletePublishMode$ {
-  /** @deprecated use `PortDeletePublishMode$inboundSchema` instead. */
-  export const inboundSchema = PortDeletePublishMode$inboundSchema;
-  /** @deprecated use `PortDeletePublishMode$outboundSchema` instead. */
-  export const outboundSchema = PortDeletePublishMode$outboundSchema;
-}
-
-/** @internal */
 export const PortDeleteProtocol$inboundSchema: z.ZodNativeEnum<
   typeof PortDeleteProtocol
 > = z.nativeEnum(PortDeleteProtocol);
@@ -203,27 +115,48 @@ export namespace PortDeleteProtocol$ {
 }
 
 /** @internal */
+export const PortDeletePublishMode$inboundSchema: z.ZodNativeEnum<
+  typeof PortDeletePublishMode
+> = z.nativeEnum(PortDeletePublishMode);
+
+/** @internal */
+export const PortDeletePublishMode$outboundSchema: z.ZodNativeEnum<
+  typeof PortDeletePublishMode
+> = PortDeletePublishMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PortDeletePublishMode$ {
+  /** @deprecated use `PortDeletePublishMode$inboundSchema` instead. */
+  export const inboundSchema = PortDeletePublishMode$inboundSchema;
+  /** @deprecated use `PortDeletePublishMode$outboundSchema` instead. */
+  export const outboundSchema = PortDeletePublishMode$outboundSchema;
+}
+
+/** @internal */
 export const PortDeleteResponseBody$inboundSchema: z.ZodType<
   PortDeleteResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortDeletePublishMode$inboundSchema,
-  targetPort: z.number(),
-  protocol: PortDeleteProtocol$inboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortDeleteProtocol$inboundSchema,
+  publishMode: PortDeletePublishMode$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type PortDeleteResponseBody$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
   applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -232,12 +165,12 @@ export const PortDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PortDeleteResponseBody
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortDeletePublishMode$outboundSchema,
-  targetPort: z.number(),
-  protocol: PortDeleteProtocol$outboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortDeleteProtocol$outboundSchema,
+  publishMode: PortDeletePublishMode$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**

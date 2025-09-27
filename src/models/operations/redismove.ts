@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type RedisMoveSecurity = {
-  authorization: string;
-};
-
 export type RedisMoveRequest = {
   redisId: string;
   targetEnvironmentId: string;
@@ -30,18 +26,44 @@ export type RedisMoveApplicationStatus = ClosedEnum<
 >;
 
 export type RedisMoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type RedisMoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type RedisMoveGlobal = {};
+
+export type RedisMoveGlobalJob = {};
+
+export type RedisMoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type RedisMoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type RedisMoveModeSwarm = {
+  global?: RedisMoveGlobal | undefined;
+  globalJob?: RedisMoveGlobalJob | undefined;
+  replicated?: RedisMoveReplicated | undefined;
+  replicatedJob?: RedisMoveReplicatedJob | undefined;
+};
+
+export type RedisMoveDriverOpts = {};
+
+export type RedisMoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: RedisMoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type RedisMovePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type RedisMoveSpread = {
@@ -52,159 +74,71 @@ export type RedisMovePreference = {
   spread: RedisMoveSpread;
 };
 
-export type RedisMovePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type RedisMovePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<RedisMovePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<RedisMovePlatform> | undefined;
+  preferences?: Array<RedisMovePreference> | undefined;
 };
 
-export type RedisMoveUpdateConfigSwarm = {
-  parallelism: number;
+export type RedisMoveRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type RedisMoveRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type RedisMoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type RedisMoveGlobal = {};
-
-export type RedisMoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type RedisMoveGlobalJob = {};
-
-export type RedisMoveModeSwarm = {
-  replicated?: RedisMoveReplicated | undefined;
-  global?: RedisMoveGlobal | undefined;
-  replicatedJob?: RedisMoveReplicatedJob | undefined;
-  globalJob?: RedisMoveGlobalJob | undefined;
-};
-
-export type RedisMoveDriverOpts = {};
-
-export type RedisMoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: RedisMoveDriverOpts | undefined;
+export type RedisMoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type RedisMoveResponseBody = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: RedisMoveApplicationStatus;
-  healthCheckSwarm: RedisMoveHealthCheckSwarm | null;
-  restartPolicySwarm: RedisMoveRestartPolicySwarm | null;
-  placementSwarm: RedisMovePlacementSwarm | null;
-  updateConfigSwarm: RedisMoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: RedisMoveRollbackConfigSwarm | null;
-  modeSwarm: RedisMoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisMoveNetworkSwarm> | null;
-  replicas: number;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisMoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisMoveModeSwarm | null;
+  name: string;
+  networkSwarm: Array<RedisMoveNetworkSwarm> | null;
+  placementSwarm: RedisMovePlacementSwarm | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisMoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: RedisMoveRollbackConfigSwarm | null;
   serverId: string | null;
+  updateConfigSwarm: RedisMoveUpdateConfigSwarm | null;
 };
 
 export type RedisMoveResponse = RedisMoveResponseBody | models.ErrorT;
-
-/** @internal */
-export const RedisMoveSecurity$inboundSchema: z.ZodType<
-  RedisMoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedisMoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedisMoveSecurity$outboundSchema: z.ZodType<
-  RedisMoveSecurity$Outbound,
-  z.ZodTypeDef,
-  RedisMoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveSecurity$ {
-  /** @deprecated use `RedisMoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveSecurity$inboundSchema;
-  /** @deprecated use `RedisMoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveSecurity$outboundSchema;
-  /** @deprecated use `RedisMoveSecurity$Outbound` instead. */
-  export type Outbound = RedisMoveSecurity$Outbound;
-}
-
-export function redisMoveSecurityToJSON(
-  redisMoveSecurity: RedisMoveSecurity,
-): string {
-  return JSON.stringify(
-    RedisMoveSecurity$outboundSchema.parse(redisMoveSecurity),
-  );
-}
-
-export function redisMoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisMoveRequest$inboundSchema: z.ZodType<
@@ -290,28 +224,28 @@ export const RedisMoveHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type RedisMoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -320,18 +254,18 @@ export const RedisMoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisMoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -367,48 +301,127 @@ export function redisMoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisMoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  RedisMoveRestartPolicySwarm,
+export const RedisMoveGlobal$inboundSchema: z.ZodType<
+  RedisMoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisMoveGlobal$Outbound = {};
+
+/** @internal */
+export const RedisMoveGlobal$outboundSchema: z.ZodType<
+  RedisMoveGlobal$Outbound,
+  z.ZodTypeDef,
+  RedisMoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveGlobal$ {
+  /** @deprecated use `RedisMoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveGlobal$inboundSchema;
+  /** @deprecated use `RedisMoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveGlobal$outboundSchema;
+  /** @deprecated use `RedisMoveGlobal$Outbound` instead. */
+  export type Outbound = RedisMoveGlobal$Outbound;
+}
+
+export function redisMoveGlobalToJSON(
+  redisMoveGlobal: RedisMoveGlobal,
+): string {
+  return JSON.stringify(RedisMoveGlobal$outboundSchema.parse(redisMoveGlobal));
+}
+
+export function redisMoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveGlobalJob$inboundSchema: z.ZodType<
+  RedisMoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisMoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const RedisMoveGlobalJob$outboundSchema: z.ZodType<
+  RedisMoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  RedisMoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveGlobalJob$ {
+  /** @deprecated use `RedisMoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveGlobalJob$inboundSchema;
+  /** @deprecated use `RedisMoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveGlobalJob$outboundSchema;
+  /** @deprecated use `RedisMoveGlobalJob$Outbound` instead. */
+  export type Outbound = RedisMoveGlobalJob$Outbound;
+}
+
+export function redisMoveGlobalJobToJSON(
+  redisMoveGlobalJob: RedisMoveGlobalJob,
+): string {
+  return JSON.stringify(
+    RedisMoveGlobalJob$outboundSchema.parse(redisMoveGlobalJob),
+  );
+}
+
+export function redisMoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveReplicated$inboundSchema: z.ZodType<
+  RedisMoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type RedisMoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type RedisMoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const RedisMoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  RedisMoveRestartPolicySwarm$Outbound,
+export const RedisMoveReplicated$outboundSchema: z.ZodType<
+  RedisMoveReplicated$Outbound,
   z.ZodTypeDef,
-  RedisMoveRestartPolicySwarm
+  RedisMoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -416,32 +429,361 @@ export const RedisMoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisMoveRestartPolicySwarm$ {
-  /** @deprecated use `RedisMoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `RedisMoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `RedisMoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = RedisMoveRestartPolicySwarm$Outbound;
+export namespace RedisMoveReplicated$ {
+  /** @deprecated use `RedisMoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveReplicated$inboundSchema;
+  /** @deprecated use `RedisMoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveReplicated$outboundSchema;
+  /** @deprecated use `RedisMoveReplicated$Outbound` instead. */
+  export type Outbound = RedisMoveReplicated$Outbound;
 }
 
-export function redisMoveRestartPolicySwarmToJSON(
-  redisMoveRestartPolicySwarm: RedisMoveRestartPolicySwarm,
+export function redisMoveReplicatedToJSON(
+  redisMoveReplicated: RedisMoveReplicated,
 ): string {
   return JSON.stringify(
-    RedisMoveRestartPolicySwarm$outboundSchema.parse(
-      redisMoveRestartPolicySwarm,
-    ),
+    RedisMoveReplicated$outboundSchema.parse(redisMoveReplicated),
   );
 }
 
-export function redisMoveRestartPolicySwarmFromJSON(
+export function redisMoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<RedisMoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<RedisMoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveRestartPolicySwarm' from JSON`,
+    (x) => RedisMoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveReplicatedJob$inboundSchema: z.ZodType<
+  RedisMoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type RedisMoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const RedisMoveReplicatedJob$outboundSchema: z.ZodType<
+  RedisMoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  RedisMoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveReplicatedJob$ {
+  /** @deprecated use `RedisMoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveReplicatedJob$inboundSchema;
+  /** @deprecated use `RedisMoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveReplicatedJob$outboundSchema;
+  /** @deprecated use `RedisMoveReplicatedJob$Outbound` instead. */
+  export type Outbound = RedisMoveReplicatedJob$Outbound;
+}
+
+export function redisMoveReplicatedJobToJSON(
+  redisMoveReplicatedJob: RedisMoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    RedisMoveReplicatedJob$outboundSchema.parse(redisMoveReplicatedJob),
+  );
+}
+
+export function redisMoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveModeSwarm$inboundSchema: z.ZodType<
+  RedisMoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => RedisMoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => RedisMoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => RedisMoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => RedisMoveReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type RedisMoveModeSwarm$Outbound = {
+  Global?: RedisMoveGlobal$Outbound | undefined;
+  GlobalJob?: RedisMoveGlobalJob$Outbound | undefined;
+  Replicated?: RedisMoveReplicated$Outbound | undefined;
+  ReplicatedJob?: RedisMoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const RedisMoveModeSwarm$outboundSchema: z.ZodType<
+  RedisMoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisMoveModeSwarm
+> = z.object({
+  global: z.lazy(() => RedisMoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => RedisMoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => RedisMoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => RedisMoveReplicatedJob$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveModeSwarm$ {
+  /** @deprecated use `RedisMoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveModeSwarm$inboundSchema;
+  /** @deprecated use `RedisMoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveModeSwarm$outboundSchema;
+  /** @deprecated use `RedisMoveModeSwarm$Outbound` instead. */
+  export type Outbound = RedisMoveModeSwarm$Outbound;
+}
+
+export function redisMoveModeSwarmToJSON(
+  redisMoveModeSwarm: RedisMoveModeSwarm,
+): string {
+  return JSON.stringify(
+    RedisMoveModeSwarm$outboundSchema.parse(redisMoveModeSwarm),
+  );
+}
+
+export function redisMoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveDriverOpts$inboundSchema: z.ZodType<
+  RedisMoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisMoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const RedisMoveDriverOpts$outboundSchema: z.ZodType<
+  RedisMoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  RedisMoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveDriverOpts$ {
+  /** @deprecated use `RedisMoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveDriverOpts$inboundSchema;
+  /** @deprecated use `RedisMoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveDriverOpts$outboundSchema;
+  /** @deprecated use `RedisMoveDriverOpts$Outbound` instead. */
+  export type Outbound = RedisMoveDriverOpts$Outbound;
+}
+
+export function redisMoveDriverOptsToJSON(
+  redisMoveDriverOpts: RedisMoveDriverOpts,
+): string {
+  return JSON.stringify(
+    RedisMoveDriverOpts$outboundSchema.parse(redisMoveDriverOpts),
+  );
+}
+
+export function redisMoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMoveNetworkSwarm$inboundSchema: z.ZodType<
+  RedisMoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => RedisMoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type RedisMoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: RedisMoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const RedisMoveNetworkSwarm$outboundSchema: z.ZodType<
+  RedisMoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisMoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => RedisMoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMoveNetworkSwarm$ {
+  /** @deprecated use `RedisMoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `RedisMoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `RedisMoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = RedisMoveNetworkSwarm$Outbound;
+}
+
+export function redisMoveNetworkSwarmToJSON(
+  redisMoveNetworkSwarm: RedisMoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    RedisMoveNetworkSwarm$outboundSchema.parse(redisMoveNetworkSwarm),
+  );
+}
+
+export function redisMoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisMovePlatform$inboundSchema: z.ZodType<
+  RedisMovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type RedisMovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const RedisMovePlatform$outboundSchema: z.ZodType<
+  RedisMovePlatform$Outbound,
+  z.ZodTypeDef,
+  RedisMovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisMovePlatform$ {
+  /** @deprecated use `RedisMovePlatform$inboundSchema` instead. */
+  export const inboundSchema = RedisMovePlatform$inboundSchema;
+  /** @deprecated use `RedisMovePlatform$outboundSchema` instead. */
+  export const outboundSchema = RedisMovePlatform$outboundSchema;
+  /** @deprecated use `RedisMovePlatform$Outbound` instead. */
+  export type Outbound = RedisMovePlatform$Outbound;
+}
+
+export function redisMovePlatformToJSON(
+  redisMovePlatform: RedisMovePlatform,
+): string {
+  return JSON.stringify(
+    RedisMovePlatform$outboundSchema.parse(redisMovePlatform),
+  );
+}
+
+export function redisMovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisMovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisMovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMovePlatform' from JSON`,
   );
 }
 
@@ -568,98 +910,31 @@ export function redisMovePreferenceFromJSON(
 }
 
 /** @internal */
-export const RedisMovePlatform$inboundSchema: z.ZodType<
-  RedisMovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type RedisMovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const RedisMovePlatform$outboundSchema: z.ZodType<
-  RedisMovePlatform$Outbound,
-  z.ZodTypeDef,
-  RedisMovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMovePlatform$ {
-  /** @deprecated use `RedisMovePlatform$inboundSchema` instead. */
-  export const inboundSchema = RedisMovePlatform$inboundSchema;
-  /** @deprecated use `RedisMovePlatform$outboundSchema` instead. */
-  export const outboundSchema = RedisMovePlatform$outboundSchema;
-  /** @deprecated use `RedisMovePlatform$Outbound` instead. */
-  export type Outbound = RedisMovePlatform$Outbound;
-}
-
-export function redisMovePlatformToJSON(
-  redisMovePlatform: RedisMovePlatform,
-): string {
-  return JSON.stringify(
-    RedisMovePlatform$outboundSchema.parse(redisMovePlatform),
-  );
-}
-
-export function redisMovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const RedisMovePlacementSwarm$inboundSchema: z.ZodType<
   RedisMovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => RedisMovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => RedisMovePlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => RedisMovePreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type RedisMovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<RedisMovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<RedisMovePlatform$Outbound> | undefined;
+  Preferences?: Array<RedisMovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -669,16 +944,16 @@ export const RedisMovePlacementSwarm$outboundSchema: z.ZodType<
   RedisMovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => RedisMovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => RedisMovePlatform$outboundSchema)).optional(),
+  preferences: z.array(z.lazy(() => RedisMovePreference$outboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -714,58 +989,48 @@ export function redisMovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  RedisMoveUpdateConfigSwarm,
+export const RedisMoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  RedisMoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type RedisMoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type RedisMoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const RedisMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  RedisMoveUpdateConfigSwarm$Outbound,
+export const RedisMoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  RedisMoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  RedisMoveUpdateConfigSwarm
+  RedisMoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -773,30 +1038,32 @@ export const RedisMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisMoveUpdateConfigSwarm$ {
-  /** @deprecated use `RedisMoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `RedisMoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `RedisMoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = RedisMoveUpdateConfigSwarm$Outbound;
+export namespace RedisMoveRestartPolicySwarm$ {
+  /** @deprecated use `RedisMoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `RedisMoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `RedisMoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = RedisMoveRestartPolicySwarm$Outbound;
 }
 
-export function redisMoveUpdateConfigSwarmToJSON(
-  redisMoveUpdateConfigSwarm: RedisMoveUpdateConfigSwarm,
+export function redisMoveRestartPolicySwarmToJSON(
+  redisMoveRestartPolicySwarm: RedisMoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    RedisMoveUpdateConfigSwarm$outboundSchema.parse(redisMoveUpdateConfigSwarm),
+    RedisMoveRestartPolicySwarm$outboundSchema.parse(
+      redisMoveRestartPolicySwarm,
+    ),
   );
 }
 
-export function redisMoveUpdateConfigSwarmFromJSON(
+export function redisMoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<RedisMoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<RedisMoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveUpdateConfigSwarm' from JSON`,
+    (x) => RedisMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -806,31 +1073,31 @@ export const RedisMoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type RedisMoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -839,20 +1106,20 @@ export const RedisMoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisMoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -890,33 +1157,58 @@ export function redisMoveRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisMoveReplicated$inboundSchema: z.ZodType<
-  RedisMoveReplicated,
+export const RedisMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  RedisMoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type RedisMoveReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type RedisMoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const RedisMoveReplicated$outboundSchema: z.ZodType<
-  RedisMoveReplicated$Outbound,
+export const RedisMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  RedisMoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  RedisMoveReplicated
+  RedisMoveUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -924,388 +1216,30 @@ export const RedisMoveReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisMoveReplicated$ {
-  /** @deprecated use `RedisMoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveReplicated$inboundSchema;
-  /** @deprecated use `RedisMoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveReplicated$outboundSchema;
-  /** @deprecated use `RedisMoveReplicated$Outbound` instead. */
-  export type Outbound = RedisMoveReplicated$Outbound;
+export namespace RedisMoveUpdateConfigSwarm$ {
+  /** @deprecated use `RedisMoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisMoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `RedisMoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisMoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `RedisMoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = RedisMoveUpdateConfigSwarm$Outbound;
 }
 
-export function redisMoveReplicatedToJSON(
-  redisMoveReplicated: RedisMoveReplicated,
+export function redisMoveUpdateConfigSwarmToJSON(
+  redisMoveUpdateConfigSwarm: RedisMoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    RedisMoveReplicated$outboundSchema.parse(redisMoveReplicated),
+    RedisMoveUpdateConfigSwarm$outboundSchema.parse(redisMoveUpdateConfigSwarm),
   );
 }
 
-export function redisMoveReplicatedFromJSON(
+export function redisMoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<RedisMoveReplicated, SDKValidationError> {
+): SafeParseResult<RedisMoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisMoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveGlobal$inboundSchema: z.ZodType<
-  RedisMoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisMoveGlobal$Outbound = {};
-
-/** @internal */
-export const RedisMoveGlobal$outboundSchema: z.ZodType<
-  RedisMoveGlobal$Outbound,
-  z.ZodTypeDef,
-  RedisMoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveGlobal$ {
-  /** @deprecated use `RedisMoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveGlobal$inboundSchema;
-  /** @deprecated use `RedisMoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveGlobal$outboundSchema;
-  /** @deprecated use `RedisMoveGlobal$Outbound` instead. */
-  export type Outbound = RedisMoveGlobal$Outbound;
-}
-
-export function redisMoveGlobalToJSON(
-  redisMoveGlobal: RedisMoveGlobal,
-): string {
-  return JSON.stringify(RedisMoveGlobal$outboundSchema.parse(redisMoveGlobal));
-}
-
-export function redisMoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveReplicatedJob$inboundSchema: z.ZodType<
-  RedisMoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type RedisMoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const RedisMoveReplicatedJob$outboundSchema: z.ZodType<
-  RedisMoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  RedisMoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveReplicatedJob$ {
-  /** @deprecated use `RedisMoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveReplicatedJob$inboundSchema;
-  /** @deprecated use `RedisMoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveReplicatedJob$outboundSchema;
-  /** @deprecated use `RedisMoveReplicatedJob$Outbound` instead. */
-  export type Outbound = RedisMoveReplicatedJob$Outbound;
-}
-
-export function redisMoveReplicatedJobToJSON(
-  redisMoveReplicatedJob: RedisMoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    RedisMoveReplicatedJob$outboundSchema.parse(redisMoveReplicatedJob),
-  );
-}
-
-export function redisMoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveGlobalJob$inboundSchema: z.ZodType<
-  RedisMoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisMoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const RedisMoveGlobalJob$outboundSchema: z.ZodType<
-  RedisMoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  RedisMoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveGlobalJob$ {
-  /** @deprecated use `RedisMoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveGlobalJob$inboundSchema;
-  /** @deprecated use `RedisMoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveGlobalJob$outboundSchema;
-  /** @deprecated use `RedisMoveGlobalJob$Outbound` instead. */
-  export type Outbound = RedisMoveGlobalJob$Outbound;
-}
-
-export function redisMoveGlobalJobToJSON(
-  redisMoveGlobalJob: RedisMoveGlobalJob,
-): string {
-  return JSON.stringify(
-    RedisMoveGlobalJob$outboundSchema.parse(redisMoveGlobalJob),
-  );
-}
-
-export function redisMoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveModeSwarm$inboundSchema: z.ZodType<
-  RedisMoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => RedisMoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => RedisMoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => RedisMoveReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => RedisMoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type RedisMoveModeSwarm$Outbound = {
-  Replicated?: RedisMoveReplicated$Outbound | undefined;
-  Global?: RedisMoveGlobal$Outbound | undefined;
-  ReplicatedJob?: RedisMoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: RedisMoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisMoveModeSwarm$outboundSchema: z.ZodType<
-  RedisMoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisMoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => RedisMoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => RedisMoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => RedisMoveReplicatedJob$outboundSchema).optional(),
-  globalJob: z.lazy(() => RedisMoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveModeSwarm$ {
-  /** @deprecated use `RedisMoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveModeSwarm$inboundSchema;
-  /** @deprecated use `RedisMoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveModeSwarm$outboundSchema;
-  /** @deprecated use `RedisMoveModeSwarm$Outbound` instead. */
-  export type Outbound = RedisMoveModeSwarm$Outbound;
-}
-
-export function redisMoveModeSwarmToJSON(
-  redisMoveModeSwarm: RedisMoveModeSwarm,
-): string {
-  return JSON.stringify(
-    RedisMoveModeSwarm$outboundSchema.parse(redisMoveModeSwarm),
-  );
-}
-
-export function redisMoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveDriverOpts$inboundSchema: z.ZodType<
-  RedisMoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisMoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const RedisMoveDriverOpts$outboundSchema: z.ZodType<
-  RedisMoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  RedisMoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveDriverOpts$ {
-  /** @deprecated use `RedisMoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveDriverOpts$inboundSchema;
-  /** @deprecated use `RedisMoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveDriverOpts$outboundSchema;
-  /** @deprecated use `RedisMoveDriverOpts$Outbound` instead. */
-  export type Outbound = RedisMoveDriverOpts$Outbound;
-}
-
-export function redisMoveDriverOptsToJSON(
-  redisMoveDriverOpts: RedisMoveDriverOpts,
-): string {
-  return JSON.stringify(
-    RedisMoveDriverOpts$outboundSchema.parse(redisMoveDriverOpts),
-  );
-}
-
-export function redisMoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisMoveNetworkSwarm$inboundSchema: z.ZodType<
-  RedisMoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => RedisMoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type RedisMoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: RedisMoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisMoveNetworkSwarm$outboundSchema: z.ZodType<
-  RedisMoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisMoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => RedisMoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisMoveNetworkSwarm$ {
-  /** @deprecated use `RedisMoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisMoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `RedisMoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisMoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `RedisMoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = RedisMoveNetworkSwarm$Outbound;
-}
-
-export function redisMoveNetworkSwarmToJSON(
-  redisMoveNetworkSwarm: RedisMoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    RedisMoveNetworkSwarm$outboundSchema.parse(redisMoveNetworkSwarm),
-  );
-}
-
-export function redisMoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisMoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisMoveNetworkSwarm' from JSON`,
+    (x) => RedisMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisMoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1315,74 +1249,74 @@ export const RedisMoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisMoveApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisMoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisMoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => RedisMoveModeSwarm$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisMoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisMovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisMoveUpdateConfigSwarm$inboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisMoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisMoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => RedisMoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisMoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisMoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type RedisMoveResponseBody$Outbound = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: string;
-  healthCheckSwarm: RedisMoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: RedisMoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: RedisMovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: RedisMoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: RedisMoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: RedisMoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisMoveNetworkSwarm$Outbound> | null;
-  replicas: number;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisMoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisMoveModeSwarm$Outbound | null;
+  name: string;
+  networkSwarm: Array<RedisMoveNetworkSwarm$Outbound> | null;
+  placementSwarm: RedisMovePlacementSwarm$Outbound | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisMoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: RedisMoveRollbackConfigSwarm$Outbound | null;
   serverId: string | null;
+  updateConfigSwarm: RedisMoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -1391,44 +1325,44 @@ export const RedisMoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisMoveResponseBody
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisMoveApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisMoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisMoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => RedisMoveModeSwarm$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisMoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisMovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisMoveUpdateConfigSwarm$outboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisMoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisMoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => RedisMoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisMoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisMoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

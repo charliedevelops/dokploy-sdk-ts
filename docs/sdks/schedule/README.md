@@ -5,14 +5,14 @@
 
 ### Available Operations
 
-* [scheduleCreate](#schedulecreate)
-* [scheduleUpdate](#scheduleupdate)
-* [scheduleDelete](#scheduledelete)
-* [scheduleList](#schedulelist)
-* [scheduleOne](#scheduleone)
-* [scheduleRunManually](#schedulerunmanually)
+* [create](#create)
+* [delete](#delete)
+* [list](#list)
+* [get](#get)
+* [runManually](#runmanually)
+* [update](#update)
 
-## scheduleCreate
+## create
 
 ### Example Usage
 
@@ -20,15 +20,15 @@
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.schedule.scheduleCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-    cronExpression: "<value>",
+  const result = await dokploy.schedule.create({
     command: "<value>",
+    cronExpression: "<value>",
+    name: "<value>",
   });
 
   console.log(result);
@@ -43,25 +43,25 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleCreate } from "dokploy-sdk/funcs/scheduleScheduleCreate.js";
+import { scheduleCreate } from "dokploy-sdk/funcs/scheduleCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await scheduleScheduleCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
-    cronExpression: "<value>",
+  const res = await scheduleCreate(dokploy, {
     command: "<value>",
+    cronExpression: "<value>",
+    name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scheduleScheduleCreate failed:", res.error);
+    console.log("scheduleCreate failed:", res.error);
   }
 }
 
@@ -73,7 +73,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.ScheduleCreateRequest](../../models/operations/schedulecreaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleCreateSecurity](../../models/operations/schedulecreatesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -88,85 +87,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## scheduleUpdate
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="schedule-update" method="post" path="/schedule.update" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.schedule.scheduleUpdate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    scheduleId: "<id>",
-    name: "<value>",
-    cronExpression: "<value>",
-    command: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleUpdate } from "dokploy-sdk/funcs/scheduleScheduleUpdate.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await scheduleScheduleUpdate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    scheduleId: "<id>",
-    name: "<value>",
-    cronExpression: "<value>",
-    command: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("scheduleScheduleUpdate failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ScheduleUpdateRequest](../../models/operations/scheduleupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleUpdateSecurity](../../models/operations/scheduleupdatesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## scheduleDelete
+## delete
 
 ### Example Usage
 
@@ -174,12 +95,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.schedule.scheduleDelete({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.schedule.delete({
     scheduleId: "<id>",
   });
 
@@ -195,23 +116,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleDelete } from "dokploy-sdk/funcs/scheduleScheduleDelete.js";
+import { scheduleDelete } from "dokploy-sdk/funcs/scheduleDelete.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await scheduleScheduleDelete(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await scheduleDelete(dokploy, {
     scheduleId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scheduleScheduleDelete failed:", res.error);
+    console.log("scheduleDelete failed:", res.error);
   }
 }
 
@@ -223,7 +144,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.ScheduleDeleteRequest](../../models/operations/scheduledeleterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleDeleteSecurity](../../models/operations/scheduledeletesecurity.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -238,7 +158,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## scheduleList
+## list
 
 ### Example Usage
 
@@ -246,12 +166,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.schedule.scheduleList({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.schedule.list({
     id: "<id>",
     scheduleType: "application",
   });
@@ -268,16 +188,16 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleList } from "dokploy-sdk/funcs/scheduleScheduleList.js";
+import { scheduleList } from "dokploy-sdk/funcs/scheduleList.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await scheduleScheduleList(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await scheduleList(dokploy, {
     id: "<id>",
     scheduleType: "application",
   });
@@ -285,7 +205,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scheduleScheduleList failed:", res.error);
+    console.log("scheduleList failed:", res.error);
   }
 }
 
@@ -297,7 +217,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.ScheduleListRequest](../../models/operations/schedulelistrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleListSecurity](../../models/operations/schedulelistsecurity.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -312,7 +231,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## scheduleOne
+## get
 
 ### Example Usage
 
@@ -320,12 +239,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.schedule.scheduleOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.schedule.get({
     scheduleId: "<id>",
   });
 
@@ -341,23 +260,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleOne } from "dokploy-sdk/funcs/scheduleScheduleOne.js";
+import { scheduleGet } from "dokploy-sdk/funcs/scheduleGet.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await scheduleScheduleOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await scheduleGet(dokploy, {
     scheduleId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scheduleScheduleOne failed:", res.error);
+    console.log("scheduleGet failed:", res.error);
   }
 }
 
@@ -369,7 +288,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.ScheduleOneRequest](../../models/operations/scheduleonerequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleOneSecurity](../../models/operations/scheduleonesecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -384,7 +302,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## scheduleRunManually
+## runManually
 
 ### Example Usage
 
@@ -392,12 +310,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.schedule.scheduleRunManually({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.schedule.runManually({
     scheduleId: "<id>",
   });
 
@@ -413,23 +331,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { scheduleScheduleRunManually } from "dokploy-sdk/funcs/scheduleScheduleRunManually.js";
+import { scheduleRunManually } from "dokploy-sdk/funcs/scheduleRunManually.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await scheduleScheduleRunManually(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await scheduleRunManually(dokploy, {
     scheduleId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("scheduleScheduleRunManually failed:", res.error);
+    console.log("scheduleRunManually failed:", res.error);
   }
 }
 
@@ -441,7 +359,83 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.ScheduleRunManuallyRequest](../../models/operations/schedulerunmanuallyrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.ScheduleRunManuallySecurity](../../models/operations/schedulerunmanuallysecurity.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## update
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="schedule-update" method="post" path="/schedule.update" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await dokploy.schedule.update({
+    command: "<value>",
+    cronExpression: "<value>",
+    name: "<value>",
+    scheduleId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { scheduleUpdate } from "dokploy-sdk/funcs/scheduleUpdate.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await scheduleUpdate(dokploy, {
+    command: "<value>",
+    cronExpression: "<value>",
+    name: "<value>",
+    scheduleId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("scheduleUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ScheduleUpdateRequest](../../models/operations/scheduleupdaterequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

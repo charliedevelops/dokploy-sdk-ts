@@ -5,12 +5,78 @@
 
 ### Available Operations
 
-* [certificatesCreate](#certificatescreate)
-* [certificatesOne](#certificatesone)
-* [certificatesRemove](#certificatesremove)
-* [certificatesAll](#certificatesall)
+* [getAll](#getall)
+* [create](#create)
+* [get](#get)
+* [remove](#remove)
 
-## certificatesCreate
+## getAll
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="certificates-all" method="get" path="/certificates.all" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await dokploy.certificates.getAll();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { certificatesGetAll } from "dokploy-sdk/funcs/certificatesGetAll.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await certificatesGetAll(dokploy);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("certificatesGetAll failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.CertificatesAllResponse](../../models/operations/certificatesallresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## create
 
 ### Example Usage
 
@@ -18,16 +84,16 @@
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.certificates.certificatesCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
+  const result = await dokploy.certificates.create({
     certificateData: "<value>",
-    privateKey: "<value>",
+    name: "<value>",
     organizationId: "<id>",
+    privateKey: "<value>",
   });
 
   console.log(result);
@@ -42,26 +108,26 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { certificatesCertificatesCreate } from "dokploy-sdk/funcs/certificatesCertificatesCreate.js";
+import { certificatesCreate } from "dokploy-sdk/funcs/certificatesCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await certificatesCertificatesCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    name: "<value>",
+  const res = await certificatesCreate(dokploy, {
     certificateData: "<value>",
-    privateKey: "<value>",
+    name: "<value>",
     organizationId: "<id>",
+    privateKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("certificatesCertificatesCreate failed:", res.error);
+    console.log("certificatesCreate failed:", res.error);
   }
 }
 
@@ -73,7 +139,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.CertificatesCreateRequest](../../models/operations/certificatescreaterequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.CertificatesCreateSecurity](../../models/operations/certificatescreatesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -88,7 +153,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## certificatesOne
+## get
 
 ### Example Usage
 
@@ -96,12 +161,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.certificates.certificatesOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.certificates.get({
     certificateId: "<id>",
   });
 
@@ -117,23 +182,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { certificatesCertificatesOne } from "dokploy-sdk/funcs/certificatesCertificatesOne.js";
+import { certificatesGet } from "dokploy-sdk/funcs/certificatesGet.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await certificatesCertificatesOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await certificatesGet(dokploy, {
     certificateId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("certificatesCertificatesOne failed:", res.error);
+    console.log("certificatesGet failed:", res.error);
   }
 }
 
@@ -145,7 +210,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.CertificatesOneRequest](../../models/operations/certificatesonerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.CertificatesOneSecurity](../../models/operations/certificatesonesecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -160,7 +224,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## certificatesRemove
+## remove
 
 ### Example Usage
 
@@ -168,12 +232,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.certificates.certificatesRemove({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.certificates.remove({
     certificateId: "<id>",
   });
 
@@ -189,23 +253,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { certificatesCertificatesRemove } from "dokploy-sdk/funcs/certificatesCertificatesRemove.js";
+import { certificatesRemove } from "dokploy-sdk/funcs/certificatesRemove.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await certificatesCertificatesRemove(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await certificatesRemove(dokploy, {
     certificateId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("certificatesCertificatesRemove failed:", res.error);
+    console.log("certificatesRemove failed:", res.error);
   }
 }
 
@@ -217,7 +281,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.CertificatesRemoveRequest](../../models/operations/certificatesremoverequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.CertificatesRemoveSecurity](../../models/operations/certificatesremovesecurity.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -225,73 +288,6 @@ run();
 ### Response
 
 **Promise\<[operations.CertificatesRemoveResponse](../../models/operations/certificatesremoveresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## certificatesAll
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="certificates-all" method="get" path="/certificates.all" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.certificates.certificatesAll({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { certificatesCertificatesAll } from "dokploy-sdk/funcs/certificatesCertificatesAll.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await certificatesCertificatesAll(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("certificatesCertificatesAll failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.CertificatesAllSecurity](../../models/operations/certificatesallsecurity.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.CertificatesAllResponse](../../models/operations/certificatesallresponse.md)\>**
 
 ### Errors
 

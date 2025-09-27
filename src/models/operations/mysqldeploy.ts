@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlDeploySecurity = {
-  authorization: string;
-};
-
 export type MysqlDeployRequest = {
   mysqlId: string;
 };
@@ -27,194 +23,6 @@ export const MysqlDeployApplicationStatus = {
 export type MysqlDeployApplicationStatus = ClosedEnum<
   typeof MysqlDeployApplicationStatus
 >;
-
-export type MysqlDeployHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MysqlDeployRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MysqlDeploySpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlDeployPreference = {
-  spread: MysqlDeploySpread;
-};
-
-export type MysqlDeployPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlDeployPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlDeployPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlDeployPlatform> | undefined;
-};
-
-export type MysqlDeployUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlDeployRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlDeployReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MysqlDeployGlobal = {};
-
-export type MysqlDeployReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MysqlDeployGlobalJob = {};
-
-export type MysqlDeployModeSwarm = {
-  replicated?: MysqlDeployReplicated | undefined;
-  global?: MysqlDeployGlobal | undefined;
-  replicatedJob?: MysqlDeployReplicatedJob | undefined;
-  globalJob?: MysqlDeployGlobalJob | undefined;
-};
-
-export type MysqlDeployDriverOpts = {};
-
-export type MysqlDeployNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlDeployDriverOpts | undefined;
-};
-
-export type MysqlDeployProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlDeployEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlDeployProject;
-};
-
-export const MysqlDeployType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlDeployType = ClosedEnum<typeof MysqlDeployType>;
-
-export const MysqlDeployServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MysqlDeployServiceType = ClosedEnum<typeof MysqlDeployServiceType>;
-
-export type MysqlDeployMount = {
-  mountId: string;
-  type: MysqlDeployType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlDeployServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MysqlDeployServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlDeployServerStatus = ClosedEnum<
-  typeof MysqlDeployServerStatus
->;
-
-export const MysqlDeployMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MysqlDeployMetricsConfigEnum = ClosedEnum<
-  typeof MysqlDeployMetricsConfigEnum
->;
-
-export type MysqlDeployMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MysqlDeployMetricsConfigEnum;
-
-export type MysqlDeployMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MysqlDeployMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MysqlDeployServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlDeployServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MysqlDeployMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MysqlDeployBackupType = {
   Database: "database",
@@ -240,29 +48,29 @@ export type MysqlDeployMetadataEnum = ClosedEnum<
   typeof MysqlDeployMetadataEnum
 >;
 
-export type MysqlDeployPostgres = {
-  databaseUser: string;
-};
-
 export type MysqlDeployMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlDeployMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlDeployMysql = {
   databaseRootPassword: string;
 };
 
+export type MysqlDeployPostgres = {
+  databaseUser: string;
+};
+
 export type MysqlDeployMetadata = {
-  postgres?: MysqlDeployPostgres | undefined;
   mariadb?: MysqlDeployMariadb | undefined;
   mongo?: MysqlDeployMongo | undefined;
   mysql?: MysqlDeployMysql | undefined;
+  postgres?: MysqlDeployPostgres | undefined;
 };
 
 export type MysqlDeployMetadataUnion =
@@ -270,128 +78,254 @@ export type MysqlDeployMetadataUnion =
   | MysqlDeployMetadataEnum;
 
 export type MysqlDeployBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MysqlDeployBackupType;
-  databaseType: MysqlDeployDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MysqlDeployDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MysqlDeployMetadata | MysqlDeployMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlDeployProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlDeployEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlDeployProject;
+  projectId: string;
+};
+
+export type MysqlDeployHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MysqlDeployGlobal = {};
+
+export type MysqlDeployGlobalJob = {};
+
+export type MysqlDeployReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MysqlDeployReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MysqlDeployModeSwarm = {
+  global?: MysqlDeployGlobal | undefined;
+  globalJob?: MysqlDeployGlobalJob | undefined;
+  replicated?: MysqlDeployReplicated | undefined;
+  replicatedJob?: MysqlDeployReplicatedJob | undefined;
+};
+
+export const MysqlDeployServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MysqlDeployServiceType = ClosedEnum<typeof MysqlDeployServiceType>;
+
+export const MysqlDeployType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlDeployType = ClosedEnum<typeof MysqlDeployType>;
+
+export type MysqlDeployMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MysqlDeployServiceType;
+  type: MysqlDeployType;
+  volumeName: string | null;
+};
+
+export type MysqlDeployDriverOpts = {};
+
+export type MysqlDeployNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlDeployDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlDeployPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlDeploySpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlDeployPreference = {
+  spread: MysqlDeploySpread;
+};
+
+export type MysqlDeployPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlDeployPlatform> | undefined;
+  preferences?: Array<MysqlDeployPreference> | undefined;
+};
+
+export type MysqlDeployRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlDeployRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MysqlDeployMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MysqlDeployMetricsConfigEnum = ClosedEnum<
+  typeof MysqlDeployMetricsConfigEnum
+>;
+
+export type MysqlDeployMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MysqlDeployMetricsConfigEnum;
+
+export type MysqlDeployMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MysqlDeployMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MysqlDeployServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlDeployServerStatus = ClosedEnum<
+  typeof MysqlDeployServerStatus
+>;
+
+export type MysqlDeployServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MysqlDeployMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlDeployServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MysqlDeployUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlDeployResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlDeployApplicationStatus;
+  backups: Array<MysqlDeployBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlDeployApplicationStatus;
-  healthCheckSwarm: MysqlDeployHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlDeployRestartPolicySwarm | null;
-  placementSwarm: MysqlDeployPlacementSwarm | null;
-  updateConfigSwarm: MysqlDeployUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlDeployRollbackConfigSwarm | null;
-  modeSwarm: MysqlDeployModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlDeployNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlDeployEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlDeployHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlDeployModeSwarm | null;
   mounts: Array<MysqlDeployMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlDeployNetworkSwarm> | null;
+  placementSwarm: MysqlDeployPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlDeployRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlDeployRollbackConfigSwarm | null;
   server: MysqlDeployServer | null;
-  backups: Array<MysqlDeployBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlDeployUpdateConfigSwarm | null;
 };
 
 export type MysqlDeployResponse = MysqlDeployResponseBody | models.ErrorT;
-
-/** @internal */
-export const MysqlDeploySecurity$inboundSchema: z.ZodType<
-  MysqlDeploySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlDeploySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlDeploySecurity$outboundSchema: z.ZodType<
-  MysqlDeploySecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlDeploySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeploySecurity$ {
-  /** @deprecated use `MysqlDeploySecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeploySecurity$inboundSchema;
-  /** @deprecated use `MysqlDeploySecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeploySecurity$outboundSchema;
-  /** @deprecated use `MysqlDeploySecurity$Outbound` instead. */
-  export type Outbound = MysqlDeploySecurity$Outbound;
-}
-
-export function mysqlDeploySecurityToJSON(
-  mysqlDeploySecurity: MysqlDeploySecurity,
-): string {
-  return JSON.stringify(
-    MysqlDeploySecurity$outboundSchema.parse(mysqlDeploySecurity),
-  );
-}
-
-export function mysqlDeploySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeploySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeploySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeploySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlDeployRequest$inboundSchema: z.ZodType<
@@ -469,33 +403,693 @@ export namespace MysqlDeployApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlDeployBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployBackupType
+> = z.nativeEnum(MysqlDeployBackupType);
+
+/** @internal */
+export const MysqlDeployBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployBackupType
+> = MysqlDeployBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployBackupType$ {
+  /** @deprecated use `MysqlDeployBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployBackupType$inboundSchema;
+  /** @deprecated use `MysqlDeployBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployDatabaseType
+> = z.nativeEnum(MysqlDeployDatabaseType);
+
+/** @internal */
+export const MysqlDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployDatabaseType
+> = MysqlDeployDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployDatabaseType$ {
+  /** @deprecated use `MysqlDeployDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlDeployDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployMetadataEnum
+> = z.nativeEnum(MysqlDeployMetadataEnum);
+
+/** @internal */
+export const MysqlDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployMetadataEnum
+> = MysqlDeployMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMetadataEnum$ {
+  /** @deprecated use `MysqlDeployMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlDeployMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlDeployMariadb$inboundSchema: z.ZodType<
+  MysqlDeployMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlDeployMariadb$outboundSchema: z.ZodType<
+  MysqlDeployMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMariadb$ {
+  /** @deprecated use `MysqlDeployMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMariadb$inboundSchema;
+  /** @deprecated use `MysqlDeployMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMariadb$outboundSchema;
+  /** @deprecated use `MysqlDeployMariadb$Outbound` instead. */
+  export type Outbound = MysqlDeployMariadb$Outbound;
+}
+
+export function mysqlDeployMariadbToJSON(
+  mysqlDeployMariadb: MysqlDeployMariadb,
+): string {
+  return JSON.stringify(
+    MysqlDeployMariadb$outboundSchema.parse(mysqlDeployMariadb),
+  );
+}
+
+export function mysqlDeployMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployMongo$inboundSchema: z.ZodType<
+  MysqlDeployMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlDeployMongo$outboundSchema: z.ZodType<
+  MysqlDeployMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMongo$ {
+  /** @deprecated use `MysqlDeployMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMongo$inboundSchema;
+  /** @deprecated use `MysqlDeployMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMongo$outboundSchema;
+  /** @deprecated use `MysqlDeployMongo$Outbound` instead. */
+  export type Outbound = MysqlDeployMongo$Outbound;
+}
+
+export function mysqlDeployMongoToJSON(
+  mysqlDeployMongo: MysqlDeployMongo,
+): string {
+  return JSON.stringify(
+    MysqlDeployMongo$outboundSchema.parse(mysqlDeployMongo),
+  );
+}
+
+export function mysqlDeployMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployMysql$inboundSchema: z.ZodType<
+  MysqlDeployMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlDeployMysql$outboundSchema: z.ZodType<
+  MysqlDeployMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMysql$ {
+  /** @deprecated use `MysqlDeployMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMysql$inboundSchema;
+  /** @deprecated use `MysqlDeployMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMysql$outboundSchema;
+  /** @deprecated use `MysqlDeployMysql$Outbound` instead. */
+  export type Outbound = MysqlDeployMysql$Outbound;
+}
+
+export function mysqlDeployMysqlToJSON(
+  mysqlDeployMysql: MysqlDeployMysql,
+): string {
+  return JSON.stringify(
+    MysqlDeployMysql$outboundSchema.parse(mysqlDeployMysql),
+  );
+}
+
+export function mysqlDeployMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployPostgres$inboundSchema: z.ZodType<
+  MysqlDeployPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlDeployPostgres$outboundSchema: z.ZodType<
+  MysqlDeployPostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployPostgres$ {
+  /** @deprecated use `MysqlDeployPostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployPostgres$inboundSchema;
+  /** @deprecated use `MysqlDeployPostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployPostgres$outboundSchema;
+  /** @deprecated use `MysqlDeployPostgres$Outbound` instead. */
+  export type Outbound = MysqlDeployPostgres$Outbound;
+}
+
+export function mysqlDeployPostgresToJSON(
+  mysqlDeployPostgres: MysqlDeployPostgres,
+): string {
+  return JSON.stringify(
+    MysqlDeployPostgres$outboundSchema.parse(mysqlDeployPostgres),
+  );
+}
+
+export function mysqlDeployPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployMetadata$inboundSchema: z.ZodType<
+  MysqlDeployMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlDeployMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlDeployMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlDeployMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlDeployPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlDeployMetadata$Outbound = {
+  mariadb?: MysqlDeployMariadb$Outbound | undefined;
+  mongo?: MysqlDeployMongo$Outbound | undefined;
+  mysql?: MysqlDeployMysql$Outbound | undefined;
+  postgres?: MysqlDeployPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlDeployMetadata$outboundSchema: z.ZodType<
+  MysqlDeployMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlDeployMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlDeployMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlDeployMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlDeployPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMetadata$ {
+  /** @deprecated use `MysqlDeployMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMetadata$inboundSchema;
+  /** @deprecated use `MysqlDeployMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMetadata$outboundSchema;
+  /** @deprecated use `MysqlDeployMetadata$Outbound` instead. */
+  export type Outbound = MysqlDeployMetadata$Outbound;
+}
+
+export function mysqlDeployMetadataToJSON(
+  mysqlDeployMetadata: MysqlDeployMetadata,
+): string {
+  return JSON.stringify(
+    MysqlDeployMetadata$outboundSchema.parse(mysqlDeployMetadata),
+  );
+}
+
+export function mysqlDeployMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployMetadataUnion$inboundSchema: z.ZodType<
+  MysqlDeployMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlDeployMetadata$inboundSchema),
+  MysqlDeployMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlDeployMetadataUnion$Outbound =
+  | MysqlDeployMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlDeployMetadataUnion$outboundSchema: z.ZodType<
+  MysqlDeployMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlDeployMetadata$outboundSchema),
+  MysqlDeployMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMetadataUnion$ {
+  /** @deprecated use `MysqlDeployMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlDeployMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlDeployMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlDeployMetadataUnion$Outbound;
+}
+
+export function mysqlDeployMetadataUnionToJSON(
+  mysqlDeployMetadataUnion: MysqlDeployMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlDeployMetadataUnion$outboundSchema.parse(mysqlDeployMetadataUnion),
+  );
+}
+
+export function mysqlDeployMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployBackup$inboundSchema: z.ZodType<
+  MysqlDeployBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlDeployBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlDeployDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlDeployMetadata$inboundSchema),
+      MysqlDeployMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlDeployBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlDeployMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlDeployBackup$outboundSchema: z.ZodType<
+  MysqlDeployBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlDeployBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlDeployDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlDeployMetadata$outboundSchema),
+      MysqlDeployMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployBackup$ {
+  /** @deprecated use `MysqlDeployBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployBackup$inboundSchema;
+  /** @deprecated use `MysqlDeployBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployBackup$outboundSchema;
+  /** @deprecated use `MysqlDeployBackup$Outbound` instead. */
+  export type Outbound = MysqlDeployBackup$Outbound;
+}
+
+export function mysqlDeployBackupToJSON(
+  mysqlDeployBackup: MysqlDeployBackup,
+): string {
+  return JSON.stringify(
+    MysqlDeployBackup$outboundSchema.parse(mysqlDeployBackup),
+  );
+}
+
+export function mysqlDeployBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployProject$inboundSchema: z.ZodType<
+  MysqlDeployProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlDeployProject$outboundSchema: z.ZodType<
+  MysqlDeployProject$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployProject$ {
+  /** @deprecated use `MysqlDeployProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployProject$inboundSchema;
+  /** @deprecated use `MysqlDeployProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployProject$outboundSchema;
+  /** @deprecated use `MysqlDeployProject$Outbound` instead. */
+  export type Outbound = MysqlDeployProject$Outbound;
+}
+
+export function mysqlDeployProjectToJSON(
+  mysqlDeployProject: MysqlDeployProject,
+): string {
+  return JSON.stringify(
+    MysqlDeployProject$outboundSchema.parse(mysqlDeployProject),
+  );
+}
+
+export function mysqlDeployProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployEnvironment$inboundSchema: z.ZodType<
+  MysqlDeployEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlDeployProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlDeployEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlDeployProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlDeployEnvironment$outboundSchema: z.ZodType<
+  MysqlDeployEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlDeployProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployEnvironment$ {
+  /** @deprecated use `MysqlDeployEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployEnvironment$inboundSchema;
+  /** @deprecated use `MysqlDeployEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployEnvironment$outboundSchema;
+  /** @deprecated use `MysqlDeployEnvironment$Outbound` instead. */
+  export type Outbound = MysqlDeployEnvironment$Outbound;
+}
+
+export function mysqlDeployEnvironmentToJSON(
+  mysqlDeployEnvironment: MysqlDeployEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlDeployEnvironment$outboundSchema.parse(mysqlDeployEnvironment),
+  );
+}
+
+export function mysqlDeployEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlDeployHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlDeployHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlDeployHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -504,18 +1098,18 @@ export const MysqlDeployHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlDeployHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -553,48 +1147,129 @@ export function mysqlDeployHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlDeployRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlDeployRestartPolicySwarm,
+export const MysqlDeployGlobal$inboundSchema: z.ZodType<
+  MysqlDeployGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlDeployGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlDeployGlobal$outboundSchema: z.ZodType<
+  MysqlDeployGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployGlobal$ {
+  /** @deprecated use `MysqlDeployGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployGlobal$inboundSchema;
+  /** @deprecated use `MysqlDeployGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployGlobal$outboundSchema;
+  /** @deprecated use `MysqlDeployGlobal$Outbound` instead. */
+  export type Outbound = MysqlDeployGlobal$Outbound;
+}
+
+export function mysqlDeployGlobalToJSON(
+  mysqlDeployGlobal: MysqlDeployGlobal,
+): string {
+  return JSON.stringify(
+    MysqlDeployGlobal$outboundSchema.parse(mysqlDeployGlobal),
+  );
+}
+
+export function mysqlDeployGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployGlobalJob$inboundSchema: z.ZodType<
+  MysqlDeployGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlDeployGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlDeployGlobalJob$outboundSchema: z.ZodType<
+  MysqlDeployGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployGlobalJob$ {
+  /** @deprecated use `MysqlDeployGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlDeployGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlDeployGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlDeployGlobalJob$Outbound;
+}
+
+export function mysqlDeployGlobalJobToJSON(
+  mysqlDeployGlobalJob: MysqlDeployGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlDeployGlobalJob$outboundSchema.parse(mysqlDeployGlobalJob),
+  );
+}
+
+export function mysqlDeployGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployReplicated$inboundSchema: z.ZodType<
+  MysqlDeployReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlDeployRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlDeployReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlDeployRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlDeployRestartPolicySwarm$Outbound,
+export const MysqlDeployReplicated$outboundSchema: z.ZodType<
+  MysqlDeployReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlDeployRestartPolicySwarm
+  MysqlDeployReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -602,32 +1277,501 @@ export const MysqlDeployRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlDeployRestartPolicySwarm$ {
-  /** @deprecated use `MysqlDeployRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlDeployRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlDeployRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlDeployRestartPolicySwarm$Outbound;
+export namespace MysqlDeployReplicated$ {
+  /** @deprecated use `MysqlDeployReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployReplicated$inboundSchema;
+  /** @deprecated use `MysqlDeployReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployReplicated$outboundSchema;
+  /** @deprecated use `MysqlDeployReplicated$Outbound` instead. */
+  export type Outbound = MysqlDeployReplicated$Outbound;
 }
 
-export function mysqlDeployRestartPolicySwarmToJSON(
-  mysqlDeployRestartPolicySwarm: MysqlDeployRestartPolicySwarm,
+export function mysqlDeployReplicatedToJSON(
+  mysqlDeployReplicated: MysqlDeployReplicated,
 ): string {
   return JSON.stringify(
-    MysqlDeployRestartPolicySwarm$outboundSchema.parse(
-      mysqlDeployRestartPolicySwarm,
-    ),
+    MysqlDeployReplicated$outboundSchema.parse(mysqlDeployReplicated),
   );
 }
 
-export function mysqlDeployRestartPolicySwarmFromJSON(
+export function mysqlDeployReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlDeployRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlDeployReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployRestartPolicySwarm' from JSON`,
+    (x) => MysqlDeployReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployReplicatedJob$inboundSchema: z.ZodType<
+  MysqlDeployReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlDeployReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlDeployReplicatedJob$outboundSchema: z.ZodType<
+  MysqlDeployReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployReplicatedJob$ {
+  /** @deprecated use `MysqlDeployReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlDeployReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlDeployReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlDeployReplicatedJob$Outbound;
+}
+
+export function mysqlDeployReplicatedJobToJSON(
+  mysqlDeployReplicatedJob: MysqlDeployReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlDeployReplicatedJob$outboundSchema.parse(mysqlDeployReplicatedJob),
+  );
+}
+
+export function mysqlDeployReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployModeSwarm$inboundSchema: z.ZodType<
+  MysqlDeployModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlDeployGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlDeployGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlDeployReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlDeployReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlDeployModeSwarm$Outbound = {
+  Global?: MysqlDeployGlobal$Outbound | undefined;
+  GlobalJob?: MysqlDeployGlobalJob$Outbound | undefined;
+  Replicated?: MysqlDeployReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlDeployReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlDeployModeSwarm$outboundSchema: z.ZodType<
+  MysqlDeployModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlDeployGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlDeployGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlDeployReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlDeployReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployModeSwarm$ {
+  /** @deprecated use `MysqlDeployModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlDeployModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlDeployModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlDeployModeSwarm$Outbound;
+}
+
+export function mysqlDeployModeSwarmToJSON(
+  mysqlDeployModeSwarm: MysqlDeployModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlDeployModeSwarm$outboundSchema.parse(mysqlDeployModeSwarm),
+  );
+}
+
+export function mysqlDeployModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployServiceType
+> = z.nativeEnum(MysqlDeployServiceType);
+
+/** @internal */
+export const MysqlDeployServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployServiceType
+> = MysqlDeployServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployServiceType$ {
+  /** @deprecated use `MysqlDeployServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployServiceType$inboundSchema;
+  /** @deprecated use `MysqlDeployServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlDeployType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployType
+> = z.nativeEnum(MysqlDeployType);
+
+/** @internal */
+export const MysqlDeployType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployType
+> = MysqlDeployType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployType$ {
+  /** @deprecated use `MysqlDeployType$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployType$inboundSchema;
+  /** @deprecated use `MysqlDeployType$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlDeployMount$inboundSchema: z.ZodType<
+  MysqlDeployMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlDeployServiceType$inboundSchema,
+  type: MysqlDeployType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlDeployMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlDeployMount$outboundSchema: z.ZodType<
+  MysqlDeployMount$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlDeployServiceType$outboundSchema,
+  type: MysqlDeployType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployMount$ {
+  /** @deprecated use `MysqlDeployMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployMount$inboundSchema;
+  /** @deprecated use `MysqlDeployMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployMount$outboundSchema;
+  /** @deprecated use `MysqlDeployMount$Outbound` instead. */
+  export type Outbound = MysqlDeployMount$Outbound;
+}
+
+export function mysqlDeployMountToJSON(
+  mysqlDeployMount: MysqlDeployMount,
+): string {
+  return JSON.stringify(
+    MysqlDeployMount$outboundSchema.parse(mysqlDeployMount),
+  );
+}
+
+export function mysqlDeployMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployDriverOpts$inboundSchema: z.ZodType<
+  MysqlDeployDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlDeployDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlDeployDriverOpts$outboundSchema: z.ZodType<
+  MysqlDeployDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployDriverOpts$ {
+  /** @deprecated use `MysqlDeployDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlDeployDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlDeployDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlDeployDriverOpts$Outbound;
+}
+
+export function mysqlDeployDriverOptsToJSON(
+  mysqlDeployDriverOpts: MysqlDeployDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlDeployDriverOpts$outboundSchema.parse(mysqlDeployDriverOpts),
+  );
+}
+
+export function mysqlDeployDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlDeployNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlDeployDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlDeployNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlDeployDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlDeployNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlDeployNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlDeployDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployNetworkSwarm$ {
+  /** @deprecated use `MysqlDeployNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlDeployNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlDeployNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlDeployNetworkSwarm$Outbound;
+}
+
+export function mysqlDeployNetworkSwarmToJSON(
+  mysqlDeployNetworkSwarm: MysqlDeployNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlDeployNetworkSwarm$outboundSchema.parse(mysqlDeployNetworkSwarm),
+  );
+}
+
+export function mysqlDeployNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlDeployPlatform$inboundSchema: z.ZodType<
+  MysqlDeployPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlDeployPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlDeployPlatform$outboundSchema: z.ZodType<
+  MysqlDeployPlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlDeployPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployPlatform$ {
+  /** @deprecated use `MysqlDeployPlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployPlatform$inboundSchema;
+  /** @deprecated use `MysqlDeployPlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployPlatform$outboundSchema;
+  /** @deprecated use `MysqlDeployPlatform$Outbound` instead. */
+  export type Outbound = MysqlDeployPlatform$Outbound;
+}
+
+export function mysqlDeployPlatformToJSON(
+  mysqlDeployPlatform: MysqlDeployPlatform,
+): string {
+  return JSON.stringify(
+    MysqlDeployPlatform$outboundSchema.parse(mysqlDeployPlatform),
+  );
+}
+
+export function mysqlDeployPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlDeployPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlDeployPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployPlatform' from JSON`,
   );
 }
 
@@ -756,99 +1900,32 @@ export function mysqlDeployPreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlDeployPlatform$inboundSchema: z.ZodType<
-  MysqlDeployPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlDeployPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlDeployPlatform$outboundSchema: z.ZodType<
-  MysqlDeployPlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployPlatform$ {
-  /** @deprecated use `MysqlDeployPlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployPlatform$inboundSchema;
-  /** @deprecated use `MysqlDeployPlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployPlatform$outboundSchema;
-  /** @deprecated use `MysqlDeployPlatform$Outbound` instead. */
-  export type Outbound = MysqlDeployPlatform$Outbound;
-}
-
-export function mysqlDeployPlatformToJSON(
-  mysqlDeployPlatform: MysqlDeployPlatform,
-): string {
-  return JSON.stringify(
-    MysqlDeployPlatform$outboundSchema.parse(mysqlDeployPlatform),
-  );
-}
-
-export function mysqlDeployPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlDeployPlacementSwarm$inboundSchema: z.ZodType<
   MysqlDeployPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlDeployPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlDeployPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MysqlDeployPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlDeployPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlDeployPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlDeployPlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlDeployPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -858,17 +1935,17 @@ export const MysqlDeployPlacementSwarm$outboundSchema: z.ZodType<
   MysqlDeployPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlDeployPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlDeployPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MysqlDeployPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -904,58 +1981,48 @@ export function mysqlDeployPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlDeployUpdateConfigSwarm,
+export const MysqlDeployRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlDeployRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlDeployUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlDeployRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlDeployUpdateConfigSwarm$Outbound,
+export const MysqlDeployRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlDeployRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlDeployUpdateConfigSwarm
+  MysqlDeployRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -963,32 +2030,32 @@ export const MysqlDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlDeployUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlDeployUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlDeployUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlDeployUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlDeployUpdateConfigSwarm$Outbound;
+export namespace MysqlDeployRestartPolicySwarm$ {
+  /** @deprecated use `MysqlDeployRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlDeployRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlDeployRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlDeployRestartPolicySwarm$Outbound;
 }
 
-export function mysqlDeployUpdateConfigSwarmToJSON(
-  mysqlDeployUpdateConfigSwarm: MysqlDeployUpdateConfigSwarm,
+export function mysqlDeployRestartPolicySwarmToJSON(
+  mysqlDeployRestartPolicySwarm: MysqlDeployRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlDeployUpdateConfigSwarm$outboundSchema.parse(
-      mysqlDeployUpdateConfigSwarm,
+    MysqlDeployRestartPolicySwarm$outboundSchema.parse(
+      mysqlDeployRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlDeployUpdateConfigSwarmFromJSON(
+export function mysqlDeployRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlDeployUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlDeployRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployUpdateConfigSwarm' from JSON`,
+    (x) => MysqlDeployRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -998,31 +2065,31 @@ export const MysqlDeployRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlDeployRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1031,20 +2098,20 @@ export const MysqlDeployRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlDeployRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1079,730 +2146,6 @@ export function mysqlDeployRollbackConfigSwarmFromJSON(
     (x) => MysqlDeployRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlDeployRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlDeployReplicated$inboundSchema: z.ZodType<
-  MysqlDeployReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlDeployReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlDeployReplicated$outboundSchema: z.ZodType<
-  MysqlDeployReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployReplicated$ {
-  /** @deprecated use `MysqlDeployReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployReplicated$inboundSchema;
-  /** @deprecated use `MysqlDeployReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployReplicated$outboundSchema;
-  /** @deprecated use `MysqlDeployReplicated$Outbound` instead. */
-  export type Outbound = MysqlDeployReplicated$Outbound;
-}
-
-export function mysqlDeployReplicatedToJSON(
-  mysqlDeployReplicated: MysqlDeployReplicated,
-): string {
-  return JSON.stringify(
-    MysqlDeployReplicated$outboundSchema.parse(mysqlDeployReplicated),
-  );
-}
-
-export function mysqlDeployReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployGlobal$inboundSchema: z.ZodType<
-  MysqlDeployGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlDeployGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlDeployGlobal$outboundSchema: z.ZodType<
-  MysqlDeployGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployGlobal$ {
-  /** @deprecated use `MysqlDeployGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployGlobal$inboundSchema;
-  /** @deprecated use `MysqlDeployGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployGlobal$outboundSchema;
-  /** @deprecated use `MysqlDeployGlobal$Outbound` instead. */
-  export type Outbound = MysqlDeployGlobal$Outbound;
-}
-
-export function mysqlDeployGlobalToJSON(
-  mysqlDeployGlobal: MysqlDeployGlobal,
-): string {
-  return JSON.stringify(
-    MysqlDeployGlobal$outboundSchema.parse(mysqlDeployGlobal),
-  );
-}
-
-export function mysqlDeployGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployReplicatedJob$inboundSchema: z.ZodType<
-  MysqlDeployReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlDeployReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlDeployReplicatedJob$outboundSchema: z.ZodType<
-  MysqlDeployReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployReplicatedJob$ {
-  /** @deprecated use `MysqlDeployReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlDeployReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlDeployReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlDeployReplicatedJob$Outbound;
-}
-
-export function mysqlDeployReplicatedJobToJSON(
-  mysqlDeployReplicatedJob: MysqlDeployReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlDeployReplicatedJob$outboundSchema.parse(mysqlDeployReplicatedJob),
-  );
-}
-
-export function mysqlDeployReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployGlobalJob$inboundSchema: z.ZodType<
-  MysqlDeployGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlDeployGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlDeployGlobalJob$outboundSchema: z.ZodType<
-  MysqlDeployGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployGlobalJob$ {
-  /** @deprecated use `MysqlDeployGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlDeployGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlDeployGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlDeployGlobalJob$Outbound;
-}
-
-export function mysqlDeployGlobalJobToJSON(
-  mysqlDeployGlobalJob: MysqlDeployGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlDeployGlobalJob$outboundSchema.parse(mysqlDeployGlobalJob),
-  );
-}
-
-export function mysqlDeployGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployModeSwarm$inboundSchema: z.ZodType<
-  MysqlDeployModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlDeployReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlDeployGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlDeployReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MysqlDeployGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlDeployModeSwarm$Outbound = {
-  Replicated?: MysqlDeployReplicated$Outbound | undefined;
-  Global?: MysqlDeployGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlDeployReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlDeployGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlDeployModeSwarm$outboundSchema: z.ZodType<
-  MysqlDeployModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlDeployReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlDeployGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlDeployReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlDeployGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployModeSwarm$ {
-  /** @deprecated use `MysqlDeployModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlDeployModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlDeployModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlDeployModeSwarm$Outbound;
-}
-
-export function mysqlDeployModeSwarmToJSON(
-  mysqlDeployModeSwarm: MysqlDeployModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlDeployModeSwarm$outboundSchema.parse(mysqlDeployModeSwarm),
-  );
-}
-
-export function mysqlDeployModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployDriverOpts$inboundSchema: z.ZodType<
-  MysqlDeployDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlDeployDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlDeployDriverOpts$outboundSchema: z.ZodType<
-  MysqlDeployDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployDriverOpts$ {
-  /** @deprecated use `MysqlDeployDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlDeployDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlDeployDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlDeployDriverOpts$Outbound;
-}
-
-export function mysqlDeployDriverOptsToJSON(
-  mysqlDeployDriverOpts: MysqlDeployDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlDeployDriverOpts$outboundSchema.parse(mysqlDeployDriverOpts),
-  );
-}
-
-export function mysqlDeployDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlDeployNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlDeployDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlDeployNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlDeployDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlDeployNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlDeployNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlDeployDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployNetworkSwarm$ {
-  /** @deprecated use `MysqlDeployNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlDeployNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlDeployNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlDeployNetworkSwarm$Outbound;
-}
-
-export function mysqlDeployNetworkSwarmToJSON(
-  mysqlDeployNetworkSwarm: MysqlDeployNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlDeployNetworkSwarm$outboundSchema.parse(mysqlDeployNetworkSwarm),
-  );
-}
-
-export function mysqlDeployNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployProject$inboundSchema: z.ZodType<
-  MysqlDeployProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlDeployProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlDeployProject$outboundSchema: z.ZodType<
-  MysqlDeployProject$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployProject$ {
-  /** @deprecated use `MysqlDeployProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployProject$inboundSchema;
-  /** @deprecated use `MysqlDeployProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployProject$outboundSchema;
-  /** @deprecated use `MysqlDeployProject$Outbound` instead. */
-  export type Outbound = MysqlDeployProject$Outbound;
-}
-
-export function mysqlDeployProjectToJSON(
-  mysqlDeployProject: MysqlDeployProject,
-): string {
-  return JSON.stringify(
-    MysqlDeployProject$outboundSchema.parse(mysqlDeployProject),
-  );
-}
-
-export function mysqlDeployProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployEnvironment$inboundSchema: z.ZodType<
-  MysqlDeployEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlDeployProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlDeployEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlDeployProject$Outbound;
-};
-
-/** @internal */
-export const MysqlDeployEnvironment$outboundSchema: z.ZodType<
-  MysqlDeployEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlDeployProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployEnvironment$ {
-  /** @deprecated use `MysqlDeployEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployEnvironment$inboundSchema;
-  /** @deprecated use `MysqlDeployEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployEnvironment$outboundSchema;
-  /** @deprecated use `MysqlDeployEnvironment$Outbound` instead. */
-  export type Outbound = MysqlDeployEnvironment$Outbound;
-}
-
-export function mysqlDeployEnvironmentToJSON(
-  mysqlDeployEnvironment: MysqlDeployEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlDeployEnvironment$outboundSchema.parse(mysqlDeployEnvironment),
-  );
-}
-
-export function mysqlDeployEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployType
-> = z.nativeEnum(MysqlDeployType);
-
-/** @internal */
-export const MysqlDeployType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployType
-> = MysqlDeployType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployType$ {
-  /** @deprecated use `MysqlDeployType$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployType$inboundSchema;
-  /** @deprecated use `MysqlDeployType$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlDeployServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployServiceType
-> = z.nativeEnum(MysqlDeployServiceType);
-
-/** @internal */
-export const MysqlDeployServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployServiceType
-> = MysqlDeployServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployServiceType$ {
-  /** @deprecated use `MysqlDeployServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployServiceType$inboundSchema;
-  /** @deprecated use `MysqlDeployServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlDeployMount$inboundSchema: z.ZodType<
-  MysqlDeployMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlDeployType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlDeployServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlDeployMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlDeployMount$outboundSchema: z.ZodType<
-  MysqlDeployMount$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlDeployType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlDeployServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMount$ {
-  /** @deprecated use `MysqlDeployMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMount$inboundSchema;
-  /** @deprecated use `MysqlDeployMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMount$outboundSchema;
-  /** @deprecated use `MysqlDeployMount$Outbound` instead. */
-  export type Outbound = MysqlDeployMount$Outbound;
-}
-
-export function mysqlDeployMountToJSON(
-  mysqlDeployMount: MysqlDeployMount,
-): string {
-  return JSON.stringify(
-    MysqlDeployMount$outboundSchema.parse(mysqlDeployMount),
-  );
-}
-
-export function mysqlDeployMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployServerStatus
-> = z.nativeEnum(MysqlDeployServerStatus);
-
-/** @internal */
-export const MysqlDeployServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployServerStatus
-> = MysqlDeployServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployServerStatus$ {
-  /** @deprecated use `MysqlDeployServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployServerStatus$inboundSchema;
-  /** @deprecated use `MysqlDeployServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1965,24 +2308,38 @@ export function mysqlDeployMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlDeployServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployServerStatus
+> = z.nativeEnum(MysqlDeployServerStatus);
+
+/** @internal */
+export const MysqlDeployServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlDeployServerStatus
+> = MysqlDeployServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlDeployServerStatus$ {
+  /** @deprecated use `MysqlDeployServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployServerStatus$inboundSchema;
+  /** @deprecated use `MysqlDeployServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlDeployServer$inboundSchema: z.ZodType<
   MysqlDeployServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlDeployServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1993,26 +2350,33 @@ export const MysqlDeployServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlDeployServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlDeployServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2021,19 +2385,12 @@ export const MysqlDeployServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlDeployServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlDeployServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2044,6 +2401,13 @@ export const MysqlDeployServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlDeployServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2078,521 +2442,91 @@ export function mysqlDeployServerFromJSON(
 }
 
 /** @internal */
-export const MysqlDeployBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployBackupType
-> = z.nativeEnum(MysqlDeployBackupType);
-
-/** @internal */
-export const MysqlDeployBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployBackupType
-> = MysqlDeployBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployBackupType$ {
-  /** @deprecated use `MysqlDeployBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployBackupType$inboundSchema;
-  /** @deprecated use `MysqlDeployBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlDeployDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployDatabaseType
-> = z.nativeEnum(MysqlDeployDatabaseType);
-
-/** @internal */
-export const MysqlDeployDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployDatabaseType
-> = MysqlDeployDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployDatabaseType$ {
-  /** @deprecated use `MysqlDeployDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlDeployDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlDeployMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployMetadataEnum
-> = z.nativeEnum(MysqlDeployMetadataEnum);
-
-/** @internal */
-export const MysqlDeployMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlDeployMetadataEnum
-> = MysqlDeployMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMetadataEnum$ {
-  /** @deprecated use `MysqlDeployMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlDeployMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlDeployPostgres$inboundSchema: z.ZodType<
-  MysqlDeployPostgres,
+export const MysqlDeployUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlDeployUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlDeployPostgres$Outbound = {
-  databaseUser: string;
+export type MysqlDeployUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlDeployPostgres$outboundSchema: z.ZodType<
-  MysqlDeployPostgres$Outbound,
+export const MysqlDeployUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlDeployUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlDeployPostgres
+  MysqlDeployUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlDeployPostgres$ {
-  /** @deprecated use `MysqlDeployPostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployPostgres$inboundSchema;
-  /** @deprecated use `MysqlDeployPostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployPostgres$outboundSchema;
-  /** @deprecated use `MysqlDeployPostgres$Outbound` instead. */
-  export type Outbound = MysqlDeployPostgres$Outbound;
+export namespace MysqlDeployUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlDeployUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlDeployUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlDeployUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlDeployUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlDeployUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlDeployUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlDeployPostgresToJSON(
-  mysqlDeployPostgres: MysqlDeployPostgres,
+export function mysqlDeployUpdateConfigSwarmToJSON(
+  mysqlDeployUpdateConfigSwarm: MysqlDeployUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlDeployPostgres$outboundSchema.parse(mysqlDeployPostgres),
+    MysqlDeployUpdateConfigSwarm$outboundSchema.parse(
+      mysqlDeployUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mysqlDeployPostgresFromJSON(
+export function mysqlDeployUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlDeployPostgres, SDKValidationError> {
+): SafeParseResult<MysqlDeployUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlDeployPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployMariadb$inboundSchema: z.ZodType<
-  MysqlDeployMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlDeployMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlDeployMariadb$outboundSchema: z.ZodType<
-  MysqlDeployMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMariadb$ {
-  /** @deprecated use `MysqlDeployMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMariadb$inboundSchema;
-  /** @deprecated use `MysqlDeployMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMariadb$outboundSchema;
-  /** @deprecated use `MysqlDeployMariadb$Outbound` instead. */
-  export type Outbound = MysqlDeployMariadb$Outbound;
-}
-
-export function mysqlDeployMariadbToJSON(
-  mysqlDeployMariadb: MysqlDeployMariadb,
-): string {
-  return JSON.stringify(
-    MysqlDeployMariadb$outboundSchema.parse(mysqlDeployMariadb),
-  );
-}
-
-export function mysqlDeployMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployMongo$inboundSchema: z.ZodType<
-  MysqlDeployMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlDeployMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlDeployMongo$outboundSchema: z.ZodType<
-  MysqlDeployMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMongo$ {
-  /** @deprecated use `MysqlDeployMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMongo$inboundSchema;
-  /** @deprecated use `MysqlDeployMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMongo$outboundSchema;
-  /** @deprecated use `MysqlDeployMongo$Outbound` instead. */
-  export type Outbound = MysqlDeployMongo$Outbound;
-}
-
-export function mysqlDeployMongoToJSON(
-  mysqlDeployMongo: MysqlDeployMongo,
-): string {
-  return JSON.stringify(
-    MysqlDeployMongo$outboundSchema.parse(mysqlDeployMongo),
-  );
-}
-
-export function mysqlDeployMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployMysql$inboundSchema: z.ZodType<
-  MysqlDeployMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlDeployMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlDeployMysql$outboundSchema: z.ZodType<
-  MysqlDeployMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMysql$ {
-  /** @deprecated use `MysqlDeployMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMysql$inboundSchema;
-  /** @deprecated use `MysqlDeployMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMysql$outboundSchema;
-  /** @deprecated use `MysqlDeployMysql$Outbound` instead. */
-  export type Outbound = MysqlDeployMysql$Outbound;
-}
-
-export function mysqlDeployMysqlToJSON(
-  mysqlDeployMysql: MysqlDeployMysql,
-): string {
-  return JSON.stringify(
-    MysqlDeployMysql$outboundSchema.parse(mysqlDeployMysql),
-  );
-}
-
-export function mysqlDeployMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployMetadata$inboundSchema: z.ZodType<
-  MysqlDeployMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlDeployPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlDeployMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlDeployMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlDeployMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlDeployMetadata$Outbound = {
-  postgres?: MysqlDeployPostgres$Outbound | undefined;
-  mariadb?: MysqlDeployMariadb$Outbound | undefined;
-  mongo?: MysqlDeployMongo$Outbound | undefined;
-  mysql?: MysqlDeployMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlDeployMetadata$outboundSchema: z.ZodType<
-  MysqlDeployMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlDeployPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlDeployMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlDeployMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlDeployMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMetadata$ {
-  /** @deprecated use `MysqlDeployMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMetadata$inboundSchema;
-  /** @deprecated use `MysqlDeployMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMetadata$outboundSchema;
-  /** @deprecated use `MysqlDeployMetadata$Outbound` instead. */
-  export type Outbound = MysqlDeployMetadata$Outbound;
-}
-
-export function mysqlDeployMetadataToJSON(
-  mysqlDeployMetadata: MysqlDeployMetadata,
-): string {
-  return JSON.stringify(
-    MysqlDeployMetadata$outboundSchema.parse(mysqlDeployMetadata),
-  );
-}
-
-export function mysqlDeployMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployMetadataUnion$inboundSchema: z.ZodType<
-  MysqlDeployMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlDeployMetadata$inboundSchema),
-  MysqlDeployMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlDeployMetadataUnion$Outbound =
-  | MysqlDeployMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlDeployMetadataUnion$outboundSchema: z.ZodType<
-  MysqlDeployMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlDeployMetadata$outboundSchema),
-  MysqlDeployMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployMetadataUnion$ {
-  /** @deprecated use `MysqlDeployMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlDeployMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlDeployMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlDeployMetadataUnion$Outbound;
-}
-
-export function mysqlDeployMetadataUnionToJSON(
-  mysqlDeployMetadataUnion: MysqlDeployMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlDeployMetadataUnion$outboundSchema.parse(mysqlDeployMetadataUnion),
-  );
-}
-
-export function mysqlDeployMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlDeployBackup$inboundSchema: z.ZodType<
-  MysqlDeployBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlDeployBackupType$inboundSchema,
-  databaseType: MysqlDeployDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlDeployMetadata$inboundSchema),
-      MysqlDeployMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlDeployBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlDeployMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlDeployBackup$outboundSchema: z.ZodType<
-  MysqlDeployBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlDeployBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlDeployBackupType$outboundSchema,
-  databaseType: MysqlDeployDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlDeployMetadata$outboundSchema),
-      MysqlDeployMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlDeployBackup$ {
-  /** @deprecated use `MysqlDeployBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlDeployBackup$inboundSchema;
-  /** @deprecated use `MysqlDeployBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlDeployBackup$outboundSchema;
-  /** @deprecated use `MysqlDeployBackup$Outbound` instead. */
-  export type Outbound = MysqlDeployBackup$Outbound;
-}
-
-export function mysqlDeployBackupToJSON(
-  mysqlDeployBackup: MysqlDeployBackup,
-): string {
-  return JSON.stringify(
-    MysqlDeployBackup$outboundSchema.parse(mysqlDeployBackup),
-  );
-}
-
-export function mysqlDeployBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlDeployBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlDeployBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlDeployBackup' from JSON`,
+    (x) => MysqlDeployUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlDeployUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2602,88 +2536,88 @@ export const MysqlDeployResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlDeployApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlDeployBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlDeployEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlDeployApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlDeployHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlDeployRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlDeployModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlDeployMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlDeployNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlDeployPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlDeployUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlDeployRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlDeployRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlDeployModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlDeployNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlDeployEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlDeployMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlDeployServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlDeployBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlDeployUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlDeployResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlDeployBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlDeployHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlDeployRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlDeployPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlDeployUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlDeployRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlDeployModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlDeployNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlDeployEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlDeployHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlDeployModeSwarm$Outbound | null;
   mounts: Array<MysqlDeployMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlDeployNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlDeployPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlDeployRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlDeployRollbackConfigSwarm$Outbound | null;
   server: MysqlDeployServer$Outbound | null;
-  backups: Array<MysqlDeployBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlDeployUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2692,51 +2626,51 @@ export const MysqlDeployResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlDeployResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlDeployApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlDeployBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlDeployEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlDeployApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlDeployHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlDeployRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlDeployModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlDeployMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlDeployNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlDeployPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlDeployUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlDeployRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlDeployRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlDeployModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlDeployNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlDeployEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlDeployMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlDeployServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlDeployBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlDeployUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

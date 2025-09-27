@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type VolumeBackupsDeleteSecurity = {
-  authorization: string;
-};
-
 export type VolumeBackupsDeleteRequest = {
   volumeBackupId: string;
 };
-
-/** @internal */
-export const VolumeBackupsDeleteSecurity$inboundSchema: z.ZodType<
-  VolumeBackupsDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type VolumeBackupsDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const VolumeBackupsDeleteSecurity$outboundSchema: z.ZodType<
-  VolumeBackupsDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  VolumeBackupsDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VolumeBackupsDeleteSecurity$ {
-  /** @deprecated use `VolumeBackupsDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = VolumeBackupsDeleteSecurity$inboundSchema;
-  /** @deprecated use `VolumeBackupsDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = VolumeBackupsDeleteSecurity$outboundSchema;
-  /** @deprecated use `VolumeBackupsDeleteSecurity$Outbound` instead. */
-  export type Outbound = VolumeBackupsDeleteSecurity$Outbound;
-}
-
-export function volumeBackupsDeleteSecurityToJSON(
-  volumeBackupsDeleteSecurity: VolumeBackupsDeleteSecurity,
-): string {
-  return JSON.stringify(
-    VolumeBackupsDeleteSecurity$outboundSchema.parse(
-      volumeBackupsDeleteSecurity,
-    ),
-  );
-}
-
-export function volumeBackupsDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<VolumeBackupsDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VolumeBackupsDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VolumeBackupsDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const VolumeBackupsDeleteRequest$inboundSchema: z.ZodType<

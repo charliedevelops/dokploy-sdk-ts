@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeStartSecurity = {
-  authorization: string;
-};
-
 export type ComposeStartRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeStartSecurity$inboundSchema: z.ZodType<
-  ComposeStartSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeStartSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeStartSecurity$outboundSchema: z.ZodType<
-  ComposeStartSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeStartSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeStartSecurity$ {
-  /** @deprecated use `ComposeStartSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeStartSecurity$inboundSchema;
-  /** @deprecated use `ComposeStartSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeStartSecurity$outboundSchema;
-  /** @deprecated use `ComposeStartSecurity$Outbound` instead. */
-  export type Outbound = ComposeStartSecurity$Outbound;
-}
-
-export function composeStartSecurityToJSON(
-  composeStartSecurity: ComposeStartSecurity,
-): string {
-  return JSON.stringify(
-    ComposeStartSecurity$outboundSchema.parse(composeStartSecurity),
-  );
-}
-
-export function composeStartSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeStartSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeStartSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeStartSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeStartRequest$inboundSchema: z.ZodType<

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeCleanQueuesSecurity = {
-  authorization: string;
-};
-
 export type ComposeCleanQueuesRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeCleanQueuesSecurity$inboundSchema: z.ZodType<
-  ComposeCleanQueuesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeCleanQueuesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeCleanQueuesSecurity$outboundSchema: z.ZodType<
-  ComposeCleanQueuesSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeCleanQueuesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeCleanQueuesSecurity$ {
-  /** @deprecated use `ComposeCleanQueuesSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeCleanQueuesSecurity$inboundSchema;
-  /** @deprecated use `ComposeCleanQueuesSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeCleanQueuesSecurity$outboundSchema;
-  /** @deprecated use `ComposeCleanQueuesSecurity$Outbound` instead. */
-  export type Outbound = ComposeCleanQueuesSecurity$Outbound;
-}
-
-export function composeCleanQueuesSecurityToJSON(
-  composeCleanQueuesSecurity: ComposeCleanQueuesSecurity,
-): string {
-  return JSON.stringify(
-    ComposeCleanQueuesSecurity$outboundSchema.parse(composeCleanQueuesSecurity),
-  );
-}
-
-export function composeCleanQueuesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeCleanQueuesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeCleanQueuesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeCleanQueuesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeCleanQueuesRequest$inboundSchema: z.ZodType<

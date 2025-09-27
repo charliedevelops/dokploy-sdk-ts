@@ -3,24 +3,19 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type CertificatesAllSecurity = {
-  authorization: string;
-};
-
 export type CertificatesAllResponseBody = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -29,92 +24,30 @@ export type CertificatesAllResponse =
   | Array<CertificatesAllResponseBody>;
 
 /** @internal */
-export const CertificatesAllSecurity$inboundSchema: z.ZodType<
-  CertificatesAllSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type CertificatesAllSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const CertificatesAllSecurity$outboundSchema: z.ZodType<
-  CertificatesAllSecurity$Outbound,
-  z.ZodTypeDef,
-  CertificatesAllSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CertificatesAllSecurity$ {
-  /** @deprecated use `CertificatesAllSecurity$inboundSchema` instead. */
-  export const inboundSchema = CertificatesAllSecurity$inboundSchema;
-  /** @deprecated use `CertificatesAllSecurity$outboundSchema` instead. */
-  export const outboundSchema = CertificatesAllSecurity$outboundSchema;
-  /** @deprecated use `CertificatesAllSecurity$Outbound` instead. */
-  export type Outbound = CertificatesAllSecurity$Outbound;
-}
-
-export function certificatesAllSecurityToJSON(
-  certificatesAllSecurity: CertificatesAllSecurity,
-): string {
-  return JSON.stringify(
-    CertificatesAllSecurity$outboundSchema.parse(certificatesAllSecurity),
-  );
-}
-
-export function certificatesAllSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<CertificatesAllSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CertificatesAllSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CertificatesAllSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const CertificatesAllResponseBody$inboundSchema: z.ZodType<
   CertificatesAllResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 
 /** @internal */
 export type CertificatesAllResponseBody$Outbound = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -124,13 +57,13 @@ export const CertificatesAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CertificatesAllResponseBody
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 

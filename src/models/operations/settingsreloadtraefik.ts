@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsReloadTraefikSecurity = {
-  authorization: string;
-};
-
 export type SettingsReloadTraefikRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsReloadTraefikSecurity$inboundSchema: z.ZodType<
-  SettingsReloadTraefikSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsReloadTraefikSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsReloadTraefikSecurity$outboundSchema: z.ZodType<
-  SettingsReloadTraefikSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsReloadTraefikSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsReloadTraefikSecurity$ {
-  /** @deprecated use `SettingsReloadTraefikSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsReloadTraefikSecurity$inboundSchema;
-  /** @deprecated use `SettingsReloadTraefikSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsReloadTraefikSecurity$outboundSchema;
-  /** @deprecated use `SettingsReloadTraefikSecurity$Outbound` instead. */
-  export type Outbound = SettingsReloadTraefikSecurity$Outbound;
-}
-
-export function settingsReloadTraefikSecurityToJSON(
-  settingsReloadTraefikSecurity: SettingsReloadTraefikSecurity,
-): string {
-  return JSON.stringify(
-    SettingsReloadTraefikSecurity$outboundSchema.parse(
-      settingsReloadTraefikSecurity,
-    ),
-  );
-}
-
-export function settingsReloadTraefikSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsReloadTraefikSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsReloadTraefikSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsReloadTraefikSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsReloadTraefikRequest$inboundSchema: z.ZodType<

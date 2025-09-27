@@ -7,30 +7,33 @@
 
 ```typescript
 const value: operations.ApplicationReadAppMonitoringResponseBody = {
-  cpu: [
-    {
-      value: "<value>",
-      time: "<value>",
-    },
-  ],
-  memory: [],
-  disk: [],
-  network: [
-    {
-      value: {
-        inputMb: "<value>",
-        outputMb: "<value>",
-      },
-      time: "<value>",
-    },
-  ],
   block: [
     {
+      time: "<value>",
       value: {
         readMb: "<value>",
         writeMb: "<value>",
       },
+    },
+  ],
+  cpu: [],
+  disk: [],
+  memory: [
+    {
       time: "<value>",
+      value: {
+        total: "<value>",
+        used: "<value>",
+      },
+    },
+  ],
+  network: [
+    {
+      time: "<value>",
+      value: {
+        inputMb: "<value>",
+        outputMb: "<value>",
+      },
     },
   ],
 };
@@ -40,8 +43,8 @@ const value: operations.ApplicationReadAppMonitoringResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

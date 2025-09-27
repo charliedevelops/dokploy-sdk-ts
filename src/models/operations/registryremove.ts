@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type RegistryRemoveSecurity = {
-  authorization: string;
-};
-
 export type RegistryRemoveRequest = {
   registryId: string;
 };
-
-/** @internal */
-export const RegistryRemoveSecurity$inboundSchema: z.ZodType<
-  RegistryRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RegistryRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RegistryRemoveSecurity$outboundSchema: z.ZodType<
-  RegistryRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  RegistryRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RegistryRemoveSecurity$ {
-  /** @deprecated use `RegistryRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = RegistryRemoveSecurity$inboundSchema;
-  /** @deprecated use `RegistryRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = RegistryRemoveSecurity$outboundSchema;
-  /** @deprecated use `RegistryRemoveSecurity$Outbound` instead. */
-  export type Outbound = RegistryRemoveSecurity$Outbound;
-}
-
-export function registryRemoveSecurityToJSON(
-  registryRemoveSecurity: RegistryRemoveSecurity,
-): string {
-  return JSON.stringify(
-    RegistryRemoveSecurity$outboundSchema.parse(registryRemoveSecurity),
-  );
-}
-
-export function registryRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RegistryRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RegistryRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RegistryRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RegistryRemoveRequest$inboundSchema: z.ZodType<

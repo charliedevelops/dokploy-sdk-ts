@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type BitbucketTestConnectionSecurity = {
-  authorization: string;
-};
 
 export type BitbucketTestConnectionRequest = {
   bitbucketId: string;
@@ -20,70 +15,6 @@ export type BitbucketTestConnectionRequest = {
 };
 
 export type BitbucketTestConnectionResponse = models.ErrorT | string;
-
-/** @internal */
-export const BitbucketTestConnectionSecurity$inboundSchema: z.ZodType<
-  BitbucketTestConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketTestConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketTestConnectionSecurity$outboundSchema: z.ZodType<
-  BitbucketTestConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketTestConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketTestConnectionSecurity$ {
-  /** @deprecated use `BitbucketTestConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema = BitbucketTestConnectionSecurity$inboundSchema;
-  /** @deprecated use `BitbucketTestConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema = BitbucketTestConnectionSecurity$outboundSchema;
-  /** @deprecated use `BitbucketTestConnectionSecurity$Outbound` instead. */
-  export type Outbound = BitbucketTestConnectionSecurity$Outbound;
-}
-
-export function bitbucketTestConnectionSecurityToJSON(
-  bitbucketTestConnectionSecurity: BitbucketTestConnectionSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketTestConnectionSecurity$outboundSchema.parse(
-      bitbucketTestConnectionSecurity,
-    ),
-  );
-}
-
-export function bitbucketTestConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketTestConnectionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BitbucketTestConnectionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketTestConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketTestConnectionRequest$inboundSchema: z.ZodType<

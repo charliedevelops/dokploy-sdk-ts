@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupManualBackupMySqlSecurity = {
-  authorization: string;
-};
-
 export type BackupManualBackupMySqlRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupManualBackupMySqlSecurity$inboundSchema: z.ZodType<
-  BackupManualBackupMySqlSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupManualBackupMySqlSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupManualBackupMySqlSecurity$outboundSchema: z.ZodType<
-  BackupManualBackupMySqlSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupManualBackupMySqlSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupManualBackupMySqlSecurity$ {
-  /** @deprecated use `BackupManualBackupMySqlSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupManualBackupMySqlSecurity$inboundSchema;
-  /** @deprecated use `BackupManualBackupMySqlSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupManualBackupMySqlSecurity$outboundSchema;
-  /** @deprecated use `BackupManualBackupMySqlSecurity$Outbound` instead. */
-  export type Outbound = BackupManualBackupMySqlSecurity$Outbound;
-}
-
-export function backupManualBackupMySqlSecurityToJSON(
-  backupManualBackupMySqlSecurity: BackupManualBackupMySqlSecurity,
-): string {
-  return JSON.stringify(
-    BackupManualBackupMySqlSecurity$outboundSchema.parse(
-      backupManualBackupMySqlSecurity,
-    ),
-  );
-}
-
-export function backupManualBackupMySqlSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupManualBackupMySqlSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupManualBackupMySqlSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupManualBackupMySqlSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupManualBackupMySqlRequest$inboundSchema: z.ZodType<

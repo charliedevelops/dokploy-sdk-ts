@@ -3,92 +3,20 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveDockerProviderSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveDockerProviderRequest = {
-  dockerImage?: string | null | undefined;
   applicationId: string;
-  username?: string | null | undefined;
+  dockerImage?: string | null | undefined;
   password?: string | null | undefined;
   registryUrl?: string | null | undefined;
+  username?: string | null | undefined;
 };
 
 export type ApplicationSaveDockerProviderResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveDockerProviderSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveDockerProviderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveDockerProviderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveDockerProviderSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveDockerProviderSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveDockerProviderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveDockerProviderSecurity$ {
-  /** @deprecated use `ApplicationSaveDockerProviderSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationSaveDockerProviderSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveDockerProviderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveDockerProviderSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveDockerProviderSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveDockerProviderSecurity$Outbound;
-}
-
-export function applicationSaveDockerProviderSecurityToJSON(
-  applicationSaveDockerProviderSecurity: ApplicationSaveDockerProviderSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveDockerProviderSecurity$outboundSchema.parse(
-      applicationSaveDockerProviderSecurity,
-    ),
-  );
-}
-
-export function applicationSaveDockerProviderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveDockerProviderSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveDockerProviderSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveDockerProviderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveDockerProviderRequest$inboundSchema: z.ZodType<
@@ -96,20 +24,20 @@ export const ApplicationSaveDockerProviderRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dockerImage: z.nullable(z.string()).optional(),
   applicationId: z.string(),
-  username: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
   password: z.nullable(z.string()).optional(),
   registryUrl: z.nullable(z.string()).optional(),
+  username: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveDockerProviderRequest$Outbound = {
-  dockerImage?: string | null | undefined;
   applicationId: string;
-  username?: string | null | undefined;
+  dockerImage?: string | null | undefined;
   password?: string | null | undefined;
   registryUrl?: string | null | undefined;
+  username?: string | null | undefined;
 };
 
 /** @internal */
@@ -118,11 +46,11 @@ export const ApplicationSaveDockerProviderRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveDockerProviderRequest
 > = z.object({
-  dockerImage: z.nullable(z.string()).optional(),
   applicationId: z.string(),
-  username: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
   password: z.nullable(z.string()).optional(),
   registryUrl: z.nullable(z.string()).optional(),
+  username: z.nullable(z.string()).optional(),
 });
 
 /**

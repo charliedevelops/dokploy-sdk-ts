@@ -6,7 +6,11 @@
 import { ApplicationStartSecurity } from "dokploy-sdk/models/operations";
 
 let value: ApplicationStartSecurity = {
-  authorization: "<value>",
+  applicationId: "<id>",
+  createdAt: "1732352924809",
+  password: "Pn4Ye9IdfublGc_",
+  securityId: "<id>",
+  username: "Christine24",
 };
 ```
 
@@ -14,4 +18,8 @@ let value: ApplicationStartSecurity = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `authorization`    | *string*           | :heavy_check_mark: | N/A                |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `securityId`       | *string*           | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GitProviderRemoveSecurity = {
-  authorization: string;
-};
 
 export type GitProviderRemoveRequest = {
   gitProviderId: string;
@@ -27,68 +22,6 @@ export type GitProviderRemoveResponseBody = {
 export type GitProviderRemoveResponse =
   | models.ErrorT
   | GitProviderRemoveResponseBody;
-
-/** @internal */
-export const GitProviderRemoveSecurity$inboundSchema: z.ZodType<
-  GitProviderRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GitProviderRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GitProviderRemoveSecurity$outboundSchema: z.ZodType<
-  GitProviderRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  GitProviderRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitProviderRemoveSecurity$ {
-  /** @deprecated use `GitProviderRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = GitProviderRemoveSecurity$inboundSchema;
-  /** @deprecated use `GitProviderRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = GitProviderRemoveSecurity$outboundSchema;
-  /** @deprecated use `GitProviderRemoveSecurity$Outbound` instead. */
-  export type Outbound = GitProviderRemoveSecurity$Outbound;
-}
-
-export function gitProviderRemoveSecurityToJSON(
-  gitProviderRemoveSecurity: GitProviderRemoveSecurity,
-): string {
-  return JSON.stringify(
-    GitProviderRemoveSecurity$outboundSchema.parse(gitProviderRemoveSecurity),
-  );
-}
-
-export function gitProviderRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GitProviderRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitProviderRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitProviderRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GitProviderRemoveRequest$inboundSchema: z.ZodType<

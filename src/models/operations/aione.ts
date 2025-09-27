@@ -3,76 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type AiOneSecurity = {
-  authorization: string;
-};
-
 export type AiOneRequest = {
   aiId: string;
 };
-
-/** @internal */
-export const AiOneSecurity$inboundSchema: z.ZodType<
-  AiOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiOneSecurity$outboundSchema: z.ZodType<
-  AiOneSecurity$Outbound,
-  z.ZodTypeDef,
-  AiOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiOneSecurity$ {
-  /** @deprecated use `AiOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiOneSecurity$inboundSchema;
-  /** @deprecated use `AiOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiOneSecurity$outboundSchema;
-  /** @deprecated use `AiOneSecurity$Outbound` instead. */
-  export type Outbound = AiOneSecurity$Outbound;
-}
-
-export function aiOneSecurityToJSON(aiOneSecurity: AiOneSecurity): string {
-  return JSON.stringify(AiOneSecurity$outboundSchema.parse(aiOneSecurity));
-}
-
-export function aiOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiOneRequest$inboundSchema: z.ZodType<

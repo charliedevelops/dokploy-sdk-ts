@@ -3,83 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanUnusedImagesSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanUnusedImagesRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanUnusedImagesSecurity$inboundSchema: z.ZodType<
-  SettingsCleanUnusedImagesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanUnusedImagesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanUnusedImagesSecurity$outboundSchema: z.ZodType<
-  SettingsCleanUnusedImagesSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanUnusedImagesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanUnusedImagesSecurity$ {
-  /** @deprecated use `SettingsCleanUnusedImagesSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsCleanUnusedImagesSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanUnusedImagesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsCleanUnusedImagesSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanUnusedImagesSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanUnusedImagesSecurity$Outbound;
-}
-
-export function settingsCleanUnusedImagesSecurityToJSON(
-  settingsCleanUnusedImagesSecurity: SettingsCleanUnusedImagesSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanUnusedImagesSecurity$outboundSchema.parse(
-      settingsCleanUnusedImagesSecurity,
-    ),
-  );
-}
-
-export function settingsCleanUnusedImagesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanUnusedImagesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsCleanUnusedImagesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanUnusedImagesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanUnusedImagesRequest$inboundSchema: z.ZodType<

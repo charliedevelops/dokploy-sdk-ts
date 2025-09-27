@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GithubOneSecurity = {
-  authorization: string;
-};
 
 export type GithubOneRequest = {
   githubId: string;
@@ -27,11 +22,11 @@ export const GithubOneProviderType = {
 export type GithubOneProviderType = ClosedEnum<typeof GithubOneProviderType>;
 
 export type GithubOneGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GithubOneProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GithubOneProviderType;
   userId: string;
 };
 
@@ -39,81 +34,19 @@ export type GithubOneGitProvider = {
  * Successful response
  */
 export type GithubOneResponseBody = {
-  githubId: string;
-  githubAppName: string | null;
+  gitProvider: GithubOneGitProvider;
+  gitProviderId: string;
   githubAppId: number | null;
+  githubAppName: string | null;
   githubClientId: string | null;
   githubClientSecret: string | null;
+  githubId: string;
   githubInstallationId: string | null;
   githubPrivateKey: string | null;
   githubWebhookSecret: string | null;
-  gitProviderId: string;
-  gitProvider: GithubOneGitProvider;
 };
 
 export type GithubOneResponse = GithubOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const GithubOneSecurity$inboundSchema: z.ZodType<
-  GithubOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GithubOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GithubOneSecurity$outboundSchema: z.ZodType<
-  GithubOneSecurity$Outbound,
-  z.ZodTypeDef,
-  GithubOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GithubOneSecurity$ {
-  /** @deprecated use `GithubOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = GithubOneSecurity$inboundSchema;
-  /** @deprecated use `GithubOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = GithubOneSecurity$outboundSchema;
-  /** @deprecated use `GithubOneSecurity$Outbound` instead. */
-  export type Outbound = GithubOneSecurity$Outbound;
-}
-
-export function githubOneSecurityToJSON(
-  githubOneSecurity: GithubOneSecurity,
-): string {
-  return JSON.stringify(
-    GithubOneSecurity$outboundSchema.parse(githubOneSecurity),
-  );
-}
-
-export function githubOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GithubOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GithubOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GithubOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GithubOneRequest$inboundSchema: z.ZodType<
@@ -196,21 +129,21 @@ export const GithubOneGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubOneProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubOneProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GithubOneGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -220,11 +153,11 @@ export const GithubOneGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubOneGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubOneProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubOneProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -265,30 +198,30 @@ export const GithubOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
+  gitProvider: z.lazy(() => GithubOneGitProvider$inboundSchema),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
   githubClientId: z.nullable(z.string()),
   githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()),
   githubPrivateKey: z.nullable(z.string()),
   githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GithubOneGitProvider$inboundSchema),
 });
 
 /** @internal */
 export type GithubOneResponseBody$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
+  gitProvider: GithubOneGitProvider$Outbound;
+  gitProviderId: string;
   githubAppId: number | null;
+  githubAppName: string | null;
   githubClientId: string | null;
   githubClientSecret: string | null;
+  githubId: string;
   githubInstallationId: string | null;
   githubPrivateKey: string | null;
   githubWebhookSecret: string | null;
-  gitProviderId: string;
-  gitProvider: GithubOneGitProvider$Outbound;
 };
 
 /** @internal */
@@ -297,16 +230,16 @@ export const GithubOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubOneResponseBody
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
+  gitProvider: z.lazy(() => GithubOneGitProvider$outboundSchema),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
   githubClientId: z.nullable(z.string()),
   githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()),
   githubPrivateKey: z.nullable(z.string()),
   githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  gitProvider: z.lazy(() => GithubOneGitProvider$outboundSchema),
 });
 
 /**

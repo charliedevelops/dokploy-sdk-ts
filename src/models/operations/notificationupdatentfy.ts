@@ -3,94 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationUpdateNtfySecurity = {
-  authorization: string;
-};
-
 export type NotificationUpdateNtfyRequest = {
+  accessToken?: string | undefined;
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
-  topic?: string | undefined;
-  accessToken?: string | undefined;
-  priority?: number | undefined;
   notificationId: string;
   ntfyId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
+  topic?: string | undefined;
 };
-
-/** @internal */
-export const NotificationUpdateNtfySecurity$inboundSchema: z.ZodType<
-  NotificationUpdateNtfySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationUpdateNtfySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationUpdateNtfySecurity$outboundSchema: z.ZodType<
-  NotificationUpdateNtfySecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationUpdateNtfySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationUpdateNtfySecurity$ {
-  /** @deprecated use `NotificationUpdateNtfySecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationUpdateNtfySecurity$inboundSchema;
-  /** @deprecated use `NotificationUpdateNtfySecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationUpdateNtfySecurity$outboundSchema;
-  /** @deprecated use `NotificationUpdateNtfySecurity$Outbound` instead. */
-  export type Outbound = NotificationUpdateNtfySecurity$Outbound;
-}
-
-export function notificationUpdateNtfySecurityToJSON(
-  notificationUpdateNtfySecurity: NotificationUpdateNtfySecurity,
-): string {
-  return JSON.stringify(
-    NotificationUpdateNtfySecurity$outboundSchema.parse(
-      notificationUpdateNtfySecurity,
-    ),
-  );
-}
-
-export function notificationUpdateNtfySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationUpdateNtfySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationUpdateNtfySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationUpdateNtfySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationUpdateNtfyRequest$inboundSchema: z.ZodType<
@@ -98,36 +29,36 @@ export const NotificationUpdateNtfyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  accessToken: z.string().optional(),
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
-  topic: z.string().optional(),
-  accessToken: z.string().optional(),
-  priority: z.number().optional(),
   notificationId: z.string(),
   ntfyId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
+  topic: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateNtfyRequest$Outbound = {
+  accessToken?: string | undefined;
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
-  topic?: string | undefined;
-  accessToken?: string | undefined;
-  priority?: number | undefined;
   notificationId: string;
   ntfyId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
+  topic?: string | undefined;
 };
 
 /** @internal */
@@ -136,19 +67,19 @@ export const NotificationUpdateNtfyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationUpdateNtfyRequest
 > = z.object({
+  accessToken: z.string().optional(),
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
-  topic: z.string().optional(),
-  accessToken: z.string().optional(),
-  priority: z.number().optional(),
   notificationId: z.string(),
   ntfyId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
+  topic: z.string().optional(),
 });
 
 /**

@@ -3,85 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type OrganizationRemoveInvitationSecurity = {
-  authorization: string;
-};
-
 export type OrganizationRemoveInvitationRequest = {
   invitationId: string;
 };
-
-/** @internal */
-export const OrganizationRemoveInvitationSecurity$inboundSchema: z.ZodType<
-  OrganizationRemoveInvitationSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type OrganizationRemoveInvitationSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const OrganizationRemoveInvitationSecurity$outboundSchema: z.ZodType<
-  OrganizationRemoveInvitationSecurity$Outbound,
-  z.ZodTypeDef,
-  OrganizationRemoveInvitationSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationRemoveInvitationSecurity$ {
-  /** @deprecated use `OrganizationRemoveInvitationSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    OrganizationRemoveInvitationSecurity$inboundSchema;
-  /** @deprecated use `OrganizationRemoveInvitationSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    OrganizationRemoveInvitationSecurity$outboundSchema;
-  /** @deprecated use `OrganizationRemoveInvitationSecurity$Outbound` instead. */
-  export type Outbound = OrganizationRemoveInvitationSecurity$Outbound;
-}
-
-export function organizationRemoveInvitationSecurityToJSON(
-  organizationRemoveInvitationSecurity: OrganizationRemoveInvitationSecurity,
-): string {
-  return JSON.stringify(
-    OrganizationRemoveInvitationSecurity$outboundSchema.parse(
-      organizationRemoveInvitationSecurity,
-    ),
-  );
-}
-
-export function organizationRemoveInvitationSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<OrganizationRemoveInvitationSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OrganizationRemoveInvitationSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OrganizationRemoveInvitationSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const OrganizationRemoveInvitationRequest$inboundSchema: z.ZodType<

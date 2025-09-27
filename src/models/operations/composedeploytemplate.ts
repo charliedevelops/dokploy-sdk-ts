@@ -3,85 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeDeployTemplateSecurity = {
-  authorization: string;
-};
-
 export type ComposeDeployTemplateRequest = {
-  environmentId: string;
-  serverId?: string | undefined;
-  id: string;
   baseUrl?: string | undefined;
+  environmentId: string;
+  id: string;
+  serverId?: string | undefined;
 };
-
-/** @internal */
-export const ComposeDeployTemplateSecurity$inboundSchema: z.ZodType<
-  ComposeDeployTemplateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeDeployTemplateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeDeployTemplateSecurity$outboundSchema: z.ZodType<
-  ComposeDeployTemplateSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeDeployTemplateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeDeployTemplateSecurity$ {
-  /** @deprecated use `ComposeDeployTemplateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeDeployTemplateSecurity$inboundSchema;
-  /** @deprecated use `ComposeDeployTemplateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeDeployTemplateSecurity$outboundSchema;
-  /** @deprecated use `ComposeDeployTemplateSecurity$Outbound` instead. */
-  export type Outbound = ComposeDeployTemplateSecurity$Outbound;
-}
-
-export function composeDeployTemplateSecurityToJSON(
-  composeDeployTemplateSecurity: ComposeDeployTemplateSecurity,
-): string {
-  return JSON.stringify(
-    ComposeDeployTemplateSecurity$outboundSchema.parse(
-      composeDeployTemplateSecurity,
-    ),
-  );
-}
-
-export function composeDeployTemplateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeDeployTemplateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeDeployTemplateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeDeployTemplateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeDeployTemplateRequest$inboundSchema: z.ZodType<
@@ -89,18 +20,18 @@ export const ComposeDeployTemplateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  environmentId: z.string(),
-  serverId: z.string().optional(),
-  id: z.string(),
   baseUrl: z.string().optional(),
+  environmentId: z.string(),
+  id: z.string(),
+  serverId: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeDeployTemplateRequest$Outbound = {
-  environmentId: string;
-  serverId?: string | undefined;
-  id: string;
   baseUrl?: string | undefined;
+  environmentId: string;
+  id: string;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -109,10 +40,10 @@ export const ComposeDeployTemplateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ComposeDeployTemplateRequest
 > = z.object({
-  environmentId: z.string(),
-  serverId: z.string().optional(),
-  id: z.string(),
   baseUrl: z.string().optional(),
+  environmentId: z.string(),
+  id: z.string(),
+  serverId: z.string().optional(),
 });
 
 /**

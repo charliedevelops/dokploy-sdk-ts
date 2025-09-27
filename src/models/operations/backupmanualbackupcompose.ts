@@ -3,83 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupManualBackupComposeSecurity = {
-  authorization: string;
-};
-
 export type BackupManualBackupComposeRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupManualBackupComposeSecurity$inboundSchema: z.ZodType<
-  BackupManualBackupComposeSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupManualBackupComposeSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupManualBackupComposeSecurity$outboundSchema: z.ZodType<
-  BackupManualBackupComposeSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupManualBackupComposeSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupManualBackupComposeSecurity$ {
-  /** @deprecated use `BackupManualBackupComposeSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupManualBackupComposeSecurity$inboundSchema;
-  /** @deprecated use `BackupManualBackupComposeSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BackupManualBackupComposeSecurity$outboundSchema;
-  /** @deprecated use `BackupManualBackupComposeSecurity$Outbound` instead. */
-  export type Outbound = BackupManualBackupComposeSecurity$Outbound;
-}
-
-export function backupManualBackupComposeSecurityToJSON(
-  backupManualBackupComposeSecurity: BackupManualBackupComposeSecurity,
-): string {
-  return JSON.stringify(
-    BackupManualBackupComposeSecurity$outboundSchema.parse(
-      backupManualBackupComposeSecurity,
-    ),
-  );
-}
-
-export function backupManualBackupComposeSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupManualBackupComposeSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupManualBackupComposeSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupManualBackupComposeSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupManualBackupComposeRequest$inboundSchema: z.ZodType<

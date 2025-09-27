@@ -6,13 +6,13 @@
 import { ApplicationStartRedirect } from "dokploy-sdk/models/operations";
 
 let value: ApplicationStartRedirect = {
+  applicationId: "<id>",
+  createdAt: "1733117124364",
+  permanent: true,
   redirectId: "<id>",
   regex: "<value>",
   replacement: "<value>",
-  permanent: false,
-  uniqueConfigKey: 723.7,
-  createdAt: "1708174203875",
-  applicationId: "<id>",
+  uniqueConfigKey: 1274.92,
 };
 ```
 
@@ -20,10 +20,10 @@ let value: ApplicationStartRedirect = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `redirectId`       | *string*           | :heavy_check_mark: | N/A                |
 | `regex`            | *string*           | :heavy_check_mark: | N/A                |
 | `replacement`      | *string*           | :heavy_check_mark: | N/A                |
-| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `uniqueConfigKey`  | *number*           | :heavy_check_mark: | N/A                |
-| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |

@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoOneSecurity = {
-  authorization: string;
-};
-
 export type MongoOneRequest = {
   mongoId: string;
 };
@@ -28,112 +24,120 @@ export type MongoOneApplicationStatus = ClosedEnum<
   typeof MongoOneApplicationStatus
 >;
 
+export const MongoOneBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type MongoOneBackupType = ClosedEnum<typeof MongoOneBackupType>;
+
+export const MongoOneDatabaseType = {
+  Postgres: "postgres",
+  Mariadb: "mariadb",
+  Mysql: "mysql",
+  Mongo: "mongo",
+  WebServer: "web-server",
+} as const;
+export type MongoOneDatabaseType = ClosedEnum<typeof MongoOneDatabaseType>;
+
+export const MongoOneMetadataEnum = {
+  Null: "null",
+} as const;
+export type MongoOneMetadataEnum = ClosedEnum<typeof MongoOneMetadataEnum>;
+
+export type MongoOneMariadb = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MongoOneMongo = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MongoOneMysql = {
+  databaseRootPassword: string;
+};
+
+export type MongoOnePostgres = {
+  databaseUser: string;
+};
+
+export type MongoOneMetadata = {
+  mariadb?: MongoOneMariadb | undefined;
+  mongo?: MongoOneMongo | undefined;
+  mysql?: MongoOneMysql | undefined;
+  postgres?: MongoOnePostgres | undefined;
+};
+
+export type MongoOneMetadataUnion = MongoOneMetadata | MongoOneMetadataEnum;
+
+export type MongoOneBackup = {
+  appName: string;
+  backupId: string;
+  backupType: MongoOneBackupType;
+  composeId: string | null;
+  database: string;
+  databaseType: MongoOneDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoOneMetadata | MongoOneMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoOneProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoOneEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoOneProject;
+  projectId: string;
+};
+
 export type MongoOneHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MongoOneRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type MongoOneGlobal = {};
 
-export type MongoOneSpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoOnePreference = {
-  spread: MongoOneSpread;
-};
-
-export type MongoOnePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoOnePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoOnePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoOnePlatform> | undefined;
-};
-
-export type MongoOneUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoOneRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type MongoOneGlobalJob = {};
 
 export type MongoOneReplicated = {
   replicas?: number | undefined;
 };
-
-export type MongoOneGlobal = {};
 
 export type MongoOneReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type MongoOneGlobalJob = {};
-
 export type MongoOneModeSwarm = {
-  replicated?: MongoOneReplicated | undefined;
   global?: MongoOneGlobal | undefined;
-  replicatedJob?: MongoOneReplicatedJob | undefined;
   globalJob?: MongoOneGlobalJob | undefined;
+  replicated?: MongoOneReplicated | undefined;
+  replicatedJob?: MongoOneReplicatedJob | undefined;
 };
-
-export type MongoOneDriverOpts = {};
-
-export type MongoOneNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoOneDriverOpts | undefined;
-};
-
-export type MongoOneProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoOneEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoOneProject;
-};
-
-export const MongoOneType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoOneType = ClosedEnum<typeof MongoOneType>;
 
 export const MongoOneServiceType = {
   Application: "application",
@@ -146,29 +150,74 @@ export const MongoOneServiceType = {
 } as const;
 export type MongoOneServiceType = ClosedEnum<typeof MongoOneServiceType>;
 
+export const MongoOneType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoOneType = ClosedEnum<typeof MongoOneType>;
+
 export type MongoOneMount = {
-  mountId: string;
-  type: MongoOneType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoOneServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: MongoOneServiceType;
+  type: MongoOneType;
+  volumeName: string | null;
 };
 
-export const MongoOneServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoOneServerStatus = ClosedEnum<typeof MongoOneServerStatus>;
+export type MongoOneDriverOpts = {};
+
+export type MongoOneNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoOneDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoOnePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoOneSpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoOnePreference = {
+  spread: MongoOneSpread;
+};
+
+export type MongoOnePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoOnePlatform> | undefined;
+  preferences?: Array<MongoOnePreference> | undefined;
+};
+
+export type MongoOneRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoOneRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const MongoOneMetricsConfigEnum = {
   Null: "null",
@@ -191,20 +240,19 @@ export type MongoOneMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const MongoOneServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoOneServerStatus = ClosedEnum<typeof MongoOneServerStatus>;
+
 export type MongoOneServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoOneServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -212,177 +260,63 @@ export type MongoOneServer = {
     | MongoOneMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoOneServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const MongoOneBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type MongoOneBackupType = ClosedEnum<typeof MongoOneBackupType>;
-
-export const MongoOneDatabaseType = {
-  Postgres: "postgres",
-  Mariadb: "mariadb",
-  Mysql: "mysql",
-  Mongo: "mongo",
-  WebServer: "web-server",
-} as const;
-export type MongoOneDatabaseType = ClosedEnum<typeof MongoOneDatabaseType>;
-
-export const MongoOneMetadataEnum = {
-  Null: "null",
-} as const;
-export type MongoOneMetadataEnum = ClosedEnum<typeof MongoOneMetadataEnum>;
-
-export type MongoOnePostgres = {
-  databaseUser: string;
-};
-
-export type MongoOneMariadb = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MongoOneMongo = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MongoOneMysql = {
-  databaseRootPassword: string;
-};
-
-export type MongoOneMetadata = {
-  postgres?: MongoOnePostgres | undefined;
-  mariadb?: MongoOneMariadb | undefined;
-  mongo?: MongoOneMongo | undefined;
-  mysql?: MongoOneMysql | undefined;
-};
-
-export type MongoOneMetadataUnion = MongoOneMetadata | MongoOneMetadataEnum;
-
-export type MongoOneBackup = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: MongoOneBackupType;
-  databaseType: MongoOneDatabaseType;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoOneMetadata | MongoOneMetadataEnum | null | undefined;
+export type MongoOneUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoOneResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoOneApplicationStatus;
-  healthCheckSwarm: MongoOneHealthCheckSwarm | null;
-  restartPolicySwarm: MongoOneRestartPolicySwarm | null;
-  placementSwarm: MongoOnePlacementSwarm | null;
-  updateConfigSwarm: MongoOneUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoOneRollbackConfigSwarm | null;
-  modeSwarm: MongoOneModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoOneNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoOneEnvironment;
-  mounts: Array<MongoOneMount>;
-  server: MongoOneServer | null;
   backups: Array<MongoOneBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoOneEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoOneHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoOneModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoOneMount>;
+  name: string;
+  networkSwarm: Array<MongoOneNetworkSwarm> | null;
+  placementSwarm: MongoOnePlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoOneRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoOneRollbackConfigSwarm | null;
+  server: MongoOneServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoOneUpdateConfigSwarm | null;
 };
 
 export type MongoOneResponse = MongoOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const MongoOneSecurity$inboundSchema: z.ZodType<
-  MongoOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoOneSecurity$outboundSchema: z.ZodType<
-  MongoOneSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneSecurity$ {
-  /** @deprecated use `MongoOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoOneSecurity$inboundSchema;
-  /** @deprecated use `MongoOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoOneSecurity$outboundSchema;
-  /** @deprecated use `MongoOneSecurity$Outbound` instead. */
-  export type Outbound = MongoOneSecurity$Outbound;
-}
-
-export function mongoOneSecurityToJSON(
-  mongoOneSecurity: MongoOneSecurity,
-): string {
-  return JSON.stringify(
-    MongoOneSecurity$outboundSchema.parse(mongoOneSecurity),
-  );
-}
-
-export function mongoOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoOneRequest$inboundSchema: z.ZodType<
@@ -458,33 +392,675 @@ export namespace MongoOneApplicationStatus$ {
 }
 
 /** @internal */
+export const MongoOneBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoOneBackupType
+> = z.nativeEnum(MongoOneBackupType);
+
+/** @internal */
+export const MongoOneBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoOneBackupType
+> = MongoOneBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneBackupType$ {
+  /** @deprecated use `MongoOneBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoOneBackupType$inboundSchema;
+  /** @deprecated use `MongoOneBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoOneBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoOneDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoOneDatabaseType
+> = z.nativeEnum(MongoOneDatabaseType);
+
+/** @internal */
+export const MongoOneDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoOneDatabaseType
+> = MongoOneDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneDatabaseType$ {
+  /** @deprecated use `MongoOneDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoOneDatabaseType$inboundSchema;
+  /** @deprecated use `MongoOneDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MongoOneDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoOneMetadataEnum
+> = z.nativeEnum(MongoOneMetadataEnum);
+
+/** @internal */
+export const MongoOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoOneMetadataEnum
+> = MongoOneMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMetadataEnum$ {
+  /** @deprecated use `MongoOneMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoOneMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoOneMariadb$inboundSchema: z.ZodType<
+  MongoOneMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoOneMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoOneMariadb$outboundSchema: z.ZodType<
+  MongoOneMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoOneMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMariadb$ {
+  /** @deprecated use `MongoOneMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMariadb$inboundSchema;
+  /** @deprecated use `MongoOneMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMariadb$outboundSchema;
+  /** @deprecated use `MongoOneMariadb$Outbound` instead. */
+  export type Outbound = MongoOneMariadb$Outbound;
+}
+
+export function mongoOneMariadbToJSON(
+  mongoOneMariadb: MongoOneMariadb,
+): string {
+  return JSON.stringify(MongoOneMariadb$outboundSchema.parse(mongoOneMariadb));
+}
+
+export function mongoOneMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneMongo$inboundSchema: z.ZodType<
+  MongoOneMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoOneMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoOneMongo$outboundSchema: z.ZodType<
+  MongoOneMongo$Outbound,
+  z.ZodTypeDef,
+  MongoOneMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMongo$ {
+  /** @deprecated use `MongoOneMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMongo$inboundSchema;
+  /** @deprecated use `MongoOneMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMongo$outboundSchema;
+  /** @deprecated use `MongoOneMongo$Outbound` instead. */
+  export type Outbound = MongoOneMongo$Outbound;
+}
+
+export function mongoOneMongoToJSON(mongoOneMongo: MongoOneMongo): string {
+  return JSON.stringify(MongoOneMongo$outboundSchema.parse(mongoOneMongo));
+}
+
+export function mongoOneMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneMysql$inboundSchema: z.ZodType<
+  MongoOneMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoOneMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoOneMysql$outboundSchema: z.ZodType<
+  MongoOneMysql$Outbound,
+  z.ZodTypeDef,
+  MongoOneMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMysql$ {
+  /** @deprecated use `MongoOneMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMysql$inboundSchema;
+  /** @deprecated use `MongoOneMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMysql$outboundSchema;
+  /** @deprecated use `MongoOneMysql$Outbound` instead. */
+  export type Outbound = MongoOneMysql$Outbound;
+}
+
+export function mongoOneMysqlToJSON(mongoOneMysql: MongoOneMysql): string {
+  return JSON.stringify(MongoOneMysql$outboundSchema.parse(mongoOneMysql));
+}
+
+export function mongoOneMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOnePostgres$inboundSchema: z.ZodType<
+  MongoOnePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoOnePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoOnePostgres$outboundSchema: z.ZodType<
+  MongoOnePostgres$Outbound,
+  z.ZodTypeDef,
+  MongoOnePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOnePostgres$ {
+  /** @deprecated use `MongoOnePostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoOnePostgres$inboundSchema;
+  /** @deprecated use `MongoOnePostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoOnePostgres$outboundSchema;
+  /** @deprecated use `MongoOnePostgres$Outbound` instead. */
+  export type Outbound = MongoOnePostgres$Outbound;
+}
+
+export function mongoOnePostgresToJSON(
+  mongoOnePostgres: MongoOnePostgres,
+): string {
+  return JSON.stringify(
+    MongoOnePostgres$outboundSchema.parse(mongoOnePostgres),
+  );
+}
+
+export function mongoOnePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOnePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOnePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOnePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneMetadata$inboundSchema: z.ZodType<
+  MongoOneMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoOneMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoOneMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoOneMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoOnePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MongoOneMetadata$Outbound = {
+  mariadb?: MongoOneMariadb$Outbound | undefined;
+  mongo?: MongoOneMongo$Outbound | undefined;
+  mysql?: MongoOneMysql$Outbound | undefined;
+  postgres?: MongoOnePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoOneMetadata$outboundSchema: z.ZodType<
+  MongoOneMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoOneMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoOneMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoOneMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoOneMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoOnePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMetadata$ {
+  /** @deprecated use `MongoOneMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMetadata$inboundSchema;
+  /** @deprecated use `MongoOneMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMetadata$outboundSchema;
+  /** @deprecated use `MongoOneMetadata$Outbound` instead. */
+  export type Outbound = MongoOneMetadata$Outbound;
+}
+
+export function mongoOneMetadataToJSON(
+  mongoOneMetadata: MongoOneMetadata,
+): string {
+  return JSON.stringify(
+    MongoOneMetadata$outboundSchema.parse(mongoOneMetadata),
+  );
+}
+
+export function mongoOneMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneMetadataUnion$inboundSchema: z.ZodType<
+  MongoOneMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoOneMetadata$inboundSchema),
+  MongoOneMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoOneMetadataUnion$Outbound = MongoOneMetadata$Outbound | string;
+
+/** @internal */
+export const MongoOneMetadataUnion$outboundSchema: z.ZodType<
+  MongoOneMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoOneMetadataUnion
+> = z.union([
+  z.lazy(() => MongoOneMetadata$outboundSchema),
+  MongoOneMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMetadataUnion$ {
+  /** @deprecated use `MongoOneMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoOneMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoOneMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoOneMetadataUnion$Outbound;
+}
+
+export function mongoOneMetadataUnionToJSON(
+  mongoOneMetadataUnion: MongoOneMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoOneMetadataUnion$outboundSchema.parse(mongoOneMetadataUnion),
+  );
+}
+
+export function mongoOneMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneBackup$inboundSchema: z.ZodType<
+  MongoOneBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoOneBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoOneDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoOneMetadata$inboundSchema),
+      MongoOneMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoOneBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoOneMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoOneBackup$outboundSchema: z.ZodType<
+  MongoOneBackup$Outbound,
+  z.ZodTypeDef,
+  MongoOneBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoOneBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoOneDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoOneMetadata$outboundSchema),
+      MongoOneMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneBackup$ {
+  /** @deprecated use `MongoOneBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoOneBackup$inboundSchema;
+  /** @deprecated use `MongoOneBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoOneBackup$outboundSchema;
+  /** @deprecated use `MongoOneBackup$Outbound` instead. */
+  export type Outbound = MongoOneBackup$Outbound;
+}
+
+export function mongoOneBackupToJSON(mongoOneBackup: MongoOneBackup): string {
+  return JSON.stringify(MongoOneBackup$outboundSchema.parse(mongoOneBackup));
+}
+
+export function mongoOneBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneProject$inboundSchema: z.ZodType<
+  MongoOneProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoOneProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoOneProject$outboundSchema: z.ZodType<
+  MongoOneProject$Outbound,
+  z.ZodTypeDef,
+  MongoOneProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneProject$ {
+  /** @deprecated use `MongoOneProject$inboundSchema` instead. */
+  export const inboundSchema = MongoOneProject$inboundSchema;
+  /** @deprecated use `MongoOneProject$outboundSchema` instead. */
+  export const outboundSchema = MongoOneProject$outboundSchema;
+  /** @deprecated use `MongoOneProject$Outbound` instead. */
+  export type Outbound = MongoOneProject$Outbound;
+}
+
+export function mongoOneProjectToJSON(
+  mongoOneProject: MongoOneProject,
+): string {
+  return JSON.stringify(MongoOneProject$outboundSchema.parse(mongoOneProject));
+}
+
+export function mongoOneProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneEnvironment$inboundSchema: z.ZodType<
+  MongoOneEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoOneProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoOneEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoOneProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoOneEnvironment$outboundSchema: z.ZodType<
+  MongoOneEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoOneEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoOneProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneEnvironment$ {
+  /** @deprecated use `MongoOneEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoOneEnvironment$inboundSchema;
+  /** @deprecated use `MongoOneEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoOneEnvironment$outboundSchema;
+  /** @deprecated use `MongoOneEnvironment$Outbound` instead. */
+  export type Outbound = MongoOneEnvironment$Outbound;
+}
+
+export function mongoOneEnvironmentToJSON(
+  mongoOneEnvironment: MongoOneEnvironment,
+): string {
+  return JSON.stringify(
+    MongoOneEnvironment$outboundSchema.parse(mongoOneEnvironment),
+  );
+}
+
+export function mongoOneEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoOneHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoOneHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoOneHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -493,18 +1069,18 @@ export const MongoOneHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoOneHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -540,48 +1116,125 @@ export function mongoOneHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoOneRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoOneRestartPolicySwarm,
+export const MongoOneGlobal$inboundSchema: z.ZodType<
+  MongoOneGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoOneGlobal$Outbound = {};
+
+/** @internal */
+export const MongoOneGlobal$outboundSchema: z.ZodType<
+  MongoOneGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoOneGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneGlobal$ {
+  /** @deprecated use `MongoOneGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoOneGlobal$inboundSchema;
+  /** @deprecated use `MongoOneGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoOneGlobal$outboundSchema;
+  /** @deprecated use `MongoOneGlobal$Outbound` instead. */
+  export type Outbound = MongoOneGlobal$Outbound;
+}
+
+export function mongoOneGlobalToJSON(mongoOneGlobal: MongoOneGlobal): string {
+  return JSON.stringify(MongoOneGlobal$outboundSchema.parse(mongoOneGlobal));
+}
+
+export function mongoOneGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneGlobalJob$inboundSchema: z.ZodType<
+  MongoOneGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoOneGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoOneGlobalJob$outboundSchema: z.ZodType<
+  MongoOneGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoOneGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneGlobalJob$ {
+  /** @deprecated use `MongoOneGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoOneGlobalJob$inboundSchema;
+  /** @deprecated use `MongoOneGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoOneGlobalJob$outboundSchema;
+  /** @deprecated use `MongoOneGlobalJob$Outbound` instead. */
+  export type Outbound = MongoOneGlobalJob$Outbound;
+}
+
+export function mongoOneGlobalJobToJSON(
+  mongoOneGlobalJob: MongoOneGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoOneGlobalJob$outboundSchema.parse(mongoOneGlobalJob),
+  );
+}
+
+export function mongoOneGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneReplicated$inboundSchema: z.ZodType<
+  MongoOneReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoOneRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoOneReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoOneRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoOneRestartPolicySwarm$Outbound,
+export const MongoOneReplicated$outboundSchema: z.ZodType<
+  MongoOneReplicated$Outbound,
   z.ZodTypeDef,
-  MongoOneRestartPolicySwarm
+  MongoOneReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -589,30 +1242,493 @@ export const MongoOneRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoOneRestartPolicySwarm$ {
-  /** @deprecated use `MongoOneRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoOneRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoOneRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoOneRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoOneRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoOneRestartPolicySwarm$Outbound;
+export namespace MongoOneReplicated$ {
+  /** @deprecated use `MongoOneReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoOneReplicated$inboundSchema;
+  /** @deprecated use `MongoOneReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoOneReplicated$outboundSchema;
+  /** @deprecated use `MongoOneReplicated$Outbound` instead. */
+  export type Outbound = MongoOneReplicated$Outbound;
 }
 
-export function mongoOneRestartPolicySwarmToJSON(
-  mongoOneRestartPolicySwarm: MongoOneRestartPolicySwarm,
+export function mongoOneReplicatedToJSON(
+  mongoOneReplicated: MongoOneReplicated,
 ): string {
   return JSON.stringify(
-    MongoOneRestartPolicySwarm$outboundSchema.parse(mongoOneRestartPolicySwarm),
+    MongoOneReplicated$outboundSchema.parse(mongoOneReplicated),
   );
 }
 
-export function mongoOneRestartPolicySwarmFromJSON(
+export function mongoOneReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoOneRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoOneReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneRestartPolicySwarm' from JSON`,
+    (x) => MongoOneReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneReplicatedJob$inboundSchema: z.ZodType<
+  MongoOneReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoOneReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoOneReplicatedJob$outboundSchema: z.ZodType<
+  MongoOneReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoOneReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneReplicatedJob$ {
+  /** @deprecated use `MongoOneReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoOneReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoOneReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoOneReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoOneReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoOneReplicatedJob$Outbound;
+}
+
+export function mongoOneReplicatedJobToJSON(
+  mongoOneReplicatedJob: MongoOneReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoOneReplicatedJob$outboundSchema.parse(mongoOneReplicatedJob),
+  );
+}
+
+export function mongoOneReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneModeSwarm$inboundSchema: z.ZodType<
+  MongoOneModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoOneGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoOneGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoOneReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoOneReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoOneModeSwarm$Outbound = {
+  Global?: MongoOneGlobal$Outbound | undefined;
+  GlobalJob?: MongoOneGlobalJob$Outbound | undefined;
+  Replicated?: MongoOneReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoOneReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoOneModeSwarm$outboundSchema: z.ZodType<
+  MongoOneModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoOneModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoOneGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoOneGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoOneReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoOneReplicatedJob$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneModeSwarm$ {
+  /** @deprecated use `MongoOneModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoOneModeSwarm$inboundSchema;
+  /** @deprecated use `MongoOneModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoOneModeSwarm$outboundSchema;
+  /** @deprecated use `MongoOneModeSwarm$Outbound` instead. */
+  export type Outbound = MongoOneModeSwarm$Outbound;
+}
+
+export function mongoOneModeSwarmToJSON(
+  mongoOneModeSwarm: MongoOneModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoOneModeSwarm$outboundSchema.parse(mongoOneModeSwarm),
+  );
+}
+
+export function mongoOneModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoOneServiceType
+> = z.nativeEnum(MongoOneServiceType);
+
+/** @internal */
+export const MongoOneServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoOneServiceType
+> = MongoOneServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneServiceType$ {
+  /** @deprecated use `MongoOneServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoOneServiceType$inboundSchema;
+  /** @deprecated use `MongoOneServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoOneServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoOneType$inboundSchema: z.ZodNativeEnum<typeof MongoOneType> =
+  z.nativeEnum(MongoOneType);
+
+/** @internal */
+export const MongoOneType$outboundSchema: z.ZodNativeEnum<typeof MongoOneType> =
+  MongoOneType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneType$ {
+  /** @deprecated use `MongoOneType$inboundSchema` instead. */
+  export const inboundSchema = MongoOneType$inboundSchema;
+  /** @deprecated use `MongoOneType$outboundSchema` instead. */
+  export const outboundSchema = MongoOneType$outboundSchema;
+}
+
+/** @internal */
+export const MongoOneMount$inboundSchema: z.ZodType<
+  MongoOneMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoOneServiceType$inboundSchema,
+  type: MongoOneType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoOneMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoOneMount$outboundSchema: z.ZodType<
+  MongoOneMount$Outbound,
+  z.ZodTypeDef,
+  MongoOneMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoOneServiceType$outboundSchema,
+  type: MongoOneType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneMount$ {
+  /** @deprecated use `MongoOneMount$inboundSchema` instead. */
+  export const inboundSchema = MongoOneMount$inboundSchema;
+  /** @deprecated use `MongoOneMount$outboundSchema` instead. */
+  export const outboundSchema = MongoOneMount$outboundSchema;
+  /** @deprecated use `MongoOneMount$Outbound` instead. */
+  export type Outbound = MongoOneMount$Outbound;
+}
+
+export function mongoOneMountToJSON(mongoOneMount: MongoOneMount): string {
+  return JSON.stringify(MongoOneMount$outboundSchema.parse(mongoOneMount));
+}
+
+export function mongoOneMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneDriverOpts$inboundSchema: z.ZodType<
+  MongoOneDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoOneDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoOneDriverOpts$outboundSchema: z.ZodType<
+  MongoOneDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoOneDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneDriverOpts$ {
+  /** @deprecated use `MongoOneDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoOneDriverOpts$inboundSchema;
+  /** @deprecated use `MongoOneDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoOneDriverOpts$outboundSchema;
+  /** @deprecated use `MongoOneDriverOpts$Outbound` instead. */
+  export type Outbound = MongoOneDriverOpts$Outbound;
+}
+
+export function mongoOneDriverOptsToJSON(
+  mongoOneDriverOpts: MongoOneDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoOneDriverOpts$outboundSchema.parse(mongoOneDriverOpts),
+  );
+}
+
+export function mongoOneDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOneNetworkSwarm$inboundSchema: z.ZodType<
+  MongoOneNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoOneDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoOneNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoOneDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoOneNetworkSwarm$outboundSchema: z.ZodType<
+  MongoOneNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoOneNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoOneDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneNetworkSwarm$ {
+  /** @deprecated use `MongoOneNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoOneNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoOneNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoOneNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoOneNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoOneNetworkSwarm$Outbound;
+}
+
+export function mongoOneNetworkSwarmToJSON(
+  mongoOneNetworkSwarm: MongoOneNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoOneNetworkSwarm$outboundSchema.parse(mongoOneNetworkSwarm),
+  );
+}
+
+export function mongoOneNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOneNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoOnePlatform$inboundSchema: z.ZodType<
+  MongoOnePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoOnePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoOnePlatform$outboundSchema: z.ZodType<
+  MongoOnePlatform$Outbound,
+  z.ZodTypeDef,
+  MongoOnePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOnePlatform$ {
+  /** @deprecated use `MongoOnePlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoOnePlatform$inboundSchema;
+  /** @deprecated use `MongoOnePlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoOnePlatform$outboundSchema;
+  /** @deprecated use `MongoOnePlatform$Outbound` instead. */
+  export type Outbound = MongoOnePlatform$Outbound;
+}
+
+export function mongoOnePlatformToJSON(
+  mongoOnePlatform: MongoOnePlatform,
+): string {
+  return JSON.stringify(
+    MongoOnePlatform$outboundSchema.parse(mongoOnePlatform),
+  );
+}
+
+export function mongoOnePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoOnePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoOnePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOnePlatform' from JSON`,
   );
 }
 
@@ -737,98 +1853,31 @@ export function mongoOnePreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoOnePlatform$inboundSchema: z.ZodType<
-  MongoOnePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoOnePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoOnePlatform$outboundSchema: z.ZodType<
-  MongoOnePlatform$Outbound,
-  z.ZodTypeDef,
-  MongoOnePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOnePlatform$ {
-  /** @deprecated use `MongoOnePlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoOnePlatform$inboundSchema;
-  /** @deprecated use `MongoOnePlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoOnePlatform$outboundSchema;
-  /** @deprecated use `MongoOnePlatform$Outbound` instead. */
-  export type Outbound = MongoOnePlatform$Outbound;
-}
-
-export function mongoOnePlatformToJSON(
-  mongoOnePlatform: MongoOnePlatform,
-): string {
-  return JSON.stringify(
-    MongoOnePlatform$outboundSchema.parse(mongoOnePlatform),
-  );
-}
-
-export function mongoOnePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOnePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOnePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOnePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoOnePlacementSwarm$inboundSchema: z.ZodType<
   MongoOnePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoOnePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoOnePlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MongoOnePreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoOnePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoOnePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoOnePlatform$Outbound> | undefined;
+  Preferences?: Array<MongoOnePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -838,16 +1887,16 @@ export const MongoOnePlacementSwarm$outboundSchema: z.ZodType<
   MongoOnePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoOnePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoOnePlatform$outboundSchema)).optional(),
+  preferences: z.array(z.lazy(() => MongoOnePreference$outboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -883,58 +1932,48 @@ export function mongoOnePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoOneUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoOneUpdateConfigSwarm,
+export const MongoOneRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoOneRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoOneUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoOneRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoOneUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoOneUpdateConfigSwarm$Outbound,
+export const MongoOneRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoOneRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoOneUpdateConfigSwarm
+  MongoOneRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -942,30 +1981,30 @@ export const MongoOneUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoOneUpdateConfigSwarm$ {
-  /** @deprecated use `MongoOneUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoOneUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoOneUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoOneUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoOneUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoOneUpdateConfigSwarm$Outbound;
+export namespace MongoOneRestartPolicySwarm$ {
+  /** @deprecated use `MongoOneRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoOneRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoOneRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoOneRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoOneRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoOneRestartPolicySwarm$Outbound;
 }
 
-export function mongoOneUpdateConfigSwarmToJSON(
-  mongoOneUpdateConfigSwarm: MongoOneUpdateConfigSwarm,
+export function mongoOneRestartPolicySwarmToJSON(
+  mongoOneRestartPolicySwarm: MongoOneRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoOneUpdateConfigSwarm$outboundSchema.parse(mongoOneUpdateConfigSwarm),
+    MongoOneRestartPolicySwarm$outboundSchema.parse(mongoOneRestartPolicySwarm),
   );
 }
 
-export function mongoOneUpdateConfigSwarmFromJSON(
+export function mongoOneRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoOneUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoOneRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneUpdateConfigSwarm' from JSON`,
+    (x) => MongoOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -975,31 +2014,31 @@ export const MongoOneRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoOneRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1008,20 +2047,20 @@ export const MongoOneRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoOneRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1056,716 +2095,6 @@ export function mongoOneRollbackConfigSwarmFromJSON(
     (x) => MongoOneRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MongoOneRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoOneReplicated$inboundSchema: z.ZodType<
-  MongoOneReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoOneReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoOneReplicated$outboundSchema: z.ZodType<
-  MongoOneReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoOneReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneReplicated$ {
-  /** @deprecated use `MongoOneReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoOneReplicated$inboundSchema;
-  /** @deprecated use `MongoOneReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoOneReplicated$outboundSchema;
-  /** @deprecated use `MongoOneReplicated$Outbound` instead. */
-  export type Outbound = MongoOneReplicated$Outbound;
-}
-
-export function mongoOneReplicatedToJSON(
-  mongoOneReplicated: MongoOneReplicated,
-): string {
-  return JSON.stringify(
-    MongoOneReplicated$outboundSchema.parse(mongoOneReplicated),
-  );
-}
-
-export function mongoOneReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneGlobal$inboundSchema: z.ZodType<
-  MongoOneGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoOneGlobal$Outbound = {};
-
-/** @internal */
-export const MongoOneGlobal$outboundSchema: z.ZodType<
-  MongoOneGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoOneGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneGlobal$ {
-  /** @deprecated use `MongoOneGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoOneGlobal$inboundSchema;
-  /** @deprecated use `MongoOneGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoOneGlobal$outboundSchema;
-  /** @deprecated use `MongoOneGlobal$Outbound` instead. */
-  export type Outbound = MongoOneGlobal$Outbound;
-}
-
-export function mongoOneGlobalToJSON(mongoOneGlobal: MongoOneGlobal): string {
-  return JSON.stringify(MongoOneGlobal$outboundSchema.parse(mongoOneGlobal));
-}
-
-export function mongoOneGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneReplicatedJob$inboundSchema: z.ZodType<
-  MongoOneReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoOneReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoOneReplicatedJob$outboundSchema: z.ZodType<
-  MongoOneReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoOneReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneReplicatedJob$ {
-  /** @deprecated use `MongoOneReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoOneReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoOneReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoOneReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoOneReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoOneReplicatedJob$Outbound;
-}
-
-export function mongoOneReplicatedJobToJSON(
-  mongoOneReplicatedJob: MongoOneReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoOneReplicatedJob$outboundSchema.parse(mongoOneReplicatedJob),
-  );
-}
-
-export function mongoOneReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneGlobalJob$inboundSchema: z.ZodType<
-  MongoOneGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoOneGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoOneGlobalJob$outboundSchema: z.ZodType<
-  MongoOneGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoOneGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneGlobalJob$ {
-  /** @deprecated use `MongoOneGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoOneGlobalJob$inboundSchema;
-  /** @deprecated use `MongoOneGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoOneGlobalJob$outboundSchema;
-  /** @deprecated use `MongoOneGlobalJob$Outbound` instead. */
-  export type Outbound = MongoOneGlobalJob$Outbound;
-}
-
-export function mongoOneGlobalJobToJSON(
-  mongoOneGlobalJob: MongoOneGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoOneGlobalJob$outboundSchema.parse(mongoOneGlobalJob),
-  );
-}
-
-export function mongoOneGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneModeSwarm$inboundSchema: z.ZodType<
-  MongoOneModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoOneReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoOneGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoOneReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MongoOneGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoOneModeSwarm$Outbound = {
-  Replicated?: MongoOneReplicated$Outbound | undefined;
-  Global?: MongoOneGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoOneReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoOneGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoOneModeSwarm$outboundSchema: z.ZodType<
-  MongoOneModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoOneModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoOneReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoOneGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoOneReplicatedJob$outboundSchema).optional(),
-  globalJob: z.lazy(() => MongoOneGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneModeSwarm$ {
-  /** @deprecated use `MongoOneModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoOneModeSwarm$inboundSchema;
-  /** @deprecated use `MongoOneModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoOneModeSwarm$outboundSchema;
-  /** @deprecated use `MongoOneModeSwarm$Outbound` instead. */
-  export type Outbound = MongoOneModeSwarm$Outbound;
-}
-
-export function mongoOneModeSwarmToJSON(
-  mongoOneModeSwarm: MongoOneModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoOneModeSwarm$outboundSchema.parse(mongoOneModeSwarm),
-  );
-}
-
-export function mongoOneModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneDriverOpts$inboundSchema: z.ZodType<
-  MongoOneDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoOneDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoOneDriverOpts$outboundSchema: z.ZodType<
-  MongoOneDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoOneDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneDriverOpts$ {
-  /** @deprecated use `MongoOneDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoOneDriverOpts$inboundSchema;
-  /** @deprecated use `MongoOneDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoOneDriverOpts$outboundSchema;
-  /** @deprecated use `MongoOneDriverOpts$Outbound` instead. */
-  export type Outbound = MongoOneDriverOpts$Outbound;
-}
-
-export function mongoOneDriverOptsToJSON(
-  mongoOneDriverOpts: MongoOneDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoOneDriverOpts$outboundSchema.parse(mongoOneDriverOpts),
-  );
-}
-
-export function mongoOneDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneNetworkSwarm$inboundSchema: z.ZodType<
-  MongoOneNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoOneDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoOneNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoOneDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoOneNetworkSwarm$outboundSchema: z.ZodType<
-  MongoOneNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoOneNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoOneDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneNetworkSwarm$ {
-  /** @deprecated use `MongoOneNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoOneNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoOneNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoOneNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoOneNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoOneNetworkSwarm$Outbound;
-}
-
-export function mongoOneNetworkSwarmToJSON(
-  mongoOneNetworkSwarm: MongoOneNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoOneNetworkSwarm$outboundSchema.parse(mongoOneNetworkSwarm),
-  );
-}
-
-export function mongoOneNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneProject$inboundSchema: z.ZodType<
-  MongoOneProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoOneProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoOneProject$outboundSchema: z.ZodType<
-  MongoOneProject$Outbound,
-  z.ZodTypeDef,
-  MongoOneProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneProject$ {
-  /** @deprecated use `MongoOneProject$inboundSchema` instead. */
-  export const inboundSchema = MongoOneProject$inboundSchema;
-  /** @deprecated use `MongoOneProject$outboundSchema` instead. */
-  export const outboundSchema = MongoOneProject$outboundSchema;
-  /** @deprecated use `MongoOneProject$Outbound` instead. */
-  export type Outbound = MongoOneProject$Outbound;
-}
-
-export function mongoOneProjectToJSON(
-  mongoOneProject: MongoOneProject,
-): string {
-  return JSON.stringify(MongoOneProject$outboundSchema.parse(mongoOneProject));
-}
-
-export function mongoOneProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneEnvironment$inboundSchema: z.ZodType<
-  MongoOneEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoOneProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoOneEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoOneProject$Outbound;
-};
-
-/** @internal */
-export const MongoOneEnvironment$outboundSchema: z.ZodType<
-  MongoOneEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoOneEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoOneProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneEnvironment$ {
-  /** @deprecated use `MongoOneEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoOneEnvironment$inboundSchema;
-  /** @deprecated use `MongoOneEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoOneEnvironment$outboundSchema;
-  /** @deprecated use `MongoOneEnvironment$Outbound` instead. */
-  export type Outbound = MongoOneEnvironment$Outbound;
-}
-
-export function mongoOneEnvironmentToJSON(
-  mongoOneEnvironment: MongoOneEnvironment,
-): string {
-  return JSON.stringify(
-    MongoOneEnvironment$outboundSchema.parse(mongoOneEnvironment),
-  );
-}
-
-export function mongoOneEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneType$inboundSchema: z.ZodNativeEnum<typeof MongoOneType> =
-  z.nativeEnum(MongoOneType);
-
-/** @internal */
-export const MongoOneType$outboundSchema: z.ZodNativeEnum<typeof MongoOneType> =
-  MongoOneType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneType$ {
-  /** @deprecated use `MongoOneType$inboundSchema` instead. */
-  export const inboundSchema = MongoOneType$inboundSchema;
-  /** @deprecated use `MongoOneType$outboundSchema` instead. */
-  export const outboundSchema = MongoOneType$outboundSchema;
-}
-
-/** @internal */
-export const MongoOneServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoOneServiceType
-> = z.nativeEnum(MongoOneServiceType);
-
-/** @internal */
-export const MongoOneServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoOneServiceType
-> = MongoOneServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneServiceType$ {
-  /** @deprecated use `MongoOneServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoOneServiceType$inboundSchema;
-  /** @deprecated use `MongoOneServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoOneServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoOneMount$inboundSchema: z.ZodType<
-  MongoOneMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoOneType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoOneServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoOneMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoOneMount$outboundSchema: z.ZodType<
-  MongoOneMount$Outbound,
-  z.ZodTypeDef,
-  MongoOneMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoOneType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoOneServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMount$ {
-  /** @deprecated use `MongoOneMount$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMount$inboundSchema;
-  /** @deprecated use `MongoOneMount$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMount$outboundSchema;
-  /** @deprecated use `MongoOneMount$Outbound` instead. */
-  export type Outbound = MongoOneMount$Outbound;
-}
-
-export function mongoOneMountToJSON(mongoOneMount: MongoOneMount): string {
-  return JSON.stringify(MongoOneMount$outboundSchema.parse(mongoOneMount));
-}
-
-export function mongoOneMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoOneServerStatus
-> = z.nativeEnum(MongoOneServerStatus);
-
-/** @internal */
-export const MongoOneServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoOneServerStatus
-> = MongoOneServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneServerStatus$ {
-  /** @deprecated use `MongoOneServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoOneServerStatus$inboundSchema;
-  /** @deprecated use `MongoOneServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MongoOneServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1928,24 +2257,38 @@ export function mongoOneMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoOneServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoOneServerStatus
+> = z.nativeEnum(MongoOneServerStatus);
+
+/** @internal */
+export const MongoOneServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoOneServerStatus
+> = MongoOneServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoOneServerStatus$ {
+  /** @deprecated use `MongoOneServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoOneServerStatus$inboundSchema;
+  /** @deprecated use `MongoOneServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MongoOneServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoOneServer$inboundSchema: z.ZodType<
   MongoOneServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoOneServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1956,26 +2299,33 @@ export const MongoOneServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoOneServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoOneServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -1984,19 +2334,12 @@ export const MongoOneServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoOneServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoOneServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2007,6 +2350,13 @@ export const MongoOneServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoOneServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2037,505 +2387,89 @@ export function mongoOneServerFromJSON(
 }
 
 /** @internal */
-export const MongoOneBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoOneBackupType
-> = z.nativeEnum(MongoOneBackupType);
-
-/** @internal */
-export const MongoOneBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoOneBackupType
-> = MongoOneBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneBackupType$ {
-  /** @deprecated use `MongoOneBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoOneBackupType$inboundSchema;
-  /** @deprecated use `MongoOneBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoOneBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoOneDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoOneDatabaseType
-> = z.nativeEnum(MongoOneDatabaseType);
-
-/** @internal */
-export const MongoOneDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoOneDatabaseType
-> = MongoOneDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneDatabaseType$ {
-  /** @deprecated use `MongoOneDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoOneDatabaseType$inboundSchema;
-  /** @deprecated use `MongoOneDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MongoOneDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MongoOneMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoOneMetadataEnum
-> = z.nativeEnum(MongoOneMetadataEnum);
-
-/** @internal */
-export const MongoOneMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoOneMetadataEnum
-> = MongoOneMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMetadataEnum$ {
-  /** @deprecated use `MongoOneMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoOneMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoOnePostgres$inboundSchema: z.ZodType<
-  MongoOnePostgres,
+export const MongoOneUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoOneUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MongoOnePostgres$Outbound = {
-  databaseUser: string;
+export type MongoOneUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoOnePostgres$outboundSchema: z.ZodType<
-  MongoOnePostgres$Outbound,
+export const MongoOneUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoOneUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoOnePostgres
+  MongoOneUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoOnePostgres$ {
-  /** @deprecated use `MongoOnePostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoOnePostgres$inboundSchema;
-  /** @deprecated use `MongoOnePostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoOnePostgres$outboundSchema;
-  /** @deprecated use `MongoOnePostgres$Outbound` instead. */
-  export type Outbound = MongoOnePostgres$Outbound;
+export namespace MongoOneUpdateConfigSwarm$ {
+  /** @deprecated use `MongoOneUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoOneUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoOneUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoOneUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoOneUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoOneUpdateConfigSwarm$Outbound;
 }
 
-export function mongoOnePostgresToJSON(
-  mongoOnePostgres: MongoOnePostgres,
+export function mongoOneUpdateConfigSwarmToJSON(
+  mongoOneUpdateConfigSwarm: MongoOneUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoOnePostgres$outboundSchema.parse(mongoOnePostgres),
+    MongoOneUpdateConfigSwarm$outboundSchema.parse(mongoOneUpdateConfigSwarm),
   );
 }
 
-export function mongoOnePostgresFromJSON(
+export function mongoOneUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoOnePostgres, SDKValidationError> {
+): SafeParseResult<MongoOneUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoOnePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOnePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneMariadb$inboundSchema: z.ZodType<
-  MongoOneMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoOneMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoOneMariadb$outboundSchema: z.ZodType<
-  MongoOneMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoOneMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMariadb$ {
-  /** @deprecated use `MongoOneMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMariadb$inboundSchema;
-  /** @deprecated use `MongoOneMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMariadb$outboundSchema;
-  /** @deprecated use `MongoOneMariadb$Outbound` instead. */
-  export type Outbound = MongoOneMariadb$Outbound;
-}
-
-export function mongoOneMariadbToJSON(
-  mongoOneMariadb: MongoOneMariadb,
-): string {
-  return JSON.stringify(MongoOneMariadb$outboundSchema.parse(mongoOneMariadb));
-}
-
-export function mongoOneMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneMongo$inboundSchema: z.ZodType<
-  MongoOneMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoOneMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoOneMongo$outboundSchema: z.ZodType<
-  MongoOneMongo$Outbound,
-  z.ZodTypeDef,
-  MongoOneMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMongo$ {
-  /** @deprecated use `MongoOneMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMongo$inboundSchema;
-  /** @deprecated use `MongoOneMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMongo$outboundSchema;
-  /** @deprecated use `MongoOneMongo$Outbound` instead. */
-  export type Outbound = MongoOneMongo$Outbound;
-}
-
-export function mongoOneMongoToJSON(mongoOneMongo: MongoOneMongo): string {
-  return JSON.stringify(MongoOneMongo$outboundSchema.parse(mongoOneMongo));
-}
-
-export function mongoOneMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneMysql$inboundSchema: z.ZodType<
-  MongoOneMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoOneMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoOneMysql$outboundSchema: z.ZodType<
-  MongoOneMysql$Outbound,
-  z.ZodTypeDef,
-  MongoOneMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMysql$ {
-  /** @deprecated use `MongoOneMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMysql$inboundSchema;
-  /** @deprecated use `MongoOneMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMysql$outboundSchema;
-  /** @deprecated use `MongoOneMysql$Outbound` instead. */
-  export type Outbound = MongoOneMysql$Outbound;
-}
-
-export function mongoOneMysqlToJSON(mongoOneMysql: MongoOneMysql): string {
-  return JSON.stringify(MongoOneMysql$outboundSchema.parse(mongoOneMysql));
-}
-
-export function mongoOneMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneMetadata$inboundSchema: z.ZodType<
-  MongoOneMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoOnePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MongoOneMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoOneMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoOneMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoOneMetadata$Outbound = {
-  postgres?: MongoOnePostgres$Outbound | undefined;
-  mariadb?: MongoOneMariadb$Outbound | undefined;
-  mongo?: MongoOneMongo$Outbound | undefined;
-  mysql?: MongoOneMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoOneMetadata$outboundSchema: z.ZodType<
-  MongoOneMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoOneMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoOnePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MongoOneMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoOneMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoOneMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMetadata$ {
-  /** @deprecated use `MongoOneMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMetadata$inboundSchema;
-  /** @deprecated use `MongoOneMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMetadata$outboundSchema;
-  /** @deprecated use `MongoOneMetadata$Outbound` instead. */
-  export type Outbound = MongoOneMetadata$Outbound;
-}
-
-export function mongoOneMetadataToJSON(
-  mongoOneMetadata: MongoOneMetadata,
-): string {
-  return JSON.stringify(
-    MongoOneMetadata$outboundSchema.parse(mongoOneMetadata),
-  );
-}
-
-export function mongoOneMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneMetadataUnion$inboundSchema: z.ZodType<
-  MongoOneMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoOneMetadata$inboundSchema),
-  MongoOneMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoOneMetadataUnion$Outbound = MongoOneMetadata$Outbound | string;
-
-/** @internal */
-export const MongoOneMetadataUnion$outboundSchema: z.ZodType<
-  MongoOneMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoOneMetadataUnion
-> = z.union([
-  z.lazy(() => MongoOneMetadata$outboundSchema),
-  MongoOneMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneMetadataUnion$ {
-  /** @deprecated use `MongoOneMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoOneMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoOneMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MongoOneMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoOneMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoOneMetadataUnion$Outbound;
-}
-
-export function mongoOneMetadataUnionToJSON(
-  mongoOneMetadataUnion: MongoOneMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoOneMetadataUnion$outboundSchema.parse(mongoOneMetadataUnion),
-  );
-}
-
-export function mongoOneMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoOneBackup$inboundSchema: z.ZodType<
-  MongoOneBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoOneBackupType$inboundSchema,
-  databaseType: MongoOneDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoOneMetadata$inboundSchema),
-      MongoOneMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoOneBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoOneMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoOneBackup$outboundSchema: z.ZodType<
-  MongoOneBackup$Outbound,
-  z.ZodTypeDef,
-  MongoOneBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoOneBackupType$outboundSchema,
-  databaseType: MongoOneDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoOneMetadata$outboundSchema),
-      MongoOneMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoOneBackup$ {
-  /** @deprecated use `MongoOneBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoOneBackup$inboundSchema;
-  /** @deprecated use `MongoOneBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoOneBackup$outboundSchema;
-  /** @deprecated use `MongoOneBackup$Outbound` instead. */
-  export type Outbound = MongoOneBackup$Outbound;
-}
-
-export function mongoOneBackupToJSON(mongoOneBackup: MongoOneBackup): string {
-  return JSON.stringify(MongoOneBackup$outboundSchema.parse(mongoOneBackup));
-}
-
-export function mongoOneBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoOneBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoOneBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoOneBackup' from JSON`,
+    (x) => MongoOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoOneUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2545,86 +2479,86 @@ export const MongoOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoOneApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MongoOneBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoOneEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoOneHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoOneRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoOneModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoOneMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoOneNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoOnePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoOneUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoOneRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoOneRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoOneModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoOneNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoOneEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoOneMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoOneServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoOneBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoOneUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoOneResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoOneHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoOneRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoOnePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoOneUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoOneRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoOneModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoOneNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoOneEnvironment$Outbound;
-  mounts: Array<MongoOneMount$Outbound>;
-  server: MongoOneServer$Outbound | null;
   backups: Array<MongoOneBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoOneEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoOneHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoOneModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoOneMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoOneNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoOnePlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoOneRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoOneRollbackConfigSwarm$Outbound | null;
+  server: MongoOneServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoOneUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2633,50 +2567,50 @@ export const MongoOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoOneResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoOneApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MongoOneBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoOneEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoOneHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoOneRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoOneModeSwarm$outboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoOneMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoOneNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoOnePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoOneUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoOneRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoOneRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoOneModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoOneNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoOneEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoOneMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoOneServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoOneBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoOneUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

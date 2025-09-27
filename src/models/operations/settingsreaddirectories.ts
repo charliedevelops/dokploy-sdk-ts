@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsReadDirectoriesSecurity = {
-  authorization: string;
-};
-
 export type SettingsReadDirectoriesRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsReadDirectoriesSecurity$inboundSchema: z.ZodType<
-  SettingsReadDirectoriesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsReadDirectoriesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsReadDirectoriesSecurity$outboundSchema: z.ZodType<
-  SettingsReadDirectoriesSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsReadDirectoriesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsReadDirectoriesSecurity$ {
-  /** @deprecated use `SettingsReadDirectoriesSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsReadDirectoriesSecurity$inboundSchema;
-  /** @deprecated use `SettingsReadDirectoriesSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsReadDirectoriesSecurity$outboundSchema;
-  /** @deprecated use `SettingsReadDirectoriesSecurity$Outbound` instead. */
-  export type Outbound = SettingsReadDirectoriesSecurity$Outbound;
-}
-
-export function settingsReadDirectoriesSecurityToJSON(
-  settingsReadDirectoriesSecurity: SettingsReadDirectoriesSecurity,
-): string {
-  return JSON.stringify(
-    SettingsReadDirectoriesSecurity$outboundSchema.parse(
-      settingsReadDirectoriesSecurity,
-    ),
-  );
-}
-
-export function settingsReadDirectoriesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsReadDirectoriesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsReadDirectoriesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsReadDirectoriesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsReadDirectoriesRequest$inboundSchema: z.ZodType<

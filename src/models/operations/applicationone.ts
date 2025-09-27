@@ -10,123 +10,8 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationOneSecurity = {
-  authorization: string;
-};
-
 export type ApplicationOneRequest = {
   applicationId: string;
-};
-
-export const ApplicationOnePreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationOnePreviewCertificateType = ClosedEnum<
-  typeof ApplicationOnePreviewCertificateType
->;
-
-export const ApplicationOneSourceType = {
-  Github: "github",
-  Docker: "docker",
-  Git: "git",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
-} as const;
-export type ApplicationOneSourceType = ClosedEnum<
-  typeof ApplicationOneSourceType
->;
-
-export const ApplicationOneTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type ApplicationOneTriggerType = ClosedEnum<
-  typeof ApplicationOneTriggerType
->;
-
-export type ApplicationOneHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type ApplicationOneRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type ApplicationOneSpread = {
-  spreadDescriptor: string;
-};
-
-export type ApplicationOnePreference = {
-  spread: ApplicationOneSpread;
-};
-
-export type ApplicationOnePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type ApplicationOnePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<ApplicationOnePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<ApplicationOnePlatform> | undefined;
-};
-
-export type ApplicationOneUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationOneRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationOneReplicated = {
-  replicas?: number | undefined;
-};
-
-export type ApplicationOneGlobal = {};
-
-export type ApplicationOneReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type ApplicationOneGlobalJob = {};
-
-export type ApplicationOneModeSwarm = {
-  replicated?: ApplicationOneReplicated | undefined;
-  global?: ApplicationOneGlobal | undefined;
-  replicatedJob?: ApplicationOneReplicatedJob | undefined;
-  globalJob?: ApplicationOneGlobalJob | undefined;
-};
-
-export type ApplicationOneDriverOpts = {};
-
-export type ApplicationOneNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: ApplicationOneDriverOpts | undefined;
 };
 
 export const ApplicationOneApplicationStatus = {
@@ -138,6 +23,14 @@ export const ApplicationOneApplicationStatus = {
 export type ApplicationOneApplicationStatus = ClosedEnum<
   typeof ApplicationOneApplicationStatus
 >;
+
+export type ApplicationOneBitbucket = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
 
 export const ApplicationOneBuildType = {
   Dockerfile: "dockerfile",
@@ -151,33 +44,34 @@ export type ApplicationOneBuildType = ClosedEnum<
   typeof ApplicationOneBuildType
 >;
 
-export type ApplicationOneProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type ApplicationOneEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationOneProject;
-};
-
-export const ApplicationOneDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
+export const ApplicationOneStatus = {
+  Running: "running",
+  Done: "done",
+  Error: "error",
 } as const;
-export type ApplicationOneDomainType = ClosedEnum<
-  typeof ApplicationOneDomainType
->;
+export type ApplicationOneStatus = ClosedEnum<typeof ApplicationOneStatus>;
+
+export type ApplicationOneDeployment = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
+  deploymentId: string;
+  description: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
+  logPath: string;
+  pid: string | null;
+  previewDeploymentId: string | null;
+  rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: ApplicationOneStatus | null;
+  title: string;
+  volumeBackupId: string | null;
+};
 
 export const ApplicationOneCertificateType = {
   Letsencrypt: "letsencrypt",
@@ -188,60 +82,119 @@ export type ApplicationOneCertificateType = ClosedEnum<
   typeof ApplicationOneCertificateType
 >;
 
+export const ApplicationOneDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type ApplicationOneDomainType = ClosedEnum<
+  typeof ApplicationOneDomainType
+>;
+
 export type ApplicationOneDomain = {
+  applicationId: string | null;
+  certificateType: ApplicationOneCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: ApplicationOneDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: ApplicationOneDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: ApplicationOneCertificateType;
   internalPath: string | null;
-  stripPath: boolean;
-};
-
-export const ApplicationOneStatus = {
-  Running: "running",
-  Done: "done",
-  Error: "error",
-} as const;
-export type ApplicationOneStatus = ClosedEnum<typeof ApplicationOneStatus>;
-
-export type ApplicationOneDeployment = {
-  deploymentId: string;
-  title: string;
-  description: string | null;
-  status: ApplicationOneStatus | null;
-  logPath: string;
-  pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
+  path: string | null;
+  port: number | null;
   previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
-  rollbackId: string | null;
-  volumeBackupId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
-export const ApplicationOneType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type ApplicationOneType = ClosedEnum<typeof ApplicationOneType>;
+export type ApplicationOneProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type ApplicationOneEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationOneProject;
+  projectId: string;
+};
+
+export type ApplicationOneGitea = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+export type ApplicationOneGithub = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+export type ApplicationOneGitlab = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+export type ApplicationOneHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type ApplicationOneGlobal = {};
+
+export type ApplicationOneGlobalJob = {};
+
+export type ApplicationOneReplicated = {
+  replicas?: number | undefined;
+};
+
+export type ApplicationOneReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type ApplicationOneModeSwarm = {
+  global?: ApplicationOneGlobal | undefined;
+  globalJob?: ApplicationOneGlobalJob | undefined;
+  replicated?: ApplicationOneReplicated | undefined;
+  replicatedJob?: ApplicationOneReplicatedJob | undefined;
+};
 
 export const ApplicationOneServiceType = {
   Application: "application",
@@ -256,41 +209,64 @@ export type ApplicationOneServiceType = ClosedEnum<
   typeof ApplicationOneServiceType
 >;
 
+export const ApplicationOneType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type ApplicationOneType = ClosedEnum<typeof ApplicationOneType>;
+
 export type ApplicationOneMount = {
-  mountId: string;
-  type: ApplicationOneType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: ApplicationOneServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: ApplicationOneServiceType;
+  type: ApplicationOneType;
+  volumeName: string | null;
 };
 
-export type ApplicationOneRedirect = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationOneDriverOpts = {};
+
+export type ApplicationOneNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: ApplicationOneDriverOpts | undefined;
+  target?: string | undefined;
 };
 
-export type ApplicationOneSecurityResponse = {
-  securityId: string;
-  username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationOnePlatform = {
+  architecture: string;
+  os: string;
 };
+
+export type ApplicationOneSpread = {
+  spreadDescriptor: string;
+};
+
+export type ApplicationOnePreference = {
+  spread: ApplicationOneSpread;
+};
+
+export type ApplicationOnePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<ApplicationOnePlatform> | undefined;
+  preferences?: Array<ApplicationOnePreference> | undefined;
+};
+
+export const ApplicationOneProtocol = {
+  Tcp: "tcp",
+  Udp: "udp",
+} as const;
+export type ApplicationOneProtocol = ClosedEnum<typeof ApplicationOneProtocol>;
 
 export const ApplicationOnePublishMode = {
   Ingress: "ingress",
@@ -300,19 +276,58 @@ export type ApplicationOnePublishMode = ClosedEnum<
   typeof ApplicationOnePublishMode
 >;
 
-export const ApplicationOneProtocol = {
-  Tcp: "tcp",
-  Udp: "udp",
-} as const;
-export type ApplicationOneProtocol = ClosedEnum<typeof ApplicationOneProtocol>;
-
 export type ApplicationOnePort = {
-  portId: string;
-  publishedPort: number;
-  publishMode: ApplicationOnePublishMode;
-  targetPort: number;
-  protocol: ApplicationOneProtocol;
   applicationId: string;
+  portId: string;
+  protocol: ApplicationOneProtocol;
+  publishMode: ApplicationOnePublishMode;
+  publishedPort: number;
+  targetPort: number;
+};
+
+export const ApplicationOnePreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
+} as const;
+export type ApplicationOnePreviewCertificateType = ClosedEnum<
+  typeof ApplicationOnePreviewCertificateType
+>;
+
+export const ApplicationOnePreviewStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
+} as const;
+export type ApplicationOnePreviewStatus = ClosedEnum<
+  typeof ApplicationOnePreviewStatus
+>;
+
+export type ApplicationOnePreviewDeployment = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: ApplicationOnePreviewStatus;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+export type ApplicationOneRedirect = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
 };
 
 export const ApplicationOneRegistryType = {
@@ -324,71 +339,40 @@ export type ApplicationOneRegistryType = ClosedEnum<
 >;
 
 export type ApplicationOneRegistry = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
   registryId: string;
   registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
   registryType: ApplicationOneRegistryType;
-  organizationId: string;
+  registryUrl: string;
+  username: string;
 };
 
-export type ApplicationOneGithub = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
+export type ApplicationOneRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
-export type ApplicationOneGitlab = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
+export type ApplicationOneRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
-export type ApplicationOneBitbucket = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
+export type ApplicationOneSecurity = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
+  securityId: string;
+  username: string;
 };
-
-export type ApplicationOneGitea = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-export const ApplicationOneServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type ApplicationOneServerStatus = ClosedEnum<
-  typeof ApplicationOneServerStatus
->;
 
 export const ApplicationOneMetricsConfigEnum = {
   Null: "null",
@@ -411,20 +395,21 @@ export type ApplicationOneMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const ApplicationOneServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type ApplicationOneServerStatus = ClosedEnum<
+  typeof ApplicationOneServerStatus
+>;
+
 export type ApplicationOneServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: ApplicationOneServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -432,33 +417,35 @@ export type ApplicationOneServer = {
     | ApplicationOneMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: ApplicationOneServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const ApplicationOnePreviewStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
+export const ApplicationOneSourceType = {
+  Github: "github",
+  Docker: "docker",
+  Git: "git",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
 } as const;
-export type ApplicationOnePreviewStatus = ClosedEnum<
-  typeof ApplicationOnePreviewStatus
+export type ApplicationOneSourceType = ClosedEnum<
+  typeof ApplicationOneSourceType
 >;
 
-export type ApplicationOnePreviewDeployment = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: ApplicationOnePreviewStatus;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
-};
+export const ApplicationOneTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type ApplicationOneTriggerType = ClosedEnum<
+  typeof ApplicationOneTriggerType
+>;
 
 export const UnauthorizedProvider = {
   Github: "github",
@@ -468,178 +455,125 @@ export const UnauthorizedProvider = {
 } as const;
 export type UnauthorizedProvider = ClosedEnum<typeof UnauthorizedProvider>;
 
+export type ApplicationOneUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
 /**
  * Successful response
  */
 export type ApplicationOneResponseBody = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: ApplicationOnePreviewCertificateType | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ApplicationOneSourceType | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: ApplicationOneTriggerType | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: ApplicationOneApplicationStatus | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationOneBitbucket | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: ApplicationOneBuildType | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
-  dockerBuildStage?: string | null | undefined;
-  dropBuildPath?: string | null | undefined;
-  healthCheckSwarm?: ApplicationOneHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: ApplicationOneRestartPolicySwarm | null | undefined;
-  placementSwarm?: ApplicationOnePlacementSwarm | null | undefined;
-  updateConfigSwarm?: ApplicationOneUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: ApplicationOneRollbackConfigSwarm | null | undefined;
-  modeSwarm?: ApplicationOneModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationOneNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: ApplicationOneApplicationStatus | undefined;
-  buildType?: ApplicationOneBuildType | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationOneEnvironment;
-  domains: Array<ApplicationOneDomain>;
+  customGitUrl?: string | null | undefined;
   deployments: Array<ApplicationOneDeployment>;
-  mounts: Array<ApplicationOneMount>;
-  redirects: Array<ApplicationOneRedirect>;
-  security: Array<ApplicationOneSecurityResponse>;
-  ports: Array<ApplicationOnePort>;
-  registry: ApplicationOneRegistry | null;
-  github: ApplicationOneGithub | null;
-  gitlab: ApplicationOneGitlab | null;
-  bitbucket: ApplicationOneBitbucket | null;
+  description?: string | null | undefined;
+  dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationOneDomain>;
+  dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationOneEnvironment;
+  environmentId: string;
   gitea: ApplicationOneGitea | null;
-  server: ApplicationOneServer | null;
-  previewDeployments: Array<ApplicationOnePreviewDeployment>;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationOneGithub | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationOneGitlab | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   hasGitProviderAccess: boolean;
+  healthCheckSwarm?: ApplicationOneHealthCheckSwarm | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationOneModeSwarm | null | undefined;
+  mounts: Array<ApplicationOneMount>;
+  name: string;
+  networkSwarm?: Array<ApplicationOneNetworkSwarm> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationOnePlacementSwarm | null | undefined;
+  ports: Array<ApplicationOnePort>;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: ApplicationOnePreviewCertificateType | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewDeployments: Array<ApplicationOnePreviewDeployment>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationOneRedirect>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationOneRegistry | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?: ApplicationOneRestartPolicySwarm | null | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?: ApplicationOneRollbackConfigSwarm | null | undefined;
+  security: Array<ApplicationOneSecurity>;
+  server: ApplicationOneServer | null;
+  serverId?: string | null | undefined;
+  sourceType?: ApplicationOneSourceType | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: ApplicationOneTriggerType | null | undefined;
   unauthorizedProvider: UnauthorizedProvider | null;
+  updateConfigSwarm?: ApplicationOneUpdateConfigSwarm | null | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationOneResponse = ApplicationOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const ApplicationOneSecurity$inboundSchema: z.ZodType<
-  ApplicationOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationOneSecurity$outboundSchema: z.ZodType<
-  ApplicationOneSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneSecurity$ {
-  /** @deprecated use `ApplicationOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneSecurity$inboundSchema;
-  /** @deprecated use `ApplicationOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneSecurity$outboundSchema;
-  /** @deprecated use `ApplicationOneSecurity$Outbound` instead. */
-  export type Outbound = ApplicationOneSecurity$Outbound;
-}
-
-export function applicationOneSecurityToJSON(
-  applicationOneSecurity: ApplicationOneSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationOneSecurity$outboundSchema.parse(applicationOneSecurity),
-  );
-}
-
-export function applicationOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationOneRequest$inboundSchema: z.ZodType<
@@ -696,69 +630,765 @@ export function applicationOneRequestFromJSON(
 }
 
 /** @internal */
-export const ApplicationOnePreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof ApplicationOnePreviewCertificateType> = z.nativeEnum(
-    ApplicationOnePreviewCertificateType,
+export const ApplicationOneApplicationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneApplicationStatus
+> = z.nativeEnum(ApplicationOneApplicationStatus);
+
+/** @internal */
+export const ApplicationOneApplicationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneApplicationStatus
+> = ApplicationOneApplicationStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneApplicationStatus$ {
+  /** @deprecated use `ApplicationOneApplicationStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneApplicationStatus$inboundSchema;
+  /** @deprecated use `ApplicationOneApplicationStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneApplicationStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneBitbucket$inboundSchema: z.ZodType<
+  ApplicationOneBitbucket,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
+
+/** @internal */
+export type ApplicationOneBitbucket$Outbound = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
+
+/** @internal */
+export const ApplicationOneBitbucket$outboundSchema: z.ZodType<
+  ApplicationOneBitbucket$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneBitbucket
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneBitbucket$ {
+  /** @deprecated use `ApplicationOneBitbucket$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneBitbucket$inboundSchema;
+  /** @deprecated use `ApplicationOneBitbucket$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneBitbucket$outboundSchema;
+  /** @deprecated use `ApplicationOneBitbucket$Outbound` instead. */
+  export type Outbound = ApplicationOneBitbucket$Outbound;
+}
+
+export function applicationOneBitbucketToJSON(
+  applicationOneBitbucket: ApplicationOneBitbucket,
+): string {
+  return JSON.stringify(
+    ApplicationOneBitbucket$outboundSchema.parse(applicationOneBitbucket),
   );
+}
 
-/** @internal */
-export const ApplicationOnePreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof ApplicationOnePreviewCertificateType> =
-    ApplicationOnePreviewCertificateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOnePreviewCertificateType$ {
-  /** @deprecated use `ApplicationOnePreviewCertificateType$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationOnePreviewCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationOnePreviewCertificateType$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationOnePreviewCertificateType$outboundSchema;
+export function applicationOneBitbucketFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneBitbucket, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneBitbucket$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneBitbucket' from JSON`,
+  );
 }
 
 /** @internal */
-export const ApplicationOneSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneSourceType
-> = z.nativeEnum(ApplicationOneSourceType);
+export const ApplicationOneBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneBuildType
+> = z.nativeEnum(ApplicationOneBuildType);
 
 /** @internal */
-export const ApplicationOneSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneSourceType
-> = ApplicationOneSourceType$inboundSchema;
+export const ApplicationOneBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneBuildType
+> = ApplicationOneBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOneSourceType$ {
-  /** @deprecated use `ApplicationOneSourceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneSourceType$inboundSchema;
-  /** @deprecated use `ApplicationOneSourceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneSourceType$outboundSchema;
+export namespace ApplicationOneBuildType$ {
+  /** @deprecated use `ApplicationOneBuildType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneBuildType$inboundSchema;
+  /** @deprecated use `ApplicationOneBuildType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneBuildType$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationOneTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneTriggerType
-> = z.nativeEnum(ApplicationOneTriggerType);
+export const ApplicationOneStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneStatus
+> = z.nativeEnum(ApplicationOneStatus);
 
 /** @internal */
-export const ApplicationOneTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneTriggerType
-> = ApplicationOneTriggerType$inboundSchema;
+export const ApplicationOneStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneStatus
+> = ApplicationOneStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOneTriggerType$ {
-  /** @deprecated use `ApplicationOneTriggerType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneTriggerType$inboundSchema;
-  /** @deprecated use `ApplicationOneTriggerType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneTriggerType$outboundSchema;
+export namespace ApplicationOneStatus$ {
+  /** @deprecated use `ApplicationOneStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneStatus$inboundSchema;
+  /** @deprecated use `ApplicationOneStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneDeployment$inboundSchema: z.ZodType<
+  ApplicationOneDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationOneStatus$inboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationOneDeployment$Outbound = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
+  deploymentId: string;
+  description: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
+  logPath: string;
+  pid: string | null;
+  previewDeploymentId: string | null;
+  rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: string | null;
+  title: string;
+  volumeBackupId: string | null;
+};
+
+/** @internal */
+export const ApplicationOneDeployment$outboundSchema: z.ZodType<
+  ApplicationOneDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneDeployment
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationOneStatus$outboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneDeployment$ {
+  /** @deprecated use `ApplicationOneDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneDeployment$inboundSchema;
+  /** @deprecated use `ApplicationOneDeployment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneDeployment$outboundSchema;
+  /** @deprecated use `ApplicationOneDeployment$Outbound` instead. */
+  export type Outbound = ApplicationOneDeployment$Outbound;
+}
+
+export function applicationOneDeploymentToJSON(
+  applicationOneDeployment: ApplicationOneDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationOneDeployment$outboundSchema.parse(applicationOneDeployment),
+  );
+}
+
+export function applicationOneDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneCertificateType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneCertificateType
+> = z.nativeEnum(ApplicationOneCertificateType);
+
+/** @internal */
+export const ApplicationOneCertificateType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneCertificateType
+> = ApplicationOneCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneCertificateType$ {
+  /** @deprecated use `ApplicationOneCertificateType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationOneCertificateType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneDomainType
+> = z.nativeEnum(ApplicationOneDomainType);
+
+/** @internal */
+export const ApplicationOneDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneDomainType
+> = ApplicationOneDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneDomainType$ {
+  /** @deprecated use `ApplicationOneDomainType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneDomainType$inboundSchema;
+  /** @deprecated use `ApplicationOneDomainType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneDomainType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneDomain$inboundSchema: z.ZodType<
+  ApplicationOneDomain,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationOneCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationOneDomainType$inboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationOneDomain$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
+  domainId: string;
+  domainType: string | null;
+  host: string;
+  https: boolean;
+  internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationOneDomain$outboundSchema: z.ZodType<
+  ApplicationOneDomain$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneDomain
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationOneCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationOneDomainType$outboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneDomain$ {
+  /** @deprecated use `ApplicationOneDomain$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneDomain$inboundSchema;
+  /** @deprecated use `ApplicationOneDomain$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneDomain$outboundSchema;
+  /** @deprecated use `ApplicationOneDomain$Outbound` instead. */
+  export type Outbound = ApplicationOneDomain$Outbound;
+}
+
+export function applicationOneDomainToJSON(
+  applicationOneDomain: ApplicationOneDomain,
+): string {
+  return JSON.stringify(
+    ApplicationOneDomain$outboundSchema.parse(applicationOneDomain),
+  );
+}
+
+export function applicationOneDomainFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneDomain, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneDomain$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneDomain' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneProject$inboundSchema: z.ZodType<
+  ApplicationOneProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationOneProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationOneProject$outboundSchema: z.ZodType<
+  ApplicationOneProject$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneProject$ {
+  /** @deprecated use `ApplicationOneProject$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneProject$inboundSchema;
+  /** @deprecated use `ApplicationOneProject$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneProject$outboundSchema;
+  /** @deprecated use `ApplicationOneProject$Outbound` instead. */
+  export type Outbound = ApplicationOneProject$Outbound;
+}
+
+export function applicationOneProjectToJSON(
+  applicationOneProject: ApplicationOneProject,
+): string {
+  return JSON.stringify(
+    ApplicationOneProject$outboundSchema.parse(applicationOneProject),
+  );
+}
+
+export function applicationOneProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneEnvironment$inboundSchema: z.ZodType<
+  ApplicationOneEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationOneProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationOneEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationOneProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationOneEnvironment$outboundSchema: z.ZodType<
+  ApplicationOneEnvironment$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationOneProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneEnvironment$ {
+  /** @deprecated use `ApplicationOneEnvironment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneEnvironment$inboundSchema;
+  /** @deprecated use `ApplicationOneEnvironment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneEnvironment$outboundSchema;
+  /** @deprecated use `ApplicationOneEnvironment$Outbound` instead. */
+  export type Outbound = ApplicationOneEnvironment$Outbound;
+}
+
+export function applicationOneEnvironmentToJSON(
+  applicationOneEnvironment: ApplicationOneEnvironment,
+): string {
+  return JSON.stringify(
+    ApplicationOneEnvironment$outboundSchema.parse(applicationOneEnvironment),
+  );
+}
+
+export function applicationOneEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneGitea$inboundSchema: z.ZodType<
+  ApplicationOneGitea,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationOneGitea$Outbound = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+/** @internal */
+export const ApplicationOneGitea$outboundSchema: z.ZodType<
+  ApplicationOneGitea$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneGitea
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneGitea$ {
+  /** @deprecated use `ApplicationOneGitea$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneGitea$inboundSchema;
+  /** @deprecated use `ApplicationOneGitea$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneGitea$outboundSchema;
+  /** @deprecated use `ApplicationOneGitea$Outbound` instead. */
+  export type Outbound = ApplicationOneGitea$Outbound;
+}
+
+export function applicationOneGiteaToJSON(
+  applicationOneGitea: ApplicationOneGitea,
+): string {
+  return JSON.stringify(
+    ApplicationOneGitea$outboundSchema.parse(applicationOneGitea),
+  );
+}
+
+export function applicationOneGiteaFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneGitea, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneGitea$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneGitea' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneGithub$inboundSchema: z.ZodType<
+  ApplicationOneGithub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationOneGithub$Outbound = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+/** @internal */
+export const ApplicationOneGithub$outboundSchema: z.ZodType<
+  ApplicationOneGithub$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneGithub
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneGithub$ {
+  /** @deprecated use `ApplicationOneGithub$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneGithub$inboundSchema;
+  /** @deprecated use `ApplicationOneGithub$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneGithub$outboundSchema;
+  /** @deprecated use `ApplicationOneGithub$Outbound` instead. */
+  export type Outbound = ApplicationOneGithub$Outbound;
+}
+
+export function applicationOneGithubToJSON(
+  applicationOneGithub: ApplicationOneGithub,
+): string {
+  return JSON.stringify(
+    ApplicationOneGithub$outboundSchema.parse(applicationOneGithub),
+  );
+}
+
+export function applicationOneGithubFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneGithub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneGithub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneGithub' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneGitlab$inboundSchema: z.ZodType<
+  ApplicationOneGitlab,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationOneGitlab$Outbound = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+/** @internal */
+export const ApplicationOneGitlab$outboundSchema: z.ZodType<
+  ApplicationOneGitlab$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneGitlab
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneGitlab$ {
+  /** @deprecated use `ApplicationOneGitlab$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneGitlab$inboundSchema;
+  /** @deprecated use `ApplicationOneGitlab$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneGitlab$outboundSchema;
+  /** @deprecated use `ApplicationOneGitlab$Outbound` instead. */
+  export type Outbound = ApplicationOneGitlab$Outbound;
+}
+
+export function applicationOneGitlabToJSON(
+  applicationOneGitlab: ApplicationOneGitlab,
+): string {
+  return JSON.stringify(
+    ApplicationOneGitlab$outboundSchema.parse(applicationOneGitlab),
+  );
+}
+
+export function applicationOneGitlabFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneGitlab, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneGitlab$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneGitlab' from JSON`,
+  );
 }
 
 /** @internal */
@@ -767,28 +1397,28 @@ export const ApplicationOneHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type ApplicationOneHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -797,18 +1427,18 @@ export const ApplicationOneHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationOneHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -846,48 +1476,129 @@ export function applicationOneHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationOneRestartPolicySwarm$inboundSchema: z.ZodType<
-  ApplicationOneRestartPolicySwarm,
+export const ApplicationOneGlobal$inboundSchema: z.ZodType<
+  ApplicationOneGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationOneGlobal$Outbound = {};
+
+/** @internal */
+export const ApplicationOneGlobal$outboundSchema: z.ZodType<
+  ApplicationOneGlobal$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneGlobal$ {
+  /** @deprecated use `ApplicationOneGlobal$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneGlobal$inboundSchema;
+  /** @deprecated use `ApplicationOneGlobal$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneGlobal$outboundSchema;
+  /** @deprecated use `ApplicationOneGlobal$Outbound` instead. */
+  export type Outbound = ApplicationOneGlobal$Outbound;
+}
+
+export function applicationOneGlobalToJSON(
+  applicationOneGlobal: ApplicationOneGlobal,
+): string {
+  return JSON.stringify(
+    ApplicationOneGlobal$outboundSchema.parse(applicationOneGlobal),
+  );
+}
+
+export function applicationOneGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneGlobalJob$inboundSchema: z.ZodType<
+  ApplicationOneGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationOneGlobalJob$Outbound = {};
+
+/** @internal */
+export const ApplicationOneGlobalJob$outboundSchema: z.ZodType<
+  ApplicationOneGlobalJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneGlobalJob$ {
+  /** @deprecated use `ApplicationOneGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneGlobalJob$inboundSchema;
+  /** @deprecated use `ApplicationOneGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneGlobalJob$outboundSchema;
+  /** @deprecated use `ApplicationOneGlobalJob$Outbound` instead. */
+  export type Outbound = ApplicationOneGlobalJob$Outbound;
+}
+
+export function applicationOneGlobalJobToJSON(
+  applicationOneGlobalJob: ApplicationOneGlobalJob,
+): string {
+  return JSON.stringify(
+    ApplicationOneGlobalJob$outboundSchema.parse(applicationOneGlobalJob),
+  );
+}
+
+export function applicationOneGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneReplicated$inboundSchema: z.ZodType<
+  ApplicationOneReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type ApplicationOneRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type ApplicationOneReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationOneRestartPolicySwarm$outboundSchema: z.ZodType<
-  ApplicationOneRestartPolicySwarm$Outbound,
+export const ApplicationOneReplicated$outboundSchema: z.ZodType<
+  ApplicationOneReplicated$Outbound,
   z.ZodTypeDef,
-  ApplicationOneRestartPolicySwarm
+  ApplicationOneReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -895,32 +1606,503 @@ export const ApplicationOneRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOneRestartPolicySwarm$ {
-  /** @deprecated use `ApplicationOneRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `ApplicationOneRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `ApplicationOneRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = ApplicationOneRestartPolicySwarm$Outbound;
+export namespace ApplicationOneReplicated$ {
+  /** @deprecated use `ApplicationOneReplicated$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneReplicated$inboundSchema;
+  /** @deprecated use `ApplicationOneReplicated$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneReplicated$outboundSchema;
+  /** @deprecated use `ApplicationOneReplicated$Outbound` instead. */
+  export type Outbound = ApplicationOneReplicated$Outbound;
 }
 
-export function applicationOneRestartPolicySwarmToJSON(
-  applicationOneRestartPolicySwarm: ApplicationOneRestartPolicySwarm,
+export function applicationOneReplicatedToJSON(
+  applicationOneReplicated: ApplicationOneReplicated,
 ): string {
   return JSON.stringify(
-    ApplicationOneRestartPolicySwarm$outboundSchema.parse(
-      applicationOneRestartPolicySwarm,
+    ApplicationOneReplicated$outboundSchema.parse(applicationOneReplicated),
+  );
+}
+
+export function applicationOneReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneReplicatedJob$inboundSchema: z.ZodType<
+  ApplicationOneReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type ApplicationOneReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const ApplicationOneReplicatedJob$outboundSchema: z.ZodType<
+  ApplicationOneReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneReplicatedJob$ {
+  /** @deprecated use `ApplicationOneReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneReplicatedJob$inboundSchema;
+  /** @deprecated use `ApplicationOneReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneReplicatedJob$outboundSchema;
+  /** @deprecated use `ApplicationOneReplicatedJob$Outbound` instead. */
+  export type Outbound = ApplicationOneReplicatedJob$Outbound;
+}
+
+export function applicationOneReplicatedJobToJSON(
+  applicationOneReplicatedJob: ApplicationOneReplicatedJob,
+): string {
+  return JSON.stringify(
+    ApplicationOneReplicatedJob$outboundSchema.parse(
+      applicationOneReplicatedJob,
     ),
   );
 }
 
-export function applicationOneRestartPolicySwarmFromJSON(
+export function applicationOneReplicatedJobFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationOneRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<ApplicationOneReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneRestartPolicySwarm' from JSON`,
+    (x) => ApplicationOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneModeSwarm$inboundSchema: z.ZodType<
+  ApplicationOneModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => ApplicationOneGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => ApplicationOneGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => ApplicationOneReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => ApplicationOneReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type ApplicationOneModeSwarm$Outbound = {
+  Global?: ApplicationOneGlobal$Outbound | undefined;
+  GlobalJob?: ApplicationOneGlobalJob$Outbound | undefined;
+  Replicated?: ApplicationOneReplicated$Outbound | undefined;
+  ReplicatedJob?: ApplicationOneReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const ApplicationOneModeSwarm$outboundSchema: z.ZodType<
+  ApplicationOneModeSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneModeSwarm
+> = z.object({
+  global: z.lazy(() => ApplicationOneGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => ApplicationOneGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => ApplicationOneReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => ApplicationOneReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneModeSwarm$ {
+  /** @deprecated use `ApplicationOneModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneModeSwarm$inboundSchema;
+  /** @deprecated use `ApplicationOneModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneModeSwarm$outboundSchema;
+  /** @deprecated use `ApplicationOneModeSwarm$Outbound` instead. */
+  export type Outbound = ApplicationOneModeSwarm$Outbound;
+}
+
+export function applicationOneModeSwarmToJSON(
+  applicationOneModeSwarm: ApplicationOneModeSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationOneModeSwarm$outboundSchema.parse(applicationOneModeSwarm),
+  );
+}
+
+export function applicationOneModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneServiceType
+> = z.nativeEnum(ApplicationOneServiceType);
+
+/** @internal */
+export const ApplicationOneServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneServiceType
+> = ApplicationOneServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneServiceType$ {
+  /** @deprecated use `ApplicationOneServiceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneServiceType$inboundSchema;
+  /** @deprecated use `ApplicationOneServiceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneServiceType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneType
+> = z.nativeEnum(ApplicationOneType);
+
+/** @internal */
+export const ApplicationOneType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneType
+> = ApplicationOneType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneType$ {
+  /** @deprecated use `ApplicationOneType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneType$inboundSchema;
+  /** @deprecated use `ApplicationOneType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneMount$inboundSchema: z.ZodType<
+  ApplicationOneMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationOneServiceType$inboundSchema,
+  type: ApplicationOneType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationOneMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const ApplicationOneMount$outboundSchema: z.ZodType<
+  ApplicationOneMount$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationOneServiceType$outboundSchema,
+  type: ApplicationOneType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneMount$ {
+  /** @deprecated use `ApplicationOneMount$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneMount$inboundSchema;
+  /** @deprecated use `ApplicationOneMount$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneMount$outboundSchema;
+  /** @deprecated use `ApplicationOneMount$Outbound` instead. */
+  export type Outbound = ApplicationOneMount$Outbound;
+}
+
+export function applicationOneMountToJSON(
+  applicationOneMount: ApplicationOneMount,
+): string {
+  return JSON.stringify(
+    ApplicationOneMount$outboundSchema.parse(applicationOneMount),
+  );
+}
+
+export function applicationOneMountFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneDriverOpts$inboundSchema: z.ZodType<
+  ApplicationOneDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationOneDriverOpts$Outbound = {};
+
+/** @internal */
+export const ApplicationOneDriverOpts$outboundSchema: z.ZodType<
+  ApplicationOneDriverOpts$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneDriverOpts$ {
+  /** @deprecated use `ApplicationOneDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneDriverOpts$inboundSchema;
+  /** @deprecated use `ApplicationOneDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneDriverOpts$outboundSchema;
+  /** @deprecated use `ApplicationOneDriverOpts$Outbound` instead. */
+  export type Outbound = ApplicationOneDriverOpts$Outbound;
+}
+
+export function applicationOneDriverOptsToJSON(
+  applicationOneDriverOpts: ApplicationOneDriverOpts,
+): string {
+  return JSON.stringify(
+    ApplicationOneDriverOpts$outboundSchema.parse(applicationOneDriverOpts),
+  );
+}
+
+export function applicationOneDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneNetworkSwarm$inboundSchema: z.ZodType<
+  ApplicationOneNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => ApplicationOneDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type ApplicationOneNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: ApplicationOneDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const ApplicationOneNetworkSwarm$outboundSchema: z.ZodType<
+  ApplicationOneNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => ApplicationOneDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneNetworkSwarm$ {
+  /** @deprecated use `ApplicationOneNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneNetworkSwarm$inboundSchema;
+  /** @deprecated use `ApplicationOneNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneNetworkSwarm$outboundSchema;
+  /** @deprecated use `ApplicationOneNetworkSwarm$Outbound` instead. */
+  export type Outbound = ApplicationOneNetworkSwarm$Outbound;
+}
+
+export function applicationOneNetworkSwarmToJSON(
+  applicationOneNetworkSwarm: ApplicationOneNetworkSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationOneNetworkSwarm$outboundSchema.parse(applicationOneNetworkSwarm),
+  );
+}
+
+export function applicationOneNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOnePlatform$inboundSchema: z.ZodType<
+  ApplicationOnePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type ApplicationOnePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const ApplicationOnePlatform$outboundSchema: z.ZodType<
+  ApplicationOnePlatform$Outbound,
+  z.ZodTypeDef,
+  ApplicationOnePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePlatform$ {
+  /** @deprecated use `ApplicationOnePlatform$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOnePlatform$inboundSchema;
+  /** @deprecated use `ApplicationOnePlatform$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOnePlatform$outboundSchema;
+  /** @deprecated use `ApplicationOnePlatform$Outbound` instead. */
+  export type Outbound = ApplicationOnePlatform$Outbound;
+}
+
+export function applicationOnePlatformToJSON(
+  applicationOnePlatform: ApplicationOnePlatform,
+): string {
+  return JSON.stringify(
+    ApplicationOnePlatform$outboundSchema.parse(applicationOnePlatform),
+  );
+}
+
+export function applicationOnePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOnePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOnePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOnePlatform' from JSON`,
   );
 }
 
@@ -1049,99 +2231,32 @@ export function applicationOnePreferenceFromJSON(
 }
 
 /** @internal */
-export const ApplicationOnePlatform$inboundSchema: z.ZodType<
-  ApplicationOnePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type ApplicationOnePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const ApplicationOnePlatform$outboundSchema: z.ZodType<
-  ApplicationOnePlatform$Outbound,
-  z.ZodTypeDef,
-  ApplicationOnePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOnePlatform$ {
-  /** @deprecated use `ApplicationOnePlatform$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOnePlatform$inboundSchema;
-  /** @deprecated use `ApplicationOnePlatform$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOnePlatform$outboundSchema;
-  /** @deprecated use `ApplicationOnePlatform$Outbound` instead. */
-  export type Outbound = ApplicationOnePlatform$Outbound;
-}
-
-export function applicationOnePlatformToJSON(
-  applicationOnePlatform: ApplicationOnePlatform,
-): string {
-  return JSON.stringify(
-    ApplicationOnePlatform$outboundSchema.parse(applicationOnePlatform),
-  );
-}
-
-export function applicationOnePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOnePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOnePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOnePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationOnePlacementSwarm$inboundSchema: z.ZodType<
   ApplicationOnePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => ApplicationOnePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => ApplicationOnePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => ApplicationOnePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type ApplicationOnePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<ApplicationOnePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<ApplicationOnePlatform$Outbound> | undefined;
+  Preferences?: Array<ApplicationOnePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1151,17 +2266,17 @@ export const ApplicationOnePlacementSwarm$outboundSchema: z.ZodType<
   ApplicationOnePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => ApplicationOnePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => ApplicationOnePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => ApplicationOnePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -1199,58 +2314,467 @@ export function applicationOnePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationOneUpdateConfigSwarm$inboundSchema: z.ZodType<
-  ApplicationOneUpdateConfigSwarm,
+export const ApplicationOneProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneProtocol
+> = z.nativeEnum(ApplicationOneProtocol);
+
+/** @internal */
+export const ApplicationOneProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneProtocol
+> = ApplicationOneProtocol$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneProtocol$ {
+  /** @deprecated use `ApplicationOneProtocol$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneProtocol$inboundSchema;
+  /** @deprecated use `ApplicationOneProtocol$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneProtocol$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOnePublishMode$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOnePublishMode
+> = z.nativeEnum(ApplicationOnePublishMode);
+
+/** @internal */
+export const ApplicationOnePublishMode$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOnePublishMode
+> = ApplicationOnePublishMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePublishMode$ {
+  /** @deprecated use `ApplicationOnePublishMode$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOnePublishMode$inboundSchema;
+  /** @deprecated use `ApplicationOnePublishMode$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOnePublishMode$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOnePort$inboundSchema: z.ZodType<
+  ApplicationOnePort,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationOneProtocol$inboundSchema,
+  publishMode: ApplicationOnePublishMode$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/** @internal */
+export type ApplicationOnePort$Outbound = {
+  applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
+};
+
+/** @internal */
+export const ApplicationOnePort$outboundSchema: z.ZodType<
+  ApplicationOnePort$Outbound,
+  z.ZodTypeDef,
+  ApplicationOnePort
+> = z.object({
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationOneProtocol$outboundSchema,
+  publishMode: ApplicationOnePublishMode$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePort$ {
+  /** @deprecated use `ApplicationOnePort$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOnePort$inboundSchema;
+  /** @deprecated use `ApplicationOnePort$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOnePort$outboundSchema;
+  /** @deprecated use `ApplicationOnePort$Outbound` instead. */
+  export type Outbound = ApplicationOnePort$Outbound;
+}
+
+export function applicationOnePortToJSON(
+  applicationOnePort: ApplicationOnePort,
+): string {
+  return JSON.stringify(
+    ApplicationOnePort$outboundSchema.parse(applicationOnePort),
+  );
+}
+
+export function applicationOnePortFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOnePort, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOnePort$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOnePort' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOnePreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof ApplicationOnePreviewCertificateType> = z.nativeEnum(
+    ApplicationOnePreviewCertificateType,
+  );
+
+/** @internal */
+export const ApplicationOnePreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof ApplicationOnePreviewCertificateType> =
+    ApplicationOnePreviewCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePreviewCertificateType$ {
+  /** @deprecated use `ApplicationOnePreviewCertificateType$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationOnePreviewCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationOnePreviewCertificateType$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationOnePreviewCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOnePreviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOnePreviewStatus
+> = z.nativeEnum(ApplicationOnePreviewStatus);
+
+/** @internal */
+export const ApplicationOnePreviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOnePreviewStatus
+> = ApplicationOnePreviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePreviewStatus$ {
+  /** @deprecated use `ApplicationOnePreviewStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOnePreviewStatus$inboundSchema;
+  /** @deprecated use `ApplicationOnePreviewStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOnePreviewStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOnePreviewDeployment$inboundSchema: z.ZodType<
+  ApplicationOnePreviewDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationOnePreviewStatus$inboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/** @internal */
+export type ApplicationOnePreviewDeployment$Outbound = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: string;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+/** @internal */
+export const ApplicationOnePreviewDeployment$outboundSchema: z.ZodType<
+  ApplicationOnePreviewDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationOnePreviewDeployment
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationOnePreviewStatus$outboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOnePreviewDeployment$ {
+  /** @deprecated use `ApplicationOnePreviewDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOnePreviewDeployment$inboundSchema;
+  /** @deprecated use `ApplicationOnePreviewDeployment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOnePreviewDeployment$outboundSchema;
+  /** @deprecated use `ApplicationOnePreviewDeployment$Outbound` instead. */
+  export type Outbound = ApplicationOnePreviewDeployment$Outbound;
+}
+
+export function applicationOnePreviewDeploymentToJSON(
+  applicationOnePreviewDeployment: ApplicationOnePreviewDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationOnePreviewDeployment$outboundSchema.parse(
+      applicationOnePreviewDeployment,
+    ),
+  );
+}
+
+export function applicationOnePreviewDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOnePreviewDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOnePreviewDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOnePreviewDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneRedirect$inboundSchema: z.ZodType<
+  ApplicationOneRedirect,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationOneRedirect$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationOneRedirect$outboundSchema: z.ZodType<
+  ApplicationOneRedirect$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneRedirect
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneRedirect$ {
+  /** @deprecated use `ApplicationOneRedirect$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneRedirect$inboundSchema;
+  /** @deprecated use `ApplicationOneRedirect$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneRedirect$outboundSchema;
+  /** @deprecated use `ApplicationOneRedirect$Outbound` instead. */
+  export type Outbound = ApplicationOneRedirect$Outbound;
+}
+
+export function applicationOneRedirectToJSON(
+  applicationOneRedirect: ApplicationOneRedirect,
+): string {
+  return JSON.stringify(
+    ApplicationOneRedirect$outboundSchema.parse(applicationOneRedirect),
+  );
+}
+
+export function applicationOneRedirectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneRedirect, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneRedirect$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneRedirect' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneRegistryType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneRegistryType
+> = z.nativeEnum(ApplicationOneRegistryType);
+
+/** @internal */
+export const ApplicationOneRegistryType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneRegistryType
+> = ApplicationOneRegistryType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneRegistryType$ {
+  /** @deprecated use `ApplicationOneRegistryType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneRegistryType$inboundSchema;
+  /** @deprecated use `ApplicationOneRegistryType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneRegistryType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationOneRegistry$inboundSchema: z.ZodType<
+  ApplicationOneRegistry,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationOneRegistryType$inboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/** @internal */
+export type ApplicationOneRegistry$Outbound = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
+  registryId: string;
+  registryName: string;
+  registryType: string;
+  registryUrl: string;
+  username: string;
+};
+
+/** @internal */
+export const ApplicationOneRegistry$outboundSchema: z.ZodType<
+  ApplicationOneRegistry$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneRegistry
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationOneRegistryType$outboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneRegistry$ {
+  /** @deprecated use `ApplicationOneRegistry$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneRegistry$inboundSchema;
+  /** @deprecated use `ApplicationOneRegistry$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneRegistry$outboundSchema;
+  /** @deprecated use `ApplicationOneRegistry$Outbound` instead. */
+  export type Outbound = ApplicationOneRegistry$Outbound;
+}
+
+export function applicationOneRegistryToJSON(
+  applicationOneRegistry: ApplicationOneRegistry,
+): string {
+  return JSON.stringify(
+    ApplicationOneRegistry$outboundSchema.parse(applicationOneRegistry),
+  );
+}
+
+export function applicationOneRegistryFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneRegistry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneRegistry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneRegistry' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationOneRestartPolicySwarm$inboundSchema: z.ZodType<
+  ApplicationOneRestartPolicySwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type ApplicationOneUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type ApplicationOneRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationOneUpdateConfigSwarm$outboundSchema: z.ZodType<
-  ApplicationOneUpdateConfigSwarm$Outbound,
+export const ApplicationOneRestartPolicySwarm$outboundSchema: z.ZodType<
+  ApplicationOneRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationOneUpdateConfigSwarm
+  ApplicationOneRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1258,32 +2782,32 @@ export const ApplicationOneUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOneUpdateConfigSwarm$ {
-  /** @deprecated use `ApplicationOneUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `ApplicationOneUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `ApplicationOneUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = ApplicationOneUpdateConfigSwarm$Outbound;
+export namespace ApplicationOneRestartPolicySwarm$ {
+  /** @deprecated use `ApplicationOneRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `ApplicationOneRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `ApplicationOneRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = ApplicationOneRestartPolicySwarm$Outbound;
 }
 
-export function applicationOneUpdateConfigSwarmToJSON(
-  applicationOneUpdateConfigSwarm: ApplicationOneUpdateConfigSwarm,
+export function applicationOneRestartPolicySwarmToJSON(
+  applicationOneRestartPolicySwarm: ApplicationOneRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    ApplicationOneUpdateConfigSwarm$outboundSchema.parse(
-      applicationOneUpdateConfigSwarm,
+    ApplicationOneRestartPolicySwarm$outboundSchema.parse(
+      applicationOneRestartPolicySwarm,
     ),
   );
 }
 
-export function applicationOneUpdateConfigSwarmFromJSON(
+export function applicationOneRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationOneUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<ApplicationOneRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneUpdateConfigSwarm' from JSON`,
+    (x) => ApplicationOneRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1293,31 +2817,31 @@ export const ApplicationOneRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type ApplicationOneRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1326,20 +2850,20 @@ export const ApplicationOneRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationOneRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1378,1700 +2902,69 @@ export function applicationOneRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationOneReplicated$inboundSchema: z.ZodType<
-  ApplicationOneReplicated,
+export const ApplicationOneSecurity$inboundSchema: z.ZodType<
+  ApplicationOneSecurity,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type ApplicationOneReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationOneReplicated$outboundSchema: z.ZodType<
-  ApplicationOneReplicated$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneReplicated$ {
-  /** @deprecated use `ApplicationOneReplicated$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneReplicated$inboundSchema;
-  /** @deprecated use `ApplicationOneReplicated$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneReplicated$outboundSchema;
-  /** @deprecated use `ApplicationOneReplicated$Outbound` instead. */
-  export type Outbound = ApplicationOneReplicated$Outbound;
-}
-
-export function applicationOneReplicatedToJSON(
-  applicationOneReplicated: ApplicationOneReplicated,
-): string {
-  return JSON.stringify(
-    ApplicationOneReplicated$outboundSchema.parse(applicationOneReplicated),
-  );
-}
-
-export function applicationOneReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneGlobal$inboundSchema: z.ZodType<
-  ApplicationOneGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationOneGlobal$Outbound = {};
-
-/** @internal */
-export const ApplicationOneGlobal$outboundSchema: z.ZodType<
-  ApplicationOneGlobal$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneGlobal$ {
-  /** @deprecated use `ApplicationOneGlobal$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneGlobal$inboundSchema;
-  /** @deprecated use `ApplicationOneGlobal$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneGlobal$outboundSchema;
-  /** @deprecated use `ApplicationOneGlobal$Outbound` instead. */
-  export type Outbound = ApplicationOneGlobal$Outbound;
-}
-
-export function applicationOneGlobalToJSON(
-  applicationOneGlobal: ApplicationOneGlobal,
-): string {
-  return JSON.stringify(
-    ApplicationOneGlobal$outboundSchema.parse(applicationOneGlobal),
-  );
-}
-
-export function applicationOneGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneReplicatedJob$inboundSchema: z.ZodType<
-  ApplicationOneReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type ApplicationOneReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationOneReplicatedJob$outboundSchema: z.ZodType<
-  ApplicationOneReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneReplicatedJob$ {
-  /** @deprecated use `ApplicationOneReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneReplicatedJob$inboundSchema;
-  /** @deprecated use `ApplicationOneReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneReplicatedJob$outboundSchema;
-  /** @deprecated use `ApplicationOneReplicatedJob$Outbound` instead. */
-  export type Outbound = ApplicationOneReplicatedJob$Outbound;
-}
-
-export function applicationOneReplicatedJobToJSON(
-  applicationOneReplicatedJob: ApplicationOneReplicatedJob,
-): string {
-  return JSON.stringify(
-    ApplicationOneReplicatedJob$outboundSchema.parse(
-      applicationOneReplicatedJob,
-    ),
-  );
-}
-
-export function applicationOneReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneGlobalJob$inboundSchema: z.ZodType<
-  ApplicationOneGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationOneGlobalJob$Outbound = {};
-
-/** @internal */
-export const ApplicationOneGlobalJob$outboundSchema: z.ZodType<
-  ApplicationOneGlobalJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneGlobalJob$ {
-  /** @deprecated use `ApplicationOneGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneGlobalJob$inboundSchema;
-  /** @deprecated use `ApplicationOneGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneGlobalJob$outboundSchema;
-  /** @deprecated use `ApplicationOneGlobalJob$Outbound` instead. */
-  export type Outbound = ApplicationOneGlobalJob$Outbound;
-}
-
-export function applicationOneGlobalJobToJSON(
-  applicationOneGlobalJob: ApplicationOneGlobalJob,
-): string {
-  return JSON.stringify(
-    ApplicationOneGlobalJob$outboundSchema.parse(applicationOneGlobalJob),
-  );
-}
-
-export function applicationOneGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneModeSwarm$inboundSchema: z.ZodType<
-  ApplicationOneModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => ApplicationOneReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => ApplicationOneGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => ApplicationOneReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => ApplicationOneGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type ApplicationOneModeSwarm$Outbound = {
-  Replicated?: ApplicationOneReplicated$Outbound | undefined;
-  Global?: ApplicationOneGlobal$Outbound | undefined;
-  ReplicatedJob?: ApplicationOneReplicatedJob$Outbound | undefined;
-  GlobalJob?: ApplicationOneGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationOneModeSwarm$outboundSchema: z.ZodType<
-  ApplicationOneModeSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneModeSwarm
-> = z.object({
-  replicated: z.lazy(() => ApplicationOneReplicated$outboundSchema).optional(),
-  global: z.lazy(() => ApplicationOneGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => ApplicationOneReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => ApplicationOneGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneModeSwarm$ {
-  /** @deprecated use `ApplicationOneModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneModeSwarm$inboundSchema;
-  /** @deprecated use `ApplicationOneModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneModeSwarm$outboundSchema;
-  /** @deprecated use `ApplicationOneModeSwarm$Outbound` instead. */
-  export type Outbound = ApplicationOneModeSwarm$Outbound;
-}
-
-export function applicationOneModeSwarmToJSON(
-  applicationOneModeSwarm: ApplicationOneModeSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationOneModeSwarm$outboundSchema.parse(applicationOneModeSwarm),
-  );
-}
-
-export function applicationOneModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneDriverOpts$inboundSchema: z.ZodType<
-  ApplicationOneDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationOneDriverOpts$Outbound = {};
-
-/** @internal */
-export const ApplicationOneDriverOpts$outboundSchema: z.ZodType<
-  ApplicationOneDriverOpts$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneDriverOpts$ {
-  /** @deprecated use `ApplicationOneDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneDriverOpts$inboundSchema;
-  /** @deprecated use `ApplicationOneDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneDriverOpts$outboundSchema;
-  /** @deprecated use `ApplicationOneDriverOpts$Outbound` instead. */
-  export type Outbound = ApplicationOneDriverOpts$Outbound;
-}
-
-export function applicationOneDriverOptsToJSON(
-  applicationOneDriverOpts: ApplicationOneDriverOpts,
-): string {
-  return JSON.stringify(
-    ApplicationOneDriverOpts$outboundSchema.parse(applicationOneDriverOpts),
-  );
-}
-
-export function applicationOneDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneNetworkSwarm$inboundSchema: z.ZodType<
-  ApplicationOneNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => ApplicationOneDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type ApplicationOneNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: ApplicationOneDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationOneNetworkSwarm$outboundSchema: z.ZodType<
-  ApplicationOneNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => ApplicationOneDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneNetworkSwarm$ {
-  /** @deprecated use `ApplicationOneNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneNetworkSwarm$inboundSchema;
-  /** @deprecated use `ApplicationOneNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneNetworkSwarm$outboundSchema;
-  /** @deprecated use `ApplicationOneNetworkSwarm$Outbound` instead. */
-  export type Outbound = ApplicationOneNetworkSwarm$Outbound;
-}
-
-export function applicationOneNetworkSwarmToJSON(
-  applicationOneNetworkSwarm: ApplicationOneNetworkSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationOneNetworkSwarm$outboundSchema.parse(applicationOneNetworkSwarm),
-  );
-}
-
-export function applicationOneNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneApplicationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneApplicationStatus
-> = z.nativeEnum(ApplicationOneApplicationStatus);
-
-/** @internal */
-export const ApplicationOneApplicationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneApplicationStatus
-> = ApplicationOneApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneApplicationStatus$ {
-  /** @deprecated use `ApplicationOneApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneApplicationStatus$inboundSchema;
-  /** @deprecated use `ApplicationOneApplicationStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneApplicationStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneBuildType
-> = z.nativeEnum(ApplicationOneBuildType);
-
-/** @internal */
-export const ApplicationOneBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneBuildType
-> = ApplicationOneBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneBuildType$ {
-  /** @deprecated use `ApplicationOneBuildType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneBuildType$inboundSchema;
-  /** @deprecated use `ApplicationOneBuildType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneBuildType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneProject$inboundSchema: z.ZodType<
-  ApplicationOneProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const ApplicationOneProject$outboundSchema: z.ZodType<
-  ApplicationOneProject$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneProject$ {
-  /** @deprecated use `ApplicationOneProject$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneProject$inboundSchema;
-  /** @deprecated use `ApplicationOneProject$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneProject$outboundSchema;
-  /** @deprecated use `ApplicationOneProject$Outbound` instead. */
-  export type Outbound = ApplicationOneProject$Outbound;
-}
-
-export function applicationOneProjectToJSON(
-  applicationOneProject: ApplicationOneProject,
-): string {
-  return JSON.stringify(
-    ApplicationOneProject$outboundSchema.parse(applicationOneProject),
-  );
-}
-
-export function applicationOneProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneEnvironment$inboundSchema: z.ZodType<
-  ApplicationOneEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationOneProject$inboundSchema),
-});
-
-/** @internal */
-export type ApplicationOneEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationOneProject$Outbound;
-};
-
-/** @internal */
-export const ApplicationOneEnvironment$outboundSchema: z.ZodType<
-  ApplicationOneEnvironment$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationOneProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneEnvironment$ {
-  /** @deprecated use `ApplicationOneEnvironment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneEnvironment$inboundSchema;
-  /** @deprecated use `ApplicationOneEnvironment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneEnvironment$outboundSchema;
-  /** @deprecated use `ApplicationOneEnvironment$Outbound` instead. */
-  export type Outbound = ApplicationOneEnvironment$Outbound;
-}
-
-export function applicationOneEnvironmentToJSON(
-  applicationOneEnvironment: ApplicationOneEnvironment,
-): string {
-  return JSON.stringify(
-    ApplicationOneEnvironment$outboundSchema.parse(applicationOneEnvironment),
-  );
-}
-
-export function applicationOneEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneDomainType
-> = z.nativeEnum(ApplicationOneDomainType);
-
-/** @internal */
-export const ApplicationOneDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneDomainType
-> = ApplicationOneDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneDomainType$ {
-  /** @deprecated use `ApplicationOneDomainType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneDomainType$inboundSchema;
-  /** @deprecated use `ApplicationOneDomainType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneDomainType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneCertificateType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneCertificateType
-> = z.nativeEnum(ApplicationOneCertificateType);
-
-/** @internal */
-export const ApplicationOneCertificateType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneCertificateType
-> = ApplicationOneCertificateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneCertificateType$ {
-  /** @deprecated use `ApplicationOneCertificateType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationOneCertificateType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneCertificateType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneDomain$inboundSchema: z.ZodType<
-  ApplicationOneDomain,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationOneDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationOneCertificateType$inboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/** @internal */
-export type ApplicationOneDomain$Outbound = {
-  domainId: string;
-  host: string;
-  https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
-  internalPath: string | null;
-  stripPath: boolean;
-};
-
-/** @internal */
-export const ApplicationOneDomain$outboundSchema: z.ZodType<
-  ApplicationOneDomain$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneDomain
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationOneDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationOneCertificateType$outboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneDomain$ {
-  /** @deprecated use `ApplicationOneDomain$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneDomain$inboundSchema;
-  /** @deprecated use `ApplicationOneDomain$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneDomain$outboundSchema;
-  /** @deprecated use `ApplicationOneDomain$Outbound` instead. */
-  export type Outbound = ApplicationOneDomain$Outbound;
-}
-
-export function applicationOneDomainToJSON(
-  applicationOneDomain: ApplicationOneDomain,
-): string {
-  return JSON.stringify(
-    ApplicationOneDomain$outboundSchema.parse(applicationOneDomain),
-  );
-}
-
-export function applicationOneDomainFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneDomain, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneDomain$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneDomain' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneStatus
-> = z.nativeEnum(ApplicationOneStatus);
-
-/** @internal */
-export const ApplicationOneStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneStatus
-> = ApplicationOneStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneStatus$ {
-  /** @deprecated use `ApplicationOneStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneStatus$inboundSchema;
-  /** @deprecated use `ApplicationOneStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneDeployment$inboundSchema: z.ZodType<
-  ApplicationOneDeployment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationOneStatus$inboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationOneDeployment$Outbound = {
-  deploymentId: string;
-  title: string;
-  description: string | null;
-  status: string | null;
-  logPath: string;
-  pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
-  previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
-  rollbackId: string | null;
-  volumeBackupId: string | null;
-};
-
-/** @internal */
-export const ApplicationOneDeployment$outboundSchema: z.ZodType<
-  ApplicationOneDeployment$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneDeployment
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationOneStatus$outboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneDeployment$ {
-  /** @deprecated use `ApplicationOneDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneDeployment$inboundSchema;
-  /** @deprecated use `ApplicationOneDeployment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneDeployment$outboundSchema;
-  /** @deprecated use `ApplicationOneDeployment$Outbound` instead. */
-  export type Outbound = ApplicationOneDeployment$Outbound;
-}
-
-export function applicationOneDeploymentToJSON(
-  applicationOneDeployment: ApplicationOneDeployment,
-): string {
-  return JSON.stringify(
-    ApplicationOneDeployment$outboundSchema.parse(applicationOneDeployment),
-  );
-}
-
-export function applicationOneDeploymentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneDeployment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneDeployment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneType
-> = z.nativeEnum(ApplicationOneType);
-
-/** @internal */
-export const ApplicationOneType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneType
-> = ApplicationOneType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneType$ {
-  /** @deprecated use `ApplicationOneType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneType$inboundSchema;
-  /** @deprecated use `ApplicationOneType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneServiceType
-> = z.nativeEnum(ApplicationOneServiceType);
-
-/** @internal */
-export const ApplicationOneServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneServiceType
-> = ApplicationOneServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneServiceType$ {
-  /** @deprecated use `ApplicationOneServiceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneServiceType$inboundSchema;
-  /** @deprecated use `ApplicationOneServiceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneServiceType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneMount$inboundSchema: z.ZodType<
-  ApplicationOneMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationOneType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationOneServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationOneMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const ApplicationOneMount$outboundSchema: z.ZodType<
-  ApplicationOneMount$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneMount
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationOneType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationOneServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneMount$ {
-  /** @deprecated use `ApplicationOneMount$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneMount$inboundSchema;
-  /** @deprecated use `ApplicationOneMount$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneMount$outboundSchema;
-  /** @deprecated use `ApplicationOneMount$Outbound` instead. */
-  export type Outbound = ApplicationOneMount$Outbound;
-}
-
-export function applicationOneMountToJSON(
-  applicationOneMount: ApplicationOneMount,
-): string {
-  return JSON.stringify(
-    ApplicationOneMount$outboundSchema.parse(applicationOneMount),
-  );
-}
-
-export function applicationOneMountFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneRedirect$inboundSchema: z.ZodType<
-  ApplicationOneRedirect,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
   applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneRedirect$Outbound = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationOneRedirect$outboundSchema: z.ZodType<
-  ApplicationOneRedirect$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneRedirect
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
   createdAt: z.string(),
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneRedirect$ {
-  /** @deprecated use `ApplicationOneRedirect$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneRedirect$inboundSchema;
-  /** @deprecated use `ApplicationOneRedirect$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneRedirect$outboundSchema;
-  /** @deprecated use `ApplicationOneRedirect$Outbound` instead. */
-  export type Outbound = ApplicationOneRedirect$Outbound;
-}
-
-export function applicationOneRedirectToJSON(
-  applicationOneRedirect: ApplicationOneRedirect,
-): string {
-  return JSON.stringify(
-    ApplicationOneRedirect$outboundSchema.parse(applicationOneRedirect),
-  );
-}
-
-export function applicationOneRedirectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneRedirect, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneRedirect$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneRedirect' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneSecurityResponse$inboundSchema: z.ZodType<
-  ApplicationOneSecurityResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
-export type ApplicationOneSecurityResponse$Outbound = {
+export type ApplicationOneSecurity$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
-export const ApplicationOneSecurityResponse$outboundSchema: z.ZodType<
-  ApplicationOneSecurityResponse$Outbound,
+export const ApplicationOneSecurity$outboundSchema: z.ZodType<
+  ApplicationOneSecurity$Outbound,
   z.ZodTypeDef,
-  ApplicationOneSecurityResponse
+  ApplicationOneSecurity
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOneSecurityResponse$ {
-  /** @deprecated use `ApplicationOneSecurityResponse$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneSecurityResponse$inboundSchema;
-  /** @deprecated use `ApplicationOneSecurityResponse$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneSecurityResponse$outboundSchema;
-  /** @deprecated use `ApplicationOneSecurityResponse$Outbound` instead. */
-  export type Outbound = ApplicationOneSecurityResponse$Outbound;
+export namespace ApplicationOneSecurity$ {
+  /** @deprecated use `ApplicationOneSecurity$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneSecurity$inboundSchema;
+  /** @deprecated use `ApplicationOneSecurity$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneSecurity$outboundSchema;
+  /** @deprecated use `ApplicationOneSecurity$Outbound` instead. */
+  export type Outbound = ApplicationOneSecurity$Outbound;
 }
 
-export function applicationOneSecurityResponseToJSON(
-  applicationOneSecurityResponse: ApplicationOneSecurityResponse,
+export function applicationOneSecurityToJSON(
+  applicationOneSecurity: ApplicationOneSecurity,
 ): string {
   return JSON.stringify(
-    ApplicationOneSecurityResponse$outboundSchema.parse(
-      applicationOneSecurityResponse,
-    ),
+    ApplicationOneSecurity$outboundSchema.parse(applicationOneSecurity),
   );
 }
 
-export function applicationOneSecurityResponseFromJSON(
+export function applicationOneSecurityFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationOneSecurityResponse, SDKValidationError> {
+): SafeParseResult<ApplicationOneSecurity, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationOneSecurityResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneSecurityResponse' from JSON`,
+    (x) => ApplicationOneSecurity$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneSecurity' from JSON`,
   );
-}
-
-/** @internal */
-export const ApplicationOnePublishMode$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOnePublishMode
-> = z.nativeEnum(ApplicationOnePublishMode);
-
-/** @internal */
-export const ApplicationOnePublishMode$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOnePublishMode
-> = ApplicationOnePublishMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOnePublishMode$ {
-  /** @deprecated use `ApplicationOnePublishMode$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOnePublishMode$inboundSchema;
-  /** @deprecated use `ApplicationOnePublishMode$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOnePublishMode$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneProtocol$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneProtocol
-> = z.nativeEnum(ApplicationOneProtocol);
-
-/** @internal */
-export const ApplicationOneProtocol$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneProtocol
-> = ApplicationOneProtocol$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneProtocol$ {
-  /** @deprecated use `ApplicationOneProtocol$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneProtocol$inboundSchema;
-  /** @deprecated use `ApplicationOneProtocol$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneProtocol$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOnePort$inboundSchema: z.ZodType<
-  ApplicationOnePort,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationOnePublishMode$inboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationOneProtocol$inboundSchema,
-  applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOnePort$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationOnePort$outboundSchema: z.ZodType<
-  ApplicationOnePort$Outbound,
-  z.ZodTypeDef,
-  ApplicationOnePort
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationOnePublishMode$outboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationOneProtocol$outboundSchema,
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOnePort$ {
-  /** @deprecated use `ApplicationOnePort$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOnePort$inboundSchema;
-  /** @deprecated use `ApplicationOnePort$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOnePort$outboundSchema;
-  /** @deprecated use `ApplicationOnePort$Outbound` instead. */
-  export type Outbound = ApplicationOnePort$Outbound;
-}
-
-export function applicationOnePortToJSON(
-  applicationOnePort: ApplicationOnePort,
-): string {
-  return JSON.stringify(
-    ApplicationOnePort$outboundSchema.parse(applicationOnePort),
-  );
-}
-
-export function applicationOnePortFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOnePort, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOnePort$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOnePort' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneRegistryType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneRegistryType
-> = z.nativeEnum(ApplicationOneRegistryType);
-
-/** @internal */
-export const ApplicationOneRegistryType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneRegistryType
-> = ApplicationOneRegistryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneRegistryType$ {
-  /** @deprecated use `ApplicationOneRegistryType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneRegistryType$inboundSchema;
-  /** @deprecated use `ApplicationOneRegistryType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneRegistryType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationOneRegistry$inboundSchema: z.ZodType<
-  ApplicationOneRegistry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationOneRegistryType$inboundSchema,
-  organizationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneRegistry$Outbound = {
-  registryId: string;
-  registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
-  registryType: string;
-  organizationId: string;
-};
-
-/** @internal */
-export const ApplicationOneRegistry$outboundSchema: z.ZodType<
-  ApplicationOneRegistry$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneRegistry
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationOneRegistryType$outboundSchema,
-  organizationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneRegistry$ {
-  /** @deprecated use `ApplicationOneRegistry$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneRegistry$inboundSchema;
-  /** @deprecated use `ApplicationOneRegistry$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneRegistry$outboundSchema;
-  /** @deprecated use `ApplicationOneRegistry$Outbound` instead. */
-  export type Outbound = ApplicationOneRegistry$Outbound;
-}
-
-export function applicationOneRegistryToJSON(
-  applicationOneRegistry: ApplicationOneRegistry,
-): string {
-  return JSON.stringify(
-    ApplicationOneRegistry$outboundSchema.parse(applicationOneRegistry),
-  );
-}
-
-export function applicationOneRegistryFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneRegistry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneRegistry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneRegistry' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneGithub$inboundSchema: z.ZodType<
-  ApplicationOneGithub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneGithub$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationOneGithub$outboundSchema: z.ZodType<
-  ApplicationOneGithub$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneGithub
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneGithub$ {
-  /** @deprecated use `ApplicationOneGithub$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneGithub$inboundSchema;
-  /** @deprecated use `ApplicationOneGithub$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneGithub$outboundSchema;
-  /** @deprecated use `ApplicationOneGithub$Outbound` instead. */
-  export type Outbound = ApplicationOneGithub$Outbound;
-}
-
-export function applicationOneGithubToJSON(
-  applicationOneGithub: ApplicationOneGithub,
-): string {
-  return JSON.stringify(
-    ApplicationOneGithub$outboundSchema.parse(applicationOneGithub),
-  );
-}
-
-export function applicationOneGithubFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneGithub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneGithub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneGithub' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneGitlab$inboundSchema: z.ZodType<
-  ApplicationOneGitlab,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneGitlab$Outbound = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationOneGitlab$outboundSchema: z.ZodType<
-  ApplicationOneGitlab$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneGitlab
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneGitlab$ {
-  /** @deprecated use `ApplicationOneGitlab$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneGitlab$inboundSchema;
-  /** @deprecated use `ApplicationOneGitlab$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneGitlab$outboundSchema;
-  /** @deprecated use `ApplicationOneGitlab$Outbound` instead. */
-  export type Outbound = ApplicationOneGitlab$Outbound;
-}
-
-export function applicationOneGitlabToJSON(
-  applicationOneGitlab: ApplicationOneGitlab,
-): string {
-  return JSON.stringify(
-    ApplicationOneGitlab$outboundSchema.parse(applicationOneGitlab),
-  );
-}
-
-export function applicationOneGitlabFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneGitlab, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneGitlab$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneGitlab' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneBitbucket$inboundSchema: z.ZodType<
-  ApplicationOneBitbucket,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationOneBitbucket$Outbound = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationOneBitbucket$outboundSchema: z.ZodType<
-  ApplicationOneBitbucket$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneBitbucket
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneBitbucket$ {
-  /** @deprecated use `ApplicationOneBitbucket$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneBitbucket$inboundSchema;
-  /** @deprecated use `ApplicationOneBitbucket$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneBitbucket$outboundSchema;
-  /** @deprecated use `ApplicationOneBitbucket$Outbound` instead. */
-  export type Outbound = ApplicationOneBitbucket$Outbound;
-}
-
-export function applicationOneBitbucketToJSON(
-  applicationOneBitbucket: ApplicationOneBitbucket,
-): string {
-  return JSON.stringify(
-    ApplicationOneBitbucket$outboundSchema.parse(applicationOneBitbucket),
-  );
-}
-
-export function applicationOneBitbucketFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneBitbucket, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneBitbucket$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneBitbucket' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneGitea$inboundSchema: z.ZodType<
-  ApplicationOneGitea,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/** @internal */
-export type ApplicationOneGitea$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-/** @internal */
-export const ApplicationOneGitea$outboundSchema: z.ZodType<
-  ApplicationOneGitea$Outbound,
-  z.ZodTypeDef,
-  ApplicationOneGitea
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneGitea$ {
-  /** @deprecated use `ApplicationOneGitea$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneGitea$inboundSchema;
-  /** @deprecated use `ApplicationOneGitea$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneGitea$outboundSchema;
-  /** @deprecated use `ApplicationOneGitea$Outbound` instead. */
-  export type Outbound = ApplicationOneGitea$Outbound;
-}
-
-export function applicationOneGiteaToJSON(
-  applicationOneGitea: ApplicationOneGitea,
-): string {
-  return JSON.stringify(
-    ApplicationOneGitea$outboundSchema.parse(applicationOneGitea),
-  );
-}
-
-export function applicationOneGiteaFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOneGitea, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOneGitea$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOneGitea' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationOneServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneServerStatus
-> = z.nativeEnum(ApplicationOneServerStatus);
-
-/** @internal */
-export const ApplicationOneServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOneServerStatus
-> = ApplicationOneServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationOneServerStatus$ {
-  /** @deprecated use `ApplicationOneServerStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOneServerStatus$inboundSchema;
-  /** @deprecated use `ApplicationOneServerStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOneServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -3236,24 +3129,38 @@ export function applicationOneMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const ApplicationOneServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneServerStatus
+> = z.nativeEnum(ApplicationOneServerStatus);
+
+/** @internal */
+export const ApplicationOneServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneServerStatus
+> = ApplicationOneServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneServerStatus$ {
+  /** @deprecated use `ApplicationOneServerStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneServerStatus$inboundSchema;
+  /** @deprecated use `ApplicationOneServerStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const ApplicationOneServer$inboundSchema: z.ZodType<
   ApplicationOneServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationOneServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3264,26 +3171,33 @@ export const ApplicationOneServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationOneServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ApplicationOneServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -3292,19 +3206,12 @@ export const ApplicationOneServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationOneServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationOneServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3315,6 +3222,13 @@ export const ApplicationOneServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationOneServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -3349,116 +3263,45 @@ export function applicationOneServerFromJSON(
 }
 
 /** @internal */
-export const ApplicationOnePreviewStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOnePreviewStatus
-> = z.nativeEnum(ApplicationOnePreviewStatus);
+export const ApplicationOneSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneSourceType
+> = z.nativeEnum(ApplicationOneSourceType);
 
 /** @internal */
-export const ApplicationOnePreviewStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationOnePreviewStatus
-> = ApplicationOnePreviewStatus$inboundSchema;
+export const ApplicationOneSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneSourceType
+> = ApplicationOneSourceType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOnePreviewStatus$ {
-  /** @deprecated use `ApplicationOnePreviewStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOnePreviewStatus$inboundSchema;
-  /** @deprecated use `ApplicationOnePreviewStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOnePreviewStatus$outboundSchema;
+export namespace ApplicationOneSourceType$ {
+  /** @deprecated use `ApplicationOneSourceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneSourceType$inboundSchema;
+  /** @deprecated use `ApplicationOneSourceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneSourceType$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationOnePreviewDeployment$inboundSchema: z.ZodType<
-  ApplicationOnePreviewDeployment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationOnePreviewStatus$inboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
-});
+export const ApplicationOneTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneTriggerType
+> = z.nativeEnum(ApplicationOneTriggerType);
 
 /** @internal */
-export type ApplicationOnePreviewDeployment$Outbound = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: string;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
-};
-
-/** @internal */
-export const ApplicationOnePreviewDeployment$outboundSchema: z.ZodType<
-  ApplicationOnePreviewDeployment$Outbound,
-  z.ZodTypeDef,
-  ApplicationOnePreviewDeployment
-> = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationOnePreviewStatus$outboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
-});
+export const ApplicationOneTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationOneTriggerType
+> = ApplicationOneTriggerType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationOnePreviewDeployment$ {
-  /** @deprecated use `ApplicationOnePreviewDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationOnePreviewDeployment$inboundSchema;
-  /** @deprecated use `ApplicationOnePreviewDeployment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationOnePreviewDeployment$outboundSchema;
-  /** @deprecated use `ApplicationOnePreviewDeployment$Outbound` instead. */
-  export type Outbound = ApplicationOnePreviewDeployment$Outbound;
-}
-
-export function applicationOnePreviewDeploymentToJSON(
-  applicationOnePreviewDeployment: ApplicationOnePreviewDeployment,
-): string {
-  return JSON.stringify(
-    ApplicationOnePreviewDeployment$outboundSchema.parse(
-      applicationOnePreviewDeployment,
-    ),
-  );
-}
-
-export function applicationOnePreviewDeploymentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationOnePreviewDeployment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationOnePreviewDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationOnePreviewDeployment' from JSON`,
-  );
+export namespace ApplicationOneTriggerType$ {
+  /** @deprecated use `ApplicationOneTriggerType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneTriggerType$inboundSchema;
+  /** @deprecated use `ApplicationOneTriggerType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneTriggerType$outboundSchema;
 }
 
 /** @internal */
@@ -3483,246 +3326,335 @@ export namespace UnauthorizedProvider$ {
 }
 
 /** @internal */
+export const ApplicationOneUpdateConfigSwarm$inboundSchema: z.ZodType<
+  ApplicationOneUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
+
+/** @internal */
+export type ApplicationOneUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const ApplicationOneUpdateConfigSwarm$outboundSchema: z.ZodType<
+  ApplicationOneUpdateConfigSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationOneUpdateConfigSwarm
+> = z.object({
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationOneUpdateConfigSwarm$ {
+  /** @deprecated use `ApplicationOneUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationOneUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `ApplicationOneUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationOneUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `ApplicationOneUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = ApplicationOneUpdateConfigSwarm$Outbound;
+}
+
+export function applicationOneUpdateConfigSwarmToJSON(
+  applicationOneUpdateConfigSwarm: ApplicationOneUpdateConfigSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationOneUpdateConfigSwarm$outboundSchema.parse(
+      applicationOneUpdateConfigSwarm,
+    ),
+  );
+}
+
+export function applicationOneUpdateConfigSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationOneUpdateConfigSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationOneUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationOneUpdateConfigSwarm' from JSON`,
+  );
+}
+
+/** @internal */
 export const ApplicationOneResponseBody$inboundSchema: z.ZodType<
   ApplicationOneResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationOnePreviewCertificateType$inboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationOneSourceType$inboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationOneTriggerType$inboundSchema).optional(),
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationOneApplicationStatus$inboundSchema.optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucket: z.nullable(z.lazy(() => ApplicationOneBitbucket$inboundSchema)),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationOneBuildType$inboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(z.lazy(() => ApplicationOneDeployment$inboundSchema)),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationOneDomain$inboundSchema)),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationOneEnvironment$inboundSchema),
+  environmentId: z.string(),
+  gitea: z.nullable(z.lazy(() => ApplicationOneGitea$inboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationOneGithub$inboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationOneGitlab$inboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
+  hasGitProviderAccess: z.boolean(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationOneHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationOneRestartPolicySwarm$inboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationOnePlacementSwarm$inboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationOneUpdateConfigSwarm$inboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationOneRollbackConfigSwarm$inboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationOneModeSwarm$inboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  mounts: z.array(z.lazy(() => ApplicationOneMount$inboundSchema)),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationOneNetworkSwarm$inboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationOneApplicationStatus$inboundSchema.optional(),
-  buildType: ApplicationOneBuildType$inboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationOneEnvironment$inboundSchema),
-  domains: z.array(z.lazy(() => ApplicationOneDomain$inboundSchema)),
-  deployments: z.array(z.lazy(() => ApplicationOneDeployment$inboundSchema)),
-  mounts: z.array(z.lazy(() => ApplicationOneMount$inboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationOneRedirect$inboundSchema)),
-  security: z.array(z.lazy(() => ApplicationOneSecurityResponse$inboundSchema)),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationOnePlacementSwarm$inboundSchema),
+  ).optional(),
   ports: z.array(z.lazy(() => ApplicationOnePort$inboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationOneRegistry$inboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationOneGithub$inboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationOneGitlab$inboundSchema)),
-  bitbucket: z.nullable(z.lazy(() => ApplicationOneBitbucket$inboundSchema)),
-  gitea: z.nullable(z.lazy(() => ApplicationOneGitea$inboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationOneServer$inboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationOnePreviewCertificateType$inboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationOnePreviewDeployment$inboundSchema),
   ),
-  hasGitProviderAccess: z.boolean(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationOneRedirect$inboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationOneRegistry$inboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationOneRestartPolicySwarm$inboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationOneRollbackConfigSwarm$inboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationOneSecurity$inboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationOneServer$inboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationOneSourceType$inboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationOneTriggerType$inboundSchema).optional(),
   unauthorizedProvider: z.nullable(UnauthorizedProvider$inboundSchema),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationOneUpdateConfigSwarm$inboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationOneResponseBody$Outbound = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: string | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: string | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: string | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationOneBitbucket$Outbound | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: string | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  deployments: Array<ApplicationOneDeployment$Outbound>;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationOneDomain$Outbound>;
   dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationOneEnvironment$Outbound;
+  environmentId: string;
+  gitea: ApplicationOneGitea$Outbound | null;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationOneGithub$Outbound | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationOneGitlab$Outbound | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
+  hasGitProviderAccess: boolean;
   healthCheckSwarm?: ApplicationOneHealthCheckSwarm$Outbound | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationOneModeSwarm$Outbound | null | undefined;
+  mounts: Array<ApplicationOneMount$Outbound>;
+  name: string;
+  networkSwarm?: Array<ApplicationOneNetworkSwarm$Outbound> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationOnePlacementSwarm$Outbound | null | undefined;
+  ports: Array<ApplicationOnePort$Outbound>;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: string | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewDeployments: Array<ApplicationOnePreviewDeployment$Outbound>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationOneRedirect$Outbound>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationOneRegistry$Outbound | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
   restartPolicySwarm?:
     | ApplicationOneRestartPolicySwarm$Outbound
     | null
     | undefined;
-  placementSwarm?: ApplicationOnePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?:
-    | ApplicationOneUpdateConfigSwarm$Outbound
-    | null
-    | undefined;
+  rollbackActive?: boolean | null | undefined;
   rollbackConfigSwarm?:
     | ApplicationOneRollbackConfigSwarm$Outbound
     | null
     | undefined;
-  modeSwarm?: ApplicationOneModeSwarm$Outbound | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationOneNetworkSwarm$Outbound> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: string | undefined;
-  buildType?: string | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationOneEnvironment$Outbound;
-  domains: Array<ApplicationOneDomain$Outbound>;
-  deployments: Array<ApplicationOneDeployment$Outbound>;
-  mounts: Array<ApplicationOneMount$Outbound>;
-  redirects: Array<ApplicationOneRedirect$Outbound>;
-  security: Array<ApplicationOneSecurityResponse$Outbound>;
-  ports: Array<ApplicationOnePort$Outbound>;
-  registry: ApplicationOneRegistry$Outbound | null;
-  github: ApplicationOneGithub$Outbound | null;
-  gitlab: ApplicationOneGitlab$Outbound | null;
-  bitbucket: ApplicationOneBitbucket$Outbound | null;
-  gitea: ApplicationOneGitea$Outbound | null;
+  security: Array<ApplicationOneSecurity$Outbound>;
   server: ApplicationOneServer$Outbound | null;
-  previewDeployments: Array<ApplicationOnePreviewDeployment$Outbound>;
-  hasGitProviderAccess: boolean;
+  serverId?: string | null | undefined;
+  sourceType?: string | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: string | null | undefined;
   unauthorizedProvider: string | null;
+  updateConfigSwarm?:
+    | ApplicationOneUpdateConfigSwarm$Outbound
+    | null
+    | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -3731,127 +3663,125 @@ export const ApplicationOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationOneResponseBody
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationOnePreviewCertificateType$outboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationOneSourceType$outboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationOneTriggerType$outboundSchema).optional(),
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationOneApplicationStatus$outboundSchema.optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucket: z.nullable(z.lazy(() => ApplicationOneBitbucket$outboundSchema)),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationOneBuildType$outboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(z.lazy(() => ApplicationOneDeployment$outboundSchema)),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationOneDomain$outboundSchema)),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationOneEnvironment$outboundSchema),
+  environmentId: z.string(),
+  gitea: z.nullable(z.lazy(() => ApplicationOneGitea$outboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationOneGithub$outboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationOneGitlab$outboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
+  hasGitProviderAccess: z.boolean(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationOneHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationOneRestartPolicySwarm$outboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationOnePlacementSwarm$outboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationOneUpdateConfigSwarm$outboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationOneRollbackConfigSwarm$outboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationOneModeSwarm$outboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  mounts: z.array(z.lazy(() => ApplicationOneMount$outboundSchema)),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationOneNetworkSwarm$outboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationOneApplicationStatus$outboundSchema.optional(),
-  buildType: ApplicationOneBuildType$outboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationOneEnvironment$outboundSchema),
-  domains: z.array(z.lazy(() => ApplicationOneDomain$outboundSchema)),
-  deployments: z.array(z.lazy(() => ApplicationOneDeployment$outboundSchema)),
-  mounts: z.array(z.lazy(() => ApplicationOneMount$outboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationOneRedirect$outboundSchema)),
-  security: z.array(
-    z.lazy(() => ApplicationOneSecurityResponse$outboundSchema),
-  ),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationOnePlacementSwarm$outboundSchema),
+  ).optional(),
   ports: z.array(z.lazy(() => ApplicationOnePort$outboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationOneRegistry$outboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationOneGithub$outboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationOneGitlab$outboundSchema)),
-  bitbucket: z.nullable(z.lazy(() => ApplicationOneBitbucket$outboundSchema)),
-  gitea: z.nullable(z.lazy(() => ApplicationOneGitea$outboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationOneServer$outboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationOnePreviewCertificateType$outboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationOnePreviewDeployment$outboundSchema),
   ),
-  hasGitProviderAccess: z.boolean(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationOneRedirect$outboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationOneRegistry$outboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationOneRestartPolicySwarm$outboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationOneRollbackConfigSwarm$outboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationOneSecurity$outboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationOneServer$outboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationOneSourceType$outboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationOneTriggerType$outboundSchema).optional(),
   unauthorizedProvider: z.nullable(UnauthorizedProvider$outboundSchema),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationOneUpdateConfigSwarm$outboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

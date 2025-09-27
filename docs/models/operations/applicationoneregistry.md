@@ -6,15 +6,15 @@
 import { ApplicationOneRegistry } from "dokploy-sdk/models/operations";
 
 let value: ApplicationOneRegistry = {
+  createdAt: "1713239832080",
+  imagePrefix: null,
+  organizationId: "<id>",
+  password: "AImWcspebCRGZT3",
   registryId: "<id>",
   registryName: "<value>",
-  imagePrefix: "<value>",
-  username: "Aniya.Considine",
-  password: "cspebCRGZT3rFEg",
-  registryUrl: "https://knotty-forage.com",
-  createdAt: "1710379768462",
   registryType: "cloud",
-  organizationId: "<id>",
+  registryUrl: "https://impish-gown.net",
+  username: "Oran19",
 };
 ```
 
@@ -22,12 +22,12 @@ let value: ApplicationOneRegistry = {
 
 | Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
 | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `createdAt`                                                                                    | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `imagePrefix`                                                                                  | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `organizationId`                                                                               | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `password`                                                                                     | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
 | `registryId`                                                                                   | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
 | `registryName`                                                                                 | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `imagePrefix`                                                                                  | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `username`                                                                                     | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `password`                                                                                     | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `registryUrl`                                                                                  | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `createdAt`                                                                                    | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
 | `registryType`                                                                                 | [operations.ApplicationOneRegistryType](../../models/operations/applicationoneregistrytype.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |
-| `organizationId`                                                                               | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `registryUrl`                                                                                  | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `username`                                                                                     | *string*                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |

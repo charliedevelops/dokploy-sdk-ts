@@ -3,82 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type AiSuggestSecurity = {
-  authorization: string;
-};
 
 export type AiSuggestRequest = {
   aiId: string;
   input: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const AiSuggestSecurity$inboundSchema: z.ZodType<
-  AiSuggestSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiSuggestSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiSuggestSecurity$outboundSchema: z.ZodType<
-  AiSuggestSecurity$Outbound,
-  z.ZodTypeDef,
-  AiSuggestSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiSuggestSecurity$ {
-  /** @deprecated use `AiSuggestSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiSuggestSecurity$inboundSchema;
-  /** @deprecated use `AiSuggestSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiSuggestSecurity$outboundSchema;
-  /** @deprecated use `AiSuggestSecurity$Outbound` instead. */
-  export type Outbound = AiSuggestSecurity$Outbound;
-}
-
-export function aiSuggestSecurityToJSON(
-  aiSuggestSecurity: AiSuggestSecurity,
-): string {
-  return JSON.stringify(
-    AiSuggestSecurity$outboundSchema.parse(aiSuggestSecurity),
-  );
-}
-
-export function aiSuggestSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiSuggestSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiSuggestSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiSuggestSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiSuggestRequest$inboundSchema: z.ZodType<

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SshKeyRemoveSecurity = {
-  authorization: string;
-};
-
 export type SshKeyRemoveRequest = {
   sshKeyId: string;
 };
-
-/** @internal */
-export const SshKeyRemoveSecurity$inboundSchema: z.ZodType<
-  SshKeyRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SshKeyRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SshKeyRemoveSecurity$outboundSchema: z.ZodType<
-  SshKeyRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  SshKeyRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SshKeyRemoveSecurity$ {
-  /** @deprecated use `SshKeyRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = SshKeyRemoveSecurity$inboundSchema;
-  /** @deprecated use `SshKeyRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = SshKeyRemoveSecurity$outboundSchema;
-  /** @deprecated use `SshKeyRemoveSecurity$Outbound` instead. */
-  export type Outbound = SshKeyRemoveSecurity$Outbound;
-}
-
-export function sshKeyRemoveSecurityToJSON(
-  sshKeyRemoveSecurity: SshKeyRemoveSecurity,
-): string {
-  return JSON.stringify(
-    SshKeyRemoveSecurity$outboundSchema.parse(sshKeyRemoveSecurity),
-  );
-}
-
-export function sshKeyRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SshKeyRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SshKeyRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SshKeyRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SshKeyRemoveRequest$inboundSchema: z.ZodType<

@@ -3,81 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type DockerGetConfigSecurity = {
-  authorization: string;
-};
 
 export type DockerGetConfigRequest = {
   containerId: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DockerGetConfigSecurity$inboundSchema: z.ZodType<
-  DockerGetConfigSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DockerGetConfigSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DockerGetConfigSecurity$outboundSchema: z.ZodType<
-  DockerGetConfigSecurity$Outbound,
-  z.ZodTypeDef,
-  DockerGetConfigSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DockerGetConfigSecurity$ {
-  /** @deprecated use `DockerGetConfigSecurity$inboundSchema` instead. */
-  export const inboundSchema = DockerGetConfigSecurity$inboundSchema;
-  /** @deprecated use `DockerGetConfigSecurity$outboundSchema` instead. */
-  export const outboundSchema = DockerGetConfigSecurity$outboundSchema;
-  /** @deprecated use `DockerGetConfigSecurity$Outbound` instead. */
-  export type Outbound = DockerGetConfigSecurity$Outbound;
-}
-
-export function dockerGetConfigSecurityToJSON(
-  dockerGetConfigSecurity: DockerGetConfigSecurity,
-): string {
-  return JSON.stringify(
-    DockerGetConfigSecurity$outboundSchema.parse(dockerGetConfigSecurity),
-  );
-}
-
-export function dockerGetConfigSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DockerGetConfigSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DockerGetConfigSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DockerGetConfigSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DockerGetConfigRequest$inboundSchema: z.ZodType<

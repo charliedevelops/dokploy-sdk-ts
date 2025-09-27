@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoRemoveSecurity = {
-  authorization: string;
-};
-
 export type MongoRemoveRequest = {
   mongoId: string;
 };
@@ -27,194 +23,6 @@ export const MongoRemoveApplicationStatus = {
 export type MongoRemoveApplicationStatus = ClosedEnum<
   typeof MongoRemoveApplicationStatus
 >;
-
-export type MongoRemoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MongoRemoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MongoRemoveSpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoRemovePreference = {
-  spread: MongoRemoveSpread;
-};
-
-export type MongoRemovePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoRemovePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoRemovePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoRemovePlatform> | undefined;
-};
-
-export type MongoRemoveUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoRemoveRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoRemoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoRemoveGlobal = {};
-
-export type MongoRemoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoRemoveGlobalJob = {};
-
-export type MongoRemoveModeSwarm = {
-  replicated?: MongoRemoveReplicated | undefined;
-  global?: MongoRemoveGlobal | undefined;
-  replicatedJob?: MongoRemoveReplicatedJob | undefined;
-  globalJob?: MongoRemoveGlobalJob | undefined;
-};
-
-export type MongoRemoveDriverOpts = {};
-
-export type MongoRemoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoRemoveDriverOpts | undefined;
-};
-
-export type MongoRemoveProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoRemoveEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoRemoveProject;
-};
-
-export const MongoRemoveType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoRemoveType = ClosedEnum<typeof MongoRemoveType>;
-
-export const MongoRemoveServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MongoRemoveServiceType = ClosedEnum<typeof MongoRemoveServiceType>;
-
-export type MongoRemoveMount = {
-  mountId: string;
-  type: MongoRemoveType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoRemoveServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MongoRemoveServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoRemoveServerStatus = ClosedEnum<
-  typeof MongoRemoveServerStatus
->;
-
-export const MongoRemoveMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MongoRemoveMetricsConfigEnum = ClosedEnum<
-  typeof MongoRemoveMetricsConfigEnum
->;
-
-export type MongoRemoveMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MongoRemoveMetricsConfigEnum;
-
-export type MongoRemoveMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MongoRemoveMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MongoRemoveServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoRemoveServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MongoRemoveMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MongoRemoveBackupType = {
   Database: "database",
@@ -240,29 +48,29 @@ export type MongoRemoveMetadataEnum = ClosedEnum<
   typeof MongoRemoveMetadataEnum
 >;
 
-export type MongoRemovePostgres = {
-  databaseUser: string;
-};
-
 export type MongoRemoveMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoRemoveMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoRemoveMysql = {
   databaseRootPassword: string;
 };
 
+export type MongoRemovePostgres = {
+  databaseUser: string;
+};
+
 export type MongoRemoveMetadata = {
-  postgres?: MongoRemovePostgres | undefined;
   mariadb?: MongoRemoveMariadb | undefined;
   mongo?: MongoRemoveMongo | undefined;
   mysql?: MongoRemoveMysql | undefined;
+  postgres?: MongoRemovePostgres | undefined;
 };
 
 export type MongoRemoveMetadataUnion =
@@ -270,127 +78,253 @@ export type MongoRemoveMetadataUnion =
   | MongoRemoveMetadataEnum;
 
 export type MongoRemoveBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MongoRemoveBackupType;
-  databaseType: MongoRemoveDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MongoRemoveDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MongoRemoveMetadata | MongoRemoveMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoRemoveProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoRemoveEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoRemoveProject;
+  projectId: string;
+};
+
+export type MongoRemoveHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MongoRemoveGlobal = {};
+
+export type MongoRemoveGlobalJob = {};
+
+export type MongoRemoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoRemoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoRemoveModeSwarm = {
+  global?: MongoRemoveGlobal | undefined;
+  globalJob?: MongoRemoveGlobalJob | undefined;
+  replicated?: MongoRemoveReplicated | undefined;
+  replicatedJob?: MongoRemoveReplicatedJob | undefined;
+};
+
+export const MongoRemoveServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MongoRemoveServiceType = ClosedEnum<typeof MongoRemoveServiceType>;
+
+export const MongoRemoveType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoRemoveType = ClosedEnum<typeof MongoRemoveType>;
+
+export type MongoRemoveMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MongoRemoveServiceType;
+  type: MongoRemoveType;
+  volumeName: string | null;
+};
+
+export type MongoRemoveDriverOpts = {};
+
+export type MongoRemoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoRemoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoRemovePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoRemoveSpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoRemovePreference = {
+  spread: MongoRemoveSpread;
+};
+
+export type MongoRemovePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoRemovePlatform> | undefined;
+  preferences?: Array<MongoRemovePreference> | undefined;
+};
+
+export type MongoRemoveRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoRemoveRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MongoRemoveMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MongoRemoveMetricsConfigEnum = ClosedEnum<
+  typeof MongoRemoveMetricsConfigEnum
+>;
+
+export type MongoRemoveMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MongoRemoveMetricsConfigEnum;
+
+export type MongoRemoveMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MongoRemoveMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MongoRemoveServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoRemoveServerStatus = ClosedEnum<
+  typeof MongoRemoveServerStatus
+>;
+
+export type MongoRemoveServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MongoRemoveMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoRemoveServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MongoRemoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoRemoveResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoRemoveApplicationStatus;
-  healthCheckSwarm: MongoRemoveHealthCheckSwarm | null;
-  restartPolicySwarm: MongoRemoveRestartPolicySwarm | null;
-  placementSwarm: MongoRemovePlacementSwarm | null;
-  updateConfigSwarm: MongoRemoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoRemoveRollbackConfigSwarm | null;
-  modeSwarm: MongoRemoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoRemoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoRemoveEnvironment;
-  mounts: Array<MongoRemoveMount>;
-  server: MongoRemoveServer | null;
   backups: Array<MongoRemoveBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoRemoveEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoRemoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoRemoveModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoRemoveMount>;
+  name: string;
+  networkSwarm: Array<MongoRemoveNetworkSwarm> | null;
+  placementSwarm: MongoRemovePlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoRemoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoRemoveRollbackConfigSwarm | null;
+  server: MongoRemoveServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoRemoveUpdateConfigSwarm | null;
 };
 
 export type MongoRemoveResponse = MongoRemoveResponseBody | models.ErrorT;
-
-/** @internal */
-export const MongoRemoveSecurity$inboundSchema: z.ZodType<
-  MongoRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoRemoveSecurity$outboundSchema: z.ZodType<
-  MongoRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveSecurity$ {
-  /** @deprecated use `MongoRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveSecurity$inboundSchema;
-  /** @deprecated use `MongoRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveSecurity$outboundSchema;
-  /** @deprecated use `MongoRemoveSecurity$Outbound` instead. */
-  export type Outbound = MongoRemoveSecurity$Outbound;
-}
-
-export function mongoRemoveSecurityToJSON(
-  mongoRemoveSecurity: MongoRemoveSecurity,
-): string {
-  return JSON.stringify(
-    MongoRemoveSecurity$outboundSchema.parse(mongoRemoveSecurity),
-  );
-}
-
-export function mongoRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoRemoveRequest$inboundSchema: z.ZodType<
@@ -468,33 +402,693 @@ export namespace MongoRemoveApplicationStatus$ {
 }
 
 /** @internal */
+export const MongoRemoveBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveBackupType
+> = z.nativeEnum(MongoRemoveBackupType);
+
+/** @internal */
+export const MongoRemoveBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveBackupType
+> = MongoRemoveBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveBackupType$ {
+  /** @deprecated use `MongoRemoveBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveBackupType$inboundSchema;
+  /** @deprecated use `MongoRemoveBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveDatabaseType
+> = z.nativeEnum(MongoRemoveDatabaseType);
+
+/** @internal */
+export const MongoRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveDatabaseType
+> = MongoRemoveDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveDatabaseType$ {
+  /** @deprecated use `MongoRemoveDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveDatabaseType$inboundSchema;
+  /** @deprecated use `MongoRemoveDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveMetadataEnum
+> = z.nativeEnum(MongoRemoveMetadataEnum);
+
+/** @internal */
+export const MongoRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveMetadataEnum
+> = MongoRemoveMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMetadataEnum$ {
+  /** @deprecated use `MongoRemoveMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoRemoveMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoRemoveMariadb$inboundSchema: z.ZodType<
+  MongoRemoveMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoRemoveMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoRemoveMariadb$outboundSchema: z.ZodType<
+  MongoRemoveMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMariadb$ {
+  /** @deprecated use `MongoRemoveMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMariadb$inboundSchema;
+  /** @deprecated use `MongoRemoveMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMariadb$outboundSchema;
+  /** @deprecated use `MongoRemoveMariadb$Outbound` instead. */
+  export type Outbound = MongoRemoveMariadb$Outbound;
+}
+
+export function mongoRemoveMariadbToJSON(
+  mongoRemoveMariadb: MongoRemoveMariadb,
+): string {
+  return JSON.stringify(
+    MongoRemoveMariadb$outboundSchema.parse(mongoRemoveMariadb),
+  );
+}
+
+export function mongoRemoveMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveMongo$inboundSchema: z.ZodType<
+  MongoRemoveMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoRemoveMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoRemoveMongo$outboundSchema: z.ZodType<
+  MongoRemoveMongo$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMongo$ {
+  /** @deprecated use `MongoRemoveMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMongo$inboundSchema;
+  /** @deprecated use `MongoRemoveMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMongo$outboundSchema;
+  /** @deprecated use `MongoRemoveMongo$Outbound` instead. */
+  export type Outbound = MongoRemoveMongo$Outbound;
+}
+
+export function mongoRemoveMongoToJSON(
+  mongoRemoveMongo: MongoRemoveMongo,
+): string {
+  return JSON.stringify(
+    MongoRemoveMongo$outboundSchema.parse(mongoRemoveMongo),
+  );
+}
+
+export function mongoRemoveMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveMysql$inboundSchema: z.ZodType<
+  MongoRemoveMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoRemoveMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoRemoveMysql$outboundSchema: z.ZodType<
+  MongoRemoveMysql$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMysql$ {
+  /** @deprecated use `MongoRemoveMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMysql$inboundSchema;
+  /** @deprecated use `MongoRemoveMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMysql$outboundSchema;
+  /** @deprecated use `MongoRemoveMysql$Outbound` instead. */
+  export type Outbound = MongoRemoveMysql$Outbound;
+}
+
+export function mongoRemoveMysqlToJSON(
+  mongoRemoveMysql: MongoRemoveMysql,
+): string {
+  return JSON.stringify(
+    MongoRemoveMysql$outboundSchema.parse(mongoRemoveMysql),
+  );
+}
+
+export function mongoRemoveMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemovePostgres$inboundSchema: z.ZodType<
+  MongoRemovePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoRemovePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoRemovePostgres$outboundSchema: z.ZodType<
+  MongoRemovePostgres$Outbound,
+  z.ZodTypeDef,
+  MongoRemovePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemovePostgres$ {
+  /** @deprecated use `MongoRemovePostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoRemovePostgres$inboundSchema;
+  /** @deprecated use `MongoRemovePostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoRemovePostgres$outboundSchema;
+  /** @deprecated use `MongoRemovePostgres$Outbound` instead. */
+  export type Outbound = MongoRemovePostgres$Outbound;
+}
+
+export function mongoRemovePostgresToJSON(
+  mongoRemovePostgres: MongoRemovePostgres,
+): string {
+  return JSON.stringify(
+    MongoRemovePostgres$outboundSchema.parse(mongoRemovePostgres),
+  );
+}
+
+export function mongoRemovePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemovePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemovePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemovePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveMetadata$inboundSchema: z.ZodType<
+  MongoRemoveMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoRemoveMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoRemoveMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoRemoveMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoRemovePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MongoRemoveMetadata$Outbound = {
+  mariadb?: MongoRemoveMariadb$Outbound | undefined;
+  mongo?: MongoRemoveMongo$Outbound | undefined;
+  mysql?: MongoRemoveMysql$Outbound | undefined;
+  postgres?: MongoRemovePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoRemoveMetadata$outboundSchema: z.ZodType<
+  MongoRemoveMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoRemoveMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoRemoveMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoRemoveMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoRemovePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMetadata$ {
+  /** @deprecated use `MongoRemoveMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMetadata$inboundSchema;
+  /** @deprecated use `MongoRemoveMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMetadata$outboundSchema;
+  /** @deprecated use `MongoRemoveMetadata$Outbound` instead. */
+  export type Outbound = MongoRemoveMetadata$Outbound;
+}
+
+export function mongoRemoveMetadataToJSON(
+  mongoRemoveMetadata: MongoRemoveMetadata,
+): string {
+  return JSON.stringify(
+    MongoRemoveMetadata$outboundSchema.parse(mongoRemoveMetadata),
+  );
+}
+
+export function mongoRemoveMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveMetadataUnion$inboundSchema: z.ZodType<
+  MongoRemoveMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoRemoveMetadata$inboundSchema),
+  MongoRemoveMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoRemoveMetadataUnion$Outbound =
+  | MongoRemoveMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MongoRemoveMetadataUnion$outboundSchema: z.ZodType<
+  MongoRemoveMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMetadataUnion
+> = z.union([
+  z.lazy(() => MongoRemoveMetadata$outboundSchema),
+  MongoRemoveMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMetadataUnion$ {
+  /** @deprecated use `MongoRemoveMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoRemoveMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoRemoveMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoRemoveMetadataUnion$Outbound;
+}
+
+export function mongoRemoveMetadataUnionToJSON(
+  mongoRemoveMetadataUnion: MongoRemoveMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoRemoveMetadataUnion$outboundSchema.parse(mongoRemoveMetadataUnion),
+  );
+}
+
+export function mongoRemoveMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveBackup$inboundSchema: z.ZodType<
+  MongoRemoveBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoRemoveBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoRemoveDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoRemoveMetadata$inboundSchema),
+      MongoRemoveMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoRemoveBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoRemoveMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoRemoveBackup$outboundSchema: z.ZodType<
+  MongoRemoveBackup$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoRemoveBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoRemoveDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoRemoveMetadata$outboundSchema),
+      MongoRemoveMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveBackup$ {
+  /** @deprecated use `MongoRemoveBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveBackup$inboundSchema;
+  /** @deprecated use `MongoRemoveBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveBackup$outboundSchema;
+  /** @deprecated use `MongoRemoveBackup$Outbound` instead. */
+  export type Outbound = MongoRemoveBackup$Outbound;
+}
+
+export function mongoRemoveBackupToJSON(
+  mongoRemoveBackup: MongoRemoveBackup,
+): string {
+  return JSON.stringify(
+    MongoRemoveBackup$outboundSchema.parse(mongoRemoveBackup),
+  );
+}
+
+export function mongoRemoveBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveProject$inboundSchema: z.ZodType<
+  MongoRemoveProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoRemoveProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoRemoveProject$outboundSchema: z.ZodType<
+  MongoRemoveProject$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveProject$ {
+  /** @deprecated use `MongoRemoveProject$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveProject$inboundSchema;
+  /** @deprecated use `MongoRemoveProject$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveProject$outboundSchema;
+  /** @deprecated use `MongoRemoveProject$Outbound` instead. */
+  export type Outbound = MongoRemoveProject$Outbound;
+}
+
+export function mongoRemoveProjectToJSON(
+  mongoRemoveProject: MongoRemoveProject,
+): string {
+  return JSON.stringify(
+    MongoRemoveProject$outboundSchema.parse(mongoRemoveProject),
+  );
+}
+
+export function mongoRemoveProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveEnvironment$inboundSchema: z.ZodType<
+  MongoRemoveEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoRemoveProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoRemoveEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoRemoveProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoRemoveEnvironment$outboundSchema: z.ZodType<
+  MongoRemoveEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoRemoveProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveEnvironment$ {
+  /** @deprecated use `MongoRemoveEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveEnvironment$inboundSchema;
+  /** @deprecated use `MongoRemoveEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveEnvironment$outboundSchema;
+  /** @deprecated use `MongoRemoveEnvironment$Outbound` instead. */
+  export type Outbound = MongoRemoveEnvironment$Outbound;
+}
+
+export function mongoRemoveEnvironmentToJSON(
+  mongoRemoveEnvironment: MongoRemoveEnvironment,
+): string {
+  return JSON.stringify(
+    MongoRemoveEnvironment$outboundSchema.parse(mongoRemoveEnvironment),
+  );
+}
+
+export function mongoRemoveEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoRemoveHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoRemoveHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoRemoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -503,18 +1097,18 @@ export const MongoRemoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoRemoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -552,48 +1146,129 @@ export function mongoRemoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoRemoveRestartPolicySwarm,
+export const MongoRemoveGlobal$inboundSchema: z.ZodType<
+  MongoRemoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoRemoveGlobal$Outbound = {};
+
+/** @internal */
+export const MongoRemoveGlobal$outboundSchema: z.ZodType<
+  MongoRemoveGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveGlobal$ {
+  /** @deprecated use `MongoRemoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveGlobal$inboundSchema;
+  /** @deprecated use `MongoRemoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveGlobal$outboundSchema;
+  /** @deprecated use `MongoRemoveGlobal$Outbound` instead. */
+  export type Outbound = MongoRemoveGlobal$Outbound;
+}
+
+export function mongoRemoveGlobalToJSON(
+  mongoRemoveGlobal: MongoRemoveGlobal,
+): string {
+  return JSON.stringify(
+    MongoRemoveGlobal$outboundSchema.parse(mongoRemoveGlobal),
+  );
+}
+
+export function mongoRemoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveGlobalJob$inboundSchema: z.ZodType<
+  MongoRemoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoRemoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoRemoveGlobalJob$outboundSchema: z.ZodType<
+  MongoRemoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveGlobalJob$ {
+  /** @deprecated use `MongoRemoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveGlobalJob$inboundSchema;
+  /** @deprecated use `MongoRemoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveGlobalJob$outboundSchema;
+  /** @deprecated use `MongoRemoveGlobalJob$Outbound` instead. */
+  export type Outbound = MongoRemoveGlobalJob$Outbound;
+}
+
+export function mongoRemoveGlobalJobToJSON(
+  mongoRemoveGlobalJob: MongoRemoveGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoRemoveGlobalJob$outboundSchema.parse(mongoRemoveGlobalJob),
+  );
+}
+
+export function mongoRemoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveReplicated$inboundSchema: z.ZodType<
+  MongoRemoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoRemoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoRemoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoRemoveRestartPolicySwarm$Outbound,
+export const MongoRemoveReplicated$outboundSchema: z.ZodType<
+  MongoRemoveReplicated$Outbound,
   z.ZodTypeDef,
-  MongoRemoveRestartPolicySwarm
+  MongoRemoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -601,32 +1276,501 @@ export const MongoRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoRemoveRestartPolicySwarm$ {
-  /** @deprecated use `MongoRemoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoRemoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoRemoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoRemoveRestartPolicySwarm$Outbound;
+export namespace MongoRemoveReplicated$ {
+  /** @deprecated use `MongoRemoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveReplicated$inboundSchema;
+  /** @deprecated use `MongoRemoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveReplicated$outboundSchema;
+  /** @deprecated use `MongoRemoveReplicated$Outbound` instead. */
+  export type Outbound = MongoRemoveReplicated$Outbound;
 }
 
-export function mongoRemoveRestartPolicySwarmToJSON(
-  mongoRemoveRestartPolicySwarm: MongoRemoveRestartPolicySwarm,
+export function mongoRemoveReplicatedToJSON(
+  mongoRemoveReplicated: MongoRemoveReplicated,
 ): string {
   return JSON.stringify(
-    MongoRemoveRestartPolicySwarm$outboundSchema.parse(
-      mongoRemoveRestartPolicySwarm,
-    ),
+    MongoRemoveReplicated$outboundSchema.parse(mongoRemoveReplicated),
   );
 }
 
-export function mongoRemoveRestartPolicySwarmFromJSON(
+export function mongoRemoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoRemoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoRemoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveRestartPolicySwarm' from JSON`,
+    (x) => MongoRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveReplicatedJob$inboundSchema: z.ZodType<
+  MongoRemoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoRemoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoRemoveReplicatedJob$outboundSchema: z.ZodType<
+  MongoRemoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveReplicatedJob$ {
+  /** @deprecated use `MongoRemoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoRemoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoRemoveReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoRemoveReplicatedJob$Outbound;
+}
+
+export function mongoRemoveReplicatedJobToJSON(
+  mongoRemoveReplicatedJob: MongoRemoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoRemoveReplicatedJob$outboundSchema.parse(mongoRemoveReplicatedJob),
+  );
+}
+
+export function mongoRemoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveModeSwarm$inboundSchema: z.ZodType<
+  MongoRemoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoRemoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoRemoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoRemoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoRemoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoRemoveModeSwarm$Outbound = {
+  Global?: MongoRemoveGlobal$Outbound | undefined;
+  GlobalJob?: MongoRemoveGlobalJob$Outbound | undefined;
+  Replicated?: MongoRemoveReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoRemoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoRemoveModeSwarm$outboundSchema: z.ZodType<
+  MongoRemoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoRemoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoRemoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoRemoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoRemoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveModeSwarm$ {
+  /** @deprecated use `MongoRemoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveModeSwarm$inboundSchema;
+  /** @deprecated use `MongoRemoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveModeSwarm$outboundSchema;
+  /** @deprecated use `MongoRemoveModeSwarm$Outbound` instead. */
+  export type Outbound = MongoRemoveModeSwarm$Outbound;
+}
+
+export function mongoRemoveModeSwarmToJSON(
+  mongoRemoveModeSwarm: MongoRemoveModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoRemoveModeSwarm$outboundSchema.parse(mongoRemoveModeSwarm),
+  );
+}
+
+export function mongoRemoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveServiceType
+> = z.nativeEnum(MongoRemoveServiceType);
+
+/** @internal */
+export const MongoRemoveServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveServiceType
+> = MongoRemoveServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveServiceType$ {
+  /** @deprecated use `MongoRemoveServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveServiceType$inboundSchema;
+  /** @deprecated use `MongoRemoveServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoRemoveType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveType
+> = z.nativeEnum(MongoRemoveType);
+
+/** @internal */
+export const MongoRemoveType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveType
+> = MongoRemoveType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveType$ {
+  /** @deprecated use `MongoRemoveType$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveType$inboundSchema;
+  /** @deprecated use `MongoRemoveType$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveType$outboundSchema;
+}
+
+/** @internal */
+export const MongoRemoveMount$inboundSchema: z.ZodType<
+  MongoRemoveMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoRemoveServiceType$inboundSchema,
+  type: MongoRemoveType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoRemoveMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoRemoveMount$outboundSchema: z.ZodType<
+  MongoRemoveMount$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoRemoveServiceType$outboundSchema,
+  type: MongoRemoveType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveMount$ {
+  /** @deprecated use `MongoRemoveMount$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveMount$inboundSchema;
+  /** @deprecated use `MongoRemoveMount$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveMount$outboundSchema;
+  /** @deprecated use `MongoRemoveMount$Outbound` instead. */
+  export type Outbound = MongoRemoveMount$Outbound;
+}
+
+export function mongoRemoveMountToJSON(
+  mongoRemoveMount: MongoRemoveMount,
+): string {
+  return JSON.stringify(
+    MongoRemoveMount$outboundSchema.parse(mongoRemoveMount),
+  );
+}
+
+export function mongoRemoveMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveDriverOpts$inboundSchema: z.ZodType<
+  MongoRemoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoRemoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoRemoveDriverOpts$outboundSchema: z.ZodType<
+  MongoRemoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveDriverOpts$ {
+  /** @deprecated use `MongoRemoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveDriverOpts$inboundSchema;
+  /** @deprecated use `MongoRemoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveDriverOpts$outboundSchema;
+  /** @deprecated use `MongoRemoveDriverOpts$Outbound` instead. */
+  export type Outbound = MongoRemoveDriverOpts$Outbound;
+}
+
+export function mongoRemoveDriverOptsToJSON(
+  mongoRemoveDriverOpts: MongoRemoveDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoRemoveDriverOpts$outboundSchema.parse(mongoRemoveDriverOpts),
+  );
+}
+
+export function mongoRemoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemoveNetworkSwarm$inboundSchema: z.ZodType<
+  MongoRemoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoRemoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoRemoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoRemoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoRemoveNetworkSwarm$outboundSchema: z.ZodType<
+  MongoRemoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoRemoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoRemoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveNetworkSwarm$ {
+  /** @deprecated use `MongoRemoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoRemoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoRemoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoRemoveNetworkSwarm$Outbound;
+}
+
+export function mongoRemoveNetworkSwarmToJSON(
+  mongoRemoveNetworkSwarm: MongoRemoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoRemoveNetworkSwarm$outboundSchema.parse(mongoRemoveNetworkSwarm),
+  );
+}
+
+export function mongoRemoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoRemovePlatform$inboundSchema: z.ZodType<
+  MongoRemovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoRemovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoRemovePlatform$outboundSchema: z.ZodType<
+  MongoRemovePlatform$Outbound,
+  z.ZodTypeDef,
+  MongoRemovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemovePlatform$ {
+  /** @deprecated use `MongoRemovePlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoRemovePlatform$inboundSchema;
+  /** @deprecated use `MongoRemovePlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoRemovePlatform$outboundSchema;
+  /** @deprecated use `MongoRemovePlatform$Outbound` instead. */
+  export type Outbound = MongoRemovePlatform$Outbound;
+}
+
+export function mongoRemovePlatformToJSON(
+  mongoRemovePlatform: MongoRemovePlatform,
+): string {
+  return JSON.stringify(
+    MongoRemovePlatform$outboundSchema.parse(mongoRemovePlatform),
+  );
+}
+
+export function mongoRemovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoRemovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoRemovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemovePlatform' from JSON`,
   );
 }
 
@@ -755,99 +1899,32 @@ export function mongoRemovePreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoRemovePlatform$inboundSchema: z.ZodType<
-  MongoRemovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoRemovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoRemovePlatform$outboundSchema: z.ZodType<
-  MongoRemovePlatform$Outbound,
-  z.ZodTypeDef,
-  MongoRemovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemovePlatform$ {
-  /** @deprecated use `MongoRemovePlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoRemovePlatform$inboundSchema;
-  /** @deprecated use `MongoRemovePlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoRemovePlatform$outboundSchema;
-  /** @deprecated use `MongoRemovePlatform$Outbound` instead. */
-  export type Outbound = MongoRemovePlatform$Outbound;
-}
-
-export function mongoRemovePlatformToJSON(
-  mongoRemovePlatform: MongoRemovePlatform,
-): string {
-  return JSON.stringify(
-    MongoRemovePlatform$outboundSchema.parse(mongoRemovePlatform),
-  );
-}
-
-export function mongoRemovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoRemovePlacementSwarm$inboundSchema: z.ZodType<
   MongoRemovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoRemovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoRemovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MongoRemovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoRemovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoRemovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoRemovePlatform$Outbound> | undefined;
+  Preferences?: Array<MongoRemovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -857,17 +1934,17 @@ export const MongoRemovePlacementSwarm$outboundSchema: z.ZodType<
   MongoRemovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoRemovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoRemovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MongoRemovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -903,58 +1980,48 @@ export function mongoRemovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoRemoveUpdateConfigSwarm,
+export const MongoRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoRemoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoRemoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoRemoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoRemoveUpdateConfigSwarm$Outbound,
+export const MongoRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoRemoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoRemoveUpdateConfigSwarm
+  MongoRemoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -962,32 +2029,32 @@ export const MongoRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoRemoveUpdateConfigSwarm$ {
-  /** @deprecated use `MongoRemoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoRemoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoRemoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoRemoveUpdateConfigSwarm$Outbound;
+export namespace MongoRemoveRestartPolicySwarm$ {
+  /** @deprecated use `MongoRemoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoRemoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoRemoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoRemoveRestartPolicySwarm$Outbound;
 }
 
-export function mongoRemoveUpdateConfigSwarmToJSON(
-  mongoRemoveUpdateConfigSwarm: MongoRemoveUpdateConfigSwarm,
+export function mongoRemoveRestartPolicySwarmToJSON(
+  mongoRemoveRestartPolicySwarm: MongoRemoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoRemoveUpdateConfigSwarm$outboundSchema.parse(
-      mongoRemoveUpdateConfigSwarm,
+    MongoRemoveRestartPolicySwarm$outboundSchema.parse(
+      mongoRemoveRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoRemoveUpdateConfigSwarmFromJSON(
+export function mongoRemoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoRemoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoRemoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveUpdateConfigSwarm' from JSON`,
+    (x) => MongoRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -997,31 +2064,31 @@ export const MongoRemoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoRemoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1030,20 +2097,20 @@ export const MongoRemoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoRemoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1078,730 +2145,6 @@ export function mongoRemoveRollbackConfigSwarmFromJSON(
     (x) => MongoRemoveRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MongoRemoveRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoRemoveReplicated$inboundSchema: z.ZodType<
-  MongoRemoveReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoRemoveReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoRemoveReplicated$outboundSchema: z.ZodType<
-  MongoRemoveReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveReplicated$ {
-  /** @deprecated use `MongoRemoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveReplicated$inboundSchema;
-  /** @deprecated use `MongoRemoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveReplicated$outboundSchema;
-  /** @deprecated use `MongoRemoveReplicated$Outbound` instead. */
-  export type Outbound = MongoRemoveReplicated$Outbound;
-}
-
-export function mongoRemoveReplicatedToJSON(
-  mongoRemoveReplicated: MongoRemoveReplicated,
-): string {
-  return JSON.stringify(
-    MongoRemoveReplicated$outboundSchema.parse(mongoRemoveReplicated),
-  );
-}
-
-export function mongoRemoveReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveGlobal$inboundSchema: z.ZodType<
-  MongoRemoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoRemoveGlobal$Outbound = {};
-
-/** @internal */
-export const MongoRemoveGlobal$outboundSchema: z.ZodType<
-  MongoRemoveGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveGlobal$ {
-  /** @deprecated use `MongoRemoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveGlobal$inboundSchema;
-  /** @deprecated use `MongoRemoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveGlobal$outboundSchema;
-  /** @deprecated use `MongoRemoveGlobal$Outbound` instead. */
-  export type Outbound = MongoRemoveGlobal$Outbound;
-}
-
-export function mongoRemoveGlobalToJSON(
-  mongoRemoveGlobal: MongoRemoveGlobal,
-): string {
-  return JSON.stringify(
-    MongoRemoveGlobal$outboundSchema.parse(mongoRemoveGlobal),
-  );
-}
-
-export function mongoRemoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveReplicatedJob$inboundSchema: z.ZodType<
-  MongoRemoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoRemoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoRemoveReplicatedJob$outboundSchema: z.ZodType<
-  MongoRemoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveReplicatedJob$ {
-  /** @deprecated use `MongoRemoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoRemoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoRemoveReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoRemoveReplicatedJob$Outbound;
-}
-
-export function mongoRemoveReplicatedJobToJSON(
-  mongoRemoveReplicatedJob: MongoRemoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoRemoveReplicatedJob$outboundSchema.parse(mongoRemoveReplicatedJob),
-  );
-}
-
-export function mongoRemoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveGlobalJob$inboundSchema: z.ZodType<
-  MongoRemoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoRemoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoRemoveGlobalJob$outboundSchema: z.ZodType<
-  MongoRemoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveGlobalJob$ {
-  /** @deprecated use `MongoRemoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveGlobalJob$inboundSchema;
-  /** @deprecated use `MongoRemoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveGlobalJob$outboundSchema;
-  /** @deprecated use `MongoRemoveGlobalJob$Outbound` instead. */
-  export type Outbound = MongoRemoveGlobalJob$Outbound;
-}
-
-export function mongoRemoveGlobalJobToJSON(
-  mongoRemoveGlobalJob: MongoRemoveGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoRemoveGlobalJob$outboundSchema.parse(mongoRemoveGlobalJob),
-  );
-}
-
-export function mongoRemoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveModeSwarm$inboundSchema: z.ZodType<
-  MongoRemoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoRemoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoRemoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoRemoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MongoRemoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoRemoveModeSwarm$Outbound = {
-  Replicated?: MongoRemoveReplicated$Outbound | undefined;
-  Global?: MongoRemoveGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoRemoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoRemoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoRemoveModeSwarm$outboundSchema: z.ZodType<
-  MongoRemoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoRemoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoRemoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoRemoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoRemoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveModeSwarm$ {
-  /** @deprecated use `MongoRemoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveModeSwarm$inboundSchema;
-  /** @deprecated use `MongoRemoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveModeSwarm$outboundSchema;
-  /** @deprecated use `MongoRemoveModeSwarm$Outbound` instead. */
-  export type Outbound = MongoRemoveModeSwarm$Outbound;
-}
-
-export function mongoRemoveModeSwarmToJSON(
-  mongoRemoveModeSwarm: MongoRemoveModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoRemoveModeSwarm$outboundSchema.parse(mongoRemoveModeSwarm),
-  );
-}
-
-export function mongoRemoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveDriverOpts$inboundSchema: z.ZodType<
-  MongoRemoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoRemoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoRemoveDriverOpts$outboundSchema: z.ZodType<
-  MongoRemoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveDriverOpts$ {
-  /** @deprecated use `MongoRemoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveDriverOpts$inboundSchema;
-  /** @deprecated use `MongoRemoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveDriverOpts$outboundSchema;
-  /** @deprecated use `MongoRemoveDriverOpts$Outbound` instead. */
-  export type Outbound = MongoRemoveDriverOpts$Outbound;
-}
-
-export function mongoRemoveDriverOptsToJSON(
-  mongoRemoveDriverOpts: MongoRemoveDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoRemoveDriverOpts$outboundSchema.parse(mongoRemoveDriverOpts),
-  );
-}
-
-export function mongoRemoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveNetworkSwarm$inboundSchema: z.ZodType<
-  MongoRemoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoRemoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoRemoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoRemoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoRemoveNetworkSwarm$outboundSchema: z.ZodType<
-  MongoRemoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoRemoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveNetworkSwarm$ {
-  /** @deprecated use `MongoRemoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoRemoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoRemoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoRemoveNetworkSwarm$Outbound;
-}
-
-export function mongoRemoveNetworkSwarmToJSON(
-  mongoRemoveNetworkSwarm: MongoRemoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoRemoveNetworkSwarm$outboundSchema.parse(mongoRemoveNetworkSwarm),
-  );
-}
-
-export function mongoRemoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveProject$inboundSchema: z.ZodType<
-  MongoRemoveProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoRemoveProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoRemoveProject$outboundSchema: z.ZodType<
-  MongoRemoveProject$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveProject$ {
-  /** @deprecated use `MongoRemoveProject$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveProject$inboundSchema;
-  /** @deprecated use `MongoRemoveProject$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveProject$outboundSchema;
-  /** @deprecated use `MongoRemoveProject$Outbound` instead. */
-  export type Outbound = MongoRemoveProject$Outbound;
-}
-
-export function mongoRemoveProjectToJSON(
-  mongoRemoveProject: MongoRemoveProject,
-): string {
-  return JSON.stringify(
-    MongoRemoveProject$outboundSchema.parse(mongoRemoveProject),
-  );
-}
-
-export function mongoRemoveProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveEnvironment$inboundSchema: z.ZodType<
-  MongoRemoveEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoRemoveProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoRemoveEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoRemoveProject$Outbound;
-};
-
-/** @internal */
-export const MongoRemoveEnvironment$outboundSchema: z.ZodType<
-  MongoRemoveEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoRemoveProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveEnvironment$ {
-  /** @deprecated use `MongoRemoveEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveEnvironment$inboundSchema;
-  /** @deprecated use `MongoRemoveEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveEnvironment$outboundSchema;
-  /** @deprecated use `MongoRemoveEnvironment$Outbound` instead. */
-  export type Outbound = MongoRemoveEnvironment$Outbound;
-}
-
-export function mongoRemoveEnvironmentToJSON(
-  mongoRemoveEnvironment: MongoRemoveEnvironment,
-): string {
-  return JSON.stringify(
-    MongoRemoveEnvironment$outboundSchema.parse(mongoRemoveEnvironment),
-  );
-}
-
-export function mongoRemoveEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveType
-> = z.nativeEnum(MongoRemoveType);
-
-/** @internal */
-export const MongoRemoveType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveType
-> = MongoRemoveType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveType$ {
-  /** @deprecated use `MongoRemoveType$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveType$inboundSchema;
-  /** @deprecated use `MongoRemoveType$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveType$outboundSchema;
-}
-
-/** @internal */
-export const MongoRemoveServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveServiceType
-> = z.nativeEnum(MongoRemoveServiceType);
-
-/** @internal */
-export const MongoRemoveServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveServiceType
-> = MongoRemoveServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveServiceType$ {
-  /** @deprecated use `MongoRemoveServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveServiceType$inboundSchema;
-  /** @deprecated use `MongoRemoveServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoRemoveMount$inboundSchema: z.ZodType<
-  MongoRemoveMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoRemoveType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoRemoveServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoRemoveMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoRemoveMount$outboundSchema: z.ZodType<
-  MongoRemoveMount$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoRemoveType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoRemoveServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMount$ {
-  /** @deprecated use `MongoRemoveMount$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMount$inboundSchema;
-  /** @deprecated use `MongoRemoveMount$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMount$outboundSchema;
-  /** @deprecated use `MongoRemoveMount$Outbound` instead. */
-  export type Outbound = MongoRemoveMount$Outbound;
-}
-
-export function mongoRemoveMountToJSON(
-  mongoRemoveMount: MongoRemoveMount,
-): string {
-  return JSON.stringify(
-    MongoRemoveMount$outboundSchema.parse(mongoRemoveMount),
-  );
-}
-
-export function mongoRemoveMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveServerStatus
-> = z.nativeEnum(MongoRemoveServerStatus);
-
-/** @internal */
-export const MongoRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveServerStatus
-> = MongoRemoveServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveServerStatus$ {
-  /** @deprecated use `MongoRemoveServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveServerStatus$inboundSchema;
-  /** @deprecated use `MongoRemoveServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1964,24 +2307,38 @@ export function mongoRemoveMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveServerStatus
+> = z.nativeEnum(MongoRemoveServerStatus);
+
+/** @internal */
+export const MongoRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoRemoveServerStatus
+> = MongoRemoveServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoRemoveServerStatus$ {
+  /** @deprecated use `MongoRemoveServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveServerStatus$inboundSchema;
+  /** @deprecated use `MongoRemoveServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoRemoveServer$inboundSchema: z.ZodType<
   MongoRemoveServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoRemoveServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1992,26 +2349,33 @@ export const MongoRemoveServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoRemoveServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoRemoveServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2020,19 +2384,12 @@ export const MongoRemoveServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoRemoveServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoRemoveServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2043,6 +2400,13 @@ export const MongoRemoveServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoRemoveServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2077,521 +2441,91 @@ export function mongoRemoveServerFromJSON(
 }
 
 /** @internal */
-export const MongoRemoveBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveBackupType
-> = z.nativeEnum(MongoRemoveBackupType);
-
-/** @internal */
-export const MongoRemoveBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveBackupType
-> = MongoRemoveBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveBackupType$ {
-  /** @deprecated use `MongoRemoveBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveBackupType$inboundSchema;
-  /** @deprecated use `MongoRemoveBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveDatabaseType
-> = z.nativeEnum(MongoRemoveDatabaseType);
-
-/** @internal */
-export const MongoRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveDatabaseType
-> = MongoRemoveDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveDatabaseType$ {
-  /** @deprecated use `MongoRemoveDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveDatabaseType$inboundSchema;
-  /** @deprecated use `MongoRemoveDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MongoRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveMetadataEnum
-> = z.nativeEnum(MongoRemoveMetadataEnum);
-
-/** @internal */
-export const MongoRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoRemoveMetadataEnum
-> = MongoRemoveMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMetadataEnum$ {
-  /** @deprecated use `MongoRemoveMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoRemoveMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoRemovePostgres$inboundSchema: z.ZodType<
-  MongoRemovePostgres,
+export const MongoRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoRemoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MongoRemovePostgres$Outbound = {
-  databaseUser: string;
+export type MongoRemoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoRemovePostgres$outboundSchema: z.ZodType<
-  MongoRemovePostgres$Outbound,
+export const MongoRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoRemoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoRemovePostgres
+  MongoRemoveUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoRemovePostgres$ {
-  /** @deprecated use `MongoRemovePostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoRemovePostgres$inboundSchema;
-  /** @deprecated use `MongoRemovePostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoRemovePostgres$outboundSchema;
-  /** @deprecated use `MongoRemovePostgres$Outbound` instead. */
-  export type Outbound = MongoRemovePostgres$Outbound;
+export namespace MongoRemoveUpdateConfigSwarm$ {
+  /** @deprecated use `MongoRemoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoRemoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoRemoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoRemoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoRemoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoRemoveUpdateConfigSwarm$Outbound;
 }
 
-export function mongoRemovePostgresToJSON(
-  mongoRemovePostgres: MongoRemovePostgres,
+export function mongoRemoveUpdateConfigSwarmToJSON(
+  mongoRemoveUpdateConfigSwarm: MongoRemoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoRemovePostgres$outboundSchema.parse(mongoRemovePostgres),
+    MongoRemoveUpdateConfigSwarm$outboundSchema.parse(
+      mongoRemoveUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mongoRemovePostgresFromJSON(
+export function mongoRemoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoRemovePostgres, SDKValidationError> {
+): SafeParseResult<MongoRemoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoRemovePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemovePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveMariadb$inboundSchema: z.ZodType<
-  MongoRemoveMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoRemoveMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoRemoveMariadb$outboundSchema: z.ZodType<
-  MongoRemoveMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMariadb$ {
-  /** @deprecated use `MongoRemoveMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMariadb$inboundSchema;
-  /** @deprecated use `MongoRemoveMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMariadb$outboundSchema;
-  /** @deprecated use `MongoRemoveMariadb$Outbound` instead. */
-  export type Outbound = MongoRemoveMariadb$Outbound;
-}
-
-export function mongoRemoveMariadbToJSON(
-  mongoRemoveMariadb: MongoRemoveMariadb,
-): string {
-  return JSON.stringify(
-    MongoRemoveMariadb$outboundSchema.parse(mongoRemoveMariadb),
-  );
-}
-
-export function mongoRemoveMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveMongo$inboundSchema: z.ZodType<
-  MongoRemoveMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoRemoveMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoRemoveMongo$outboundSchema: z.ZodType<
-  MongoRemoveMongo$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMongo$ {
-  /** @deprecated use `MongoRemoveMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMongo$inboundSchema;
-  /** @deprecated use `MongoRemoveMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMongo$outboundSchema;
-  /** @deprecated use `MongoRemoveMongo$Outbound` instead. */
-  export type Outbound = MongoRemoveMongo$Outbound;
-}
-
-export function mongoRemoveMongoToJSON(
-  mongoRemoveMongo: MongoRemoveMongo,
-): string {
-  return JSON.stringify(
-    MongoRemoveMongo$outboundSchema.parse(mongoRemoveMongo),
-  );
-}
-
-export function mongoRemoveMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveMysql$inboundSchema: z.ZodType<
-  MongoRemoveMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoRemoveMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoRemoveMysql$outboundSchema: z.ZodType<
-  MongoRemoveMysql$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMysql$ {
-  /** @deprecated use `MongoRemoveMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMysql$inboundSchema;
-  /** @deprecated use `MongoRemoveMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMysql$outboundSchema;
-  /** @deprecated use `MongoRemoveMysql$Outbound` instead. */
-  export type Outbound = MongoRemoveMysql$Outbound;
-}
-
-export function mongoRemoveMysqlToJSON(
-  mongoRemoveMysql: MongoRemoveMysql,
-): string {
-  return JSON.stringify(
-    MongoRemoveMysql$outboundSchema.parse(mongoRemoveMysql),
-  );
-}
-
-export function mongoRemoveMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveMetadata$inboundSchema: z.ZodType<
-  MongoRemoveMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoRemovePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MongoRemoveMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoRemoveMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoRemoveMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoRemoveMetadata$Outbound = {
-  postgres?: MongoRemovePostgres$Outbound | undefined;
-  mariadb?: MongoRemoveMariadb$Outbound | undefined;
-  mongo?: MongoRemoveMongo$Outbound | undefined;
-  mysql?: MongoRemoveMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoRemoveMetadata$outboundSchema: z.ZodType<
-  MongoRemoveMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoRemovePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MongoRemoveMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoRemoveMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoRemoveMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMetadata$ {
-  /** @deprecated use `MongoRemoveMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMetadata$inboundSchema;
-  /** @deprecated use `MongoRemoveMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMetadata$outboundSchema;
-  /** @deprecated use `MongoRemoveMetadata$Outbound` instead. */
-  export type Outbound = MongoRemoveMetadata$Outbound;
-}
-
-export function mongoRemoveMetadataToJSON(
-  mongoRemoveMetadata: MongoRemoveMetadata,
-): string {
-  return JSON.stringify(
-    MongoRemoveMetadata$outboundSchema.parse(mongoRemoveMetadata),
-  );
-}
-
-export function mongoRemoveMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveMetadataUnion$inboundSchema: z.ZodType<
-  MongoRemoveMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoRemoveMetadata$inboundSchema),
-  MongoRemoveMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoRemoveMetadataUnion$Outbound =
-  | MongoRemoveMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MongoRemoveMetadataUnion$outboundSchema: z.ZodType<
-  MongoRemoveMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveMetadataUnion
-> = z.union([
-  z.lazy(() => MongoRemoveMetadata$outboundSchema),
-  MongoRemoveMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveMetadataUnion$ {
-  /** @deprecated use `MongoRemoveMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoRemoveMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoRemoveMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoRemoveMetadataUnion$Outbound;
-}
-
-export function mongoRemoveMetadataUnionToJSON(
-  mongoRemoveMetadataUnion: MongoRemoveMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoRemoveMetadataUnion$outboundSchema.parse(mongoRemoveMetadataUnion),
-  );
-}
-
-export function mongoRemoveMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoRemoveBackup$inboundSchema: z.ZodType<
-  MongoRemoveBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoRemoveBackupType$inboundSchema,
-  databaseType: MongoRemoveDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoRemoveMetadata$inboundSchema),
-      MongoRemoveMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoRemoveBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoRemoveMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoRemoveBackup$outboundSchema: z.ZodType<
-  MongoRemoveBackup$Outbound,
-  z.ZodTypeDef,
-  MongoRemoveBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoRemoveBackupType$outboundSchema,
-  databaseType: MongoRemoveDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoRemoveMetadata$outboundSchema),
-      MongoRemoveMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRemoveBackup$ {
-  /** @deprecated use `MongoRemoveBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoRemoveBackup$inboundSchema;
-  /** @deprecated use `MongoRemoveBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoRemoveBackup$outboundSchema;
-  /** @deprecated use `MongoRemoveBackup$Outbound` instead. */
-  export type Outbound = MongoRemoveBackup$Outbound;
-}
-
-export function mongoRemoveBackupToJSON(
-  mongoRemoveBackup: MongoRemoveBackup,
-): string {
-  return JSON.stringify(
-    MongoRemoveBackup$outboundSchema.parse(mongoRemoveBackup),
-  );
-}
-
-export function mongoRemoveBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRemoveBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRemoveBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRemoveBackup' from JSON`,
+    (x) => MongoRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoRemoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2601,86 +2535,86 @@ export const MongoRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoRemoveApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MongoRemoveBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoRemoveEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoRemoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoRemoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoRemoveModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoRemoveMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoRemoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoRemovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoRemoveUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoRemoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoRemoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoRemoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoRemoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoRemoveEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoRemoveMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoRemoveServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoRemoveBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoRemoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoRemoveResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoRemoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoRemoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoRemovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoRemoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoRemoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoRemoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoRemoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoRemoveEnvironment$Outbound;
-  mounts: Array<MongoRemoveMount$Outbound>;
-  server: MongoRemoveServer$Outbound | null;
   backups: Array<MongoRemoveBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoRemoveEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoRemoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoRemoveModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoRemoveMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoRemoveNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoRemovePlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoRemoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoRemoveRollbackConfigSwarm$Outbound | null;
+  server: MongoRemoveServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoRemoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2689,50 +2623,50 @@ export const MongoRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoRemoveResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoRemoveApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MongoRemoveBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoRemoveEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoRemoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoRemoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoRemoveModeSwarm$outboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoRemoveMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoRemoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoRemovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoRemoveUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoRemoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoRemoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoRemoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoRemoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoRemoveEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoRemoveMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoRemoveServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoRemoveBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoRemoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

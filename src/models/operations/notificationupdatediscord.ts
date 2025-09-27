@@ -3,94 +3,24 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationUpdateDiscordSecurity = {
-  authorization: string;
-};
-
 export type NotificationUpdateDiscordRequest = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  decoration?: boolean | undefined;
+  discordId: string;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
+  notificationId: string;
+  organizationId?: string | undefined;
   serverThreshold?: boolean | undefined;
   webhookUrl?: string | undefined;
-  decoration?: boolean | undefined;
-  notificationId: string;
-  discordId: string;
-  organizationId?: string | undefined;
 };
-
-/** @internal */
-export const NotificationUpdateDiscordSecurity$inboundSchema: z.ZodType<
-  NotificationUpdateDiscordSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationUpdateDiscordSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationUpdateDiscordSecurity$outboundSchema: z.ZodType<
-  NotificationUpdateDiscordSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationUpdateDiscordSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationUpdateDiscordSecurity$ {
-  /** @deprecated use `NotificationUpdateDiscordSecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationUpdateDiscordSecurity$inboundSchema;
-  /** @deprecated use `NotificationUpdateDiscordSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationUpdateDiscordSecurity$outboundSchema;
-  /** @deprecated use `NotificationUpdateDiscordSecurity$Outbound` instead. */
-  export type Outbound = NotificationUpdateDiscordSecurity$Outbound;
-}
-
-export function notificationUpdateDiscordSecurityToJSON(
-  notificationUpdateDiscordSecurity: NotificationUpdateDiscordSecurity,
-): string {
-  return JSON.stringify(
-    NotificationUpdateDiscordSecurity$outboundSchema.parse(
-      notificationUpdateDiscordSecurity,
-    ),
-  );
-}
-
-export function notificationUpdateDiscordSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationUpdateDiscordSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationUpdateDiscordSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationUpdateDiscordSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationUpdateDiscordRequest$inboundSchema: z.ZodType<
@@ -99,33 +29,33 @@ export const NotificationUpdateDiscordRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  decoration: z.boolean().optional(),
+  discordId: z.string(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
+  notificationId: z.string(),
+  organizationId: z.string().optional(),
   serverThreshold: z.boolean().optional(),
   webhookUrl: z.string().optional(),
-  decoration: z.boolean().optional(),
-  notificationId: z.string(),
-  discordId: z.string(),
-  organizationId: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateDiscordRequest$Outbound = {
   appBuildError?: boolean | undefined;
+  appDeploy?: boolean | undefined;
   databaseBackup?: boolean | undefined;
+  decoration?: boolean | undefined;
+  discordId: string;
+  dockerCleanup?: boolean | undefined;
   dokployRestart?: boolean | undefined;
   name?: string | undefined;
-  appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
+  notificationId: string;
+  organizationId?: string | undefined;
   serverThreshold?: boolean | undefined;
   webhookUrl?: string | undefined;
-  decoration?: boolean | undefined;
-  notificationId: string;
-  discordId: string;
-  organizationId?: string | undefined;
 };
 
 /** @internal */
@@ -135,17 +65,17 @@ export const NotificationUpdateDiscordRequest$outboundSchema: z.ZodType<
   NotificationUpdateDiscordRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
+  appDeploy: z.boolean().optional(),
   databaseBackup: z.boolean().optional(),
+  decoration: z.boolean().optional(),
+  discordId: z.string(),
+  dockerCleanup: z.boolean().optional(),
   dokployRestart: z.boolean().optional(),
   name: z.string().optional(),
-  appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
+  notificationId: z.string(),
+  organizationId: z.string().optional(),
   serverThreshold: z.boolean().optional(),
   webhookUrl: z.string().optional(),
-  decoration: z.boolean().optional(),
-  notificationId: z.string(),
-  discordId: z.string(),
-  organizationId: z.string().optional(),
 });
 
 /**

@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DockerRestartContainerSecurity = {
-  authorization: string;
-};
-
 export type DockerRestartContainerRequest = {
   containerId: string;
 };
-
-/** @internal */
-export const DockerRestartContainerSecurity$inboundSchema: z.ZodType<
-  DockerRestartContainerSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DockerRestartContainerSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DockerRestartContainerSecurity$outboundSchema: z.ZodType<
-  DockerRestartContainerSecurity$Outbound,
-  z.ZodTypeDef,
-  DockerRestartContainerSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DockerRestartContainerSecurity$ {
-  /** @deprecated use `DockerRestartContainerSecurity$inboundSchema` instead. */
-  export const inboundSchema = DockerRestartContainerSecurity$inboundSchema;
-  /** @deprecated use `DockerRestartContainerSecurity$outboundSchema` instead. */
-  export const outboundSchema = DockerRestartContainerSecurity$outboundSchema;
-  /** @deprecated use `DockerRestartContainerSecurity$Outbound` instead. */
-  export type Outbound = DockerRestartContainerSecurity$Outbound;
-}
-
-export function dockerRestartContainerSecurityToJSON(
-  dockerRestartContainerSecurity: DockerRestartContainerSecurity,
-): string {
-  return JSON.stringify(
-    DockerRestartContainerSecurity$outboundSchema.parse(
-      dockerRestartContainerSecurity,
-    ),
-  );
-}
-
-export function dockerRestartContainerSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DockerRestartContainerSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DockerRestartContainerSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DockerRestartContainerSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DockerRestartContainerRequest$inboundSchema: z.ZodType<

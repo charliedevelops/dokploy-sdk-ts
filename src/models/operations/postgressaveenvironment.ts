@@ -3,86 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PostgresSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type PostgresSaveEnvironmentRequest = {
-  postgresId: string;
   env?: string | null | undefined;
+  postgresId: string;
 };
 
 export type PostgresSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const PostgresSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  PostgresSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  PostgresSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresSaveEnvironmentSecurity$ {
-  /** @deprecated use `PostgresSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `PostgresSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `PostgresSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = PostgresSaveEnvironmentSecurity$Outbound;
-}
-
-export function postgresSaveEnvironmentSecurityToJSON(
-  postgresSaveEnvironmentSecurity: PostgresSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    PostgresSaveEnvironmentSecurity$outboundSchema.parse(
-      postgresSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function postgresSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -90,14 +21,14 @@ export const PostgresSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   env: z.nullable(z.string()).optional(),
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresSaveEnvironmentRequest$Outbound = {
-  postgresId: string;
   env?: string | null | undefined;
+  postgresId: string;
 };
 
 /** @internal */
@@ -106,8 +37,8 @@ export const PostgresSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresSaveEnvironmentRequest
 > = z.object({
-  postgresId: z.string(),
   env: z.nullable(z.string()).optional(),
+  postgresId: z.string(),
 });
 
 /**

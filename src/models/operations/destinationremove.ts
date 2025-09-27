@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DestinationRemoveSecurity = {
-  authorization: string;
-};
-
 export type DestinationRemoveRequest = {
   destinationId: string;
 };
-
-/** @internal */
-export const DestinationRemoveSecurity$inboundSchema: z.ZodType<
-  DestinationRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DestinationRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DestinationRemoveSecurity$outboundSchema: z.ZodType<
-  DestinationRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  DestinationRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestinationRemoveSecurity$ {
-  /** @deprecated use `DestinationRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = DestinationRemoveSecurity$inboundSchema;
-  /** @deprecated use `DestinationRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = DestinationRemoveSecurity$outboundSchema;
-  /** @deprecated use `DestinationRemoveSecurity$Outbound` instead. */
-  export type Outbound = DestinationRemoveSecurity$Outbound;
-}
-
-export function destinationRemoveSecurityToJSON(
-  destinationRemoveSecurity: DestinationRemoveSecurity,
-): string {
-  return JSON.stringify(
-    DestinationRemoveSecurity$outboundSchema.parse(destinationRemoveSecurity),
-  );
-}
-
-export function destinationRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DestinationRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DestinationRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DestinationRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DestinationRemoveRequest$inboundSchema: z.ZodType<

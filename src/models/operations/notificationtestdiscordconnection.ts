@@ -3,93 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationTestDiscordConnectionSecurity = {
-  authorization: string;
-};
-
 export type NotificationTestDiscordConnectionRequest = {
-  webhookUrl: string;
   decoration?: boolean | undefined;
+  webhookUrl: string;
 };
-
-/** @internal */
-export const NotificationTestDiscordConnectionSecurity$inboundSchema: z.ZodType<
-  NotificationTestDiscordConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationTestDiscordConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationTestDiscordConnectionSecurity$outboundSchema:
-  z.ZodType<
-    NotificationTestDiscordConnectionSecurity$Outbound,
-    z.ZodTypeDef,
-    NotificationTestDiscordConnectionSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationTestDiscordConnectionSecurity$ {
-  /** @deprecated use `NotificationTestDiscordConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    NotificationTestDiscordConnectionSecurity$inboundSchema;
-  /** @deprecated use `NotificationTestDiscordConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationTestDiscordConnectionSecurity$outboundSchema;
-  /** @deprecated use `NotificationTestDiscordConnectionSecurity$Outbound` instead. */
-  export type Outbound = NotificationTestDiscordConnectionSecurity$Outbound;
-}
-
-export function notificationTestDiscordConnectionSecurityToJSON(
-  notificationTestDiscordConnectionSecurity:
-    NotificationTestDiscordConnectionSecurity,
-): string {
-  return JSON.stringify(
-    NotificationTestDiscordConnectionSecurity$outboundSchema.parse(
-      notificationTestDiscordConnectionSecurity,
-    ),
-  );
-}
-
-export function notificationTestDiscordConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  NotificationTestDiscordConnectionSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      NotificationTestDiscordConnectionSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'NotificationTestDiscordConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationTestDiscordConnectionRequest$inboundSchema: z.ZodType<
@@ -97,14 +18,14 @@ export const NotificationTestDiscordConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhookUrl: z.string(),
   decoration: z.boolean().optional(),
+  webhookUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationTestDiscordConnectionRequest$Outbound = {
-  webhookUrl: string;
   decoration?: boolean | undefined;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -113,8 +34,8 @@ export const NotificationTestDiscordConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestDiscordConnectionRequest
 > = z.object({
-  webhookUrl: z.string(),
   decoration: z.boolean().optional(),
+  webhookUrl: z.string(),
 });
 
 /**

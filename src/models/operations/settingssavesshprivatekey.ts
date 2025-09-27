@@ -3,83 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsSaveSSHPrivateKeySecurity = {
-  authorization: string;
-};
-
 export type SettingsSaveSSHPrivateKeyRequest = {
   sshPrivateKey: string | null;
 };
-
-/** @internal */
-export const SettingsSaveSSHPrivateKeySecurity$inboundSchema: z.ZodType<
-  SettingsSaveSSHPrivateKeySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsSaveSSHPrivateKeySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsSaveSSHPrivateKeySecurity$outboundSchema: z.ZodType<
-  SettingsSaveSSHPrivateKeySecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsSaveSSHPrivateKeySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsSaveSSHPrivateKeySecurity$ {
-  /** @deprecated use `SettingsSaveSSHPrivateKeySecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsSaveSSHPrivateKeySecurity$inboundSchema;
-  /** @deprecated use `SettingsSaveSSHPrivateKeySecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsSaveSSHPrivateKeySecurity$outboundSchema;
-  /** @deprecated use `SettingsSaveSSHPrivateKeySecurity$Outbound` instead. */
-  export type Outbound = SettingsSaveSSHPrivateKeySecurity$Outbound;
-}
-
-export function settingsSaveSSHPrivateKeySecurityToJSON(
-  settingsSaveSSHPrivateKeySecurity: SettingsSaveSSHPrivateKeySecurity,
-): string {
-  return JSON.stringify(
-    SettingsSaveSSHPrivateKeySecurity$outboundSchema.parse(
-      settingsSaveSSHPrivateKeySecurity,
-    ),
-  );
-}
-
-export function settingsSaveSSHPrivateKeySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsSaveSSHPrivateKeySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsSaveSSHPrivateKeySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsSaveSSHPrivateKeySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsSaveSSHPrivateKeyRequest$inboundSchema: z.ZodType<

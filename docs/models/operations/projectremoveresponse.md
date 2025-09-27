@@ -7,12 +7,13 @@
 
 ```typescript
 const value: operations.ProjectRemoveResponseBody = {
-  projectId: "<id>",
-  name: "<value>",
-  description: "obnoxiously if untrue aboard",
-  createdAt: "1728080752169",
-  organizationId: "<id>",
+  createdAt: "1722390021495",
+  description:
+    "radiant till brown ouch fondly rout gleaming potable at foolishly",
   env: "<value>",
+  name: "<value>",
+  organizationId: "<id>",
+  projectId: "<id>",
 };
 ```
 
@@ -20,8 +21,8 @@ const value: operations.ProjectRemoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

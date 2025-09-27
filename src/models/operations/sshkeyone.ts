@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SshKeyOneSecurity = {
-  authorization: string;
-};
-
 export type SshKeyOneRequest = {
   sshKeyId: string;
 };
-
-/** @internal */
-export const SshKeyOneSecurity$inboundSchema: z.ZodType<
-  SshKeyOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SshKeyOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SshKeyOneSecurity$outboundSchema: z.ZodType<
-  SshKeyOneSecurity$Outbound,
-  z.ZodTypeDef,
-  SshKeyOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SshKeyOneSecurity$ {
-  /** @deprecated use `SshKeyOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = SshKeyOneSecurity$inboundSchema;
-  /** @deprecated use `SshKeyOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = SshKeyOneSecurity$outboundSchema;
-  /** @deprecated use `SshKeyOneSecurity$Outbound` instead. */
-  export type Outbound = SshKeyOneSecurity$Outbound;
-}
-
-export function sshKeyOneSecurityToJSON(
-  sshKeyOneSecurity: SshKeyOneSecurity,
-): string {
-  return JSON.stringify(
-    SshKeyOneSecurity$outboundSchema.parse(sshKeyOneSecurity),
-  );
-}
-
-export function sshKeyOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SshKeyOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SshKeyOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SshKeyOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SshKeyOneRequest$inboundSchema: z.ZodType<

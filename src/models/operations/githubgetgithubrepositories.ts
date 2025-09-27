@@ -3,85 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type GithubGetGithubRepositoriesSecurity = {
-  authorization: string;
-};
-
 export type GithubGetGithubRepositoriesRequest = {
   githubId: string;
 };
-
-/** @internal */
-export const GithubGetGithubRepositoriesSecurity$inboundSchema: z.ZodType<
-  GithubGetGithubRepositoriesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GithubGetGithubRepositoriesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GithubGetGithubRepositoriesSecurity$outboundSchema: z.ZodType<
-  GithubGetGithubRepositoriesSecurity$Outbound,
-  z.ZodTypeDef,
-  GithubGetGithubRepositoriesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GithubGetGithubRepositoriesSecurity$ {
-  /** @deprecated use `GithubGetGithubRepositoriesSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    GithubGetGithubRepositoriesSecurity$inboundSchema;
-  /** @deprecated use `GithubGetGithubRepositoriesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    GithubGetGithubRepositoriesSecurity$outboundSchema;
-  /** @deprecated use `GithubGetGithubRepositoriesSecurity$Outbound` instead. */
-  export type Outbound = GithubGetGithubRepositoriesSecurity$Outbound;
-}
-
-export function githubGetGithubRepositoriesSecurityToJSON(
-  githubGetGithubRepositoriesSecurity: GithubGetGithubRepositoriesSecurity,
-): string {
-  return JSON.stringify(
-    GithubGetGithubRepositoriesSecurity$outboundSchema.parse(
-      githubGetGithubRepositoriesSecurity,
-    ),
-  );
-}
-
-export function githubGetGithubRepositoriesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GithubGetGithubRepositoriesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GithubGetGithubRepositoriesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GithubGetGithubRepositoriesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GithubGetGithubRepositoriesRequest$inboundSchema: z.ZodType<

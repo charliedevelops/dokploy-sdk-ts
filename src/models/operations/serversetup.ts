@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerSetupSecurity = {
-  authorization: string;
-};
-
 export type ServerSetupRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const ServerSetupSecurity$inboundSchema: z.ZodType<
-  ServerSetupSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerSetupSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerSetupSecurity$outboundSchema: z.ZodType<
-  ServerSetupSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerSetupSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerSetupSecurity$ {
-  /** @deprecated use `ServerSetupSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerSetupSecurity$inboundSchema;
-  /** @deprecated use `ServerSetupSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerSetupSecurity$outboundSchema;
-  /** @deprecated use `ServerSetupSecurity$Outbound` instead. */
-  export type Outbound = ServerSetupSecurity$Outbound;
-}
-
-export function serverSetupSecurityToJSON(
-  serverSetupSecurity: ServerSetupSecurity,
-): string {
-  return JSON.stringify(
-    ServerSetupSecurity$outboundSchema.parse(serverSetupSecurity),
-  );
-}
-
-export function serverSetupSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerSetupSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerSetupSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerSetupSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerSetupRequest$inboundSchema: z.ZodType<

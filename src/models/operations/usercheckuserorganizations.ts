@@ -3,84 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UserCheckUserOrganizationsSecurity = {
-  authorization: string;
-};
-
 export type UserCheckUserOrganizationsRequest = {
   userId: string;
 };
-
-/** @internal */
-export const UserCheckUserOrganizationsSecurity$inboundSchema: z.ZodType<
-  UserCheckUserOrganizationsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserCheckUserOrganizationsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserCheckUserOrganizationsSecurity$outboundSchema: z.ZodType<
-  UserCheckUserOrganizationsSecurity$Outbound,
-  z.ZodTypeDef,
-  UserCheckUserOrganizationsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserCheckUserOrganizationsSecurity$ {
-  /** @deprecated use `UserCheckUserOrganizationsSecurity$inboundSchema` instead. */
-  export const inboundSchema = UserCheckUserOrganizationsSecurity$inboundSchema;
-  /** @deprecated use `UserCheckUserOrganizationsSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    UserCheckUserOrganizationsSecurity$outboundSchema;
-  /** @deprecated use `UserCheckUserOrganizationsSecurity$Outbound` instead. */
-  export type Outbound = UserCheckUserOrganizationsSecurity$Outbound;
-}
-
-export function userCheckUserOrganizationsSecurityToJSON(
-  userCheckUserOrganizationsSecurity: UserCheckUserOrganizationsSecurity,
-): string {
-  return JSON.stringify(
-    UserCheckUserOrganizationsSecurity$outboundSchema.parse(
-      userCheckUserOrganizationsSecurity,
-    ),
-  );
-}
-
-export function userCheckUserOrganizationsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserCheckUserOrganizationsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UserCheckUserOrganizationsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserCheckUserOrganizationsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserCheckUserOrganizationsRequest$inboundSchema: z.ZodType<

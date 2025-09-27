@@ -3,94 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsHaveTraefikDashboardPortEnabledSecurity = {
-  authorization: string;
-};
-
 export type SettingsHaveTraefikDashboardPortEnabledRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsHaveTraefikDashboardPortEnabledSecurity$inboundSchema:
-  z.ZodType<
-    SettingsHaveTraefikDashboardPortEnabledSecurity,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    Authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "Authorization": "authorization",
-    });
-  });
-
-/** @internal */
-export type SettingsHaveTraefikDashboardPortEnabledSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsHaveTraefikDashboardPortEnabledSecurity$outboundSchema:
-  z.ZodType<
-    SettingsHaveTraefikDashboardPortEnabledSecurity$Outbound,
-    z.ZodTypeDef,
-    SettingsHaveTraefikDashboardPortEnabledSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsHaveTraefikDashboardPortEnabledSecurity$ {
-  /** @deprecated use `SettingsHaveTraefikDashboardPortEnabledSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    SettingsHaveTraefikDashboardPortEnabledSecurity$inboundSchema;
-  /** @deprecated use `SettingsHaveTraefikDashboardPortEnabledSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsHaveTraefikDashboardPortEnabledSecurity$outboundSchema;
-  /** @deprecated use `SettingsHaveTraefikDashboardPortEnabledSecurity$Outbound` instead. */
-  export type Outbound =
-    SettingsHaveTraefikDashboardPortEnabledSecurity$Outbound;
-}
-
-export function settingsHaveTraefikDashboardPortEnabledSecurityToJSON(
-  settingsHaveTraefikDashboardPortEnabledSecurity:
-    SettingsHaveTraefikDashboardPortEnabledSecurity,
-): string {
-  return JSON.stringify(
-    SettingsHaveTraefikDashboardPortEnabledSecurity$outboundSchema.parse(
-      settingsHaveTraefikDashboardPortEnabledSecurity,
-    ),
-  );
-}
-
-export function settingsHaveTraefikDashboardPortEnabledSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SettingsHaveTraefikDashboardPortEnabledSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsHaveTraefikDashboardPortEnabledSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SettingsHaveTraefikDashboardPortEnabledSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsHaveTraefikDashboardPortEnabledRequest$inboundSchema:

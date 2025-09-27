@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SshKeyUpdateSecurity = {
-  authorization: string;
-};
-
 export type SshKeyUpdateRequest = {
-  name?: string | undefined;
   description?: string | null | undefined;
   lastUsedAt?: string | null | undefined;
+  name?: string | undefined;
   sshKeyId: string;
 };
-
-/** @internal */
-export const SshKeyUpdateSecurity$inboundSchema: z.ZodType<
-  SshKeyUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SshKeyUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SshKeyUpdateSecurity$outboundSchema: z.ZodType<
-  SshKeyUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  SshKeyUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SshKeyUpdateSecurity$ {
-  /** @deprecated use `SshKeyUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = SshKeyUpdateSecurity$inboundSchema;
-  /** @deprecated use `SshKeyUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = SshKeyUpdateSecurity$outboundSchema;
-  /** @deprecated use `SshKeyUpdateSecurity$Outbound` instead. */
-  export type Outbound = SshKeyUpdateSecurity$Outbound;
-}
-
-export function sshKeyUpdateSecurityToJSON(
-  sshKeyUpdateSecurity: SshKeyUpdateSecurity,
-): string {
-  return JSON.stringify(
-    SshKeyUpdateSecurity$outboundSchema.parse(sshKeyUpdateSecurity),
-  );
-}
-
-export function sshKeyUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SshKeyUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SshKeyUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SshKeyUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SshKeyUpdateRequest$inboundSchema: z.ZodType<
@@ -87,17 +20,17 @@ export const SshKeyUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   lastUsedAt: z.nullable(z.string()).optional(),
+  name: z.string().optional(),
   sshKeyId: z.string(),
 });
 
 /** @internal */
 export type SshKeyUpdateRequest$Outbound = {
-  name?: string | undefined;
   description?: string | null | undefined;
   lastUsedAt?: string | null | undefined;
+  name?: string | undefined;
   sshKeyId: string;
 };
 
@@ -107,9 +40,9 @@ export const SshKeyUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SshKeyUpdateRequest
 > = z.object({
-  name: z.string().optional(),
   description: z.nullable(z.string()).optional(),
   lastUsedAt: z.nullable(z.string()).optional(),
+  name: z.string().optional(),
   sshKeyId: z.string(),
 });
 

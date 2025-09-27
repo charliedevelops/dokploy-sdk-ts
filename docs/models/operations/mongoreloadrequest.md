@@ -6,8 +6,8 @@
 import { MongoReloadRequest } from "dokploy-sdk/models/operations";
 
 let value: MongoReloadRequest = {
-  mongoId: "<id>",
   appName: "<value>",
+  mongoId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: MongoReloadRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `mongoId`          | *string*           | :heavy_check_mark: | N/A                |
 | `appName`          | *string*           | :heavy_check_mark: | N/A                |
+| `mongoId`          | *string*           | :heavy_check_mark: | N/A                |

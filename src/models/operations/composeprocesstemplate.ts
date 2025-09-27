@@ -3,83 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ComposeProcessTemplateSecurity = {
-  authorization: string;
-};
 
 export type ComposeProcessTemplateRequest = {
   base64: string;
   composeId: string;
 };
-
-/** @internal */
-export const ComposeProcessTemplateSecurity$inboundSchema: z.ZodType<
-  ComposeProcessTemplateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeProcessTemplateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeProcessTemplateSecurity$outboundSchema: z.ZodType<
-  ComposeProcessTemplateSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeProcessTemplateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeProcessTemplateSecurity$ {
-  /** @deprecated use `ComposeProcessTemplateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeProcessTemplateSecurity$inboundSchema;
-  /** @deprecated use `ComposeProcessTemplateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeProcessTemplateSecurity$outboundSchema;
-  /** @deprecated use `ComposeProcessTemplateSecurity$Outbound` instead. */
-  export type Outbound = ComposeProcessTemplateSecurity$Outbound;
-}
-
-export function composeProcessTemplateSecurityToJSON(
-  composeProcessTemplateSecurity: ComposeProcessTemplateSecurity,
-): string {
-  return JSON.stringify(
-    ComposeProcessTemplateSecurity$outboundSchema.parse(
-      composeProcessTemplateSecurity,
-    ),
-  );
-}
-
-export function composeProcessTemplateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeProcessTemplateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeProcessTemplateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeProcessTemplateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeProcessTemplateRequest$inboundSchema: z.ZodType<

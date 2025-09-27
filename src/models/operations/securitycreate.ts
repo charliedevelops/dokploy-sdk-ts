@@ -3,96 +3,29 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type SecurityCreateSecurity = {
-  authorization: string;
-};
-
 export type SecurityCreateRequest = {
   applicationId: string;
-  username: string;
   password: string;
+  username: string;
 };
 
 /**
  * Successful response
  */
 export type SecurityCreateResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityCreateResponse = SecurityCreateResponseBody | models.ErrorT;
-
-/** @internal */
-export const SecurityCreateSecurity$inboundSchema: z.ZodType<
-  SecurityCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SecurityCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SecurityCreateSecurity$outboundSchema: z.ZodType<
-  SecurityCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  SecurityCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SecurityCreateSecurity$ {
-  /** @deprecated use `SecurityCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = SecurityCreateSecurity$inboundSchema;
-  /** @deprecated use `SecurityCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = SecurityCreateSecurity$outboundSchema;
-  /** @deprecated use `SecurityCreateSecurity$Outbound` instead. */
-  export type Outbound = SecurityCreateSecurity$Outbound;
-}
-
-export function securityCreateSecurityToJSON(
-  securityCreateSecurity: SecurityCreateSecurity,
-): string {
-  return JSON.stringify(
-    SecurityCreateSecurity$outboundSchema.parse(securityCreateSecurity),
-  );
-}
-
-export function securityCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SecurityCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SecurityCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SecurityCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SecurityCreateRequest$inboundSchema: z.ZodType<
@@ -101,15 +34,15 @@ export const SecurityCreateRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  username: z.string(),
   password: z.string(),
+  username: z.string(),
 });
 
 /** @internal */
 export type SecurityCreateRequest$Outbound = {
   applicationId: string;
-  username: string;
   password: string;
+  username: string;
 };
 
 /** @internal */
@@ -119,8 +52,8 @@ export const SecurityCreateRequest$outboundSchema: z.ZodType<
   SecurityCreateRequest
 > = z.object({
   applicationId: z.string(),
-  username: z.string(),
   password: z.string(),
+  username: z.string(),
 });
 
 /**
@@ -160,20 +93,20 @@ export const SecurityCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityCreateResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -182,11 +115,11 @@ export const SecurityCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityCreateResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

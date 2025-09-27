@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DockerGetContainersSecurity = {
-  authorization: string;
-};
-
 export type DockerGetContainersRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DockerGetContainersSecurity$inboundSchema: z.ZodType<
-  DockerGetContainersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DockerGetContainersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DockerGetContainersSecurity$outboundSchema: z.ZodType<
-  DockerGetContainersSecurity$Outbound,
-  z.ZodTypeDef,
-  DockerGetContainersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DockerGetContainersSecurity$ {
-  /** @deprecated use `DockerGetContainersSecurity$inboundSchema` instead. */
-  export const inboundSchema = DockerGetContainersSecurity$inboundSchema;
-  /** @deprecated use `DockerGetContainersSecurity$outboundSchema` instead. */
-  export const outboundSchema = DockerGetContainersSecurity$outboundSchema;
-  /** @deprecated use `DockerGetContainersSecurity$Outbound` instead. */
-  export type Outbound = DockerGetContainersSecurity$Outbound;
-}
-
-export function dockerGetContainersSecurityToJSON(
-  dockerGetContainersSecurity: DockerGetContainersSecurity,
-): string {
-  return JSON.stringify(
-    DockerGetContainersSecurity$outboundSchema.parse(
-      dockerGetContainersSecurity,
-    ),
-  );
-}
-
-export function dockerGetContainersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DockerGetContainersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DockerGetContainersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DockerGetContainersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DockerGetContainersRequest$inboundSchema: z.ZodType<

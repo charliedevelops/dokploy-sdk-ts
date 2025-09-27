@@ -3,93 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsUpdateMiddlewareTraefikConfigSecurity = {
-  authorization: string;
-};
-
 export type SettingsUpdateMiddlewareTraefikConfigRequest = {
   traefikConfig: string;
 };
-
-/** @internal */
-export const SettingsUpdateMiddlewareTraefikConfigSecurity$inboundSchema:
-  z.ZodType<
-    SettingsUpdateMiddlewareTraefikConfigSecurity,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    Authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "Authorization": "authorization",
-    });
-  });
-
-/** @internal */
-export type SettingsUpdateMiddlewareTraefikConfigSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateMiddlewareTraefikConfigSecurity$outboundSchema:
-  z.ZodType<
-    SettingsUpdateMiddlewareTraefikConfigSecurity$Outbound,
-    z.ZodTypeDef,
-    SettingsUpdateMiddlewareTraefikConfigSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateMiddlewareTraefikConfigSecurity$ {
-  /** @deprecated use `SettingsUpdateMiddlewareTraefikConfigSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    SettingsUpdateMiddlewareTraefikConfigSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateMiddlewareTraefikConfigSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsUpdateMiddlewareTraefikConfigSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateMiddlewareTraefikConfigSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateMiddlewareTraefikConfigSecurity$Outbound;
-}
-
-export function settingsUpdateMiddlewareTraefikConfigSecurityToJSON(
-  settingsUpdateMiddlewareTraefikConfigSecurity:
-    SettingsUpdateMiddlewareTraefikConfigSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateMiddlewareTraefikConfigSecurity$outboundSchema.parse(
-      settingsUpdateMiddlewareTraefikConfigSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateMiddlewareTraefikConfigSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SettingsUpdateMiddlewareTraefikConfigSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsUpdateMiddlewareTraefikConfigSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SettingsUpdateMiddlewareTraefikConfigSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateMiddlewareTraefikConfigRequest$inboundSchema:

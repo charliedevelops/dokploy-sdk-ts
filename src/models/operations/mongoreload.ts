@@ -3,84 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoReloadSecurity = {
-  authorization: string;
-};
-
 export type MongoReloadRequest = {
-  mongoId: string;
   appName: string;
+  mongoId: string;
 };
 
 export type MongoReloadResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MongoReloadSecurity$inboundSchema: z.ZodType<
-  MongoReloadSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoReloadSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoReloadSecurity$outboundSchema: z.ZodType<
-  MongoReloadSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoReloadSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoReloadSecurity$ {
-  /** @deprecated use `MongoReloadSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoReloadSecurity$inboundSchema;
-  /** @deprecated use `MongoReloadSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoReloadSecurity$outboundSchema;
-  /** @deprecated use `MongoReloadSecurity$Outbound` instead. */
-  export type Outbound = MongoReloadSecurity$Outbound;
-}
-
-export function mongoReloadSecurityToJSON(
-  mongoReloadSecurity: MongoReloadSecurity,
-): string {
-  return JSON.stringify(
-    MongoReloadSecurity$outboundSchema.parse(mongoReloadSecurity),
-  );
-}
-
-export function mongoReloadSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoReloadSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoReloadSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoReloadSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoReloadRequest$inboundSchema: z.ZodType<
@@ -88,14 +21,14 @@ export const MongoReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   appName: z.string(),
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoReloadRequest$Outbound = {
-  mongoId: string;
   appName: string;
+  mongoId: string;
 };
 
 /** @internal */
@@ -104,8 +37,8 @@ export const MongoReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoReloadRequest
 > = z.object({
-  mongoId: z.string(),
   appName: z.string(),
+  mongoId: z.string(),
 });
 
 /**

@@ -3,86 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type MysqlSaveEnvironmentRequest = {
-  mysqlId: string;
   env?: string | null | undefined;
+  mysqlId: string;
 };
 
 export type MysqlSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MysqlSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  MysqlSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  MysqlSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlSaveEnvironmentSecurity$ {
-  /** @deprecated use `MysqlSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `MysqlSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `MysqlSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = MysqlSaveEnvironmentSecurity$Outbound;
-}
-
-export function mysqlSaveEnvironmentSecurityToJSON(
-  mysqlSaveEnvironmentSecurity: MysqlSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    MysqlSaveEnvironmentSecurity$outboundSchema.parse(
-      mysqlSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function mysqlSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -90,14 +21,14 @@ export const MysqlSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlSaveEnvironmentRequest$Outbound = {
-  mysqlId: string;
   env?: string | null | undefined;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -106,8 +37,8 @@ export const MysqlSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlSaveEnvironmentRequest
 > = z.object({
-  mysqlId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mysqlId: z.string(),
 });
 
 /**

@@ -3,87 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type BitbucketGetBitbucketBranchesSecurity = {
-  authorization: string;
-};
 
 export type BitbucketGetBitbucketBranchesRequest = {
   owner: string;
   repo: string;
   bitbucketId?: string | undefined;
 };
-
-/** @internal */
-export const BitbucketGetBitbucketBranchesSecurity$inboundSchema: z.ZodType<
-  BitbucketGetBitbucketBranchesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketGetBitbucketBranchesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketGetBitbucketBranchesSecurity$outboundSchema: z.ZodType<
-  BitbucketGetBitbucketBranchesSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketGetBitbucketBranchesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketGetBitbucketBranchesSecurity$ {
-  /** @deprecated use `BitbucketGetBitbucketBranchesSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    BitbucketGetBitbucketBranchesSecurity$inboundSchema;
-  /** @deprecated use `BitbucketGetBitbucketBranchesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BitbucketGetBitbucketBranchesSecurity$outboundSchema;
-  /** @deprecated use `BitbucketGetBitbucketBranchesSecurity$Outbound` instead. */
-  export type Outbound = BitbucketGetBitbucketBranchesSecurity$Outbound;
-}
-
-export function bitbucketGetBitbucketBranchesSecurityToJSON(
-  bitbucketGetBitbucketBranchesSecurity: BitbucketGetBitbucketBranchesSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketGetBitbucketBranchesSecurity$outboundSchema.parse(
-      bitbucketGetBitbucketBranchesSecurity,
-    ),
-  );
-}
-
-export function bitbucketGetBitbucketBranchesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketGetBitbucketBranchesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      BitbucketGetBitbucketBranchesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketGetBitbucketBranchesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketGetBitbucketBranchesRequest$inboundSchema: z.ZodType<

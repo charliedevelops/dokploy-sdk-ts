@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ClusterAddWorkerSecurity = {
-  authorization: string;
-};
-
 export type ClusterAddWorkerRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const ClusterAddWorkerSecurity$inboundSchema: z.ZodType<
-  ClusterAddWorkerSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ClusterAddWorkerSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ClusterAddWorkerSecurity$outboundSchema: z.ZodType<
-  ClusterAddWorkerSecurity$Outbound,
-  z.ZodTypeDef,
-  ClusterAddWorkerSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ClusterAddWorkerSecurity$ {
-  /** @deprecated use `ClusterAddWorkerSecurity$inboundSchema` instead. */
-  export const inboundSchema = ClusterAddWorkerSecurity$inboundSchema;
-  /** @deprecated use `ClusterAddWorkerSecurity$outboundSchema` instead. */
-  export const outboundSchema = ClusterAddWorkerSecurity$outboundSchema;
-  /** @deprecated use `ClusterAddWorkerSecurity$Outbound` instead. */
-  export type Outbound = ClusterAddWorkerSecurity$Outbound;
-}
-
-export function clusterAddWorkerSecurityToJSON(
-  clusterAddWorkerSecurity: ClusterAddWorkerSecurity,
-): string {
-  return JSON.stringify(
-    ClusterAddWorkerSecurity$outboundSchema.parse(clusterAddWorkerSecurity),
-  );
-}
-
-export function clusterAddWorkerSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ClusterAddWorkerSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ClusterAddWorkerSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ClusterAddWorkerSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ClusterAddWorkerRequest$inboundSchema: z.ZodType<

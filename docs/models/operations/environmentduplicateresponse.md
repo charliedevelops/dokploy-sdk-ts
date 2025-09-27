@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.EnvironmentDuplicateResponseBody = {
+  createdAt: "1717798787003",
+  description: "psst inscribe whack self-reliant",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "nor hole lend whenever noisily round gadzooks",
-  createdAt: "1709886403338",
-  env: "<value>",
   projectId: "<id>",
 };
 ```
@@ -20,8 +20,8 @@ const value: operations.EnvironmentDuplicateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

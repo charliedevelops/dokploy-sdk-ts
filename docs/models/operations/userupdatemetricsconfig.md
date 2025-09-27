@@ -6,28 +6,28 @@
 import { UserUpdateMetricsConfig } from "dokploy-sdk/models/operations";
 
 let value: UserUpdateMetricsConfig = {
-  server: {
-    type: "Remote",
-    refreshRate: 8682.08,
-    port: 9187.96,
-    token: "<value>",
-    urlCallback: "<value>",
-    retentionDays: 6761.54,
-    cronJob: "<value>",
-    thresholds: {
-      cpu: 5312.52,
-      memory: 790.33,
-    },
-  },
   containers: {
-    refreshRate: 5685.29,
+    refreshRate: 9323.07,
     services: {
-      include: [],
-      exclude: [
+      exclude: [],
+      include: [
         "<value 1>",
         "<value 2>",
       ],
     },
+  },
+  server: {
+    cronJob: "<value>",
+    port: 8682.08,
+    refreshRate: 9187.96,
+    retentionDays: 6761.54,
+    thresholds: {
+      cpu: 7663.31,
+      memory: 5312.52,
+    },
+    token: "<value>",
+    type: "Remote",
+    urlCallback: "<value>",
   },
 };
 ```
@@ -36,5 +36,5 @@ let value: UserUpdateMetricsConfig = {
 
 | Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `server`                                                                           | [operations.UserUpdateServer](../../models/operations/userupdateserver.md)         | :heavy_check_mark:                                                                 | N/A                                                                                |
 | `containers`                                                                       | [operations.UserUpdateContainers](../../models/operations/userupdatecontainers.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `server`                                                                           | [operations.UserUpdateServer](../../models/operations/userupdateserver.md)         | :heavy_check_mark:                                                                 | N/A                                                                                |

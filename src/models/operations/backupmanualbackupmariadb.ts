@@ -3,83 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupManualBackupMariadbSecurity = {
-  authorization: string;
-};
-
 export type BackupManualBackupMariadbRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupManualBackupMariadbSecurity$inboundSchema: z.ZodType<
-  BackupManualBackupMariadbSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupManualBackupMariadbSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupManualBackupMariadbSecurity$outboundSchema: z.ZodType<
-  BackupManualBackupMariadbSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupManualBackupMariadbSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupManualBackupMariadbSecurity$ {
-  /** @deprecated use `BackupManualBackupMariadbSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupManualBackupMariadbSecurity$inboundSchema;
-  /** @deprecated use `BackupManualBackupMariadbSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BackupManualBackupMariadbSecurity$outboundSchema;
-  /** @deprecated use `BackupManualBackupMariadbSecurity$Outbound` instead. */
-  export type Outbound = BackupManualBackupMariadbSecurity$Outbound;
-}
-
-export function backupManualBackupMariadbSecurityToJSON(
-  backupManualBackupMariadbSecurity: BackupManualBackupMariadbSecurity,
-): string {
-  return JSON.stringify(
-    BackupManualBackupMariadbSecurity$outboundSchema.parse(
-      backupManualBackupMariadbSecurity,
-    ),
-  );
-}
-
-export function backupManualBackupMariadbSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupManualBackupMariadbSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupManualBackupMariadbSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupManualBackupMariadbSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupManualBackupMariadbRequest$inboundSchema: z.ZodType<

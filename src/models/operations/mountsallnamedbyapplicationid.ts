@@ -3,85 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type MountsAllNamedByApplicationIdSecurity = {
-  authorization: string;
-};
-
 export type MountsAllNamedByApplicationIdRequest = {
   applicationId: string;
 };
-
-/** @internal */
-export const MountsAllNamedByApplicationIdSecurity$inboundSchema: z.ZodType<
-  MountsAllNamedByApplicationIdSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MountsAllNamedByApplicationIdSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MountsAllNamedByApplicationIdSecurity$outboundSchema: z.ZodType<
-  MountsAllNamedByApplicationIdSecurity$Outbound,
-  z.ZodTypeDef,
-  MountsAllNamedByApplicationIdSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MountsAllNamedByApplicationIdSecurity$ {
-  /** @deprecated use `MountsAllNamedByApplicationIdSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    MountsAllNamedByApplicationIdSecurity$inboundSchema;
-  /** @deprecated use `MountsAllNamedByApplicationIdSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    MountsAllNamedByApplicationIdSecurity$outboundSchema;
-  /** @deprecated use `MountsAllNamedByApplicationIdSecurity$Outbound` instead. */
-  export type Outbound = MountsAllNamedByApplicationIdSecurity$Outbound;
-}
-
-export function mountsAllNamedByApplicationIdSecurityToJSON(
-  mountsAllNamedByApplicationIdSecurity: MountsAllNamedByApplicationIdSecurity,
-): string {
-  return JSON.stringify(
-    MountsAllNamedByApplicationIdSecurity$outboundSchema.parse(
-      mountsAllNamedByApplicationIdSecurity,
-    ),
-  );
-}
-
-export function mountsAllNamedByApplicationIdSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MountsAllNamedByApplicationIdSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MountsAllNamedByApplicationIdSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MountsAllNamedByApplicationIdSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MountsAllNamedByApplicationIdRequest$inboundSchema: z.ZodType<

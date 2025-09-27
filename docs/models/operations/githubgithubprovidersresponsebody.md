@@ -6,15 +6,15 @@
 import { GithubGithubProvidersResponseBody } from "dokploy-sdk/models/operations";
 
 let value: GithubGithubProvidersResponseBody = {
-  githubId: "<id>",
   gitProvider: {
+    createdAt: "1715267301320",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "gitlab",
-    createdAt: "1728545338786",
     organizationId: "<id>",
+    providerType: "gitea",
     userId: "<id>",
   },
+  githubId: "<id>",
 };
 ```
 
@@ -22,5 +22,5 @@ let value: GithubGithubProvidersResponseBody = {
 
 | Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `githubId`                                                                                                 | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
 | `gitProvider`                                                                                              | [operations.GithubGithubProvidersGitProvider](../../models/operations/githubgithubprovidersgitprovider.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `githubId`                                                                                                 | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

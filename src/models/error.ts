@@ -15,9 +15,9 @@ export type Issue = {
  * Error response
  */
 export type ErrorT = {
-  message: string;
   code: string;
   issues?: Array<Issue> | undefined;
+  message: string;
 };
 
 /** @internal */
@@ -70,16 +70,16 @@ export function issueFromJSON(
 /** @internal */
 export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
   .object({
-    message: z.string(),
     code: z.string(),
     issues: z.array(z.lazy(() => Issue$inboundSchema)).optional(),
+    message: z.string(),
   });
 
 /** @internal */
 export type ErrorT$Outbound = {
-  message: string;
   code: string;
   issues?: Array<Issue$Outbound> | undefined;
+  message: string;
 };
 
 /** @internal */
@@ -88,9 +88,9 @@ export const ErrorT$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ErrorT
 > = z.object({
-  message: z.string(),
   code: z.string(),
   issues: z.array(z.lazy(() => Issue$outboundSchema)).optional(),
+  message: z.string(),
 });
 
 /**

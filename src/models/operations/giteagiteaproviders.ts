@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GiteaGiteaProvidersSecurity = {
-  authorization: string;
-};
 
 export const GiteaGiteaProvidersProviderType = {
   Github: "github",
@@ -25,86 +20,22 @@ export type GiteaGiteaProvidersProviderType = ClosedEnum<
 >;
 
 export type GiteaGiteaProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GiteaGiteaProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GiteaGiteaProvidersProviderType;
   userId: string;
 };
 
 export type GiteaGiteaProvidersResponseBody = {
-  giteaId: string;
   gitProvider: GiteaGiteaProvidersGitProvider;
+  giteaId: string;
 };
 
 export type GiteaGiteaProvidersResponse =
   | models.ErrorT
   | Array<GiteaGiteaProvidersResponseBody>;
-
-/** @internal */
-export const GiteaGiteaProvidersSecurity$inboundSchema: z.ZodType<
-  GiteaGiteaProvidersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GiteaGiteaProvidersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GiteaGiteaProvidersSecurity$outboundSchema: z.ZodType<
-  GiteaGiteaProvidersSecurity$Outbound,
-  z.ZodTypeDef,
-  GiteaGiteaProvidersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GiteaGiteaProvidersSecurity$ {
-  /** @deprecated use `GiteaGiteaProvidersSecurity$inboundSchema` instead. */
-  export const inboundSchema = GiteaGiteaProvidersSecurity$inboundSchema;
-  /** @deprecated use `GiteaGiteaProvidersSecurity$outboundSchema` instead. */
-  export const outboundSchema = GiteaGiteaProvidersSecurity$outboundSchema;
-  /** @deprecated use `GiteaGiteaProvidersSecurity$Outbound` instead. */
-  export type Outbound = GiteaGiteaProvidersSecurity$Outbound;
-}
-
-export function giteaGiteaProvidersSecurityToJSON(
-  giteaGiteaProvidersSecurity: GiteaGiteaProvidersSecurity,
-): string {
-  return JSON.stringify(
-    GiteaGiteaProvidersSecurity$outboundSchema.parse(
-      giteaGiteaProvidersSecurity,
-    ),
-  );
-}
-
-export function giteaGiteaProvidersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GiteaGiteaProvidersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GiteaGiteaProvidersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GiteaGiteaProvidersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GiteaGiteaProvidersProviderType$inboundSchema: z.ZodNativeEnum<
@@ -133,21 +64,21 @@ export const GiteaGiteaProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaGiteaProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaGiteaProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GiteaGiteaProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -157,11 +88,11 @@ export const GiteaGiteaProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaGiteaProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaGiteaProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaGiteaProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -204,14 +135,14 @@ export const GiteaGiteaProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  giteaId: z.string(),
   gitProvider: z.lazy(() => GiteaGiteaProvidersGitProvider$inboundSchema),
+  giteaId: z.string(),
 });
 
 /** @internal */
 export type GiteaGiteaProvidersResponseBody$Outbound = {
-  giteaId: string;
   gitProvider: GiteaGiteaProvidersGitProvider$Outbound;
+  giteaId: string;
 };
 
 /** @internal */
@@ -220,8 +151,8 @@ export const GiteaGiteaProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaGiteaProvidersResponseBody
 > = z.object({
-  giteaId: z.string(),
   gitProvider: z.lazy(() => GiteaGiteaProvidersGitProvider$outboundSchema),
+  giteaId: z.string(),
 });
 
 /**

@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SshKeyGenerateSecurity = {
-  authorization: string;
-};
 
 export const SshKeyGenerateType = {
   Rsa: "rsa",
@@ -22,68 +17,6 @@ export type SshKeyGenerateType = ClosedEnum<typeof SshKeyGenerateType>;
 export type SshKeyGenerateRequest = {
   type?: SshKeyGenerateType | undefined;
 };
-
-/** @internal */
-export const SshKeyGenerateSecurity$inboundSchema: z.ZodType<
-  SshKeyGenerateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SshKeyGenerateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SshKeyGenerateSecurity$outboundSchema: z.ZodType<
-  SshKeyGenerateSecurity$Outbound,
-  z.ZodTypeDef,
-  SshKeyGenerateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SshKeyGenerateSecurity$ {
-  /** @deprecated use `SshKeyGenerateSecurity$inboundSchema` instead. */
-  export const inboundSchema = SshKeyGenerateSecurity$inboundSchema;
-  /** @deprecated use `SshKeyGenerateSecurity$outboundSchema` instead. */
-  export const outboundSchema = SshKeyGenerateSecurity$outboundSchema;
-  /** @deprecated use `SshKeyGenerateSecurity$Outbound` instead. */
-  export type Outbound = SshKeyGenerateSecurity$Outbound;
-}
-
-export function sshKeyGenerateSecurityToJSON(
-  sshKeyGenerateSecurity: SshKeyGenerateSecurity,
-): string {
-  return JSON.stringify(
-    SshKeyGenerateSecurity$outboundSchema.parse(sshKeyGenerateSecurity),
-  );
-}
-
-export function sshKeyGenerateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SshKeyGenerateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SshKeyGenerateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SshKeyGenerateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SshKeyGenerateType$inboundSchema: z.ZodNativeEnum<

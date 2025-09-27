@@ -10,123 +10,8 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationDeleteSecurity = {
-  authorization: string;
-};
-
 export type ApplicationDeleteRequest = {
   applicationId: string;
-};
-
-export const ApplicationDeletePreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationDeletePreviewCertificateType = ClosedEnum<
-  typeof ApplicationDeletePreviewCertificateType
->;
-
-export const ApplicationDeleteSourceType = {
-  Github: "github",
-  Docker: "docker",
-  Git: "git",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
-} as const;
-export type ApplicationDeleteSourceType = ClosedEnum<
-  typeof ApplicationDeleteSourceType
->;
-
-export const ApplicationDeleteTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type ApplicationDeleteTriggerType = ClosedEnum<
-  typeof ApplicationDeleteTriggerType
->;
-
-export type ApplicationDeleteHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type ApplicationDeleteRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type ApplicationDeleteSpread = {
-  spreadDescriptor: string;
-};
-
-export type ApplicationDeletePreference = {
-  spread: ApplicationDeleteSpread;
-};
-
-export type ApplicationDeletePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type ApplicationDeletePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<ApplicationDeletePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<ApplicationDeletePlatform> | undefined;
-};
-
-export type ApplicationDeleteUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationDeleteRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationDeleteReplicated = {
-  replicas?: number | undefined;
-};
-
-export type ApplicationDeleteGlobal = {};
-
-export type ApplicationDeleteReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type ApplicationDeleteGlobalJob = {};
-
-export type ApplicationDeleteModeSwarm = {
-  replicated?: ApplicationDeleteReplicated | undefined;
-  global?: ApplicationDeleteGlobal | undefined;
-  replicatedJob?: ApplicationDeleteReplicatedJob | undefined;
-  globalJob?: ApplicationDeleteGlobalJob | undefined;
-};
-
-export type ApplicationDeleteDriverOpts = {};
-
-export type ApplicationDeleteNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: ApplicationDeleteDriverOpts | undefined;
 };
 
 export const ApplicationDeleteApplicationStatus = {
@@ -138,6 +23,14 @@ export const ApplicationDeleteApplicationStatus = {
 export type ApplicationDeleteApplicationStatus = ClosedEnum<
   typeof ApplicationDeleteApplicationStatus
 >;
+
+export type ApplicationDeleteBitbucket = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
 
 export const ApplicationDeleteBuildType = {
   Dockerfile: "dockerfile",
@@ -151,62 +44,6 @@ export type ApplicationDeleteBuildType = ClosedEnum<
   typeof ApplicationDeleteBuildType
 >;
 
-export type ApplicationDeleteProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type ApplicationDeleteEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationDeleteProject;
-};
-
-export const ApplicationDeleteDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
-} as const;
-export type ApplicationDeleteDomainType = ClosedEnum<
-  typeof ApplicationDeleteDomainType
->;
-
-export const ApplicationDeleteCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationDeleteCertificateType = ClosedEnum<
-  typeof ApplicationDeleteCertificateType
->;
-
-export type ApplicationDeleteDomain = {
-  domainId: string;
-  host: string;
-  https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: ApplicationDeleteDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: ApplicationDeleteCertificateType;
-  internalPath: string | null;
-  stripPath: boolean;
-};
-
 export const ApplicationDeleteStatus = {
   Running: "running",
   Done: "done",
@@ -217,33 +54,149 @@ export type ApplicationDeleteStatus = ClosedEnum<
 >;
 
 export type ApplicationDeleteDeployment = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
   deploymentId: string;
-  title: string;
   description: string | null;
-  status: ApplicationDeleteStatus | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
   logPath: string;
   pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
   previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
   rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: ApplicationDeleteStatus | null;
+  title: string;
   volumeBackupId: string | null;
 };
 
-export const ApplicationDeleteType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
+export const ApplicationDeleteCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
 } as const;
-export type ApplicationDeleteType = ClosedEnum<typeof ApplicationDeleteType>;
+export type ApplicationDeleteCertificateType = ClosedEnum<
+  typeof ApplicationDeleteCertificateType
+>;
+
+export const ApplicationDeleteDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type ApplicationDeleteDomainType = ClosedEnum<
+  typeof ApplicationDeleteDomainType
+>;
+
+export type ApplicationDeleteDomain = {
+  applicationId: string | null;
+  certificateType: ApplicationDeleteCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
+  domainId: string;
+  domainType: ApplicationDeleteDomainType | null;
+  host: string;
+  https: boolean;
+  internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
+};
+
+export type ApplicationDeleteProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type ApplicationDeleteEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationDeleteProject;
+  projectId: string;
+};
+
+export type ApplicationDeleteGitea = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+export type ApplicationDeleteGithub = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+export type ApplicationDeleteGitlab = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+export type ApplicationDeleteHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type ApplicationDeleteGlobal = {};
+
+export type ApplicationDeleteGlobalJob = {};
+
+export type ApplicationDeleteReplicated = {
+  replicas?: number | undefined;
+};
+
+export type ApplicationDeleteReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type ApplicationDeleteModeSwarm = {
+  global?: ApplicationDeleteGlobal | undefined;
+  globalJob?: ApplicationDeleteGlobalJob | undefined;
+  replicated?: ApplicationDeleteReplicated | undefined;
+  replicatedJob?: ApplicationDeleteReplicatedJob | undefined;
+};
 
 export const ApplicationDeleteServiceType = {
   Application: "application",
@@ -258,49 +211,58 @@ export type ApplicationDeleteServiceType = ClosedEnum<
   typeof ApplicationDeleteServiceType
 >;
 
+export const ApplicationDeleteType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type ApplicationDeleteType = ClosedEnum<typeof ApplicationDeleteType>;
+
 export type ApplicationDeleteMount = {
-  mountId: string;
-  type: ApplicationDeleteType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: ApplicationDeleteServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: ApplicationDeleteServiceType;
+  type: ApplicationDeleteType;
+  volumeName: string | null;
 };
 
-export type ApplicationDeleteRedirect = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationDeleteDriverOpts = {};
+
+export type ApplicationDeleteNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: ApplicationDeleteDriverOpts | undefined;
+  target?: string | undefined;
 };
 
-export type ApplicationDeleteSecurityResponse = {
-  securityId: string;
-  username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationDeletePlatform = {
+  architecture: string;
+  os: string;
 };
 
-export const ApplicationDeletePublishMode = {
-  Ingress: "ingress",
-  Host: "host",
-} as const;
-export type ApplicationDeletePublishMode = ClosedEnum<
-  typeof ApplicationDeletePublishMode
->;
+export type ApplicationDeleteSpread = {
+  spreadDescriptor: string;
+};
+
+export type ApplicationDeletePreference = {
+  spread: ApplicationDeleteSpread;
+};
+
+export type ApplicationDeletePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<ApplicationDeletePlatform> | undefined;
+  preferences?: Array<ApplicationDeletePreference> | undefined;
+};
 
 export const ApplicationDeleteProtocol = {
   Tcp: "tcp",
@@ -310,13 +272,66 @@ export type ApplicationDeleteProtocol = ClosedEnum<
   typeof ApplicationDeleteProtocol
 >;
 
+export const ApplicationDeletePublishMode = {
+  Ingress: "ingress",
+  Host: "host",
+} as const;
+export type ApplicationDeletePublishMode = ClosedEnum<
+  typeof ApplicationDeletePublishMode
+>;
+
 export type ApplicationDeletePort = {
-  portId: string;
-  publishedPort: number;
-  publishMode: ApplicationDeletePublishMode;
-  targetPort: number;
-  protocol: ApplicationDeleteProtocol;
   applicationId: string;
+  portId: string;
+  protocol: ApplicationDeleteProtocol;
+  publishMode: ApplicationDeletePublishMode;
+  publishedPort: number;
+  targetPort: number;
+};
+
+export const ApplicationDeletePreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
+} as const;
+export type ApplicationDeletePreviewCertificateType = ClosedEnum<
+  typeof ApplicationDeletePreviewCertificateType
+>;
+
+export const ApplicationDeletePreviewStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
+} as const;
+export type ApplicationDeletePreviewStatus = ClosedEnum<
+  typeof ApplicationDeletePreviewStatus
+>;
+
+export type ApplicationDeletePreviewDeployment = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: ApplicationDeletePreviewStatus;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+export type ApplicationDeleteRedirect = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
 };
 
 export const ApplicationDeleteRegistryType = {
@@ -328,71 +343,40 @@ export type ApplicationDeleteRegistryType = ClosedEnum<
 >;
 
 export type ApplicationDeleteRegistry = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
   registryId: string;
   registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
   registryType: ApplicationDeleteRegistryType;
-  organizationId: string;
+  registryUrl: string;
+  username: string;
 };
 
-export type ApplicationDeleteGithub = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
+export type ApplicationDeleteRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
-export type ApplicationDeleteGitlab = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
+export type ApplicationDeleteRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
-export type ApplicationDeleteBitbucket = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
+export type ApplicationDeleteSecurity = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
+  securityId: string;
+  username: string;
 };
-
-export type ApplicationDeleteGitea = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-export const ApplicationDeleteServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type ApplicationDeleteServerStatus = ClosedEnum<
-  typeof ApplicationDeleteServerStatus
->;
 
 export const ApplicationDeleteMetricsConfigEnum = {
   Null: "null",
@@ -415,20 +399,21 @@ export type ApplicationDeleteMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const ApplicationDeleteServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type ApplicationDeleteServerStatus = ClosedEnum<
+  typeof ApplicationDeleteServerStatus
+>;
+
 export type ApplicationDeleteServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: ApplicationDeleteServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -436,206 +421,155 @@ export type ApplicationDeleteServer = {
     | ApplicationDeleteMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: ApplicationDeleteServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const ApplicationDeletePreviewStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
+export const ApplicationDeleteSourceType = {
+  Github: "github",
+  Docker: "docker",
+  Git: "git",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
 } as const;
-export type ApplicationDeletePreviewStatus = ClosedEnum<
-  typeof ApplicationDeletePreviewStatus
+export type ApplicationDeleteSourceType = ClosedEnum<
+  typeof ApplicationDeleteSourceType
 >;
 
-export type ApplicationDeletePreviewDeployment = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: ApplicationDeletePreviewStatus;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
+export const ApplicationDeleteTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type ApplicationDeleteTriggerType = ClosedEnum<
+  typeof ApplicationDeleteTriggerType
+>;
+
+export type ApplicationDeleteUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type ApplicationDeleteResponseBody = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: ApplicationDeletePreviewCertificateType | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ApplicationDeleteSourceType | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: ApplicationDeleteTriggerType | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: ApplicationDeleteApplicationStatus | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationDeleteBitbucket | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: ApplicationDeleteBuildType | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
-  dockerBuildStage?: string | null | undefined;
-  dropBuildPath?: string | null | undefined;
-  healthCheckSwarm?: ApplicationDeleteHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: ApplicationDeleteRestartPolicySwarm | null | undefined;
-  placementSwarm?: ApplicationDeletePlacementSwarm | null | undefined;
-  updateConfigSwarm?: ApplicationDeleteUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: ApplicationDeleteRollbackConfigSwarm | null | undefined;
-  modeSwarm?: ApplicationDeleteModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationDeleteNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: ApplicationDeleteApplicationStatus | undefined;
-  buildType?: ApplicationDeleteBuildType | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationDeleteEnvironment;
-  domains: Array<ApplicationDeleteDomain>;
+  customGitUrl?: string | null | undefined;
   deployments: Array<ApplicationDeleteDeployment>;
-  mounts: Array<ApplicationDeleteMount>;
-  redirects: Array<ApplicationDeleteRedirect>;
-  security: Array<ApplicationDeleteSecurityResponse>;
-  ports: Array<ApplicationDeletePort>;
-  registry: ApplicationDeleteRegistry | null;
-  github: ApplicationDeleteGithub | null;
-  gitlab: ApplicationDeleteGitlab | null;
-  bitbucket: ApplicationDeleteBitbucket | null;
+  description?: string | null | undefined;
+  dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationDeleteDomain>;
+  dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationDeleteEnvironment;
+  environmentId: string;
   gitea: ApplicationDeleteGitea | null;
-  server: ApplicationDeleteServer | null;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationDeleteGithub | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationDeleteGitlab | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
+  healthCheckSwarm?: ApplicationDeleteHealthCheckSwarm | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationDeleteModeSwarm | null | undefined;
+  mounts: Array<ApplicationDeleteMount>;
+  name: string;
+  networkSwarm?: Array<ApplicationDeleteNetworkSwarm> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationDeletePlacementSwarm | null | undefined;
+  ports: Array<ApplicationDeletePort>;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: ApplicationDeletePreviewCertificateType | undefined;
+  previewCustomCertResolver?: string | null | undefined;
   previewDeployments: Array<ApplicationDeletePreviewDeployment>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationDeleteRedirect>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationDeleteRegistry | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?: ApplicationDeleteRestartPolicySwarm | null | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?: ApplicationDeleteRollbackConfigSwarm | null | undefined;
+  security: Array<ApplicationDeleteSecurity>;
+  server: ApplicationDeleteServer | null;
+  serverId?: string | null | undefined;
+  sourceType?: ApplicationDeleteSourceType | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: ApplicationDeleteTriggerType | null | undefined;
+  updateConfigSwarm?: ApplicationDeleteUpdateConfigSwarm | null | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationDeleteResponse =
   | ApplicationDeleteResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const ApplicationDeleteSecurity$inboundSchema: z.ZodType<
-  ApplicationDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationDeleteSecurity$outboundSchema: z.ZodType<
-  ApplicationDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteSecurity$ {
-  /** @deprecated use `ApplicationDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteSecurity$inboundSchema;
-  /** @deprecated use `ApplicationDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteSecurity$outboundSchema;
-  /** @deprecated use `ApplicationDeleteSecurity$Outbound` instead. */
-  export type Outbound = ApplicationDeleteSecurity$Outbound;
-}
-
-export function applicationDeleteSecurityToJSON(
-  applicationDeleteSecurity: ApplicationDeleteSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteSecurity$outboundSchema.parse(applicationDeleteSecurity),
-  );
-}
-
-export function applicationDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationDeleteRequest$inboundSchema: z.ZodType<
@@ -692,68 +626,770 @@ export function applicationDeleteRequestFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeletePreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof ApplicationDeletePreviewCertificateType> = z
-    .nativeEnum(ApplicationDeletePreviewCertificateType);
+export const ApplicationDeleteApplicationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteApplicationStatus
+> = z.nativeEnum(ApplicationDeleteApplicationStatus);
 
 /** @internal */
-export const ApplicationDeletePreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof ApplicationDeletePreviewCertificateType> =
-    ApplicationDeletePreviewCertificateType$inboundSchema;
+export const ApplicationDeleteApplicationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteApplicationStatus
+> = ApplicationDeleteApplicationStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeletePreviewCertificateType$ {
-  /** @deprecated use `ApplicationDeletePreviewCertificateType$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationDeletePreviewCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationDeletePreviewCertificateType$outboundSchema` instead. */
+export namespace ApplicationDeleteApplicationStatus$ {
+  /** @deprecated use `ApplicationDeleteApplicationStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteApplicationStatus$inboundSchema;
+  /** @deprecated use `ApplicationDeleteApplicationStatus$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationDeletePreviewCertificateType$outboundSchema;
+    ApplicationDeleteApplicationStatus$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationDeleteSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteSourceType
-> = z.nativeEnum(ApplicationDeleteSourceType);
+export const ApplicationDeleteBitbucket$inboundSchema: z.ZodType<
+  ApplicationDeleteBitbucket,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
 
 /** @internal */
-export const ApplicationDeleteSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteSourceType
-> = ApplicationDeleteSourceType$inboundSchema;
+export type ApplicationDeleteBitbucket$Outbound = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
+
+/** @internal */
+export const ApplicationDeleteBitbucket$outboundSchema: z.ZodType<
+  ApplicationDeleteBitbucket$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteBitbucket
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeleteSourceType$ {
-  /** @deprecated use `ApplicationDeleteSourceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteSourceType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteSourceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteSourceType$outboundSchema;
+export namespace ApplicationDeleteBitbucket$ {
+  /** @deprecated use `ApplicationDeleteBitbucket$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteBitbucket$inboundSchema;
+  /** @deprecated use `ApplicationDeleteBitbucket$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteBitbucket$outboundSchema;
+  /** @deprecated use `ApplicationDeleteBitbucket$Outbound` instead. */
+  export type Outbound = ApplicationDeleteBitbucket$Outbound;
+}
+
+export function applicationDeleteBitbucketToJSON(
+  applicationDeleteBitbucket: ApplicationDeleteBitbucket,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteBitbucket$outboundSchema.parse(applicationDeleteBitbucket),
+  );
+}
+
+export function applicationDeleteBitbucketFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteBitbucket, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteBitbucket$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteBitbucket' from JSON`,
+  );
 }
 
 /** @internal */
-export const ApplicationDeleteTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteTriggerType
-> = z.nativeEnum(ApplicationDeleteTriggerType);
+export const ApplicationDeleteBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteBuildType
+> = z.nativeEnum(ApplicationDeleteBuildType);
 
 /** @internal */
-export const ApplicationDeleteTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteTriggerType
-> = ApplicationDeleteTriggerType$inboundSchema;
+export const ApplicationDeleteBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteBuildType
+> = ApplicationDeleteBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeleteTriggerType$ {
-  /** @deprecated use `ApplicationDeleteTriggerType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteTriggerType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteTriggerType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteTriggerType$outboundSchema;
+export namespace ApplicationDeleteBuildType$ {
+  /** @deprecated use `ApplicationDeleteBuildType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteBuildType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteBuildType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteBuildType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteStatus
+> = z.nativeEnum(ApplicationDeleteStatus);
+
+/** @internal */
+export const ApplicationDeleteStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteStatus
+> = ApplicationDeleteStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteStatus$ {
+  /** @deprecated use `ApplicationDeleteStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteStatus$inboundSchema;
+  /** @deprecated use `ApplicationDeleteStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteDeployment$inboundSchema: z.ZodType<
+  ApplicationDeleteDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationDeleteStatus$inboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationDeleteDeployment$Outbound = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
+  deploymentId: string;
+  description: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
+  logPath: string;
+  pid: string | null;
+  previewDeploymentId: string | null;
+  rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: string | null;
+  title: string;
+  volumeBackupId: string | null;
+};
+
+/** @internal */
+export const ApplicationDeleteDeployment$outboundSchema: z.ZodType<
+  ApplicationDeleteDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteDeployment
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationDeleteStatus$outboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteDeployment$ {
+  /** @deprecated use `ApplicationDeleteDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteDeployment$inboundSchema;
+  /** @deprecated use `ApplicationDeleteDeployment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteDeployment$outboundSchema;
+  /** @deprecated use `ApplicationDeleteDeployment$Outbound` instead. */
+  export type Outbound = ApplicationDeleteDeployment$Outbound;
+}
+
+export function applicationDeleteDeploymentToJSON(
+  applicationDeleteDeployment: ApplicationDeleteDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteDeployment$outboundSchema.parse(
+      applicationDeleteDeployment,
+    ),
+  );
+}
+
+export function applicationDeleteDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteCertificateType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteCertificateType
+> = z.nativeEnum(ApplicationDeleteCertificateType);
+
+/** @internal */
+export const ApplicationDeleteCertificateType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteCertificateType
+> = ApplicationDeleteCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteCertificateType$ {
+  /** @deprecated use `ApplicationDeleteCertificateType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteCertificateType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteDomainType
+> = z.nativeEnum(ApplicationDeleteDomainType);
+
+/** @internal */
+export const ApplicationDeleteDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteDomainType
+> = ApplicationDeleteDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteDomainType$ {
+  /** @deprecated use `ApplicationDeleteDomainType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteDomainType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteDomainType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteDomainType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteDomain$inboundSchema: z.ZodType<
+  ApplicationDeleteDomain,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationDeleteCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationDeleteDomainType$inboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationDeleteDomain$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
+  domainId: string;
+  domainType: string | null;
+  host: string;
+  https: boolean;
+  internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationDeleteDomain$outboundSchema: z.ZodType<
+  ApplicationDeleteDomain$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteDomain
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationDeleteCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationDeleteDomainType$outboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteDomain$ {
+  /** @deprecated use `ApplicationDeleteDomain$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteDomain$inboundSchema;
+  /** @deprecated use `ApplicationDeleteDomain$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteDomain$outboundSchema;
+  /** @deprecated use `ApplicationDeleteDomain$Outbound` instead. */
+  export type Outbound = ApplicationDeleteDomain$Outbound;
+}
+
+export function applicationDeleteDomainToJSON(
+  applicationDeleteDomain: ApplicationDeleteDomain,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteDomain$outboundSchema.parse(applicationDeleteDomain),
+  );
+}
+
+export function applicationDeleteDomainFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteDomain, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteDomain$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteDomain' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteProject$inboundSchema: z.ZodType<
+  ApplicationDeleteProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationDeleteProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationDeleteProject$outboundSchema: z.ZodType<
+  ApplicationDeleteProject$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteProject$ {
+  /** @deprecated use `ApplicationDeleteProject$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteProject$inboundSchema;
+  /** @deprecated use `ApplicationDeleteProject$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteProject$outboundSchema;
+  /** @deprecated use `ApplicationDeleteProject$Outbound` instead. */
+  export type Outbound = ApplicationDeleteProject$Outbound;
+}
+
+export function applicationDeleteProjectToJSON(
+  applicationDeleteProject: ApplicationDeleteProject,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteProject$outboundSchema.parse(applicationDeleteProject),
+  );
+}
+
+export function applicationDeleteProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteEnvironment$inboundSchema: z.ZodType<
+  ApplicationDeleteEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationDeleteProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationDeleteEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationDeleteProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationDeleteEnvironment$outboundSchema: z.ZodType<
+  ApplicationDeleteEnvironment$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationDeleteProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteEnvironment$ {
+  /** @deprecated use `ApplicationDeleteEnvironment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteEnvironment$inboundSchema;
+  /** @deprecated use `ApplicationDeleteEnvironment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteEnvironment$outboundSchema;
+  /** @deprecated use `ApplicationDeleteEnvironment$Outbound` instead. */
+  export type Outbound = ApplicationDeleteEnvironment$Outbound;
+}
+
+export function applicationDeleteEnvironmentToJSON(
+  applicationDeleteEnvironment: ApplicationDeleteEnvironment,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteEnvironment$outboundSchema.parse(
+      applicationDeleteEnvironment,
+    ),
+  );
+}
+
+export function applicationDeleteEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteGitea$inboundSchema: z.ZodType<
+  ApplicationDeleteGitea,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationDeleteGitea$Outbound = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+/** @internal */
+export const ApplicationDeleteGitea$outboundSchema: z.ZodType<
+  ApplicationDeleteGitea$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteGitea
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteGitea$ {
+  /** @deprecated use `ApplicationDeleteGitea$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteGitea$inboundSchema;
+  /** @deprecated use `ApplicationDeleteGitea$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteGitea$outboundSchema;
+  /** @deprecated use `ApplicationDeleteGitea$Outbound` instead. */
+  export type Outbound = ApplicationDeleteGitea$Outbound;
+}
+
+export function applicationDeleteGiteaToJSON(
+  applicationDeleteGitea: ApplicationDeleteGitea,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteGitea$outboundSchema.parse(applicationDeleteGitea),
+  );
+}
+
+export function applicationDeleteGiteaFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteGitea, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteGitea$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteGitea' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteGithub$inboundSchema: z.ZodType<
+  ApplicationDeleteGithub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationDeleteGithub$Outbound = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+/** @internal */
+export const ApplicationDeleteGithub$outboundSchema: z.ZodType<
+  ApplicationDeleteGithub$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteGithub
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteGithub$ {
+  /** @deprecated use `ApplicationDeleteGithub$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteGithub$inboundSchema;
+  /** @deprecated use `ApplicationDeleteGithub$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteGithub$outboundSchema;
+  /** @deprecated use `ApplicationDeleteGithub$Outbound` instead. */
+  export type Outbound = ApplicationDeleteGithub$Outbound;
+}
+
+export function applicationDeleteGithubToJSON(
+  applicationDeleteGithub: ApplicationDeleteGithub,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteGithub$outboundSchema.parse(applicationDeleteGithub),
+  );
+}
+
+export function applicationDeleteGithubFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteGithub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteGithub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteGithub' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteGitlab$inboundSchema: z.ZodType<
+  ApplicationDeleteGitlab,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationDeleteGitlab$Outbound = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+/** @internal */
+export const ApplicationDeleteGitlab$outboundSchema: z.ZodType<
+  ApplicationDeleteGitlab$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteGitlab
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteGitlab$ {
+  /** @deprecated use `ApplicationDeleteGitlab$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteGitlab$inboundSchema;
+  /** @deprecated use `ApplicationDeleteGitlab$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteGitlab$outboundSchema;
+  /** @deprecated use `ApplicationDeleteGitlab$Outbound` instead. */
+  export type Outbound = ApplicationDeleteGitlab$Outbound;
+}
+
+export function applicationDeleteGitlabToJSON(
+  applicationDeleteGitlab: ApplicationDeleteGitlab,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteGitlab$outboundSchema.parse(applicationDeleteGitlab),
+  );
+}
+
+export function applicationDeleteGitlabFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteGitlab, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteGitlab$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteGitlab' from JSON`,
+  );
 }
 
 /** @internal */
@@ -762,28 +1398,28 @@ export const ApplicationDeleteHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type ApplicationDeleteHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -792,18 +1428,18 @@ export const ApplicationDeleteHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationDeleteHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -842,48 +1478,129 @@ export function applicationDeleteHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeleteRestartPolicySwarm$inboundSchema: z.ZodType<
-  ApplicationDeleteRestartPolicySwarm,
+export const ApplicationDeleteGlobal$inboundSchema: z.ZodType<
+  ApplicationDeleteGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationDeleteGlobal$Outbound = {};
+
+/** @internal */
+export const ApplicationDeleteGlobal$outboundSchema: z.ZodType<
+  ApplicationDeleteGlobal$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteGlobal$ {
+  /** @deprecated use `ApplicationDeleteGlobal$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteGlobal$inboundSchema;
+  /** @deprecated use `ApplicationDeleteGlobal$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteGlobal$outboundSchema;
+  /** @deprecated use `ApplicationDeleteGlobal$Outbound` instead. */
+  export type Outbound = ApplicationDeleteGlobal$Outbound;
+}
+
+export function applicationDeleteGlobalToJSON(
+  applicationDeleteGlobal: ApplicationDeleteGlobal,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteGlobal$outboundSchema.parse(applicationDeleteGlobal),
+  );
+}
+
+export function applicationDeleteGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteGlobalJob$inboundSchema: z.ZodType<
+  ApplicationDeleteGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationDeleteGlobalJob$Outbound = {};
+
+/** @internal */
+export const ApplicationDeleteGlobalJob$outboundSchema: z.ZodType<
+  ApplicationDeleteGlobalJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteGlobalJob$ {
+  /** @deprecated use `ApplicationDeleteGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteGlobalJob$inboundSchema;
+  /** @deprecated use `ApplicationDeleteGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteGlobalJob$outboundSchema;
+  /** @deprecated use `ApplicationDeleteGlobalJob$Outbound` instead. */
+  export type Outbound = ApplicationDeleteGlobalJob$Outbound;
+}
+
+export function applicationDeleteGlobalJobToJSON(
+  applicationDeleteGlobalJob: ApplicationDeleteGlobalJob,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteGlobalJob$outboundSchema.parse(applicationDeleteGlobalJob),
+  );
+}
+
+export function applicationDeleteGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteReplicated$inboundSchema: z.ZodType<
+  ApplicationDeleteReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type ApplicationDeleteRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type ApplicationDeleteReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationDeleteRestartPolicySwarm$outboundSchema: z.ZodType<
-  ApplicationDeleteRestartPolicySwarm$Outbound,
+export const ApplicationDeleteReplicated$outboundSchema: z.ZodType<
+  ApplicationDeleteReplicated$Outbound,
   z.ZodTypeDef,
-  ApplicationDeleteRestartPolicySwarm
+  ApplicationDeleteReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -891,35 +1608,513 @@ export const ApplicationDeleteRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeleteRestartPolicySwarm$ {
-  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationDeleteRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationDeleteRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = ApplicationDeleteRestartPolicySwarm$Outbound;
+export namespace ApplicationDeleteReplicated$ {
+  /** @deprecated use `ApplicationDeleteReplicated$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteReplicated$inboundSchema;
+  /** @deprecated use `ApplicationDeleteReplicated$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteReplicated$outboundSchema;
+  /** @deprecated use `ApplicationDeleteReplicated$Outbound` instead. */
+  export type Outbound = ApplicationDeleteReplicated$Outbound;
 }
 
-export function applicationDeleteRestartPolicySwarmToJSON(
-  applicationDeleteRestartPolicySwarm: ApplicationDeleteRestartPolicySwarm,
+export function applicationDeleteReplicatedToJSON(
+  applicationDeleteReplicated: ApplicationDeleteReplicated,
 ): string {
   return JSON.stringify(
-    ApplicationDeleteRestartPolicySwarm$outboundSchema.parse(
-      applicationDeleteRestartPolicySwarm,
+    ApplicationDeleteReplicated$outboundSchema.parse(
+      applicationDeleteReplicated,
     ),
   );
 }
 
-export function applicationDeleteRestartPolicySwarmFromJSON(
+export function applicationDeleteReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationDeleteRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<ApplicationDeleteReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      ApplicationDeleteRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteRestartPolicySwarm' from JSON`,
+    (x) => ApplicationDeleteReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteReplicatedJob$inboundSchema: z.ZodType<
+  ApplicationDeleteReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type ApplicationDeleteReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const ApplicationDeleteReplicatedJob$outboundSchema: z.ZodType<
+  ApplicationDeleteReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteReplicatedJob$ {
+  /** @deprecated use `ApplicationDeleteReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteReplicatedJob$inboundSchema;
+  /** @deprecated use `ApplicationDeleteReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteReplicatedJob$outboundSchema;
+  /** @deprecated use `ApplicationDeleteReplicatedJob$Outbound` instead. */
+  export type Outbound = ApplicationDeleteReplicatedJob$Outbound;
+}
+
+export function applicationDeleteReplicatedJobToJSON(
+  applicationDeleteReplicatedJob: ApplicationDeleteReplicatedJob,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteReplicatedJob$outboundSchema.parse(
+      applicationDeleteReplicatedJob,
+    ),
+  );
+}
+
+export function applicationDeleteReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteModeSwarm$inboundSchema: z.ZodType<
+  ApplicationDeleteModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => ApplicationDeleteGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => ApplicationDeleteGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => ApplicationDeleteReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => ApplicationDeleteReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type ApplicationDeleteModeSwarm$Outbound = {
+  Global?: ApplicationDeleteGlobal$Outbound | undefined;
+  GlobalJob?: ApplicationDeleteGlobalJob$Outbound | undefined;
+  Replicated?: ApplicationDeleteReplicated$Outbound | undefined;
+  ReplicatedJob?: ApplicationDeleteReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const ApplicationDeleteModeSwarm$outboundSchema: z.ZodType<
+  ApplicationDeleteModeSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteModeSwarm
+> = z.object({
+  global: z.lazy(() => ApplicationDeleteGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => ApplicationDeleteGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => ApplicationDeleteReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => ApplicationDeleteReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteModeSwarm$ {
+  /** @deprecated use `ApplicationDeleteModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteModeSwarm$inboundSchema;
+  /** @deprecated use `ApplicationDeleteModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteModeSwarm$outboundSchema;
+  /** @deprecated use `ApplicationDeleteModeSwarm$Outbound` instead. */
+  export type Outbound = ApplicationDeleteModeSwarm$Outbound;
+}
+
+export function applicationDeleteModeSwarmToJSON(
+  applicationDeleteModeSwarm: ApplicationDeleteModeSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteModeSwarm$outboundSchema.parse(applicationDeleteModeSwarm),
+  );
+}
+
+export function applicationDeleteModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteServiceType
+> = z.nativeEnum(ApplicationDeleteServiceType);
+
+/** @internal */
+export const ApplicationDeleteServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteServiceType
+> = ApplicationDeleteServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteServiceType$ {
+  /** @deprecated use `ApplicationDeleteServiceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteServiceType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteServiceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteServiceType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteType
+> = z.nativeEnum(ApplicationDeleteType);
+
+/** @internal */
+export const ApplicationDeleteType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteType
+> = ApplicationDeleteType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteType$ {
+  /** @deprecated use `ApplicationDeleteType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteMount$inboundSchema: z.ZodType<
+  ApplicationDeleteMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationDeleteServiceType$inboundSchema,
+  type: ApplicationDeleteType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationDeleteMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const ApplicationDeleteMount$outboundSchema: z.ZodType<
+  ApplicationDeleteMount$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationDeleteServiceType$outboundSchema,
+  type: ApplicationDeleteType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteMount$ {
+  /** @deprecated use `ApplicationDeleteMount$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteMount$inboundSchema;
+  /** @deprecated use `ApplicationDeleteMount$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteMount$outboundSchema;
+  /** @deprecated use `ApplicationDeleteMount$Outbound` instead. */
+  export type Outbound = ApplicationDeleteMount$Outbound;
+}
+
+export function applicationDeleteMountToJSON(
+  applicationDeleteMount: ApplicationDeleteMount,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteMount$outboundSchema.parse(applicationDeleteMount),
+  );
+}
+
+export function applicationDeleteMountFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteDriverOpts$inboundSchema: z.ZodType<
+  ApplicationDeleteDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationDeleteDriverOpts$Outbound = {};
+
+/** @internal */
+export const ApplicationDeleteDriverOpts$outboundSchema: z.ZodType<
+  ApplicationDeleteDriverOpts$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteDriverOpts$ {
+  /** @deprecated use `ApplicationDeleteDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteDriverOpts$inboundSchema;
+  /** @deprecated use `ApplicationDeleteDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteDriverOpts$outboundSchema;
+  /** @deprecated use `ApplicationDeleteDriverOpts$Outbound` instead. */
+  export type Outbound = ApplicationDeleteDriverOpts$Outbound;
+}
+
+export function applicationDeleteDriverOptsToJSON(
+  applicationDeleteDriverOpts: ApplicationDeleteDriverOpts,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteDriverOpts$outboundSchema.parse(
+      applicationDeleteDriverOpts,
+    ),
+  );
+}
+
+export function applicationDeleteDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteNetworkSwarm$inboundSchema: z.ZodType<
+  ApplicationDeleteNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => ApplicationDeleteDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type ApplicationDeleteNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: ApplicationDeleteDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const ApplicationDeleteNetworkSwarm$outboundSchema: z.ZodType<
+  ApplicationDeleteNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => ApplicationDeleteDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteNetworkSwarm$ {
+  /** @deprecated use `ApplicationDeleteNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteNetworkSwarm$inboundSchema;
+  /** @deprecated use `ApplicationDeleteNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteNetworkSwarm$outboundSchema;
+  /** @deprecated use `ApplicationDeleteNetworkSwarm$Outbound` instead. */
+  export type Outbound = ApplicationDeleteNetworkSwarm$Outbound;
+}
+
+export function applicationDeleteNetworkSwarmToJSON(
+  applicationDeleteNetworkSwarm: ApplicationDeleteNetworkSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteNetworkSwarm$outboundSchema.parse(
+      applicationDeleteNetworkSwarm,
+    ),
+  );
+}
+
+export function applicationDeleteNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeletePlatform$inboundSchema: z.ZodType<
+  ApplicationDeletePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type ApplicationDeletePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const ApplicationDeletePlatform$outboundSchema: z.ZodType<
+  ApplicationDeletePlatform$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeletePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePlatform$ {
+  /** @deprecated use `ApplicationDeletePlatform$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeletePlatform$inboundSchema;
+  /** @deprecated use `ApplicationDeletePlatform$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeletePlatform$outboundSchema;
+  /** @deprecated use `ApplicationDeletePlatform$Outbound` instead. */
+  export type Outbound = ApplicationDeletePlatform$Outbound;
+}
+
+export function applicationDeletePlatformToJSON(
+  applicationDeletePlatform: ApplicationDeletePlatform,
+): string {
+  return JSON.stringify(
+    ApplicationDeletePlatform$outboundSchema.parse(applicationDeletePlatform),
+  );
+}
+
+export function applicationDeletePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeletePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeletePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeletePlatform' from JSON`,
   );
 }
 
@@ -1050,99 +2245,32 @@ export function applicationDeletePreferenceFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeletePlatform$inboundSchema: z.ZodType<
-  ApplicationDeletePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type ApplicationDeletePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const ApplicationDeletePlatform$outboundSchema: z.ZodType<
-  ApplicationDeletePlatform$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeletePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeletePlatform$ {
-  /** @deprecated use `ApplicationDeletePlatform$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeletePlatform$inboundSchema;
-  /** @deprecated use `ApplicationDeletePlatform$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeletePlatform$outboundSchema;
-  /** @deprecated use `ApplicationDeletePlatform$Outbound` instead. */
-  export type Outbound = ApplicationDeletePlatform$Outbound;
-}
-
-export function applicationDeletePlatformToJSON(
-  applicationDeletePlatform: ApplicationDeletePlatform,
-): string {
-  return JSON.stringify(
-    ApplicationDeletePlatform$outboundSchema.parse(applicationDeletePlatform),
-  );
-}
-
-export function applicationDeletePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeletePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeletePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeletePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationDeletePlacementSwarm$inboundSchema: z.ZodType<
   ApplicationDeletePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => ApplicationDeletePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => ApplicationDeletePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => ApplicationDeletePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type ApplicationDeletePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<ApplicationDeletePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<ApplicationDeletePlatform$Outbound> | undefined;
+  Preferences?: Array<ApplicationDeletePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1152,17 +2280,17 @@ export const ApplicationDeletePlacementSwarm$outboundSchema: z.ZodType<
   ApplicationDeletePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => ApplicationDeletePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => ApplicationDeletePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => ApplicationDeletePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -1200,58 +2328,468 @@ export function applicationDeletePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeleteUpdateConfigSwarm$inboundSchema: z.ZodType<
-  ApplicationDeleteUpdateConfigSwarm,
+export const ApplicationDeleteProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteProtocol
+> = z.nativeEnum(ApplicationDeleteProtocol);
+
+/** @internal */
+export const ApplicationDeleteProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteProtocol
+> = ApplicationDeleteProtocol$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteProtocol$ {
+  /** @deprecated use `ApplicationDeleteProtocol$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteProtocol$inboundSchema;
+  /** @deprecated use `ApplicationDeleteProtocol$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteProtocol$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeletePublishMode$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeletePublishMode
+> = z.nativeEnum(ApplicationDeletePublishMode);
+
+/** @internal */
+export const ApplicationDeletePublishMode$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeletePublishMode
+> = ApplicationDeletePublishMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePublishMode$ {
+  /** @deprecated use `ApplicationDeletePublishMode$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeletePublishMode$inboundSchema;
+  /** @deprecated use `ApplicationDeletePublishMode$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeletePublishMode$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeletePort$inboundSchema: z.ZodType<
+  ApplicationDeletePort,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationDeleteProtocol$inboundSchema,
+  publishMode: ApplicationDeletePublishMode$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/** @internal */
+export type ApplicationDeletePort$Outbound = {
+  applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
+};
+
+/** @internal */
+export const ApplicationDeletePort$outboundSchema: z.ZodType<
+  ApplicationDeletePort$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeletePort
+> = z.object({
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationDeleteProtocol$outboundSchema,
+  publishMode: ApplicationDeletePublishMode$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePort$ {
+  /** @deprecated use `ApplicationDeletePort$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeletePort$inboundSchema;
+  /** @deprecated use `ApplicationDeletePort$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeletePort$outboundSchema;
+  /** @deprecated use `ApplicationDeletePort$Outbound` instead. */
+  export type Outbound = ApplicationDeletePort$Outbound;
+}
+
+export function applicationDeletePortToJSON(
+  applicationDeletePort: ApplicationDeletePort,
+): string {
+  return JSON.stringify(
+    ApplicationDeletePort$outboundSchema.parse(applicationDeletePort),
+  );
+}
+
+export function applicationDeletePortFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeletePort, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeletePort$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeletePort' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeletePreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof ApplicationDeletePreviewCertificateType> = z
+    .nativeEnum(ApplicationDeletePreviewCertificateType);
+
+/** @internal */
+export const ApplicationDeletePreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof ApplicationDeletePreviewCertificateType> =
+    ApplicationDeletePreviewCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePreviewCertificateType$ {
+  /** @deprecated use `ApplicationDeletePreviewCertificateType$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationDeletePreviewCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationDeletePreviewCertificateType$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationDeletePreviewCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeletePreviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeletePreviewStatus
+> = z.nativeEnum(ApplicationDeletePreviewStatus);
+
+/** @internal */
+export const ApplicationDeletePreviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeletePreviewStatus
+> = ApplicationDeletePreviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePreviewStatus$ {
+  /** @deprecated use `ApplicationDeletePreviewStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeletePreviewStatus$inboundSchema;
+  /** @deprecated use `ApplicationDeletePreviewStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeletePreviewStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeletePreviewDeployment$inboundSchema: z.ZodType<
+  ApplicationDeletePreviewDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationDeletePreviewStatus$inboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/** @internal */
+export type ApplicationDeletePreviewDeployment$Outbound = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: string;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+/** @internal */
+export const ApplicationDeletePreviewDeployment$outboundSchema: z.ZodType<
+  ApplicationDeletePreviewDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeletePreviewDeployment
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationDeletePreviewStatus$outboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeletePreviewDeployment$ {
+  /** @deprecated use `ApplicationDeletePreviewDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeletePreviewDeployment$inboundSchema;
+  /** @deprecated use `ApplicationDeletePreviewDeployment$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationDeletePreviewDeployment$outboundSchema;
+  /** @deprecated use `ApplicationDeletePreviewDeployment$Outbound` instead. */
+  export type Outbound = ApplicationDeletePreviewDeployment$Outbound;
+}
+
+export function applicationDeletePreviewDeploymentToJSON(
+  applicationDeletePreviewDeployment: ApplicationDeletePreviewDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationDeletePreviewDeployment$outboundSchema.parse(
+      applicationDeletePreviewDeployment,
+    ),
+  );
+}
+
+export function applicationDeletePreviewDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeletePreviewDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      ApplicationDeletePreviewDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeletePreviewDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteRedirect$inboundSchema: z.ZodType<
+  ApplicationDeleteRedirect,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationDeleteRedirect$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationDeleteRedirect$outboundSchema: z.ZodType<
+  ApplicationDeleteRedirect$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteRedirect
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteRedirect$ {
+  /** @deprecated use `ApplicationDeleteRedirect$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteRedirect$inboundSchema;
+  /** @deprecated use `ApplicationDeleteRedirect$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteRedirect$outboundSchema;
+  /** @deprecated use `ApplicationDeleteRedirect$Outbound` instead. */
+  export type Outbound = ApplicationDeleteRedirect$Outbound;
+}
+
+export function applicationDeleteRedirectToJSON(
+  applicationDeleteRedirect: ApplicationDeleteRedirect,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteRedirect$outboundSchema.parse(applicationDeleteRedirect),
+  );
+}
+
+export function applicationDeleteRedirectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteRedirect, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteRedirect$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteRedirect' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteRegistryType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteRegistryType
+> = z.nativeEnum(ApplicationDeleteRegistryType);
+
+/** @internal */
+export const ApplicationDeleteRegistryType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteRegistryType
+> = ApplicationDeleteRegistryType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteRegistryType$ {
+  /** @deprecated use `ApplicationDeleteRegistryType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteRegistryType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteRegistryType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteRegistryType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteRegistry$inboundSchema: z.ZodType<
+  ApplicationDeleteRegistry,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationDeleteRegistryType$inboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/** @internal */
+export type ApplicationDeleteRegistry$Outbound = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
+  registryId: string;
+  registryName: string;
+  registryType: string;
+  registryUrl: string;
+  username: string;
+};
+
+/** @internal */
+export const ApplicationDeleteRegistry$outboundSchema: z.ZodType<
+  ApplicationDeleteRegistry$Outbound,
+  z.ZodTypeDef,
+  ApplicationDeleteRegistry
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationDeleteRegistryType$outboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteRegistry$ {
+  /** @deprecated use `ApplicationDeleteRegistry$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteRegistry$inboundSchema;
+  /** @deprecated use `ApplicationDeleteRegistry$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteRegistry$outboundSchema;
+  /** @deprecated use `ApplicationDeleteRegistry$Outbound` instead. */
+  export type Outbound = ApplicationDeleteRegistry$Outbound;
+}
+
+export function applicationDeleteRegistryToJSON(
+  applicationDeleteRegistry: ApplicationDeleteRegistry,
+): string {
+  return JSON.stringify(
+    ApplicationDeleteRegistry$outboundSchema.parse(applicationDeleteRegistry),
+  );
+}
+
+export function applicationDeleteRegistryFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationDeleteRegistry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationDeleteRegistry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteRegistry' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationDeleteRestartPolicySwarm$inboundSchema: z.ZodType<
+  ApplicationDeleteRestartPolicySwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type ApplicationDeleteUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type ApplicationDeleteRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationDeleteUpdateConfigSwarm$outboundSchema: z.ZodType<
-  ApplicationDeleteUpdateConfigSwarm$Outbound,
+export const ApplicationDeleteRestartPolicySwarm$outboundSchema: z.ZodType<
+  ApplicationDeleteRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationDeleteUpdateConfigSwarm
+  ApplicationDeleteRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1259,34 +2797,35 @@ export const ApplicationDeleteUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeleteUpdateConfigSwarm$ {
-  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$outboundSchema` instead. */
+export namespace ApplicationDeleteRestartPolicySwarm$ {
+  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationDeleteRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationDeleteUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = ApplicationDeleteUpdateConfigSwarm$Outbound;
+    ApplicationDeleteRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `ApplicationDeleteRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = ApplicationDeleteRestartPolicySwarm$Outbound;
 }
 
-export function applicationDeleteUpdateConfigSwarmToJSON(
-  applicationDeleteUpdateConfigSwarm: ApplicationDeleteUpdateConfigSwarm,
+export function applicationDeleteRestartPolicySwarmToJSON(
+  applicationDeleteRestartPolicySwarm: ApplicationDeleteRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    ApplicationDeleteUpdateConfigSwarm$outboundSchema.parse(
-      applicationDeleteUpdateConfigSwarm,
+    ApplicationDeleteRestartPolicySwarm$outboundSchema.parse(
+      applicationDeleteRestartPolicySwarm,
     ),
   );
 }
 
-export function applicationDeleteUpdateConfigSwarmFromJSON(
+export function applicationDeleteRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationDeleteUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<ApplicationDeleteRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      ApplicationDeleteUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteUpdateConfigSwarm' from JSON`,
+      ApplicationDeleteRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1296,31 +2835,31 @@ export const ApplicationDeleteRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type ApplicationDeleteRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1329,20 +2868,20 @@ export const ApplicationDeleteRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationDeleteRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1383,1716 +2922,69 @@ export function applicationDeleteRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeleteReplicated$inboundSchema: z.ZodType<
-  ApplicationDeleteReplicated,
+export const ApplicationDeleteSecurity$inboundSchema: z.ZodType<
+  ApplicationDeleteSecurity,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type ApplicationDeleteReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationDeleteReplicated$outboundSchema: z.ZodType<
-  ApplicationDeleteReplicated$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteReplicated$ {
-  /** @deprecated use `ApplicationDeleteReplicated$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteReplicated$inboundSchema;
-  /** @deprecated use `ApplicationDeleteReplicated$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteReplicated$outboundSchema;
-  /** @deprecated use `ApplicationDeleteReplicated$Outbound` instead. */
-  export type Outbound = ApplicationDeleteReplicated$Outbound;
-}
-
-export function applicationDeleteReplicatedToJSON(
-  applicationDeleteReplicated: ApplicationDeleteReplicated,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteReplicated$outboundSchema.parse(
-      applicationDeleteReplicated,
-    ),
-  );
-}
-
-export function applicationDeleteReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteGlobal$inboundSchema: z.ZodType<
-  ApplicationDeleteGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationDeleteGlobal$Outbound = {};
-
-/** @internal */
-export const ApplicationDeleteGlobal$outboundSchema: z.ZodType<
-  ApplicationDeleteGlobal$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteGlobal$ {
-  /** @deprecated use `ApplicationDeleteGlobal$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteGlobal$inboundSchema;
-  /** @deprecated use `ApplicationDeleteGlobal$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteGlobal$outboundSchema;
-  /** @deprecated use `ApplicationDeleteGlobal$Outbound` instead. */
-  export type Outbound = ApplicationDeleteGlobal$Outbound;
-}
-
-export function applicationDeleteGlobalToJSON(
-  applicationDeleteGlobal: ApplicationDeleteGlobal,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteGlobal$outboundSchema.parse(applicationDeleteGlobal),
-  );
-}
-
-export function applicationDeleteGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteReplicatedJob$inboundSchema: z.ZodType<
-  ApplicationDeleteReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type ApplicationDeleteReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationDeleteReplicatedJob$outboundSchema: z.ZodType<
-  ApplicationDeleteReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteReplicatedJob$ {
-  /** @deprecated use `ApplicationDeleteReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteReplicatedJob$inboundSchema;
-  /** @deprecated use `ApplicationDeleteReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteReplicatedJob$outboundSchema;
-  /** @deprecated use `ApplicationDeleteReplicatedJob$Outbound` instead. */
-  export type Outbound = ApplicationDeleteReplicatedJob$Outbound;
-}
-
-export function applicationDeleteReplicatedJobToJSON(
-  applicationDeleteReplicatedJob: ApplicationDeleteReplicatedJob,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteReplicatedJob$outboundSchema.parse(
-      applicationDeleteReplicatedJob,
-    ),
-  );
-}
-
-export function applicationDeleteReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteGlobalJob$inboundSchema: z.ZodType<
-  ApplicationDeleteGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationDeleteGlobalJob$Outbound = {};
-
-/** @internal */
-export const ApplicationDeleteGlobalJob$outboundSchema: z.ZodType<
-  ApplicationDeleteGlobalJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteGlobalJob$ {
-  /** @deprecated use `ApplicationDeleteGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteGlobalJob$inboundSchema;
-  /** @deprecated use `ApplicationDeleteGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteGlobalJob$outboundSchema;
-  /** @deprecated use `ApplicationDeleteGlobalJob$Outbound` instead. */
-  export type Outbound = ApplicationDeleteGlobalJob$Outbound;
-}
-
-export function applicationDeleteGlobalJobToJSON(
-  applicationDeleteGlobalJob: ApplicationDeleteGlobalJob,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteGlobalJob$outboundSchema.parse(applicationDeleteGlobalJob),
-  );
-}
-
-export function applicationDeleteGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteModeSwarm$inboundSchema: z.ZodType<
-  ApplicationDeleteModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => ApplicationDeleteReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => ApplicationDeleteGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => ApplicationDeleteReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => ApplicationDeleteGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type ApplicationDeleteModeSwarm$Outbound = {
-  Replicated?: ApplicationDeleteReplicated$Outbound | undefined;
-  Global?: ApplicationDeleteGlobal$Outbound | undefined;
-  ReplicatedJob?: ApplicationDeleteReplicatedJob$Outbound | undefined;
-  GlobalJob?: ApplicationDeleteGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationDeleteModeSwarm$outboundSchema: z.ZodType<
-  ApplicationDeleteModeSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteModeSwarm
-> = z.object({
-  replicated: z.lazy(() => ApplicationDeleteReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => ApplicationDeleteGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => ApplicationDeleteReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => ApplicationDeleteGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteModeSwarm$ {
-  /** @deprecated use `ApplicationDeleteModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteModeSwarm$inboundSchema;
-  /** @deprecated use `ApplicationDeleteModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteModeSwarm$outboundSchema;
-  /** @deprecated use `ApplicationDeleteModeSwarm$Outbound` instead. */
-  export type Outbound = ApplicationDeleteModeSwarm$Outbound;
-}
-
-export function applicationDeleteModeSwarmToJSON(
-  applicationDeleteModeSwarm: ApplicationDeleteModeSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteModeSwarm$outboundSchema.parse(applicationDeleteModeSwarm),
-  );
-}
-
-export function applicationDeleteModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteDriverOpts$inboundSchema: z.ZodType<
-  ApplicationDeleteDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationDeleteDriverOpts$Outbound = {};
-
-/** @internal */
-export const ApplicationDeleteDriverOpts$outboundSchema: z.ZodType<
-  ApplicationDeleteDriverOpts$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteDriverOpts$ {
-  /** @deprecated use `ApplicationDeleteDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteDriverOpts$inboundSchema;
-  /** @deprecated use `ApplicationDeleteDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteDriverOpts$outboundSchema;
-  /** @deprecated use `ApplicationDeleteDriverOpts$Outbound` instead. */
-  export type Outbound = ApplicationDeleteDriverOpts$Outbound;
-}
-
-export function applicationDeleteDriverOptsToJSON(
-  applicationDeleteDriverOpts: ApplicationDeleteDriverOpts,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteDriverOpts$outboundSchema.parse(
-      applicationDeleteDriverOpts,
-    ),
-  );
-}
-
-export function applicationDeleteDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteNetworkSwarm$inboundSchema: z.ZodType<
-  ApplicationDeleteNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => ApplicationDeleteDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type ApplicationDeleteNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: ApplicationDeleteDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationDeleteNetworkSwarm$outboundSchema: z.ZodType<
-  ApplicationDeleteNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => ApplicationDeleteDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteNetworkSwarm$ {
-  /** @deprecated use `ApplicationDeleteNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteNetworkSwarm$inboundSchema;
-  /** @deprecated use `ApplicationDeleteNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteNetworkSwarm$outboundSchema;
-  /** @deprecated use `ApplicationDeleteNetworkSwarm$Outbound` instead. */
-  export type Outbound = ApplicationDeleteNetworkSwarm$Outbound;
-}
-
-export function applicationDeleteNetworkSwarmToJSON(
-  applicationDeleteNetworkSwarm: ApplicationDeleteNetworkSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteNetworkSwarm$outboundSchema.parse(
-      applicationDeleteNetworkSwarm,
-    ),
-  );
-}
-
-export function applicationDeleteNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteApplicationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteApplicationStatus
-> = z.nativeEnum(ApplicationDeleteApplicationStatus);
-
-/** @internal */
-export const ApplicationDeleteApplicationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteApplicationStatus
-> = ApplicationDeleteApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteApplicationStatus$ {
-  /** @deprecated use `ApplicationDeleteApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteApplicationStatus$inboundSchema;
-  /** @deprecated use `ApplicationDeleteApplicationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationDeleteApplicationStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteBuildType
-> = z.nativeEnum(ApplicationDeleteBuildType);
-
-/** @internal */
-export const ApplicationDeleteBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteBuildType
-> = ApplicationDeleteBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteBuildType$ {
-  /** @deprecated use `ApplicationDeleteBuildType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteBuildType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteBuildType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteBuildType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteProject$inboundSchema: z.ZodType<
-  ApplicationDeleteProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const ApplicationDeleteProject$outboundSchema: z.ZodType<
-  ApplicationDeleteProject$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteProject$ {
-  /** @deprecated use `ApplicationDeleteProject$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteProject$inboundSchema;
-  /** @deprecated use `ApplicationDeleteProject$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteProject$outboundSchema;
-  /** @deprecated use `ApplicationDeleteProject$Outbound` instead. */
-  export type Outbound = ApplicationDeleteProject$Outbound;
-}
-
-export function applicationDeleteProjectToJSON(
-  applicationDeleteProject: ApplicationDeleteProject,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteProject$outboundSchema.parse(applicationDeleteProject),
-  );
-}
-
-export function applicationDeleteProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteEnvironment$inboundSchema: z.ZodType<
-  ApplicationDeleteEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationDeleteProject$inboundSchema),
-});
-
-/** @internal */
-export type ApplicationDeleteEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationDeleteProject$Outbound;
-};
-
-/** @internal */
-export const ApplicationDeleteEnvironment$outboundSchema: z.ZodType<
-  ApplicationDeleteEnvironment$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationDeleteProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteEnvironment$ {
-  /** @deprecated use `ApplicationDeleteEnvironment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteEnvironment$inboundSchema;
-  /** @deprecated use `ApplicationDeleteEnvironment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteEnvironment$outboundSchema;
-  /** @deprecated use `ApplicationDeleteEnvironment$Outbound` instead. */
-  export type Outbound = ApplicationDeleteEnvironment$Outbound;
-}
-
-export function applicationDeleteEnvironmentToJSON(
-  applicationDeleteEnvironment: ApplicationDeleteEnvironment,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteEnvironment$outboundSchema.parse(
-      applicationDeleteEnvironment,
-    ),
-  );
-}
-
-export function applicationDeleteEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteDomainType
-> = z.nativeEnum(ApplicationDeleteDomainType);
-
-/** @internal */
-export const ApplicationDeleteDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteDomainType
-> = ApplicationDeleteDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteDomainType$ {
-  /** @deprecated use `ApplicationDeleteDomainType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteDomainType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteDomainType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteDomainType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteCertificateType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteCertificateType
-> = z.nativeEnum(ApplicationDeleteCertificateType);
-
-/** @internal */
-export const ApplicationDeleteCertificateType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteCertificateType
-> = ApplicationDeleteCertificateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteCertificateType$ {
-  /** @deprecated use `ApplicationDeleteCertificateType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteCertificateType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteCertificateType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteDomain$inboundSchema: z.ZodType<
-  ApplicationDeleteDomain,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationDeleteDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationDeleteCertificateType$inboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/** @internal */
-export type ApplicationDeleteDomain$Outbound = {
-  domainId: string;
-  host: string;
-  https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
-  internalPath: string | null;
-  stripPath: boolean;
-};
-
-/** @internal */
-export const ApplicationDeleteDomain$outboundSchema: z.ZodType<
-  ApplicationDeleteDomain$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteDomain
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationDeleteDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationDeleteCertificateType$outboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteDomain$ {
-  /** @deprecated use `ApplicationDeleteDomain$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteDomain$inboundSchema;
-  /** @deprecated use `ApplicationDeleteDomain$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteDomain$outboundSchema;
-  /** @deprecated use `ApplicationDeleteDomain$Outbound` instead. */
-  export type Outbound = ApplicationDeleteDomain$Outbound;
-}
-
-export function applicationDeleteDomainToJSON(
-  applicationDeleteDomain: ApplicationDeleteDomain,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteDomain$outboundSchema.parse(applicationDeleteDomain),
-  );
-}
-
-export function applicationDeleteDomainFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteDomain, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteDomain$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteDomain' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteStatus
-> = z.nativeEnum(ApplicationDeleteStatus);
-
-/** @internal */
-export const ApplicationDeleteStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteStatus
-> = ApplicationDeleteStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteStatus$ {
-  /** @deprecated use `ApplicationDeleteStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteStatus$inboundSchema;
-  /** @deprecated use `ApplicationDeleteStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteDeployment$inboundSchema: z.ZodType<
-  ApplicationDeleteDeployment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationDeleteStatus$inboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationDeleteDeployment$Outbound = {
-  deploymentId: string;
-  title: string;
-  description: string | null;
-  status: string | null;
-  logPath: string;
-  pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
-  previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
-  rollbackId: string | null;
-  volumeBackupId: string | null;
-};
-
-/** @internal */
-export const ApplicationDeleteDeployment$outboundSchema: z.ZodType<
-  ApplicationDeleteDeployment$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteDeployment
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationDeleteStatus$outboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteDeployment$ {
-  /** @deprecated use `ApplicationDeleteDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteDeployment$inboundSchema;
-  /** @deprecated use `ApplicationDeleteDeployment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteDeployment$outboundSchema;
-  /** @deprecated use `ApplicationDeleteDeployment$Outbound` instead. */
-  export type Outbound = ApplicationDeleteDeployment$Outbound;
-}
-
-export function applicationDeleteDeploymentToJSON(
-  applicationDeleteDeployment: ApplicationDeleteDeployment,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteDeployment$outboundSchema.parse(
-      applicationDeleteDeployment,
-    ),
-  );
-}
-
-export function applicationDeleteDeploymentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteDeployment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteDeployment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteType
-> = z.nativeEnum(ApplicationDeleteType);
-
-/** @internal */
-export const ApplicationDeleteType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteType
-> = ApplicationDeleteType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteType$ {
-  /** @deprecated use `ApplicationDeleteType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteServiceType
-> = z.nativeEnum(ApplicationDeleteServiceType);
-
-/** @internal */
-export const ApplicationDeleteServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteServiceType
-> = ApplicationDeleteServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteServiceType$ {
-  /** @deprecated use `ApplicationDeleteServiceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteServiceType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteServiceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteServiceType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteMount$inboundSchema: z.ZodType<
-  ApplicationDeleteMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationDeleteType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationDeleteServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationDeleteMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const ApplicationDeleteMount$outboundSchema: z.ZodType<
-  ApplicationDeleteMount$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteMount
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationDeleteType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationDeleteServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteMount$ {
-  /** @deprecated use `ApplicationDeleteMount$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteMount$inboundSchema;
-  /** @deprecated use `ApplicationDeleteMount$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteMount$outboundSchema;
-  /** @deprecated use `ApplicationDeleteMount$Outbound` instead. */
-  export type Outbound = ApplicationDeleteMount$Outbound;
-}
-
-export function applicationDeleteMountToJSON(
-  applicationDeleteMount: ApplicationDeleteMount,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteMount$outboundSchema.parse(applicationDeleteMount),
-  );
-}
-
-export function applicationDeleteMountFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteRedirect$inboundSchema: z.ZodType<
-  ApplicationDeleteRedirect,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
   applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteRedirect$Outbound = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationDeleteRedirect$outboundSchema: z.ZodType<
-  ApplicationDeleteRedirect$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteRedirect
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
   createdAt: z.string(),
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteRedirect$ {
-  /** @deprecated use `ApplicationDeleteRedirect$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteRedirect$inboundSchema;
-  /** @deprecated use `ApplicationDeleteRedirect$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteRedirect$outboundSchema;
-  /** @deprecated use `ApplicationDeleteRedirect$Outbound` instead. */
-  export type Outbound = ApplicationDeleteRedirect$Outbound;
-}
-
-export function applicationDeleteRedirectToJSON(
-  applicationDeleteRedirect: ApplicationDeleteRedirect,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteRedirect$outboundSchema.parse(applicationDeleteRedirect),
-  );
-}
-
-export function applicationDeleteRedirectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteRedirect, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteRedirect$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteRedirect' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteSecurityResponse$inboundSchema: z.ZodType<
-  ApplicationDeleteSecurityResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
-export type ApplicationDeleteSecurityResponse$Outbound = {
+export type ApplicationDeleteSecurity$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
-export const ApplicationDeleteSecurityResponse$outboundSchema: z.ZodType<
-  ApplicationDeleteSecurityResponse$Outbound,
+export const ApplicationDeleteSecurity$outboundSchema: z.ZodType<
+  ApplicationDeleteSecurity$Outbound,
   z.ZodTypeDef,
-  ApplicationDeleteSecurityResponse
+  ApplicationDeleteSecurity
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeleteSecurityResponse$ {
-  /** @deprecated use `ApplicationDeleteSecurityResponse$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteSecurityResponse$inboundSchema;
-  /** @deprecated use `ApplicationDeleteSecurityResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationDeleteSecurityResponse$outboundSchema;
-  /** @deprecated use `ApplicationDeleteSecurityResponse$Outbound` instead. */
-  export type Outbound = ApplicationDeleteSecurityResponse$Outbound;
+export namespace ApplicationDeleteSecurity$ {
+  /** @deprecated use `ApplicationDeleteSecurity$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteSecurity$inboundSchema;
+  /** @deprecated use `ApplicationDeleteSecurity$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteSecurity$outboundSchema;
+  /** @deprecated use `ApplicationDeleteSecurity$Outbound` instead. */
+  export type Outbound = ApplicationDeleteSecurity$Outbound;
 }
 
-export function applicationDeleteSecurityResponseToJSON(
-  applicationDeleteSecurityResponse: ApplicationDeleteSecurityResponse,
+export function applicationDeleteSecurityToJSON(
+  applicationDeleteSecurity: ApplicationDeleteSecurity,
 ): string {
   return JSON.stringify(
-    ApplicationDeleteSecurityResponse$outboundSchema.parse(
-      applicationDeleteSecurityResponse,
-    ),
+    ApplicationDeleteSecurity$outboundSchema.parse(applicationDeleteSecurity),
   );
 }
 
-export function applicationDeleteSecurityResponseFromJSON(
+export function applicationDeleteSecurityFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationDeleteSecurityResponse, SDKValidationError> {
+): SafeParseResult<ApplicationDeleteSecurity, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationDeleteSecurityResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteSecurityResponse' from JSON`,
+    (x) => ApplicationDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteSecurity' from JSON`,
   );
-}
-
-/** @internal */
-export const ApplicationDeletePublishMode$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeletePublishMode
-> = z.nativeEnum(ApplicationDeletePublishMode);
-
-/** @internal */
-export const ApplicationDeletePublishMode$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeletePublishMode
-> = ApplicationDeletePublishMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeletePublishMode$ {
-  /** @deprecated use `ApplicationDeletePublishMode$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeletePublishMode$inboundSchema;
-  /** @deprecated use `ApplicationDeletePublishMode$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeletePublishMode$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteProtocol$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteProtocol
-> = z.nativeEnum(ApplicationDeleteProtocol);
-
-/** @internal */
-export const ApplicationDeleteProtocol$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteProtocol
-> = ApplicationDeleteProtocol$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteProtocol$ {
-  /** @deprecated use `ApplicationDeleteProtocol$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteProtocol$inboundSchema;
-  /** @deprecated use `ApplicationDeleteProtocol$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteProtocol$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeletePort$inboundSchema: z.ZodType<
-  ApplicationDeletePort,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationDeletePublishMode$inboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationDeleteProtocol$inboundSchema,
-  applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeletePort$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationDeletePort$outboundSchema: z.ZodType<
-  ApplicationDeletePort$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeletePort
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationDeletePublishMode$outboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationDeleteProtocol$outboundSchema,
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeletePort$ {
-  /** @deprecated use `ApplicationDeletePort$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeletePort$inboundSchema;
-  /** @deprecated use `ApplicationDeletePort$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeletePort$outboundSchema;
-  /** @deprecated use `ApplicationDeletePort$Outbound` instead. */
-  export type Outbound = ApplicationDeletePort$Outbound;
-}
-
-export function applicationDeletePortToJSON(
-  applicationDeletePort: ApplicationDeletePort,
-): string {
-  return JSON.stringify(
-    ApplicationDeletePort$outboundSchema.parse(applicationDeletePort),
-  );
-}
-
-export function applicationDeletePortFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeletePort, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeletePort$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeletePort' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteRegistryType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteRegistryType
-> = z.nativeEnum(ApplicationDeleteRegistryType);
-
-/** @internal */
-export const ApplicationDeleteRegistryType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteRegistryType
-> = ApplicationDeleteRegistryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteRegistryType$ {
-  /** @deprecated use `ApplicationDeleteRegistryType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteRegistryType$inboundSchema;
-  /** @deprecated use `ApplicationDeleteRegistryType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteRegistryType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationDeleteRegistry$inboundSchema: z.ZodType<
-  ApplicationDeleteRegistry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationDeleteRegistryType$inboundSchema,
-  organizationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteRegistry$Outbound = {
-  registryId: string;
-  registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
-  registryType: string;
-  organizationId: string;
-};
-
-/** @internal */
-export const ApplicationDeleteRegistry$outboundSchema: z.ZodType<
-  ApplicationDeleteRegistry$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteRegistry
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationDeleteRegistryType$outboundSchema,
-  organizationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteRegistry$ {
-  /** @deprecated use `ApplicationDeleteRegistry$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteRegistry$inboundSchema;
-  /** @deprecated use `ApplicationDeleteRegistry$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteRegistry$outboundSchema;
-  /** @deprecated use `ApplicationDeleteRegistry$Outbound` instead. */
-  export type Outbound = ApplicationDeleteRegistry$Outbound;
-}
-
-export function applicationDeleteRegistryToJSON(
-  applicationDeleteRegistry: ApplicationDeleteRegistry,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteRegistry$outboundSchema.parse(applicationDeleteRegistry),
-  );
-}
-
-export function applicationDeleteRegistryFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteRegistry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteRegistry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteRegistry' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteGithub$inboundSchema: z.ZodType<
-  ApplicationDeleteGithub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteGithub$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationDeleteGithub$outboundSchema: z.ZodType<
-  ApplicationDeleteGithub$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteGithub
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteGithub$ {
-  /** @deprecated use `ApplicationDeleteGithub$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteGithub$inboundSchema;
-  /** @deprecated use `ApplicationDeleteGithub$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteGithub$outboundSchema;
-  /** @deprecated use `ApplicationDeleteGithub$Outbound` instead. */
-  export type Outbound = ApplicationDeleteGithub$Outbound;
-}
-
-export function applicationDeleteGithubToJSON(
-  applicationDeleteGithub: ApplicationDeleteGithub,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteGithub$outboundSchema.parse(applicationDeleteGithub),
-  );
-}
-
-export function applicationDeleteGithubFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteGithub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteGithub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteGithub' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteGitlab$inboundSchema: z.ZodType<
-  ApplicationDeleteGitlab,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteGitlab$Outbound = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationDeleteGitlab$outboundSchema: z.ZodType<
-  ApplicationDeleteGitlab$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteGitlab
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteGitlab$ {
-  /** @deprecated use `ApplicationDeleteGitlab$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteGitlab$inboundSchema;
-  /** @deprecated use `ApplicationDeleteGitlab$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteGitlab$outboundSchema;
-  /** @deprecated use `ApplicationDeleteGitlab$Outbound` instead. */
-  export type Outbound = ApplicationDeleteGitlab$Outbound;
-}
-
-export function applicationDeleteGitlabToJSON(
-  applicationDeleteGitlab: ApplicationDeleteGitlab,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteGitlab$outboundSchema.parse(applicationDeleteGitlab),
-  );
-}
-
-export function applicationDeleteGitlabFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteGitlab, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteGitlab$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteGitlab' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteBitbucket$inboundSchema: z.ZodType<
-  ApplicationDeleteBitbucket,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationDeleteBitbucket$Outbound = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationDeleteBitbucket$outboundSchema: z.ZodType<
-  ApplicationDeleteBitbucket$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteBitbucket
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteBitbucket$ {
-  /** @deprecated use `ApplicationDeleteBitbucket$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteBitbucket$inboundSchema;
-  /** @deprecated use `ApplicationDeleteBitbucket$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteBitbucket$outboundSchema;
-  /** @deprecated use `ApplicationDeleteBitbucket$Outbound` instead. */
-  export type Outbound = ApplicationDeleteBitbucket$Outbound;
-}
-
-export function applicationDeleteBitbucketToJSON(
-  applicationDeleteBitbucket: ApplicationDeleteBitbucket,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteBitbucket$outboundSchema.parse(applicationDeleteBitbucket),
-  );
-}
-
-export function applicationDeleteBitbucketFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteBitbucket, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteBitbucket$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteBitbucket' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteGitea$inboundSchema: z.ZodType<
-  ApplicationDeleteGitea,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/** @internal */
-export type ApplicationDeleteGitea$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-/** @internal */
-export const ApplicationDeleteGitea$outboundSchema: z.ZodType<
-  ApplicationDeleteGitea$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeleteGitea
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteGitea$ {
-  /** @deprecated use `ApplicationDeleteGitea$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteGitea$inboundSchema;
-  /** @deprecated use `ApplicationDeleteGitea$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteGitea$outboundSchema;
-  /** @deprecated use `ApplicationDeleteGitea$Outbound` instead. */
-  export type Outbound = ApplicationDeleteGitea$Outbound;
-}
-
-export function applicationDeleteGiteaToJSON(
-  applicationDeleteGitea: ApplicationDeleteGitea,
-): string {
-  return JSON.stringify(
-    ApplicationDeleteGitea$outboundSchema.parse(applicationDeleteGitea),
-  );
-}
-
-export function applicationDeleteGiteaFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeleteGitea, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeleteGitea$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeleteGitea' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationDeleteServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteServerStatus
-> = z.nativeEnum(ApplicationDeleteServerStatus);
-
-/** @internal */
-export const ApplicationDeleteServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeleteServerStatus
-> = ApplicationDeleteServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeleteServerStatus$ {
-  /** @deprecated use `ApplicationDeleteServerStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeleteServerStatus$inboundSchema;
-  /** @deprecated use `ApplicationDeleteServerStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeleteServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -3262,24 +3154,38 @@ export function applicationDeleteMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const ApplicationDeleteServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteServerStatus
+> = z.nativeEnum(ApplicationDeleteServerStatus);
+
+/** @internal */
+export const ApplicationDeleteServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteServerStatus
+> = ApplicationDeleteServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteServerStatus$ {
+  /** @deprecated use `ApplicationDeleteServerStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteServerStatus$inboundSchema;
+  /** @deprecated use `ApplicationDeleteServerStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const ApplicationDeleteServer$inboundSchema: z.ZodType<
   ApplicationDeleteServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationDeleteServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3290,26 +3196,33 @@ export const ApplicationDeleteServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationDeleteServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ApplicationDeleteServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -3318,19 +3231,12 @@ export const ApplicationDeleteServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationDeleteServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationDeleteServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3341,6 +3247,13 @@ export const ApplicationDeleteServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationDeleteServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -3375,117 +3288,135 @@ export function applicationDeleteServerFromJSON(
 }
 
 /** @internal */
-export const ApplicationDeletePreviewStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeletePreviewStatus
-> = z.nativeEnum(ApplicationDeletePreviewStatus);
+export const ApplicationDeleteSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteSourceType
+> = z.nativeEnum(ApplicationDeleteSourceType);
 
 /** @internal */
-export const ApplicationDeletePreviewStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationDeletePreviewStatus
-> = ApplicationDeletePreviewStatus$inboundSchema;
+export const ApplicationDeleteSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteSourceType
+> = ApplicationDeleteSourceType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeletePreviewStatus$ {
-  /** @deprecated use `ApplicationDeletePreviewStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeletePreviewStatus$inboundSchema;
-  /** @deprecated use `ApplicationDeletePreviewStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeletePreviewStatus$outboundSchema;
+export namespace ApplicationDeleteSourceType$ {
+  /** @deprecated use `ApplicationDeleteSourceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteSourceType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteSourceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteSourceType$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationDeletePreviewDeployment$inboundSchema: z.ZodType<
-  ApplicationDeletePreviewDeployment,
+export const ApplicationDeleteTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteTriggerType
+> = z.nativeEnum(ApplicationDeleteTriggerType);
+
+/** @internal */
+export const ApplicationDeleteTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationDeleteTriggerType
+> = ApplicationDeleteTriggerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationDeleteTriggerType$ {
+  /** @deprecated use `ApplicationDeleteTriggerType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteTriggerType$inboundSchema;
+  /** @deprecated use `ApplicationDeleteTriggerType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationDeleteTriggerType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationDeleteUpdateConfigSwarm$inboundSchema: z.ZodType<
+  ApplicationDeleteUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationDeletePreviewStatus$inboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type ApplicationDeletePreviewDeployment$Outbound = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: string;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
+export type ApplicationDeleteUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const ApplicationDeletePreviewDeployment$outboundSchema: z.ZodType<
-  ApplicationDeletePreviewDeployment$Outbound,
+export const ApplicationDeleteUpdateConfigSwarm$outboundSchema: z.ZodType<
+  ApplicationDeleteUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationDeletePreviewDeployment
+  ApplicationDeleteUpdateConfigSwarm
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationDeletePreviewStatus$outboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationDeletePreviewDeployment$ {
-  /** @deprecated use `ApplicationDeletePreviewDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeletePreviewDeployment$inboundSchema;
-  /** @deprecated use `ApplicationDeletePreviewDeployment$outboundSchema` instead. */
+export namespace ApplicationDeleteUpdateConfigSwarm$ {
+  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationDeleteUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationDeletePreviewDeployment$outboundSchema;
-  /** @deprecated use `ApplicationDeletePreviewDeployment$Outbound` instead. */
-  export type Outbound = ApplicationDeletePreviewDeployment$Outbound;
+    ApplicationDeleteUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `ApplicationDeleteUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = ApplicationDeleteUpdateConfigSwarm$Outbound;
 }
 
-export function applicationDeletePreviewDeploymentToJSON(
-  applicationDeletePreviewDeployment: ApplicationDeletePreviewDeployment,
+export function applicationDeleteUpdateConfigSwarmToJSON(
+  applicationDeleteUpdateConfigSwarm: ApplicationDeleteUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    ApplicationDeletePreviewDeployment$outboundSchema.parse(
-      applicationDeletePreviewDeployment,
+    ApplicationDeleteUpdateConfigSwarm$outboundSchema.parse(
+      applicationDeleteUpdateConfigSwarm,
     ),
   );
 }
 
-export function applicationDeletePreviewDeploymentFromJSON(
+export function applicationDeleteUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationDeletePreviewDeployment, SDKValidationError> {
+): SafeParseResult<ApplicationDeleteUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      ApplicationDeletePreviewDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeletePreviewDeployment' from JSON`,
+      ApplicationDeleteUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationDeleteUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -3495,247 +3426,245 @@ export const ApplicationDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationDeletePreviewCertificateType$inboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationDeleteSourceType$inboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationDeleteTriggerType$inboundSchema)
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationDeleteApplicationStatus$inboundSchema
     .optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucket: z.nullable(z.lazy(() => ApplicationDeleteBitbucket$inboundSchema)),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationDeleteBuildType$inboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(z.lazy(() => ApplicationDeleteDeployment$inboundSchema)),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationDeleteDomain$inboundSchema)),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationDeleteEnvironment$inboundSchema),
+  environmentId: z.string(),
+  gitea: z.nullable(z.lazy(() => ApplicationDeleteGitea$inboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationDeleteGithub$inboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationDeleteGitlab$inboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationDeleteHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteRestartPolicySwarm$inboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationDeletePlacementSwarm$inboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteUpdateConfigSwarm$inboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteRollbackConfigSwarm$inboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationDeleteModeSwarm$inboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  mounts: z.array(z.lazy(() => ApplicationDeleteMount$inboundSchema)),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationDeleteNetworkSwarm$inboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationDeleteApplicationStatus$inboundSchema
-    .optional(),
-  buildType: ApplicationDeleteBuildType$inboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationDeleteEnvironment$inboundSchema),
-  domains: z.array(z.lazy(() => ApplicationDeleteDomain$inboundSchema)),
-  deployments: z.array(z.lazy(() => ApplicationDeleteDeployment$inboundSchema)),
-  mounts: z.array(z.lazy(() => ApplicationDeleteMount$inboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationDeleteRedirect$inboundSchema)),
-  security: z.array(
-    z.lazy(() => ApplicationDeleteSecurityResponse$inboundSchema),
-  ),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationDeletePlacementSwarm$inboundSchema),
+  ).optional(),
   ports: z.array(z.lazy(() => ApplicationDeletePort$inboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationDeleteRegistry$inboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationDeleteGithub$inboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationDeleteGitlab$inboundSchema)),
-  bitbucket: z.nullable(z.lazy(() => ApplicationDeleteBitbucket$inboundSchema)),
-  gitea: z.nullable(z.lazy(() => ApplicationDeleteGitea$inboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationDeleteServer$inboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationDeletePreviewCertificateType$inboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationDeletePreviewDeployment$inboundSchema),
   ),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationDeleteRedirect$inboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationDeleteRegistry$inboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteRestartPolicySwarm$inboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteRollbackConfigSwarm$inboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationDeleteSecurity$inboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationDeleteServer$inboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationDeleteSourceType$inboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationDeleteTriggerType$inboundSchema)
+    .optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteUpdateConfigSwarm$inboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationDeleteResponseBody$Outbound = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: string | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: string | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: string | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationDeleteBitbucket$Outbound | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: string | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  deployments: Array<ApplicationDeleteDeployment$Outbound>;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationDeleteDomain$Outbound>;
   dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationDeleteEnvironment$Outbound;
+  environmentId: string;
+  gitea: ApplicationDeleteGitea$Outbound | null;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationDeleteGithub$Outbound | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationDeleteGitlab$Outbound | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   healthCheckSwarm?:
     | ApplicationDeleteHealthCheckSwarm$Outbound
     | null
     | undefined;
-  restartPolicySwarm?:
-    | ApplicationDeleteRestartPolicySwarm$Outbound
-    | null
-    | undefined;
-  placementSwarm?: ApplicationDeletePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?:
-    | ApplicationDeleteUpdateConfigSwarm$Outbound
-    | null
-    | undefined;
-  rollbackConfigSwarm?:
-    | ApplicationDeleteRollbackConfigSwarm$Outbound
-    | null
-    | undefined;
-  modeSwarm?: ApplicationDeleteModeSwarm$Outbound | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
   labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationDeleteModeSwarm$Outbound | null | undefined;
+  mounts: Array<ApplicationDeleteMount$Outbound>;
+  name: string;
   networkSwarm?:
     | Array<ApplicationDeleteNetworkSwarm$Outbound>
     | null
     | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: string | undefined;
-  buildType?: string | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationDeleteEnvironment$Outbound;
-  domains: Array<ApplicationDeleteDomain$Outbound>;
-  deployments: Array<ApplicationDeleteDeployment$Outbound>;
-  mounts: Array<ApplicationDeleteMount$Outbound>;
-  redirects: Array<ApplicationDeleteRedirect$Outbound>;
-  security: Array<ApplicationDeleteSecurityResponse$Outbound>;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationDeletePlacementSwarm$Outbound | null | undefined;
   ports: Array<ApplicationDeletePort$Outbound>;
-  registry: ApplicationDeleteRegistry$Outbound | null;
-  github: ApplicationDeleteGithub$Outbound | null;
-  gitlab: ApplicationDeleteGitlab$Outbound | null;
-  bitbucket: ApplicationDeleteBitbucket$Outbound | null;
-  gitea: ApplicationDeleteGitea$Outbound | null;
-  server: ApplicationDeleteServer$Outbound | null;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: string | undefined;
+  previewCustomCertResolver?: string | null | undefined;
   previewDeployments: Array<ApplicationDeletePreviewDeployment$Outbound>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationDeleteRedirect$Outbound>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationDeleteRegistry$Outbound | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?:
+    | ApplicationDeleteRestartPolicySwarm$Outbound
+    | null
+    | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?:
+    | ApplicationDeleteRollbackConfigSwarm$Outbound
+    | null
+    | undefined;
+  security: Array<ApplicationDeleteSecurity$Outbound>;
+  server: ApplicationDeleteServer$Outbound | null;
+  serverId?: string | null | undefined;
+  sourceType?: string | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: string | null | undefined;
+  updateConfigSwarm?:
+    | ApplicationDeleteUpdateConfigSwarm$Outbound
+    | null
+    | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -3744,131 +3673,129 @@ export const ApplicationDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationDeleteResponseBody
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationDeletePreviewCertificateType$outboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationDeleteSourceType$outboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationDeleteTriggerType$outboundSchema)
-    .optional(),
-  autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
-  bitbucketBranch: z.nullable(z.string()).optional(),
-  bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
-  customGitBranch: z.nullable(z.string()).optional(),
-  customGitBuildPath: z.nullable(z.string()).optional(),
-  customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
-  dockerBuildStage: z.nullable(z.string()).optional(),
-  dropBuildPath: z.nullable(z.string()).optional(),
-  healthCheckSwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteHealthCheckSwarm$outboundSchema),
-  ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteRestartPolicySwarm$outboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationDeletePlacementSwarm$outboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteUpdateConfigSwarm$outboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationDeleteRollbackConfigSwarm$outboundSchema),
-  ).optional(),
-  modeSwarm: z.nullable(z.lazy(() => ApplicationDeleteModeSwarm$outboundSchema))
-    .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => ApplicationDeleteNetworkSwarm$outboundSchema)),
-  ).optional(),
-  replicas: z.number().optional(),
+  applicationId: z.string().optional(),
   applicationStatus: ApplicationDeleteApplicationStatus$outboundSchema
     .optional(),
-  buildType: ApplicationDeleteBuildType$outboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationDeleteEnvironment$outboundSchema),
-  domains: z.array(z.lazy(() => ApplicationDeleteDomain$outboundSchema)),
-  deployments: z.array(
-    z.lazy(() => ApplicationDeleteDeployment$outboundSchema),
-  ),
-  mounts: z.array(z.lazy(() => ApplicationDeleteMount$outboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationDeleteRedirect$outboundSchema)),
-  security: z.array(
-    z.lazy(() => ApplicationDeleteSecurityResponse$outboundSchema),
-  ),
-  ports: z.array(z.lazy(() => ApplicationDeletePort$outboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationDeleteRegistry$outboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationDeleteGithub$outboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationDeleteGitlab$outboundSchema)),
+  autoDeploy: z.nullable(z.boolean()).optional(),
   bitbucket: z.nullable(
     z.lazy(() => ApplicationDeleteBitbucket$outboundSchema),
   ),
+  bitbucketBranch: z.nullable(z.string()).optional(),
+  bitbucketBuildPath: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationDeleteBuildType$outboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  customGitBranch: z.nullable(z.string()).optional(),
+  customGitBuildPath: z.nullable(z.string()).optional(),
+  customGitSSHKeyId: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(
+    z.lazy(() => ApplicationDeleteDeployment$outboundSchema),
+  ),
+  description: z.nullable(z.string()).optional(),
+  dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationDeleteDomain$outboundSchema)),
+  dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationDeleteEnvironment$outboundSchema),
+  environmentId: z.string(),
   gitea: z.nullable(z.lazy(() => ApplicationDeleteGitea$outboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationDeleteServer$outboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationDeleteGithub$outboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationDeleteGitlab$outboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
+  healthCheckSwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteHealthCheckSwarm$outboundSchema),
+  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
+  modeSwarm: z.nullable(z.lazy(() => ApplicationDeleteModeSwarm$outboundSchema))
+    .optional(),
+  mounts: z.array(z.lazy(() => ApplicationDeleteMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => ApplicationDeleteNetworkSwarm$outboundSchema)),
+  ).optional(),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationDeletePlacementSwarm$outboundSchema),
+  ).optional(),
+  ports: z.array(z.lazy(() => ApplicationDeletePort$outboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationDeletePreviewCertificateType$outboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationDeletePreviewDeployment$outboundSchema),
   ),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationDeleteRedirect$outboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationDeleteRegistry$outboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteRestartPolicySwarm$outboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteRollbackConfigSwarm$outboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationDeleteSecurity$outboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationDeleteServer$outboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationDeleteSourceType$outboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationDeleteTriggerType$outboundSchema)
+    .optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationDeleteUpdateConfigSwarm$outboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

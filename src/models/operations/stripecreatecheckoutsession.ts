@@ -3,87 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type StripeCreateCheckoutSessionSecurity = {
-  authorization: string;
-};
-
 export type StripeCreateCheckoutSessionRequest = {
+  isAnnual: boolean;
   productId: string;
   serverQuantity: number;
-  isAnnual: boolean;
 };
-
-/** @internal */
-export const StripeCreateCheckoutSessionSecurity$inboundSchema: z.ZodType<
-  StripeCreateCheckoutSessionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type StripeCreateCheckoutSessionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const StripeCreateCheckoutSessionSecurity$outboundSchema: z.ZodType<
-  StripeCreateCheckoutSessionSecurity$Outbound,
-  z.ZodTypeDef,
-  StripeCreateCheckoutSessionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace StripeCreateCheckoutSessionSecurity$ {
-  /** @deprecated use `StripeCreateCheckoutSessionSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    StripeCreateCheckoutSessionSecurity$inboundSchema;
-  /** @deprecated use `StripeCreateCheckoutSessionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    StripeCreateCheckoutSessionSecurity$outboundSchema;
-  /** @deprecated use `StripeCreateCheckoutSessionSecurity$Outbound` instead. */
-  export type Outbound = StripeCreateCheckoutSessionSecurity$Outbound;
-}
-
-export function stripeCreateCheckoutSessionSecurityToJSON(
-  stripeCreateCheckoutSessionSecurity: StripeCreateCheckoutSessionSecurity,
-): string {
-  return JSON.stringify(
-    StripeCreateCheckoutSessionSecurity$outboundSchema.parse(
-      stripeCreateCheckoutSessionSecurity,
-    ),
-  );
-}
-
-export function stripeCreateCheckoutSessionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<StripeCreateCheckoutSessionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      StripeCreateCheckoutSessionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'StripeCreateCheckoutSessionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const StripeCreateCheckoutSessionRequest$inboundSchema: z.ZodType<
@@ -91,16 +19,16 @@ export const StripeCreateCheckoutSessionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  isAnnual: z.boolean(),
   productId: z.string(),
   serverQuantity: z.number(),
-  isAnnual: z.boolean(),
 });
 
 /** @internal */
 export type StripeCreateCheckoutSessionRequest$Outbound = {
+  isAnnual: boolean;
   productId: string;
   serverQuantity: number;
-  isAnnual: boolean;
 };
 
 /** @internal */
@@ -109,9 +37,9 @@ export const StripeCreateCheckoutSessionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   StripeCreateCheckoutSessionRequest
 > = z.object({
+  isAnnual: z.boolean(),
   productId: z.string(),
   serverQuantity: z.number(),
-  isAnnual: z.boolean(),
 });
 
 /**

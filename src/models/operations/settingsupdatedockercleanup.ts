@@ -3,86 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SettingsUpdateDockerCleanupSecurity = {
-  authorization: string;
-};
 
 export type SettingsUpdateDockerCleanupRequest = {
   enableDockerCleanup: boolean;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsUpdateDockerCleanupSecurity$inboundSchema: z.ZodType<
-  SettingsUpdateDockerCleanupSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsUpdateDockerCleanupSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateDockerCleanupSecurity$outboundSchema: z.ZodType<
-  SettingsUpdateDockerCleanupSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsUpdateDockerCleanupSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateDockerCleanupSecurity$ {
-  /** @deprecated use `SettingsUpdateDockerCleanupSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    SettingsUpdateDockerCleanupSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateDockerCleanupSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsUpdateDockerCleanupSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateDockerCleanupSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateDockerCleanupSecurity$Outbound;
-}
-
-export function settingsUpdateDockerCleanupSecurityToJSON(
-  settingsUpdateDockerCleanupSecurity: SettingsUpdateDockerCleanupSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateDockerCleanupSecurity$outboundSchema.parse(
-      settingsUpdateDockerCleanupSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateDockerCleanupSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsUpdateDockerCleanupSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsUpdateDockerCleanupSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsUpdateDockerCleanupSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateDockerCleanupRequest$inboundSchema: z.ZodType<

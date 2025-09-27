@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlRemoveSecurity = {
-  authorization: string;
-};
-
 export type MysqlRemoveRequest = {
   mysqlId: string;
 };
@@ -27,194 +23,6 @@ export const MysqlRemoveApplicationStatus = {
 export type MysqlRemoveApplicationStatus = ClosedEnum<
   typeof MysqlRemoveApplicationStatus
 >;
-
-export type MysqlRemoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MysqlRemoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MysqlRemoveSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlRemovePreference = {
-  spread: MysqlRemoveSpread;
-};
-
-export type MysqlRemovePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlRemovePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlRemovePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlRemovePlatform> | undefined;
-};
-
-export type MysqlRemoveUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlRemoveRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlRemoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MysqlRemoveGlobal = {};
-
-export type MysqlRemoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MysqlRemoveGlobalJob = {};
-
-export type MysqlRemoveModeSwarm = {
-  replicated?: MysqlRemoveReplicated | undefined;
-  global?: MysqlRemoveGlobal | undefined;
-  replicatedJob?: MysqlRemoveReplicatedJob | undefined;
-  globalJob?: MysqlRemoveGlobalJob | undefined;
-};
-
-export type MysqlRemoveDriverOpts = {};
-
-export type MysqlRemoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlRemoveDriverOpts | undefined;
-};
-
-export type MysqlRemoveProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlRemoveEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlRemoveProject;
-};
-
-export const MysqlRemoveType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlRemoveType = ClosedEnum<typeof MysqlRemoveType>;
-
-export const MysqlRemoveServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MysqlRemoveServiceType = ClosedEnum<typeof MysqlRemoveServiceType>;
-
-export type MysqlRemoveMount = {
-  mountId: string;
-  type: MysqlRemoveType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlRemoveServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MysqlRemoveServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlRemoveServerStatus = ClosedEnum<
-  typeof MysqlRemoveServerStatus
->;
-
-export const MysqlRemoveMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MysqlRemoveMetricsConfigEnum = ClosedEnum<
-  typeof MysqlRemoveMetricsConfigEnum
->;
-
-export type MysqlRemoveMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MysqlRemoveMetricsConfigEnum;
-
-export type MysqlRemoveMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MysqlRemoveMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MysqlRemoveServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlRemoveServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MysqlRemoveMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MysqlRemoveBackupType = {
   Database: "database",
@@ -240,29 +48,29 @@ export type MysqlRemoveMetadataEnum = ClosedEnum<
   typeof MysqlRemoveMetadataEnum
 >;
 
-export type MysqlRemovePostgres = {
-  databaseUser: string;
-};
-
 export type MysqlRemoveMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlRemoveMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlRemoveMysql = {
   databaseRootPassword: string;
 };
 
+export type MysqlRemovePostgres = {
+  databaseUser: string;
+};
+
 export type MysqlRemoveMetadata = {
-  postgres?: MysqlRemovePostgres | undefined;
   mariadb?: MysqlRemoveMariadb | undefined;
   mongo?: MysqlRemoveMongo | undefined;
   mysql?: MysqlRemoveMysql | undefined;
+  postgres?: MysqlRemovePostgres | undefined;
 };
 
 export type MysqlRemoveMetadataUnion =
@@ -270,128 +78,254 @@ export type MysqlRemoveMetadataUnion =
   | MysqlRemoveMetadataEnum;
 
 export type MysqlRemoveBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MysqlRemoveBackupType;
-  databaseType: MysqlRemoveDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MysqlRemoveDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MysqlRemoveMetadata | MysqlRemoveMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlRemoveProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlRemoveEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlRemoveProject;
+  projectId: string;
+};
+
+export type MysqlRemoveHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MysqlRemoveGlobal = {};
+
+export type MysqlRemoveGlobalJob = {};
+
+export type MysqlRemoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MysqlRemoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MysqlRemoveModeSwarm = {
+  global?: MysqlRemoveGlobal | undefined;
+  globalJob?: MysqlRemoveGlobalJob | undefined;
+  replicated?: MysqlRemoveReplicated | undefined;
+  replicatedJob?: MysqlRemoveReplicatedJob | undefined;
+};
+
+export const MysqlRemoveServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MysqlRemoveServiceType = ClosedEnum<typeof MysqlRemoveServiceType>;
+
+export const MysqlRemoveType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlRemoveType = ClosedEnum<typeof MysqlRemoveType>;
+
+export type MysqlRemoveMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MysqlRemoveServiceType;
+  type: MysqlRemoveType;
+  volumeName: string | null;
+};
+
+export type MysqlRemoveDriverOpts = {};
+
+export type MysqlRemoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlRemoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlRemovePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlRemoveSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlRemovePreference = {
+  spread: MysqlRemoveSpread;
+};
+
+export type MysqlRemovePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlRemovePlatform> | undefined;
+  preferences?: Array<MysqlRemovePreference> | undefined;
+};
+
+export type MysqlRemoveRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlRemoveRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MysqlRemoveMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MysqlRemoveMetricsConfigEnum = ClosedEnum<
+  typeof MysqlRemoveMetricsConfigEnum
+>;
+
+export type MysqlRemoveMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MysqlRemoveMetricsConfigEnum;
+
+export type MysqlRemoveMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MysqlRemoveMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MysqlRemoveServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlRemoveServerStatus = ClosedEnum<
+  typeof MysqlRemoveServerStatus
+>;
+
+export type MysqlRemoveServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MysqlRemoveMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlRemoveServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MysqlRemoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlRemoveResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlRemoveApplicationStatus;
+  backups: Array<MysqlRemoveBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlRemoveApplicationStatus;
-  healthCheckSwarm: MysqlRemoveHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlRemoveRestartPolicySwarm | null;
-  placementSwarm: MysqlRemovePlacementSwarm | null;
-  updateConfigSwarm: MysqlRemoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlRemoveRollbackConfigSwarm | null;
-  modeSwarm: MysqlRemoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlRemoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlRemoveEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlRemoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlRemoveModeSwarm | null;
   mounts: Array<MysqlRemoveMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlRemoveNetworkSwarm> | null;
+  placementSwarm: MysqlRemovePlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlRemoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlRemoveRollbackConfigSwarm | null;
   server: MysqlRemoveServer | null;
-  backups: Array<MysqlRemoveBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlRemoveUpdateConfigSwarm | null;
 };
 
 export type MysqlRemoveResponse = MysqlRemoveResponseBody | models.ErrorT;
-
-/** @internal */
-export const MysqlRemoveSecurity$inboundSchema: z.ZodType<
-  MysqlRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlRemoveSecurity$outboundSchema: z.ZodType<
-  MysqlRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveSecurity$ {
-  /** @deprecated use `MysqlRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveSecurity$inboundSchema;
-  /** @deprecated use `MysqlRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveSecurity$outboundSchema;
-  /** @deprecated use `MysqlRemoveSecurity$Outbound` instead. */
-  export type Outbound = MysqlRemoveSecurity$Outbound;
-}
-
-export function mysqlRemoveSecurityToJSON(
-  mysqlRemoveSecurity: MysqlRemoveSecurity,
-): string {
-  return JSON.stringify(
-    MysqlRemoveSecurity$outboundSchema.parse(mysqlRemoveSecurity),
-  );
-}
-
-export function mysqlRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlRemoveRequest$inboundSchema: z.ZodType<
@@ -469,33 +403,693 @@ export namespace MysqlRemoveApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlRemoveBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveBackupType
+> = z.nativeEnum(MysqlRemoveBackupType);
+
+/** @internal */
+export const MysqlRemoveBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveBackupType
+> = MysqlRemoveBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveBackupType$ {
+  /** @deprecated use `MysqlRemoveBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveBackupType$inboundSchema;
+  /** @deprecated use `MysqlRemoveBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveDatabaseType
+> = z.nativeEnum(MysqlRemoveDatabaseType);
+
+/** @internal */
+export const MysqlRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveDatabaseType
+> = MysqlRemoveDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveDatabaseType$ {
+  /** @deprecated use `MysqlRemoveDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlRemoveDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveMetadataEnum
+> = z.nativeEnum(MysqlRemoveMetadataEnum);
+
+/** @internal */
+export const MysqlRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveMetadataEnum
+> = MysqlRemoveMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMetadataEnum$ {
+  /** @deprecated use `MysqlRemoveMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlRemoveMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlRemoveMariadb$inboundSchema: z.ZodType<
+  MysqlRemoveMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlRemoveMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlRemoveMariadb$outboundSchema: z.ZodType<
+  MysqlRemoveMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMariadb$ {
+  /** @deprecated use `MysqlRemoveMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMariadb$inboundSchema;
+  /** @deprecated use `MysqlRemoveMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMariadb$outboundSchema;
+  /** @deprecated use `MysqlRemoveMariadb$Outbound` instead. */
+  export type Outbound = MysqlRemoveMariadb$Outbound;
+}
+
+export function mysqlRemoveMariadbToJSON(
+  mysqlRemoveMariadb: MysqlRemoveMariadb,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMariadb$outboundSchema.parse(mysqlRemoveMariadb),
+  );
+}
+
+export function mysqlRemoveMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveMongo$inboundSchema: z.ZodType<
+  MysqlRemoveMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlRemoveMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlRemoveMongo$outboundSchema: z.ZodType<
+  MysqlRemoveMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMongo$ {
+  /** @deprecated use `MysqlRemoveMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMongo$inboundSchema;
+  /** @deprecated use `MysqlRemoveMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMongo$outboundSchema;
+  /** @deprecated use `MysqlRemoveMongo$Outbound` instead. */
+  export type Outbound = MysqlRemoveMongo$Outbound;
+}
+
+export function mysqlRemoveMongoToJSON(
+  mysqlRemoveMongo: MysqlRemoveMongo,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMongo$outboundSchema.parse(mysqlRemoveMongo),
+  );
+}
+
+export function mysqlRemoveMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveMysql$inboundSchema: z.ZodType<
+  MysqlRemoveMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlRemoveMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlRemoveMysql$outboundSchema: z.ZodType<
+  MysqlRemoveMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMysql$ {
+  /** @deprecated use `MysqlRemoveMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMysql$inboundSchema;
+  /** @deprecated use `MysqlRemoveMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMysql$outboundSchema;
+  /** @deprecated use `MysqlRemoveMysql$Outbound` instead. */
+  export type Outbound = MysqlRemoveMysql$Outbound;
+}
+
+export function mysqlRemoveMysqlToJSON(
+  mysqlRemoveMysql: MysqlRemoveMysql,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMysql$outboundSchema.parse(mysqlRemoveMysql),
+  );
+}
+
+export function mysqlRemoveMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemovePostgres$inboundSchema: z.ZodType<
+  MysqlRemovePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlRemovePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlRemovePostgres$outboundSchema: z.ZodType<
+  MysqlRemovePostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlRemovePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemovePostgres$ {
+  /** @deprecated use `MysqlRemovePostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemovePostgres$inboundSchema;
+  /** @deprecated use `MysqlRemovePostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemovePostgres$outboundSchema;
+  /** @deprecated use `MysqlRemovePostgres$Outbound` instead. */
+  export type Outbound = MysqlRemovePostgres$Outbound;
+}
+
+export function mysqlRemovePostgresToJSON(
+  mysqlRemovePostgres: MysqlRemovePostgres,
+): string {
+  return JSON.stringify(
+    MysqlRemovePostgres$outboundSchema.parse(mysqlRemovePostgres),
+  );
+}
+
+export function mysqlRemovePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemovePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemovePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemovePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveMetadata$inboundSchema: z.ZodType<
+  MysqlRemoveMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlRemoveMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlRemoveMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlRemoveMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlRemovePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlRemoveMetadata$Outbound = {
+  mariadb?: MysqlRemoveMariadb$Outbound | undefined;
+  mongo?: MysqlRemoveMongo$Outbound | undefined;
+  mysql?: MysqlRemoveMysql$Outbound | undefined;
+  postgres?: MysqlRemovePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlRemoveMetadata$outboundSchema: z.ZodType<
+  MysqlRemoveMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlRemoveMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlRemoveMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlRemoveMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlRemovePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMetadata$ {
+  /** @deprecated use `MysqlRemoveMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMetadata$inboundSchema;
+  /** @deprecated use `MysqlRemoveMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMetadata$outboundSchema;
+  /** @deprecated use `MysqlRemoveMetadata$Outbound` instead. */
+  export type Outbound = MysqlRemoveMetadata$Outbound;
+}
+
+export function mysqlRemoveMetadataToJSON(
+  mysqlRemoveMetadata: MysqlRemoveMetadata,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMetadata$outboundSchema.parse(mysqlRemoveMetadata),
+  );
+}
+
+export function mysqlRemoveMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveMetadataUnion$inboundSchema: z.ZodType<
+  MysqlRemoveMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlRemoveMetadata$inboundSchema),
+  MysqlRemoveMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlRemoveMetadataUnion$Outbound =
+  | MysqlRemoveMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlRemoveMetadataUnion$outboundSchema: z.ZodType<
+  MysqlRemoveMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlRemoveMetadata$outboundSchema),
+  MysqlRemoveMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMetadataUnion$ {
+  /** @deprecated use `MysqlRemoveMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlRemoveMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlRemoveMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlRemoveMetadataUnion$Outbound;
+}
+
+export function mysqlRemoveMetadataUnionToJSON(
+  mysqlRemoveMetadataUnion: MysqlRemoveMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMetadataUnion$outboundSchema.parse(mysqlRemoveMetadataUnion),
+  );
+}
+
+export function mysqlRemoveMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveBackup$inboundSchema: z.ZodType<
+  MysqlRemoveBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlRemoveBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlRemoveDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlRemoveMetadata$inboundSchema),
+      MysqlRemoveMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlRemoveBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlRemoveMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlRemoveBackup$outboundSchema: z.ZodType<
+  MysqlRemoveBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlRemoveBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlRemoveDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlRemoveMetadata$outboundSchema),
+      MysqlRemoveMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveBackup$ {
+  /** @deprecated use `MysqlRemoveBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveBackup$inboundSchema;
+  /** @deprecated use `MysqlRemoveBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveBackup$outboundSchema;
+  /** @deprecated use `MysqlRemoveBackup$Outbound` instead. */
+  export type Outbound = MysqlRemoveBackup$Outbound;
+}
+
+export function mysqlRemoveBackupToJSON(
+  mysqlRemoveBackup: MysqlRemoveBackup,
+): string {
+  return JSON.stringify(
+    MysqlRemoveBackup$outboundSchema.parse(mysqlRemoveBackup),
+  );
+}
+
+export function mysqlRemoveBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveProject$inboundSchema: z.ZodType<
+  MysqlRemoveProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlRemoveProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlRemoveProject$outboundSchema: z.ZodType<
+  MysqlRemoveProject$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveProject$ {
+  /** @deprecated use `MysqlRemoveProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveProject$inboundSchema;
+  /** @deprecated use `MysqlRemoveProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveProject$outboundSchema;
+  /** @deprecated use `MysqlRemoveProject$Outbound` instead. */
+  export type Outbound = MysqlRemoveProject$Outbound;
+}
+
+export function mysqlRemoveProjectToJSON(
+  mysqlRemoveProject: MysqlRemoveProject,
+): string {
+  return JSON.stringify(
+    MysqlRemoveProject$outboundSchema.parse(mysqlRemoveProject),
+  );
+}
+
+export function mysqlRemoveProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveEnvironment$inboundSchema: z.ZodType<
+  MysqlRemoveEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlRemoveProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlRemoveEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlRemoveProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlRemoveEnvironment$outboundSchema: z.ZodType<
+  MysqlRemoveEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlRemoveProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveEnvironment$ {
+  /** @deprecated use `MysqlRemoveEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveEnvironment$inboundSchema;
+  /** @deprecated use `MysqlRemoveEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveEnvironment$outboundSchema;
+  /** @deprecated use `MysqlRemoveEnvironment$Outbound` instead. */
+  export type Outbound = MysqlRemoveEnvironment$Outbound;
+}
+
+export function mysqlRemoveEnvironmentToJSON(
+  mysqlRemoveEnvironment: MysqlRemoveEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlRemoveEnvironment$outboundSchema.parse(mysqlRemoveEnvironment),
+  );
+}
+
+export function mysqlRemoveEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlRemoveHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlRemoveHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlRemoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -504,18 +1098,18 @@ export const MysqlRemoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlRemoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -553,48 +1147,129 @@ export function mysqlRemoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlRemoveRestartPolicySwarm,
+export const MysqlRemoveGlobal$inboundSchema: z.ZodType<
+  MysqlRemoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlRemoveGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlRemoveGlobal$outboundSchema: z.ZodType<
+  MysqlRemoveGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveGlobal$ {
+  /** @deprecated use `MysqlRemoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveGlobal$inboundSchema;
+  /** @deprecated use `MysqlRemoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveGlobal$outboundSchema;
+  /** @deprecated use `MysqlRemoveGlobal$Outbound` instead. */
+  export type Outbound = MysqlRemoveGlobal$Outbound;
+}
+
+export function mysqlRemoveGlobalToJSON(
+  mysqlRemoveGlobal: MysqlRemoveGlobal,
+): string {
+  return JSON.stringify(
+    MysqlRemoveGlobal$outboundSchema.parse(mysqlRemoveGlobal),
+  );
+}
+
+export function mysqlRemoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveGlobalJob$inboundSchema: z.ZodType<
+  MysqlRemoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlRemoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlRemoveGlobalJob$outboundSchema: z.ZodType<
+  MysqlRemoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveGlobalJob$ {
+  /** @deprecated use `MysqlRemoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlRemoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlRemoveGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlRemoveGlobalJob$Outbound;
+}
+
+export function mysqlRemoveGlobalJobToJSON(
+  mysqlRemoveGlobalJob: MysqlRemoveGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlRemoveGlobalJob$outboundSchema.parse(mysqlRemoveGlobalJob),
+  );
+}
+
+export function mysqlRemoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveReplicated$inboundSchema: z.ZodType<
+  MysqlRemoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlRemoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlRemoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlRemoveRestartPolicySwarm$Outbound,
+export const MysqlRemoveReplicated$outboundSchema: z.ZodType<
+  MysqlRemoveReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlRemoveRestartPolicySwarm
+  MysqlRemoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -602,32 +1277,501 @@ export const MysqlRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlRemoveRestartPolicySwarm$ {
-  /** @deprecated use `MysqlRemoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlRemoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlRemoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlRemoveRestartPolicySwarm$Outbound;
+export namespace MysqlRemoveReplicated$ {
+  /** @deprecated use `MysqlRemoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveReplicated$inboundSchema;
+  /** @deprecated use `MysqlRemoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveReplicated$outboundSchema;
+  /** @deprecated use `MysqlRemoveReplicated$Outbound` instead. */
+  export type Outbound = MysqlRemoveReplicated$Outbound;
 }
 
-export function mysqlRemoveRestartPolicySwarmToJSON(
-  mysqlRemoveRestartPolicySwarm: MysqlRemoveRestartPolicySwarm,
+export function mysqlRemoveReplicatedToJSON(
+  mysqlRemoveReplicated: MysqlRemoveReplicated,
 ): string {
   return JSON.stringify(
-    MysqlRemoveRestartPolicySwarm$outboundSchema.parse(
-      mysqlRemoveRestartPolicySwarm,
-    ),
+    MysqlRemoveReplicated$outboundSchema.parse(mysqlRemoveReplicated),
   );
 }
 
-export function mysqlRemoveRestartPolicySwarmFromJSON(
+export function mysqlRemoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlRemoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlRemoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveRestartPolicySwarm' from JSON`,
+    (x) => MysqlRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveReplicatedJob$inboundSchema: z.ZodType<
+  MysqlRemoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlRemoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlRemoveReplicatedJob$outboundSchema: z.ZodType<
+  MysqlRemoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveReplicatedJob$ {
+  /** @deprecated use `MysqlRemoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlRemoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlRemoveReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlRemoveReplicatedJob$Outbound;
+}
+
+export function mysqlRemoveReplicatedJobToJSON(
+  mysqlRemoveReplicatedJob: MysqlRemoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlRemoveReplicatedJob$outboundSchema.parse(mysqlRemoveReplicatedJob),
+  );
+}
+
+export function mysqlRemoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveModeSwarm$inboundSchema: z.ZodType<
+  MysqlRemoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlRemoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlRemoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlRemoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlRemoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlRemoveModeSwarm$Outbound = {
+  Global?: MysqlRemoveGlobal$Outbound | undefined;
+  GlobalJob?: MysqlRemoveGlobalJob$Outbound | undefined;
+  Replicated?: MysqlRemoveReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlRemoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlRemoveModeSwarm$outboundSchema: z.ZodType<
+  MysqlRemoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlRemoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlRemoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlRemoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlRemoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveModeSwarm$ {
+  /** @deprecated use `MysqlRemoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlRemoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlRemoveModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlRemoveModeSwarm$Outbound;
+}
+
+export function mysqlRemoveModeSwarmToJSON(
+  mysqlRemoveModeSwarm: MysqlRemoveModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlRemoveModeSwarm$outboundSchema.parse(mysqlRemoveModeSwarm),
+  );
+}
+
+export function mysqlRemoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveServiceType
+> = z.nativeEnum(MysqlRemoveServiceType);
+
+/** @internal */
+export const MysqlRemoveServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveServiceType
+> = MysqlRemoveServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveServiceType$ {
+  /** @deprecated use `MysqlRemoveServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveServiceType$inboundSchema;
+  /** @deprecated use `MysqlRemoveServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlRemoveType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveType
+> = z.nativeEnum(MysqlRemoveType);
+
+/** @internal */
+export const MysqlRemoveType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveType
+> = MysqlRemoveType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveType$ {
+  /** @deprecated use `MysqlRemoveType$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveType$inboundSchema;
+  /** @deprecated use `MysqlRemoveType$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlRemoveMount$inboundSchema: z.ZodType<
+  MysqlRemoveMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlRemoveServiceType$inboundSchema,
+  type: MysqlRemoveType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlRemoveMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlRemoveMount$outboundSchema: z.ZodType<
+  MysqlRemoveMount$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlRemoveServiceType$outboundSchema,
+  type: MysqlRemoveType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveMount$ {
+  /** @deprecated use `MysqlRemoveMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveMount$inboundSchema;
+  /** @deprecated use `MysqlRemoveMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveMount$outboundSchema;
+  /** @deprecated use `MysqlRemoveMount$Outbound` instead. */
+  export type Outbound = MysqlRemoveMount$Outbound;
+}
+
+export function mysqlRemoveMountToJSON(
+  mysqlRemoveMount: MysqlRemoveMount,
+): string {
+  return JSON.stringify(
+    MysqlRemoveMount$outboundSchema.parse(mysqlRemoveMount),
+  );
+}
+
+export function mysqlRemoveMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveDriverOpts$inboundSchema: z.ZodType<
+  MysqlRemoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlRemoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlRemoveDriverOpts$outboundSchema: z.ZodType<
+  MysqlRemoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveDriverOpts$ {
+  /** @deprecated use `MysqlRemoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlRemoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlRemoveDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlRemoveDriverOpts$Outbound;
+}
+
+export function mysqlRemoveDriverOptsToJSON(
+  mysqlRemoveDriverOpts: MysqlRemoveDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlRemoveDriverOpts$outboundSchema.parse(mysqlRemoveDriverOpts),
+  );
+}
+
+export function mysqlRemoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemoveNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlRemoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlRemoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlRemoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlRemoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlRemoveNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlRemoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlRemoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlRemoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveNetworkSwarm$ {
+  /** @deprecated use `MysqlRemoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlRemoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlRemoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlRemoveNetworkSwarm$Outbound;
+}
+
+export function mysqlRemoveNetworkSwarmToJSON(
+  mysqlRemoveNetworkSwarm: MysqlRemoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlRemoveNetworkSwarm$outboundSchema.parse(mysqlRemoveNetworkSwarm),
+  );
+}
+
+export function mysqlRemoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlRemovePlatform$inboundSchema: z.ZodType<
+  MysqlRemovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlRemovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlRemovePlatform$outboundSchema: z.ZodType<
+  MysqlRemovePlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlRemovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemovePlatform$ {
+  /** @deprecated use `MysqlRemovePlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemovePlatform$inboundSchema;
+  /** @deprecated use `MysqlRemovePlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemovePlatform$outboundSchema;
+  /** @deprecated use `MysqlRemovePlatform$Outbound` instead. */
+  export type Outbound = MysqlRemovePlatform$Outbound;
+}
+
+export function mysqlRemovePlatformToJSON(
+  mysqlRemovePlatform: MysqlRemovePlatform,
+): string {
+  return JSON.stringify(
+    MysqlRemovePlatform$outboundSchema.parse(mysqlRemovePlatform),
+  );
+}
+
+export function mysqlRemovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlRemovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlRemovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemovePlatform' from JSON`,
   );
 }
 
@@ -756,99 +1900,32 @@ export function mysqlRemovePreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlRemovePlatform$inboundSchema: z.ZodType<
-  MysqlRemovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlRemovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlRemovePlatform$outboundSchema: z.ZodType<
-  MysqlRemovePlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlRemovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemovePlatform$ {
-  /** @deprecated use `MysqlRemovePlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemovePlatform$inboundSchema;
-  /** @deprecated use `MysqlRemovePlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemovePlatform$outboundSchema;
-  /** @deprecated use `MysqlRemovePlatform$Outbound` instead. */
-  export type Outbound = MysqlRemovePlatform$Outbound;
-}
-
-export function mysqlRemovePlatformToJSON(
-  mysqlRemovePlatform: MysqlRemovePlatform,
-): string {
-  return JSON.stringify(
-    MysqlRemovePlatform$outboundSchema.parse(mysqlRemovePlatform),
-  );
-}
-
-export function mysqlRemovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlRemovePlacementSwarm$inboundSchema: z.ZodType<
   MysqlRemovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlRemovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlRemovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MysqlRemovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlRemovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlRemovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlRemovePlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlRemovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -858,17 +1935,17 @@ export const MysqlRemovePlacementSwarm$outboundSchema: z.ZodType<
   MysqlRemovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlRemovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlRemovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MysqlRemovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -904,58 +1981,48 @@ export function mysqlRemovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlRemoveUpdateConfigSwarm,
+export const MysqlRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlRemoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlRemoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlRemoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlRemoveUpdateConfigSwarm$Outbound,
+export const MysqlRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlRemoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlRemoveUpdateConfigSwarm
+  MysqlRemoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -963,32 +2030,32 @@ export const MysqlRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlRemoveUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlRemoveUpdateConfigSwarm$Outbound;
+export namespace MysqlRemoveRestartPolicySwarm$ {
+  /** @deprecated use `MysqlRemoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlRemoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlRemoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlRemoveRestartPolicySwarm$Outbound;
 }
 
-export function mysqlRemoveUpdateConfigSwarmToJSON(
-  mysqlRemoveUpdateConfigSwarm: MysqlRemoveUpdateConfigSwarm,
+export function mysqlRemoveRestartPolicySwarmToJSON(
+  mysqlRemoveRestartPolicySwarm: MysqlRemoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlRemoveUpdateConfigSwarm$outboundSchema.parse(
-      mysqlRemoveUpdateConfigSwarm,
+    MysqlRemoveRestartPolicySwarm$outboundSchema.parse(
+      mysqlRemoveRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlRemoveUpdateConfigSwarmFromJSON(
+export function mysqlRemoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlRemoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlRemoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveUpdateConfigSwarm' from JSON`,
+    (x) => MysqlRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -998,31 +2065,31 @@ export const MysqlRemoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlRemoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1031,20 +2098,20 @@ export const MysqlRemoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlRemoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1079,730 +2146,6 @@ export function mysqlRemoveRollbackConfigSwarmFromJSON(
     (x) => MysqlRemoveRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlRemoveRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlRemoveReplicated$inboundSchema: z.ZodType<
-  MysqlRemoveReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlRemoveReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveReplicated$outboundSchema: z.ZodType<
-  MysqlRemoveReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveReplicated$ {
-  /** @deprecated use `MysqlRemoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveReplicated$inboundSchema;
-  /** @deprecated use `MysqlRemoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveReplicated$outboundSchema;
-  /** @deprecated use `MysqlRemoveReplicated$Outbound` instead. */
-  export type Outbound = MysqlRemoveReplicated$Outbound;
-}
-
-export function mysqlRemoveReplicatedToJSON(
-  mysqlRemoveReplicated: MysqlRemoveReplicated,
-): string {
-  return JSON.stringify(
-    MysqlRemoveReplicated$outboundSchema.parse(mysqlRemoveReplicated),
-  );
-}
-
-export function mysqlRemoveReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveGlobal$inboundSchema: z.ZodType<
-  MysqlRemoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlRemoveGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlRemoveGlobal$outboundSchema: z.ZodType<
-  MysqlRemoveGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveGlobal$ {
-  /** @deprecated use `MysqlRemoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveGlobal$inboundSchema;
-  /** @deprecated use `MysqlRemoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveGlobal$outboundSchema;
-  /** @deprecated use `MysqlRemoveGlobal$Outbound` instead. */
-  export type Outbound = MysqlRemoveGlobal$Outbound;
-}
-
-export function mysqlRemoveGlobalToJSON(
-  mysqlRemoveGlobal: MysqlRemoveGlobal,
-): string {
-  return JSON.stringify(
-    MysqlRemoveGlobal$outboundSchema.parse(mysqlRemoveGlobal),
-  );
-}
-
-export function mysqlRemoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveReplicatedJob$inboundSchema: z.ZodType<
-  MysqlRemoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlRemoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveReplicatedJob$outboundSchema: z.ZodType<
-  MysqlRemoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveReplicatedJob$ {
-  /** @deprecated use `MysqlRemoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlRemoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlRemoveReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlRemoveReplicatedJob$Outbound;
-}
-
-export function mysqlRemoveReplicatedJobToJSON(
-  mysqlRemoveReplicatedJob: MysqlRemoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlRemoveReplicatedJob$outboundSchema.parse(mysqlRemoveReplicatedJob),
-  );
-}
-
-export function mysqlRemoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveGlobalJob$inboundSchema: z.ZodType<
-  MysqlRemoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlRemoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlRemoveGlobalJob$outboundSchema: z.ZodType<
-  MysqlRemoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveGlobalJob$ {
-  /** @deprecated use `MysqlRemoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlRemoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlRemoveGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlRemoveGlobalJob$Outbound;
-}
-
-export function mysqlRemoveGlobalJobToJSON(
-  mysqlRemoveGlobalJob: MysqlRemoveGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlRemoveGlobalJob$outboundSchema.parse(mysqlRemoveGlobalJob),
-  );
-}
-
-export function mysqlRemoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveModeSwarm$inboundSchema: z.ZodType<
-  MysqlRemoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlRemoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlRemoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlRemoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MysqlRemoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlRemoveModeSwarm$Outbound = {
-  Replicated?: MysqlRemoveReplicated$Outbound | undefined;
-  Global?: MysqlRemoveGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlRemoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlRemoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveModeSwarm$outboundSchema: z.ZodType<
-  MysqlRemoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlRemoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlRemoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlRemoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlRemoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveModeSwarm$ {
-  /** @deprecated use `MysqlRemoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlRemoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlRemoveModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlRemoveModeSwarm$Outbound;
-}
-
-export function mysqlRemoveModeSwarmToJSON(
-  mysqlRemoveModeSwarm: MysqlRemoveModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlRemoveModeSwarm$outboundSchema.parse(mysqlRemoveModeSwarm),
-  );
-}
-
-export function mysqlRemoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveDriverOpts$inboundSchema: z.ZodType<
-  MysqlRemoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlRemoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlRemoveDriverOpts$outboundSchema: z.ZodType<
-  MysqlRemoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveDriverOpts$ {
-  /** @deprecated use `MysqlRemoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlRemoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlRemoveDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlRemoveDriverOpts$Outbound;
-}
-
-export function mysqlRemoveDriverOptsToJSON(
-  mysqlRemoveDriverOpts: MysqlRemoveDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlRemoveDriverOpts$outboundSchema.parse(mysqlRemoveDriverOpts),
-  );
-}
-
-export function mysqlRemoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlRemoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlRemoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlRemoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlRemoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlRemoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlRemoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveNetworkSwarm$ {
-  /** @deprecated use `MysqlRemoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlRemoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlRemoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlRemoveNetworkSwarm$Outbound;
-}
-
-export function mysqlRemoveNetworkSwarmToJSON(
-  mysqlRemoveNetworkSwarm: MysqlRemoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlRemoveNetworkSwarm$outboundSchema.parse(mysqlRemoveNetworkSwarm),
-  );
-}
-
-export function mysqlRemoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveProject$inboundSchema: z.ZodType<
-  MysqlRemoveProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlRemoveProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlRemoveProject$outboundSchema: z.ZodType<
-  MysqlRemoveProject$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveProject$ {
-  /** @deprecated use `MysqlRemoveProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveProject$inboundSchema;
-  /** @deprecated use `MysqlRemoveProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveProject$outboundSchema;
-  /** @deprecated use `MysqlRemoveProject$Outbound` instead. */
-  export type Outbound = MysqlRemoveProject$Outbound;
-}
-
-export function mysqlRemoveProjectToJSON(
-  mysqlRemoveProject: MysqlRemoveProject,
-): string {
-  return JSON.stringify(
-    MysqlRemoveProject$outboundSchema.parse(mysqlRemoveProject),
-  );
-}
-
-export function mysqlRemoveProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveEnvironment$inboundSchema: z.ZodType<
-  MysqlRemoveEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlRemoveProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlRemoveEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlRemoveProject$Outbound;
-};
-
-/** @internal */
-export const MysqlRemoveEnvironment$outboundSchema: z.ZodType<
-  MysqlRemoveEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlRemoveProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveEnvironment$ {
-  /** @deprecated use `MysqlRemoveEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveEnvironment$inboundSchema;
-  /** @deprecated use `MysqlRemoveEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveEnvironment$outboundSchema;
-  /** @deprecated use `MysqlRemoveEnvironment$Outbound` instead. */
-  export type Outbound = MysqlRemoveEnvironment$Outbound;
-}
-
-export function mysqlRemoveEnvironmentToJSON(
-  mysqlRemoveEnvironment: MysqlRemoveEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlRemoveEnvironment$outboundSchema.parse(mysqlRemoveEnvironment),
-  );
-}
-
-export function mysqlRemoveEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveType
-> = z.nativeEnum(MysqlRemoveType);
-
-/** @internal */
-export const MysqlRemoveType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveType
-> = MysqlRemoveType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveType$ {
-  /** @deprecated use `MysqlRemoveType$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveType$inboundSchema;
-  /** @deprecated use `MysqlRemoveType$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlRemoveServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveServiceType
-> = z.nativeEnum(MysqlRemoveServiceType);
-
-/** @internal */
-export const MysqlRemoveServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveServiceType
-> = MysqlRemoveServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveServiceType$ {
-  /** @deprecated use `MysqlRemoveServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveServiceType$inboundSchema;
-  /** @deprecated use `MysqlRemoveServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlRemoveMount$inboundSchema: z.ZodType<
-  MysqlRemoveMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlRemoveType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlRemoveServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlRemoveMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlRemoveMount$outboundSchema: z.ZodType<
-  MysqlRemoveMount$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlRemoveType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlRemoveServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMount$ {
-  /** @deprecated use `MysqlRemoveMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMount$inboundSchema;
-  /** @deprecated use `MysqlRemoveMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMount$outboundSchema;
-  /** @deprecated use `MysqlRemoveMount$Outbound` instead. */
-  export type Outbound = MysqlRemoveMount$Outbound;
-}
-
-export function mysqlRemoveMountToJSON(
-  mysqlRemoveMount: MysqlRemoveMount,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMount$outboundSchema.parse(mysqlRemoveMount),
-  );
-}
-
-export function mysqlRemoveMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveServerStatus
-> = z.nativeEnum(MysqlRemoveServerStatus);
-
-/** @internal */
-export const MysqlRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveServerStatus
-> = MysqlRemoveServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveServerStatus$ {
-  /** @deprecated use `MysqlRemoveServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveServerStatus$inboundSchema;
-  /** @deprecated use `MysqlRemoveServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1965,24 +2308,38 @@ export function mysqlRemoveMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveServerStatus
+> = z.nativeEnum(MysqlRemoveServerStatus);
+
+/** @internal */
+export const MysqlRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlRemoveServerStatus
+> = MysqlRemoveServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlRemoveServerStatus$ {
+  /** @deprecated use `MysqlRemoveServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveServerStatus$inboundSchema;
+  /** @deprecated use `MysqlRemoveServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlRemoveServer$inboundSchema: z.ZodType<
   MysqlRemoveServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlRemoveServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1993,26 +2350,33 @@ export const MysqlRemoveServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlRemoveServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlRemoveServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2021,19 +2385,12 @@ export const MysqlRemoveServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlRemoveServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlRemoveServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2044,6 +2401,13 @@ export const MysqlRemoveServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlRemoveServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2078,521 +2442,91 @@ export function mysqlRemoveServerFromJSON(
 }
 
 /** @internal */
-export const MysqlRemoveBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveBackupType
-> = z.nativeEnum(MysqlRemoveBackupType);
-
-/** @internal */
-export const MysqlRemoveBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveBackupType
-> = MysqlRemoveBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveBackupType$ {
-  /** @deprecated use `MysqlRemoveBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveBackupType$inboundSchema;
-  /** @deprecated use `MysqlRemoveBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveDatabaseType
-> = z.nativeEnum(MysqlRemoveDatabaseType);
-
-/** @internal */
-export const MysqlRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveDatabaseType
-> = MysqlRemoveDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveDatabaseType$ {
-  /** @deprecated use `MysqlRemoveDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlRemoveDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveMetadataEnum
-> = z.nativeEnum(MysqlRemoveMetadataEnum);
-
-/** @internal */
-export const MysqlRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlRemoveMetadataEnum
-> = MysqlRemoveMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMetadataEnum$ {
-  /** @deprecated use `MysqlRemoveMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlRemoveMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlRemovePostgres$inboundSchema: z.ZodType<
-  MysqlRemovePostgres,
+export const MysqlRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlRemoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlRemovePostgres$Outbound = {
-  databaseUser: string;
+export type MysqlRemoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlRemovePostgres$outboundSchema: z.ZodType<
-  MysqlRemovePostgres$Outbound,
+export const MysqlRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlRemoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlRemovePostgres
+  MysqlRemoveUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlRemovePostgres$ {
-  /** @deprecated use `MysqlRemovePostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemovePostgres$inboundSchema;
-  /** @deprecated use `MysqlRemovePostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemovePostgres$outboundSchema;
-  /** @deprecated use `MysqlRemovePostgres$Outbound` instead. */
-  export type Outbound = MysqlRemovePostgres$Outbound;
+export namespace MysqlRemoveUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlRemoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlRemoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlRemoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlRemoveUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlRemovePostgresToJSON(
-  mysqlRemovePostgres: MysqlRemovePostgres,
+export function mysqlRemoveUpdateConfigSwarmToJSON(
+  mysqlRemoveUpdateConfigSwarm: MysqlRemoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlRemovePostgres$outboundSchema.parse(mysqlRemovePostgres),
+    MysqlRemoveUpdateConfigSwarm$outboundSchema.parse(
+      mysqlRemoveUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mysqlRemovePostgresFromJSON(
+export function mysqlRemoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlRemovePostgres, SDKValidationError> {
+): SafeParseResult<MysqlRemoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlRemovePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemovePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveMariadb$inboundSchema: z.ZodType<
-  MysqlRemoveMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlRemoveMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlRemoveMariadb$outboundSchema: z.ZodType<
-  MysqlRemoveMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMariadb$ {
-  /** @deprecated use `MysqlRemoveMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMariadb$inboundSchema;
-  /** @deprecated use `MysqlRemoveMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMariadb$outboundSchema;
-  /** @deprecated use `MysqlRemoveMariadb$Outbound` instead. */
-  export type Outbound = MysqlRemoveMariadb$Outbound;
-}
-
-export function mysqlRemoveMariadbToJSON(
-  mysqlRemoveMariadb: MysqlRemoveMariadb,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMariadb$outboundSchema.parse(mysqlRemoveMariadb),
-  );
-}
-
-export function mysqlRemoveMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveMongo$inboundSchema: z.ZodType<
-  MysqlRemoveMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlRemoveMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlRemoveMongo$outboundSchema: z.ZodType<
-  MysqlRemoveMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMongo$ {
-  /** @deprecated use `MysqlRemoveMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMongo$inboundSchema;
-  /** @deprecated use `MysqlRemoveMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMongo$outboundSchema;
-  /** @deprecated use `MysqlRemoveMongo$Outbound` instead. */
-  export type Outbound = MysqlRemoveMongo$Outbound;
-}
-
-export function mysqlRemoveMongoToJSON(
-  mysqlRemoveMongo: MysqlRemoveMongo,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMongo$outboundSchema.parse(mysqlRemoveMongo),
-  );
-}
-
-export function mysqlRemoveMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveMysql$inboundSchema: z.ZodType<
-  MysqlRemoveMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlRemoveMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlRemoveMysql$outboundSchema: z.ZodType<
-  MysqlRemoveMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMysql$ {
-  /** @deprecated use `MysqlRemoveMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMysql$inboundSchema;
-  /** @deprecated use `MysqlRemoveMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMysql$outboundSchema;
-  /** @deprecated use `MysqlRemoveMysql$Outbound` instead. */
-  export type Outbound = MysqlRemoveMysql$Outbound;
-}
-
-export function mysqlRemoveMysqlToJSON(
-  mysqlRemoveMysql: MysqlRemoveMysql,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMysql$outboundSchema.parse(mysqlRemoveMysql),
-  );
-}
-
-export function mysqlRemoveMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveMetadata$inboundSchema: z.ZodType<
-  MysqlRemoveMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlRemovePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlRemoveMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlRemoveMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlRemoveMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlRemoveMetadata$Outbound = {
-  postgres?: MysqlRemovePostgres$Outbound | undefined;
-  mariadb?: MysqlRemoveMariadb$Outbound | undefined;
-  mongo?: MysqlRemoveMongo$Outbound | undefined;
-  mysql?: MysqlRemoveMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveMetadata$outboundSchema: z.ZodType<
-  MysqlRemoveMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlRemovePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlRemoveMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlRemoveMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlRemoveMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMetadata$ {
-  /** @deprecated use `MysqlRemoveMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMetadata$inboundSchema;
-  /** @deprecated use `MysqlRemoveMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMetadata$outboundSchema;
-  /** @deprecated use `MysqlRemoveMetadata$Outbound` instead. */
-  export type Outbound = MysqlRemoveMetadata$Outbound;
-}
-
-export function mysqlRemoveMetadataToJSON(
-  mysqlRemoveMetadata: MysqlRemoveMetadata,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMetadata$outboundSchema.parse(mysqlRemoveMetadata),
-  );
-}
-
-export function mysqlRemoveMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveMetadataUnion$inboundSchema: z.ZodType<
-  MysqlRemoveMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlRemoveMetadata$inboundSchema),
-  MysqlRemoveMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlRemoveMetadataUnion$Outbound =
-  | MysqlRemoveMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlRemoveMetadataUnion$outboundSchema: z.ZodType<
-  MysqlRemoveMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlRemoveMetadata$outboundSchema),
-  MysqlRemoveMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveMetadataUnion$ {
-  /** @deprecated use `MysqlRemoveMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlRemoveMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlRemoveMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlRemoveMetadataUnion$Outbound;
-}
-
-export function mysqlRemoveMetadataUnionToJSON(
-  mysqlRemoveMetadataUnion: MysqlRemoveMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlRemoveMetadataUnion$outboundSchema.parse(mysqlRemoveMetadataUnion),
-  );
-}
-
-export function mysqlRemoveMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlRemoveBackup$inboundSchema: z.ZodType<
-  MysqlRemoveBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlRemoveBackupType$inboundSchema,
-  databaseType: MysqlRemoveDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlRemoveMetadata$inboundSchema),
-      MysqlRemoveMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlRemoveBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlRemoveMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlRemoveBackup$outboundSchema: z.ZodType<
-  MysqlRemoveBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlRemoveBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlRemoveBackupType$outboundSchema,
-  databaseType: MysqlRemoveDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlRemoveMetadata$outboundSchema),
-      MysqlRemoveMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRemoveBackup$ {
-  /** @deprecated use `MysqlRemoveBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlRemoveBackup$inboundSchema;
-  /** @deprecated use `MysqlRemoveBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlRemoveBackup$outboundSchema;
-  /** @deprecated use `MysqlRemoveBackup$Outbound` instead. */
-  export type Outbound = MysqlRemoveBackup$Outbound;
-}
-
-export function mysqlRemoveBackupToJSON(
-  mysqlRemoveBackup: MysqlRemoveBackup,
-): string {
-  return JSON.stringify(
-    MysqlRemoveBackup$outboundSchema.parse(mysqlRemoveBackup),
-  );
-}
-
-export function mysqlRemoveBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRemoveBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRemoveBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRemoveBackup' from JSON`,
+    (x) => MysqlRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlRemoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2602,88 +2536,88 @@ export const MysqlRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlRemoveApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlRemoveBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlRemoveEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlRemoveApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlRemoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlRemoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlRemoveModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlRemoveMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlRemoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlRemovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlRemoveUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlRemoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlRemoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlRemoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlRemoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlRemoveEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlRemoveMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlRemoveServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlRemoveBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlRemoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlRemoveResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlRemoveBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlRemoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlRemoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlRemovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlRemoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlRemoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlRemoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlRemoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlRemoveEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlRemoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlRemoveModeSwarm$Outbound | null;
   mounts: Array<MysqlRemoveMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlRemoveNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlRemovePlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlRemoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlRemoveRollbackConfigSwarm$Outbound | null;
   server: MysqlRemoveServer$Outbound | null;
-  backups: Array<MysqlRemoveBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlRemoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2692,51 +2626,51 @@ export const MysqlRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlRemoveResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlRemoveApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlRemoveBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlRemoveEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlRemoveApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlRemoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlRemoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlRemoveModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlRemoveMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlRemoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlRemovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlRemoveUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlRemoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlRemoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlRemoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlRemoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlRemoveEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlRemoveMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlRemoveServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlRemoveBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlRemoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

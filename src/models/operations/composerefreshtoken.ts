@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeRefreshTokenSecurity = {
-  authorization: string;
-};
-
 export type ComposeRefreshTokenRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeRefreshTokenSecurity$inboundSchema: z.ZodType<
-  ComposeRefreshTokenSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeRefreshTokenSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeRefreshTokenSecurity$outboundSchema: z.ZodType<
-  ComposeRefreshTokenSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeRefreshTokenSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeRefreshTokenSecurity$ {
-  /** @deprecated use `ComposeRefreshTokenSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeRefreshTokenSecurity$inboundSchema;
-  /** @deprecated use `ComposeRefreshTokenSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeRefreshTokenSecurity$outboundSchema;
-  /** @deprecated use `ComposeRefreshTokenSecurity$Outbound` instead. */
-  export type Outbound = ComposeRefreshTokenSecurity$Outbound;
-}
-
-export function composeRefreshTokenSecurityToJSON(
-  composeRefreshTokenSecurity: ComposeRefreshTokenSecurity,
-): string {
-  return JSON.stringify(
-    ComposeRefreshTokenSecurity$outboundSchema.parse(
-      composeRefreshTokenSecurity,
-    ),
-  );
-}
-
-export function composeRefreshTokenSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeRefreshTokenSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeRefreshTokenSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeRefreshTokenSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeRefreshTokenRequest$inboundSchema: z.ZodType<

@@ -3,20 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type BitbucketUpdateSecurity = {
-  authorization: string;
-};
-
 export type BitbucketUpdateRequest = {
+  appPassword?: string | null | undefined;
   bitbucketId: string;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | null | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId: string;
   name: string;
@@ -27,9 +22,9 @@ export type BitbucketUpdateRequest = {
  * Successful response
  */
 export type BitbucketUpdateResponseBody = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
   gitProviderId: string;
 };
@@ -39,76 +34,14 @@ export type BitbucketUpdateResponse =
   | models.ErrorT;
 
 /** @internal */
-export const BitbucketUpdateSecurity$inboundSchema: z.ZodType<
-  BitbucketUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketUpdateSecurity$outboundSchema: z.ZodType<
-  BitbucketUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketUpdateSecurity$ {
-  /** @deprecated use `BitbucketUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = BitbucketUpdateSecurity$inboundSchema;
-  /** @deprecated use `BitbucketUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = BitbucketUpdateSecurity$outboundSchema;
-  /** @deprecated use `BitbucketUpdateSecurity$Outbound` instead. */
-  export type Outbound = BitbucketUpdateSecurity$Outbound;
-}
-
-export function bitbucketUpdateSecurityToJSON(
-  bitbucketUpdateSecurity: BitbucketUpdateSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketUpdateSecurity$outboundSchema.parse(bitbucketUpdateSecurity),
-  );
-}
-
-export function bitbucketUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BitbucketUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketUpdateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const BitbucketUpdateRequest$inboundSchema: z.ZodType<
   BitbucketUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()).optional(),
   bitbucketId: z.string(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.nullable(z.string()).optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string(),
   name: z.string(),
@@ -117,9 +50,9 @@ export const BitbucketUpdateRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type BitbucketUpdateRequest$Outbound = {
+  appPassword?: string | null | undefined;
   bitbucketId: string;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | null | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId: string;
   name: string;
@@ -132,9 +65,9 @@ export const BitbucketUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketUpdateRequest
 > = z.object({
+  appPassword: z.nullable(z.string()).optional(),
   bitbucketId: z.string(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.nullable(z.string()).optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string(),
   name: z.string(),
@@ -178,18 +111,18 @@ export const BitbucketUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });
 
 /** @internal */
 export type BitbucketUpdateResponseBody$Outbound = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
   gitProviderId: string;
 };
@@ -200,9 +133,9 @@ export const BitbucketUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketUpdateResponseBody
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
   gitProviderId: z.string(),
 });

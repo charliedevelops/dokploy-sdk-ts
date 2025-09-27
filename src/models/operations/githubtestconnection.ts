@@ -3,85 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GithubTestConnectionSecurity = {
-  authorization: string;
-};
 
 export type GithubTestConnectionRequest = {
   githubId: string;
 };
 
 export type GithubTestConnectionResponse = models.ErrorT | string;
-
-/** @internal */
-export const GithubTestConnectionSecurity$inboundSchema: z.ZodType<
-  GithubTestConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GithubTestConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GithubTestConnectionSecurity$outboundSchema: z.ZodType<
-  GithubTestConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  GithubTestConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GithubTestConnectionSecurity$ {
-  /** @deprecated use `GithubTestConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema = GithubTestConnectionSecurity$inboundSchema;
-  /** @deprecated use `GithubTestConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema = GithubTestConnectionSecurity$outboundSchema;
-  /** @deprecated use `GithubTestConnectionSecurity$Outbound` instead. */
-  export type Outbound = GithubTestConnectionSecurity$Outbound;
-}
-
-export function githubTestConnectionSecurityToJSON(
-  githubTestConnectionSecurity: GithubTestConnectionSecurity,
-): string {
-  return JSON.stringify(
-    GithubTestConnectionSecurity$outboundSchema.parse(
-      githubTestConnectionSecurity,
-    ),
-  );
-}
-
-export function githubTestConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GithubTestConnectionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GithubTestConnectionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GithubTestConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GithubTestConnectionRequest$inboundSchema: z.ZodType<

@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MariadbChangeStatusSecurity = {
-  authorization: string;
-};
-
 export const MariadbChangeStatusApplicationStatusRequest = {
   Idle: "idle",
   Running: "running",
@@ -25,8 +21,8 @@ export type MariadbChangeStatusApplicationStatusRequest = ClosedEnum<
 >;
 
 export type MariadbChangeStatusRequest = {
-  mariadbId: string;
   applicationStatus: MariadbChangeStatusApplicationStatusRequest;
+  mariadbId: string;
 };
 
 export const MariadbChangeStatusApplicationStatusResponse = {
@@ -38,198 +34,6 @@ export const MariadbChangeStatusApplicationStatusResponse = {
 export type MariadbChangeStatusApplicationStatusResponse = ClosedEnum<
   typeof MariadbChangeStatusApplicationStatusResponse
 >;
-
-export type MariadbChangeStatusHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MariadbChangeStatusRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MariadbChangeStatusSpread = {
-  spreadDescriptor: string;
-};
-
-export type MariadbChangeStatusPreference = {
-  spread: MariadbChangeStatusSpread;
-};
-
-export type MariadbChangeStatusPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MariadbChangeStatusPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbChangeStatusPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MariadbChangeStatusPlatform> | undefined;
-};
-
-export type MariadbChangeStatusUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbChangeStatusRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbChangeStatusReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbChangeStatusGlobal = {};
-
-export type MariadbChangeStatusReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbChangeStatusGlobalJob = {};
-
-export type MariadbChangeStatusModeSwarm = {
-  replicated?: MariadbChangeStatusReplicated | undefined;
-  global?: MariadbChangeStatusGlobal | undefined;
-  replicatedJob?: MariadbChangeStatusReplicatedJob | undefined;
-  globalJob?: MariadbChangeStatusGlobalJob | undefined;
-};
-
-export type MariadbChangeStatusDriverOpts = {};
-
-export type MariadbChangeStatusNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbChangeStatusDriverOpts | undefined;
-};
-
-export type MariadbChangeStatusProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MariadbChangeStatusEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbChangeStatusProject;
-};
-
-export const MariadbChangeStatusType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MariadbChangeStatusType = ClosedEnum<
-  typeof MariadbChangeStatusType
->;
-
-export const MariadbChangeStatusServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MariadbChangeStatusServiceType = ClosedEnum<
-  typeof MariadbChangeStatusServiceType
->;
-
-export type MariadbChangeStatusMount = {
-  mountId: string;
-  type: MariadbChangeStatusType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MariadbChangeStatusServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MariadbChangeStatusServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MariadbChangeStatusServerStatus = ClosedEnum<
-  typeof MariadbChangeStatusServerStatus
->;
-
-export const MariadbChangeStatusMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MariadbChangeStatusMetricsConfigEnum = ClosedEnum<
-  typeof MariadbChangeStatusMetricsConfigEnum
->;
-
-export type MariadbChangeStatusMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MariadbChangeStatusMetricsConfigEnum;
-
-export type MariadbChangeStatusMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MariadbChangeStatusMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MariadbChangeStatusServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MariadbChangeStatusServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MariadbChangeStatusMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MariadbChangeStatusBackupType = {
   Database: "database",
@@ -257,29 +61,29 @@ export type MariadbChangeStatusMetadataEnum = ClosedEnum<
   typeof MariadbChangeStatusMetadataEnum
 >;
 
-export type MariadbChangeStatusPostgres = {
-  databaseUser: string;
-};
-
 export type MariadbChangeStatusMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbChangeStatusMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbChangeStatusMysql = {
   databaseRootPassword: string;
 };
 
+export type MariadbChangeStatusPostgres = {
+  databaseUser: string;
+};
+
 export type MariadbChangeStatusMetadata = {
-  postgres?: MariadbChangeStatusPostgres | undefined;
   mariadb?: MariadbChangeStatusMariadb | undefined;
   mongo?: MariadbChangeStatusMongo | undefined;
   mysql?: MariadbChangeStatusMysql | undefined;
+  postgres?: MariadbChangeStatusPostgres | undefined;
 };
 
 export type MariadbChangeStatusMetadataUnion =
@@ -287,136 +91,264 @@ export type MariadbChangeStatusMetadataUnion =
   | MariadbChangeStatusMetadataEnum;
 
 export type MariadbChangeStatusBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MariadbChangeStatusBackupType;
-  databaseType: MariadbChangeStatusDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MariadbChangeStatusDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MariadbChangeStatusMetadata
     | MariadbChangeStatusMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MariadbChangeStatusProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MariadbChangeStatusEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbChangeStatusProject;
+  projectId: string;
+};
+
+export type MariadbChangeStatusHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MariadbChangeStatusGlobal = {};
+
+export type MariadbChangeStatusGlobalJob = {};
+
+export type MariadbChangeStatusReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbChangeStatusReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbChangeStatusModeSwarm = {
+  global?: MariadbChangeStatusGlobal | undefined;
+  globalJob?: MariadbChangeStatusGlobalJob | undefined;
+  replicated?: MariadbChangeStatusReplicated | undefined;
+  replicatedJob?: MariadbChangeStatusReplicatedJob | undefined;
+};
+
+export const MariadbChangeStatusServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MariadbChangeStatusServiceType = ClosedEnum<
+  typeof MariadbChangeStatusServiceType
+>;
+
+export const MariadbChangeStatusType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MariadbChangeStatusType = ClosedEnum<
+  typeof MariadbChangeStatusType
+>;
+
+export type MariadbChangeStatusMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MariadbChangeStatusServiceType;
+  type: MariadbChangeStatusType;
+  volumeName: string | null;
+};
+
+export type MariadbChangeStatusDriverOpts = {};
+
+export type MariadbChangeStatusNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbChangeStatusDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbChangeStatusPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MariadbChangeStatusSpread = {
+  spreadDescriptor: string;
+};
+
+export type MariadbChangeStatusPreference = {
+  spread: MariadbChangeStatusSpread;
+};
+
+export type MariadbChangeStatusPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MariadbChangeStatusPlatform> | undefined;
+  preferences?: Array<MariadbChangeStatusPreference> | undefined;
+};
+
+export type MariadbChangeStatusRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MariadbChangeStatusRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MariadbChangeStatusMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MariadbChangeStatusMetricsConfigEnum = ClosedEnum<
+  typeof MariadbChangeStatusMetricsConfigEnum
+>;
+
+export type MariadbChangeStatusMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MariadbChangeStatusMetricsConfigEnum;
+
+export type MariadbChangeStatusMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MariadbChangeStatusMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MariadbChangeStatusServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MariadbChangeStatusServerStatus = ClosedEnum<
+  typeof MariadbChangeStatusServerStatus
+>;
+
+export type MariadbChangeStatusServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MariadbChangeStatusMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MariadbChangeStatusServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MariadbChangeStatusUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbChangeStatusResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbChangeStatusApplicationStatusResponse;
+  backups: Array<MariadbChangeStatusBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbChangeStatusApplicationStatusResponse;
-  healthCheckSwarm: MariadbChangeStatusHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbChangeStatusRestartPolicySwarm | null;
-  placementSwarm: MariadbChangeStatusPlacementSwarm | null;
-  updateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbChangeStatusRollbackConfigSwarm | null;
-  modeSwarm: MariadbChangeStatusModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbChangeStatusNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbChangeStatusEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbChangeStatusHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbChangeStatusModeSwarm | null;
   mounts: Array<MariadbChangeStatusMount>;
+  name: string;
+  networkSwarm: Array<MariadbChangeStatusNetworkSwarm> | null;
+  placementSwarm: MariadbChangeStatusPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbChangeStatusRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbChangeStatusRollbackConfigSwarm | null;
   server: MariadbChangeStatusServer | null;
-  backups: Array<MariadbChangeStatusBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm | null;
 };
 
 export type MariadbChangeStatusResponse =
   | MariadbChangeStatusResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const MariadbChangeStatusSecurity$inboundSchema: z.ZodType<
-  MariadbChangeStatusSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusSecurity$outboundSchema: z.ZodType<
-  MariadbChangeStatusSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusSecurity$ {
-  /** @deprecated use `MariadbChangeStatusSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusSecurity$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusSecurity$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusSecurity$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusSecurity$Outbound;
-}
-
-export function mariadbChangeStatusSecurityToJSON(
-  mariadbChangeStatusSecurity: MariadbChangeStatusSecurity,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusSecurity$outboundSchema.parse(
-      mariadbChangeStatusSecurity,
-    ),
-  );
-}
-
-export function mariadbChangeStatusSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbChangeStatusApplicationStatusRequest$inboundSchema:
@@ -447,14 +379,14 @@ export const MariadbChangeStatusRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
   applicationStatus: MariadbChangeStatusApplicationStatusRequest$inboundSchema,
+  mariadbId: z.string(),
 });
 
 /** @internal */
 export type MariadbChangeStatusRequest$Outbound = {
-  mariadbId: string;
   applicationStatus: string;
+  mariadbId: string;
 };
 
 /** @internal */
@@ -463,8 +395,8 @@ export const MariadbChangeStatusRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbChangeStatusRequest
 > = z.object({
-  mariadbId: z.string(),
   applicationStatus: MariadbChangeStatusApplicationStatusRequest$outboundSchema,
+  mariadbId: z.string(),
 });
 
 /**
@@ -522,33 +454,701 @@ export namespace MariadbChangeStatusApplicationStatusResponse$ {
 }
 
 /** @internal */
+export const MariadbChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusBackupType
+> = z.nativeEnum(MariadbChangeStatusBackupType);
+
+/** @internal */
+export const MariadbChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusBackupType
+> = MariadbChangeStatusBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusBackupType$ {
+  /** @deprecated use `MariadbChangeStatusBackupType$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusBackupType$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusBackupType$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusDatabaseType
+> = z.nativeEnum(MariadbChangeStatusDatabaseType);
+
+/** @internal */
+export const MariadbChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusDatabaseType
+> = MariadbChangeStatusDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusDatabaseType$ {
+  /** @deprecated use `MariadbChangeStatusDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusDatabaseType$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusMetadataEnum
+> = z.nativeEnum(MariadbChangeStatusMetadataEnum);
+
+/** @internal */
+export const MariadbChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusMetadataEnum
+> = MariadbChangeStatusMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMetadataEnum$ {
+  /** @deprecated use `MariadbChangeStatusMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMetadataEnum$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MariadbChangeStatusMariadb$inboundSchema: z.ZodType<
+  MariadbChangeStatusMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusMariadb$outboundSchema: z.ZodType<
+  MariadbChangeStatusMariadb$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMariadb$ {
+  /** @deprecated use `MariadbChangeStatusMariadb$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMariadb$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMariadb$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMariadb$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMariadb$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMariadb$Outbound;
+}
+
+export function mariadbChangeStatusMariadbToJSON(
+  mariadbChangeStatusMariadb: MariadbChangeStatusMariadb,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMariadb$outboundSchema.parse(mariadbChangeStatusMariadb),
+  );
+}
+
+export function mariadbChangeStatusMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusMongo$inboundSchema: z.ZodType<
+  MariadbChangeStatusMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusMongo$outboundSchema: z.ZodType<
+  MariadbChangeStatusMongo$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMongo$ {
+  /** @deprecated use `MariadbChangeStatusMongo$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMongo$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMongo$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMongo$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMongo$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMongo$Outbound;
+}
+
+export function mariadbChangeStatusMongoToJSON(
+  mariadbChangeStatusMongo: MariadbChangeStatusMongo,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMongo$outboundSchema.parse(mariadbChangeStatusMongo),
+  );
+}
+
+export function mariadbChangeStatusMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusMysql$inboundSchema: z.ZodType<
+  MariadbChangeStatusMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusMysql$outboundSchema: z.ZodType<
+  MariadbChangeStatusMysql$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMysql$ {
+  /** @deprecated use `MariadbChangeStatusMysql$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMysql$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMysql$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMysql$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMysql$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMysql$Outbound;
+}
+
+export function mariadbChangeStatusMysqlToJSON(
+  mariadbChangeStatusMysql: MariadbChangeStatusMysql,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMysql$outboundSchema.parse(mariadbChangeStatusMysql),
+  );
+}
+
+export function mariadbChangeStatusMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusPostgres$inboundSchema: z.ZodType<
+  MariadbChangeStatusPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusPostgres$outboundSchema: z.ZodType<
+  MariadbChangeStatusPostgres$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusPostgres$ {
+  /** @deprecated use `MariadbChangeStatusPostgres$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusPostgres$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusPostgres$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusPostgres$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusPostgres$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusPostgres$Outbound;
+}
+
+export function mariadbChangeStatusPostgresToJSON(
+  mariadbChangeStatusPostgres: MariadbChangeStatusPostgres,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusPostgres$outboundSchema.parse(
+      mariadbChangeStatusPostgres,
+    ),
+  );
+}
+
+export function mariadbChangeStatusPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusMetadata$inboundSchema: z.ZodType<
+  MariadbChangeStatusMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MariadbChangeStatusMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MariadbChangeStatusMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MariadbChangeStatusMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MariadbChangeStatusPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MariadbChangeStatusMetadata$Outbound = {
+  mariadb?: MariadbChangeStatusMariadb$Outbound | undefined;
+  mongo?: MariadbChangeStatusMongo$Outbound | undefined;
+  mysql?: MariadbChangeStatusMysql$Outbound | undefined;
+  postgres?: MariadbChangeStatusPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbChangeStatusMetadata$outboundSchema: z.ZodType<
+  MariadbChangeStatusMetadata$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMetadata
+> = z.object({
+  mariadb: z.lazy(() => MariadbChangeStatusMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MariadbChangeStatusMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MariadbChangeStatusMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MariadbChangeStatusPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMetadata$ {
+  /** @deprecated use `MariadbChangeStatusMetadata$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMetadata$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMetadata$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMetadata$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMetadata$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMetadata$Outbound;
+}
+
+export function mariadbChangeStatusMetadataToJSON(
+  mariadbChangeStatusMetadata: MariadbChangeStatusMetadata,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMetadata$outboundSchema.parse(
+      mariadbChangeStatusMetadata,
+    ),
+  );
+}
+
+export function mariadbChangeStatusMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusMetadataUnion$inboundSchema: z.ZodType<
+  MariadbChangeStatusMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MariadbChangeStatusMetadata$inboundSchema),
+  MariadbChangeStatusMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MariadbChangeStatusMetadataUnion$Outbound =
+  | MariadbChangeStatusMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MariadbChangeStatusMetadataUnion$outboundSchema: z.ZodType<
+  MariadbChangeStatusMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMetadataUnion
+> = z.union([
+  z.lazy(() => MariadbChangeStatusMetadata$outboundSchema),
+  MariadbChangeStatusMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMetadataUnion$ {
+  /** @deprecated use `MariadbChangeStatusMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMetadataUnion$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMetadataUnion$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMetadataUnion$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMetadataUnion$Outbound;
+}
+
+export function mariadbChangeStatusMetadataUnionToJSON(
+  mariadbChangeStatusMetadataUnion: MariadbChangeStatusMetadataUnion,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMetadataUnion$outboundSchema.parse(
+      mariadbChangeStatusMetadataUnion,
+    ),
+  );
+}
+
+export function mariadbChangeStatusMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusBackup$inboundSchema: z.ZodType<
+  MariadbChangeStatusBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbChangeStatusBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbChangeStatusDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbChangeStatusMetadata$inboundSchema),
+      MariadbChangeStatusMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbChangeStatusBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MariadbChangeStatusMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MariadbChangeStatusBackup$outboundSchema: z.ZodType<
+  MariadbChangeStatusBackup$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbChangeStatusBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbChangeStatusDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbChangeStatusMetadata$outboundSchema),
+      MariadbChangeStatusMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusBackup$ {
+  /** @deprecated use `MariadbChangeStatusBackup$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusBackup$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusBackup$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusBackup$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusBackup$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusBackup$Outbound;
+}
+
+export function mariadbChangeStatusBackupToJSON(
+  mariadbChangeStatusBackup: MariadbChangeStatusBackup,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusBackup$outboundSchema.parse(mariadbChangeStatusBackup),
+  );
+}
+
+export function mariadbChangeStatusBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusProject$inboundSchema: z.ZodType<
+  MariadbChangeStatusProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusProject$outboundSchema: z.ZodType<
+  MariadbChangeStatusProject$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusProject$ {
+  /** @deprecated use `MariadbChangeStatusProject$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusProject$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusProject$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusProject$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusProject$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusProject$Outbound;
+}
+
+export function mariadbChangeStatusProjectToJSON(
+  mariadbChangeStatusProject: MariadbChangeStatusProject,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusProject$outboundSchema.parse(mariadbChangeStatusProject),
+  );
+}
+
+export function mariadbChangeStatusProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusEnvironment$inboundSchema: z.ZodType<
+  MariadbChangeStatusEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbChangeStatusProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbChangeStatusEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbChangeStatusProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusEnvironment$outboundSchema: z.ZodType<
+  MariadbChangeStatusEnvironment$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbChangeStatusProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusEnvironment$ {
+  /** @deprecated use `MariadbChangeStatusEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusEnvironment$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusEnvironment$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusEnvironment$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusEnvironment$Outbound;
+}
+
+export function mariadbChangeStatusEnvironmentToJSON(
+  mariadbChangeStatusEnvironment: MariadbChangeStatusEnvironment,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusEnvironment$outboundSchema.parse(
+      mariadbChangeStatusEnvironment,
+    ),
+  );
+}
+
+export function mariadbChangeStatusEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MariadbChangeStatusHealthCheckSwarm$inboundSchema: z.ZodType<
   MariadbChangeStatusHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbChangeStatusHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -557,18 +1157,18 @@ export const MariadbChangeStatusHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbChangeStatusHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -609,48 +1209,131 @@ export function mariadbChangeStatusHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbChangeStatusRestartPolicySwarm,
+export const MariadbChangeStatusGlobal$inboundSchema: z.ZodType<
+  MariadbChangeStatusGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbChangeStatusGlobal$Outbound = {};
+
+/** @internal */
+export const MariadbChangeStatusGlobal$outboundSchema: z.ZodType<
+  MariadbChangeStatusGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusGlobal$ {
+  /** @deprecated use `MariadbChangeStatusGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusGlobal$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusGlobal$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusGlobal$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusGlobal$Outbound;
+}
+
+export function mariadbChangeStatusGlobalToJSON(
+  mariadbChangeStatusGlobal: MariadbChangeStatusGlobal,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusGlobal$outboundSchema.parse(mariadbChangeStatusGlobal),
+  );
+}
+
+export function mariadbChangeStatusGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusGlobalJob$inboundSchema: z.ZodType<
+  MariadbChangeStatusGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbChangeStatusGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbChangeStatusGlobalJob$outboundSchema: z.ZodType<
+  MariadbChangeStatusGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusGlobalJob$ {
+  /** @deprecated use `MariadbChangeStatusGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusGlobalJob$Outbound;
+}
+
+export function mariadbChangeStatusGlobalJobToJSON(
+  mariadbChangeStatusGlobalJob: MariadbChangeStatusGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusGlobalJob$outboundSchema.parse(
+      mariadbChangeStatusGlobalJob,
+    ),
+  );
+}
+
+export function mariadbChangeStatusGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusReplicated$inboundSchema: z.ZodType<
+  MariadbChangeStatusReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MariadbChangeStatusRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MariadbChangeStatusReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MariadbChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
-  MariadbChangeStatusRestartPolicySwarm$Outbound,
+export const MariadbChangeStatusReplicated$outboundSchema: z.ZodType<
+  MariadbChangeStatusReplicated$Outbound,
   z.ZodTypeDef,
-  MariadbChangeStatusRestartPolicySwarm
+  MariadbChangeStatusReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -658,35 +1341,519 @@ export const MariadbChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbChangeStatusRestartPolicySwarm$ {
-  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MariadbChangeStatusRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MariadbChangeStatusRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusRestartPolicySwarm$Outbound;
+export namespace MariadbChangeStatusReplicated$ {
+  /** @deprecated use `MariadbChangeStatusReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusReplicated$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusReplicated$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusReplicated$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusReplicated$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusReplicated$Outbound;
 }
 
-export function mariadbChangeStatusRestartPolicySwarmToJSON(
-  mariadbChangeStatusRestartPolicySwarm: MariadbChangeStatusRestartPolicySwarm,
+export function mariadbChangeStatusReplicatedToJSON(
+  mariadbChangeStatusReplicated: MariadbChangeStatusReplicated,
 ): string {
   return JSON.stringify(
-    MariadbChangeStatusRestartPolicySwarm$outboundSchema.parse(
-      mariadbChangeStatusRestartPolicySwarm,
+    MariadbChangeStatusReplicated$outboundSchema.parse(
+      mariadbChangeStatusReplicated,
     ),
   );
 }
 
-export function mariadbChangeStatusRestartPolicySwarmFromJSON(
+export function mariadbChangeStatusReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbChangeStatusRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MariadbChangeStatusReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      MariadbChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusRestartPolicySwarm' from JSON`,
+    (x) => MariadbChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusReplicatedJob$inboundSchema: z.ZodType<
+  MariadbChangeStatusReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbChangeStatusReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbChangeStatusReplicatedJob$outboundSchema: z.ZodType<
+  MariadbChangeStatusReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusReplicatedJob$ {
+  /** @deprecated use `MariadbChangeStatusReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusReplicatedJob$Outbound;
+}
+
+export function mariadbChangeStatusReplicatedJobToJSON(
+  mariadbChangeStatusReplicatedJob: MariadbChangeStatusReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusReplicatedJob$outboundSchema.parse(
+      mariadbChangeStatusReplicatedJob,
+    ),
+  );
+}
+
+export function mariadbChangeStatusReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusModeSwarm$inboundSchema: z.ZodType<
+  MariadbChangeStatusModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbChangeStatusGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbChangeStatusGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => MariadbChangeStatusReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => MariadbChangeStatusReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbChangeStatusModeSwarm$Outbound = {
+  Global?: MariadbChangeStatusGlobal$Outbound | undefined;
+  GlobalJob?: MariadbChangeStatusGlobalJob$Outbound | undefined;
+  Replicated?: MariadbChangeStatusReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbChangeStatusReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbChangeStatusModeSwarm$outboundSchema: z.ZodType<
+  MariadbChangeStatusModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbChangeStatusGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbChangeStatusGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => MariadbChangeStatusReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => MariadbChangeStatusReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusModeSwarm$ {
+  /** @deprecated use `MariadbChangeStatusModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusModeSwarm$Outbound;
+}
+
+export function mariadbChangeStatusModeSwarmToJSON(
+  mariadbChangeStatusModeSwarm: MariadbChangeStatusModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusModeSwarm$outboundSchema.parse(
+      mariadbChangeStatusModeSwarm,
+    ),
+  );
+}
+
+export function mariadbChangeStatusModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusServiceType
+> = z.nativeEnum(MariadbChangeStatusServiceType);
+
+/** @internal */
+export const MariadbChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusServiceType
+> = MariadbChangeStatusServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusServiceType$ {
+  /** @deprecated use `MariadbChangeStatusServiceType$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusServiceType$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusServiceType$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbChangeStatusType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusType
+> = z.nativeEnum(MariadbChangeStatusType);
+
+/** @internal */
+export const MariadbChangeStatusType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusType
+> = MariadbChangeStatusType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusType$ {
+  /** @deprecated use `MariadbChangeStatusType$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusType$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusType$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbChangeStatusMount$inboundSchema: z.ZodType<
+  MariadbChangeStatusMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbChangeStatusServiceType$inboundSchema,
+  type: MariadbChangeStatusType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbChangeStatusMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MariadbChangeStatusMount$outboundSchema: z.ZodType<
+  MariadbChangeStatusMount$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbChangeStatusServiceType$outboundSchema,
+  type: MariadbChangeStatusType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusMount$ {
+  /** @deprecated use `MariadbChangeStatusMount$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusMount$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusMount$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusMount$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusMount$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusMount$Outbound;
+}
+
+export function mariadbChangeStatusMountToJSON(
+  mariadbChangeStatusMount: MariadbChangeStatusMount,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusMount$outboundSchema.parse(mariadbChangeStatusMount),
+  );
+}
+
+export function mariadbChangeStatusMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusDriverOpts$inboundSchema: z.ZodType<
+  MariadbChangeStatusDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbChangeStatusDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbChangeStatusDriverOpts$outboundSchema: z.ZodType<
+  MariadbChangeStatusDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusDriverOpts$ {
+  /** @deprecated use `MariadbChangeStatusDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusDriverOpts$Outbound;
+}
+
+export function mariadbChangeStatusDriverOptsToJSON(
+  mariadbChangeStatusDriverOpts: MariadbChangeStatusDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusDriverOpts$outboundSchema.parse(
+      mariadbChangeStatusDriverOpts,
+    ),
+  );
+}
+
+export function mariadbChangeStatusDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbChangeStatusNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbChangeStatusDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbChangeStatusNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbChangeStatusDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbChangeStatusNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbChangeStatusDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusNetworkSwarm$ {
+  /** @deprecated use `MariadbChangeStatusNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusNetworkSwarm$Outbound;
+}
+
+export function mariadbChangeStatusNetworkSwarmToJSON(
+  mariadbChangeStatusNetworkSwarm: MariadbChangeStatusNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusNetworkSwarm$outboundSchema.parse(
+      mariadbChangeStatusNetworkSwarm,
+    ),
+  );
+}
+
+export function mariadbChangeStatusNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbChangeStatusPlatform$inboundSchema: z.ZodType<
+  MariadbChangeStatusPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbChangeStatusPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbChangeStatusPlatform$outboundSchema: z.ZodType<
+  MariadbChangeStatusPlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbChangeStatusPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusPlatform$ {
+  /** @deprecated use `MariadbChangeStatusPlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusPlatform$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusPlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusPlatform$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusPlatform$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusPlatform$Outbound;
+}
+
+export function mariadbChangeStatusPlatformToJSON(
+  mariadbChangeStatusPlatform: MariadbChangeStatusPlatform,
+): string {
+  return JSON.stringify(
+    MariadbChangeStatusPlatform$outboundSchema.parse(
+      mariadbChangeStatusPlatform,
+    ),
+  );
+}
+
+export function mariadbChangeStatusPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbChangeStatusPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusPlatform' from JSON`,
   );
 }
 
@@ -817,102 +1984,33 @@ export function mariadbChangeStatusPreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbChangeStatusPlatform$inboundSchema: z.ZodType<
-  MariadbChangeStatusPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusPlatform$outboundSchema: z.ZodType<
-  MariadbChangeStatusPlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusPlatform$ {
-  /** @deprecated use `MariadbChangeStatusPlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusPlatform$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusPlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusPlatform$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusPlatform$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusPlatform$Outbound;
-}
-
-export function mariadbChangeStatusPlatformToJSON(
-  mariadbChangeStatusPlatform: MariadbChangeStatusPlatform,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusPlatform$outboundSchema.parse(
-      mariadbChangeStatusPlatform,
-    ),
-  );
-}
-
-export function mariadbChangeStatusPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbChangeStatusPlacementSwarm$inboundSchema: z.ZodType<
   MariadbChangeStatusPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => MariadbChangeStatusPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MariadbChangeStatusPlatform$inboundSchema))
     .optional(),
+  Preferences: z.array(
+    z.lazy(() => MariadbChangeStatusPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbChangeStatusPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbChangeStatusPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbChangeStatusPlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbChangeStatusPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -922,18 +2020,18 @@ export const MariadbChangeStatusPlacementSwarm$outboundSchema: z.ZodType<
   MariadbChangeStatusPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => MariadbChangeStatusPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MariadbChangeStatusPlatform$outboundSchema))
     .optional(),
+  preferences: z.array(
+    z.lazy(() => MariadbChangeStatusPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -972,58 +2070,48 @@ export function mariadbChangeStatusPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbChangeStatusUpdateConfigSwarm,
+export const MariadbChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbChangeStatusRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbChangeStatusUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbChangeStatusRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbChangeStatusUpdateConfigSwarm$Outbound,
+export const MariadbChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
+  MariadbChangeStatusRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MariadbChangeStatusUpdateConfigSwarm
+  MariadbChangeStatusRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1031,35 +2119,35 @@ export const MariadbChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbChangeStatusUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+export namespace MariadbChangeStatusRestartPolicySwarm$ {
+  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    MariadbChangeStatusUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+    MariadbChangeStatusRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MariadbChangeStatusUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusUpdateConfigSwarm$Outbound;
+    MariadbChangeStatusRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusRestartPolicySwarm$Outbound;
 }
 
-export function mariadbChangeStatusUpdateConfigSwarmToJSON(
-  mariadbChangeStatusUpdateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm,
+export function mariadbChangeStatusRestartPolicySwarmToJSON(
+  mariadbChangeStatusRestartPolicySwarm: MariadbChangeStatusRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbChangeStatusUpdateConfigSwarm$outboundSchema.parse(
-      mariadbChangeStatusUpdateConfigSwarm,
+    MariadbChangeStatusRestartPolicySwarm$outboundSchema.parse(
+      mariadbChangeStatusRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbChangeStatusUpdateConfigSwarmFromJSON(
+export function mariadbChangeStatusRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbChangeStatusUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MariadbChangeStatusRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MariadbChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusUpdateConfigSwarm' from JSON`,
+      MariadbChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1069,31 +2157,31 @@ export const MariadbChangeStatusRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MariadbChangeStatusRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1102,20 +2190,20 @@ export const MariadbChangeStatusRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbChangeStatusRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1154,750 +2242,6 @@ export function mariadbChangeStatusRollbackConfigSwarmFromJSON(
       MariadbChangeStatusRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MariadbChangeStatusRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MariadbChangeStatusReplicated$inboundSchema: z.ZodType<
-  MariadbChangeStatusReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusReplicated$outboundSchema: z.ZodType<
-  MariadbChangeStatusReplicated$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusReplicated$ {
-  /** @deprecated use `MariadbChangeStatusReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusReplicated$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusReplicated$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusReplicated$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusReplicated$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusReplicated$Outbound;
-}
-
-export function mariadbChangeStatusReplicatedToJSON(
-  mariadbChangeStatusReplicated: MariadbChangeStatusReplicated,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusReplicated$outboundSchema.parse(
-      mariadbChangeStatusReplicated,
-    ),
-  );
-}
-
-export function mariadbChangeStatusReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusGlobal$inboundSchema: z.ZodType<
-  MariadbChangeStatusGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbChangeStatusGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbChangeStatusGlobal$outboundSchema: z.ZodType<
-  MariadbChangeStatusGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusGlobal$ {
-  /** @deprecated use `MariadbChangeStatusGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusGlobal$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusGlobal$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusGlobal$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusGlobal$Outbound;
-}
-
-export function mariadbChangeStatusGlobalToJSON(
-  mariadbChangeStatusGlobal: MariadbChangeStatusGlobal,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusGlobal$outboundSchema.parse(mariadbChangeStatusGlobal),
-  );
-}
-
-export function mariadbChangeStatusGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusReplicatedJob$inboundSchema: z.ZodType<
-  MariadbChangeStatusReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusReplicatedJob$outboundSchema: z.ZodType<
-  MariadbChangeStatusReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusReplicatedJob$ {
-  /** @deprecated use `MariadbChangeStatusReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusReplicatedJob$Outbound;
-}
-
-export function mariadbChangeStatusReplicatedJobToJSON(
-  mariadbChangeStatusReplicatedJob: MariadbChangeStatusReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusReplicatedJob$outboundSchema.parse(
-      mariadbChangeStatusReplicatedJob,
-    ),
-  );
-}
-
-export function mariadbChangeStatusReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusGlobalJob$inboundSchema: z.ZodType<
-  MariadbChangeStatusGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbChangeStatusGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbChangeStatusGlobalJob$outboundSchema: z.ZodType<
-  MariadbChangeStatusGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusGlobalJob$ {
-  /** @deprecated use `MariadbChangeStatusGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusGlobalJob$Outbound;
-}
-
-export function mariadbChangeStatusGlobalJobToJSON(
-  mariadbChangeStatusGlobalJob: MariadbChangeStatusGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusGlobalJob$outboundSchema.parse(
-      mariadbChangeStatusGlobalJob,
-    ),
-  );
-}
-
-export function mariadbChangeStatusGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusModeSwarm$inboundSchema: z.ZodType<
-  MariadbChangeStatusModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbChangeStatusReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MariadbChangeStatusGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MariadbChangeStatusReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MariadbChangeStatusGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusModeSwarm$Outbound = {
-  Replicated?: MariadbChangeStatusReplicated$Outbound | undefined;
-  Global?: MariadbChangeStatusGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbChangeStatusReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbChangeStatusGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusModeSwarm$outboundSchema: z.ZodType<
-  MariadbChangeStatusModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbChangeStatusReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MariadbChangeStatusGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MariadbChangeStatusReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MariadbChangeStatusGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusModeSwarm$ {
-  /** @deprecated use `MariadbChangeStatusModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusModeSwarm$Outbound;
-}
-
-export function mariadbChangeStatusModeSwarmToJSON(
-  mariadbChangeStatusModeSwarm: MariadbChangeStatusModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusModeSwarm$outboundSchema.parse(
-      mariadbChangeStatusModeSwarm,
-    ),
-  );
-}
-
-export function mariadbChangeStatusModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusDriverOpts$inboundSchema: z.ZodType<
-  MariadbChangeStatusDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbChangeStatusDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbChangeStatusDriverOpts$outboundSchema: z.ZodType<
-  MariadbChangeStatusDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusDriverOpts$ {
-  /** @deprecated use `MariadbChangeStatusDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusDriverOpts$Outbound;
-}
-
-export function mariadbChangeStatusDriverOptsToJSON(
-  mariadbChangeStatusDriverOpts: MariadbChangeStatusDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusDriverOpts$outboundSchema.parse(
-      mariadbChangeStatusDriverOpts,
-    ),
-  );
-}
-
-export function mariadbChangeStatusDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbChangeStatusNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbChangeStatusDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbChangeStatusNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbChangeStatusDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbChangeStatusNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbChangeStatusDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusNetworkSwarm$ {
-  /** @deprecated use `MariadbChangeStatusNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusNetworkSwarm$Outbound;
-}
-
-export function mariadbChangeStatusNetworkSwarmToJSON(
-  mariadbChangeStatusNetworkSwarm: MariadbChangeStatusNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusNetworkSwarm$outboundSchema.parse(
-      mariadbChangeStatusNetworkSwarm,
-    ),
-  );
-}
-
-export function mariadbChangeStatusNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusProject$inboundSchema: z.ZodType<
-  MariadbChangeStatusProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MariadbChangeStatusProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusProject$outboundSchema: z.ZodType<
-  MariadbChangeStatusProject$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusProject$ {
-  /** @deprecated use `MariadbChangeStatusProject$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusProject$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusProject$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusProject$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusProject$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusProject$Outbound;
-}
-
-export function mariadbChangeStatusProjectToJSON(
-  mariadbChangeStatusProject: MariadbChangeStatusProject,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusProject$outboundSchema.parse(mariadbChangeStatusProject),
-  );
-}
-
-export function mariadbChangeStatusProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusEnvironment$inboundSchema: z.ZodType<
-  MariadbChangeStatusEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbChangeStatusProject$inboundSchema),
-});
-
-/** @internal */
-export type MariadbChangeStatusEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbChangeStatusProject$Outbound;
-};
-
-/** @internal */
-export const MariadbChangeStatusEnvironment$outboundSchema: z.ZodType<
-  MariadbChangeStatusEnvironment$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbChangeStatusProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusEnvironment$ {
-  /** @deprecated use `MariadbChangeStatusEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusEnvironment$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusEnvironment$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusEnvironment$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusEnvironment$Outbound;
-}
-
-export function mariadbChangeStatusEnvironmentToJSON(
-  mariadbChangeStatusEnvironment: MariadbChangeStatusEnvironment,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusEnvironment$outboundSchema.parse(
-      mariadbChangeStatusEnvironment,
-    ),
-  );
-}
-
-export function mariadbChangeStatusEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusType
-> = z.nativeEnum(MariadbChangeStatusType);
-
-/** @internal */
-export const MariadbChangeStatusType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusType
-> = MariadbChangeStatusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusType$ {
-  /** @deprecated use `MariadbChangeStatusType$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusType$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusType$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusServiceType
-> = z.nativeEnum(MariadbChangeStatusServiceType);
-
-/** @internal */
-export const MariadbChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusServiceType
-> = MariadbChangeStatusServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusServiceType$ {
-  /** @deprecated use `MariadbChangeStatusServiceType$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusServiceType$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusServiceType$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbChangeStatusMount$inboundSchema: z.ZodType<
-  MariadbChangeStatusMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MariadbChangeStatusType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbChangeStatusServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MariadbChangeStatusMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MariadbChangeStatusMount$outboundSchema: z.ZodType<
-  MariadbChangeStatusMount$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMount
-> = z.object({
-  mountId: z.string(),
-  type: MariadbChangeStatusType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbChangeStatusServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMount$ {
-  /** @deprecated use `MariadbChangeStatusMount$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMount$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMount$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMount$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMount$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMount$Outbound;
-}
-
-export function mariadbChangeStatusMountToJSON(
-  mariadbChangeStatusMount: MariadbChangeStatusMount,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMount$outboundSchema.parse(mariadbChangeStatusMount),
-  );
-}
-
-export function mariadbChangeStatusMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusServerStatus
-> = z.nativeEnum(MariadbChangeStatusServerStatus);
-
-/** @internal */
-export const MariadbChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusServerStatus
-> = MariadbChangeStatusServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusServerStatus$ {
-  /** @deprecated use `MariadbChangeStatusServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusServerStatus$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2071,24 +2415,38 @@ export function mariadbChangeStatusMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MariadbChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusServerStatus
+> = z.nativeEnum(MariadbChangeStatusServerStatus);
+
+/** @internal */
+export const MariadbChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbChangeStatusServerStatus
+> = MariadbChangeStatusServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbChangeStatusServerStatus$ {
+  /** @deprecated use `MariadbChangeStatusServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MariadbChangeStatusServerStatus$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MariadbChangeStatusServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MariadbChangeStatusServer$inboundSchema: z.ZodType<
   MariadbChangeStatusServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbChangeStatusServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2099,26 +2457,33 @@ export const MariadbChangeStatusServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbChangeStatusServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MariadbChangeStatusServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2127,19 +2492,12 @@ export const MariadbChangeStatusServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbChangeStatusServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbChangeStatusServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2150,6 +2508,13 @@ export const MariadbChangeStatusServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbChangeStatusServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2184,527 +2549,94 @@ export function mariadbChangeStatusServerFromJSON(
 }
 
 /** @internal */
-export const MariadbChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusBackupType
-> = z.nativeEnum(MariadbChangeStatusBackupType);
-
-/** @internal */
-export const MariadbChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusBackupType
-> = MariadbChangeStatusBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusBackupType$ {
-  /** @deprecated use `MariadbChangeStatusBackupType$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusBackupType$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusBackupType$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusDatabaseType
-> = z.nativeEnum(MariadbChangeStatusDatabaseType);
-
-/** @internal */
-export const MariadbChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusDatabaseType
-> = MariadbChangeStatusDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusDatabaseType$ {
-  /** @deprecated use `MariadbChangeStatusDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusDatabaseType$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusMetadataEnum
-> = z.nativeEnum(MariadbChangeStatusMetadataEnum);
-
-/** @internal */
-export const MariadbChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbChangeStatusMetadataEnum
-> = MariadbChangeStatusMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMetadataEnum$ {
-  /** @deprecated use `MariadbChangeStatusMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMetadataEnum$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MariadbChangeStatusPostgres$inboundSchema: z.ZodType<
-  MariadbChangeStatusPostgres,
+export const MariadbChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbChangeStatusUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MariadbChangeStatusPostgres$Outbound = {
-  databaseUser: string;
+export type MariadbChangeStatusUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MariadbChangeStatusPostgres$outboundSchema: z.ZodType<
-  MariadbChangeStatusPostgres$Outbound,
+export const MariadbChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbChangeStatusUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MariadbChangeStatusPostgres
+  MariadbChangeStatusUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbChangeStatusPostgres$ {
-  /** @deprecated use `MariadbChangeStatusPostgres$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusPostgres$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusPostgres$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusPostgres$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusPostgres$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusPostgres$Outbound;
+export namespace MariadbChangeStatusUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MariadbChangeStatusUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MariadbChangeStatusUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbChangeStatusUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbChangeStatusUpdateConfigSwarm$Outbound;
 }
 
-export function mariadbChangeStatusPostgresToJSON(
-  mariadbChangeStatusPostgres: MariadbChangeStatusPostgres,
+export function mariadbChangeStatusUpdateConfigSwarmToJSON(
+  mariadbChangeStatusUpdateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbChangeStatusPostgres$outboundSchema.parse(
-      mariadbChangeStatusPostgres,
+    MariadbChangeStatusUpdateConfigSwarm$outboundSchema.parse(
+      mariadbChangeStatusUpdateConfigSwarm,
     ),
   );
 }
 
-export function mariadbChangeStatusPostgresFromJSON(
+export function mariadbChangeStatusUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbChangeStatusPostgres, SDKValidationError> {
+): SafeParseResult<MariadbChangeStatusUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusMariadb$inboundSchema: z.ZodType<
-  MariadbChangeStatusMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbChangeStatusMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusMariadb$outboundSchema: z.ZodType<
-  MariadbChangeStatusMariadb$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMariadb$ {
-  /** @deprecated use `MariadbChangeStatusMariadb$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMariadb$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMariadb$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMariadb$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMariadb$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMariadb$Outbound;
-}
-
-export function mariadbChangeStatusMariadbToJSON(
-  mariadbChangeStatusMariadb: MariadbChangeStatusMariadb,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMariadb$outboundSchema.parse(mariadbChangeStatusMariadb),
-  );
-}
-
-export function mariadbChangeStatusMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusMongo$inboundSchema: z.ZodType<
-  MariadbChangeStatusMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbChangeStatusMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusMongo$outboundSchema: z.ZodType<
-  MariadbChangeStatusMongo$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMongo$ {
-  /** @deprecated use `MariadbChangeStatusMongo$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMongo$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMongo$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMongo$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMongo$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMongo$Outbound;
-}
-
-export function mariadbChangeStatusMongoToJSON(
-  mariadbChangeStatusMongo: MariadbChangeStatusMongo,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMongo$outboundSchema.parse(mariadbChangeStatusMongo),
-  );
-}
-
-export function mariadbChangeStatusMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusMysql$inboundSchema: z.ZodType<
-  MariadbChangeStatusMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MariadbChangeStatusMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MariadbChangeStatusMysql$outboundSchema: z.ZodType<
-  MariadbChangeStatusMysql$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMysql$ {
-  /** @deprecated use `MariadbChangeStatusMysql$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMysql$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMysql$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMysql$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMysql$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMysql$Outbound;
-}
-
-export function mariadbChangeStatusMysqlToJSON(
-  mariadbChangeStatusMysql: MariadbChangeStatusMysql,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMysql$outboundSchema.parse(mariadbChangeStatusMysql),
-  );
-}
-
-export function mariadbChangeStatusMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusMetadata$inboundSchema: z.ZodType<
-  MariadbChangeStatusMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MariadbChangeStatusPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbChangeStatusMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MariadbChangeStatusMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MariadbChangeStatusMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MariadbChangeStatusMetadata$Outbound = {
-  postgres?: MariadbChangeStatusPostgres$Outbound | undefined;
-  mariadb?: MariadbChangeStatusMariadb$Outbound | undefined;
-  mongo?: MariadbChangeStatusMongo$Outbound | undefined;
-  mysql?: MariadbChangeStatusMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusMetadata$outboundSchema: z.ZodType<
-  MariadbChangeStatusMetadata$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMetadata
-> = z.object({
-  postgres: z.lazy(() => MariadbChangeStatusPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbChangeStatusMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MariadbChangeStatusMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MariadbChangeStatusMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMetadata$ {
-  /** @deprecated use `MariadbChangeStatusMetadata$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMetadata$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMetadata$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMetadata$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMetadata$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMetadata$Outbound;
-}
-
-export function mariadbChangeStatusMetadataToJSON(
-  mariadbChangeStatusMetadata: MariadbChangeStatusMetadata,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMetadata$outboundSchema.parse(
-      mariadbChangeStatusMetadata,
-    ),
-  );
-}
-
-export function mariadbChangeStatusMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusMetadataUnion$inboundSchema: z.ZodType<
-  MariadbChangeStatusMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MariadbChangeStatusMetadata$inboundSchema),
-  MariadbChangeStatusMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MariadbChangeStatusMetadataUnion$Outbound =
-  | MariadbChangeStatusMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MariadbChangeStatusMetadataUnion$outboundSchema: z.ZodType<
-  MariadbChangeStatusMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusMetadataUnion
-> = z.union([
-  z.lazy(() => MariadbChangeStatusMetadata$outboundSchema),
-  MariadbChangeStatusMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusMetadataUnion$ {
-  /** @deprecated use `MariadbChangeStatusMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusMetadataUnion$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusMetadataUnion$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusMetadataUnion$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusMetadataUnion$Outbound;
-}
-
-export function mariadbChangeStatusMetadataUnionToJSON(
-  mariadbChangeStatusMetadataUnion: MariadbChangeStatusMetadataUnion,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusMetadataUnion$outboundSchema.parse(
-      mariadbChangeStatusMetadataUnion,
-    ),
-  );
-}
-
-export function mariadbChangeStatusMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbChangeStatusBackup$inboundSchema: z.ZodType<
-  MariadbChangeStatusBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbChangeStatusBackupType$inboundSchema,
-  databaseType: MariadbChangeStatusDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbChangeStatusMetadata$inboundSchema),
-      MariadbChangeStatusMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MariadbChangeStatusBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MariadbChangeStatusMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MariadbChangeStatusBackup$outboundSchema: z.ZodType<
-  MariadbChangeStatusBackup$Outbound,
-  z.ZodTypeDef,
-  MariadbChangeStatusBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbChangeStatusBackupType$outboundSchema,
-  databaseType: MariadbChangeStatusDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbChangeStatusMetadata$outboundSchema),
-      MariadbChangeStatusMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbChangeStatusBackup$ {
-  /** @deprecated use `MariadbChangeStatusBackup$inboundSchema` instead. */
-  export const inboundSchema = MariadbChangeStatusBackup$inboundSchema;
-  /** @deprecated use `MariadbChangeStatusBackup$outboundSchema` instead. */
-  export const outboundSchema = MariadbChangeStatusBackup$outboundSchema;
-  /** @deprecated use `MariadbChangeStatusBackup$Outbound` instead. */
-  export type Outbound = MariadbChangeStatusBackup$Outbound;
-}
-
-export function mariadbChangeStatusBackupToJSON(
-  mariadbChangeStatusBackup: MariadbChangeStatusBackup,
-): string {
-  return JSON.stringify(
-    MariadbChangeStatusBackup$outboundSchema.parse(mariadbChangeStatusBackup),
-  );
-}
-
-export function mariadbChangeStatusBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbChangeStatusBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbChangeStatusBackup' from JSON`,
+    (x) =>
+      MariadbChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbChangeStatusUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2714,90 +2646,90 @@ export const MariadbChangeStatusResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbChangeStatusApplicationStatusResponse$inboundSchema,
+  backups: z.array(z.lazy(() => MariadbChangeStatusBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbChangeStatusEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbChangeStatusApplicationStatusResponse$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MariadbChangeStatusMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbChangeStatusNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbChangeStatusNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbChangeStatusEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MariadbChangeStatusMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MariadbChangeStatusServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MariadbChangeStatusBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbChangeStatusResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MariadbChangeStatusBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MariadbChangeStatusHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbChangeStatusRestartPolicySwarm$Outbound | null;
-  placementSwarm: MariadbChangeStatusPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MariadbChangeStatusRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MariadbChangeStatusModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbChangeStatusNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbChangeStatusEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbChangeStatusHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbChangeStatusModeSwarm$Outbound | null;
   mounts: Array<MariadbChangeStatusMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MariadbChangeStatusNetworkSwarm$Outbound> | null;
+  placementSwarm: MariadbChangeStatusPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbChangeStatusRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MariadbChangeStatusRollbackConfigSwarm$Outbound | null;
   server: MariadbChangeStatusServer$Outbound | null;
-  backups: Array<MariadbChangeStatusBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbChangeStatusUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2806,54 +2738,54 @@ export const MariadbChangeStatusResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbChangeStatusResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  databaseRootPassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus:
     MariadbChangeStatusApplicationStatusResponse$outboundSchema,
+  backups: z.array(z.lazy(() => MariadbChangeStatusBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbChangeStatusEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MariadbChangeStatusMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbChangeStatusNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbChangeStatusRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MariadbChangeStatusModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbChangeStatusNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbChangeStatusEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MariadbChangeStatusMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MariadbChangeStatusServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MariadbChangeStatusBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbChangeStatusUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

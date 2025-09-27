@@ -3,81 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ComposeMoveSecurity = {
-  authorization: string;
-};
 
 export type ComposeMoveRequest = {
   composeId: string;
   targetEnvironmentId: string;
 };
-
-/** @internal */
-export const ComposeMoveSecurity$inboundSchema: z.ZodType<
-  ComposeMoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeMoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeMoveSecurity$outboundSchema: z.ZodType<
-  ComposeMoveSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeMoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeMoveSecurity$ {
-  /** @deprecated use `ComposeMoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeMoveSecurity$inboundSchema;
-  /** @deprecated use `ComposeMoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeMoveSecurity$outboundSchema;
-  /** @deprecated use `ComposeMoveSecurity$Outbound` instead. */
-  export type Outbound = ComposeMoveSecurity$Outbound;
-}
-
-export function composeMoveSecurityToJSON(
-  composeMoveSecurity: ComposeMoveSecurity,
-): string {
-  return JSON.stringify(
-    ComposeMoveSecurity$outboundSchema.parse(composeMoveSecurity),
-  );
-}
-
-export function composeMoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeMoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeMoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeMoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeMoveRequest$inboundSchema: z.ZodType<

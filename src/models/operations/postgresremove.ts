@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PostgresRemoveSecurity = {
-  authorization: string;
-};
-
 export type PostgresRemoveRequest = {
   postgresId: string;
 };
@@ -27,196 +23,6 @@ export const PostgresRemoveApplicationStatus = {
 export type PostgresRemoveApplicationStatus = ClosedEnum<
   typeof PostgresRemoveApplicationStatus
 >;
-
-export type PostgresRemoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresRemoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresRemoveSpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresRemovePreference = {
-  spread: PostgresRemoveSpread;
-};
-
-export type PostgresRemovePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresRemovePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresRemovePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresRemovePlatform> | undefined;
-};
-
-export type PostgresRemoveUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresRemoveRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresRemoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresRemoveGlobal = {};
-
-export type PostgresRemoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresRemoveGlobalJob = {};
-
-export type PostgresRemoveModeSwarm = {
-  replicated?: PostgresRemoveReplicated | undefined;
-  global?: PostgresRemoveGlobal | undefined;
-  replicatedJob?: PostgresRemoveReplicatedJob | undefined;
-  globalJob?: PostgresRemoveGlobalJob | undefined;
-};
-
-export type PostgresRemoveDriverOpts = {};
-
-export type PostgresRemoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresRemoveDriverOpts | undefined;
-};
-
-export type PostgresRemoveProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresRemoveEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresRemoveProject;
-};
-
-export const PostgresRemoveType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresRemoveType = ClosedEnum<typeof PostgresRemoveType>;
-
-export const PostgresRemoveServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresRemoveServiceType = ClosedEnum<
-  typeof PostgresRemoveServiceType
->;
-
-export type PostgresRemoveMount = {
-  mountId: string;
-  type: PostgresRemoveType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresRemoveServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresRemoveServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresRemoveServerStatus = ClosedEnum<
-  typeof PostgresRemoveServerStatus
->;
-
-export const PostgresRemoveMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresRemoveMetricsConfigEnum = ClosedEnum<
-  typeof PostgresRemoveMetricsConfigEnum
->;
-
-export type PostgresRemoveMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresRemoveMetricsConfigEnum;
-
-export type PostgresRemoveMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresRemoveMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresRemoveServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresRemoveServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresRemoveMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const PostgresRemoveBackupType = {
   Database: "database",
@@ -244,29 +50,29 @@ export type PostgresRemoveMetadataEnum = ClosedEnum<
   typeof PostgresRemoveMetadataEnum
 >;
 
-export type PostgresRemovePostgres = {
-  databaseUser: string;
-};
-
 export type PostgresRemoveMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresRemoveMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresRemoveMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresRemovePostgres = {
+  databaseUser: string;
+};
+
 export type PostgresRemoveMetadata = {
-  postgres?: PostgresRemovePostgres | undefined;
   mariadb?: PostgresRemoveMariadb | undefined;
   mongo?: PostgresRemoveMongo | undefined;
   mysql?: PostgresRemoveMysql | undefined;
+  postgres?: PostgresRemovePostgres | undefined;
 };
 
 export type PostgresRemoveMetadataUnion =
@@ -274,131 +80,259 @@ export type PostgresRemoveMetadataUnion =
   | PostgresRemoveMetadataEnum;
 
 export type PostgresRemoveBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresRemoveBackupType;
-  databaseType: PostgresRemoveDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresRemoveDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | PostgresRemoveMetadata
     | PostgresRemoveMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresRemoveProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresRemoveEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresRemoveProject;
+  projectId: string;
+};
+
+export type PostgresRemoveHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresRemoveGlobal = {};
+
+export type PostgresRemoveGlobalJob = {};
+
+export type PostgresRemoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresRemoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresRemoveModeSwarm = {
+  global?: PostgresRemoveGlobal | undefined;
+  globalJob?: PostgresRemoveGlobalJob | undefined;
+  replicated?: PostgresRemoveReplicated | undefined;
+  replicatedJob?: PostgresRemoveReplicatedJob | undefined;
+};
+
+export const PostgresRemoveServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresRemoveServiceType = ClosedEnum<
+  typeof PostgresRemoveServiceType
+>;
+
+export const PostgresRemoveType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresRemoveType = ClosedEnum<typeof PostgresRemoveType>;
+
+export type PostgresRemoveMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresRemoveServiceType;
+  type: PostgresRemoveType;
+  volumeName: string | null;
+};
+
+export type PostgresRemoveDriverOpts = {};
+
+export type PostgresRemoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresRemoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresRemovePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresRemoveSpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresRemovePreference = {
+  spread: PostgresRemoveSpread;
+};
+
+export type PostgresRemovePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresRemovePlatform> | undefined;
+  preferences?: Array<PostgresRemovePreference> | undefined;
+};
+
+export type PostgresRemoveRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresRemoveRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresRemoveMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresRemoveMetricsConfigEnum = ClosedEnum<
+  typeof PostgresRemoveMetricsConfigEnum
+>;
+
+export type PostgresRemoveMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresRemoveMetricsConfigEnum;
+
+export type PostgresRemoveMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresRemoveMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresRemoveServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresRemoveServerStatus = ClosedEnum<
+  typeof PostgresRemoveServerStatus
+>;
+
+export type PostgresRemoveServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresRemoveMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresRemoveServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresRemoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresRemoveResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresRemoveApplicationStatus;
+  backups: Array<PostgresRemoveBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresRemoveApplicationStatus;
-  healthCheckSwarm: PostgresRemoveHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresRemoveRestartPolicySwarm | null;
-  placementSwarm: PostgresRemovePlacementSwarm | null;
-  updateConfigSwarm: PostgresRemoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresRemoveRollbackConfigSwarm | null;
-  modeSwarm: PostgresRemoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresRemoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresRemoveEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresRemoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresRemoveModeSwarm | null;
   mounts: Array<PostgresRemoveMount>;
+  name: string;
+  networkSwarm: Array<PostgresRemoveNetworkSwarm> | null;
+  placementSwarm: PostgresRemovePlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresRemoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresRemoveRollbackConfigSwarm | null;
   server: PostgresRemoveServer | null;
-  backups: Array<PostgresRemoveBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresRemoveUpdateConfigSwarm | null;
 };
 
 export type PostgresRemoveResponse = PostgresRemoveResponseBody | models.ErrorT;
-
-/** @internal */
-export const PostgresRemoveSecurity$inboundSchema: z.ZodType<
-  PostgresRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresRemoveSecurity$outboundSchema: z.ZodType<
-  PostgresRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveSecurity$ {
-  /** @deprecated use `PostgresRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveSecurity$inboundSchema;
-  /** @deprecated use `PostgresRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveSecurity$outboundSchema;
-  /** @deprecated use `PostgresRemoveSecurity$Outbound` instead. */
-  export type Outbound = PostgresRemoveSecurity$Outbound;
-}
-
-export function postgresRemoveSecurityToJSON(
-  postgresRemoveSecurity: PostgresRemoveSecurity,
-): string {
-  return JSON.stringify(
-    PostgresRemoveSecurity$outboundSchema.parse(postgresRemoveSecurity),
-  );
-}
-
-export function postgresRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresRemoveRequest$inboundSchema: z.ZodType<
@@ -476,33 +410,695 @@ export namespace PostgresRemoveApplicationStatus$ {
 }
 
 /** @internal */
+export const PostgresRemoveBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveBackupType
+> = z.nativeEnum(PostgresRemoveBackupType);
+
+/** @internal */
+export const PostgresRemoveBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveBackupType
+> = PostgresRemoveBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveBackupType$ {
+  /** @deprecated use `PostgresRemoveBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveBackupType$inboundSchema;
+  /** @deprecated use `PostgresRemoveBackupType$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveDatabaseType
+> = z.nativeEnum(PostgresRemoveDatabaseType);
+
+/** @internal */
+export const PostgresRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveDatabaseType
+> = PostgresRemoveDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveDatabaseType$ {
+  /** @deprecated use `PostgresRemoveDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresRemoveDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveMetadataEnum
+> = z.nativeEnum(PostgresRemoveMetadataEnum);
+
+/** @internal */
+export const PostgresRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveMetadataEnum
+> = PostgresRemoveMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMetadataEnum$ {
+  /** @deprecated use `PostgresRemoveMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresRemoveMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresRemoveMariadb$inboundSchema: z.ZodType<
+  PostgresRemoveMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresRemoveMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresRemoveMariadb$outboundSchema: z.ZodType<
+  PostgresRemoveMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMariadb$ {
+  /** @deprecated use `PostgresRemoveMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMariadb$inboundSchema;
+  /** @deprecated use `PostgresRemoveMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMariadb$outboundSchema;
+  /** @deprecated use `PostgresRemoveMariadb$Outbound` instead. */
+  export type Outbound = PostgresRemoveMariadb$Outbound;
+}
+
+export function postgresRemoveMariadbToJSON(
+  postgresRemoveMariadb: PostgresRemoveMariadb,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMariadb$outboundSchema.parse(postgresRemoveMariadb),
+  );
+}
+
+export function postgresRemoveMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveMongo$inboundSchema: z.ZodType<
+  PostgresRemoveMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresRemoveMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresRemoveMongo$outboundSchema: z.ZodType<
+  PostgresRemoveMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMongo$ {
+  /** @deprecated use `PostgresRemoveMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMongo$inboundSchema;
+  /** @deprecated use `PostgresRemoveMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMongo$outboundSchema;
+  /** @deprecated use `PostgresRemoveMongo$Outbound` instead. */
+  export type Outbound = PostgresRemoveMongo$Outbound;
+}
+
+export function postgresRemoveMongoToJSON(
+  postgresRemoveMongo: PostgresRemoveMongo,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMongo$outboundSchema.parse(postgresRemoveMongo),
+  );
+}
+
+export function postgresRemoveMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveMysql$inboundSchema: z.ZodType<
+  PostgresRemoveMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresRemoveMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresRemoveMysql$outboundSchema: z.ZodType<
+  PostgresRemoveMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMysql$ {
+  /** @deprecated use `PostgresRemoveMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMysql$inboundSchema;
+  /** @deprecated use `PostgresRemoveMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMysql$outboundSchema;
+  /** @deprecated use `PostgresRemoveMysql$Outbound` instead. */
+  export type Outbound = PostgresRemoveMysql$Outbound;
+}
+
+export function postgresRemoveMysqlToJSON(
+  postgresRemoveMysql: PostgresRemoveMysql,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMysql$outboundSchema.parse(postgresRemoveMysql),
+  );
+}
+
+export function postgresRemoveMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemovePostgres$inboundSchema: z.ZodType<
+  PostgresRemovePostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresRemovePostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresRemovePostgres$outboundSchema: z.ZodType<
+  PostgresRemovePostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresRemovePostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemovePostgres$ {
+  /** @deprecated use `PostgresRemovePostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemovePostgres$inboundSchema;
+  /** @deprecated use `PostgresRemovePostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemovePostgres$outboundSchema;
+  /** @deprecated use `PostgresRemovePostgres$Outbound` instead. */
+  export type Outbound = PostgresRemovePostgres$Outbound;
+}
+
+export function postgresRemovePostgresToJSON(
+  postgresRemovePostgres: PostgresRemovePostgres,
+): string {
+  return JSON.stringify(
+    PostgresRemovePostgres$outboundSchema.parse(postgresRemovePostgres),
+  );
+}
+
+export function postgresRemovePostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemovePostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemovePostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemovePostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveMetadata$inboundSchema: z.ZodType<
+  PostgresRemoveMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresRemoveMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => PostgresRemoveMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresRemoveMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresRemovePostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostgresRemoveMetadata$Outbound = {
+  mariadb?: PostgresRemoveMariadb$Outbound | undefined;
+  mongo?: PostgresRemoveMongo$Outbound | undefined;
+  mysql?: PostgresRemoveMysql$Outbound | undefined;
+  postgres?: PostgresRemovePostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresRemoveMetadata$outboundSchema: z.ZodType<
+  PostgresRemoveMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresRemoveMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => PostgresRemoveMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresRemoveMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresRemovePostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMetadata$ {
+  /** @deprecated use `PostgresRemoveMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMetadata$inboundSchema;
+  /** @deprecated use `PostgresRemoveMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMetadata$outboundSchema;
+  /** @deprecated use `PostgresRemoveMetadata$Outbound` instead. */
+  export type Outbound = PostgresRemoveMetadata$Outbound;
+}
+
+export function postgresRemoveMetadataToJSON(
+  postgresRemoveMetadata: PostgresRemoveMetadata,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMetadata$outboundSchema.parse(postgresRemoveMetadata),
+  );
+}
+
+export function postgresRemoveMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveMetadataUnion$inboundSchema: z.ZodType<
+  PostgresRemoveMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresRemoveMetadata$inboundSchema),
+  PostgresRemoveMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresRemoveMetadataUnion$Outbound =
+  | PostgresRemoveMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresRemoveMetadataUnion$outboundSchema: z.ZodType<
+  PostgresRemoveMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresRemoveMetadata$outboundSchema),
+  PostgresRemoveMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMetadataUnion$ {
+  /** @deprecated use `PostgresRemoveMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresRemoveMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresRemoveMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresRemoveMetadataUnion$Outbound;
+}
+
+export function postgresRemoveMetadataUnionToJSON(
+  postgresRemoveMetadataUnion: PostgresRemoveMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMetadataUnion$outboundSchema.parse(
+      postgresRemoveMetadataUnion,
+    ),
+  );
+}
+
+export function postgresRemoveMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveBackup$inboundSchema: z.ZodType<
+  PostgresRemoveBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresRemoveBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresRemoveDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresRemoveMetadata$inboundSchema),
+      PostgresRemoveMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresRemoveBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: PostgresRemoveMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresRemoveBackup$outboundSchema: z.ZodType<
+  PostgresRemoveBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresRemoveBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresRemoveDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresRemoveMetadata$outboundSchema),
+      PostgresRemoveMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveBackup$ {
+  /** @deprecated use `PostgresRemoveBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveBackup$inboundSchema;
+  /** @deprecated use `PostgresRemoveBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveBackup$outboundSchema;
+  /** @deprecated use `PostgresRemoveBackup$Outbound` instead. */
+  export type Outbound = PostgresRemoveBackup$Outbound;
+}
+
+export function postgresRemoveBackupToJSON(
+  postgresRemoveBackup: PostgresRemoveBackup,
+): string {
+  return JSON.stringify(
+    PostgresRemoveBackup$outboundSchema.parse(postgresRemoveBackup),
+  );
+}
+
+export function postgresRemoveBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveProject$inboundSchema: z.ZodType<
+  PostgresRemoveProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresRemoveProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresRemoveProject$outboundSchema: z.ZodType<
+  PostgresRemoveProject$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveProject$ {
+  /** @deprecated use `PostgresRemoveProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveProject$inboundSchema;
+  /** @deprecated use `PostgresRemoveProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveProject$outboundSchema;
+  /** @deprecated use `PostgresRemoveProject$Outbound` instead. */
+  export type Outbound = PostgresRemoveProject$Outbound;
+}
+
+export function postgresRemoveProjectToJSON(
+  postgresRemoveProject: PostgresRemoveProject,
+): string {
+  return JSON.stringify(
+    PostgresRemoveProject$outboundSchema.parse(postgresRemoveProject),
+  );
+}
+
+export function postgresRemoveProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveEnvironment$inboundSchema: z.ZodType<
+  PostgresRemoveEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresRemoveProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresRemoveEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresRemoveProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresRemoveEnvironment$outboundSchema: z.ZodType<
+  PostgresRemoveEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresRemoveProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveEnvironment$ {
+  /** @deprecated use `PostgresRemoveEnvironment$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveEnvironment$inboundSchema;
+  /** @deprecated use `PostgresRemoveEnvironment$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveEnvironment$outboundSchema;
+  /** @deprecated use `PostgresRemoveEnvironment$Outbound` instead. */
+  export type Outbound = PostgresRemoveEnvironment$Outbound;
+}
+
+export function postgresRemoveEnvironmentToJSON(
+  postgresRemoveEnvironment: PostgresRemoveEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresRemoveEnvironment$outboundSchema.parse(postgresRemoveEnvironment),
+  );
+}
+
+export function postgresRemoveEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresRemoveHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresRemoveHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresRemoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -511,18 +1107,18 @@ export const PostgresRemoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresRemoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -560,48 +1156,129 @@ export function postgresRemoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresRemoveRestartPolicySwarm,
+export const PostgresRemoveGlobal$inboundSchema: z.ZodType<
+  PostgresRemoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresRemoveGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresRemoveGlobal$outboundSchema: z.ZodType<
+  PostgresRemoveGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveGlobal$ {
+  /** @deprecated use `PostgresRemoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveGlobal$inboundSchema;
+  /** @deprecated use `PostgresRemoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveGlobal$outboundSchema;
+  /** @deprecated use `PostgresRemoveGlobal$Outbound` instead. */
+  export type Outbound = PostgresRemoveGlobal$Outbound;
+}
+
+export function postgresRemoveGlobalToJSON(
+  postgresRemoveGlobal: PostgresRemoveGlobal,
+): string {
+  return JSON.stringify(
+    PostgresRemoveGlobal$outboundSchema.parse(postgresRemoveGlobal),
+  );
+}
+
+export function postgresRemoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveGlobalJob$inboundSchema: z.ZodType<
+  PostgresRemoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresRemoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresRemoveGlobalJob$outboundSchema: z.ZodType<
+  PostgresRemoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveGlobalJob$ {
+  /** @deprecated use `PostgresRemoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresRemoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresRemoveGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresRemoveGlobalJob$Outbound;
+}
+
+export function postgresRemoveGlobalJobToJSON(
+  postgresRemoveGlobalJob: PostgresRemoveGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresRemoveGlobalJob$outboundSchema.parse(postgresRemoveGlobalJob),
+  );
+}
+
+export function postgresRemoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveReplicated$inboundSchema: z.ZodType<
+  PostgresRemoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresRemoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresRemoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresRemoveRestartPolicySwarm$Outbound,
+export const PostgresRemoveReplicated$outboundSchema: z.ZodType<
+  PostgresRemoveReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresRemoveRestartPolicySwarm
+  PostgresRemoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -609,32 +1286,503 @@ export const PostgresRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresRemoveRestartPolicySwarm$ {
-  /** @deprecated use `PostgresRemoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresRemoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresRemoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresRemoveRestartPolicySwarm$Outbound;
+export namespace PostgresRemoveReplicated$ {
+  /** @deprecated use `PostgresRemoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveReplicated$inboundSchema;
+  /** @deprecated use `PostgresRemoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveReplicated$outboundSchema;
+  /** @deprecated use `PostgresRemoveReplicated$Outbound` instead. */
+  export type Outbound = PostgresRemoveReplicated$Outbound;
 }
 
-export function postgresRemoveRestartPolicySwarmToJSON(
-  postgresRemoveRestartPolicySwarm: PostgresRemoveRestartPolicySwarm,
+export function postgresRemoveReplicatedToJSON(
+  postgresRemoveReplicated: PostgresRemoveReplicated,
 ): string {
   return JSON.stringify(
-    PostgresRemoveRestartPolicySwarm$outboundSchema.parse(
-      postgresRemoveRestartPolicySwarm,
+    PostgresRemoveReplicated$outboundSchema.parse(postgresRemoveReplicated),
+  );
+}
+
+export function postgresRemoveReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveReplicatedJob$inboundSchema: z.ZodType<
+  PostgresRemoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresRemoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresRemoveReplicatedJob$outboundSchema: z.ZodType<
+  PostgresRemoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveReplicatedJob$ {
+  /** @deprecated use `PostgresRemoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresRemoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresRemoveReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresRemoveReplicatedJob$Outbound;
+}
+
+export function postgresRemoveReplicatedJobToJSON(
+  postgresRemoveReplicatedJob: PostgresRemoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresRemoveReplicatedJob$outboundSchema.parse(
+      postgresRemoveReplicatedJob,
     ),
   );
 }
 
-export function postgresRemoveRestartPolicySwarmFromJSON(
+export function postgresRemoveReplicatedJobFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresRemoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresRemoveReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveRestartPolicySwarm' from JSON`,
+    (x) => PostgresRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveModeSwarm$inboundSchema: z.ZodType<
+  PostgresRemoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresRemoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresRemoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => PostgresRemoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => PostgresRemoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresRemoveModeSwarm$Outbound = {
+  Global?: PostgresRemoveGlobal$Outbound | undefined;
+  GlobalJob?: PostgresRemoveGlobalJob$Outbound | undefined;
+  Replicated?: PostgresRemoveReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresRemoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresRemoveModeSwarm$outboundSchema: z.ZodType<
+  PostgresRemoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresRemoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresRemoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => PostgresRemoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => PostgresRemoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveModeSwarm$ {
+  /** @deprecated use `PostgresRemoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresRemoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresRemoveModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresRemoveModeSwarm$Outbound;
+}
+
+export function postgresRemoveModeSwarmToJSON(
+  postgresRemoveModeSwarm: PostgresRemoveModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresRemoveModeSwarm$outboundSchema.parse(postgresRemoveModeSwarm),
+  );
+}
+
+export function postgresRemoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveServiceType
+> = z.nativeEnum(PostgresRemoveServiceType);
+
+/** @internal */
+export const PostgresRemoveServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveServiceType
+> = PostgresRemoveServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveServiceType$ {
+  /** @deprecated use `PostgresRemoveServiceType$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveServiceType$inboundSchema;
+  /** @deprecated use `PostgresRemoveServiceType$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresRemoveType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveType
+> = z.nativeEnum(PostgresRemoveType);
+
+/** @internal */
+export const PostgresRemoveType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveType
+> = PostgresRemoveType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveType$ {
+  /** @deprecated use `PostgresRemoveType$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveType$inboundSchema;
+  /** @deprecated use `PostgresRemoveType$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresRemoveMount$inboundSchema: z.ZodType<
+  PostgresRemoveMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresRemoveServiceType$inboundSchema,
+  type: PostgresRemoveType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresRemoveMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresRemoveMount$outboundSchema: z.ZodType<
+  PostgresRemoveMount$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresRemoveServiceType$outboundSchema,
+  type: PostgresRemoveType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveMount$ {
+  /** @deprecated use `PostgresRemoveMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveMount$inboundSchema;
+  /** @deprecated use `PostgresRemoveMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveMount$outboundSchema;
+  /** @deprecated use `PostgresRemoveMount$Outbound` instead. */
+  export type Outbound = PostgresRemoveMount$Outbound;
+}
+
+export function postgresRemoveMountToJSON(
+  postgresRemoveMount: PostgresRemoveMount,
+): string {
+  return JSON.stringify(
+    PostgresRemoveMount$outboundSchema.parse(postgresRemoveMount),
+  );
+}
+
+export function postgresRemoveMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveDriverOpts$inboundSchema: z.ZodType<
+  PostgresRemoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresRemoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresRemoveDriverOpts$outboundSchema: z.ZodType<
+  PostgresRemoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveDriverOpts$ {
+  /** @deprecated use `PostgresRemoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresRemoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresRemoveDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresRemoveDriverOpts$Outbound;
+}
+
+export function postgresRemoveDriverOptsToJSON(
+  postgresRemoveDriverOpts: PostgresRemoveDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresRemoveDriverOpts$outboundSchema.parse(postgresRemoveDriverOpts),
+  );
+}
+
+export function postgresRemoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemoveNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresRemoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresRemoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresRemoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresRemoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresRemoveNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresRemoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresRemoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresRemoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveNetworkSwarm$ {
+  /** @deprecated use `PostgresRemoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresRemoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresRemoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresRemoveNetworkSwarm$Outbound;
+}
+
+export function postgresRemoveNetworkSwarmToJSON(
+  postgresRemoveNetworkSwarm: PostgresRemoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresRemoveNetworkSwarm$outboundSchema.parse(postgresRemoveNetworkSwarm),
+  );
+}
+
+export function postgresRemoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresRemovePlatform$inboundSchema: z.ZodType<
+  PostgresRemovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresRemovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresRemovePlatform$outboundSchema: z.ZodType<
+  PostgresRemovePlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresRemovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemovePlatform$ {
+  /** @deprecated use `PostgresRemovePlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemovePlatform$inboundSchema;
+  /** @deprecated use `PostgresRemovePlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemovePlatform$outboundSchema;
+  /** @deprecated use `PostgresRemovePlatform$Outbound` instead. */
+  export type Outbound = PostgresRemovePlatform$Outbound;
+}
+
+export function postgresRemovePlatformToJSON(
+  postgresRemovePlatform: PostgresRemovePlatform,
+): string {
+  return JSON.stringify(
+    PostgresRemovePlatform$outboundSchema.parse(postgresRemovePlatform),
+  );
+}
+
+export function postgresRemovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresRemovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresRemovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemovePlatform' from JSON`,
   );
 }
 
@@ -763,99 +1911,32 @@ export function postgresRemovePreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresRemovePlatform$inboundSchema: z.ZodType<
-  PostgresRemovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresRemovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresRemovePlatform$outboundSchema: z.ZodType<
-  PostgresRemovePlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresRemovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemovePlatform$ {
-  /** @deprecated use `PostgresRemovePlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemovePlatform$inboundSchema;
-  /** @deprecated use `PostgresRemovePlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemovePlatform$outboundSchema;
-  /** @deprecated use `PostgresRemovePlatform$Outbound` instead. */
-  export type Outbound = PostgresRemovePlatform$Outbound;
-}
-
-export function postgresRemovePlatformToJSON(
-  postgresRemovePlatform: PostgresRemovePlatform,
-): string {
-  return JSON.stringify(
-    PostgresRemovePlatform$outboundSchema.parse(postgresRemovePlatform),
-  );
-}
-
-export function postgresRemovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresRemovePlacementSwarm$inboundSchema: z.ZodType<
   PostgresRemovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => PostgresRemovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresRemovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => PostgresRemovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresRemovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresRemovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresRemovePlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresRemovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -865,17 +1946,17 @@ export const PostgresRemovePlacementSwarm$outboundSchema: z.ZodType<
   PostgresRemovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => PostgresRemovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresRemovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => PostgresRemovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -913,58 +1994,48 @@ export function postgresRemovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresRemoveUpdateConfigSwarm,
+export const PostgresRemoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresRemoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresRemoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresRemoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresRemoveUpdateConfigSwarm$Outbound,
+export const PostgresRemoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresRemoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresRemoveUpdateConfigSwarm
+  PostgresRemoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -972,32 +2043,32 @@ export const PostgresRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresRemoveUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresRemoveUpdateConfigSwarm$Outbound;
+export namespace PostgresRemoveRestartPolicySwarm$ {
+  /** @deprecated use `PostgresRemoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresRemoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresRemoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresRemoveRestartPolicySwarm$Outbound;
 }
 
-export function postgresRemoveUpdateConfigSwarmToJSON(
-  postgresRemoveUpdateConfigSwarm: PostgresRemoveUpdateConfigSwarm,
+export function postgresRemoveRestartPolicySwarmToJSON(
+  postgresRemoveRestartPolicySwarm: PostgresRemoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresRemoveUpdateConfigSwarm$outboundSchema.parse(
-      postgresRemoveUpdateConfigSwarm,
+    PostgresRemoveRestartPolicySwarm$outboundSchema.parse(
+      postgresRemoveRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresRemoveUpdateConfigSwarmFromJSON(
+export function postgresRemoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresRemoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresRemoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveUpdateConfigSwarm' from JSON`,
+    (x) => PostgresRemoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1007,31 +2078,31 @@ export const PostgresRemoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresRemoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1040,20 +2111,20 @@ export const PostgresRemoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresRemoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1089,732 +2160,6 @@ export function postgresRemoveRollbackConfigSwarmFromJSON(
     (x) => PostgresRemoveRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostgresRemoveRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresRemoveReplicated$inboundSchema: z.ZodType<
-  PostgresRemoveReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresRemoveReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveReplicated$outboundSchema: z.ZodType<
-  PostgresRemoveReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveReplicated$ {
-  /** @deprecated use `PostgresRemoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveReplicated$inboundSchema;
-  /** @deprecated use `PostgresRemoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveReplicated$outboundSchema;
-  /** @deprecated use `PostgresRemoveReplicated$Outbound` instead. */
-  export type Outbound = PostgresRemoveReplicated$Outbound;
-}
-
-export function postgresRemoveReplicatedToJSON(
-  postgresRemoveReplicated: PostgresRemoveReplicated,
-): string {
-  return JSON.stringify(
-    PostgresRemoveReplicated$outboundSchema.parse(postgresRemoveReplicated),
-  );
-}
-
-export function postgresRemoveReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveGlobal$inboundSchema: z.ZodType<
-  PostgresRemoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresRemoveGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresRemoveGlobal$outboundSchema: z.ZodType<
-  PostgresRemoveGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveGlobal$ {
-  /** @deprecated use `PostgresRemoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveGlobal$inboundSchema;
-  /** @deprecated use `PostgresRemoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveGlobal$outboundSchema;
-  /** @deprecated use `PostgresRemoveGlobal$Outbound` instead. */
-  export type Outbound = PostgresRemoveGlobal$Outbound;
-}
-
-export function postgresRemoveGlobalToJSON(
-  postgresRemoveGlobal: PostgresRemoveGlobal,
-): string {
-  return JSON.stringify(
-    PostgresRemoveGlobal$outboundSchema.parse(postgresRemoveGlobal),
-  );
-}
-
-export function postgresRemoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveReplicatedJob$inboundSchema: z.ZodType<
-  PostgresRemoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresRemoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveReplicatedJob$outboundSchema: z.ZodType<
-  PostgresRemoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveReplicatedJob$ {
-  /** @deprecated use `PostgresRemoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresRemoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresRemoveReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresRemoveReplicatedJob$Outbound;
-}
-
-export function postgresRemoveReplicatedJobToJSON(
-  postgresRemoveReplicatedJob: PostgresRemoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresRemoveReplicatedJob$outboundSchema.parse(
-      postgresRemoveReplicatedJob,
-    ),
-  );
-}
-
-export function postgresRemoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveGlobalJob$inboundSchema: z.ZodType<
-  PostgresRemoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresRemoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresRemoveGlobalJob$outboundSchema: z.ZodType<
-  PostgresRemoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveGlobalJob$ {
-  /** @deprecated use `PostgresRemoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresRemoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresRemoveGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresRemoveGlobalJob$Outbound;
-}
-
-export function postgresRemoveGlobalJobToJSON(
-  postgresRemoveGlobalJob: PostgresRemoveGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresRemoveGlobalJob$outboundSchema.parse(postgresRemoveGlobalJob),
-  );
-}
-
-export function postgresRemoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveModeSwarm$inboundSchema: z.ZodType<
-  PostgresRemoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresRemoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => PostgresRemoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresRemoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresRemoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresRemoveModeSwarm$Outbound = {
-  Replicated?: PostgresRemoveReplicated$Outbound | undefined;
-  Global?: PostgresRemoveGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresRemoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresRemoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveModeSwarm$outboundSchema: z.ZodType<
-  PostgresRemoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresRemoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => PostgresRemoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresRemoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresRemoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveModeSwarm$ {
-  /** @deprecated use `PostgresRemoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresRemoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresRemoveModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresRemoveModeSwarm$Outbound;
-}
-
-export function postgresRemoveModeSwarmToJSON(
-  postgresRemoveModeSwarm: PostgresRemoveModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresRemoveModeSwarm$outboundSchema.parse(postgresRemoveModeSwarm),
-  );
-}
-
-export function postgresRemoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveDriverOpts$inboundSchema: z.ZodType<
-  PostgresRemoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresRemoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresRemoveDriverOpts$outboundSchema: z.ZodType<
-  PostgresRemoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveDriverOpts$ {
-  /** @deprecated use `PostgresRemoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresRemoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresRemoveDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresRemoveDriverOpts$Outbound;
-}
-
-export function postgresRemoveDriverOptsToJSON(
-  postgresRemoveDriverOpts: PostgresRemoveDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresRemoveDriverOpts$outboundSchema.parse(postgresRemoveDriverOpts),
-  );
-}
-
-export function postgresRemoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresRemoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresRemoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresRemoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresRemoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresRemoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresRemoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveNetworkSwarm$ {
-  /** @deprecated use `PostgresRemoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresRemoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresRemoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresRemoveNetworkSwarm$Outbound;
-}
-
-export function postgresRemoveNetworkSwarmToJSON(
-  postgresRemoveNetworkSwarm: PostgresRemoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresRemoveNetworkSwarm$outboundSchema.parse(postgresRemoveNetworkSwarm),
-  );
-}
-
-export function postgresRemoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveProject$inboundSchema: z.ZodType<
-  PostgresRemoveProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresRemoveProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresRemoveProject$outboundSchema: z.ZodType<
-  PostgresRemoveProject$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveProject$ {
-  /** @deprecated use `PostgresRemoveProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveProject$inboundSchema;
-  /** @deprecated use `PostgresRemoveProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveProject$outboundSchema;
-  /** @deprecated use `PostgresRemoveProject$Outbound` instead. */
-  export type Outbound = PostgresRemoveProject$Outbound;
-}
-
-export function postgresRemoveProjectToJSON(
-  postgresRemoveProject: PostgresRemoveProject,
-): string {
-  return JSON.stringify(
-    PostgresRemoveProject$outboundSchema.parse(postgresRemoveProject),
-  );
-}
-
-export function postgresRemoveProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveEnvironment$inboundSchema: z.ZodType<
-  PostgresRemoveEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresRemoveProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresRemoveEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresRemoveProject$Outbound;
-};
-
-/** @internal */
-export const PostgresRemoveEnvironment$outboundSchema: z.ZodType<
-  PostgresRemoveEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresRemoveProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveEnvironment$ {
-  /** @deprecated use `PostgresRemoveEnvironment$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveEnvironment$inboundSchema;
-  /** @deprecated use `PostgresRemoveEnvironment$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveEnvironment$outboundSchema;
-  /** @deprecated use `PostgresRemoveEnvironment$Outbound` instead. */
-  export type Outbound = PostgresRemoveEnvironment$Outbound;
-}
-
-export function postgresRemoveEnvironmentToJSON(
-  postgresRemoveEnvironment: PostgresRemoveEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresRemoveEnvironment$outboundSchema.parse(postgresRemoveEnvironment),
-  );
-}
-
-export function postgresRemoveEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveType
-> = z.nativeEnum(PostgresRemoveType);
-
-/** @internal */
-export const PostgresRemoveType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveType
-> = PostgresRemoveType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveType$ {
-  /** @deprecated use `PostgresRemoveType$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveType$inboundSchema;
-  /** @deprecated use `PostgresRemoveType$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresRemoveServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveServiceType
-> = z.nativeEnum(PostgresRemoveServiceType);
-
-/** @internal */
-export const PostgresRemoveServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveServiceType
-> = PostgresRemoveServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveServiceType$ {
-  /** @deprecated use `PostgresRemoveServiceType$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveServiceType$inboundSchema;
-  /** @deprecated use `PostgresRemoveServiceType$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresRemoveMount$inboundSchema: z.ZodType<
-  PostgresRemoveMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresRemoveType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresRemoveServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresRemoveMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresRemoveMount$outboundSchema: z.ZodType<
-  PostgresRemoveMount$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresRemoveType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresRemoveServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMount$ {
-  /** @deprecated use `PostgresRemoveMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMount$inboundSchema;
-  /** @deprecated use `PostgresRemoveMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMount$outboundSchema;
-  /** @deprecated use `PostgresRemoveMount$Outbound` instead. */
-  export type Outbound = PostgresRemoveMount$Outbound;
-}
-
-export function postgresRemoveMountToJSON(
-  postgresRemoveMount: PostgresRemoveMount,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMount$outboundSchema.parse(postgresRemoveMount),
-  );
-}
-
-export function postgresRemoveMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveServerStatus
-> = z.nativeEnum(PostgresRemoveServerStatus);
-
-/** @internal */
-export const PostgresRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveServerStatus
-> = PostgresRemoveServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveServerStatus$ {
-  /** @deprecated use `PostgresRemoveServerStatus$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveServerStatus$inboundSchema;
-  /** @deprecated use `PostgresRemoveServerStatus$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1979,24 +2324,38 @@ export function postgresRemoveMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresRemoveServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveServerStatus
+> = z.nativeEnum(PostgresRemoveServerStatus);
+
+/** @internal */
+export const PostgresRemoveServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresRemoveServerStatus
+> = PostgresRemoveServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresRemoveServerStatus$ {
+  /** @deprecated use `PostgresRemoveServerStatus$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveServerStatus$inboundSchema;
+  /** @deprecated use `PostgresRemoveServerStatus$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresRemoveServer$inboundSchema: z.ZodType<
   PostgresRemoveServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresRemoveServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2007,26 +2366,33 @@ export const PostgresRemoveServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresRemoveServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresRemoveServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2035,19 +2401,12 @@ export const PostgresRemoveServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresRemoveServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresRemoveServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2058,6 +2417,13 @@ export const PostgresRemoveServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresRemoveServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2092,523 +2458,91 @@ export function postgresRemoveServerFromJSON(
 }
 
 /** @internal */
-export const PostgresRemoveBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveBackupType
-> = z.nativeEnum(PostgresRemoveBackupType);
-
-/** @internal */
-export const PostgresRemoveBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveBackupType
-> = PostgresRemoveBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveBackupType$ {
-  /** @deprecated use `PostgresRemoveBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveBackupType$inboundSchema;
-  /** @deprecated use `PostgresRemoveBackupType$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresRemoveDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveDatabaseType
-> = z.nativeEnum(PostgresRemoveDatabaseType);
-
-/** @internal */
-export const PostgresRemoveDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveDatabaseType
-> = PostgresRemoveDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveDatabaseType$ {
-  /** @deprecated use `PostgresRemoveDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresRemoveDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresRemoveMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveMetadataEnum
-> = z.nativeEnum(PostgresRemoveMetadataEnum);
-
-/** @internal */
-export const PostgresRemoveMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresRemoveMetadataEnum
-> = PostgresRemoveMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMetadataEnum$ {
-  /** @deprecated use `PostgresRemoveMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresRemoveMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresRemovePostgres$inboundSchema: z.ZodType<
-  PostgresRemovePostgres,
+export const PostgresRemoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresRemoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type PostgresRemovePostgres$Outbound = {
-  databaseUser: string;
+export type PostgresRemoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresRemovePostgres$outboundSchema: z.ZodType<
-  PostgresRemovePostgres$Outbound,
+export const PostgresRemoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresRemoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresRemovePostgres
+  PostgresRemoveUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresRemovePostgres$ {
-  /** @deprecated use `PostgresRemovePostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemovePostgres$inboundSchema;
-  /** @deprecated use `PostgresRemovePostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemovePostgres$outboundSchema;
-  /** @deprecated use `PostgresRemovePostgres$Outbound` instead. */
-  export type Outbound = PostgresRemovePostgres$Outbound;
+export namespace PostgresRemoveUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresRemoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresRemoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresRemoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresRemoveUpdateConfigSwarm$Outbound;
 }
 
-export function postgresRemovePostgresToJSON(
-  postgresRemovePostgres: PostgresRemovePostgres,
+export function postgresRemoveUpdateConfigSwarmToJSON(
+  postgresRemoveUpdateConfigSwarm: PostgresRemoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresRemovePostgres$outboundSchema.parse(postgresRemovePostgres),
-  );
-}
-
-export function postgresRemovePostgresFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemovePostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemovePostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemovePostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveMariadb$inboundSchema: z.ZodType<
-  PostgresRemoveMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresRemoveMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresRemoveMariadb$outboundSchema: z.ZodType<
-  PostgresRemoveMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMariadb$ {
-  /** @deprecated use `PostgresRemoveMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMariadb$inboundSchema;
-  /** @deprecated use `PostgresRemoveMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMariadb$outboundSchema;
-  /** @deprecated use `PostgresRemoveMariadb$Outbound` instead. */
-  export type Outbound = PostgresRemoveMariadb$Outbound;
-}
-
-export function postgresRemoveMariadbToJSON(
-  postgresRemoveMariadb: PostgresRemoveMariadb,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMariadb$outboundSchema.parse(postgresRemoveMariadb),
-  );
-}
-
-export function postgresRemoveMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveMongo$inboundSchema: z.ZodType<
-  PostgresRemoveMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresRemoveMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresRemoveMongo$outboundSchema: z.ZodType<
-  PostgresRemoveMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMongo$ {
-  /** @deprecated use `PostgresRemoveMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMongo$inboundSchema;
-  /** @deprecated use `PostgresRemoveMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMongo$outboundSchema;
-  /** @deprecated use `PostgresRemoveMongo$Outbound` instead. */
-  export type Outbound = PostgresRemoveMongo$Outbound;
-}
-
-export function postgresRemoveMongoToJSON(
-  postgresRemoveMongo: PostgresRemoveMongo,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMongo$outboundSchema.parse(postgresRemoveMongo),
-  );
-}
-
-export function postgresRemoveMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveMysql$inboundSchema: z.ZodType<
-  PostgresRemoveMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresRemoveMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresRemoveMysql$outboundSchema: z.ZodType<
-  PostgresRemoveMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMysql$ {
-  /** @deprecated use `PostgresRemoveMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMysql$inboundSchema;
-  /** @deprecated use `PostgresRemoveMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMysql$outboundSchema;
-  /** @deprecated use `PostgresRemoveMysql$Outbound` instead. */
-  export type Outbound = PostgresRemoveMysql$Outbound;
-}
-
-export function postgresRemoveMysqlToJSON(
-  postgresRemoveMysql: PostgresRemoveMysql,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMysql$outboundSchema.parse(postgresRemoveMysql),
-  );
-}
-
-export function postgresRemoveMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveMetadata$inboundSchema: z.ZodType<
-  PostgresRemoveMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresRemovePostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresRemoveMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => PostgresRemoveMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresRemoveMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresRemoveMetadata$Outbound = {
-  postgres?: PostgresRemovePostgres$Outbound | undefined;
-  mariadb?: PostgresRemoveMariadb$Outbound | undefined;
-  mongo?: PostgresRemoveMongo$Outbound | undefined;
-  mysql?: PostgresRemoveMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveMetadata$outboundSchema: z.ZodType<
-  PostgresRemoveMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresRemovePostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresRemoveMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => PostgresRemoveMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresRemoveMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMetadata$ {
-  /** @deprecated use `PostgresRemoveMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMetadata$inboundSchema;
-  /** @deprecated use `PostgresRemoveMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMetadata$outboundSchema;
-  /** @deprecated use `PostgresRemoveMetadata$Outbound` instead. */
-  export type Outbound = PostgresRemoveMetadata$Outbound;
-}
-
-export function postgresRemoveMetadataToJSON(
-  postgresRemoveMetadata: PostgresRemoveMetadata,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMetadata$outboundSchema.parse(postgresRemoveMetadata),
-  );
-}
-
-export function postgresRemoveMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveMetadataUnion$inboundSchema: z.ZodType<
-  PostgresRemoveMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresRemoveMetadata$inboundSchema),
-  PostgresRemoveMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresRemoveMetadataUnion$Outbound =
-  | PostgresRemoveMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresRemoveMetadataUnion$outboundSchema: z.ZodType<
-  PostgresRemoveMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresRemoveMetadata$outboundSchema),
-  PostgresRemoveMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveMetadataUnion$ {
-  /** @deprecated use `PostgresRemoveMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresRemoveMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresRemoveMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresRemoveMetadataUnion$Outbound;
-}
-
-export function postgresRemoveMetadataUnionToJSON(
-  postgresRemoveMetadataUnion: PostgresRemoveMetadataUnion,
-): string {
-  return JSON.stringify(
-    PostgresRemoveMetadataUnion$outboundSchema.parse(
-      postgresRemoveMetadataUnion,
+    PostgresRemoveUpdateConfigSwarm$outboundSchema.parse(
+      postgresRemoveUpdateConfigSwarm,
     ),
   );
 }
 
-export function postgresRemoveMetadataUnionFromJSON(
+export function postgresRemoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresRemoveMetadataUnion, SDKValidationError> {
+): SafeParseResult<PostgresRemoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresRemoveMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresRemoveBackup$inboundSchema: z.ZodType<
-  PostgresRemoveBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresRemoveBackupType$inboundSchema,
-  databaseType: PostgresRemoveDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresRemoveMetadata$inboundSchema),
-      PostgresRemoveMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresRemoveBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: PostgresRemoveMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const PostgresRemoveBackup$outboundSchema: z.ZodType<
-  PostgresRemoveBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresRemoveBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresRemoveBackupType$outboundSchema,
-  databaseType: PostgresRemoveDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresRemoveMetadata$outboundSchema),
-      PostgresRemoveMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRemoveBackup$ {
-  /** @deprecated use `PostgresRemoveBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresRemoveBackup$inboundSchema;
-  /** @deprecated use `PostgresRemoveBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresRemoveBackup$outboundSchema;
-  /** @deprecated use `PostgresRemoveBackup$Outbound` instead. */
-  export type Outbound = PostgresRemoveBackup$Outbound;
-}
-
-export function postgresRemoveBackupToJSON(
-  postgresRemoveBackup: PostgresRemoveBackup,
-): string {
-  return JSON.stringify(
-    PostgresRemoveBackup$outboundSchema.parse(postgresRemoveBackup),
-  );
-}
-
-export function postgresRemoveBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRemoveBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRemoveBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRemoveBackup' from JSON`,
+    (x) => PostgresRemoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresRemoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2618,86 +2552,86 @@ export const PostgresRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresRemoveApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresRemoveBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresRemoveEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresRemoveApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresRemoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresRemoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresRemoveModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresRemoveMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresRemoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresRemovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresRemoveUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresRemoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresRemoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresRemoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresRemoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresRemoveEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresRemoveMount$inboundSchema)),
   server: z.nullable(z.lazy(() => PostgresRemoveServer$inboundSchema)),
-  backups: z.array(z.lazy(() => PostgresRemoveBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresRemoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresRemoveResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresRemoveBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresRemoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresRemoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresRemovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresRemoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresRemoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresRemoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresRemoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresRemoveEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresRemoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresRemoveModeSwarm$Outbound | null;
   mounts: Array<PostgresRemoveMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresRemoveNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresRemovePlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresRemoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresRemoveRollbackConfigSwarm$Outbound | null;
   server: PostgresRemoveServer$Outbound | null;
-  backups: Array<PostgresRemoveBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresRemoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2706,50 +2640,50 @@ export const PostgresRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresRemoveResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresRemoveApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresRemoveBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresRemoveEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresRemoveApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresRemoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresRemoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresRemoveModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresRemoveMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresRemoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresRemovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresRemoveUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresRemoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresRemoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresRemoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresRemoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresRemoveEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresRemoveMount$outboundSchema)),
   server: z.nullable(z.lazy(() => PostgresRemoveServer$outboundSchema)),
-  backups: z.array(z.lazy(() => PostgresRemoveBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresRemoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

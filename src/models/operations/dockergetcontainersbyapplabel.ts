@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type DockerGetContainersByAppLabelSecurity = {
-  authorization: string;
-};
 
 export const DockerGetContainersByAppLabelType = {
   Standalone: "standalone",
@@ -26,73 +21,6 @@ export type DockerGetContainersByAppLabelRequest = {
   serverId?: string | undefined;
   type: DockerGetContainersByAppLabelType;
 };
-
-/** @internal */
-export const DockerGetContainersByAppLabelSecurity$inboundSchema: z.ZodType<
-  DockerGetContainersByAppLabelSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DockerGetContainersByAppLabelSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DockerGetContainersByAppLabelSecurity$outboundSchema: z.ZodType<
-  DockerGetContainersByAppLabelSecurity$Outbound,
-  z.ZodTypeDef,
-  DockerGetContainersByAppLabelSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DockerGetContainersByAppLabelSecurity$ {
-  /** @deprecated use `DockerGetContainersByAppLabelSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    DockerGetContainersByAppLabelSecurity$inboundSchema;
-  /** @deprecated use `DockerGetContainersByAppLabelSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    DockerGetContainersByAppLabelSecurity$outboundSchema;
-  /** @deprecated use `DockerGetContainersByAppLabelSecurity$Outbound` instead. */
-  export type Outbound = DockerGetContainersByAppLabelSecurity$Outbound;
-}
-
-export function dockerGetContainersByAppLabelSecurityToJSON(
-  dockerGetContainersByAppLabelSecurity: DockerGetContainersByAppLabelSecurity,
-): string {
-  return JSON.stringify(
-    DockerGetContainersByAppLabelSecurity$outboundSchema.parse(
-      dockerGetContainersByAppLabelSecurity,
-    ),
-  );
-}
-
-export function dockerGetContainersByAppLabelSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DockerGetContainersByAppLabelSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DockerGetContainersByAppLabelSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DockerGetContainersByAppLabelSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DockerGetContainersByAppLabelType$inboundSchema: z.ZodNativeEnum<

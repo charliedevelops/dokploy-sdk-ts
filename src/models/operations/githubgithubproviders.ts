@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GithubGithubProvidersSecurity = {
-  authorization: string;
-};
 
 export const GithubGithubProvidersProviderType = {
   Github: "github",
@@ -25,86 +20,22 @@ export type GithubGithubProvidersProviderType = ClosedEnum<
 >;
 
 export type GithubGithubProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GithubGithubProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GithubGithubProvidersProviderType;
   userId: string;
 };
 
 export type GithubGithubProvidersResponseBody = {
-  githubId: string;
   gitProvider: GithubGithubProvidersGitProvider;
+  githubId: string;
 };
 
 export type GithubGithubProvidersResponse =
   | models.ErrorT
   | Array<GithubGithubProvidersResponseBody>;
-
-/** @internal */
-export const GithubGithubProvidersSecurity$inboundSchema: z.ZodType<
-  GithubGithubProvidersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GithubGithubProvidersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GithubGithubProvidersSecurity$outboundSchema: z.ZodType<
-  GithubGithubProvidersSecurity$Outbound,
-  z.ZodTypeDef,
-  GithubGithubProvidersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GithubGithubProvidersSecurity$ {
-  /** @deprecated use `GithubGithubProvidersSecurity$inboundSchema` instead. */
-  export const inboundSchema = GithubGithubProvidersSecurity$inboundSchema;
-  /** @deprecated use `GithubGithubProvidersSecurity$outboundSchema` instead. */
-  export const outboundSchema = GithubGithubProvidersSecurity$outboundSchema;
-  /** @deprecated use `GithubGithubProvidersSecurity$Outbound` instead. */
-  export type Outbound = GithubGithubProvidersSecurity$Outbound;
-}
-
-export function githubGithubProvidersSecurityToJSON(
-  githubGithubProvidersSecurity: GithubGithubProvidersSecurity,
-): string {
-  return JSON.stringify(
-    GithubGithubProvidersSecurity$outboundSchema.parse(
-      githubGithubProvidersSecurity,
-    ),
-  );
-}
-
-export function githubGithubProvidersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GithubGithubProvidersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GithubGithubProvidersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GithubGithubProvidersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GithubGithubProvidersProviderType$inboundSchema: z.ZodNativeEnum<
@@ -134,21 +65,21 @@ export const GithubGithubProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubGithubProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubGithubProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GithubGithubProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -158,11 +89,11 @@ export const GithubGithubProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubGithubProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GithubGithubProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GithubGithubProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -205,14 +136,14 @@ export const GithubGithubProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
   gitProvider: z.lazy(() => GithubGithubProvidersGitProvider$inboundSchema),
+  githubId: z.string(),
 });
 
 /** @internal */
 export type GithubGithubProvidersResponseBody$Outbound = {
-  githubId: string;
   gitProvider: GithubGithubProvidersGitProvider$Outbound;
+  githubId: string;
 };
 
 /** @internal */
@@ -221,8 +152,8 @@ export const GithubGithubProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubGithubProvidersResponseBody
 > = z.object({
-  githubId: z.string(),
   gitProvider: z.lazy(() => GithubGithubProvidersGitProvider$outboundSchema),
+  githubId: z.string(),
 });
 
 /**

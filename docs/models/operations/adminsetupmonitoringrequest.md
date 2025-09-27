@@ -7,21 +7,21 @@ import { AdminSetupMonitoringRequest } from "dokploy-sdk/models/operations";
 
 let value: AdminSetupMonitoringRequest = {
   metricsConfig: {
-    server: {
-      refreshRate: 7287.37,
-      port: 475.39,
-      token: "<value>",
-      urlCallback: "https://profuse-pantyhose.name",
-      retentionDays: 3313.33,
-      cronJob: "<value>",
-      thresholds: {
-        cpu: 3248.61,
-        memory: 4250.23,
-      },
-    },
     containers: {
-      refreshRate: 4903.01,
+      refreshRate: 7287.37,
       services: {},
+    },
+    server: {
+      cronJob: "<value>",
+      port: 475.39,
+      refreshRate: 8230.4,
+      retentionDays: 6413.78,
+      thresholds: {
+        cpu: 2952.89,
+        memory: 1676.7,
+      },
+      token: "<value>",
+      urlCallback: "https://proper-finding.info",
     },
   },
 };

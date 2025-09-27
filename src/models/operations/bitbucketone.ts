@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type BitbucketOneSecurity = {
-  authorization: string;
-};
 
 export type BitbucketOneRequest = {
   bitbucketId: string;
@@ -29,11 +24,11 @@ export type BitbucketOneProviderType = ClosedEnum<
 >;
 
 export type BitbucketOneGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: BitbucketOneProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: BitbucketOneProviderType;
   userId: string;
 };
 
@@ -41,77 +36,15 @@ export type BitbucketOneGitProvider = {
  * Successful response
  */
 export type BitbucketOneResponseBody = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
   gitProvider: BitbucketOneGitProvider;
+  gitProviderId: string;
 };
 
 export type BitbucketOneResponse = BitbucketOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const BitbucketOneSecurity$inboundSchema: z.ZodType<
-  BitbucketOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketOneSecurity$outboundSchema: z.ZodType<
-  BitbucketOneSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketOneSecurity$ {
-  /** @deprecated use `BitbucketOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = BitbucketOneSecurity$inboundSchema;
-  /** @deprecated use `BitbucketOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = BitbucketOneSecurity$outboundSchema;
-  /** @deprecated use `BitbucketOneSecurity$Outbound` instead. */
-  export type Outbound = BitbucketOneSecurity$Outbound;
-}
-
-export function bitbucketOneSecurityToJSON(
-  bitbucketOneSecurity: BitbucketOneSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketOneSecurity$outboundSchema.parse(bitbucketOneSecurity),
-  );
-}
-
-export function bitbucketOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BitbucketOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketOneRequest$inboundSchema: z.ZodType<
@@ -194,21 +127,21 @@ export const BitbucketOneGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketOneProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketOneProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type BitbucketOneGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -218,11 +151,11 @@ export const BitbucketOneGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketOneGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketOneProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketOneProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -263,22 +196,22 @@ export const BitbucketOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
   gitProvider: z.lazy(() => BitbucketOneGitProvider$inboundSchema),
+  gitProviderId: z.string(),
 });
 
 /** @internal */
 export type BitbucketOneResponseBody$Outbound = {
+  appPassword: string | null;
   bitbucketId: string;
   bitbucketUsername: string | null;
-  appPassword: string | null;
   bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
   gitProvider: BitbucketOneGitProvider$Outbound;
+  gitProviderId: string;
 };
 
 /** @internal */
@@ -287,12 +220,12 @@ export const BitbucketOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketOneResponseBody
 > = z.object({
+  appPassword: z.nullable(z.string()),
   bitbucketId: z.string(),
   bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
   bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
   gitProvider: z.lazy(() => BitbucketOneGitProvider$outboundSchema),
+  gitProviderId: z.string(),
 });
 
 /**

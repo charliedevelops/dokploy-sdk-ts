@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsUpdateLogCleanupSecurity = {
-  authorization: string;
-};
-
 export type SettingsUpdateLogCleanupRequest = {
   cronExpression: string | null;
 };
-
-/** @internal */
-export const SettingsUpdateLogCleanupSecurity$inboundSchema: z.ZodType<
-  SettingsUpdateLogCleanupSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsUpdateLogCleanupSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateLogCleanupSecurity$outboundSchema: z.ZodType<
-  SettingsUpdateLogCleanupSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsUpdateLogCleanupSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateLogCleanupSecurity$ {
-  /** @deprecated use `SettingsUpdateLogCleanupSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsUpdateLogCleanupSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateLogCleanupSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsUpdateLogCleanupSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateLogCleanupSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateLogCleanupSecurity$Outbound;
-}
-
-export function settingsUpdateLogCleanupSecurityToJSON(
-  settingsUpdateLogCleanupSecurity: SettingsUpdateLogCleanupSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateLogCleanupSecurity$outboundSchema.parse(
-      settingsUpdateLogCleanupSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateLogCleanupSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsUpdateLogCleanupSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsUpdateLogCleanupSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsUpdateLogCleanupSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateLogCleanupRequest$inboundSchema: z.ZodType<

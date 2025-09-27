@@ -3,81 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ComposeDeleteSecurity = {
-  authorization: string;
-};
 
 export type ComposeDeleteRequest = {
   composeId: string;
   deleteVolumes: boolean;
 };
-
-/** @internal */
-export const ComposeDeleteSecurity$inboundSchema: z.ZodType<
-  ComposeDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeDeleteSecurity$outboundSchema: z.ZodType<
-  ComposeDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeDeleteSecurity$ {
-  /** @deprecated use `ComposeDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeDeleteSecurity$inboundSchema;
-  /** @deprecated use `ComposeDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeDeleteSecurity$outboundSchema;
-  /** @deprecated use `ComposeDeleteSecurity$Outbound` instead. */
-  export type Outbound = ComposeDeleteSecurity$Outbound;
-}
-
-export function composeDeleteSecurityToJSON(
-  composeDeleteSecurity: ComposeDeleteSecurity,
-): string {
-  return JSON.stringify(
-    ComposeDeleteSecurity$outboundSchema.parse(composeDeleteSecurity),
-  );
-}
-
-export function composeDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeDeleteRequest$inboundSchema: z.ZodType<

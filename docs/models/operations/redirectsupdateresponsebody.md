@@ -8,13 +8,13 @@ Successful response
 import { RedirectsUpdateResponseBody } from "dokploy-sdk/models/operations";
 
 let value: RedirectsUpdateResponseBody = {
+  applicationId: "<id>",
+  createdAt: "1730293937254",
+  permanent: true,
   redirectId: "<id>",
   regex: "<value>",
   replacement: "<value>",
-  permanent: false,
-  uniqueConfigKey: 3240.08,
-  createdAt: "1723319638594",
-  applicationId: "<id>",
+  uniqueConfigKey: 6077.51,
 };
 ```
 
@@ -22,10 +22,10 @@ let value: RedirectsUpdateResponseBody = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `redirectId`       | *string*           | :heavy_check_mark: | N/A                |
 | `regex`            | *string*           | :heavy_check_mark: | N/A                |
 | `replacement`      | *string*           | :heavy_check_mark: | N/A                |
-| `permanent`        | *boolean*          | :heavy_check_mark: | N/A                |
 | `uniqueConfigKey`  | *number*           | :heavy_check_mark: | N/A                |
-| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
-| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |

@@ -3,24 +3,19 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type OrganizationAllSecurity = {
-  authorization: string;
-};
-
 export type OrganizationAllResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationAllResponse =
@@ -28,91 +23,29 @@ export type OrganizationAllResponse =
   | Array<OrganizationAllResponseBody>;
 
 /** @internal */
-export const OrganizationAllSecurity$inboundSchema: z.ZodType<
-  OrganizationAllSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type OrganizationAllSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const OrganizationAllSecurity$outboundSchema: z.ZodType<
-  OrganizationAllSecurity$Outbound,
-  z.ZodTypeDef,
-  OrganizationAllSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationAllSecurity$ {
-  /** @deprecated use `OrganizationAllSecurity$inboundSchema` instead. */
-  export const inboundSchema = OrganizationAllSecurity$inboundSchema;
-  /** @deprecated use `OrganizationAllSecurity$outboundSchema` instead. */
-  export const outboundSchema = OrganizationAllSecurity$outboundSchema;
-  /** @deprecated use `OrganizationAllSecurity$Outbound` instead. */
-  export type Outbound = OrganizationAllSecurity$Outbound;
-}
-
-export function organizationAllSecurityToJSON(
-  organizationAllSecurity: OrganizationAllSecurity,
-): string {
-  return JSON.stringify(
-    OrganizationAllSecurity$outboundSchema.parse(organizationAllSecurity),
-  );
-}
-
-export function organizationAllSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<OrganizationAllSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OrganizationAllSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OrganizationAllSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const OrganizationAllResponseBody$inboundSchema: z.ZodType<
   OrganizationAllResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationAllResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -121,13 +54,13 @@ export const OrganizationAllResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationAllResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type VolumeBackupsRunManuallySecurity = {
-  authorization: string;
-};
-
 export type VolumeBackupsRunManuallyRequest = {
   volumeBackupId: string;
 };
-
-/** @internal */
-export const VolumeBackupsRunManuallySecurity$inboundSchema: z.ZodType<
-  VolumeBackupsRunManuallySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type VolumeBackupsRunManuallySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const VolumeBackupsRunManuallySecurity$outboundSchema: z.ZodType<
-  VolumeBackupsRunManuallySecurity$Outbound,
-  z.ZodTypeDef,
-  VolumeBackupsRunManuallySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VolumeBackupsRunManuallySecurity$ {
-  /** @deprecated use `VolumeBackupsRunManuallySecurity$inboundSchema` instead. */
-  export const inboundSchema = VolumeBackupsRunManuallySecurity$inboundSchema;
-  /** @deprecated use `VolumeBackupsRunManuallySecurity$outboundSchema` instead. */
-  export const outboundSchema = VolumeBackupsRunManuallySecurity$outboundSchema;
-  /** @deprecated use `VolumeBackupsRunManuallySecurity$Outbound` instead. */
-  export type Outbound = VolumeBackupsRunManuallySecurity$Outbound;
-}
-
-export function volumeBackupsRunManuallySecurityToJSON(
-  volumeBackupsRunManuallySecurity: VolumeBackupsRunManuallySecurity,
-): string {
-  return JSON.stringify(
-    VolumeBackupsRunManuallySecurity$outboundSchema.parse(
-      volumeBackupsRunManuallySecurity,
-    ),
-  );
-}
-
-export function volumeBackupsRunManuallySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<VolumeBackupsRunManuallySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VolumeBackupsRunManuallySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VolumeBackupsRunManuallySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const VolumeBackupsRunManuallyRequest$inboundSchema: z.ZodType<

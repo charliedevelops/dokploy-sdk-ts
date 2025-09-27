@@ -5,16 +5,16 @@
 
 ### Available Operations
 
-* [giteaCreate](#giteacreate)
-* [giteaOne](#giteaone)
-* [giteaGiteaProviders](#giteagiteaproviders)
-* [giteaGetGiteaRepositories](#giteagetgitearepositories)
-* [giteaGetGiteaBranches](#giteagetgiteabranches)
-* [giteaTestConnection](#giteatestconnection)
-* [giteaUpdate](#giteaupdate)
-* [giteaGetGiteaUrl](#giteagetgiteaurl)
+* [create](#create)
+* [getBranches](#getbranches)
+* [getRepositories](#getrepositories)
+* [getUrl](#geturl)
+* [getProviders](#getproviders)
+* [get](#get)
+* [testConnection](#testconnection)
+* [update](#update)
 
-## giteaCreate
+## create
 
 ### Example Usage
 
@@ -22,12 +22,12 @@
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaCreate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.gitea.create({
     giteaUrl: "https://unsightly-awareness.net/",
     name: "<value>",
   });
@@ -44,16 +44,16 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaCreate } from "dokploy-sdk/funcs/giteaGiteaCreate.js";
+import { giteaCreate } from "dokploy-sdk/funcs/giteaCreate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaCreate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await giteaCreate(dokploy, {
     giteaUrl: "https://unsightly-awareness.net/",
     name: "<value>",
   });
@@ -61,7 +61,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaCreate failed:", res.error);
+    console.log("giteaCreate failed:", res.error);
   }
 }
 
@@ -73,7 +73,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.GiteaCreateRequest](../../models/operations/giteacreaterequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaCreateSecurity](../../models/operations/giteacreatesecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -88,21 +87,22 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## giteaOne
+## getBranches
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="gitea-one" method="get" path="/gitea.one" -->
+<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaBranches" method="get" path="/gitea.getGiteaBranches" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaOne({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    giteaId: "<id>",
+  const result = await dokploy.gitea.getBranches({
+    owner: "<value>",
+    repositoryName: "<value>",
   });
 
   console.log(result);
@@ -117,23 +117,24 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaOne } from "dokploy-sdk/funcs/giteaGiteaOne.js";
+import { giteaGetBranches } from "dokploy-sdk/funcs/giteaGetBranches.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaOne(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    giteaId: "<id>",
+  const res = await giteaGetBranches(dokploy, {
+    owner: "<value>",
+    repositoryName: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaOne failed:", res.error);
+    console.log("giteaGetBranches failed:", res.error);
   }
 }
 
@@ -144,15 +145,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GiteaOneRequest](../../models/operations/giteaonerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaOneSecurity](../../models/operations/giteaonesecurity.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaBranchesRequest](../../models/operations/giteagetgiteabranchesrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GiteaOneResponse](../../models/operations/giteaoneresponse.md)\>**
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
 
 ### Errors
 
@@ -160,19 +160,21 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## giteaGiteaProviders
+## getRepositories
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="gitea-giteaProviders" method="get" path="/gitea.giteaProviders" -->
+<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaRepositories" method="get" path="/gitea.getGiteaRepositories" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaGiteaProviders({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  const result = await dokploy.gitea.getRepositories({
+    giteaId: "<id>",
   });
 
   console.log(result);
@@ -187,21 +189,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaGiteaProviders } from "dokploy-sdk/funcs/giteaGiteaGiteaProviders.js";
+import { giteaGetRepositories } from "dokploy-sdk/funcs/giteaGetRepositories.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaGiteaProviders(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
+  const res = await giteaGetRepositories(dokploy, {
+    giteaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaGiteaProviders failed:", res.error);
+    console.log("giteaGetRepositories failed:", res.error);
   }
 }
 
@@ -212,7 +216,144 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `security`                                                                                                                                                                     | [operations.GiteaGiteaProvidersSecurity](../../models/operations/giteagiteaproviderssecurity.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaRepositoriesRequest](../../models/operations/giteagetgitearepositoriesrequest.md)                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.ErrorT](../../models/errort.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## getUrl
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaUrl" method="get" path="/gitea.getGiteaUrl" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await dokploy.gitea.getUrl({
+    giteaId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { giteaGetUrl } from "dokploy-sdk/funcs/giteaGetUrl.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await giteaGetUrl(dokploy, {
+    giteaId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("giteaGetUrl failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaUrlRequest](../../models/operations/giteagetgiteaurlrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GiteaGetGiteaUrlResponse](../../models/operations/giteagetgiteaurlresponse.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## getProviders
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="gitea-giteaProviders" method="get" path="/gitea.giteaProviders" -->
+```typescript
+import { Dokploy } from "dokploy-sdk";
+
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await dokploy.gitea.getProviders();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { DokployCore } from "dokploy-sdk/core.js";
+import { giteaGetProviders } from "dokploy-sdk/funcs/giteaGetProviders.js";
+
+// Use `DokployCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await giteaGetProviders(dokploy);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("giteaGetProviders failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -227,20 +368,20 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## giteaGetGiteaRepositories
+## get
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaRepositories" method="get" path="/gitea.getGiteaRepositories" -->
+<!-- UsageSnippet language="typescript" operationID="gitea-one" method="get" path="/gitea.one" -->
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaGetGiteaRepositories({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.gitea.get({
     giteaId: "<id>",
   });
 
@@ -256,23 +397,23 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaGetGiteaRepositories } from "dokploy-sdk/funcs/giteaGiteaGetGiteaRepositories.js";
+import { giteaGet } from "dokploy-sdk/funcs/giteaGet.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaGetGiteaRepositories(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await giteaGet(dokploy, {
     giteaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaGetGiteaRepositories failed:", res.error);
+    console.log("giteaGet failed:", res.error);
   }
 }
 
@@ -283,15 +424,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaRepositoriesRequest](../../models/operations/giteagetgitearepositoriesrequest.md)                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaGetGiteaRepositoriesSecurity](../../models/operations/giteagetgitearepositoriessecurity.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
+| `request`                                                                                                                                                                      | [operations.GiteaOneRequest](../../models/operations/giteaonerequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
+**Promise\<[operations.GiteaOneResponse](../../models/operations/giteaoneresponse.md)\>**
 
 ### Errors
 
@@ -299,81 +439,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## giteaGetGiteaBranches
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaBranches" method="get" path="/gitea.getGiteaBranches" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.gitea.giteaGetGiteaBranches({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    owner: "<value>",
-    repositoryName: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaGetGiteaBranches } from "dokploy-sdk/funcs/giteaGiteaGetGiteaBranches.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await giteaGiteaGetGiteaBranches(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    owner: "<value>",
-    repositoryName: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("giteaGiteaGetGiteaBranches failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaBranchesRequest](../../models/operations/giteagetgiteabranchesrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaGetGiteaBranchesSecurity](../../models/operations/giteagetgiteabranchessecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.ErrorT](../../models/errort.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## giteaTestConnection
+## testConnection
 
 ### Example Usage
 
@@ -381,12 +447,12 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaTestConnection({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {});
+  const result = await dokploy.gitea.testConnection({});
 
   console.log(result);
 }
@@ -400,21 +466,21 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaTestConnection } from "dokploy-sdk/funcs/giteaGiteaTestConnection.js";
+import { giteaTestConnection } from "dokploy-sdk/funcs/giteaTestConnection.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaTestConnection(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {});
+  const res = await giteaTestConnection(dokploy, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaTestConnection failed:", res.error);
+    console.log("giteaTestConnection failed:", res.error);
   }
 }
 
@@ -426,7 +492,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.GiteaTestConnectionRequest](../../models/operations/giteatestconnectionrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaTestConnectionSecurity](../../models/operations/giteatestconnectionsecurity.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -441,7 +506,7 @@ run();
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
 
-## giteaUpdate
+## update
 
 ### Example Usage
 
@@ -449,15 +514,15 @@ run();
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.gitea.giteaUpdate({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.gitea.update({
+    gitProviderId: "<id>",
     giteaId: "<id>",
     giteaUrl: "https://unripe-worth.name",
-    gitProviderId: "<id>",
     name: "<value>",
   });
 
@@ -473,26 +538,26 @@ The standalone function version of this method:
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaUpdate } from "dokploy-sdk/funcs/giteaGiteaUpdate.js";
+import { giteaUpdate } from "dokploy-sdk/funcs/giteaUpdate.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await giteaGiteaUpdate(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await giteaUpdate(dokploy, {
+    gitProviderId: "<id>",
     giteaId: "<id>",
     giteaUrl: "https://unripe-worth.name",
-    gitProviderId: "<id>",
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("giteaGiteaUpdate failed:", res.error);
+    console.log("giteaUpdate failed:", res.error);
   }
 }
 
@@ -504,7 +569,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.GiteaUpdateRequest](../../models/operations/giteaupdaterequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaUpdateSecurity](../../models/operations/giteaupdatesecurity.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -512,78 +576,6 @@ run();
 ### Response
 
 **Promise\<[operations.GiteaUpdateResponse](../../models/operations/giteaupdateresponse.md)\>**
-
-### Errors
-
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.DokployDefaultError | 4XX, 5XX                   | \*/\*                      |
-
-## giteaGetGiteaUrl
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="gitea-getGiteaUrl" method="get" path="/gitea.getGiteaUrl" -->
-```typescript
-import { Dokploy } from "dokploy-sdk";
-
-const dokploy = new Dokploy();
-
-async function run() {
-  const result = await dokploy.gitea.giteaGetGiteaUrl({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    giteaId: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { DokployCore } from "dokploy-sdk/core.js";
-import { giteaGiteaGetGiteaUrl } from "dokploy-sdk/funcs/giteaGiteaGetGiteaUrl.js";
-
-// Use `DokployCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
-
-async function run() {
-  const res = await giteaGiteaGetGiteaUrl(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
-    giteaId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("giteaGiteaGetGiteaUrl failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GiteaGetGiteaUrlRequest](../../models/operations/giteagetgiteaurlrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `security`                                                                                                                                                                     | [operations.GiteaGetGiteaUrlSecurity](../../models/operations/giteagetgiteaurlsecurity.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The security requirements to use for the request.                                                                                                                              |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GiteaGetGiteaUrlResponse](../../models/operations/giteagetgiteaurlresponse.md)\>**
 
 ### Errors
 

@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MariadbMoveSecurity = {
-  authorization: string;
-};
-
 export type MariadbMoveRequest = {
   mariadbId: string;
   targetEnvironmentId: string;
@@ -30,18 +26,44 @@ export type MariadbMoveApplicationStatus = ClosedEnum<
 >;
 
 export type MariadbMoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MariadbMoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type MariadbMoveGlobal = {};
+
+export type MariadbMoveGlobalJob = {};
+
+export type MariadbMoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbMoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbMoveModeSwarm = {
+  global?: MariadbMoveGlobal | undefined;
+  globalJob?: MariadbMoveGlobalJob | undefined;
+  replicated?: MariadbMoveReplicated | undefined;
+  replicatedJob?: MariadbMoveReplicatedJob | undefined;
+};
+
+export type MariadbMoveDriverOpts = {};
+
+export type MariadbMoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbMoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbMovePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type MariadbMoveSpread = {
@@ -52,162 +74,74 @@ export type MariadbMovePreference = {
   spread: MariadbMoveSpread;
 };
 
-export type MariadbMovePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type MariadbMovePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbMovePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<MariadbMovePlatform> | undefined;
+  preferences?: Array<MariadbMovePreference> | undefined;
 };
 
-export type MariadbMoveUpdateConfigSwarm = {
-  parallelism: number;
+export type MariadbMoveRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type MariadbMoveRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type MariadbMoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbMoveGlobal = {};
-
-export type MariadbMoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbMoveGlobalJob = {};
-
-export type MariadbMoveModeSwarm = {
-  replicated?: MariadbMoveReplicated | undefined;
-  global?: MariadbMoveGlobal | undefined;
-  replicatedJob?: MariadbMoveReplicatedJob | undefined;
-  globalJob?: MariadbMoveGlobalJob | undefined;
-};
-
-export type MariadbMoveDriverOpts = {};
-
-export type MariadbMoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbMoveDriverOpts | undefined;
+export type MariadbMoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbMoveResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbMoveApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbMoveApplicationStatus;
-  healthCheckSwarm: MariadbMoveHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbMoveRestartPolicySwarm | null;
-  placementSwarm: MariadbMovePlacementSwarm | null;
-  updateConfigSwarm: MariadbMoveUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbMoveRollbackConfigSwarm | null;
-  modeSwarm: MariadbMoveModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbMoveNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbMoveHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbMoveModeSwarm | null;
+  name: string;
+  networkSwarm: Array<MariadbMoveNetworkSwarm> | null;
+  placementSwarm: MariadbMovePlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbMoveRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbMoveRollbackConfigSwarm | null;
   serverId: string | null;
+  updateConfigSwarm: MariadbMoveUpdateConfigSwarm | null;
 };
 
 export type MariadbMoveResponse = MariadbMoveResponseBody | models.ErrorT;
-
-/** @internal */
-export const MariadbMoveSecurity$inboundSchema: z.ZodType<
-  MariadbMoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbMoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbMoveSecurity$outboundSchema: z.ZodType<
-  MariadbMoveSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveSecurity$ {
-  /** @deprecated use `MariadbMoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveSecurity$inboundSchema;
-  /** @deprecated use `MariadbMoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveSecurity$outboundSchema;
-  /** @deprecated use `MariadbMoveSecurity$Outbound` instead. */
-  export type Outbound = MariadbMoveSecurity$Outbound;
-}
-
-export function mariadbMoveSecurityToJSON(
-  mariadbMoveSecurity: MariadbMoveSecurity,
-): string {
-  return JSON.stringify(
-    MariadbMoveSecurity$outboundSchema.parse(mariadbMoveSecurity),
-  );
-}
-
-export function mariadbMoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbMoveRequest$inboundSchema: z.ZodType<
@@ -293,28 +227,28 @@ export const MariadbMoveHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbMoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -323,18 +257,18 @@ export const MariadbMoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbMoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -372,48 +306,129 @@ export function mariadbMoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbMoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbMoveRestartPolicySwarm,
+export const MariadbMoveGlobal$inboundSchema: z.ZodType<
+  MariadbMoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbMoveGlobal$Outbound = {};
+
+/** @internal */
+export const MariadbMoveGlobal$outboundSchema: z.ZodType<
+  MariadbMoveGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveGlobal$ {
+  /** @deprecated use `MariadbMoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveGlobal$inboundSchema;
+  /** @deprecated use `MariadbMoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveGlobal$outboundSchema;
+  /** @deprecated use `MariadbMoveGlobal$Outbound` instead. */
+  export type Outbound = MariadbMoveGlobal$Outbound;
+}
+
+export function mariadbMoveGlobalToJSON(
+  mariadbMoveGlobal: MariadbMoveGlobal,
+): string {
+  return JSON.stringify(
+    MariadbMoveGlobal$outboundSchema.parse(mariadbMoveGlobal),
+  );
+}
+
+export function mariadbMoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveGlobalJob$inboundSchema: z.ZodType<
+  MariadbMoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbMoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbMoveGlobalJob$outboundSchema: z.ZodType<
+  MariadbMoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveGlobalJob$ {
+  /** @deprecated use `MariadbMoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbMoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbMoveGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbMoveGlobalJob$Outbound;
+}
+
+export function mariadbMoveGlobalJobToJSON(
+  mariadbMoveGlobalJob: MariadbMoveGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbMoveGlobalJob$outboundSchema.parse(mariadbMoveGlobalJob),
+  );
+}
+
+export function mariadbMoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveReplicated$inboundSchema: z.ZodType<
+  MariadbMoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MariadbMoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MariadbMoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MariadbMoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  MariadbMoveRestartPolicySwarm$Outbound,
+export const MariadbMoveReplicated$outboundSchema: z.ZodType<
+  MariadbMoveReplicated$Outbound,
   z.ZodTypeDef,
-  MariadbMoveRestartPolicySwarm
+  MariadbMoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -421,32 +436,363 @@ export const MariadbMoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbMoveRestartPolicySwarm$ {
-  /** @deprecated use `MariadbMoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbMoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbMoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbMoveRestartPolicySwarm$Outbound;
+export namespace MariadbMoveReplicated$ {
+  /** @deprecated use `MariadbMoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveReplicated$inboundSchema;
+  /** @deprecated use `MariadbMoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveReplicated$outboundSchema;
+  /** @deprecated use `MariadbMoveReplicated$Outbound` instead. */
+  export type Outbound = MariadbMoveReplicated$Outbound;
 }
 
-export function mariadbMoveRestartPolicySwarmToJSON(
-  mariadbMoveRestartPolicySwarm: MariadbMoveRestartPolicySwarm,
+export function mariadbMoveReplicatedToJSON(
+  mariadbMoveReplicated: MariadbMoveReplicated,
 ): string {
   return JSON.stringify(
-    MariadbMoveRestartPolicySwarm$outboundSchema.parse(
-      mariadbMoveRestartPolicySwarm,
-    ),
+    MariadbMoveReplicated$outboundSchema.parse(mariadbMoveReplicated),
   );
 }
 
-export function mariadbMoveRestartPolicySwarmFromJSON(
+export function mariadbMoveReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbMoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MariadbMoveReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveRestartPolicySwarm' from JSON`,
+    (x) => MariadbMoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveReplicatedJob$inboundSchema: z.ZodType<
+  MariadbMoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbMoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbMoveReplicatedJob$outboundSchema: z.ZodType<
+  MariadbMoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveReplicatedJob$ {
+  /** @deprecated use `MariadbMoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbMoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbMoveReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbMoveReplicatedJob$Outbound;
+}
+
+export function mariadbMoveReplicatedJobToJSON(
+  mariadbMoveReplicatedJob: MariadbMoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbMoveReplicatedJob$outboundSchema.parse(mariadbMoveReplicatedJob),
+  );
+}
+
+export function mariadbMoveReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveModeSwarm$inboundSchema: z.ZodType<
+  MariadbMoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbMoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbMoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MariadbMoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MariadbMoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbMoveModeSwarm$Outbound = {
+  Global?: MariadbMoveGlobal$Outbound | undefined;
+  GlobalJob?: MariadbMoveGlobalJob$Outbound | undefined;
+  Replicated?: MariadbMoveReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbMoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbMoveModeSwarm$outboundSchema: z.ZodType<
+  MariadbMoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbMoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbMoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MariadbMoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MariadbMoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveModeSwarm$ {
+  /** @deprecated use `MariadbMoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbMoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbMoveModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbMoveModeSwarm$Outbound;
+}
+
+export function mariadbMoveModeSwarmToJSON(
+  mariadbMoveModeSwarm: MariadbMoveModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbMoveModeSwarm$outboundSchema.parse(mariadbMoveModeSwarm),
+  );
+}
+
+export function mariadbMoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveDriverOpts$inboundSchema: z.ZodType<
+  MariadbMoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbMoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbMoveDriverOpts$outboundSchema: z.ZodType<
+  MariadbMoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveDriverOpts$ {
+  /** @deprecated use `MariadbMoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbMoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbMoveDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbMoveDriverOpts$Outbound;
+}
+
+export function mariadbMoveDriverOptsToJSON(
+  mariadbMoveDriverOpts: MariadbMoveDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbMoveDriverOpts$outboundSchema.parse(mariadbMoveDriverOpts),
+  );
+}
+
+export function mariadbMoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMoveNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbMoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbMoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbMoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbMoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbMoveNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbMoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbMoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbMoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMoveNetworkSwarm$ {
+  /** @deprecated use `MariadbMoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbMoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbMoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbMoveNetworkSwarm$Outbound;
+}
+
+export function mariadbMoveNetworkSwarmToJSON(
+  mariadbMoveNetworkSwarm: MariadbMoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbMoveNetworkSwarm$outboundSchema.parse(mariadbMoveNetworkSwarm),
+  );
+}
+
+export function mariadbMoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbMovePlatform$inboundSchema: z.ZodType<
+  MariadbMovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbMovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbMovePlatform$outboundSchema: z.ZodType<
+  MariadbMovePlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbMovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbMovePlatform$ {
+  /** @deprecated use `MariadbMovePlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbMovePlatform$inboundSchema;
+  /** @deprecated use `MariadbMovePlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbMovePlatform$outboundSchema;
+  /** @deprecated use `MariadbMovePlatform$Outbound` instead. */
+  export type Outbound = MariadbMovePlatform$Outbound;
+}
+
+export function mariadbMovePlatformToJSON(
+  mariadbMovePlatform: MariadbMovePlatform,
+): string {
+  return JSON.stringify(
+    MariadbMovePlatform$outboundSchema.parse(mariadbMovePlatform),
+  );
+}
+
+export function mariadbMovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbMovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbMovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMovePlatform' from JSON`,
   );
 }
 
@@ -575,99 +921,32 @@ export function mariadbMovePreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbMovePlatform$inboundSchema: z.ZodType<
-  MariadbMovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbMovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbMovePlatform$outboundSchema: z.ZodType<
-  MariadbMovePlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbMovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMovePlatform$ {
-  /** @deprecated use `MariadbMovePlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbMovePlatform$inboundSchema;
-  /** @deprecated use `MariadbMovePlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbMovePlatform$outboundSchema;
-  /** @deprecated use `MariadbMovePlatform$Outbound` instead. */
-  export type Outbound = MariadbMovePlatform$Outbound;
-}
-
-export function mariadbMovePlatformToJSON(
-  mariadbMovePlatform: MariadbMovePlatform,
-): string {
-  return JSON.stringify(
-    MariadbMovePlatform$outboundSchema.parse(mariadbMovePlatform),
-  );
-}
-
-export function mariadbMovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbMovePlacementSwarm$inboundSchema: z.ZodType<
   MariadbMovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MariadbMovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MariadbMovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MariadbMovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbMovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbMovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbMovePlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbMovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -677,17 +956,17 @@ export const MariadbMovePlacementSwarm$outboundSchema: z.ZodType<
   MariadbMovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MariadbMovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MariadbMovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MariadbMovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -723,58 +1002,48 @@ export function mariadbMovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbMoveUpdateConfigSwarm,
+export const MariadbMoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbMoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbMoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbMoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbMoveUpdateConfigSwarm$Outbound,
+export const MariadbMoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  MariadbMoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MariadbMoveUpdateConfigSwarm
+  MariadbMoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -782,32 +1051,32 @@ export const MariadbMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbMoveUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbMoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbMoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbMoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbMoveUpdateConfigSwarm$Outbound;
+export namespace MariadbMoveRestartPolicySwarm$ {
+  /** @deprecated use `MariadbMoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbMoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbMoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbMoveRestartPolicySwarm$Outbound;
 }
 
-export function mariadbMoveUpdateConfigSwarmToJSON(
-  mariadbMoveUpdateConfigSwarm: MariadbMoveUpdateConfigSwarm,
+export function mariadbMoveRestartPolicySwarmToJSON(
+  mariadbMoveRestartPolicySwarm: MariadbMoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbMoveUpdateConfigSwarm$outboundSchema.parse(
-      mariadbMoveUpdateConfigSwarm,
+    MariadbMoveRestartPolicySwarm$outboundSchema.parse(
+      mariadbMoveRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbMoveUpdateConfigSwarmFromJSON(
+export function mariadbMoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbMoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MariadbMoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveUpdateConfigSwarm' from JSON`,
+    (x) => MariadbMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -817,31 +1086,31 @@ export const MariadbMoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MariadbMoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -850,20 +1119,20 @@ export const MariadbMoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbMoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -901,33 +1170,58 @@ export function mariadbMoveRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbMoveReplicated$inboundSchema: z.ZodType<
-  MariadbMoveReplicated,
+export const MariadbMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbMoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type MariadbMoveReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type MariadbMoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MariadbMoveReplicated$outboundSchema: z.ZodType<
-  MariadbMoveReplicated$Outbound,
+export const MariadbMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbMoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MariadbMoveReplicated
+  MariadbMoveUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -935,392 +1229,32 @@ export const MariadbMoveReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbMoveReplicated$ {
-  /** @deprecated use `MariadbMoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveReplicated$inboundSchema;
-  /** @deprecated use `MariadbMoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveReplicated$outboundSchema;
-  /** @deprecated use `MariadbMoveReplicated$Outbound` instead. */
-  export type Outbound = MariadbMoveReplicated$Outbound;
+export namespace MariadbMoveUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbMoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbMoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbMoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbMoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbMoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbMoveUpdateConfigSwarm$Outbound;
 }
 
-export function mariadbMoveReplicatedToJSON(
-  mariadbMoveReplicated: MariadbMoveReplicated,
+export function mariadbMoveUpdateConfigSwarmToJSON(
+  mariadbMoveUpdateConfigSwarm: MariadbMoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbMoveReplicated$outboundSchema.parse(mariadbMoveReplicated),
+    MariadbMoveUpdateConfigSwarm$outboundSchema.parse(
+      mariadbMoveUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mariadbMoveReplicatedFromJSON(
+export function mariadbMoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbMoveReplicated, SDKValidationError> {
+): SafeParseResult<MariadbMoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbMoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveGlobal$inboundSchema: z.ZodType<
-  MariadbMoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbMoveGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbMoveGlobal$outboundSchema: z.ZodType<
-  MariadbMoveGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveGlobal$ {
-  /** @deprecated use `MariadbMoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveGlobal$inboundSchema;
-  /** @deprecated use `MariadbMoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveGlobal$outboundSchema;
-  /** @deprecated use `MariadbMoveGlobal$Outbound` instead. */
-  export type Outbound = MariadbMoveGlobal$Outbound;
-}
-
-export function mariadbMoveGlobalToJSON(
-  mariadbMoveGlobal: MariadbMoveGlobal,
-): string {
-  return JSON.stringify(
-    MariadbMoveGlobal$outboundSchema.parse(mariadbMoveGlobal),
-  );
-}
-
-export function mariadbMoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveReplicatedJob$inboundSchema: z.ZodType<
-  MariadbMoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbMoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbMoveReplicatedJob$outboundSchema: z.ZodType<
-  MariadbMoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveReplicatedJob$ {
-  /** @deprecated use `MariadbMoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbMoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbMoveReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbMoveReplicatedJob$Outbound;
-}
-
-export function mariadbMoveReplicatedJobToJSON(
-  mariadbMoveReplicatedJob: MariadbMoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbMoveReplicatedJob$outboundSchema.parse(mariadbMoveReplicatedJob),
-  );
-}
-
-export function mariadbMoveReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveGlobalJob$inboundSchema: z.ZodType<
-  MariadbMoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbMoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbMoveGlobalJob$outboundSchema: z.ZodType<
-  MariadbMoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveGlobalJob$ {
-  /** @deprecated use `MariadbMoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbMoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbMoveGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbMoveGlobalJob$Outbound;
-}
-
-export function mariadbMoveGlobalJobToJSON(
-  mariadbMoveGlobalJob: MariadbMoveGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbMoveGlobalJob$outboundSchema.parse(mariadbMoveGlobalJob),
-  );
-}
-
-export function mariadbMoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveModeSwarm$inboundSchema: z.ZodType<
-  MariadbMoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbMoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MariadbMoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MariadbMoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MariadbMoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbMoveModeSwarm$Outbound = {
-  Replicated?: MariadbMoveReplicated$Outbound | undefined;
-  Global?: MariadbMoveGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbMoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbMoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbMoveModeSwarm$outboundSchema: z.ZodType<
-  MariadbMoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbMoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MariadbMoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MariadbMoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MariadbMoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveModeSwarm$ {
-  /** @deprecated use `MariadbMoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbMoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbMoveModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbMoveModeSwarm$Outbound;
-}
-
-export function mariadbMoveModeSwarmToJSON(
-  mariadbMoveModeSwarm: MariadbMoveModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbMoveModeSwarm$outboundSchema.parse(mariadbMoveModeSwarm),
-  );
-}
-
-export function mariadbMoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveDriverOpts$inboundSchema: z.ZodType<
-  MariadbMoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbMoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbMoveDriverOpts$outboundSchema: z.ZodType<
-  MariadbMoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveDriverOpts$ {
-  /** @deprecated use `MariadbMoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbMoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbMoveDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbMoveDriverOpts$Outbound;
-}
-
-export function mariadbMoveDriverOptsToJSON(
-  mariadbMoveDriverOpts: MariadbMoveDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbMoveDriverOpts$outboundSchema.parse(mariadbMoveDriverOpts),
-  );
-}
-
-export function mariadbMoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbMoveNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbMoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbMoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbMoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbMoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbMoveNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbMoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbMoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbMoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbMoveNetworkSwarm$ {
-  /** @deprecated use `MariadbMoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbMoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbMoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbMoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbMoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbMoveNetworkSwarm$Outbound;
-}
-
-export function mariadbMoveNetworkSwarmToJSON(
-  mariadbMoveNetworkSwarm: MariadbMoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbMoveNetworkSwarm$outboundSchema.parse(mariadbMoveNetworkSwarm),
-  );
-}
-
-export function mariadbMoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbMoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbMoveNetworkSwarm' from JSON`,
+    (x) => MariadbMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbMoveUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1330,80 +1264,80 @@ export const MariadbMoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbMoveApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbMoveApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbMoveHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbMoveRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbMoveModeSwarm$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbMoveNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbMovePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbMoveUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbMoveRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbMoveRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbMoveModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbMoveNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbMoveUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbMoveResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MariadbMoveHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbMoveRestartPolicySwarm$Outbound | null;
-  placementSwarm: MariadbMovePlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbMoveUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MariadbMoveRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MariadbMoveModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbMoveNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbMoveHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbMoveModeSwarm$Outbound | null;
+  name: string;
+  networkSwarm: Array<MariadbMoveNetworkSwarm$Outbound> | null;
+  placementSwarm: MariadbMovePlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbMoveRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MariadbMoveRollbackConfigSwarm$Outbound | null;
   serverId: string | null;
+  updateConfigSwarm: MariadbMoveUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -1412,47 +1346,47 @@ export const MariadbMoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbMoveResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbMoveApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbMoveApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbMoveHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbMoveRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbMoveModeSwarm$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbMoveNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbMovePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbMoveUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbMoveRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbMoveRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbMoveModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbMoveNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbMoveUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

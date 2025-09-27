@@ -3,93 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsUpdateWebServerTraefikConfigSecurity = {
-  authorization: string;
-};
-
 export type SettingsUpdateWebServerTraefikConfigRequest = {
   traefikConfig: string;
 };
-
-/** @internal */
-export const SettingsUpdateWebServerTraefikConfigSecurity$inboundSchema:
-  z.ZodType<
-    SettingsUpdateWebServerTraefikConfigSecurity,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    Authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "Authorization": "authorization",
-    });
-  });
-
-/** @internal */
-export type SettingsUpdateWebServerTraefikConfigSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateWebServerTraefikConfigSecurity$outboundSchema:
-  z.ZodType<
-    SettingsUpdateWebServerTraefikConfigSecurity$Outbound,
-    z.ZodTypeDef,
-    SettingsUpdateWebServerTraefikConfigSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateWebServerTraefikConfigSecurity$ {
-  /** @deprecated use `SettingsUpdateWebServerTraefikConfigSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    SettingsUpdateWebServerTraefikConfigSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateWebServerTraefikConfigSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsUpdateWebServerTraefikConfigSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateWebServerTraefikConfigSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateWebServerTraefikConfigSecurity$Outbound;
-}
-
-export function settingsUpdateWebServerTraefikConfigSecurityToJSON(
-  settingsUpdateWebServerTraefikConfigSecurity:
-    SettingsUpdateWebServerTraefikConfigSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateWebServerTraefikConfigSecurity$outboundSchema.parse(
-      settingsUpdateWebServerTraefikConfigSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateWebServerTraefikConfigSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SettingsUpdateWebServerTraefikConfigSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsUpdateWebServerTraefikConfigSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SettingsUpdateWebServerTraefikConfigSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateWebServerTraefikConfigRequest$inboundSchema:

@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ScheduleRunManuallySecurity = {
-  authorization: string;
-};
-
 export type ScheduleRunManuallyRequest = {
   scheduleId: string;
 };
-
-/** @internal */
-export const ScheduleRunManuallySecurity$inboundSchema: z.ZodType<
-  ScheduleRunManuallySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ScheduleRunManuallySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ScheduleRunManuallySecurity$outboundSchema: z.ZodType<
-  ScheduleRunManuallySecurity$Outbound,
-  z.ZodTypeDef,
-  ScheduleRunManuallySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScheduleRunManuallySecurity$ {
-  /** @deprecated use `ScheduleRunManuallySecurity$inboundSchema` instead. */
-  export const inboundSchema = ScheduleRunManuallySecurity$inboundSchema;
-  /** @deprecated use `ScheduleRunManuallySecurity$outboundSchema` instead. */
-  export const outboundSchema = ScheduleRunManuallySecurity$outboundSchema;
-  /** @deprecated use `ScheduleRunManuallySecurity$Outbound` instead. */
-  export type Outbound = ScheduleRunManuallySecurity$Outbound;
-}
-
-export function scheduleRunManuallySecurityToJSON(
-  scheduleRunManuallySecurity: ScheduleRunManuallySecurity,
-): string {
-  return JSON.stringify(
-    ScheduleRunManuallySecurity$outboundSchema.parse(
-      scheduleRunManuallySecurity,
-    ),
-  );
-}
-
-export function scheduleRunManuallySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ScheduleRunManuallySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ScheduleRunManuallySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ScheduleRunManuallySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ScheduleRunManuallyRequest$inboundSchema: z.ZodType<

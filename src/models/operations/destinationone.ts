@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DestinationOneSecurity = {
-  authorization: string;
-};
-
 export type DestinationOneRequest = {
   destinationId: string;
 };
-
-/** @internal */
-export const DestinationOneSecurity$inboundSchema: z.ZodType<
-  DestinationOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DestinationOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DestinationOneSecurity$outboundSchema: z.ZodType<
-  DestinationOneSecurity$Outbound,
-  z.ZodTypeDef,
-  DestinationOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestinationOneSecurity$ {
-  /** @deprecated use `DestinationOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = DestinationOneSecurity$inboundSchema;
-  /** @deprecated use `DestinationOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = DestinationOneSecurity$outboundSchema;
-  /** @deprecated use `DestinationOneSecurity$Outbound` instead. */
-  export type Outbound = DestinationOneSecurity$Outbound;
-}
-
-export function destinationOneSecurityToJSON(
-  destinationOneSecurity: DestinationOneSecurity,
-): string {
-  return JSON.stringify(
-    DestinationOneSecurity$outboundSchema.parse(destinationOneSecurity),
-  );
-}
-
-export function destinationOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DestinationOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DestinationOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DestinationOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DestinationOneRequest$inboundSchema: z.ZodType<

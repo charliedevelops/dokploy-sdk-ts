@@ -3,92 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DomainCanGenerateTraefikMeDomainsSecurity = {
-  authorization: string;
-};
-
 export type DomainCanGenerateTraefikMeDomainsRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const DomainCanGenerateTraefikMeDomainsSecurity$inboundSchema: z.ZodType<
-  DomainCanGenerateTraefikMeDomainsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DomainCanGenerateTraefikMeDomainsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DomainCanGenerateTraefikMeDomainsSecurity$outboundSchema:
-  z.ZodType<
-    DomainCanGenerateTraefikMeDomainsSecurity$Outbound,
-    z.ZodTypeDef,
-    DomainCanGenerateTraefikMeDomainsSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainCanGenerateTraefikMeDomainsSecurity$ {
-  /** @deprecated use `DomainCanGenerateTraefikMeDomainsSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    DomainCanGenerateTraefikMeDomainsSecurity$inboundSchema;
-  /** @deprecated use `DomainCanGenerateTraefikMeDomainsSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    DomainCanGenerateTraefikMeDomainsSecurity$outboundSchema;
-  /** @deprecated use `DomainCanGenerateTraefikMeDomainsSecurity$Outbound` instead. */
-  export type Outbound = DomainCanGenerateTraefikMeDomainsSecurity$Outbound;
-}
-
-export function domainCanGenerateTraefikMeDomainsSecurityToJSON(
-  domainCanGenerateTraefikMeDomainsSecurity:
-    DomainCanGenerateTraefikMeDomainsSecurity,
-): string {
-  return JSON.stringify(
-    DomainCanGenerateTraefikMeDomainsSecurity$outboundSchema.parse(
-      domainCanGenerateTraefikMeDomainsSecurity,
-    ),
-  );
-}
-
-export function domainCanGenerateTraefikMeDomainsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DomainCanGenerateTraefikMeDomainsSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DomainCanGenerateTraefikMeDomainsSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DomainCanGenerateTraefikMeDomainsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DomainCanGenerateTraefikMeDomainsRequest$inboundSchema: z.ZodType<

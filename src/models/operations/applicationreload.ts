@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type ApplicationReloadSecurity = {
-  authorization: string;
-};
 
 export type ApplicationReloadRequest = {
   appName: string;
@@ -19,68 +14,6 @@ export type ApplicationReloadRequest = {
 };
 
 export type ApplicationReloadResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationReloadSecurity$inboundSchema: z.ZodType<
-  ApplicationReloadSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationReloadSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationReloadSecurity$outboundSchema: z.ZodType<
-  ApplicationReloadSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationReloadSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationReloadSecurity$ {
-  /** @deprecated use `ApplicationReloadSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationReloadSecurity$inboundSchema;
-  /** @deprecated use `ApplicationReloadSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationReloadSecurity$outboundSchema;
-  /** @deprecated use `ApplicationReloadSecurity$Outbound` instead. */
-  export type Outbound = ApplicationReloadSecurity$Outbound;
-}
-
-export function applicationReloadSecurityToJSON(
-  applicationReloadSecurity: ApplicationReloadSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationReloadSecurity$outboundSchema.parse(applicationReloadSecurity),
-  );
-}
-
-export function applicationReloadSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationReloadSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationReloadSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationReloadSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationReloadRequest$inboundSchema: z.ZodType<

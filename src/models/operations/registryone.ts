@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type RegistryOneSecurity = {
-  authorization: string;
-};
-
 export type RegistryOneRequest = {
   registryId: string;
 };
-
-/** @internal */
-export const RegistryOneSecurity$inboundSchema: z.ZodType<
-  RegistryOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RegistryOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RegistryOneSecurity$outboundSchema: z.ZodType<
-  RegistryOneSecurity$Outbound,
-  z.ZodTypeDef,
-  RegistryOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RegistryOneSecurity$ {
-  /** @deprecated use `RegistryOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = RegistryOneSecurity$inboundSchema;
-  /** @deprecated use `RegistryOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = RegistryOneSecurity$outboundSchema;
-  /** @deprecated use `RegistryOneSecurity$Outbound` instead. */
-  export type Outbound = RegistryOneSecurity$Outbound;
-}
-
-export function registryOneSecurityToJSON(
-  registryOneSecurity: RegistryOneSecurity,
-): string {
-  return JSON.stringify(
-    RegistryOneSecurity$outboundSchema.parse(registryOneSecurity),
-  );
-}
-
-export function registryOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RegistryOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RegistryOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RegistryOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RegistryOneRequest$inboundSchema: z.ZodType<

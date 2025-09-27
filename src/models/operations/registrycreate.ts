@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type RegistryCreateSecurity = {
-  authorization: string;
-};
 
 export const RegistryCreateRegistryType = {
   Cloud: "cloud",
@@ -21,76 +16,14 @@ export type RegistryCreateRegistryType = ClosedEnum<
 >;
 
 export type RegistryCreateRequest = {
-  registryName: string;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: RegistryCreateRegistryType;
   imagePrefix: string | null;
+  password: string;
+  registryName: string;
+  registryType: RegistryCreateRegistryType;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
-
-/** @internal */
-export const RegistryCreateSecurity$inboundSchema: z.ZodType<
-  RegistryCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RegistryCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RegistryCreateSecurity$outboundSchema: z.ZodType<
-  RegistryCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  RegistryCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RegistryCreateSecurity$ {
-  /** @deprecated use `RegistryCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = RegistryCreateSecurity$inboundSchema;
-  /** @deprecated use `RegistryCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = RegistryCreateSecurity$outboundSchema;
-  /** @deprecated use `RegistryCreateSecurity$Outbound` instead. */
-  export type Outbound = RegistryCreateSecurity$Outbound;
-}
-
-export function registryCreateSecurityToJSON(
-  registryCreateSecurity: RegistryCreateSecurity,
-): string {
-  return JSON.stringify(
-    RegistryCreateSecurity$outboundSchema.parse(registryCreateSecurity),
-  );
-}
-
-export function registryCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RegistryCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RegistryCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RegistryCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RegistryCreateRegistryType$inboundSchema: z.ZodNativeEnum<
@@ -119,24 +52,24 @@ export const RegistryCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  registryName: z.string(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryCreateRegistryType$inboundSchema,
   imagePrefix: z.nullable(z.string()),
+  password: z.string(),
+  registryName: z.string(),
+  registryType: RegistryCreateRegistryType$inboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /** @internal */
 export type RegistryCreateRequest$Outbound = {
-  registryName: string;
-  username: string;
-  password: string;
-  registryUrl: string;
-  registryType: string;
   imagePrefix: string | null;
+  password: string;
+  registryName: string;
+  registryType: string;
+  registryUrl: string;
   serverId?: string | undefined;
+  username: string;
 };
 
 /** @internal */
@@ -145,13 +78,13 @@ export const RegistryCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RegistryCreateRequest
 > = z.object({
-  registryName: z.string(),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  registryType: RegistryCreateRegistryType$outboundSchema,
   imagePrefix: z.nullable(z.string()),
+  password: z.string(),
+  registryName: z.string(),
+  registryType: RegistryCreateRegistryType$outboundSchema,
+  registryUrl: z.string(),
   serverId: z.string().optional(),
+  username: z.string(),
 });
 
 /**

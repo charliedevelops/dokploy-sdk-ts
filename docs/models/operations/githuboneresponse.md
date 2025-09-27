@@ -7,23 +7,23 @@
 
 ```typescript
 const value: operations.GithubOneResponseBody = {
-  githubId: "<id>",
-  githubAppName: "<value>",
-  githubAppId: 3007.11,
-  githubClientId: "<id>",
-  githubClientSecret: "<value>",
-  githubInstallationId: "<id>",
-  githubPrivateKey: "<value>",
-  githubWebhookSecret: null,
-  gitProviderId: "<id>",
   gitProvider: {
+    createdAt: "1728958456876",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "gitea",
-    createdAt: "1718748169910",
     organizationId: "<id>",
+    providerType: "gitea",
     userId: "<id>",
   },
+  gitProviderId: "<id>",
+  githubAppId: 8477.66,
+  githubAppName: "<value>",
+  githubClientId: "<id>",
+  githubClientSecret: "<value>",
+  githubId: "<id>",
+  githubInstallationId: null,
+  githubPrivateKey: "<value>",
+  githubWebhookSecret: "<value>",
 };
 ```
 
@@ -31,8 +31,8 @@ const value: operations.GithubOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

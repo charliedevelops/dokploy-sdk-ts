@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type RegistryUpdateSecurity = {
-  authorization: string;
-};
 
 export const RegistryUpdateRegistryType = {
   Cloud: "cloud",
@@ -21,79 +16,17 @@ export type RegistryUpdateRegistryType = ClosedEnum<
 >;
 
 export type RegistryUpdateRequest = {
+  createdAt?: string | undefined;
+  imagePrefix?: string | null | undefined;
+  organizationId?: string | undefined;
+  password?: string | undefined;
   registryId: string;
   registryName?: string | undefined;
-  imagePrefix?: string | null | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  registryUrl?: string | undefined;
-  createdAt?: string | undefined;
   registryType?: RegistryUpdateRegistryType | undefined;
-  organizationId?: string | undefined;
+  registryUrl?: string | undefined;
   serverId?: string | undefined;
+  username?: string | undefined;
 };
-
-/** @internal */
-export const RegistryUpdateSecurity$inboundSchema: z.ZodType<
-  RegistryUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RegistryUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RegistryUpdateSecurity$outboundSchema: z.ZodType<
-  RegistryUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  RegistryUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RegistryUpdateSecurity$ {
-  /** @deprecated use `RegistryUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = RegistryUpdateSecurity$inboundSchema;
-  /** @deprecated use `RegistryUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = RegistryUpdateSecurity$outboundSchema;
-  /** @deprecated use `RegistryUpdateSecurity$Outbound` instead. */
-  export type Outbound = RegistryUpdateSecurity$Outbound;
-}
-
-export function registryUpdateSecurityToJSON(
-  registryUpdateSecurity: RegistryUpdateSecurity,
-): string {
-  return JSON.stringify(
-    RegistryUpdateSecurity$outboundSchema.parse(registryUpdateSecurity),
-  );
-}
-
-export function registryUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RegistryUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RegistryUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RegistryUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RegistryUpdateRegistryType$inboundSchema: z.ZodNativeEnum<
@@ -122,30 +55,30 @@ export const RegistryUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string().optional(),
+  imagePrefix: z.nullable(z.string()).optional(),
+  organizationId: z.string().optional(),
+  password: z.string().optional(),
   registryId: z.string(),
   registryName: z.string().optional(),
-  imagePrefix: z.nullable(z.string()).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  registryUrl: z.string().optional(),
-  createdAt: z.string().optional(),
   registryType: RegistryUpdateRegistryType$inboundSchema.optional(),
-  organizationId: z.string().optional(),
+  registryUrl: z.string().optional(),
   serverId: z.string().optional(),
+  username: z.string().optional(),
 });
 
 /** @internal */
 export type RegistryUpdateRequest$Outbound = {
+  createdAt?: string | undefined;
+  imagePrefix?: string | null | undefined;
+  organizationId?: string | undefined;
+  password?: string | undefined;
   registryId: string;
   registryName?: string | undefined;
-  imagePrefix?: string | null | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  registryUrl?: string | undefined;
-  createdAt?: string | undefined;
   registryType?: string | undefined;
-  organizationId?: string | undefined;
+  registryUrl?: string | undefined;
   serverId?: string | undefined;
+  username?: string | undefined;
 };
 
 /** @internal */
@@ -154,16 +87,16 @@ export const RegistryUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RegistryUpdateRequest
 > = z.object({
+  createdAt: z.string().optional(),
+  imagePrefix: z.nullable(z.string()).optional(),
+  organizationId: z.string().optional(),
+  password: z.string().optional(),
   registryId: z.string(),
   registryName: z.string().optional(),
-  imagePrefix: z.nullable(z.string()).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  registryUrl: z.string().optional(),
-  createdAt: z.string().optional(),
   registryType: RegistryUpdateRegistryType$outboundSchema.optional(),
-  organizationId: z.string().optional(),
+  registryUrl: z.string().optional(),
   serverId: z.string().optional(),
+  username: z.string().optional(),
 });
 
 /**

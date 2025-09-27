@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GitlabGitlabProvidersSecurity = {
-  authorization: string;
-};
 
 export const GitlabGitlabProvidersProviderType = {
   Github: "github",
@@ -25,87 +20,23 @@ export type GitlabGitlabProvidersProviderType = ClosedEnum<
 >;
 
 export type GitlabGitlabProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GitlabGitlabProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GitlabGitlabProvidersProviderType;
   userId: string;
 };
 
 export type GitlabGitlabProvidersResponseBody = {
-  gitlabId: string;
   gitProvider: GitlabGitlabProvidersGitProvider;
+  gitlabId: string;
   gitlabUrl: string;
 };
 
 export type GitlabGitlabProvidersResponse =
   | models.ErrorT
   | Array<GitlabGitlabProvidersResponseBody>;
-
-/** @internal */
-export const GitlabGitlabProvidersSecurity$inboundSchema: z.ZodType<
-  GitlabGitlabProvidersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GitlabGitlabProvidersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GitlabGitlabProvidersSecurity$outboundSchema: z.ZodType<
-  GitlabGitlabProvidersSecurity$Outbound,
-  z.ZodTypeDef,
-  GitlabGitlabProvidersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitlabGitlabProvidersSecurity$ {
-  /** @deprecated use `GitlabGitlabProvidersSecurity$inboundSchema` instead. */
-  export const inboundSchema = GitlabGitlabProvidersSecurity$inboundSchema;
-  /** @deprecated use `GitlabGitlabProvidersSecurity$outboundSchema` instead. */
-  export const outboundSchema = GitlabGitlabProvidersSecurity$outboundSchema;
-  /** @deprecated use `GitlabGitlabProvidersSecurity$Outbound` instead. */
-  export type Outbound = GitlabGitlabProvidersSecurity$Outbound;
-}
-
-export function gitlabGitlabProvidersSecurityToJSON(
-  gitlabGitlabProvidersSecurity: GitlabGitlabProvidersSecurity,
-): string {
-  return JSON.stringify(
-    GitlabGitlabProvidersSecurity$outboundSchema.parse(
-      gitlabGitlabProvidersSecurity,
-    ),
-  );
-}
-
-export function gitlabGitlabProvidersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GitlabGitlabProvidersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitlabGitlabProvidersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitlabGitlabProvidersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GitlabGitlabProvidersProviderType$inboundSchema: z.ZodNativeEnum<
@@ -135,21 +66,21 @@ export const GitlabGitlabProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabGitlabProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabGitlabProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GitlabGitlabProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -159,11 +90,11 @@ export const GitlabGitlabProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabGitlabProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GitlabGitlabProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GitlabGitlabProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -206,15 +137,15 @@ export const GitlabGitlabProvidersResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  gitlabId: z.string(),
   gitProvider: z.lazy(() => GitlabGitlabProvidersGitProvider$inboundSchema),
+  gitlabId: z.string(),
   gitlabUrl: z.string(),
 });
 
 /** @internal */
 export type GitlabGitlabProvidersResponseBody$Outbound = {
-  gitlabId: string;
   gitProvider: GitlabGitlabProvidersGitProvider$Outbound;
+  gitlabId: string;
   gitlabUrl: string;
 };
 
@@ -224,8 +155,8 @@ export const GitlabGitlabProvidersResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitlabGitlabProvidersResponseBody
 > = z.object({
-  gitlabId: z.string(),
   gitProvider: z.lazy(() => GitlabGitlabProvidersGitProvider$outboundSchema),
+  gitlabId: z.string(),
   gitlabUrl: z.string(),
 });
 

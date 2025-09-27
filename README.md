@@ -64,10 +64,7 @@ bun add dokploy-sdk
 ### Yarn
 
 ```bash
-yarn add dokploy-sdk zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add dokploy-sdk
 ```
 
 > [!NOTE]
@@ -88,28 +85,28 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });
@@ -129,41 +126,36 @@ run();
 
 This SDK supports the following security scheme globally:
 
-| Name     | Type   | Scheme  | Environment Variable |
-| -------- | ------ | ------- | -------------------- |
-| `apiKey` | apiKey | API key | `DOKPLOY_API_KEY`    |
+| Name         | Type   | Scheme  | Environment Variable   |
+| ------------ | ------ | ------- | ---------------------- |
+| `apiKeyAuth` | apiKey | API key | `DOKPLOY_API_KEY_AUTH` |
 
-To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
-
-
-### Per-Operation Security Schemes
-
-Some operations in this SDK require the security scheme to be specified at the request level. For example:
+To authenticate with the API the `apiKeyAuth` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });
@@ -184,498 +176,531 @@ run();
 
 ### [admin](docs/sdks/admin/README.md)
 
-* [adminSetupMonitoring](docs/sdks/admin/README.md#adminsetupmonitoring)
+* [setupMonitoring](docs/sdks/admin/README.md#setupmonitoring)
 
 ### [ai](docs/sdks/ai/README.md)
 
-* [aiOne](docs/sdks/ai/README.md#aione)
-* [aiGetModels](docs/sdks/ai/README.md#aigetmodels)
-* [aiCreate](docs/sdks/ai/README.md#aicreate)
-* [aiUpdate](docs/sdks/ai/README.md#aiupdate)
-* [aiGetAll](docs/sdks/ai/README.md#aigetall)
-* [aiGet](docs/sdks/ai/README.md#aiget)
-* [aiDelete](docs/sdks/ai/README.md#aidelete)
-* [aiSuggest](docs/sdks/ai/README.md#aisuggest)
-* [aiDeploy](docs/sdks/ai/README.md#aideploy)
+* [create](docs/sdks/ai/README.md#create)
+* [delete](docs/sdks/ai/README.md#delete)
+* [deploy](docs/sdks/ai/README.md#deploy)
+* [get](docs/sdks/ai/README.md#get)
+* [getAll](docs/sdks/ai/README.md#getall)
+* [getModels](docs/sdks/ai/README.md#getmodels)
+* [getOne](docs/sdks/ai/README.md#getone)
+* [suggest](docs/sdks/ai/README.md#suggest)
+* [update](docs/sdks/ai/README.md#update)
 
 ### [application](docs/sdks/application/README.md)
 
-* [applicationCreate](docs/sdks/application/README.md#applicationcreate)
-* [applicationOne](docs/sdks/application/README.md#applicationone)
-* [applicationReload](docs/sdks/application/README.md#applicationreload)
-* [applicationDelete](docs/sdks/application/README.md#applicationdelete)
-* [applicationStop](docs/sdks/application/README.md#applicationstop)
-* [applicationStart](docs/sdks/application/README.md#applicationstart)
-* [applicationRedeploy](docs/sdks/application/README.md#applicationredeploy)
-* [applicationSaveEnvironment](docs/sdks/application/README.md#applicationsaveenvironment)
-* [applicationSaveBuildType](docs/sdks/application/README.md#applicationsavebuildtype)
-* [applicationSaveGithubProvider](docs/sdks/application/README.md#applicationsavegithubprovider)
-* [applicationSaveGitlabProvider](docs/sdks/application/README.md#applicationsavegitlabprovider)
-* [applicationSaveBitbucketProvider](docs/sdks/application/README.md#applicationsavebitbucketprovider)
-* [applicationSaveGiteaProvider](docs/sdks/application/README.md#applicationsavegiteaprovider)
-* [applicationSaveDockerProvider](docs/sdks/application/README.md#applicationsavedockerprovider)
-* [applicationSaveGitProdiver](docs/sdks/application/README.md#applicationsavegitprodiver)
-* [applicationDisconnectGitProvider](docs/sdks/application/README.md#applicationdisconnectgitprovider)
-* [applicationMarkRunning](docs/sdks/application/README.md#applicationmarkrunning)
-* [applicationUpdate](docs/sdks/application/README.md#applicationupdate)
-* [applicationRefreshToken](docs/sdks/application/README.md#applicationrefreshtoken)
-* [applicationDeploy](docs/sdks/application/README.md#applicationdeploy)
-* [applicationCleanQueues](docs/sdks/application/README.md#applicationcleanqueues)
-* [applicationReadTraefikConfig](docs/sdks/application/README.md#applicationreadtraefikconfig)
-* [applicationUpdateTraefikConfig](docs/sdks/application/README.md#applicationupdatetraefikconfig)
-* [applicationReadAppMonitoring](docs/sdks/application/README.md#applicationreadappmonitoring)
-* [applicationMove](docs/sdks/application/README.md#applicationmove)
-* [applicationCancelDeployment](docs/sdks/application/README.md#applicationcanceldeployment)
+* [cancelDeployment](docs/sdks/application/README.md#canceldeployment)
+* [cleanQueues](docs/sdks/application/README.md#cleanqueues)
+* [create](docs/sdks/application/README.md#create)
+* [delete](docs/sdks/application/README.md#delete)
+* [deploy](docs/sdks/application/README.md#deploy)
+* [disconnectGitProvider](docs/sdks/application/README.md#disconnectgitprovider)
+* [markRunning](docs/sdks/application/README.md#markrunning)
+* [get](docs/sdks/application/README.md#get)
+* [readAppMonitoring](docs/sdks/application/README.md#readappmonitoring)
+* [redeploy](docs/sdks/application/README.md#redeploy)
+* [reload](docs/sdks/application/README.md#reload)
+* [saveBitbucketProvider](docs/sdks/application/README.md#savebitbucketprovider)
+* [saveBuildType](docs/sdks/application/README.md#savebuildtype)
+* [saveDockerProvider](docs/sdks/application/README.md#savedockerprovider)
+* [saveEnvironment](docs/sdks/application/README.md#saveenvironment)
+* [saveGitProdiver](docs/sdks/application/README.md#savegitprodiver)
+* [saveGiteaProvider](docs/sdks/application/README.md#savegiteaprovider)
+* [saveGitlabProvider](docs/sdks/application/README.md#savegitlabprovider)
+* [stop](docs/sdks/application/README.md#stop)
+* [update](docs/sdks/application/README.md#update)
+* [updateTraefikConfig](docs/sdks/application/README.md#updatetraefikconfig)
+
+### [applications](docs/sdks/applications/README.md)
+
+* [move](docs/sdks/applications/README.md#move)
+* [readTraefikConfig](docs/sdks/applications/README.md#readtraefikconfig)
+* [refreshToken](docs/sdks/applications/README.md#refreshtoken)
+* [saveGithubProvider](docs/sdks/applications/README.md#savegithubprovider)
+* [start](docs/sdks/applications/README.md#start)
 
 ### [backup](docs/sdks/backup/README.md)
 
-* [backupCreate](docs/sdks/backup/README.md#backupcreate)
-* [backupOne](docs/sdks/backup/README.md#backupone)
-* [backupUpdate](docs/sdks/backup/README.md#backupupdate)
-* [backupRemove](docs/sdks/backup/README.md#backupremove)
-* [backupManualBackupPostgres](docs/sdks/backup/README.md#backupmanualbackuppostgres)
-* [backupManualBackupMySql](docs/sdks/backup/README.md#backupmanualbackupmysql)
-* [backupManualBackupMariadb](docs/sdks/backup/README.md#backupmanualbackupmariadb)
-* [backupManualBackupCompose](docs/sdks/backup/README.md#backupmanualbackupcompose)
-* [backupManualBackupMongo](docs/sdks/backup/README.md#backupmanualbackupmongo)
-* [backupManualBackupWebServer](docs/sdks/backup/README.md#backupmanualbackupwebserver)
-* [backupListBackupFiles](docs/sdks/backup/README.md#backuplistbackupfiles)
+* [create](docs/sdks/backup/README.md#create)
+* [listFiles](docs/sdks/backup/README.md#listfiles)
+* [manualBackupCompose](docs/sdks/backup/README.md#manualbackupcompose)
+* [manualBackupMariadb](docs/sdks/backup/README.md#manualbackupmariadb)
+* [manualBackupMongo](docs/sdks/backup/README.md#manualbackupmongo)
+* [manualBackupMySql](docs/sdks/backup/README.md#manualbackupmysql)
+* [manualBackupPostgres](docs/sdks/backup/README.md#manualbackuppostgres)
+* [manualBackupWebServer](docs/sdks/backup/README.md#manualbackupwebserver)
+* [one](docs/sdks/backup/README.md#one)
+* [remove](docs/sdks/backup/README.md#remove)
+* [update](docs/sdks/backup/README.md#update)
 
 ### [bitbucket](docs/sdks/bitbucket/README.md)
 
-* [bitbucketCreate](docs/sdks/bitbucket/README.md#bitbucketcreate)
-* [bitbucketOne](docs/sdks/bitbucket/README.md#bitbucketone)
-* [bitbucketBitbucketProviders](docs/sdks/bitbucket/README.md#bitbucketbitbucketproviders)
-* [bitbucketGetBitbucketRepositories](docs/sdks/bitbucket/README.md#bitbucketgetbitbucketrepositories)
-* [bitbucketGetBitbucketBranches](docs/sdks/bitbucket/README.md#bitbucketgetbitbucketbranches)
-* [bitbucketTestConnection](docs/sdks/bitbucket/README.md#bitbuckettestconnection)
-* [bitbucketUpdate](docs/sdks/bitbucket/README.md#bitbucketupdate)
+* [create](docs/sdks/bitbucket/README.md#create)
+* [getBranches](docs/sdks/bitbucket/README.md#getbranches)
+* [getRepositories](docs/sdks/bitbucket/README.md#getrepositories)
+* [getOne](docs/sdks/bitbucket/README.md#getone)
+* [testConnection](docs/sdks/bitbucket/README.md#testconnection)
+* [update](docs/sdks/bitbucket/README.md#update)
+
+#### [bitbucket.get](docs/sdks/bitbucketget/README.md)
+
+* [providers](docs/sdks/bitbucketget/README.md#providers)
 
 ### [certificates](docs/sdks/certificates/README.md)
 
-* [certificatesCreate](docs/sdks/certificates/README.md#certificatescreate)
-* [certificatesOne](docs/sdks/certificates/README.md#certificatesone)
-* [certificatesRemove](docs/sdks/certificates/README.md#certificatesremove)
-* [certificatesAll](docs/sdks/certificates/README.md#certificatesall)
+* [getAll](docs/sdks/certificates/README.md#getall)
+* [create](docs/sdks/certificates/README.md#create)
+* [get](docs/sdks/certificates/README.md#get)
+* [remove](docs/sdks/certificates/README.md#remove)
 
 ### [cluster](docs/sdks/cluster/README.md)
 
-* [clusterGetNodes](docs/sdks/cluster/README.md#clustergetnodes)
-* [clusterRemoveWorker](docs/sdks/cluster/README.md#clusterremoveworker)
-* [clusterAddWorker](docs/sdks/cluster/README.md#clusteraddworker)
-* [clusterAddManager](docs/sdks/cluster/README.md#clusteraddmanager)
+* [addManager](docs/sdks/cluster/README.md#addmanager)
+* [addWorker](docs/sdks/cluster/README.md#addworker)
+* [getNodes](docs/sdks/cluster/README.md#getnodes)
+* [removeWorker](docs/sdks/cluster/README.md#removeworker)
 
 ### [compose](docs/sdks/compose/README.md)
 
-* [composeCreate](docs/sdks/compose/README.md#composecreate)
-* [composeOne](docs/sdks/compose/README.md#composeone)
-* [composeUpdate](docs/sdks/compose/README.md#composeupdate)
-* [composeDelete](docs/sdks/compose/README.md#composedelete)
-* [composeCleanQueues](docs/sdks/compose/README.md#composecleanqueues)
-* [composeLoadMountsByService](docs/sdks/compose/README.md#composeloadmountsbyservice)
-* [composeFetchSourceType](docs/sdks/compose/README.md#composefetchsourcetype)
-* [composeRandomizeCompose](docs/sdks/compose/README.md#composerandomizecompose)
-* [composeIsolatedDeployment](docs/sdks/compose/README.md#composeisolateddeployment)
-* [composeGetConvertedCompose](docs/sdks/compose/README.md#composegetconvertedcompose)
-* [composeDeploy](docs/sdks/compose/README.md#composedeploy)
-* [composeRedeploy](docs/sdks/compose/README.md#composeredeploy)
-* [composeStop](docs/sdks/compose/README.md#composestop)
-* [composeStart](docs/sdks/compose/README.md#composestart)
-* [composeGetDefaultCommand](docs/sdks/compose/README.md#composegetdefaultcommand)
-* [composeRefreshToken](docs/sdks/compose/README.md#composerefreshtoken)
-* [composeDeployTemplate](docs/sdks/compose/README.md#composedeploytemplate)
-* [composeTemplates](docs/sdks/compose/README.md#composetemplates)
-* [composeGetTags](docs/sdks/compose/README.md#composegettags)
-* [composeDisconnectGitProvider](docs/sdks/compose/README.md#composedisconnectgitprovider)
-* [composeMove](docs/sdks/compose/README.md#composemove)
-* [composeProcessTemplate](docs/sdks/compose/README.md#composeprocesstemplate)
-* [composeImport](docs/sdks/compose/README.md#composeimport)
-* [composeCancelDeployment](docs/sdks/compose/README.md#composecanceldeployment)
+* [cancelDeployment](docs/sdks/compose/README.md#canceldeployment)
+* [cleanQueues](docs/sdks/compose/README.md#cleanqueues)
+* [create](docs/sdks/compose/README.md#create)
+* [delete](docs/sdks/compose/README.md#delete)
+* [deploy](docs/sdks/compose/README.md#deploy)
+* [deployTemplate](docs/sdks/compose/README.md#deploytemplate)
+* [disconnectGitprovider](docs/sdks/compose/README.md#disconnectgitprovider)
+* [fetchSourceType](docs/sdks/compose/README.md#fetchsourcetype)
+* [getConvertedCompose](docs/sdks/compose/README.md#getconvertedcompose)
+* [getDefaultCommand](docs/sdks/compose/README.md#getdefaultcommand)
+* [getTags](docs/sdks/compose/README.md#gettags)
+* [import](docs/sdks/compose/README.md#import)
+* [isolatedDeployment](docs/sdks/compose/README.md#isolateddeployment)
+* [loadMountsByService](docs/sdks/compose/README.md#loadmountsbyservice)
+* [move](docs/sdks/compose/README.md#move)
+* [one](docs/sdks/compose/README.md#one)
+* [processTemplate](docs/sdks/compose/README.md#processtemplate)
+* [randomizeCompose](docs/sdks/compose/README.md#randomizecompose)
+* [redeploy](docs/sdks/compose/README.md#redeploy)
+* [refreshToken](docs/sdks/compose/README.md#refreshtoken)
+* [start](docs/sdks/compose/README.md#start)
+* [stop](docs/sdks/compose/README.md#stop)
+* [getTemplates](docs/sdks/compose/README.md#gettemplates)
+* [update](docs/sdks/compose/README.md#update)
 
 ### [deployment](docs/sdks/deployment/README.md)
 
-* [deploymentAll](docs/sdks/deployment/README.md#deploymentall)
-* [deploymentAllByCompose](docs/sdks/deployment/README.md#deploymentallbycompose)
-* [deploymentAllByServer](docs/sdks/deployment/README.md#deploymentallbyserver)
-* [deploymentAllByType](docs/sdks/deployment/README.md#deploymentallbytype)
-* [deploymentKillProcess](docs/sdks/deployment/README.md#deploymentkillprocess)
+* [all](docs/sdks/deployment/README.md#all)
+* [getAllByCompose](docs/sdks/deployment/README.md#getallbycompose)
+* [allByServer](docs/sdks/deployment/README.md#allbyserver)
+* [getAllByType](docs/sdks/deployment/README.md#getallbytype)
+* [killProcess](docs/sdks/deployment/README.md#killprocess)
 
 ### [destination](docs/sdks/destination/README.md)
 
-* [destinationCreate](docs/sdks/destination/README.md#destinationcreate)
-* [destinationTestConnection](docs/sdks/destination/README.md#destinationtestconnection)
-* [destinationOne](docs/sdks/destination/README.md#destinationone)
-* [destinationAll](docs/sdks/destination/README.md#destinationall)
-* [destinationRemove](docs/sdks/destination/README.md#destinationremove)
-* [destinationUpdate](docs/sdks/destination/README.md#destinationupdate)
+* [getAll](docs/sdks/destination/README.md#getall)
+* [create](docs/sdks/destination/README.md#create)
+* [get](docs/sdks/destination/README.md#get)
+* [remove](docs/sdks/destination/README.md#remove)
+* [testConnection](docs/sdks/destination/README.md#testconnection)
+* [update](docs/sdks/destination/README.md#update)
 
 ### [docker](docs/sdks/docker/README.md)
 
-* [dockerGetContainers](docs/sdks/docker/README.md#dockergetcontainers)
-* [dockerRestartContainer](docs/sdks/docker/README.md#dockerrestartcontainer)
-* [dockerGetConfig](docs/sdks/docker/README.md#dockergetconfig)
-* [dockerGetContainersByAppNameMatch](docs/sdks/docker/README.md#dockergetcontainersbyappnamematch)
-* [dockerGetContainersByAppLabel](docs/sdks/docker/README.md#dockergetcontainersbyapplabel)
-* [dockerGetStackContainersByAppName](docs/sdks/docker/README.md#dockergetstackcontainersbyappname)
-* [dockerGetServiceContainersByAppName](docs/sdks/docker/README.md#dockergetservicecontainersbyappname)
+* [getConfig](docs/sdks/docker/README.md#getconfig)
+* [getContainers](docs/sdks/docker/README.md#getcontainers)
+* [getContainersByAppLabel](docs/sdks/docker/README.md#getcontainersbyapplabel)
+* [getContainersByAppNameMatch](docs/sdks/docker/README.md#getcontainersbyappnamematch)
+* [restartContainer](docs/sdks/docker/README.md#restartcontainer)
+
+#### [docker.get](docs/sdks/dockerget/README.md)
+
+* [serviceContainersByAppName](docs/sdks/dockerget/README.md#servicecontainersbyappname)
+* [stackContainersByAppName](docs/sdks/dockerget/README.md#stackcontainersbyappname)
 
 
 ### [domain](docs/sdks/domain/README.md)
 
-* [domainCreate](docs/sdks/domain/README.md#domaincreate)
-* [domainByApplicationId](docs/sdks/domain/README.md#domainbyapplicationid)
-* [domainByComposeId](docs/sdks/domain/README.md#domainbycomposeid)
-* [domainGenerateDomain](docs/sdks/domain/README.md#domaingeneratedomain)
-* [domainCanGenerateTraefikMeDomains](docs/sdks/domain/README.md#domaincangeneratetraefikmedomains)
-* [domainUpdate](docs/sdks/domain/README.md#domainupdate)
-* [domainOne](docs/sdks/domain/README.md#domainone)
-* [domainDelete](docs/sdks/domain/README.md#domaindelete)
-* [domainValidateDomain](docs/sdks/domain/README.md#domainvalidatedomain)
+* [byApplicationId](docs/sdks/domain/README.md#byapplicationid)
+* [getByComposeId](docs/sdks/domain/README.md#getbycomposeid)
+* [canGenerateTraefikDomains](docs/sdks/domain/README.md#cangeneratetraefikdomains)
+* [create](docs/sdks/domain/README.md#create)
+* [delete](docs/sdks/domain/README.md#delete)
+* [generateDomain](docs/sdks/domain/README.md#generatedomain)
+* [update](docs/sdks/domain/README.md#update)
+* [validateDomain](docs/sdks/domain/README.md#validatedomain)
+
+### [domains](docs/sdks/domains/README.md)
+
+* [get](docs/sdks/domains/README.md#get)
 
 ### [environment](docs/sdks/environment/README.md)
 
-* [environmentCreate](docs/sdks/environment/README.md#environmentcreate)
-* [environmentOne](docs/sdks/environment/README.md#environmentone)
-* [environmentByProjectId](docs/sdks/environment/README.md#environmentbyprojectid)
-* [environmentRemove](docs/sdks/environment/README.md#environmentremove)
-* [environmentUpdate](docs/sdks/environment/README.md#environmentupdate)
-* [environmentDuplicate](docs/sdks/environment/README.md#environmentduplicate)
+* [byProjectId](docs/sdks/environment/README.md#byprojectid)
+* [create](docs/sdks/environment/README.md#create)
+* [duplicate](docs/sdks/environment/README.md#duplicate)
+* [get](docs/sdks/environment/README.md#get)
+* [remove](docs/sdks/environment/README.md#remove)
+* [update](docs/sdks/environment/README.md#update)
 
 ### [gitea](docs/sdks/gitea/README.md)
 
-* [giteaCreate](docs/sdks/gitea/README.md#giteacreate)
-* [giteaOne](docs/sdks/gitea/README.md#giteaone)
-* [giteaGiteaProviders](docs/sdks/gitea/README.md#giteagiteaproviders)
-* [giteaGetGiteaRepositories](docs/sdks/gitea/README.md#giteagetgitearepositories)
-* [giteaGetGiteaBranches](docs/sdks/gitea/README.md#giteagetgiteabranches)
-* [giteaTestConnection](docs/sdks/gitea/README.md#giteatestconnection)
-* [giteaUpdate](docs/sdks/gitea/README.md#giteaupdate)
-* [giteaGetGiteaUrl](docs/sdks/gitea/README.md#giteagetgiteaurl)
+* [create](docs/sdks/gitea/README.md#create)
+* [getBranches](docs/sdks/gitea/README.md#getbranches)
+* [getRepositories](docs/sdks/gitea/README.md#getrepositories)
+* [getUrl](docs/sdks/gitea/README.md#geturl)
+* [getProviders](docs/sdks/gitea/README.md#getproviders)
+* [get](docs/sdks/gitea/README.md#get)
+* [testConnection](docs/sdks/gitea/README.md#testconnection)
+* [update](docs/sdks/gitea/README.md#update)
 
 ### [github](docs/sdks/github/README.md)
 
-* [githubOne](docs/sdks/github/README.md#githubone)
-* [githubGetGithubRepositories](docs/sdks/github/README.md#githubgetgithubrepositories)
-* [githubGetGithubBranches](docs/sdks/github/README.md#githubgetgithubbranches)
-* [githubGithubProviders](docs/sdks/github/README.md#githubgithubproviders)
-* [githubTestConnection](docs/sdks/github/README.md#githubtestconnection)
-* [githubUpdate](docs/sdks/github/README.md#githubupdate)
+* [getGithubRepositories](docs/sdks/github/README.md#getgithubrepositories)
+* [getProviders](docs/sdks/github/README.md#getproviders)
+* [one](docs/sdks/github/README.md#one)
+* [testConnection](docs/sdks/github/README.md#testconnection)
+* [update](docs/sdks/github/README.md#update)
+
+#### [github.get](docs/sdks/githubget/README.md)
+
+* [branches](docs/sdks/githubget/README.md#branches)
 
 ### [gitlab](docs/sdks/gitlab/README.md)
 
-* [gitlabCreate](docs/sdks/gitlab/README.md#gitlabcreate)
-* [gitlabOne](docs/sdks/gitlab/README.md#gitlabone)
-* [gitlabGitlabProviders](docs/sdks/gitlab/README.md#gitlabgitlabproviders)
-* [gitlabGetGitlabRepositories](docs/sdks/gitlab/README.md#gitlabgetgitlabrepositories)
-* [gitlabGetGitlabBranches](docs/sdks/gitlab/README.md#gitlabgetgitlabbranches)
-* [gitlabTestConnection](docs/sdks/gitlab/README.md#gitlabtestconnection)
-* [gitlabUpdate](docs/sdks/gitlab/README.md#gitlabupdate)
+* [create](docs/sdks/gitlab/README.md#create)
+* [getBranches](docs/sdks/gitlab/README.md#getbranches)
+* [getGitlabRepositories](docs/sdks/gitlab/README.md#getgitlabrepositories)
+* [getProviders](docs/sdks/gitlab/README.md#getproviders)
+* [one](docs/sdks/gitlab/README.md#one)
+* [testConnection](docs/sdks/gitlab/README.md#testconnection)
+* [update](docs/sdks/gitlab/README.md#update)
 
-### [gitProvider](docs/sdks/gitprovider/README.md)
+### [gitprovider](docs/sdks/gitprovider/README.md)
 
-* [gitProviderGetAll](docs/sdks/gitprovider/README.md#gitprovidergetall)
-* [gitProviderRemove](docs/sdks/gitprovider/README.md#gitproviderremove)
+* [remove](docs/sdks/gitprovider/README.md#remove)
+
+### [gitProviders](docs/sdks/gitproviders/README.md)
+
+* [getAll](docs/sdks/gitproviders/README.md#getall)
 
 ### [mariadb](docs/sdks/mariadb/README.md)
 
-* [mariadbCreate](docs/sdks/mariadb/README.md#mariadbcreate)
-* [mariadbOne](docs/sdks/mariadb/README.md#mariadbone)
-* [mariadbStart](docs/sdks/mariadb/README.md#mariadbstart)
-* [mariadbStop](docs/sdks/mariadb/README.md#mariadbstop)
-* [mariadbSaveExternalPort](docs/sdks/mariadb/README.md#mariadbsaveexternalport)
-* [mariadbDeploy](docs/sdks/mariadb/README.md#mariadbdeploy)
-* [mariadbChangeStatus](docs/sdks/mariadb/README.md#mariadbchangestatus)
-* [mariadbRemove](docs/sdks/mariadb/README.md#mariadbremove)
-* [mariadbSaveEnvironment](docs/sdks/mariadb/README.md#mariadbsaveenvironment)
-* [mariadbReload](docs/sdks/mariadb/README.md#mariadbreload)
-* [mariadbUpdate](docs/sdks/mariadb/README.md#mariadbupdate)
-* [mariadbMove](docs/sdks/mariadb/README.md#mariadbmove)
-* [mariadbRebuild](docs/sdks/mariadb/README.md#mariadbrebuild)
+* [changeStatus](docs/sdks/mariadb/README.md#changestatus)
+* [create](docs/sdks/mariadb/README.md#create)
+* [deploy](docs/sdks/mariadb/README.md#deploy)
+* [move](docs/sdks/mariadb/README.md#move)
+* [get](docs/sdks/mariadb/README.md#get)
+* [rebuild](docs/sdks/mariadb/README.md#rebuild)
+* [reload](docs/sdks/mariadb/README.md#reload)
+* [remove](docs/sdks/mariadb/README.md#remove)
+* [saveEnvironment](docs/sdks/mariadb/README.md#saveenvironment)
+* [saveExternalPort](docs/sdks/mariadb/README.md#saveexternalport)
+* [start](docs/sdks/mariadb/README.md#start)
+* [stop](docs/sdks/mariadb/README.md#stop)
+* [update](docs/sdks/mariadb/README.md#update)
 
 ### [mongo](docs/sdks/mongo/README.md)
 
-* [mongoCreate](docs/sdks/mongo/README.md#mongocreate)
-* [mongoOne](docs/sdks/mongo/README.md#mongoone)
-* [mongoStart](docs/sdks/mongo/README.md#mongostart)
-* [mongoStop](docs/sdks/mongo/README.md#mongostop)
-* [mongoSaveExternalPort](docs/sdks/mongo/README.md#mongosaveexternalport)
-* [mongoDeploy](docs/sdks/mongo/README.md#mongodeploy)
-* [mongoChangeStatus](docs/sdks/mongo/README.md#mongochangestatus)
-* [mongoReload](docs/sdks/mongo/README.md#mongoreload)
-* [mongoRemove](docs/sdks/mongo/README.md#mongoremove)
-* [mongoSaveEnvironment](docs/sdks/mongo/README.md#mongosaveenvironment)
-* [mongoUpdate](docs/sdks/mongo/README.md#mongoupdate)
-* [mongoMove](docs/sdks/mongo/README.md#mongomove)
-* [mongoRebuild](docs/sdks/mongo/README.md#mongorebuild)
+* [changeStatus](docs/sdks/mongo/README.md#changestatus)
+* [create](docs/sdks/mongo/README.md#create)
+* [deploy](docs/sdks/mongo/README.md#deploy)
+* [move](docs/sdks/mongo/README.md#move)
+* [getOne](docs/sdks/mongo/README.md#getone)
+* [rebuild](docs/sdks/mongo/README.md#rebuild)
+* [reload](docs/sdks/mongo/README.md#reload)
+* [remove](docs/sdks/mongo/README.md#remove)
+* [saveEnvironment](docs/sdks/mongo/README.md#saveenvironment)
+* [saveExternalPort](docs/sdks/mongo/README.md#saveexternalport)
+* [start](docs/sdks/mongo/README.md#start)
+* [stop](docs/sdks/mongo/README.md#stop)
+* [update](docs/sdks/mongo/README.md#update)
 
 ### [mounts](docs/sdks/mounts/README.md)
 
-* [mountsCreate](docs/sdks/mounts/README.md#mountscreate)
-* [mountsRemove](docs/sdks/mounts/README.md#mountsremove)
-* [mountsOne](docs/sdks/mounts/README.md#mountsone)
-* [mountsUpdate](docs/sdks/mounts/README.md#mountsupdate)
-* [mountsAllNamedByApplicationId](docs/sdks/mounts/README.md#mountsallnamedbyapplicationid)
+* [allNamedByApplicationId](docs/sdks/mounts/README.md#allnamedbyapplicationid)
+* [create](docs/sdks/mounts/README.md#create)
+* [get](docs/sdks/mounts/README.md#get)
+* [remove](docs/sdks/mounts/README.md#remove)
+* [update](docs/sdks/mounts/README.md#update)
 
 ### [mysql](docs/sdks/mysql/README.md)
 
-* [mysqlCreate](docs/sdks/mysql/README.md#mysqlcreate)
-* [mysqlOne](docs/sdks/mysql/README.md#mysqlone)
-* [mysqlStart](docs/sdks/mysql/README.md#mysqlstart)
-* [mysqlStop](docs/sdks/mysql/README.md#mysqlstop)
-* [mysqlSaveExternalPort](docs/sdks/mysql/README.md#mysqlsaveexternalport)
-* [mysqlDeploy](docs/sdks/mysql/README.md#mysqldeploy)
-* [mysqlChangeStatus](docs/sdks/mysql/README.md#mysqlchangestatus)
-* [mysqlReload](docs/sdks/mysql/README.md#mysqlreload)
-* [mysqlRemove](docs/sdks/mysql/README.md#mysqlremove)
-* [mysqlSaveEnvironment](docs/sdks/mysql/README.md#mysqlsaveenvironment)
-* [mysqlUpdate](docs/sdks/mysql/README.md#mysqlupdate)
-* [mysqlMove](docs/sdks/mysql/README.md#mysqlmove)
-* [mysqlRebuild](docs/sdks/mysql/README.md#mysqlrebuild)
+* [changeStatus](docs/sdks/mysql/README.md#changestatus)
+* [create](docs/sdks/mysql/README.md#create)
+* [deploy](docs/sdks/mysql/README.md#deploy)
+* [move](docs/sdks/mysql/README.md#move)
+* [get](docs/sdks/mysql/README.md#get)
+* [rebuild](docs/sdks/mysql/README.md#rebuild)
+* [reload](docs/sdks/mysql/README.md#reload)
+* [remove](docs/sdks/mysql/README.md#remove)
+* [saveEnvironment](docs/sdks/mysql/README.md#saveenvironment)
+* [saveExternalPort](docs/sdks/mysql/README.md#saveexternalport)
+* [start](docs/sdks/mysql/README.md#start)
+* [stop](docs/sdks/mysql/README.md#stop)
+* [update](docs/sdks/mysql/README.md#update)
 
 ### [notification](docs/sdks/notification/README.md)
 
-* [notificationCreateSlack](docs/sdks/notification/README.md#notificationcreateslack)
-* [notificationUpdateSlack](docs/sdks/notification/README.md#notificationupdateslack)
-* [notificationTestSlackConnection](docs/sdks/notification/README.md#notificationtestslackconnection)
-* [notificationCreateTelegram](docs/sdks/notification/README.md#notificationcreatetelegram)
-* [notificationUpdateTelegram](docs/sdks/notification/README.md#notificationupdatetelegram)
-* [notificationTestTelegramConnection](docs/sdks/notification/README.md#notificationtesttelegramconnection)
-* [notificationCreateDiscord](docs/sdks/notification/README.md#notificationcreatediscord)
-* [notificationUpdateDiscord](docs/sdks/notification/README.md#notificationupdatediscord)
-* [notificationTestDiscordConnection](docs/sdks/notification/README.md#notificationtestdiscordconnection)
-* [notificationCreateEmail](docs/sdks/notification/README.md#notificationcreateemail)
-* [notificationUpdateEmail](docs/sdks/notification/README.md#notificationupdateemail)
-* [notificationTestEmailConnection](docs/sdks/notification/README.md#notificationtestemailconnection)
-* [notificationRemove](docs/sdks/notification/README.md#notificationremove)
-* [notificationOne](docs/sdks/notification/README.md#notificationone)
-* [notificationAll](docs/sdks/notification/README.md#notificationall)
-* [notificationReceiveNotification](docs/sdks/notification/README.md#notificationreceivenotification)
-* [notificationCreateGotify](docs/sdks/notification/README.md#notificationcreategotify)
-* [notificationUpdateGotify](docs/sdks/notification/README.md#notificationupdategotify)
-* [notificationTestGotifyConnection](docs/sdks/notification/README.md#notificationtestgotifyconnection)
-* [notificationCreateNtfy](docs/sdks/notification/README.md#notificationcreatentfy)
-* [notificationUpdateNtfy](docs/sdks/notification/README.md#notificationupdatentfy)
-* [notificationTestNtfyConnection](docs/sdks/notification/README.md#notificationtestntfyconnection)
-* [notificationGetEmailProviders](docs/sdks/notification/README.md#notificationgetemailproviders)
+* [createDiscord](docs/sdks/notification/README.md#creatediscord)
+* [createEmail](docs/sdks/notification/README.md#createemail)
+* [createGotify](docs/sdks/notification/README.md#creategotify)
+* [createNtfy](docs/sdks/notification/README.md#createntfy)
+* [createSlack](docs/sdks/notification/README.md#createslack)
+* [createTelegram](docs/sdks/notification/README.md#createtelegram)
+* [getEmailProviders](docs/sdks/notification/README.md#getemailproviders)
+* [get](docs/sdks/notification/README.md#get)
+* [receiveNotification](docs/sdks/notification/README.md#receivenotification)
+* [remove](docs/sdks/notification/README.md#remove)
+* [testDiscordConnection](docs/sdks/notification/README.md#testdiscordconnection)
+* [testEmailConnection](docs/sdks/notification/README.md#testemailconnection)
+* [testGotifyConnection](docs/sdks/notification/README.md#testgotifyconnection)
+* [testNtfyConnection](docs/sdks/notification/README.md#testntfyconnection)
+* [testSlackConnection](docs/sdks/notification/README.md#testslackconnection)
+* [testTelegramConnection](docs/sdks/notification/README.md#testtelegramconnection)
+* [updateDiscord](docs/sdks/notification/README.md#updatediscord)
+* [updateEmail](docs/sdks/notification/README.md#updateemail)
+* [updateGotify](docs/sdks/notification/README.md#updategotify)
+* [updateNtfy](docs/sdks/notification/README.md#updatentfy)
+* [updateSlack](docs/sdks/notification/README.md#updateslack)
+* [updateTelegram](docs/sdks/notification/README.md#updatetelegram)
+
+### [notifications](docs/sdks/notifications/README.md)
+
+* [getAll](docs/sdks/notifications/README.md#getall)
 
 ### [organization](docs/sdks/organization/README.md)
 
-* [organizationCreate](docs/sdks/organization/README.md#organizationcreate)
-* [organizationAll](docs/sdks/organization/README.md#organizationall)
-* [organizationOne](docs/sdks/organization/README.md#organizationone)
-* [organizationUpdate](docs/sdks/organization/README.md#organizationupdate)
-* [organizationDelete](docs/sdks/organization/README.md#organizationdelete)
-* [organizationAllInvitations](docs/sdks/organization/README.md#organizationallinvitations)
-* [organizationRemoveInvitation](docs/sdks/organization/README.md#organizationremoveinvitation)
+* [getAll](docs/sdks/organization/README.md#getall)
+* [allInvitations](docs/sdks/organization/README.md#allinvitations)
+* [create](docs/sdks/organization/README.md#create)
+* [delete](docs/sdks/organization/README.md#delete)
+* [get](docs/sdks/organization/README.md#get)
+* [removeInvitation](docs/sdks/organization/README.md#removeinvitation)
+* [update](docs/sdks/organization/README.md#update)
 
 ### [port](docs/sdks/port/README.md)
 
-* [portCreate](docs/sdks/port/README.md#portcreate)
-* [portOne](docs/sdks/port/README.md#portone)
-* [portDelete](docs/sdks/port/README.md#portdelete)
-* [portUpdate](docs/sdks/port/README.md#portupdate)
+* [create](docs/sdks/port/README.md#create)
+* [delete](docs/sdks/port/README.md#delete)
+* [get](docs/sdks/port/README.md#get)
+* [update](docs/sdks/port/README.md#update)
 
 ### [postgres](docs/sdks/postgres/README.md)
 
-* [postgresCreate](docs/sdks/postgres/README.md#postgrescreate)
-* [postgresOne](docs/sdks/postgres/README.md#postgresone)
-* [postgresStart](docs/sdks/postgres/README.md#postgresstart)
-* [postgresStop](docs/sdks/postgres/README.md#postgresstop)
-* [postgresSaveExternalPort](docs/sdks/postgres/README.md#postgressaveexternalport)
-* [postgresDeploy](docs/sdks/postgres/README.md#postgresdeploy)
-* [postgresChangeStatus](docs/sdks/postgres/README.md#postgreschangestatus)
-* [postgresRemove](docs/sdks/postgres/README.md#postgresremove)
-* [postgresSaveEnvironment](docs/sdks/postgres/README.md#postgressaveenvironment)
-* [postgresReload](docs/sdks/postgres/README.md#postgresreload)
-* [postgresUpdate](docs/sdks/postgres/README.md#postgresupdate)
-* [postgresMove](docs/sdks/postgres/README.md#postgresmove)
-* [postgresRebuild](docs/sdks/postgres/README.md#postgresrebuild)
+* [changeStatus](docs/sdks/postgres/README.md#changestatus)
+* [create](docs/sdks/postgres/README.md#create)
+* [deploy](docs/sdks/postgres/README.md#deploy)
+* [move](docs/sdks/postgres/README.md#move)
+* [get](docs/sdks/postgres/README.md#get)
+* [rebuild](docs/sdks/postgres/README.md#rebuild)
+* [reload](docs/sdks/postgres/README.md#reload)
+* [remove](docs/sdks/postgres/README.md#remove)
+* [saveEnvironment](docs/sdks/postgres/README.md#saveenvironment)
+* [saveExternalPort](docs/sdks/postgres/README.md#saveexternalport)
+* [start](docs/sdks/postgres/README.md#start)
+* [stop](docs/sdks/postgres/README.md#stop)
+* [update](docs/sdks/postgres/README.md#update)
 
 ### [previewDeployment](docs/sdks/previewdeployment/README.md)
 
-* [previewDeploymentAll](docs/sdks/previewdeployment/README.md#previewdeploymentall)
-* [previewDeploymentDelete](docs/sdks/previewdeployment/README.md#previewdeploymentdelete)
-* [previewDeploymentOne](docs/sdks/previewdeployment/README.md#previewdeploymentone)
+* [getAll](docs/sdks/previewdeployment/README.md#getall)
+* [delete](docs/sdks/previewdeployment/README.md#delete)
+* [get](docs/sdks/previewdeployment/README.md#get)
 
 ### [project](docs/sdks/project/README.md)
 
-* [projectCreate](docs/sdks/project/README.md#projectcreate)
-* [projectOne](docs/sdks/project/README.md#projectone)
-* [projectAll](docs/sdks/project/README.md#projectall)
-* [projectRemove](docs/sdks/project/README.md#projectremove)
-* [projectUpdate](docs/sdks/project/README.md#projectupdate)
-* [projectDuplicate](docs/sdks/project/README.md#projectduplicate)
+* [getAll](docs/sdks/project/README.md#getall)
+* [create](docs/sdks/project/README.md#create)
+* [duplicate](docs/sdks/project/README.md#duplicate)
+* [get](docs/sdks/project/README.md#get)
+* [update](docs/sdks/project/README.md#update)
+
+### [projects](docs/sdks/projects/README.md)
+
+* [remove](docs/sdks/projects/README.md#remove)
 
 ### [redirects](docs/sdks/redirects/README.md)
 
-* [redirectsCreate](docs/sdks/redirects/README.md#redirectscreate)
-* [redirectsOne](docs/sdks/redirects/README.md#redirectsone)
-* [redirectsDelete](docs/sdks/redirects/README.md#redirectsdelete)
-* [redirectsUpdate](docs/sdks/redirects/README.md#redirectsupdate)
+* [create](docs/sdks/redirects/README.md#create)
+* [delete](docs/sdks/redirects/README.md#delete)
+* [get](docs/sdks/redirects/README.md#get)
+* [update](docs/sdks/redirects/README.md#update)
 
 ### [redis](docs/sdks/redis/README.md)
 
-* [redisCreate](docs/sdks/redis/README.md#rediscreate)
-* [redisOne](docs/sdks/redis/README.md#redisone)
-* [redisStart](docs/sdks/redis/README.md#redisstart)
-* [redisReload](docs/sdks/redis/README.md#redisreload)
-* [redisStop](docs/sdks/redis/README.md#redisstop)
-* [redisSaveExternalPort](docs/sdks/redis/README.md#redissaveexternalport)
-* [redisDeploy](docs/sdks/redis/README.md#redisdeploy)
-* [redisChangeStatus](docs/sdks/redis/README.md#redischangestatus)
-* [redisRemove](docs/sdks/redis/README.md#redisremove)
-* [redisSaveEnvironment](docs/sdks/redis/README.md#redissaveenvironment)
-* [redisUpdate](docs/sdks/redis/README.md#redisupdate)
-* [redisMove](docs/sdks/redis/README.md#redismove)
-* [redisRebuild](docs/sdks/redis/README.md#redisrebuild)
+* [changeStatus](docs/sdks/redis/README.md#changestatus)
+* [create](docs/sdks/redis/README.md#create)
+* [deploy](docs/sdks/redis/README.md#deploy)
+* [move](docs/sdks/redis/README.md#move)
+* [getOne](docs/sdks/redis/README.md#getone)
+* [rebuild](docs/sdks/redis/README.md#rebuild)
+* [reload](docs/sdks/redis/README.md#reload)
+* [remove](docs/sdks/redis/README.md#remove)
+* [saveEnvironment](docs/sdks/redis/README.md#saveenvironment)
+* [saveExternalPort](docs/sdks/redis/README.md#saveexternalport)
+* [start](docs/sdks/redis/README.md#start)
+* [stop](docs/sdks/redis/README.md#stop)
+* [update](docs/sdks/redis/README.md#update)
 
 ### [registry](docs/sdks/registry/README.md)
 
-* [registryCreate](docs/sdks/registry/README.md#registrycreate)
-* [registryRemove](docs/sdks/registry/README.md#registryremove)
-* [registryUpdate](docs/sdks/registry/README.md#registryupdate)
-* [registryAll](docs/sdks/registry/README.md#registryall)
-* [registryOne](docs/sdks/registry/README.md#registryone)
-* [registryTestRegistry](docs/sdks/registry/README.md#registrytestregistry)
+* [getAll](docs/sdks/registry/README.md#getall)
+* [create](docs/sdks/registry/README.md#create)
+* [one](docs/sdks/registry/README.md#one)
+* [remove](docs/sdks/registry/README.md#remove)
+* [testRegistry](docs/sdks/registry/README.md#testregistry)
+* [update](docs/sdks/registry/README.md#update)
 
 ### [rollback](docs/sdks/rollback/README.md)
 
-* [rollbackDelete](docs/sdks/rollback/README.md#rollbackdelete)
-* [rollbackRollback](docs/sdks/rollback/README.md#rollbackrollback)
+* [delete](docs/sdks/rollback/README.md#delete)
+* [execute](docs/sdks/rollback/README.md#execute)
 
 ### [schedule](docs/sdks/schedule/README.md)
 
-* [scheduleCreate](docs/sdks/schedule/README.md#schedulecreate)
-* [scheduleUpdate](docs/sdks/schedule/README.md#scheduleupdate)
-* [scheduleDelete](docs/sdks/schedule/README.md#scheduledelete)
-* [scheduleList](docs/sdks/schedule/README.md#schedulelist)
-* [scheduleOne](docs/sdks/schedule/README.md#scheduleone)
-* [scheduleRunManually](docs/sdks/schedule/README.md#schedulerunmanually)
+* [create](docs/sdks/schedule/README.md#create)
+* [delete](docs/sdks/schedule/README.md#delete)
+* [list](docs/sdks/schedule/README.md#list)
+* [get](docs/sdks/schedule/README.md#get)
+* [runManually](docs/sdks/schedule/README.md#runmanually)
+* [update](docs/sdks/schedule/README.md#update)
 
 ### [security](docs/sdks/security/README.md)
 
-* [securityCreate](docs/sdks/security/README.md#securitycreate)
-* [securityOne](docs/sdks/security/README.md#securityone)
-* [securityDelete](docs/sdks/security/README.md#securitydelete)
-* [securityUpdate](docs/sdks/security/README.md#securityupdate)
+* [create](docs/sdks/security/README.md#create)
+* [delete](docs/sdks/security/README.md#delete)
+* [get](docs/sdks/security/README.md#get)
+* [update](docs/sdks/security/README.md#update)
 
 ### [server](docs/sdks/server/README.md)
 
-* [serverCreate](docs/sdks/server/README.md#servercreate)
-* [serverOne](docs/sdks/server/README.md#serverone)
-* [serverGetDefaultCommand](docs/sdks/server/README.md#servergetdefaultcommand)
-* [serverAll](docs/sdks/server/README.md#serverall)
-* [serverCount](docs/sdks/server/README.md#servercount)
-* [serverWithSSHKey](docs/sdks/server/README.md#serverwithsshkey)
-* [serverSetup](docs/sdks/server/README.md#serversetup)
-* [serverValidate](docs/sdks/server/README.md#servervalidate)
-* [serverSecurity](docs/sdks/server/README.md#serversecurity)
-* [serverSetupMonitoring](docs/sdks/server/README.md#serversetupmonitoring)
-* [serverRemove](docs/sdks/server/README.md#serverremove)
-* [serverUpdate](docs/sdks/server/README.md#serverupdate)
-* [serverPublicIp](docs/sdks/server/README.md#serverpublicip)
-* [serverGetServerMetrics](docs/sdks/server/README.md#servergetservermetrics)
+* [getAll](docs/sdks/server/README.md#getall)
+* [count](docs/sdks/server/README.md#count)
+* [create](docs/sdks/server/README.md#create)
+* [getDefaultCommand](docs/sdks/server/README.md#getdefaultcommand)
+* [getServerMetrics](docs/sdks/server/README.md#getservermetrics)
+* [get](docs/sdks/server/README.md#get)
+* [publicIp](docs/sdks/server/README.md#publicip)
+* [remove](docs/sdks/server/README.md#remove)
+* [getSecurity](docs/sdks/server/README.md#getsecurity)
+* [setup](docs/sdks/server/README.md#setup)
+* [setupMonitoring](docs/sdks/server/README.md#setupmonitoring)
+* [update](docs/sdks/server/README.md#update)
+* [validate](docs/sdks/server/README.md#validate)
+
+### [servers](docs/sdks/servers/README.md)
+
+* [getWithSshKey](docs/sdks/servers/README.md#getwithsshkey)
 
 ### [settings](docs/sdks/settings/README.md)
 
-* [settingsReloadServer](docs/sdks/settings/README.md#settingsreloadserver)
-* [settingsCleanRedis](docs/sdks/settings/README.md#settingscleanredis)
-* [settingsReloadRedis](docs/sdks/settings/README.md#settingsreloadredis)
-* [settingsReloadTraefik](docs/sdks/settings/README.md#settingsreloadtraefik)
-* [settingsToggleDashboard](docs/sdks/settings/README.md#settingstoggledashboard)
-* [settingsCleanUnusedImages](docs/sdks/settings/README.md#settingscleanunusedimages)
-* [settingsCleanUnusedVolumes](docs/sdks/settings/README.md#settingscleanunusedvolumes)
-* [settingsCleanStoppedContainers](docs/sdks/settings/README.md#settingscleanstoppedcontainers)
-* [settingsCleanDockerBuilder](docs/sdks/settings/README.md#settingscleandockerbuilder)
-* [settingsCleanDockerPrune](docs/sdks/settings/README.md#settingscleandockerprune)
-* [settingsCleanAll](docs/sdks/settings/README.md#settingscleanall)
-* [settingsCleanMonitoring](docs/sdks/settings/README.md#settingscleanmonitoring)
-* [settingsSaveSSHPrivateKey](docs/sdks/settings/README.md#settingssavesshprivatekey)
-* [settingsAssignDomainServer](docs/sdks/settings/README.md#settingsassigndomainserver)
-* [settingsCleanSSHPrivateKey](docs/sdks/settings/README.md#settingscleansshprivatekey)
-* [settingsUpdateDockerCleanup](docs/sdks/settings/README.md#settingsupdatedockercleanup)
-* [settingsReadTraefikConfig](docs/sdks/settings/README.md#settingsreadtraefikconfig)
-* [settingsUpdateTraefikConfig](docs/sdks/settings/README.md#settingsupdatetraefikconfig)
-* [settingsReadWebServerTraefikConfig](docs/sdks/settings/README.md#settingsreadwebservertraefikconfig)
-* [settingsUpdateWebServerTraefikConfig](docs/sdks/settings/README.md#settingsupdatewebservertraefikconfig)
-* [settingsReadMiddlewareTraefikConfig](docs/sdks/settings/README.md#settingsreadmiddlewaretraefikconfig)
-* [settingsUpdateMiddlewareTraefikConfig](docs/sdks/settings/README.md#settingsupdatemiddlewaretraefikconfig)
-* [settingsGetUpdateData](docs/sdks/settings/README.md#settingsgetupdatedata)
-* [settingsUpdateServer](docs/sdks/settings/README.md#settingsupdateserver)
-* [settingsGetDokployVersion](docs/sdks/settings/README.md#settingsgetdokployversion)
-* [settingsGetReleaseTag](docs/sdks/settings/README.md#settingsgetreleasetag)
-* [settingsReadDirectories](docs/sdks/settings/README.md#settingsreaddirectories)
-* [settingsUpdateTraefikFile](docs/sdks/settings/README.md#settingsupdatetraefikfile)
-* [settingsReadTraefikFile](docs/sdks/settings/README.md#settingsreadtraefikfile)
-* [settingsGetIp](docs/sdks/settings/README.md#settingsgetip)
-* [settingsGetOpenApiDocument](docs/sdks/settings/README.md#settingsgetopenapidocument)
-* [settingsReadTraefikEnv](docs/sdks/settings/README.md#settingsreadtraefikenv)
-* [settingsWriteTraefikEnv](docs/sdks/settings/README.md#settingswritetraefikenv)
-* [settingsHaveTraefikDashboardPortEnabled](docs/sdks/settings/README.md#settingshavetraefikdashboardportenabled)
-* [settingsHaveActivateRequests](docs/sdks/settings/README.md#settingshaveactivaterequests)
-* [settingsToggleRequests](docs/sdks/settings/README.md#settingstogglerequests)
-* [settingsIsCloud](docs/sdks/settings/README.md#settingsiscloud)
-* [settingsIsUserSubscribed](docs/sdks/settings/README.md#settingsisusersubscribed)
-* [settingsHealth](docs/sdks/settings/README.md#settingshealth)
-* [settingsSetupGPU](docs/sdks/settings/README.md#settingssetupgpu)
-* [settingsCheckGPUStatus](docs/sdks/settings/README.md#settingscheckgpustatus)
-* [settingsUpdateTraefikPorts](docs/sdks/settings/README.md#settingsupdatetraefikports)
-* [settingsGetTraefikPorts](docs/sdks/settings/README.md#settingsgettraefikports)
-* [settingsUpdateLogCleanup](docs/sdks/settings/README.md#settingsupdatelogcleanup)
-* [settingsGetLogCleanupStatus](docs/sdks/settings/README.md#settingsgetlogcleanupstatus)
-* [settingsGetDokployCloudIps](docs/sdks/settings/README.md#settingsgetdokploycloudips)
+* [assignDomainServer](docs/sdks/settings/README.md#assigndomainserver)
+* [checkGpuStatus](docs/sdks/settings/README.md#checkgpustatus)
+* [cleanAll](docs/sdks/settings/README.md#cleanall)
+* [cleanDockerBuilder](docs/sdks/settings/README.md#cleandockerbuilder)
+* [cleanDockerPrune](docs/sdks/settings/README.md#cleandockerprune)
+* [cleanMonitoring](docs/sdks/settings/README.md#cleanmonitoring)
+* [cleanRedis](docs/sdks/settings/README.md#cleanredis)
+* [cleanSshPrivateKey](docs/sdks/settings/README.md#cleansshprivatekey)
+* [cleanStoppedContainers](docs/sdks/settings/README.md#cleanstoppedcontainers)
+* [cleanUnusedImages](docs/sdks/settings/README.md#cleanunusedimages)
+* [cleanUnusedVolumes](docs/sdks/settings/README.md#cleanunusedvolumes)
+* [getDokployCloudIps](docs/sdks/settings/README.md#getdokploycloudips)
+* [getDokployVersion](docs/sdks/settings/README.md#getdokployversion)
+* [getIp](docs/sdks/settings/README.md#getip)
+* [getLogCleanupStatus](docs/sdks/settings/README.md#getlogcleanupstatus)
+* [getOpenApiDocument](docs/sdks/settings/README.md#getopenapidocument)
+* [getReleaseTag](docs/sdks/settings/README.md#getreleasetag)
+* [getTraefikPorts](docs/sdks/settings/README.md#gettraefikports)
+* [getUpdateData](docs/sdks/settings/README.md#getupdatedata)
+* [haveActivateRequests](docs/sdks/settings/README.md#haveactivaterequests)
+* [haveTraefikDashboardPortEnabled](docs/sdks/settings/README.md#havetraefikdashboardportenabled)
+* [get](docs/sdks/settings/README.md#get)
+* [isCloud](docs/sdks/settings/README.md#iscloud)
+* [isUserSubscribed](docs/sdks/settings/README.md#isusersubscribed)
+* [readDirectories](docs/sdks/settings/README.md#readdirectories)
+* [readMiddlewareTraefikConfig](docs/sdks/settings/README.md#readmiddlewaretraefikconfig)
+* [readTraefikConfig](docs/sdks/settings/README.md#readtraefikconfig)
+* [readTraefikEnv](docs/sdks/settings/README.md#readtraefikenv)
+* [readTraefikFile](docs/sdks/settings/README.md#readtraefikfile)
+* [readWebserverTraefikConfig](docs/sdks/settings/README.md#readwebservertraefikconfig)
+* [reloadRedis](docs/sdks/settings/README.md#reloadredis)
+* [reloadServer](docs/sdks/settings/README.md#reloadserver)
+* [reloadTraefik](docs/sdks/settings/README.md#reloadtraefik)
+* [saveSshPrivateKey](docs/sdks/settings/README.md#savesshprivatekey)
+* [setupGpu](docs/sdks/settings/README.md#setupgpu)
+* [toggleDashboard](docs/sdks/settings/README.md#toggledashboard)
+* [toggleRequests](docs/sdks/settings/README.md#togglerequests)
+* [updateDockerCleanup](docs/sdks/settings/README.md#updatedockercleanup)
+* [updateLogCleanup](docs/sdks/settings/README.md#updatelogcleanup)
+* [updateMiddlewareTraefikConfig](docs/sdks/settings/README.md#updatemiddlewaretraefikconfig)
+* [updateServer](docs/sdks/settings/README.md#updateserver)
+* [updateTraefikConfig](docs/sdks/settings/README.md#updatetraefikconfig)
+* [updateTraefikFile](docs/sdks/settings/README.md#updatetraefikfile)
+* [updateTraefikPorts](docs/sdks/settings/README.md#updatetraefikports)
+* [updateWebServerTraefikConfig](docs/sdks/settings/README.md#updatewebservertraefikconfig)
+* [writeTraefikEnv](docs/sdks/settings/README.md#writetraefikenv)
 
 ### [sshKey](docs/sdks/sshkey/README.md)
 
-* [sshKeyCreate](docs/sdks/sshkey/README.md#sshkeycreate)
-* [sshKeyRemove](docs/sdks/sshkey/README.md#sshkeyremove)
-* [sshKeyOne](docs/sdks/sshkey/README.md#sshkeyone)
-* [sshKeyAll](docs/sdks/sshkey/README.md#sshkeyall)
-* [sshKeyGenerate](docs/sdks/sshkey/README.md#sshkeygenerate)
-* [sshKeyUpdate](docs/sdks/sshkey/README.md#sshkeyupdate)
+* [all](docs/sdks/sshkey/README.md#all)
+* [create](docs/sdks/sshkey/README.md#create)
+* [get](docs/sdks/sshkey/README.md#get)
+* [remove](docs/sdks/sshkey/README.md#remove)
+* [update](docs/sdks/sshkey/README.md#update)
+
+### [sshKeys](docs/sdks/sshkeys/README.md)
+
+* [generate](docs/sdks/sshkeys/README.md#generate)
 
 ### [stripe](docs/sdks/stripe/README.md)
 
-* [stripeGetProducts](docs/sdks/stripe/README.md#stripegetproducts)
-* [stripeCreateCheckoutSession](docs/sdks/stripe/README.md#stripecreatecheckoutsession)
-* [stripeCreateCustomerPortalSession](docs/sdks/stripe/README.md#stripecreatecustomerportalsession)
-* [stripeCanCreateMoreServers](docs/sdks/stripe/README.md#stripecancreatemoreservers)
+* [canCreateMoreServers](docs/sdks/stripe/README.md#cancreatemoreservers)
+* [createCheckoutSession](docs/sdks/stripe/README.md#createcheckoutsession)
+* [createCustomerPortalSession](docs/sdks/stripe/README.md#createcustomerportalsession)
+* [getProducts](docs/sdks/stripe/README.md#getproducts)
 
 ### [swarm](docs/sdks/swarm/README.md)
 
-* [swarmGetNodes](docs/sdks/swarm/README.md#swarmgetnodes)
-* [swarmGetNodeInfo](docs/sdks/swarm/README.md#swarmgetnodeinfo)
-* [swarmGetNodeApps](docs/sdks/swarm/README.md#swarmgetnodeapps)
+* [getNodeApps](docs/sdks/swarm/README.md#getnodeapps)
+* [getNodeInfo](docs/sdks/swarm/README.md#getnodeinfo)
+* [getNodes](docs/sdks/swarm/README.md#getnodes)
 
 ### [user](docs/sdks/user/README.md)
 
-* [userAll](docs/sdks/user/README.md#userall)
-* [userOne](docs/sdks/user/README.md#userone)
-* [userGet](docs/sdks/user/README.md#userget)
-* [userHaveRootAccess](docs/sdks/user/README.md#userhaverootaccess)
-* [userGetBackups](docs/sdks/user/README.md#usergetbackups)
-* [userGetServerMetrics](docs/sdks/user/README.md#usergetservermetrics)
-* [userUpdate](docs/sdks/user/README.md#userupdate)
-* [userGetUserByToken](docs/sdks/user/README.md#usergetuserbytoken)
-* [userGetMetricsToken](docs/sdks/user/README.md#usergetmetricstoken)
-* [userRemove](docs/sdks/user/README.md#userremove)
-* [userAssignPermissions](docs/sdks/user/README.md#userassignpermissions)
-* [userGetInvitations](docs/sdks/user/README.md#usergetinvitations)
-* [userGetContainerMetrics](docs/sdks/user/README.md#usergetcontainermetrics)
-* [userGenerateToken](docs/sdks/user/README.md#usergeneratetoken)
-* [userDeleteApiKey](docs/sdks/user/README.md#userdeleteapikey)
-* [userCreateApiKey](docs/sdks/user/README.md#usercreateapikey)
-* [userCheckUserOrganizations](docs/sdks/user/README.md#usercheckuserorganizations)
-* [userSendInvitation](docs/sdks/user/README.md#usersendinvitation)
+* [getAll](docs/sdks/user/README.md#getall)
+* [assignPermissions](docs/sdks/user/README.md#assignpermissions)
+* [checkUserOrganizations](docs/sdks/user/README.md#checkuserorganizations)
+* [createApiKey](docs/sdks/user/README.md#createapikey)
+* [deleteApiKey](docs/sdks/user/README.md#deleteapikey)
+* [generateToken](docs/sdks/user/README.md#generatetoken)
+* [get](docs/sdks/user/README.md#get)
+* [getBackups](docs/sdks/user/README.md#getbackups)
+* [getContainerMetrics](docs/sdks/user/README.md#getcontainermetrics)
+* [getInvitations](docs/sdks/user/README.md#getinvitations)
+* [getMetricsToken](docs/sdks/user/README.md#getmetricstoken)
+* [getServerMetrics](docs/sdks/user/README.md#getservermetrics)
+* [getUserByToken](docs/sdks/user/README.md#getuserbytoken)
+* [haveRootAccess](docs/sdks/user/README.md#haverootaccess)
+* [getOne](docs/sdks/user/README.md#getone)
+* [sendInvitation](docs/sdks/user/README.md#sendinvitation)
+* [update](docs/sdks/user/README.md#update)
+
+### [users](docs/sdks/users/README.md)
+
+* [remove](docs/sdks/users/README.md#remove)
 
 ### [volumeBackups](docs/sdks/volumebackups/README.md)
 
-* [volumeBackupsList](docs/sdks/volumebackups/README.md#volumebackupslist)
-* [volumeBackupsCreate](docs/sdks/volumebackups/README.md#volumebackupscreate)
-* [volumeBackupsOne](docs/sdks/volumebackups/README.md#volumebackupsone)
-* [volumeBackupsDelete](docs/sdks/volumebackups/README.md#volumebackupsdelete)
-* [volumeBackupsUpdate](docs/sdks/volumebackups/README.md#volumebackupsupdate)
-* [volumeBackupsRunManually](docs/sdks/volumebackups/README.md#volumebackupsrunmanually)
+* [create](docs/sdks/volumebackups/README.md#create)
+* [delete](docs/sdks/volumebackups/README.md#delete)
+* [list](docs/sdks/volumebackups/README.md#list)
+* [runManually](docs/sdks/volumebackups/README.md#runmanually)
+* [update](docs/sdks/volumebackups/README.md#update)
+* [get](docs/sdks/volumebackups/README.md#get)
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -695,380 +720,380 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`adminAdminSetupMonitoring`](docs/sdks/admin/README.md#adminsetupmonitoring)
-- [`aiAiCreate`](docs/sdks/ai/README.md#aicreate)
-- [`aiAiDelete`](docs/sdks/ai/README.md#aidelete)
-- [`aiAiDeploy`](docs/sdks/ai/README.md#aideploy)
-- [`aiAiGet`](docs/sdks/ai/README.md#aiget)
-- [`aiAiGetAll`](docs/sdks/ai/README.md#aigetall)
-- [`aiAiGetModels`](docs/sdks/ai/README.md#aigetmodels)
-- [`aiAiOne`](docs/sdks/ai/README.md#aione)
-- [`aiAiSuggest`](docs/sdks/ai/README.md#aisuggest)
-- [`aiAiUpdate`](docs/sdks/ai/README.md#aiupdate)
-- [`applicationApplicationCancelDeployment`](docs/sdks/application/README.md#applicationcanceldeployment)
-- [`applicationApplicationCleanQueues`](docs/sdks/application/README.md#applicationcleanqueues)
-- [`applicationApplicationCreate`](docs/sdks/application/README.md#applicationcreate)
-- [`applicationApplicationDelete`](docs/sdks/application/README.md#applicationdelete)
-- [`applicationApplicationDeploy`](docs/sdks/application/README.md#applicationdeploy)
-- [`applicationApplicationDisconnectGitProvider`](docs/sdks/application/README.md#applicationdisconnectgitprovider)
-- [`applicationApplicationMarkRunning`](docs/sdks/application/README.md#applicationmarkrunning)
-- [`applicationApplicationMove`](docs/sdks/application/README.md#applicationmove)
-- [`applicationApplicationOne`](docs/sdks/application/README.md#applicationone)
-- [`applicationApplicationReadAppMonitoring`](docs/sdks/application/README.md#applicationreadappmonitoring)
-- [`applicationApplicationReadTraefikConfig`](docs/sdks/application/README.md#applicationreadtraefikconfig)
-- [`applicationApplicationRedeploy`](docs/sdks/application/README.md#applicationredeploy)
-- [`applicationApplicationRefreshToken`](docs/sdks/application/README.md#applicationrefreshtoken)
-- [`applicationApplicationReload`](docs/sdks/application/README.md#applicationreload)
-- [`applicationApplicationSaveBitbucketProvider`](docs/sdks/application/README.md#applicationsavebitbucketprovider)
-- [`applicationApplicationSaveBuildType`](docs/sdks/application/README.md#applicationsavebuildtype)
-- [`applicationApplicationSaveDockerProvider`](docs/sdks/application/README.md#applicationsavedockerprovider)
-- [`applicationApplicationSaveEnvironment`](docs/sdks/application/README.md#applicationsaveenvironment)
-- [`applicationApplicationSaveGiteaProvider`](docs/sdks/application/README.md#applicationsavegiteaprovider)
-- [`applicationApplicationSaveGithubProvider`](docs/sdks/application/README.md#applicationsavegithubprovider)
-- [`applicationApplicationSaveGitlabProvider`](docs/sdks/application/README.md#applicationsavegitlabprovider)
-- [`applicationApplicationSaveGitProdiver`](docs/sdks/application/README.md#applicationsavegitprodiver)
-- [`applicationApplicationStart`](docs/sdks/application/README.md#applicationstart)
-- [`applicationApplicationStop`](docs/sdks/application/README.md#applicationstop)
-- [`applicationApplicationUpdate`](docs/sdks/application/README.md#applicationupdate)
-- [`applicationApplicationUpdateTraefikConfig`](docs/sdks/application/README.md#applicationupdatetraefikconfig)
-- [`backupBackupCreate`](docs/sdks/backup/README.md#backupcreate)
-- [`backupBackupListBackupFiles`](docs/sdks/backup/README.md#backuplistbackupfiles)
-- [`backupBackupManualBackupCompose`](docs/sdks/backup/README.md#backupmanualbackupcompose)
-- [`backupBackupManualBackupMariadb`](docs/sdks/backup/README.md#backupmanualbackupmariadb)
-- [`backupBackupManualBackupMongo`](docs/sdks/backup/README.md#backupmanualbackupmongo)
-- [`backupBackupManualBackupMySql`](docs/sdks/backup/README.md#backupmanualbackupmysql)
-- [`backupBackupManualBackupPostgres`](docs/sdks/backup/README.md#backupmanualbackuppostgres)
-- [`backupBackupManualBackupWebServer`](docs/sdks/backup/README.md#backupmanualbackupwebserver)
-- [`backupBackupOne`](docs/sdks/backup/README.md#backupone)
-- [`backupBackupRemove`](docs/sdks/backup/README.md#backupremove)
-- [`backupBackupUpdate`](docs/sdks/backup/README.md#backupupdate)
-- [`bitbucketBitbucketBitbucketProviders`](docs/sdks/bitbucket/README.md#bitbucketbitbucketproviders)
-- [`bitbucketBitbucketCreate`](docs/sdks/bitbucket/README.md#bitbucketcreate)
-- [`bitbucketBitbucketGetBitbucketBranches`](docs/sdks/bitbucket/README.md#bitbucketgetbitbucketbranches)
-- [`bitbucketBitbucketGetBitbucketRepositories`](docs/sdks/bitbucket/README.md#bitbucketgetbitbucketrepositories)
-- [`bitbucketBitbucketOne`](docs/sdks/bitbucket/README.md#bitbucketone)
-- [`bitbucketBitbucketTestConnection`](docs/sdks/bitbucket/README.md#bitbuckettestconnection)
-- [`bitbucketBitbucketUpdate`](docs/sdks/bitbucket/README.md#bitbucketupdate)
-- [`certificatesCertificatesAll`](docs/sdks/certificates/README.md#certificatesall)
-- [`certificatesCertificatesCreate`](docs/sdks/certificates/README.md#certificatescreate)
-- [`certificatesCertificatesOne`](docs/sdks/certificates/README.md#certificatesone)
-- [`certificatesCertificatesRemove`](docs/sdks/certificates/README.md#certificatesremove)
-- [`clusterClusterAddManager`](docs/sdks/cluster/README.md#clusteraddmanager)
-- [`clusterClusterAddWorker`](docs/sdks/cluster/README.md#clusteraddworker)
-- [`clusterClusterGetNodes`](docs/sdks/cluster/README.md#clustergetnodes)
-- [`clusterClusterRemoveWorker`](docs/sdks/cluster/README.md#clusterremoveworker)
-- [`composeComposeCancelDeployment`](docs/sdks/compose/README.md#composecanceldeployment)
-- [`composeComposeCleanQueues`](docs/sdks/compose/README.md#composecleanqueues)
-- [`composeComposeCreate`](docs/sdks/compose/README.md#composecreate)
-- [`composeComposeDelete`](docs/sdks/compose/README.md#composedelete)
-- [`composeComposeDeploy`](docs/sdks/compose/README.md#composedeploy)
-- [`composeComposeDeployTemplate`](docs/sdks/compose/README.md#composedeploytemplate)
-- [`composeComposeDisconnectGitProvider`](docs/sdks/compose/README.md#composedisconnectgitprovider)
-- [`composeComposeFetchSourceType`](docs/sdks/compose/README.md#composefetchsourcetype)
-- [`composeComposeGetConvertedCompose`](docs/sdks/compose/README.md#composegetconvertedcompose)
-- [`composeComposeGetDefaultCommand`](docs/sdks/compose/README.md#composegetdefaultcommand)
-- [`composeComposeGetTags`](docs/sdks/compose/README.md#composegettags)
-- [`composeComposeImport`](docs/sdks/compose/README.md#composeimport)
-- [`composeComposeIsolatedDeployment`](docs/sdks/compose/README.md#composeisolateddeployment)
-- [`composeComposeLoadMountsByService`](docs/sdks/compose/README.md#composeloadmountsbyservice)
-- [`composeComposeMove`](docs/sdks/compose/README.md#composemove)
-- [`composeComposeOne`](docs/sdks/compose/README.md#composeone)
-- [`composeComposeProcessTemplate`](docs/sdks/compose/README.md#composeprocesstemplate)
-- [`composeComposeRandomizeCompose`](docs/sdks/compose/README.md#composerandomizecompose)
-- [`composeComposeRedeploy`](docs/sdks/compose/README.md#composeredeploy)
-- [`composeComposeRefreshToken`](docs/sdks/compose/README.md#composerefreshtoken)
-- [`composeComposeStart`](docs/sdks/compose/README.md#composestart)
-- [`composeComposeStop`](docs/sdks/compose/README.md#composestop)
-- [`composeComposeTemplates`](docs/sdks/compose/README.md#composetemplates)
-- [`composeComposeUpdate`](docs/sdks/compose/README.md#composeupdate)
-- [`deploymentDeploymentAll`](docs/sdks/deployment/README.md#deploymentall)
-- [`deploymentDeploymentAllByCompose`](docs/sdks/deployment/README.md#deploymentallbycompose)
-- [`deploymentDeploymentAllByServer`](docs/sdks/deployment/README.md#deploymentallbyserver)
-- [`deploymentDeploymentAllByType`](docs/sdks/deployment/README.md#deploymentallbytype)
-- [`deploymentDeploymentKillProcess`](docs/sdks/deployment/README.md#deploymentkillprocess)
-- [`destinationDestinationAll`](docs/sdks/destination/README.md#destinationall)
-- [`destinationDestinationCreate`](docs/sdks/destination/README.md#destinationcreate)
-- [`destinationDestinationOne`](docs/sdks/destination/README.md#destinationone)
-- [`destinationDestinationRemove`](docs/sdks/destination/README.md#destinationremove)
-- [`destinationDestinationTestConnection`](docs/sdks/destination/README.md#destinationtestconnection)
-- [`destinationDestinationUpdate`](docs/sdks/destination/README.md#destinationupdate)
-- [`dockerDockerGetConfig`](docs/sdks/docker/README.md#dockergetconfig)
-- [`dockerDockerGetContainers`](docs/sdks/docker/README.md#dockergetcontainers)
-- [`dockerDockerGetContainersByAppLabel`](docs/sdks/docker/README.md#dockergetcontainersbyapplabel)
-- [`dockerDockerGetContainersByAppNameMatch`](docs/sdks/docker/README.md#dockergetcontainersbyappnamematch)
-- [`dockerDockerGetServiceContainersByAppName`](docs/sdks/docker/README.md#dockergetservicecontainersbyappname)
-- [`dockerDockerGetStackContainersByAppName`](docs/sdks/docker/README.md#dockergetstackcontainersbyappname)
-- [`dockerDockerRestartContainer`](docs/sdks/docker/README.md#dockerrestartcontainer)
-- [`domainDomainByApplicationId`](docs/sdks/domain/README.md#domainbyapplicationid)
-- [`domainDomainByComposeId`](docs/sdks/domain/README.md#domainbycomposeid)
-- [`domainDomainCanGenerateTraefikMeDomains`](docs/sdks/domain/README.md#domaincangeneratetraefikmedomains)
-- [`domainDomainCreate`](docs/sdks/domain/README.md#domaincreate)
-- [`domainDomainDelete`](docs/sdks/domain/README.md#domaindelete)
-- [`domainDomainGenerateDomain`](docs/sdks/domain/README.md#domaingeneratedomain)
-- [`domainDomainOne`](docs/sdks/domain/README.md#domainone)
-- [`domainDomainUpdate`](docs/sdks/domain/README.md#domainupdate)
-- [`domainDomainValidateDomain`](docs/sdks/domain/README.md#domainvalidatedomain)
-- [`environmentEnvironmentByProjectId`](docs/sdks/environment/README.md#environmentbyprojectid)
-- [`environmentEnvironmentCreate`](docs/sdks/environment/README.md#environmentcreate)
-- [`environmentEnvironmentDuplicate`](docs/sdks/environment/README.md#environmentduplicate)
-- [`environmentEnvironmentOne`](docs/sdks/environment/README.md#environmentone)
-- [`environmentEnvironmentRemove`](docs/sdks/environment/README.md#environmentremove)
-- [`environmentEnvironmentUpdate`](docs/sdks/environment/README.md#environmentupdate)
-- [`giteaGiteaCreate`](docs/sdks/gitea/README.md#giteacreate)
-- [`giteaGiteaGetGiteaBranches`](docs/sdks/gitea/README.md#giteagetgiteabranches)
-- [`giteaGiteaGetGiteaRepositories`](docs/sdks/gitea/README.md#giteagetgitearepositories)
-- [`giteaGiteaGetGiteaUrl`](docs/sdks/gitea/README.md#giteagetgiteaurl)
-- [`giteaGiteaGiteaProviders`](docs/sdks/gitea/README.md#giteagiteaproviders)
-- [`giteaGiteaOne`](docs/sdks/gitea/README.md#giteaone)
-- [`giteaGiteaTestConnection`](docs/sdks/gitea/README.md#giteatestconnection)
-- [`giteaGiteaUpdate`](docs/sdks/gitea/README.md#giteaupdate)
-- [`githubGithubGetGithubBranches`](docs/sdks/github/README.md#githubgetgithubbranches)
-- [`githubGithubGetGithubRepositories`](docs/sdks/github/README.md#githubgetgithubrepositories)
-- [`githubGithubGithubProviders`](docs/sdks/github/README.md#githubgithubproviders)
-- [`githubGithubOne`](docs/sdks/github/README.md#githubone)
-- [`githubGithubTestConnection`](docs/sdks/github/README.md#githubtestconnection)
-- [`githubGithubUpdate`](docs/sdks/github/README.md#githubupdate)
-- [`gitlabGitlabCreate`](docs/sdks/gitlab/README.md#gitlabcreate)
-- [`gitlabGitlabGetGitlabBranches`](docs/sdks/gitlab/README.md#gitlabgetgitlabbranches)
-- [`gitlabGitlabGetGitlabRepositories`](docs/sdks/gitlab/README.md#gitlabgetgitlabrepositories)
-- [`gitlabGitlabGitlabProviders`](docs/sdks/gitlab/README.md#gitlabgitlabproviders)
-- [`gitlabGitlabOne`](docs/sdks/gitlab/README.md#gitlabone)
-- [`gitlabGitlabTestConnection`](docs/sdks/gitlab/README.md#gitlabtestconnection)
-- [`gitlabGitlabUpdate`](docs/sdks/gitlab/README.md#gitlabupdate)
-- [`gitProviderGitProviderGetAll`](docs/sdks/gitprovider/README.md#gitprovidergetall)
-- [`gitProviderGitProviderRemove`](docs/sdks/gitprovider/README.md#gitproviderremove)
-- [`mariadbMariadbChangeStatus`](docs/sdks/mariadb/README.md#mariadbchangestatus)
-- [`mariadbMariadbCreate`](docs/sdks/mariadb/README.md#mariadbcreate)
-- [`mariadbMariadbDeploy`](docs/sdks/mariadb/README.md#mariadbdeploy)
-- [`mariadbMariadbMove`](docs/sdks/mariadb/README.md#mariadbmove)
-- [`mariadbMariadbOne`](docs/sdks/mariadb/README.md#mariadbone)
-- [`mariadbMariadbRebuild`](docs/sdks/mariadb/README.md#mariadbrebuild)
-- [`mariadbMariadbReload`](docs/sdks/mariadb/README.md#mariadbreload)
-- [`mariadbMariadbRemove`](docs/sdks/mariadb/README.md#mariadbremove)
-- [`mariadbMariadbSaveEnvironment`](docs/sdks/mariadb/README.md#mariadbsaveenvironment)
-- [`mariadbMariadbSaveExternalPort`](docs/sdks/mariadb/README.md#mariadbsaveexternalport)
-- [`mariadbMariadbStart`](docs/sdks/mariadb/README.md#mariadbstart)
-- [`mariadbMariadbStop`](docs/sdks/mariadb/README.md#mariadbstop)
-- [`mariadbMariadbUpdate`](docs/sdks/mariadb/README.md#mariadbupdate)
-- [`mongoMongoChangeStatus`](docs/sdks/mongo/README.md#mongochangestatus)
-- [`mongoMongoCreate`](docs/sdks/mongo/README.md#mongocreate)
-- [`mongoMongoDeploy`](docs/sdks/mongo/README.md#mongodeploy)
-- [`mongoMongoMove`](docs/sdks/mongo/README.md#mongomove)
-- [`mongoMongoOne`](docs/sdks/mongo/README.md#mongoone)
-- [`mongoMongoRebuild`](docs/sdks/mongo/README.md#mongorebuild)
-- [`mongoMongoReload`](docs/sdks/mongo/README.md#mongoreload)
-- [`mongoMongoRemove`](docs/sdks/mongo/README.md#mongoremove)
-- [`mongoMongoSaveEnvironment`](docs/sdks/mongo/README.md#mongosaveenvironment)
-- [`mongoMongoSaveExternalPort`](docs/sdks/mongo/README.md#mongosaveexternalport)
-- [`mongoMongoStart`](docs/sdks/mongo/README.md#mongostart)
-- [`mongoMongoStop`](docs/sdks/mongo/README.md#mongostop)
-- [`mongoMongoUpdate`](docs/sdks/mongo/README.md#mongoupdate)
-- [`mountsMountsAllNamedByApplicationId`](docs/sdks/mounts/README.md#mountsallnamedbyapplicationid)
-- [`mountsMountsCreate`](docs/sdks/mounts/README.md#mountscreate)
-- [`mountsMountsOne`](docs/sdks/mounts/README.md#mountsone)
-- [`mountsMountsRemove`](docs/sdks/mounts/README.md#mountsremove)
-- [`mountsMountsUpdate`](docs/sdks/mounts/README.md#mountsupdate)
-- [`mysqlMysqlChangeStatus`](docs/sdks/mysql/README.md#mysqlchangestatus)
-- [`mysqlMysqlCreate`](docs/sdks/mysql/README.md#mysqlcreate)
-- [`mysqlMysqlDeploy`](docs/sdks/mysql/README.md#mysqldeploy)
-- [`mysqlMysqlMove`](docs/sdks/mysql/README.md#mysqlmove)
-- [`mysqlMysqlOne`](docs/sdks/mysql/README.md#mysqlone)
-- [`mysqlMysqlRebuild`](docs/sdks/mysql/README.md#mysqlrebuild)
-- [`mysqlMysqlReload`](docs/sdks/mysql/README.md#mysqlreload)
-- [`mysqlMysqlRemove`](docs/sdks/mysql/README.md#mysqlremove)
-- [`mysqlMysqlSaveEnvironment`](docs/sdks/mysql/README.md#mysqlsaveenvironment)
-- [`mysqlMysqlSaveExternalPort`](docs/sdks/mysql/README.md#mysqlsaveexternalport)
-- [`mysqlMysqlStart`](docs/sdks/mysql/README.md#mysqlstart)
-- [`mysqlMysqlStop`](docs/sdks/mysql/README.md#mysqlstop)
-- [`mysqlMysqlUpdate`](docs/sdks/mysql/README.md#mysqlupdate)
-- [`notificationNotificationAll`](docs/sdks/notification/README.md#notificationall)
-- [`notificationNotificationCreateDiscord`](docs/sdks/notification/README.md#notificationcreatediscord)
-- [`notificationNotificationCreateEmail`](docs/sdks/notification/README.md#notificationcreateemail)
-- [`notificationNotificationCreateGotify`](docs/sdks/notification/README.md#notificationcreategotify)
-- [`notificationNotificationCreateNtfy`](docs/sdks/notification/README.md#notificationcreatentfy)
-- [`notificationNotificationCreateSlack`](docs/sdks/notification/README.md#notificationcreateslack)
-- [`notificationNotificationCreateTelegram`](docs/sdks/notification/README.md#notificationcreatetelegram)
-- [`notificationNotificationGetEmailProviders`](docs/sdks/notification/README.md#notificationgetemailproviders)
-- [`notificationNotificationOne`](docs/sdks/notification/README.md#notificationone)
-- [`notificationNotificationReceiveNotification`](docs/sdks/notification/README.md#notificationreceivenotification)
-- [`notificationNotificationRemove`](docs/sdks/notification/README.md#notificationremove)
-- [`notificationNotificationTestDiscordConnection`](docs/sdks/notification/README.md#notificationtestdiscordconnection)
-- [`notificationNotificationTestEmailConnection`](docs/sdks/notification/README.md#notificationtestemailconnection)
-- [`notificationNotificationTestGotifyConnection`](docs/sdks/notification/README.md#notificationtestgotifyconnection)
-- [`notificationNotificationTestNtfyConnection`](docs/sdks/notification/README.md#notificationtestntfyconnection)
-- [`notificationNotificationTestSlackConnection`](docs/sdks/notification/README.md#notificationtestslackconnection)
-- [`notificationNotificationTestTelegramConnection`](docs/sdks/notification/README.md#notificationtesttelegramconnection)
-- [`notificationNotificationUpdateDiscord`](docs/sdks/notification/README.md#notificationupdatediscord)
-- [`notificationNotificationUpdateEmail`](docs/sdks/notification/README.md#notificationupdateemail)
-- [`notificationNotificationUpdateGotify`](docs/sdks/notification/README.md#notificationupdategotify)
-- [`notificationNotificationUpdateNtfy`](docs/sdks/notification/README.md#notificationupdatentfy)
-- [`notificationNotificationUpdateSlack`](docs/sdks/notification/README.md#notificationupdateslack)
-- [`notificationNotificationUpdateTelegram`](docs/sdks/notification/README.md#notificationupdatetelegram)
-- [`organizationOrganizationAll`](docs/sdks/organization/README.md#organizationall)
-- [`organizationOrganizationAllInvitations`](docs/sdks/organization/README.md#organizationallinvitations)
-- [`organizationOrganizationCreate`](docs/sdks/organization/README.md#organizationcreate)
-- [`organizationOrganizationDelete`](docs/sdks/organization/README.md#organizationdelete)
-- [`organizationOrganizationOne`](docs/sdks/organization/README.md#organizationone)
-- [`organizationOrganizationRemoveInvitation`](docs/sdks/organization/README.md#organizationremoveinvitation)
-- [`organizationOrganizationUpdate`](docs/sdks/organization/README.md#organizationupdate)
-- [`portPortCreate`](docs/sdks/port/README.md#portcreate)
-- [`portPortDelete`](docs/sdks/port/README.md#portdelete)
-- [`portPortOne`](docs/sdks/port/README.md#portone)
-- [`portPortUpdate`](docs/sdks/port/README.md#portupdate)
-- [`postgresPostgresChangeStatus`](docs/sdks/postgres/README.md#postgreschangestatus)
-- [`postgresPostgresCreate`](docs/sdks/postgres/README.md#postgrescreate)
-- [`postgresPostgresDeploy`](docs/sdks/postgres/README.md#postgresdeploy)
-- [`postgresPostgresMove`](docs/sdks/postgres/README.md#postgresmove)
-- [`postgresPostgresOne`](docs/sdks/postgres/README.md#postgresone)
-- [`postgresPostgresRebuild`](docs/sdks/postgres/README.md#postgresrebuild)
-- [`postgresPostgresReload`](docs/sdks/postgres/README.md#postgresreload)
-- [`postgresPostgresRemove`](docs/sdks/postgres/README.md#postgresremove)
-- [`postgresPostgresSaveEnvironment`](docs/sdks/postgres/README.md#postgressaveenvironment)
-- [`postgresPostgresSaveExternalPort`](docs/sdks/postgres/README.md#postgressaveexternalport)
-- [`postgresPostgresStart`](docs/sdks/postgres/README.md#postgresstart)
-- [`postgresPostgresStop`](docs/sdks/postgres/README.md#postgresstop)
-- [`postgresPostgresUpdate`](docs/sdks/postgres/README.md#postgresupdate)
-- [`previewDeploymentPreviewDeploymentAll`](docs/sdks/previewdeployment/README.md#previewdeploymentall)
-- [`previewDeploymentPreviewDeploymentDelete`](docs/sdks/previewdeployment/README.md#previewdeploymentdelete)
-- [`previewDeploymentPreviewDeploymentOne`](docs/sdks/previewdeployment/README.md#previewdeploymentone)
-- [`projectProjectAll`](docs/sdks/project/README.md#projectall)
-- [`projectProjectCreate`](docs/sdks/project/README.md#projectcreate)
-- [`projectProjectDuplicate`](docs/sdks/project/README.md#projectduplicate)
-- [`projectProjectOne`](docs/sdks/project/README.md#projectone)
-- [`projectProjectRemove`](docs/sdks/project/README.md#projectremove)
-- [`projectProjectUpdate`](docs/sdks/project/README.md#projectupdate)
-- [`redirectsRedirectsCreate`](docs/sdks/redirects/README.md#redirectscreate)
-- [`redirectsRedirectsDelete`](docs/sdks/redirects/README.md#redirectsdelete)
-- [`redirectsRedirectsOne`](docs/sdks/redirects/README.md#redirectsone)
-- [`redirectsRedirectsUpdate`](docs/sdks/redirects/README.md#redirectsupdate)
-- [`redisRedisChangeStatus`](docs/sdks/redis/README.md#redischangestatus)
-- [`redisRedisCreate`](docs/sdks/redis/README.md#rediscreate)
-- [`redisRedisDeploy`](docs/sdks/redis/README.md#redisdeploy)
-- [`redisRedisMove`](docs/sdks/redis/README.md#redismove)
-- [`redisRedisOne`](docs/sdks/redis/README.md#redisone)
-- [`redisRedisRebuild`](docs/sdks/redis/README.md#redisrebuild)
-- [`redisRedisReload`](docs/sdks/redis/README.md#redisreload)
-- [`redisRedisRemove`](docs/sdks/redis/README.md#redisremove)
-- [`redisRedisSaveEnvironment`](docs/sdks/redis/README.md#redissaveenvironment)
-- [`redisRedisSaveExternalPort`](docs/sdks/redis/README.md#redissaveexternalport)
-- [`redisRedisStart`](docs/sdks/redis/README.md#redisstart)
-- [`redisRedisStop`](docs/sdks/redis/README.md#redisstop)
-- [`redisRedisUpdate`](docs/sdks/redis/README.md#redisupdate)
-- [`registryRegistryAll`](docs/sdks/registry/README.md#registryall)
-- [`registryRegistryCreate`](docs/sdks/registry/README.md#registrycreate)
-- [`registryRegistryOne`](docs/sdks/registry/README.md#registryone)
-- [`registryRegistryRemove`](docs/sdks/registry/README.md#registryremove)
-- [`registryRegistryTestRegistry`](docs/sdks/registry/README.md#registrytestregistry)
-- [`registryRegistryUpdate`](docs/sdks/registry/README.md#registryupdate)
-- [`rollbackRollbackDelete`](docs/sdks/rollback/README.md#rollbackdelete)
-- [`rollbackRollbackRollback`](docs/sdks/rollback/README.md#rollbackrollback)
-- [`scheduleScheduleCreate`](docs/sdks/schedule/README.md#schedulecreate)
-- [`scheduleScheduleDelete`](docs/sdks/schedule/README.md#scheduledelete)
-- [`scheduleScheduleList`](docs/sdks/schedule/README.md#schedulelist)
-- [`scheduleScheduleOne`](docs/sdks/schedule/README.md#scheduleone)
-- [`scheduleScheduleRunManually`](docs/sdks/schedule/README.md#schedulerunmanually)
-- [`scheduleScheduleUpdate`](docs/sdks/schedule/README.md#scheduleupdate)
-- [`securitySecurityCreate`](docs/sdks/security/README.md#securitycreate)
-- [`securitySecurityDelete`](docs/sdks/security/README.md#securitydelete)
-- [`securitySecurityOne`](docs/sdks/security/README.md#securityone)
-- [`securitySecurityUpdate`](docs/sdks/security/README.md#securityupdate)
-- [`serverServerAll`](docs/sdks/server/README.md#serverall)
-- [`serverServerCount`](docs/sdks/server/README.md#servercount)
-- [`serverServerCreate`](docs/sdks/server/README.md#servercreate)
-- [`serverServerGetDefaultCommand`](docs/sdks/server/README.md#servergetdefaultcommand)
-- [`serverServerGetServerMetrics`](docs/sdks/server/README.md#servergetservermetrics)
-- [`serverServerOne`](docs/sdks/server/README.md#serverone)
-- [`serverServerPublicIp`](docs/sdks/server/README.md#serverpublicip)
-- [`serverServerRemove`](docs/sdks/server/README.md#serverremove)
-- [`serverServerSecurity`](docs/sdks/server/README.md#serversecurity)
-- [`serverServerSetup`](docs/sdks/server/README.md#serversetup)
-- [`serverServerSetupMonitoring`](docs/sdks/server/README.md#serversetupmonitoring)
-- [`serverServerUpdate`](docs/sdks/server/README.md#serverupdate)
-- [`serverServerValidate`](docs/sdks/server/README.md#servervalidate)
-- [`serverServerWithSSHKey`](docs/sdks/server/README.md#serverwithsshkey)
-- [`settingsSettingsAssignDomainServer`](docs/sdks/settings/README.md#settingsassigndomainserver)
-- [`settingsSettingsCheckGPUStatus`](docs/sdks/settings/README.md#settingscheckgpustatus)
-- [`settingsSettingsCleanAll`](docs/sdks/settings/README.md#settingscleanall)
-- [`settingsSettingsCleanDockerBuilder`](docs/sdks/settings/README.md#settingscleandockerbuilder)
-- [`settingsSettingsCleanDockerPrune`](docs/sdks/settings/README.md#settingscleandockerprune)
-- [`settingsSettingsCleanMonitoring`](docs/sdks/settings/README.md#settingscleanmonitoring)
-- [`settingsSettingsCleanRedis`](docs/sdks/settings/README.md#settingscleanredis)
-- [`settingsSettingsCleanSSHPrivateKey`](docs/sdks/settings/README.md#settingscleansshprivatekey)
-- [`settingsSettingsCleanStoppedContainers`](docs/sdks/settings/README.md#settingscleanstoppedcontainers)
-- [`settingsSettingsCleanUnusedImages`](docs/sdks/settings/README.md#settingscleanunusedimages)
-- [`settingsSettingsCleanUnusedVolumes`](docs/sdks/settings/README.md#settingscleanunusedvolumes)
-- [`settingsSettingsGetDokployCloudIps`](docs/sdks/settings/README.md#settingsgetdokploycloudips)
-- [`settingsSettingsGetDokployVersion`](docs/sdks/settings/README.md#settingsgetdokployversion)
-- [`settingsSettingsGetIp`](docs/sdks/settings/README.md#settingsgetip)
-- [`settingsSettingsGetLogCleanupStatus`](docs/sdks/settings/README.md#settingsgetlogcleanupstatus)
-- [`settingsSettingsGetOpenApiDocument`](docs/sdks/settings/README.md#settingsgetopenapidocument)
-- [`settingsSettingsGetReleaseTag`](docs/sdks/settings/README.md#settingsgetreleasetag)
-- [`settingsSettingsGetTraefikPorts`](docs/sdks/settings/README.md#settingsgettraefikports)
-- [`settingsSettingsGetUpdateData`](docs/sdks/settings/README.md#settingsgetupdatedata)
-- [`settingsSettingsHaveActivateRequests`](docs/sdks/settings/README.md#settingshaveactivaterequests)
-- [`settingsSettingsHaveTraefikDashboardPortEnabled`](docs/sdks/settings/README.md#settingshavetraefikdashboardportenabled)
-- [`settingsSettingsHealth`](docs/sdks/settings/README.md#settingshealth)
-- [`settingsSettingsIsCloud`](docs/sdks/settings/README.md#settingsiscloud)
-- [`settingsSettingsIsUserSubscribed`](docs/sdks/settings/README.md#settingsisusersubscribed)
-- [`settingsSettingsReadDirectories`](docs/sdks/settings/README.md#settingsreaddirectories)
-- [`settingsSettingsReadMiddlewareTraefikConfig`](docs/sdks/settings/README.md#settingsreadmiddlewaretraefikconfig)
-- [`settingsSettingsReadTraefikConfig`](docs/sdks/settings/README.md#settingsreadtraefikconfig)
-- [`settingsSettingsReadTraefikEnv`](docs/sdks/settings/README.md#settingsreadtraefikenv)
-- [`settingsSettingsReadTraefikFile`](docs/sdks/settings/README.md#settingsreadtraefikfile)
-- [`settingsSettingsReadWebServerTraefikConfig`](docs/sdks/settings/README.md#settingsreadwebservertraefikconfig)
-- [`settingsSettingsReloadRedis`](docs/sdks/settings/README.md#settingsreloadredis)
-- [`settingsSettingsReloadServer`](docs/sdks/settings/README.md#settingsreloadserver)
-- [`settingsSettingsReloadTraefik`](docs/sdks/settings/README.md#settingsreloadtraefik)
-- [`settingsSettingsSaveSSHPrivateKey`](docs/sdks/settings/README.md#settingssavesshprivatekey)
-- [`settingsSettingsSetupGPU`](docs/sdks/settings/README.md#settingssetupgpu)
-- [`settingsSettingsToggleDashboard`](docs/sdks/settings/README.md#settingstoggledashboard)
-- [`settingsSettingsToggleRequests`](docs/sdks/settings/README.md#settingstogglerequests)
-- [`settingsSettingsUpdateDockerCleanup`](docs/sdks/settings/README.md#settingsupdatedockercleanup)
-- [`settingsSettingsUpdateLogCleanup`](docs/sdks/settings/README.md#settingsupdatelogcleanup)
-- [`settingsSettingsUpdateMiddlewareTraefikConfig`](docs/sdks/settings/README.md#settingsupdatemiddlewaretraefikconfig)
-- [`settingsSettingsUpdateServer`](docs/sdks/settings/README.md#settingsupdateserver)
-- [`settingsSettingsUpdateTraefikConfig`](docs/sdks/settings/README.md#settingsupdatetraefikconfig)
-- [`settingsSettingsUpdateTraefikFile`](docs/sdks/settings/README.md#settingsupdatetraefikfile)
-- [`settingsSettingsUpdateTraefikPorts`](docs/sdks/settings/README.md#settingsupdatetraefikports)
-- [`settingsSettingsUpdateWebServerTraefikConfig`](docs/sdks/settings/README.md#settingsupdatewebservertraefikconfig)
-- [`settingsSettingsWriteTraefikEnv`](docs/sdks/settings/README.md#settingswritetraefikenv)
-- [`sshKeySshKeyAll`](docs/sdks/sshkey/README.md#sshkeyall)
-- [`sshKeySshKeyCreate`](docs/sdks/sshkey/README.md#sshkeycreate)
-- [`sshKeySshKeyGenerate`](docs/sdks/sshkey/README.md#sshkeygenerate)
-- [`sshKeySshKeyOne`](docs/sdks/sshkey/README.md#sshkeyone)
-- [`sshKeySshKeyRemove`](docs/sdks/sshkey/README.md#sshkeyremove)
-- [`sshKeySshKeyUpdate`](docs/sdks/sshkey/README.md#sshkeyupdate)
-- [`stripeStripeCanCreateMoreServers`](docs/sdks/stripe/README.md#stripecancreatemoreservers)
-- [`stripeStripeCreateCheckoutSession`](docs/sdks/stripe/README.md#stripecreatecheckoutsession)
-- [`stripeStripeCreateCustomerPortalSession`](docs/sdks/stripe/README.md#stripecreatecustomerportalsession)
-- [`stripeStripeGetProducts`](docs/sdks/stripe/README.md#stripegetproducts)
-- [`swarmSwarmGetNodeApps`](docs/sdks/swarm/README.md#swarmgetnodeapps)
-- [`swarmSwarmGetNodeInfo`](docs/sdks/swarm/README.md#swarmgetnodeinfo)
-- [`swarmSwarmGetNodes`](docs/sdks/swarm/README.md#swarmgetnodes)
-- [`userUserAll`](docs/sdks/user/README.md#userall)
-- [`userUserAssignPermissions`](docs/sdks/user/README.md#userassignpermissions)
-- [`userUserCheckUserOrganizations`](docs/sdks/user/README.md#usercheckuserorganizations)
-- [`userUserCreateApiKey`](docs/sdks/user/README.md#usercreateapikey)
-- [`userUserDeleteApiKey`](docs/sdks/user/README.md#userdeleteapikey)
-- [`userUserGenerateToken`](docs/sdks/user/README.md#usergeneratetoken)
-- [`userUserGet`](docs/sdks/user/README.md#userget)
-- [`userUserGetBackups`](docs/sdks/user/README.md#usergetbackups)
-- [`userUserGetContainerMetrics`](docs/sdks/user/README.md#usergetcontainermetrics)
-- [`userUserGetInvitations`](docs/sdks/user/README.md#usergetinvitations)
-- [`userUserGetMetricsToken`](docs/sdks/user/README.md#usergetmetricstoken)
-- [`userUserGetServerMetrics`](docs/sdks/user/README.md#usergetservermetrics)
-- [`userUserGetUserByToken`](docs/sdks/user/README.md#usergetuserbytoken)
-- [`userUserHaveRootAccess`](docs/sdks/user/README.md#userhaverootaccess)
-- [`userUserOne`](docs/sdks/user/README.md#userone)
-- [`userUserRemove`](docs/sdks/user/README.md#userremove)
-- [`userUserSendInvitation`](docs/sdks/user/README.md#usersendinvitation)
-- [`userUserUpdate`](docs/sdks/user/README.md#userupdate)
-- [`volumeBackupsVolumeBackupsCreate`](docs/sdks/volumebackups/README.md#volumebackupscreate)
-- [`volumeBackupsVolumeBackupsDelete`](docs/sdks/volumebackups/README.md#volumebackupsdelete)
-- [`volumeBackupsVolumeBackupsList`](docs/sdks/volumebackups/README.md#volumebackupslist)
-- [`volumeBackupsVolumeBackupsOne`](docs/sdks/volumebackups/README.md#volumebackupsone)
-- [`volumeBackupsVolumeBackupsRunManually`](docs/sdks/volumebackups/README.md#volumebackupsrunmanually)
-- [`volumeBackupsVolumeBackupsUpdate`](docs/sdks/volumebackups/README.md#volumebackupsupdate)
+- [`adminSetupMonitoring`](docs/sdks/admin/README.md#setupmonitoring)
+- [`aiCreate`](docs/sdks/ai/README.md#create)
+- [`aiDelete`](docs/sdks/ai/README.md#delete)
+- [`aiDeploy`](docs/sdks/ai/README.md#deploy)
+- [`aiGet`](docs/sdks/ai/README.md#get)
+- [`aiGetAll`](docs/sdks/ai/README.md#getall)
+- [`aiGetModels`](docs/sdks/ai/README.md#getmodels)
+- [`aiGetOne`](docs/sdks/ai/README.md#getone)
+- [`aiSuggest`](docs/sdks/ai/README.md#suggest)
+- [`aiUpdate`](docs/sdks/ai/README.md#update)
+- [`applicationCancelDeployment`](docs/sdks/application/README.md#canceldeployment)
+- [`applicationCleanQueues`](docs/sdks/application/README.md#cleanqueues)
+- [`applicationCreate`](docs/sdks/application/README.md#create)
+- [`applicationDelete`](docs/sdks/application/README.md#delete)
+- [`applicationDeploy`](docs/sdks/application/README.md#deploy)
+- [`applicationDisconnectGitProvider`](docs/sdks/application/README.md#disconnectgitprovider)
+- [`applicationGet`](docs/sdks/application/README.md#get)
+- [`applicationMarkRunning`](docs/sdks/application/README.md#markrunning)
+- [`applicationReadAppMonitoring`](docs/sdks/application/README.md#readappmonitoring)
+- [`applicationRedeploy`](docs/sdks/application/README.md#redeploy)
+- [`applicationReload`](docs/sdks/application/README.md#reload)
+- [`applicationSaveBitbucketProvider`](docs/sdks/application/README.md#savebitbucketprovider)
+- [`applicationSaveBuildType`](docs/sdks/application/README.md#savebuildtype)
+- [`applicationSaveDockerProvider`](docs/sdks/application/README.md#savedockerprovider)
+- [`applicationSaveEnvironment`](docs/sdks/application/README.md#saveenvironment)
+- [`applicationSaveGiteaProvider`](docs/sdks/application/README.md#savegiteaprovider)
+- [`applicationSaveGitlabProvider`](docs/sdks/application/README.md#savegitlabprovider)
+- [`applicationSaveGitProdiver`](docs/sdks/application/README.md#savegitprodiver)
+- [`applicationsMove`](docs/sdks/applications/README.md#move)
+- [`applicationsReadTraefikConfig`](docs/sdks/applications/README.md#readtraefikconfig)
+- [`applicationsRefreshToken`](docs/sdks/applications/README.md#refreshtoken)
+- [`applicationsSaveGithubProvider`](docs/sdks/applications/README.md#savegithubprovider)
+- [`applicationsStart`](docs/sdks/applications/README.md#start)
+- [`applicationStop`](docs/sdks/application/README.md#stop)
+- [`applicationUpdate`](docs/sdks/application/README.md#update)
+- [`applicationUpdateTraefikConfig`](docs/sdks/application/README.md#updatetraefikconfig)
+- [`backupCreate`](docs/sdks/backup/README.md#create)
+- [`backupListFiles`](docs/sdks/backup/README.md#listfiles)
+- [`backupManualBackupCompose`](docs/sdks/backup/README.md#manualbackupcompose)
+- [`backupManualBackupMariadb`](docs/sdks/backup/README.md#manualbackupmariadb)
+- [`backupManualBackupMongo`](docs/sdks/backup/README.md#manualbackupmongo)
+- [`backupManualBackupMySql`](docs/sdks/backup/README.md#manualbackupmysql)
+- [`backupManualBackupPostgres`](docs/sdks/backup/README.md#manualbackuppostgres)
+- [`backupManualBackupWebServer`](docs/sdks/backup/README.md#manualbackupwebserver)
+- [`backupOne`](docs/sdks/backup/README.md#one)
+- [`backupRemove`](docs/sdks/backup/README.md#remove)
+- [`backupUpdate`](docs/sdks/backup/README.md#update)
+- [`bitbucketCreate`](docs/sdks/bitbucket/README.md#create)
+- [`bitbucketGetBranches`](docs/sdks/bitbucket/README.md#getbranches)
+- [`bitbucketGetOne`](docs/sdks/bitbucket/README.md#getone)
+- [`bitbucketGetProviders`](docs/sdks/bitbucketget/README.md#providers)
+- [`bitbucketGetRepositories`](docs/sdks/bitbucket/README.md#getrepositories)
+- [`bitbucketTestConnection`](docs/sdks/bitbucket/README.md#testconnection)
+- [`bitbucketUpdate`](docs/sdks/bitbucket/README.md#update)
+- [`certificatesCreate`](docs/sdks/certificates/README.md#create)
+- [`certificatesGet`](docs/sdks/certificates/README.md#get)
+- [`certificatesGetAll`](docs/sdks/certificates/README.md#getall)
+- [`certificatesRemove`](docs/sdks/certificates/README.md#remove)
+- [`clusterAddManager`](docs/sdks/cluster/README.md#addmanager)
+- [`clusterAddWorker`](docs/sdks/cluster/README.md#addworker)
+- [`clusterGetNodes`](docs/sdks/cluster/README.md#getnodes)
+- [`clusterRemoveWorker`](docs/sdks/cluster/README.md#removeworker)
+- [`composeCancelDeployment`](docs/sdks/compose/README.md#canceldeployment)
+- [`composeCleanQueues`](docs/sdks/compose/README.md#cleanqueues)
+- [`composeCreate`](docs/sdks/compose/README.md#create)
+- [`composeDelete`](docs/sdks/compose/README.md#delete)
+- [`composeDeploy`](docs/sdks/compose/README.md#deploy)
+- [`composeDeployTemplate`](docs/sdks/compose/README.md#deploytemplate)
+- [`composeDisconnectGitprovider`](docs/sdks/compose/README.md#disconnectgitprovider)
+- [`composeFetchSourceType`](docs/sdks/compose/README.md#fetchsourcetype)
+- [`composeGetConvertedCompose`](docs/sdks/compose/README.md#getconvertedcompose)
+- [`composeGetDefaultCommand`](docs/sdks/compose/README.md#getdefaultcommand)
+- [`composeGetTags`](docs/sdks/compose/README.md#gettags)
+- [`composeGetTemplates`](docs/sdks/compose/README.md#gettemplates)
+- [`composeImport`](docs/sdks/compose/README.md#import)
+- [`composeIsolatedDeployment`](docs/sdks/compose/README.md#isolateddeployment)
+- [`composeLoadMountsByService`](docs/sdks/compose/README.md#loadmountsbyservice)
+- [`composeMove`](docs/sdks/compose/README.md#move)
+- [`composeOne`](docs/sdks/compose/README.md#one)
+- [`composeProcessTemplate`](docs/sdks/compose/README.md#processtemplate)
+- [`composeRandomizeCompose`](docs/sdks/compose/README.md#randomizecompose)
+- [`composeRedeploy`](docs/sdks/compose/README.md#redeploy)
+- [`composeRefreshToken`](docs/sdks/compose/README.md#refreshtoken)
+- [`composeStart`](docs/sdks/compose/README.md#start)
+- [`composeStop`](docs/sdks/compose/README.md#stop)
+- [`composeUpdate`](docs/sdks/compose/README.md#update)
+- [`deploymentAll`](docs/sdks/deployment/README.md#all)
+- [`deploymentAllByServer`](docs/sdks/deployment/README.md#allbyserver)
+- [`deploymentGetAllByCompose`](docs/sdks/deployment/README.md#getallbycompose)
+- [`deploymentGetAllByType`](docs/sdks/deployment/README.md#getallbytype)
+- [`deploymentKillProcess`](docs/sdks/deployment/README.md#killprocess)
+- [`destinationCreate`](docs/sdks/destination/README.md#create)
+- [`destinationGet`](docs/sdks/destination/README.md#get)
+- [`destinationGetAll`](docs/sdks/destination/README.md#getall)
+- [`destinationRemove`](docs/sdks/destination/README.md#remove)
+- [`destinationTestConnection`](docs/sdks/destination/README.md#testconnection)
+- [`destinationUpdate`](docs/sdks/destination/README.md#update)
+- [`dockerGetConfig`](docs/sdks/docker/README.md#getconfig)
+- [`dockerGetContainers`](docs/sdks/docker/README.md#getcontainers)
+- [`dockerGetContainersByAppLabel`](docs/sdks/docker/README.md#getcontainersbyapplabel)
+- [`dockerGetContainersByAppNameMatch`](docs/sdks/docker/README.md#getcontainersbyappnamematch)
+- [`dockerGetServiceContainersByAppName`](docs/sdks/dockerget/README.md#servicecontainersbyappname)
+- [`dockerGetStackContainersByAppName`](docs/sdks/dockerget/README.md#stackcontainersbyappname)
+- [`dockerRestartContainer`](docs/sdks/docker/README.md#restartcontainer)
+- [`domainByApplicationId`](docs/sdks/domain/README.md#byapplicationid)
+- [`domainCanGenerateTraefikDomains`](docs/sdks/domain/README.md#cangeneratetraefikdomains)
+- [`domainCreate`](docs/sdks/domain/README.md#create)
+- [`domainDelete`](docs/sdks/domain/README.md#delete)
+- [`domainGenerateDomain`](docs/sdks/domain/README.md#generatedomain)
+- [`domainGetByComposeId`](docs/sdks/domain/README.md#getbycomposeid)
+- [`domainsGet`](docs/sdks/domains/README.md#get)
+- [`domainUpdate`](docs/sdks/domain/README.md#update)
+- [`domainValidateDomain`](docs/sdks/domain/README.md#validatedomain)
+- [`environmentByProjectId`](docs/sdks/environment/README.md#byprojectid)
+- [`environmentCreate`](docs/sdks/environment/README.md#create)
+- [`environmentDuplicate`](docs/sdks/environment/README.md#duplicate)
+- [`environmentGet`](docs/sdks/environment/README.md#get)
+- [`environmentRemove`](docs/sdks/environment/README.md#remove)
+- [`environmentUpdate`](docs/sdks/environment/README.md#update)
+- [`giteaCreate`](docs/sdks/gitea/README.md#create)
+- [`giteaGet`](docs/sdks/gitea/README.md#get)
+- [`giteaGetBranches`](docs/sdks/gitea/README.md#getbranches)
+- [`giteaGetProviders`](docs/sdks/gitea/README.md#getproviders)
+- [`giteaGetRepositories`](docs/sdks/gitea/README.md#getrepositories)
+- [`giteaGetUrl`](docs/sdks/gitea/README.md#geturl)
+- [`giteaTestConnection`](docs/sdks/gitea/README.md#testconnection)
+- [`giteaUpdate`](docs/sdks/gitea/README.md#update)
+- [`githubGetBranches`](docs/sdks/githubget/README.md#branches)
+- [`githubGetGithubRepositories`](docs/sdks/github/README.md#getgithubrepositories)
+- [`githubGetProviders`](docs/sdks/github/README.md#getproviders)
+- [`githubOne`](docs/sdks/github/README.md#one)
+- [`githubTestConnection`](docs/sdks/github/README.md#testconnection)
+- [`githubUpdate`](docs/sdks/github/README.md#update)
+- [`gitlabCreate`](docs/sdks/gitlab/README.md#create)
+- [`gitlabGetBranches`](docs/sdks/gitlab/README.md#getbranches)
+- [`gitlabGetGitlabRepositories`](docs/sdks/gitlab/README.md#getgitlabrepositories)
+- [`gitlabGetProviders`](docs/sdks/gitlab/README.md#getproviders)
+- [`gitlabOne`](docs/sdks/gitlab/README.md#one)
+- [`gitlabTestConnection`](docs/sdks/gitlab/README.md#testconnection)
+- [`gitlabUpdate`](docs/sdks/gitlab/README.md#update)
+- [`gitproviderRemove`](docs/sdks/gitprovider/README.md#remove)
+- [`gitProvidersGetAll`](docs/sdks/gitproviders/README.md#getall)
+- [`mariadbChangeStatus`](docs/sdks/mariadb/README.md#changestatus)
+- [`mariadbCreate`](docs/sdks/mariadb/README.md#create)
+- [`mariadbDeploy`](docs/sdks/mariadb/README.md#deploy)
+- [`mariadbGet`](docs/sdks/mariadb/README.md#get)
+- [`mariadbMove`](docs/sdks/mariadb/README.md#move)
+- [`mariadbRebuild`](docs/sdks/mariadb/README.md#rebuild)
+- [`mariadbReload`](docs/sdks/mariadb/README.md#reload)
+- [`mariadbRemove`](docs/sdks/mariadb/README.md#remove)
+- [`mariadbSaveEnvironment`](docs/sdks/mariadb/README.md#saveenvironment)
+- [`mariadbSaveExternalPort`](docs/sdks/mariadb/README.md#saveexternalport)
+- [`mariadbStart`](docs/sdks/mariadb/README.md#start)
+- [`mariadbStop`](docs/sdks/mariadb/README.md#stop)
+- [`mariadbUpdate`](docs/sdks/mariadb/README.md#update)
+- [`mongoChangeStatus`](docs/sdks/mongo/README.md#changestatus)
+- [`mongoCreate`](docs/sdks/mongo/README.md#create)
+- [`mongoDeploy`](docs/sdks/mongo/README.md#deploy)
+- [`mongoGetOne`](docs/sdks/mongo/README.md#getone)
+- [`mongoMove`](docs/sdks/mongo/README.md#move)
+- [`mongoRebuild`](docs/sdks/mongo/README.md#rebuild)
+- [`mongoReload`](docs/sdks/mongo/README.md#reload)
+- [`mongoRemove`](docs/sdks/mongo/README.md#remove)
+- [`mongoSaveEnvironment`](docs/sdks/mongo/README.md#saveenvironment)
+- [`mongoSaveExternalPort`](docs/sdks/mongo/README.md#saveexternalport)
+- [`mongoStart`](docs/sdks/mongo/README.md#start)
+- [`mongoStop`](docs/sdks/mongo/README.md#stop)
+- [`mongoUpdate`](docs/sdks/mongo/README.md#update)
+- [`mountsAllNamedByApplicationId`](docs/sdks/mounts/README.md#allnamedbyapplicationid)
+- [`mountsCreate`](docs/sdks/mounts/README.md#create)
+- [`mountsGet`](docs/sdks/mounts/README.md#get)
+- [`mountsRemove`](docs/sdks/mounts/README.md#remove)
+- [`mountsUpdate`](docs/sdks/mounts/README.md#update)
+- [`mysqlChangeStatus`](docs/sdks/mysql/README.md#changestatus)
+- [`mysqlCreate`](docs/sdks/mysql/README.md#create)
+- [`mysqlDeploy`](docs/sdks/mysql/README.md#deploy)
+- [`mysqlGet`](docs/sdks/mysql/README.md#get)
+- [`mysqlMove`](docs/sdks/mysql/README.md#move)
+- [`mysqlRebuild`](docs/sdks/mysql/README.md#rebuild)
+- [`mysqlReload`](docs/sdks/mysql/README.md#reload)
+- [`mysqlRemove`](docs/sdks/mysql/README.md#remove)
+- [`mysqlSaveEnvironment`](docs/sdks/mysql/README.md#saveenvironment)
+- [`mysqlSaveExternalPort`](docs/sdks/mysql/README.md#saveexternalport)
+- [`mysqlStart`](docs/sdks/mysql/README.md#start)
+- [`mysqlStop`](docs/sdks/mysql/README.md#stop)
+- [`mysqlUpdate`](docs/sdks/mysql/README.md#update)
+- [`notificationCreateDiscord`](docs/sdks/notification/README.md#creatediscord)
+- [`notificationCreateEmail`](docs/sdks/notification/README.md#createemail)
+- [`notificationCreateGotify`](docs/sdks/notification/README.md#creategotify)
+- [`notificationCreateNtfy`](docs/sdks/notification/README.md#createntfy)
+- [`notificationCreateSlack`](docs/sdks/notification/README.md#createslack)
+- [`notificationCreateTelegram`](docs/sdks/notification/README.md#createtelegram)
+- [`notificationGet`](docs/sdks/notification/README.md#get)
+- [`notificationGetEmailProviders`](docs/sdks/notification/README.md#getemailproviders)
+- [`notificationReceiveNotification`](docs/sdks/notification/README.md#receivenotification)
+- [`notificationRemove`](docs/sdks/notification/README.md#remove)
+- [`notificationsGetAll`](docs/sdks/notifications/README.md#getall)
+- [`notificationTestDiscordConnection`](docs/sdks/notification/README.md#testdiscordconnection)
+- [`notificationTestEmailConnection`](docs/sdks/notification/README.md#testemailconnection)
+- [`notificationTestGotifyConnection`](docs/sdks/notification/README.md#testgotifyconnection)
+- [`notificationTestNtfyConnection`](docs/sdks/notification/README.md#testntfyconnection)
+- [`notificationTestSlackConnection`](docs/sdks/notification/README.md#testslackconnection)
+- [`notificationTestTelegramConnection`](docs/sdks/notification/README.md#testtelegramconnection)
+- [`notificationUpdateDiscord`](docs/sdks/notification/README.md#updatediscord)
+- [`notificationUpdateEmail`](docs/sdks/notification/README.md#updateemail)
+- [`notificationUpdateGotify`](docs/sdks/notification/README.md#updategotify)
+- [`notificationUpdateNtfy`](docs/sdks/notification/README.md#updatentfy)
+- [`notificationUpdateSlack`](docs/sdks/notification/README.md#updateslack)
+- [`notificationUpdateTelegram`](docs/sdks/notification/README.md#updatetelegram)
+- [`organizationAllInvitations`](docs/sdks/organization/README.md#allinvitations)
+- [`organizationCreate`](docs/sdks/organization/README.md#create)
+- [`organizationDelete`](docs/sdks/organization/README.md#delete)
+- [`organizationGet`](docs/sdks/organization/README.md#get)
+- [`organizationGetAll`](docs/sdks/organization/README.md#getall)
+- [`organizationRemoveInvitation`](docs/sdks/organization/README.md#removeinvitation)
+- [`organizationUpdate`](docs/sdks/organization/README.md#update)
+- [`portCreate`](docs/sdks/port/README.md#create)
+- [`portDelete`](docs/sdks/port/README.md#delete)
+- [`portGet`](docs/sdks/port/README.md#get)
+- [`portUpdate`](docs/sdks/port/README.md#update)
+- [`postgresChangeStatus`](docs/sdks/postgres/README.md#changestatus)
+- [`postgresCreate`](docs/sdks/postgres/README.md#create)
+- [`postgresDeploy`](docs/sdks/postgres/README.md#deploy)
+- [`postgresGet`](docs/sdks/postgres/README.md#get)
+- [`postgresMove`](docs/sdks/postgres/README.md#move)
+- [`postgresRebuild`](docs/sdks/postgres/README.md#rebuild)
+- [`postgresReload`](docs/sdks/postgres/README.md#reload)
+- [`postgresRemove`](docs/sdks/postgres/README.md#remove)
+- [`postgresSaveEnvironment`](docs/sdks/postgres/README.md#saveenvironment)
+- [`postgresSaveExternalPort`](docs/sdks/postgres/README.md#saveexternalport)
+- [`postgresStart`](docs/sdks/postgres/README.md#start)
+- [`postgresStop`](docs/sdks/postgres/README.md#stop)
+- [`postgresUpdate`](docs/sdks/postgres/README.md#update)
+- [`previewDeploymentDelete`](docs/sdks/previewdeployment/README.md#delete)
+- [`previewDeploymentGet`](docs/sdks/previewdeployment/README.md#get)
+- [`previewDeploymentGetAll`](docs/sdks/previewdeployment/README.md#getall)
+- [`projectCreate`](docs/sdks/project/README.md#create)
+- [`projectDuplicate`](docs/sdks/project/README.md#duplicate)
+- [`projectGet`](docs/sdks/project/README.md#get)
+- [`projectGetAll`](docs/sdks/project/README.md#getall)
+- [`projectsRemove`](docs/sdks/projects/README.md#remove)
+- [`projectUpdate`](docs/sdks/project/README.md#update)
+- [`redirectsCreate`](docs/sdks/redirects/README.md#create)
+- [`redirectsDelete`](docs/sdks/redirects/README.md#delete)
+- [`redirectsGet`](docs/sdks/redirects/README.md#get)
+- [`redirectsUpdate`](docs/sdks/redirects/README.md#update)
+- [`redisChangeStatus`](docs/sdks/redis/README.md#changestatus)
+- [`redisCreate`](docs/sdks/redis/README.md#create)
+- [`redisDeploy`](docs/sdks/redis/README.md#deploy)
+- [`redisGetOne`](docs/sdks/redis/README.md#getone)
+- [`redisMove`](docs/sdks/redis/README.md#move)
+- [`redisRebuild`](docs/sdks/redis/README.md#rebuild)
+- [`redisReload`](docs/sdks/redis/README.md#reload)
+- [`redisRemove`](docs/sdks/redis/README.md#remove)
+- [`redisSaveEnvironment`](docs/sdks/redis/README.md#saveenvironment)
+- [`redisSaveExternalPort`](docs/sdks/redis/README.md#saveexternalport)
+- [`redisStart`](docs/sdks/redis/README.md#start)
+- [`redisStop`](docs/sdks/redis/README.md#stop)
+- [`redisUpdate`](docs/sdks/redis/README.md#update)
+- [`registryCreate`](docs/sdks/registry/README.md#create)
+- [`registryGetAll`](docs/sdks/registry/README.md#getall)
+- [`registryOne`](docs/sdks/registry/README.md#one)
+- [`registryRemove`](docs/sdks/registry/README.md#remove)
+- [`registryTestRegistry`](docs/sdks/registry/README.md#testregistry)
+- [`registryUpdate`](docs/sdks/registry/README.md#update)
+- [`rollbackDelete`](docs/sdks/rollback/README.md#delete)
+- [`rollbackExecute`](docs/sdks/rollback/README.md#execute)
+- [`scheduleCreate`](docs/sdks/schedule/README.md#create)
+- [`scheduleDelete`](docs/sdks/schedule/README.md#delete)
+- [`scheduleGet`](docs/sdks/schedule/README.md#get)
+- [`scheduleList`](docs/sdks/schedule/README.md#list)
+- [`scheduleRunManually`](docs/sdks/schedule/README.md#runmanually)
+- [`scheduleUpdate`](docs/sdks/schedule/README.md#update)
+- [`securityCreate`](docs/sdks/security/README.md#create)
+- [`securityDelete`](docs/sdks/security/README.md#delete)
+- [`securityGet`](docs/sdks/security/README.md#get)
+- [`securityUpdate`](docs/sdks/security/README.md#update)
+- [`serverCount`](docs/sdks/server/README.md#count)
+- [`serverCreate`](docs/sdks/server/README.md#create)
+- [`serverGet`](docs/sdks/server/README.md#get)
+- [`serverGetAll`](docs/sdks/server/README.md#getall)
+- [`serverGetDefaultCommand`](docs/sdks/server/README.md#getdefaultcommand)
+- [`serverGetSecurity`](docs/sdks/server/README.md#getsecurity)
+- [`serverGetServerMetrics`](docs/sdks/server/README.md#getservermetrics)
+- [`serverPublicIp`](docs/sdks/server/README.md#publicip)
+- [`serverRemove`](docs/sdks/server/README.md#remove)
+- [`serverSetup`](docs/sdks/server/README.md#setup)
+- [`serverSetupMonitoring`](docs/sdks/server/README.md#setupmonitoring)
+- [`serversGetWithSshKey`](docs/sdks/servers/README.md#getwithsshkey)
+- [`serverUpdate`](docs/sdks/server/README.md#update)
+- [`serverValidate`](docs/sdks/server/README.md#validate)
+- [`settingsAssignDomainServer`](docs/sdks/settings/README.md#assigndomainserver)
+- [`settingsCheckGpuStatus`](docs/sdks/settings/README.md#checkgpustatus)
+- [`settingsCleanAll`](docs/sdks/settings/README.md#cleanall)
+- [`settingsCleanDockerBuilder`](docs/sdks/settings/README.md#cleandockerbuilder)
+- [`settingsCleanDockerPrune`](docs/sdks/settings/README.md#cleandockerprune)
+- [`settingsCleanMonitoring`](docs/sdks/settings/README.md#cleanmonitoring)
+- [`settingsCleanRedis`](docs/sdks/settings/README.md#cleanredis)
+- [`settingsCleanSshPrivateKey`](docs/sdks/settings/README.md#cleansshprivatekey)
+- [`settingsCleanStoppedContainers`](docs/sdks/settings/README.md#cleanstoppedcontainers)
+- [`settingsCleanUnusedImages`](docs/sdks/settings/README.md#cleanunusedimages)
+- [`settingsCleanUnusedVolumes`](docs/sdks/settings/README.md#cleanunusedvolumes)
+- [`settingsGet`](docs/sdks/settings/README.md#get)
+- [`settingsGetDokployCloudIps`](docs/sdks/settings/README.md#getdokploycloudips)
+- [`settingsGetDokployVersion`](docs/sdks/settings/README.md#getdokployversion)
+- [`settingsGetIp`](docs/sdks/settings/README.md#getip)
+- [`settingsGetLogCleanupStatus`](docs/sdks/settings/README.md#getlogcleanupstatus)
+- [`settingsGetOpenApiDocument`](docs/sdks/settings/README.md#getopenapidocument)
+- [`settingsGetReleaseTag`](docs/sdks/settings/README.md#getreleasetag)
+- [`settingsGetTraefikPorts`](docs/sdks/settings/README.md#gettraefikports)
+- [`settingsGetUpdateData`](docs/sdks/settings/README.md#getupdatedata)
+- [`settingsHaveActivateRequests`](docs/sdks/settings/README.md#haveactivaterequests)
+- [`settingsHaveTraefikDashboardPortEnabled`](docs/sdks/settings/README.md#havetraefikdashboardportenabled)
+- [`settingsIsCloud`](docs/sdks/settings/README.md#iscloud)
+- [`settingsIsUserSubscribed`](docs/sdks/settings/README.md#isusersubscribed)
+- [`settingsReadDirectories`](docs/sdks/settings/README.md#readdirectories)
+- [`settingsReadMiddlewareTraefikConfig`](docs/sdks/settings/README.md#readmiddlewaretraefikconfig)
+- [`settingsReadTraefikConfig`](docs/sdks/settings/README.md#readtraefikconfig)
+- [`settingsReadTraefikEnv`](docs/sdks/settings/README.md#readtraefikenv)
+- [`settingsReadTraefikFile`](docs/sdks/settings/README.md#readtraefikfile)
+- [`settingsReadWebserverTraefikConfig`](docs/sdks/settings/README.md#readwebservertraefikconfig)
+- [`settingsReloadRedis`](docs/sdks/settings/README.md#reloadredis)
+- [`settingsReloadServer`](docs/sdks/settings/README.md#reloadserver)
+- [`settingsReloadTraefik`](docs/sdks/settings/README.md#reloadtraefik)
+- [`settingsSaveSshPrivateKey`](docs/sdks/settings/README.md#savesshprivatekey)
+- [`settingsSetupGpu`](docs/sdks/settings/README.md#setupgpu)
+- [`settingsToggleDashboard`](docs/sdks/settings/README.md#toggledashboard)
+- [`settingsToggleRequests`](docs/sdks/settings/README.md#togglerequests)
+- [`settingsUpdateDockerCleanup`](docs/sdks/settings/README.md#updatedockercleanup)
+- [`settingsUpdateLogCleanup`](docs/sdks/settings/README.md#updatelogcleanup)
+- [`settingsUpdateMiddlewareTraefikConfig`](docs/sdks/settings/README.md#updatemiddlewaretraefikconfig)
+- [`settingsUpdateServer`](docs/sdks/settings/README.md#updateserver)
+- [`settingsUpdateTraefikConfig`](docs/sdks/settings/README.md#updatetraefikconfig)
+- [`settingsUpdateTraefikFile`](docs/sdks/settings/README.md#updatetraefikfile)
+- [`settingsUpdateTraefikPorts`](docs/sdks/settings/README.md#updatetraefikports)
+- [`settingsUpdateWebServerTraefikConfig`](docs/sdks/settings/README.md#updatewebservertraefikconfig)
+- [`settingsWriteTraefikEnv`](docs/sdks/settings/README.md#writetraefikenv)
+- [`sshKeyAll`](docs/sdks/sshkey/README.md#all)
+- [`sshKeyCreate`](docs/sdks/sshkey/README.md#create)
+- [`sshKeyGet`](docs/sdks/sshkey/README.md#get)
+- [`sshKeyRemove`](docs/sdks/sshkey/README.md#remove)
+- [`sshKeysGenerate`](docs/sdks/sshkeys/README.md#generate)
+- [`sshKeyUpdate`](docs/sdks/sshkey/README.md#update)
+- [`stripeCanCreateMoreServers`](docs/sdks/stripe/README.md#cancreatemoreservers)
+- [`stripeCreateCheckoutSession`](docs/sdks/stripe/README.md#createcheckoutsession)
+- [`stripeCreateCustomerPortalSession`](docs/sdks/stripe/README.md#createcustomerportalsession)
+- [`stripeGetProducts`](docs/sdks/stripe/README.md#getproducts)
+- [`swarmGetNodeApps`](docs/sdks/swarm/README.md#getnodeapps)
+- [`swarmGetNodeInfo`](docs/sdks/swarm/README.md#getnodeinfo)
+- [`swarmGetNodes`](docs/sdks/swarm/README.md#getnodes)
+- [`userAssignPermissions`](docs/sdks/user/README.md#assignpermissions)
+- [`userCheckUserOrganizations`](docs/sdks/user/README.md#checkuserorganizations)
+- [`userCreateApiKey`](docs/sdks/user/README.md#createapikey)
+- [`userDeleteApiKey`](docs/sdks/user/README.md#deleteapikey)
+- [`userGenerateToken`](docs/sdks/user/README.md#generatetoken)
+- [`userGet`](docs/sdks/user/README.md#get)
+- [`userGetAll`](docs/sdks/user/README.md#getall)
+- [`userGetBackups`](docs/sdks/user/README.md#getbackups)
+- [`userGetContainerMetrics`](docs/sdks/user/README.md#getcontainermetrics)
+- [`userGetInvitations`](docs/sdks/user/README.md#getinvitations)
+- [`userGetMetricsToken`](docs/sdks/user/README.md#getmetricstoken)
+- [`userGetOne`](docs/sdks/user/README.md#getone)
+- [`userGetServerMetrics`](docs/sdks/user/README.md#getservermetrics)
+- [`userGetUserByToken`](docs/sdks/user/README.md#getuserbytoken)
+- [`userHaveRootAccess`](docs/sdks/user/README.md#haverootaccess)
+- [`userSendInvitation`](docs/sdks/user/README.md#sendinvitation)
+- [`usersRemove`](docs/sdks/users/README.md#remove)
+- [`userUpdate`](docs/sdks/user/README.md#update)
+- [`volumeBackupsCreate`](docs/sdks/volumebackups/README.md#create)
+- [`volumeBackupsDelete`](docs/sdks/volumebackups/README.md#delete)
+- [`volumeBackupsGet`](docs/sdks/volumebackups/README.md#get)
+- [`volumeBackupsList`](docs/sdks/volumebackups/README.md#list)
+- [`volumeBackupsRunManually`](docs/sdks/volumebackups/README.md#runmanually)
+- [`volumeBackupsUpdate`](docs/sdks/volumebackups/README.md#update)
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -1082,28 +1107,28 @@ To change the default retry strategy for a single API call, simply provide a ret
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   }, {
@@ -1141,28 +1166,27 @@ const dokploy = new Dokploy({
     },
     retryConnectionErrors: false,
   },
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });
@@ -1193,29 +1217,29 @@ run();
 import { Dokploy } from "dokploy-sdk";
 import * as errors from "dokploy-sdk/models/errors";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
   try {
-    const result = await dokploy.admin.adminSetupMonitoring({
-      authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-    }, {
+    const result = await dokploy.admin.setupMonitoring({
       metricsConfig: {
+        containers: {
+          refreshRate: 7401.48,
+          services: {},
+        },
         server: {
-          refreshRate: 4397.9,
-          port: 8537.41,
-          token: "<value>",
-          urlCallback: "https://majestic-scratch.org",
-          retentionDays: 6999.95,
           cronJob: "<value>",
+          port: 8537.41,
+          refreshRate: 4397.9,
+          retentionDays: 6999.95,
           thresholds: {
             cpu: 5497.84,
             memory: 6419.22,
           },
-        },
-        containers: {
-          refreshRate: 7401.48,
-          services: {},
+          token: "<value>",
+          urlCallback: "https://majestic-scratch.org",
         },
       },
     });
@@ -1268,28 +1292,27 @@ import { Dokploy } from "dokploy-sdk";
 
 const dokploy = new Dokploy({
   serverURL: "http://localhost:3000/api",
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });
@@ -1347,7 +1370,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new Dokploy({ httpClient });
+const sdk = new Dokploy({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

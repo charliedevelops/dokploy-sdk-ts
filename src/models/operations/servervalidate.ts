@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerValidateSecurity = {
-  authorization: string;
-};
-
 export type ServerValidateRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const ServerValidateSecurity$inboundSchema: z.ZodType<
-  ServerValidateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerValidateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerValidateSecurity$outboundSchema: z.ZodType<
-  ServerValidateSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerValidateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerValidateSecurity$ {
-  /** @deprecated use `ServerValidateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerValidateSecurity$inboundSchema;
-  /** @deprecated use `ServerValidateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerValidateSecurity$outboundSchema;
-  /** @deprecated use `ServerValidateSecurity$Outbound` instead. */
-  export type Outbound = ServerValidateSecurity$Outbound;
-}
-
-export function serverValidateSecurityToJSON(
-  serverValidateSecurity: ServerValidateSecurity,
-): string {
-  return JSON.stringify(
-    ServerValidateSecurity$outboundSchema.parse(serverValidateSecurity),
-  );
-}
-
-export function serverValidateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerValidateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerValidateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerValidateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerValidateRequest$inboundSchema: z.ZodType<

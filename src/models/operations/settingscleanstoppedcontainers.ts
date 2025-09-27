@@ -3,86 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanStoppedContainersSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanStoppedContainersRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanStoppedContainersSecurity$inboundSchema: z.ZodType<
-  SettingsCleanStoppedContainersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanStoppedContainersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanStoppedContainersSecurity$outboundSchema: z.ZodType<
-  SettingsCleanStoppedContainersSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanStoppedContainersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanStoppedContainersSecurity$ {
-  /** @deprecated use `SettingsCleanStoppedContainersSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    SettingsCleanStoppedContainersSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanStoppedContainersSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsCleanStoppedContainersSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanStoppedContainersSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanStoppedContainersSecurity$Outbound;
-}
-
-export function settingsCleanStoppedContainersSecurityToJSON(
-  settingsCleanStoppedContainersSecurity:
-    SettingsCleanStoppedContainersSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanStoppedContainersSecurity$outboundSchema.parse(
-      settingsCleanStoppedContainersSecurity,
-    ),
-  );
-}
-
-export function settingsCleanStoppedContainersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanStoppedContainersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsCleanStoppedContainersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanStoppedContainersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanStoppedContainersRequest$inboundSchema: z.ZodType<

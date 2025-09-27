@@ -3,91 +3,24 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoCreateSecurity = {
-  authorization: string;
-};
-
 export type MongoCreateRequest = {
-  name: string;
   appName: string;
+  databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
   environmentId: string;
-  description?: string | null | undefined;
-  databaseUser: string;
-  databasePassword: string;
-  serverId?: string | null | undefined;
+  name: string;
   replicaSets?: boolean | null | undefined;
+  serverId?: string | null | undefined;
 };
 
 export type MongoCreateResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MongoCreateSecurity$inboundSchema: z.ZodType<
-  MongoCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoCreateSecurity$outboundSchema: z.ZodType<
-  MongoCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoCreateSecurity$ {
-  /** @deprecated use `MongoCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoCreateSecurity$inboundSchema;
-  /** @deprecated use `MongoCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoCreateSecurity$outboundSchema;
-  /** @deprecated use `MongoCreateSecurity$Outbound` instead. */
-  export type Outbound = MongoCreateSecurity$Outbound;
-}
-
-export function mongoCreateSecurityToJSON(
-  mongoCreateSecurity: MongoCreateSecurity,
-): string {
-  return JSON.stringify(
-    MongoCreateSecurity$outboundSchema.parse(mongoCreateSecurity),
-  );
-}
-
-export function mongoCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoCreateRequest$inboundSchema: z.ZodType<
@@ -95,28 +28,28 @@ export const MongoCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mongo:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  serverId: z.nullable(z.string()).optional(),
+  name: z.string(),
   replicaSets: z.nullable(z.boolean().default(false)),
+  serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MongoCreateRequest$Outbound = {
-  name: string;
   appName: string;
+  databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage: string;
   environmentId: string;
-  description?: string | null | undefined;
-  databaseUser: string;
-  databasePassword: string;
-  serverId?: string | null | undefined;
+  name: string;
   replicaSets: boolean | null;
+  serverId?: string | null | undefined;
 };
 
 /** @internal */
@@ -125,15 +58,15 @@ export const MongoCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("mongo:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  serverId: z.nullable(z.string()).optional(),
+  name: z.string(),
   replicaSets: z.nullable(z.boolean().default(false)),
+  serverId: z.nullable(z.string()).optional(),
 });
 
 /**

@@ -3,87 +3,20 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerUpdateSecurity = {
-  authorization: string;
-};
-
 export type ServerUpdateRequest = {
-  name: string;
-  description?: string | null | undefined;
-  serverId: string;
-  ipAddress: string;
-  port: number;
-  username: string;
-  sshKeyId: string | null;
   command?: string | undefined;
+  description?: string | null | undefined;
+  ipAddress: string;
+  name: string;
+  port: number;
+  serverId: string;
+  sshKeyId: string | null;
+  username: string;
 };
-
-/** @internal */
-export const ServerUpdateSecurity$inboundSchema: z.ZodType<
-  ServerUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerUpdateSecurity$outboundSchema: z.ZodType<
-  ServerUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerUpdateSecurity$ {
-  /** @deprecated use `ServerUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerUpdateSecurity$inboundSchema;
-  /** @deprecated use `ServerUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerUpdateSecurity$outboundSchema;
-  /** @deprecated use `ServerUpdateSecurity$Outbound` instead. */
-  export type Outbound = ServerUpdateSecurity$Outbound;
-}
-
-export function serverUpdateSecurityToJSON(
-  serverUpdateSecurity: ServerUpdateSecurity,
-): string {
-  return JSON.stringify(
-    ServerUpdateSecurity$outboundSchema.parse(serverUpdateSecurity),
-  );
-}
-
-export function serverUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerUpdateRequest$inboundSchema: z.ZodType<
@@ -91,26 +24,26 @@ export const ServerUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  serverId: z.string(),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
-  sshKeyId: z.nullable(z.string()),
   command: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  ipAddress: z.string(),
+  name: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ServerUpdateRequest$Outbound = {
-  name: string;
-  description?: string | null | undefined;
-  serverId: string;
-  ipAddress: string;
-  port: number;
-  username: string;
-  sshKeyId: string | null;
   command?: string | undefined;
+  description?: string | null | undefined;
+  ipAddress: string;
+  name: string;
+  port: number;
+  serverId: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -119,14 +52,14 @@ export const ServerUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerUpdateRequest
 > = z.object({
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  serverId: z.string(),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
-  sshKeyId: z.nullable(z.string()),
   command: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
+  ipAddress: z.string(),
+  name: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**

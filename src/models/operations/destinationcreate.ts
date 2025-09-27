@@ -3,87 +3,20 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DestinationCreateSecurity = {
-  authorization: string;
-};
-
 export type DestinationCreateRequest = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DestinationCreateSecurity$inboundSchema: z.ZodType<
-  DestinationCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DestinationCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DestinationCreateSecurity$outboundSchema: z.ZodType<
-  DestinationCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  DestinationCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestinationCreateSecurity$ {
-  /** @deprecated use `DestinationCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = DestinationCreateSecurity$inboundSchema;
-  /** @deprecated use `DestinationCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = DestinationCreateSecurity$outboundSchema;
-  /** @deprecated use `DestinationCreateSecurity$Outbound` instead. */
-  export type Outbound = DestinationCreateSecurity$Outbound;
-}
-
-export function destinationCreateSecurityToJSON(
-  destinationCreateSecurity: DestinationCreateSecurity,
-): string {
-  return JSON.stringify(
-    DestinationCreateSecurity$outboundSchema.parse(destinationCreateSecurity),
-  );
-}
-
-export function destinationCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DestinationCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DestinationCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DestinationCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DestinationCreateRequest$inboundSchema: z.ZodType<
@@ -91,24 +24,24 @@ export const DestinationCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationCreateRequest$Outbound = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -119,12 +52,12 @@ export const DestinationCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationCreateRequest
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });

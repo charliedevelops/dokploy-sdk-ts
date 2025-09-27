@@ -8,22 +8,22 @@
 ```typescript
 const value: operations.DomainByComposeIdResponseBody[] = [
   {
-    domainId: "<id>",
-    host: "parched-scale.org",
-    https: false,
-    port: 3259.09,
-    path: "/home/user",
-    serviceName: "<value>",
-    domainType: "application",
-    uniqueConfigKey: 9444.31,
-    createdAt: "1711814444585",
-    composeId: "<id>",
-    customCertResolver: "<value>",
     applicationId: "<id>",
-    previewDeploymentId: "<id>",
-    certificateType: "none",
+    certificateType: "custom",
+    composeId: "<id>",
+    createdAt: "1720676978237",
+    customCertResolver: "<value>",
+    domainId: "<id>",
+    domainType: "compose",
+    host: "dutiful-someplace.info",
+    https: false,
     internalPath: "<value>",
-    stripPath: true,
+    path: "/var",
+    port: 1847,
+    previewDeploymentId: "<id>",
+    serviceName: "<value>",
+    stripPath: false,
+    uniqueConfigKey: 1042.61,
   },
 ];
 ```
@@ -32,8 +32,8 @@ const value: operations.DomainByComposeIdResponseBody[] = [
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

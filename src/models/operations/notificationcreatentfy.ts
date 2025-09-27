@@ -3,91 +3,22 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationCreateNtfySecurity = {
-  authorization: string;
-};
-
 export type NotificationCreateNtfyRequest = {
+  accessToken: string;
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
+  priority: number;
   serverUrl: string;
   topic: string;
-  accessToken: string;
-  priority: number;
 };
-
-/** @internal */
-export const NotificationCreateNtfySecurity$inboundSchema: z.ZodType<
-  NotificationCreateNtfySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationCreateNtfySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationCreateNtfySecurity$outboundSchema: z.ZodType<
-  NotificationCreateNtfySecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationCreateNtfySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationCreateNtfySecurity$ {
-  /** @deprecated use `NotificationCreateNtfySecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationCreateNtfySecurity$inboundSchema;
-  /** @deprecated use `NotificationCreateNtfySecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationCreateNtfySecurity$outboundSchema;
-  /** @deprecated use `NotificationCreateNtfySecurity$Outbound` instead. */
-  export type Outbound = NotificationCreateNtfySecurity$Outbound;
-}
-
-export function notificationCreateNtfySecurityToJSON(
-  notificationCreateNtfySecurity: NotificationCreateNtfySecurity,
-): string {
-  return JSON.stringify(
-    NotificationCreateNtfySecurity$outboundSchema.parse(
-      notificationCreateNtfySecurity,
-    ),
-  );
-}
-
-export function notificationCreateNtfySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationCreateNtfySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationCreateNtfySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationCreateNtfySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationCreateNtfyRequest$inboundSchema: z.ZodType<
@@ -95,30 +26,30 @@ export const NotificationCreateNtfyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  accessToken: z.string(),
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
+  priority: z.number(),
   serverUrl: z.string(),
   topic: z.string(),
-  accessToken: z.string(),
-  priority: z.number(),
 });
 
 /** @internal */
 export type NotificationCreateNtfyRequest$Outbound = {
+  accessToken: string;
   appBuildError: boolean;
+  appDeploy: boolean;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
+  priority: number;
   serverUrl: string;
   topic: string;
-  accessToken: string;
-  priority: number;
 };
 
 /** @internal */
@@ -127,16 +58,16 @@ export const NotificationCreateNtfyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationCreateNtfyRequest
 > = z.object({
+  accessToken: z.string(),
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
+  priority: z.number(),
   serverUrl: z.string(),
   topic: z.string(),
-  accessToken: z.string(),
-  priority: z.number(),
 });
 
 /**

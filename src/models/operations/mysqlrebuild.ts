@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type MysqlRebuildSecurity = {
-  authorization: string;
-};
 
 export type MysqlRebuildRequest = {
   mysqlId: string;
 };
 
 export type MysqlRebuildResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MysqlRebuildSecurity$inboundSchema: z.ZodType<
-  MysqlRebuildSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlRebuildSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlRebuildSecurity$outboundSchema: z.ZodType<
-  MysqlRebuildSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlRebuildSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlRebuildSecurity$ {
-  /** @deprecated use `MysqlRebuildSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlRebuildSecurity$inboundSchema;
-  /** @deprecated use `MysqlRebuildSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlRebuildSecurity$outboundSchema;
-  /** @deprecated use `MysqlRebuildSecurity$Outbound` instead. */
-  export type Outbound = MysqlRebuildSecurity$Outbound;
-}
-
-export function mysqlRebuildSecurityToJSON(
-  mysqlRebuildSecurity: MysqlRebuildSecurity,
-): string {
-  return JSON.stringify(
-    MysqlRebuildSecurity$outboundSchema.parse(mysqlRebuildSecurity),
-  );
-}
-
-export function mysqlRebuildSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlRebuildSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlRebuildSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlRebuildSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlRebuildRequest$inboundSchema: z.ZodType<

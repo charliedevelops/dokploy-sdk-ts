@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type RedirectsOneSecurity = {
-  authorization: string;
-};
 
 export type RedirectsOneRequest = {
   redirectId: string;
@@ -21,78 +16,16 @@ export type RedirectsOneRequest = {
  * Successful response
  */
 export type RedirectsOneResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type RedirectsOneResponse = RedirectsOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const RedirectsOneSecurity$inboundSchema: z.ZodType<
-  RedirectsOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedirectsOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedirectsOneSecurity$outboundSchema: z.ZodType<
-  RedirectsOneSecurity$Outbound,
-  z.ZodTypeDef,
-  RedirectsOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedirectsOneSecurity$ {
-  /** @deprecated use `RedirectsOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedirectsOneSecurity$inboundSchema;
-  /** @deprecated use `RedirectsOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedirectsOneSecurity$outboundSchema;
-  /** @deprecated use `RedirectsOneSecurity$Outbound` instead. */
-  export type Outbound = RedirectsOneSecurity$Outbound;
-}
-
-export function redirectsOneSecurityToJSON(
-  redirectsOneSecurity: RedirectsOneSecurity,
-): string {
-  return JSON.stringify(
-    RedirectsOneSecurity$outboundSchema.parse(redirectsOneSecurity),
-  );
-}
-
-export function redirectsOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedirectsOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedirectsOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedirectsOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedirectsOneRequest$inboundSchema: z.ZodType<
@@ -154,24 +87,24 @@ export const RedirectsOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type RedirectsOneResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -180,13 +113,13 @@ export const RedirectsOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsOneResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

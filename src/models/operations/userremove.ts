@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UserRemoveSecurity = {
-  authorization: string;
-};
-
 export type UserRemoveRequest = {
   userId: string;
 };
-
-/** @internal */
-export const UserRemoveSecurity$inboundSchema: z.ZodType<
-  UserRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserRemoveSecurity$outboundSchema: z.ZodType<
-  UserRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  UserRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserRemoveSecurity$ {
-  /** @deprecated use `UserRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = UserRemoveSecurity$inboundSchema;
-  /** @deprecated use `UserRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = UserRemoveSecurity$outboundSchema;
-  /** @deprecated use `UserRemoveSecurity$Outbound` instead. */
-  export type Outbound = UserRemoveSecurity$Outbound;
-}
-
-export function userRemoveSecurityToJSON(
-  userRemoveSecurity: UserRemoveSecurity,
-): string {
-  return JSON.stringify(
-    UserRemoveSecurity$outboundSchema.parse(userRemoveSecurity),
-  );
-}
-
-export function userRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserRemoveRequest$inboundSchema: z.ZodType<

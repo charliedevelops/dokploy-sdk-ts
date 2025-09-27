@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.SecurityDeleteResponseBody = {
-  securityId: "<id>",
-  username: "Kaden_Wiza10",
-  password: "XgqWM5LJaf2L4PM",
-  createdAt: "1709819374597",
   applicationId: "<id>",
+  createdAt: "1720990991336",
+  password: "Rx8XgqWM5LJaf2L",
+  securityId: "<id>",
+  username: "Winona_Durgan",
 };
 ```
 
@@ -19,8 +19,8 @@ const value: operations.SecurityDeleteResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

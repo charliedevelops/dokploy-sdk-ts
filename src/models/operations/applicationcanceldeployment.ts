@@ -3,85 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ApplicationCancelDeploymentSecurity = {
-  authorization: string;
-};
-
 export type ApplicationCancelDeploymentRequest = {
   applicationId: string;
 };
-
-/** @internal */
-export const ApplicationCancelDeploymentSecurity$inboundSchema: z.ZodType<
-  ApplicationCancelDeploymentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationCancelDeploymentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationCancelDeploymentSecurity$outboundSchema: z.ZodType<
-  ApplicationCancelDeploymentSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationCancelDeploymentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCancelDeploymentSecurity$ {
-  /** @deprecated use `ApplicationCancelDeploymentSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationCancelDeploymentSecurity$inboundSchema;
-  /** @deprecated use `ApplicationCancelDeploymentSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationCancelDeploymentSecurity$outboundSchema;
-  /** @deprecated use `ApplicationCancelDeploymentSecurity$Outbound` instead. */
-  export type Outbound = ApplicationCancelDeploymentSecurity$Outbound;
-}
-
-export function applicationCancelDeploymentSecurityToJSON(
-  applicationCancelDeploymentSecurity: ApplicationCancelDeploymentSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationCancelDeploymentSecurity$outboundSchema.parse(
-      applicationCancelDeploymentSecurity,
-    ),
-  );
-}
-
-export function applicationCancelDeploymentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCancelDeploymentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationCancelDeploymentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCancelDeploymentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationCancelDeploymentRequest$inboundSchema: z.ZodType<

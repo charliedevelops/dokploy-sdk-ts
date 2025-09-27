@@ -3,33 +3,28 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type ProjectOneSecurity = {
-  authorization: string;
-};
 
 export type ProjectOneRequest = {
   projectId: string;
 };
 
 export type ProjectOneEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
   applications?: Array<any> | undefined;
   compose?: Array<any> | undefined;
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
   mariadb?: Array<any> | undefined;
   mongo?: Array<any> | undefined;
   mysql?: Array<any> | undefined;
+  name: string;
   postgres?: Array<any> | undefined;
+  projectId: string;
   redis?: Array<any> | undefined;
 };
 
@@ -37,78 +32,16 @@ export type ProjectOneEnvironment = {
  * Successful response
  */
 export type ProjectOneResponseBody = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
   environments: Array<ProjectOneEnvironment>;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 export type ProjectOneResponse = ProjectOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const ProjectOneSecurity$inboundSchema: z.ZodType<
-  ProjectOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ProjectOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ProjectOneSecurity$outboundSchema: z.ZodType<
-  ProjectOneSecurity$Outbound,
-  z.ZodTypeDef,
-  ProjectOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProjectOneSecurity$ {
-  /** @deprecated use `ProjectOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = ProjectOneSecurity$inboundSchema;
-  /** @deprecated use `ProjectOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = ProjectOneSecurity$outboundSchema;
-  /** @deprecated use `ProjectOneSecurity$Outbound` instead. */
-  export type Outbound = ProjectOneSecurity$Outbound;
-}
-
-export function projectOneSecurityToJSON(
-  projectOneSecurity: ProjectOneSecurity,
-): string {
-  return JSON.stringify(
-    ProjectOneSecurity$outboundSchema.parse(projectOneSecurity),
-  );
-}
-
-export function projectOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ProjectOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProjectOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProjectOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ProjectOneRequest$inboundSchema: z.ZodType<
@@ -170,35 +103,35 @@ export const ProjectOneEnvironment$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
   applications: z.array(z.any()).optional(),
   compose: z.array(z.any()).optional(),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
   mariadb: z.array(z.any()).optional(),
   mongo: z.array(z.any()).optional(),
   mysql: z.array(z.any()).optional(),
+  name: z.string(),
   postgres: z.array(z.any()).optional(),
+  projectId: z.string(),
   redis: z.array(z.any()).optional(),
 });
 
 /** @internal */
 export type ProjectOneEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
   applications?: Array<any> | undefined;
   compose?: Array<any> | undefined;
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
   mariadb?: Array<any> | undefined;
   mongo?: Array<any> | undefined;
   mysql?: Array<any> | undefined;
+  name: string;
   postgres?: Array<any> | undefined;
+  projectId: string;
   redis?: Array<any> | undefined;
 };
 
@@ -208,18 +141,18 @@ export const ProjectOneEnvironment$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectOneEnvironment
 > = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
   applications: z.array(z.any()).optional(),
   compose: z.array(z.any()).optional(),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
   mariadb: z.array(z.any()).optional(),
   mongo: z.array(z.any()).optional(),
   mysql: z.array(z.any()).optional(),
+  name: z.string(),
   postgres: z.array(z.any()).optional(),
+  projectId: z.string(),
   redis: z.array(z.any()).optional(),
 });
 
@@ -260,24 +193,24 @@ export const ProjectOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
   environments: z.array(z.lazy(() => ProjectOneEnvironment$inboundSchema)),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectOneResponseBody$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
   environments: Array<ProjectOneEnvironment$Outbound>;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 /** @internal */
@@ -286,13 +219,13 @@ export const ProjectOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectOneResponseBody
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
   environments: z.array(z.lazy(() => ProjectOneEnvironment$outboundSchema)),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /**

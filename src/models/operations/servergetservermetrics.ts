@@ -3,84 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ServerGetServerMetricsSecurity = {
-  authorization: string;
-};
 
 export type ServerGetServerMetricsRequest = {
   url: string;
   token: string;
   dataPoints: string;
 };
-
-/** @internal */
-export const ServerGetServerMetricsSecurity$inboundSchema: z.ZodType<
-  ServerGetServerMetricsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerGetServerMetricsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerGetServerMetricsSecurity$outboundSchema: z.ZodType<
-  ServerGetServerMetricsSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerGetServerMetricsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerGetServerMetricsSecurity$ {
-  /** @deprecated use `ServerGetServerMetricsSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerGetServerMetricsSecurity$inboundSchema;
-  /** @deprecated use `ServerGetServerMetricsSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerGetServerMetricsSecurity$outboundSchema;
-  /** @deprecated use `ServerGetServerMetricsSecurity$Outbound` instead. */
-  export type Outbound = ServerGetServerMetricsSecurity$Outbound;
-}
-
-export function serverGetServerMetricsSecurityToJSON(
-  serverGetServerMetricsSecurity: ServerGetServerMetricsSecurity,
-): string {
-  return JSON.stringify(
-    ServerGetServerMetricsSecurity$outboundSchema.parse(
-      serverGetServerMetricsSecurity,
-    ),
-  );
-}
-
-export function serverGetServerMetricsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerGetServerMetricsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerGetServerMetricsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerGetServerMetricsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerGetServerMetricsRequest$inboundSchema: z.ZodType<

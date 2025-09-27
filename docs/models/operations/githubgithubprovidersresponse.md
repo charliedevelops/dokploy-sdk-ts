@@ -8,15 +8,15 @@
 ```typescript
 const value: operations.GithubGithubProvidersResponseBody[] = [
   {
-    githubId: "<id>",
     gitProvider: {
+      createdAt: "1715267301320",
       gitProviderId: "<id>",
       name: "<value>",
-      providerType: "gitlab",
-      createdAt: "1728545338786",
       organizationId: "<id>",
+      providerType: "gitea",
       userId: "<id>",
     },
+    githubId: "<id>",
   },
 ];
 ```
@@ -25,8 +25,8 @@ const value: operations.GithubGithubProvidersResponseBody[] = [
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -3,86 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type RedisSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type RedisSaveEnvironmentRequest = {
-  redisId: string;
   env?: string | null | undefined;
+  redisId: string;
 };
 
 export type RedisSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const RedisSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  RedisSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedisSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedisSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  RedisSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  RedisSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveEnvironmentSecurity$ {
-  /** @deprecated use `RedisSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `RedisSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `RedisSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = RedisSaveEnvironmentSecurity$Outbound;
-}
-
-export function redisSaveEnvironmentSecurityToJSON(
-  redisSaveEnvironmentSecurity: RedisSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    RedisSaveEnvironmentSecurity$outboundSchema.parse(
-      redisSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function redisSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -90,14 +21,14 @@ export const RedisSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
   env: z.nullable(z.string()).optional(),
+  redisId: z.string(),
 });
 
 /** @internal */
 export type RedisSaveEnvironmentRequest$Outbound = {
-  redisId: string;
   env?: string | null | undefined;
+  redisId: string;
 };
 
 /** @internal */
@@ -106,8 +37,8 @@ export const RedisSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveEnvironmentRequest
 > = z.object({
-  redisId: z.string(),
   env: z.nullable(z.string()).optional(),
+  redisId: z.string(),
 });
 
 /**

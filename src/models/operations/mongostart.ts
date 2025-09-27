@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoStartSecurity = {
-  authorization: string;
-};
-
 export type MongoStartRequest = {
   mongoId: string;
 };
@@ -28,112 +24,122 @@ export type MongoStartApplicationStatus = ClosedEnum<
   typeof MongoStartApplicationStatus
 >;
 
+export const MongoStartBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type MongoStartBackupType = ClosedEnum<typeof MongoStartBackupType>;
+
+export const MongoStartDatabaseType = {
+  Postgres: "postgres",
+  Mariadb: "mariadb",
+  Mysql: "mysql",
+  Mongo: "mongo",
+  WebServer: "web-server",
+} as const;
+export type MongoStartDatabaseType = ClosedEnum<typeof MongoStartDatabaseType>;
+
+export const MongoStartMetadataEnum = {
+  Null: "null",
+} as const;
+export type MongoStartMetadataEnum = ClosedEnum<typeof MongoStartMetadataEnum>;
+
+export type MongoStartMariadb = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MongoStartMongo = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MongoStartMysql = {
+  databaseRootPassword: string;
+};
+
+export type MongoStartPostgres = {
+  databaseUser: string;
+};
+
+export type MongoStartMetadata = {
+  mariadb?: MongoStartMariadb | undefined;
+  mongo?: MongoStartMongo | undefined;
+  mysql?: MongoStartMysql | undefined;
+  postgres?: MongoStartPostgres | undefined;
+};
+
+export type MongoStartMetadataUnion =
+  | MongoStartMetadata
+  | MongoStartMetadataEnum;
+
+export type MongoStartBackup = {
+  appName: string;
+  backupId: string;
+  backupType: MongoStartBackupType;
+  composeId: string | null;
+  database: string;
+  databaseType: MongoStartDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoStartMetadata | MongoStartMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoStartProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoStartEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoStartProject;
+  projectId: string;
+};
+
 export type MongoStartHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MongoStartRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type MongoStartGlobal = {};
 
-export type MongoStartSpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoStartPreference = {
-  spread: MongoStartSpread;
-};
-
-export type MongoStartPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoStartPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoStartPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoStartPlatform> | undefined;
-};
-
-export type MongoStartUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoStartRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type MongoStartGlobalJob = {};
 
 export type MongoStartReplicated = {
   replicas?: number | undefined;
 };
-
-export type MongoStartGlobal = {};
 
 export type MongoStartReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type MongoStartGlobalJob = {};
-
 export type MongoStartModeSwarm = {
-  replicated?: MongoStartReplicated | undefined;
   global?: MongoStartGlobal | undefined;
-  replicatedJob?: MongoStartReplicatedJob | undefined;
   globalJob?: MongoStartGlobalJob | undefined;
+  replicated?: MongoStartReplicated | undefined;
+  replicatedJob?: MongoStartReplicatedJob | undefined;
 };
-
-export type MongoStartDriverOpts = {};
-
-export type MongoStartNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoStartDriverOpts | undefined;
-};
-
-export type MongoStartProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoStartEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoStartProject;
-};
-
-export const MongoStartType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoStartType = ClosedEnum<typeof MongoStartType>;
 
 export const MongoStartServiceType = {
   Application: "application",
@@ -146,29 +152,74 @@ export const MongoStartServiceType = {
 } as const;
 export type MongoStartServiceType = ClosedEnum<typeof MongoStartServiceType>;
 
+export const MongoStartType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoStartType = ClosedEnum<typeof MongoStartType>;
+
 export type MongoStartMount = {
-  mountId: string;
-  type: MongoStartType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoStartServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: MongoStartServiceType;
+  type: MongoStartType;
+  volumeName: string | null;
 };
 
-export const MongoStartServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoStartServerStatus = ClosedEnum<typeof MongoStartServerStatus>;
+export type MongoStartDriverOpts = {};
+
+export type MongoStartNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoStartDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoStartPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoStartSpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoStartPreference = {
+  spread: MongoStartSpread;
+};
+
+export type MongoStartPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoStartPlatform> | undefined;
+  preferences?: Array<MongoStartPreference> | undefined;
+};
+
+export type MongoStartRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoStartRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const MongoStartMetricsConfigEnum = {
   Null: "null",
@@ -191,20 +242,19 @@ export type MongoStartMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const MongoStartServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoStartServerStatus = ClosedEnum<typeof MongoStartServerStatus>;
+
 export type MongoStartServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoStartServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -212,179 +262,63 @@ export type MongoStartServer = {
     | MongoStartMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoStartServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const MongoStartBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type MongoStartBackupType = ClosedEnum<typeof MongoStartBackupType>;
-
-export const MongoStartDatabaseType = {
-  Postgres: "postgres",
-  Mariadb: "mariadb",
-  Mysql: "mysql",
-  Mongo: "mongo",
-  WebServer: "web-server",
-} as const;
-export type MongoStartDatabaseType = ClosedEnum<typeof MongoStartDatabaseType>;
-
-export const MongoStartMetadataEnum = {
-  Null: "null",
-} as const;
-export type MongoStartMetadataEnum = ClosedEnum<typeof MongoStartMetadataEnum>;
-
-export type MongoStartPostgres = {
-  databaseUser: string;
-};
-
-export type MongoStartMariadb = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MongoStartMongo = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MongoStartMysql = {
-  databaseRootPassword: string;
-};
-
-export type MongoStartMetadata = {
-  postgres?: MongoStartPostgres | undefined;
-  mariadb?: MongoStartMariadb | undefined;
-  mongo?: MongoStartMongo | undefined;
-  mysql?: MongoStartMysql | undefined;
-};
-
-export type MongoStartMetadataUnion =
-  | MongoStartMetadata
-  | MongoStartMetadataEnum;
-
-export type MongoStartBackup = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: MongoStartBackupType;
-  databaseType: MongoStartDatabaseType;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoStartMetadata | MongoStartMetadataEnum | null | undefined;
+export type MongoStartUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoStartResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoStartApplicationStatus;
-  healthCheckSwarm: MongoStartHealthCheckSwarm | null;
-  restartPolicySwarm: MongoStartRestartPolicySwarm | null;
-  placementSwarm: MongoStartPlacementSwarm | null;
-  updateConfigSwarm: MongoStartUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoStartRollbackConfigSwarm | null;
-  modeSwarm: MongoStartModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoStartNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoStartEnvironment;
-  mounts: Array<MongoStartMount>;
-  server: MongoStartServer | null;
   backups: Array<MongoStartBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoStartEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoStartHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoStartModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoStartMount>;
+  name: string;
+  networkSwarm: Array<MongoStartNetworkSwarm> | null;
+  placementSwarm: MongoStartPlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoStartRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoStartRollbackConfigSwarm | null;
+  server: MongoStartServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoStartUpdateConfigSwarm | null;
 };
 
 export type MongoStartResponse = MongoStartResponseBody | models.ErrorT;
-
-/** @internal */
-export const MongoStartSecurity$inboundSchema: z.ZodType<
-  MongoStartSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoStartSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoStartSecurity$outboundSchema: z.ZodType<
-  MongoStartSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoStartSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartSecurity$ {
-  /** @deprecated use `MongoStartSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoStartSecurity$inboundSchema;
-  /** @deprecated use `MongoStartSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoStartSecurity$outboundSchema;
-  /** @deprecated use `MongoStartSecurity$Outbound` instead. */
-  export type Outbound = MongoStartSecurity$Outbound;
-}
-
-export function mongoStartSecurityToJSON(
-  mongoStartSecurity: MongoStartSecurity,
-): string {
-  return JSON.stringify(
-    MongoStartSecurity$outboundSchema.parse(mongoStartSecurity),
-  );
-}
-
-export function mongoStartSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoStartRequest$inboundSchema: z.ZodType<
@@ -462,33 +396,689 @@ export namespace MongoStartApplicationStatus$ {
 }
 
 /** @internal */
+export const MongoStartBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartBackupType
+> = z.nativeEnum(MongoStartBackupType);
+
+/** @internal */
+export const MongoStartBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartBackupType
+> = MongoStartBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartBackupType$ {
+  /** @deprecated use `MongoStartBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoStartBackupType$inboundSchema;
+  /** @deprecated use `MongoStartBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoStartBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoStartDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartDatabaseType
+> = z.nativeEnum(MongoStartDatabaseType);
+
+/** @internal */
+export const MongoStartDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartDatabaseType
+> = MongoStartDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartDatabaseType$ {
+  /** @deprecated use `MongoStartDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoStartDatabaseType$inboundSchema;
+  /** @deprecated use `MongoStartDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MongoStartDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartMetadataEnum
+> = z.nativeEnum(MongoStartMetadataEnum);
+
+/** @internal */
+export const MongoStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartMetadataEnum
+> = MongoStartMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMetadataEnum$ {
+  /** @deprecated use `MongoStartMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoStartMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoStartMariadb$inboundSchema: z.ZodType<
+  MongoStartMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoStartMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoStartMariadb$outboundSchema: z.ZodType<
+  MongoStartMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoStartMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMariadb$ {
+  /** @deprecated use `MongoStartMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMariadb$inboundSchema;
+  /** @deprecated use `MongoStartMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMariadb$outboundSchema;
+  /** @deprecated use `MongoStartMariadb$Outbound` instead. */
+  export type Outbound = MongoStartMariadb$Outbound;
+}
+
+export function mongoStartMariadbToJSON(
+  mongoStartMariadb: MongoStartMariadb,
+): string {
+  return JSON.stringify(
+    MongoStartMariadb$outboundSchema.parse(mongoStartMariadb),
+  );
+}
+
+export function mongoStartMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartMongo$inboundSchema: z.ZodType<
+  MongoStartMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoStartMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoStartMongo$outboundSchema: z.ZodType<
+  MongoStartMongo$Outbound,
+  z.ZodTypeDef,
+  MongoStartMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMongo$ {
+  /** @deprecated use `MongoStartMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMongo$inboundSchema;
+  /** @deprecated use `MongoStartMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMongo$outboundSchema;
+  /** @deprecated use `MongoStartMongo$Outbound` instead. */
+  export type Outbound = MongoStartMongo$Outbound;
+}
+
+export function mongoStartMongoToJSON(
+  mongoStartMongo: MongoStartMongo,
+): string {
+  return JSON.stringify(MongoStartMongo$outboundSchema.parse(mongoStartMongo));
+}
+
+export function mongoStartMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartMysql$inboundSchema: z.ZodType<
+  MongoStartMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoStartMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoStartMysql$outboundSchema: z.ZodType<
+  MongoStartMysql$Outbound,
+  z.ZodTypeDef,
+  MongoStartMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMysql$ {
+  /** @deprecated use `MongoStartMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMysql$inboundSchema;
+  /** @deprecated use `MongoStartMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMysql$outboundSchema;
+  /** @deprecated use `MongoStartMysql$Outbound` instead. */
+  export type Outbound = MongoStartMysql$Outbound;
+}
+
+export function mongoStartMysqlToJSON(
+  mongoStartMysql: MongoStartMysql,
+): string {
+  return JSON.stringify(MongoStartMysql$outboundSchema.parse(mongoStartMysql));
+}
+
+export function mongoStartMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartPostgres$inboundSchema: z.ZodType<
+  MongoStartPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoStartPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoStartPostgres$outboundSchema: z.ZodType<
+  MongoStartPostgres$Outbound,
+  z.ZodTypeDef,
+  MongoStartPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartPostgres$ {
+  /** @deprecated use `MongoStartPostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoStartPostgres$inboundSchema;
+  /** @deprecated use `MongoStartPostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoStartPostgres$outboundSchema;
+  /** @deprecated use `MongoStartPostgres$Outbound` instead. */
+  export type Outbound = MongoStartPostgres$Outbound;
+}
+
+export function mongoStartPostgresToJSON(
+  mongoStartPostgres: MongoStartPostgres,
+): string {
+  return JSON.stringify(
+    MongoStartPostgres$outboundSchema.parse(mongoStartPostgres),
+  );
+}
+
+export function mongoStartPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartMetadata$inboundSchema: z.ZodType<
+  MongoStartMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoStartMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoStartMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoStartMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoStartPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MongoStartMetadata$Outbound = {
+  mariadb?: MongoStartMariadb$Outbound | undefined;
+  mongo?: MongoStartMongo$Outbound | undefined;
+  mysql?: MongoStartMysql$Outbound | undefined;
+  postgres?: MongoStartPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoStartMetadata$outboundSchema: z.ZodType<
+  MongoStartMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoStartMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoStartMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoStartMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoStartMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoStartPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMetadata$ {
+  /** @deprecated use `MongoStartMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMetadata$inboundSchema;
+  /** @deprecated use `MongoStartMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMetadata$outboundSchema;
+  /** @deprecated use `MongoStartMetadata$Outbound` instead. */
+  export type Outbound = MongoStartMetadata$Outbound;
+}
+
+export function mongoStartMetadataToJSON(
+  mongoStartMetadata: MongoStartMetadata,
+): string {
+  return JSON.stringify(
+    MongoStartMetadata$outboundSchema.parse(mongoStartMetadata),
+  );
+}
+
+export function mongoStartMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartMetadataUnion$inboundSchema: z.ZodType<
+  MongoStartMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoStartMetadata$inboundSchema),
+  MongoStartMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoStartMetadataUnion$Outbound =
+  | MongoStartMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MongoStartMetadataUnion$outboundSchema: z.ZodType<
+  MongoStartMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoStartMetadataUnion
+> = z.union([
+  z.lazy(() => MongoStartMetadata$outboundSchema),
+  MongoStartMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMetadataUnion$ {
+  /** @deprecated use `MongoStartMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoStartMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoStartMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoStartMetadataUnion$Outbound;
+}
+
+export function mongoStartMetadataUnionToJSON(
+  mongoStartMetadataUnion: MongoStartMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoStartMetadataUnion$outboundSchema.parse(mongoStartMetadataUnion),
+  );
+}
+
+export function mongoStartMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartBackup$inboundSchema: z.ZodType<
+  MongoStartBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoStartBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoStartDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoStartMetadata$inboundSchema),
+      MongoStartMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoStartBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoStartMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoStartBackup$outboundSchema: z.ZodType<
+  MongoStartBackup$Outbound,
+  z.ZodTypeDef,
+  MongoStartBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoStartBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoStartDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoStartMetadata$outboundSchema),
+      MongoStartMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartBackup$ {
+  /** @deprecated use `MongoStartBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoStartBackup$inboundSchema;
+  /** @deprecated use `MongoStartBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoStartBackup$outboundSchema;
+  /** @deprecated use `MongoStartBackup$Outbound` instead. */
+  export type Outbound = MongoStartBackup$Outbound;
+}
+
+export function mongoStartBackupToJSON(
+  mongoStartBackup: MongoStartBackup,
+): string {
+  return JSON.stringify(
+    MongoStartBackup$outboundSchema.parse(mongoStartBackup),
+  );
+}
+
+export function mongoStartBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartProject$inboundSchema: z.ZodType<
+  MongoStartProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoStartProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoStartProject$outboundSchema: z.ZodType<
+  MongoStartProject$Outbound,
+  z.ZodTypeDef,
+  MongoStartProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartProject$ {
+  /** @deprecated use `MongoStartProject$inboundSchema` instead. */
+  export const inboundSchema = MongoStartProject$inboundSchema;
+  /** @deprecated use `MongoStartProject$outboundSchema` instead. */
+  export const outboundSchema = MongoStartProject$outboundSchema;
+  /** @deprecated use `MongoStartProject$Outbound` instead. */
+  export type Outbound = MongoStartProject$Outbound;
+}
+
+export function mongoStartProjectToJSON(
+  mongoStartProject: MongoStartProject,
+): string {
+  return JSON.stringify(
+    MongoStartProject$outboundSchema.parse(mongoStartProject),
+  );
+}
+
+export function mongoStartProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartEnvironment$inboundSchema: z.ZodType<
+  MongoStartEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoStartProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoStartEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoStartProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoStartEnvironment$outboundSchema: z.ZodType<
+  MongoStartEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoStartEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoStartProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartEnvironment$ {
+  /** @deprecated use `MongoStartEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoStartEnvironment$inboundSchema;
+  /** @deprecated use `MongoStartEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoStartEnvironment$outboundSchema;
+  /** @deprecated use `MongoStartEnvironment$Outbound` instead. */
+  export type Outbound = MongoStartEnvironment$Outbound;
+}
+
+export function mongoStartEnvironmentToJSON(
+  mongoStartEnvironment: MongoStartEnvironment,
+): string {
+  return JSON.stringify(
+    MongoStartEnvironment$outboundSchema.parse(mongoStartEnvironment),
+  );
+}
+
+export function mongoStartEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoStartHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoStartHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoStartHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -497,18 +1087,18 @@ export const MongoStartHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoStartHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -544,48 +1134,129 @@ export function mongoStartHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoStartRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoStartRestartPolicySwarm,
+export const MongoStartGlobal$inboundSchema: z.ZodType<
+  MongoStartGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoStartGlobal$Outbound = {};
+
+/** @internal */
+export const MongoStartGlobal$outboundSchema: z.ZodType<
+  MongoStartGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoStartGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartGlobal$ {
+  /** @deprecated use `MongoStartGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoStartGlobal$inboundSchema;
+  /** @deprecated use `MongoStartGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoStartGlobal$outboundSchema;
+  /** @deprecated use `MongoStartGlobal$Outbound` instead. */
+  export type Outbound = MongoStartGlobal$Outbound;
+}
+
+export function mongoStartGlobalToJSON(
+  mongoStartGlobal: MongoStartGlobal,
+): string {
+  return JSON.stringify(
+    MongoStartGlobal$outboundSchema.parse(mongoStartGlobal),
+  );
+}
+
+export function mongoStartGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartGlobalJob$inboundSchema: z.ZodType<
+  MongoStartGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoStartGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoStartGlobalJob$outboundSchema: z.ZodType<
+  MongoStartGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoStartGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartGlobalJob$ {
+  /** @deprecated use `MongoStartGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoStartGlobalJob$inboundSchema;
+  /** @deprecated use `MongoStartGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoStartGlobalJob$outboundSchema;
+  /** @deprecated use `MongoStartGlobalJob$Outbound` instead. */
+  export type Outbound = MongoStartGlobalJob$Outbound;
+}
+
+export function mongoStartGlobalJobToJSON(
+  mongoStartGlobalJob: MongoStartGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoStartGlobalJob$outboundSchema.parse(mongoStartGlobalJob),
+  );
+}
+
+export function mongoStartGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartReplicated$inboundSchema: z.ZodType<
+  MongoStartReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoStartRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoStartReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoStartRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoStartRestartPolicySwarm$Outbound,
+export const MongoStartReplicated$outboundSchema: z.ZodType<
+  MongoStartReplicated$Outbound,
   z.ZodTypeDef,
-  MongoStartRestartPolicySwarm
+  MongoStartReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -593,32 +1264,498 @@ export const MongoStartRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoStartRestartPolicySwarm$ {
-  /** @deprecated use `MongoStartRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoStartRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoStartRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoStartRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoStartRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoStartRestartPolicySwarm$Outbound;
+export namespace MongoStartReplicated$ {
+  /** @deprecated use `MongoStartReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoStartReplicated$inboundSchema;
+  /** @deprecated use `MongoStartReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoStartReplicated$outboundSchema;
+  /** @deprecated use `MongoStartReplicated$Outbound` instead. */
+  export type Outbound = MongoStartReplicated$Outbound;
 }
 
-export function mongoStartRestartPolicySwarmToJSON(
-  mongoStartRestartPolicySwarm: MongoStartRestartPolicySwarm,
+export function mongoStartReplicatedToJSON(
+  mongoStartReplicated: MongoStartReplicated,
 ): string {
   return JSON.stringify(
-    MongoStartRestartPolicySwarm$outboundSchema.parse(
-      mongoStartRestartPolicySwarm,
-    ),
+    MongoStartReplicated$outboundSchema.parse(mongoStartReplicated),
   );
 }
 
-export function mongoStartRestartPolicySwarmFromJSON(
+export function mongoStartReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoStartRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoStartReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartRestartPolicySwarm' from JSON`,
+    (x) => MongoStartReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartReplicatedJob$inboundSchema: z.ZodType<
+  MongoStartReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoStartReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoStartReplicatedJob$outboundSchema: z.ZodType<
+  MongoStartReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoStartReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartReplicatedJob$ {
+  /** @deprecated use `MongoStartReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoStartReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoStartReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoStartReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoStartReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoStartReplicatedJob$Outbound;
+}
+
+export function mongoStartReplicatedJobToJSON(
+  mongoStartReplicatedJob: MongoStartReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoStartReplicatedJob$outboundSchema.parse(mongoStartReplicatedJob),
+  );
+}
+
+export function mongoStartReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartModeSwarm$inboundSchema: z.ZodType<
+  MongoStartModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoStartGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoStartGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoStartReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MongoStartReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoStartModeSwarm$Outbound = {
+  Global?: MongoStartGlobal$Outbound | undefined;
+  GlobalJob?: MongoStartGlobalJob$Outbound | undefined;
+  Replicated?: MongoStartReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoStartReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoStartModeSwarm$outboundSchema: z.ZodType<
+  MongoStartModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoStartModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoStartGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoStartGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoStartReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MongoStartReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartModeSwarm$ {
+  /** @deprecated use `MongoStartModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoStartModeSwarm$inboundSchema;
+  /** @deprecated use `MongoStartModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoStartModeSwarm$outboundSchema;
+  /** @deprecated use `MongoStartModeSwarm$Outbound` instead. */
+  export type Outbound = MongoStartModeSwarm$Outbound;
+}
+
+export function mongoStartModeSwarmToJSON(
+  mongoStartModeSwarm: MongoStartModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoStartModeSwarm$outboundSchema.parse(mongoStartModeSwarm),
+  );
+}
+
+export function mongoStartModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartServiceType
+> = z.nativeEnum(MongoStartServiceType);
+
+/** @internal */
+export const MongoStartServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartServiceType
+> = MongoStartServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartServiceType$ {
+  /** @deprecated use `MongoStartServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoStartServiceType$inboundSchema;
+  /** @deprecated use `MongoStartServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoStartServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoStartType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartType
+> = z.nativeEnum(MongoStartType);
+
+/** @internal */
+export const MongoStartType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartType
+> = MongoStartType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartType$ {
+  /** @deprecated use `MongoStartType$inboundSchema` instead. */
+  export const inboundSchema = MongoStartType$inboundSchema;
+  /** @deprecated use `MongoStartType$outboundSchema` instead. */
+  export const outboundSchema = MongoStartType$outboundSchema;
+}
+
+/** @internal */
+export const MongoStartMount$inboundSchema: z.ZodType<
+  MongoStartMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoStartServiceType$inboundSchema,
+  type: MongoStartType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoStartMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoStartMount$outboundSchema: z.ZodType<
+  MongoStartMount$Outbound,
+  z.ZodTypeDef,
+  MongoStartMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoStartServiceType$outboundSchema,
+  type: MongoStartType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartMount$ {
+  /** @deprecated use `MongoStartMount$inboundSchema` instead. */
+  export const inboundSchema = MongoStartMount$inboundSchema;
+  /** @deprecated use `MongoStartMount$outboundSchema` instead. */
+  export const outboundSchema = MongoStartMount$outboundSchema;
+  /** @deprecated use `MongoStartMount$Outbound` instead. */
+  export type Outbound = MongoStartMount$Outbound;
+}
+
+export function mongoStartMountToJSON(
+  mongoStartMount: MongoStartMount,
+): string {
+  return JSON.stringify(MongoStartMount$outboundSchema.parse(mongoStartMount));
+}
+
+export function mongoStartMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartDriverOpts$inboundSchema: z.ZodType<
+  MongoStartDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoStartDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoStartDriverOpts$outboundSchema: z.ZodType<
+  MongoStartDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoStartDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartDriverOpts$ {
+  /** @deprecated use `MongoStartDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoStartDriverOpts$inboundSchema;
+  /** @deprecated use `MongoStartDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoStartDriverOpts$outboundSchema;
+  /** @deprecated use `MongoStartDriverOpts$Outbound` instead. */
+  export type Outbound = MongoStartDriverOpts$Outbound;
+}
+
+export function mongoStartDriverOptsToJSON(
+  mongoStartDriverOpts: MongoStartDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoStartDriverOpts$outboundSchema.parse(mongoStartDriverOpts),
+  );
+}
+
+export function mongoStartDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartNetworkSwarm$inboundSchema: z.ZodType<
+  MongoStartNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoStartDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoStartNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoStartDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoStartNetworkSwarm$outboundSchema: z.ZodType<
+  MongoStartNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoStartNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoStartDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartNetworkSwarm$ {
+  /** @deprecated use `MongoStartNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoStartNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoStartNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoStartNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoStartNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoStartNetworkSwarm$Outbound;
+}
+
+export function mongoStartNetworkSwarmToJSON(
+  mongoStartNetworkSwarm: MongoStartNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoStartNetworkSwarm$outboundSchema.parse(mongoStartNetworkSwarm),
+  );
+}
+
+export function mongoStartNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoStartPlatform$inboundSchema: z.ZodType<
+  MongoStartPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoStartPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoStartPlatform$outboundSchema: z.ZodType<
+  MongoStartPlatform$Outbound,
+  z.ZodTypeDef,
+  MongoStartPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartPlatform$ {
+  /** @deprecated use `MongoStartPlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoStartPlatform$inboundSchema;
+  /** @deprecated use `MongoStartPlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoStartPlatform$outboundSchema;
+  /** @deprecated use `MongoStartPlatform$Outbound` instead. */
+  export type Outbound = MongoStartPlatform$Outbound;
+}
+
+export function mongoStartPlatformToJSON(
+  mongoStartPlatform: MongoStartPlatform,
+): string {
+  return JSON.stringify(
+    MongoStartPlatform$outboundSchema.parse(mongoStartPlatform),
+  );
+}
+
+export function mongoStartPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoStartPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoStartPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartPlatform' from JSON`,
   );
 }
 
@@ -747,98 +1884,31 @@ export function mongoStartPreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoStartPlatform$inboundSchema: z.ZodType<
-  MongoStartPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoStartPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoStartPlatform$outboundSchema: z.ZodType<
-  MongoStartPlatform$Outbound,
-  z.ZodTypeDef,
-  MongoStartPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartPlatform$ {
-  /** @deprecated use `MongoStartPlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoStartPlatform$inboundSchema;
-  /** @deprecated use `MongoStartPlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoStartPlatform$outboundSchema;
-  /** @deprecated use `MongoStartPlatform$Outbound` instead. */
-  export type Outbound = MongoStartPlatform$Outbound;
-}
-
-export function mongoStartPlatformToJSON(
-  mongoStartPlatform: MongoStartPlatform,
-): string {
-  return JSON.stringify(
-    MongoStartPlatform$outboundSchema.parse(mongoStartPlatform),
-  );
-}
-
-export function mongoStartPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoStartPlacementSwarm$inboundSchema: z.ZodType<
   MongoStartPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoStartPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoStartPlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MongoStartPreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoStartPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoStartPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoStartPlatform$Outbound> | undefined;
+  Preferences?: Array<MongoStartPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -848,17 +1918,17 @@ export const MongoStartPlacementSwarm$outboundSchema: z.ZodType<
   MongoStartPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoStartPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoStartPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MongoStartPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -894,58 +1964,48 @@ export function mongoStartPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoStartUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoStartUpdateConfigSwarm,
+export const MongoStartRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoStartRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoStartUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoStartRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoStartUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoStartUpdateConfigSwarm$Outbound,
+export const MongoStartRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoStartRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoStartUpdateConfigSwarm
+  MongoStartRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -953,32 +2013,32 @@ export const MongoStartUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoStartUpdateConfigSwarm$ {
-  /** @deprecated use `MongoStartUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoStartUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoStartUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoStartUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoStartUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoStartUpdateConfigSwarm$Outbound;
+export namespace MongoStartRestartPolicySwarm$ {
+  /** @deprecated use `MongoStartRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoStartRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoStartRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoStartRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoStartRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoStartRestartPolicySwarm$Outbound;
 }
 
-export function mongoStartUpdateConfigSwarmToJSON(
-  mongoStartUpdateConfigSwarm: MongoStartUpdateConfigSwarm,
+export function mongoStartRestartPolicySwarmToJSON(
+  mongoStartRestartPolicySwarm: MongoStartRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoStartUpdateConfigSwarm$outboundSchema.parse(
-      mongoStartUpdateConfigSwarm,
+    MongoStartRestartPolicySwarm$outboundSchema.parse(
+      mongoStartRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoStartUpdateConfigSwarmFromJSON(
+export function mongoStartRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoStartUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoStartRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartUpdateConfigSwarm' from JSON`,
+    (x) => MongoStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -988,31 +2048,31 @@ export const MongoStartRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoStartRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1021,20 +2081,20 @@ export const MongoStartRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoStartRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1069,727 +2129,6 @@ export function mongoStartRollbackConfigSwarmFromJSON(
     (x) => MongoStartRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MongoStartRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoStartReplicated$inboundSchema: z.ZodType<
-  MongoStartReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoStartReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoStartReplicated$outboundSchema: z.ZodType<
-  MongoStartReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoStartReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartReplicated$ {
-  /** @deprecated use `MongoStartReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoStartReplicated$inboundSchema;
-  /** @deprecated use `MongoStartReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoStartReplicated$outboundSchema;
-  /** @deprecated use `MongoStartReplicated$Outbound` instead. */
-  export type Outbound = MongoStartReplicated$Outbound;
-}
-
-export function mongoStartReplicatedToJSON(
-  mongoStartReplicated: MongoStartReplicated,
-): string {
-  return JSON.stringify(
-    MongoStartReplicated$outboundSchema.parse(mongoStartReplicated),
-  );
-}
-
-export function mongoStartReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartGlobal$inboundSchema: z.ZodType<
-  MongoStartGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoStartGlobal$Outbound = {};
-
-/** @internal */
-export const MongoStartGlobal$outboundSchema: z.ZodType<
-  MongoStartGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoStartGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartGlobal$ {
-  /** @deprecated use `MongoStartGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoStartGlobal$inboundSchema;
-  /** @deprecated use `MongoStartGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoStartGlobal$outboundSchema;
-  /** @deprecated use `MongoStartGlobal$Outbound` instead. */
-  export type Outbound = MongoStartGlobal$Outbound;
-}
-
-export function mongoStartGlobalToJSON(
-  mongoStartGlobal: MongoStartGlobal,
-): string {
-  return JSON.stringify(
-    MongoStartGlobal$outboundSchema.parse(mongoStartGlobal),
-  );
-}
-
-export function mongoStartGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartReplicatedJob$inboundSchema: z.ZodType<
-  MongoStartReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoStartReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoStartReplicatedJob$outboundSchema: z.ZodType<
-  MongoStartReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoStartReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartReplicatedJob$ {
-  /** @deprecated use `MongoStartReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoStartReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoStartReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoStartReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoStartReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoStartReplicatedJob$Outbound;
-}
-
-export function mongoStartReplicatedJobToJSON(
-  mongoStartReplicatedJob: MongoStartReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoStartReplicatedJob$outboundSchema.parse(mongoStartReplicatedJob),
-  );
-}
-
-export function mongoStartReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartGlobalJob$inboundSchema: z.ZodType<
-  MongoStartGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoStartGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoStartGlobalJob$outboundSchema: z.ZodType<
-  MongoStartGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoStartGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartGlobalJob$ {
-  /** @deprecated use `MongoStartGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoStartGlobalJob$inboundSchema;
-  /** @deprecated use `MongoStartGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoStartGlobalJob$outboundSchema;
-  /** @deprecated use `MongoStartGlobalJob$Outbound` instead. */
-  export type Outbound = MongoStartGlobalJob$Outbound;
-}
-
-export function mongoStartGlobalJobToJSON(
-  mongoStartGlobalJob: MongoStartGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoStartGlobalJob$outboundSchema.parse(mongoStartGlobalJob),
-  );
-}
-
-export function mongoStartGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartModeSwarm$inboundSchema: z.ZodType<
-  MongoStartModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoStartReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MongoStartGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoStartReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MongoStartGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoStartModeSwarm$Outbound = {
-  Replicated?: MongoStartReplicated$Outbound | undefined;
-  Global?: MongoStartGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoStartReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoStartGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoStartModeSwarm$outboundSchema: z.ZodType<
-  MongoStartModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoStartModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoStartReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MongoStartGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoStartReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoStartGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartModeSwarm$ {
-  /** @deprecated use `MongoStartModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoStartModeSwarm$inboundSchema;
-  /** @deprecated use `MongoStartModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoStartModeSwarm$outboundSchema;
-  /** @deprecated use `MongoStartModeSwarm$Outbound` instead. */
-  export type Outbound = MongoStartModeSwarm$Outbound;
-}
-
-export function mongoStartModeSwarmToJSON(
-  mongoStartModeSwarm: MongoStartModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoStartModeSwarm$outboundSchema.parse(mongoStartModeSwarm),
-  );
-}
-
-export function mongoStartModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartDriverOpts$inboundSchema: z.ZodType<
-  MongoStartDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoStartDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoStartDriverOpts$outboundSchema: z.ZodType<
-  MongoStartDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoStartDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartDriverOpts$ {
-  /** @deprecated use `MongoStartDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoStartDriverOpts$inboundSchema;
-  /** @deprecated use `MongoStartDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoStartDriverOpts$outboundSchema;
-  /** @deprecated use `MongoStartDriverOpts$Outbound` instead. */
-  export type Outbound = MongoStartDriverOpts$Outbound;
-}
-
-export function mongoStartDriverOptsToJSON(
-  mongoStartDriverOpts: MongoStartDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoStartDriverOpts$outboundSchema.parse(mongoStartDriverOpts),
-  );
-}
-
-export function mongoStartDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartNetworkSwarm$inboundSchema: z.ZodType<
-  MongoStartNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoStartDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoStartNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoStartDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoStartNetworkSwarm$outboundSchema: z.ZodType<
-  MongoStartNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoStartNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoStartDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartNetworkSwarm$ {
-  /** @deprecated use `MongoStartNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoStartNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoStartNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoStartNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoStartNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoStartNetworkSwarm$Outbound;
-}
-
-export function mongoStartNetworkSwarmToJSON(
-  mongoStartNetworkSwarm: MongoStartNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoStartNetworkSwarm$outboundSchema.parse(mongoStartNetworkSwarm),
-  );
-}
-
-export function mongoStartNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartProject$inboundSchema: z.ZodType<
-  MongoStartProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoStartProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoStartProject$outboundSchema: z.ZodType<
-  MongoStartProject$Outbound,
-  z.ZodTypeDef,
-  MongoStartProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartProject$ {
-  /** @deprecated use `MongoStartProject$inboundSchema` instead. */
-  export const inboundSchema = MongoStartProject$inboundSchema;
-  /** @deprecated use `MongoStartProject$outboundSchema` instead. */
-  export const outboundSchema = MongoStartProject$outboundSchema;
-  /** @deprecated use `MongoStartProject$Outbound` instead. */
-  export type Outbound = MongoStartProject$Outbound;
-}
-
-export function mongoStartProjectToJSON(
-  mongoStartProject: MongoStartProject,
-): string {
-  return JSON.stringify(
-    MongoStartProject$outboundSchema.parse(mongoStartProject),
-  );
-}
-
-export function mongoStartProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartEnvironment$inboundSchema: z.ZodType<
-  MongoStartEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoStartProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoStartEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoStartProject$Outbound;
-};
-
-/** @internal */
-export const MongoStartEnvironment$outboundSchema: z.ZodType<
-  MongoStartEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoStartEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoStartProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartEnvironment$ {
-  /** @deprecated use `MongoStartEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoStartEnvironment$inboundSchema;
-  /** @deprecated use `MongoStartEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoStartEnvironment$outboundSchema;
-  /** @deprecated use `MongoStartEnvironment$Outbound` instead. */
-  export type Outbound = MongoStartEnvironment$Outbound;
-}
-
-export function mongoStartEnvironmentToJSON(
-  mongoStartEnvironment: MongoStartEnvironment,
-): string {
-  return JSON.stringify(
-    MongoStartEnvironment$outboundSchema.parse(mongoStartEnvironment),
-  );
-}
-
-export function mongoStartEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartType
-> = z.nativeEnum(MongoStartType);
-
-/** @internal */
-export const MongoStartType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartType
-> = MongoStartType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartType$ {
-  /** @deprecated use `MongoStartType$inboundSchema` instead. */
-  export const inboundSchema = MongoStartType$inboundSchema;
-  /** @deprecated use `MongoStartType$outboundSchema` instead. */
-  export const outboundSchema = MongoStartType$outboundSchema;
-}
-
-/** @internal */
-export const MongoStartServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartServiceType
-> = z.nativeEnum(MongoStartServiceType);
-
-/** @internal */
-export const MongoStartServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartServiceType
-> = MongoStartServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartServiceType$ {
-  /** @deprecated use `MongoStartServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoStartServiceType$inboundSchema;
-  /** @deprecated use `MongoStartServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoStartServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoStartMount$inboundSchema: z.ZodType<
-  MongoStartMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoStartType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoStartServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoStartMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoStartMount$outboundSchema: z.ZodType<
-  MongoStartMount$Outbound,
-  z.ZodTypeDef,
-  MongoStartMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoStartType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoStartServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMount$ {
-  /** @deprecated use `MongoStartMount$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMount$inboundSchema;
-  /** @deprecated use `MongoStartMount$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMount$outboundSchema;
-  /** @deprecated use `MongoStartMount$Outbound` instead. */
-  export type Outbound = MongoStartMount$Outbound;
-}
-
-export function mongoStartMountToJSON(
-  mongoStartMount: MongoStartMount,
-): string {
-  return JSON.stringify(MongoStartMount$outboundSchema.parse(mongoStartMount));
-}
-
-export function mongoStartMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartServerStatus
-> = z.nativeEnum(MongoStartServerStatus);
-
-/** @internal */
-export const MongoStartServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartServerStatus
-> = MongoStartServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartServerStatus$ {
-  /** @deprecated use `MongoStartServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoStartServerStatus$inboundSchema;
-  /** @deprecated use `MongoStartServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MongoStartServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1952,24 +2291,38 @@ export function mongoStartMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoStartServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoStartServerStatus
+> = z.nativeEnum(MongoStartServerStatus);
+
+/** @internal */
+export const MongoStartServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoStartServerStatus
+> = MongoStartServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoStartServerStatus$ {
+  /** @deprecated use `MongoStartServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoStartServerStatus$inboundSchema;
+  /** @deprecated use `MongoStartServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MongoStartServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoStartServer$inboundSchema: z.ZodType<
   MongoStartServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoStartServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1980,26 +2333,33 @@ export const MongoStartServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoStartServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoStartServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2008,19 +2368,12 @@ export const MongoStartServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoStartServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoStartServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2031,6 +2384,13 @@ export const MongoStartServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoStartServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2065,517 +2425,91 @@ export function mongoStartServerFromJSON(
 }
 
 /** @internal */
-export const MongoStartBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartBackupType
-> = z.nativeEnum(MongoStartBackupType);
-
-/** @internal */
-export const MongoStartBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartBackupType
-> = MongoStartBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartBackupType$ {
-  /** @deprecated use `MongoStartBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoStartBackupType$inboundSchema;
-  /** @deprecated use `MongoStartBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoStartBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoStartDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartDatabaseType
-> = z.nativeEnum(MongoStartDatabaseType);
-
-/** @internal */
-export const MongoStartDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartDatabaseType
-> = MongoStartDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartDatabaseType$ {
-  /** @deprecated use `MongoStartDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoStartDatabaseType$inboundSchema;
-  /** @deprecated use `MongoStartDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MongoStartDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MongoStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoStartMetadataEnum
-> = z.nativeEnum(MongoStartMetadataEnum);
-
-/** @internal */
-export const MongoStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoStartMetadataEnum
-> = MongoStartMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMetadataEnum$ {
-  /** @deprecated use `MongoStartMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoStartMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoStartPostgres$inboundSchema: z.ZodType<
-  MongoStartPostgres,
+export const MongoStartUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoStartUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MongoStartPostgres$Outbound = {
-  databaseUser: string;
+export type MongoStartUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoStartPostgres$outboundSchema: z.ZodType<
-  MongoStartPostgres$Outbound,
+export const MongoStartUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoStartUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoStartPostgres
+  MongoStartUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoStartPostgres$ {
-  /** @deprecated use `MongoStartPostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoStartPostgres$inboundSchema;
-  /** @deprecated use `MongoStartPostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoStartPostgres$outboundSchema;
-  /** @deprecated use `MongoStartPostgres$Outbound` instead. */
-  export type Outbound = MongoStartPostgres$Outbound;
+export namespace MongoStartUpdateConfigSwarm$ {
+  /** @deprecated use `MongoStartUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoStartUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoStartUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoStartUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoStartUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoStartUpdateConfigSwarm$Outbound;
 }
 
-export function mongoStartPostgresToJSON(
-  mongoStartPostgres: MongoStartPostgres,
+export function mongoStartUpdateConfigSwarmToJSON(
+  mongoStartUpdateConfigSwarm: MongoStartUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoStartPostgres$outboundSchema.parse(mongoStartPostgres),
+    MongoStartUpdateConfigSwarm$outboundSchema.parse(
+      mongoStartUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mongoStartPostgresFromJSON(
+export function mongoStartUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoStartPostgres, SDKValidationError> {
+): SafeParseResult<MongoStartUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoStartPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartMariadb$inboundSchema: z.ZodType<
-  MongoStartMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoStartMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoStartMariadb$outboundSchema: z.ZodType<
-  MongoStartMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoStartMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMariadb$ {
-  /** @deprecated use `MongoStartMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMariadb$inboundSchema;
-  /** @deprecated use `MongoStartMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMariadb$outboundSchema;
-  /** @deprecated use `MongoStartMariadb$Outbound` instead. */
-  export type Outbound = MongoStartMariadb$Outbound;
-}
-
-export function mongoStartMariadbToJSON(
-  mongoStartMariadb: MongoStartMariadb,
-): string {
-  return JSON.stringify(
-    MongoStartMariadb$outboundSchema.parse(mongoStartMariadb),
-  );
-}
-
-export function mongoStartMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartMongo$inboundSchema: z.ZodType<
-  MongoStartMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoStartMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoStartMongo$outboundSchema: z.ZodType<
-  MongoStartMongo$Outbound,
-  z.ZodTypeDef,
-  MongoStartMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMongo$ {
-  /** @deprecated use `MongoStartMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMongo$inboundSchema;
-  /** @deprecated use `MongoStartMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMongo$outboundSchema;
-  /** @deprecated use `MongoStartMongo$Outbound` instead. */
-  export type Outbound = MongoStartMongo$Outbound;
-}
-
-export function mongoStartMongoToJSON(
-  mongoStartMongo: MongoStartMongo,
-): string {
-  return JSON.stringify(MongoStartMongo$outboundSchema.parse(mongoStartMongo));
-}
-
-export function mongoStartMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartMysql$inboundSchema: z.ZodType<
-  MongoStartMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoStartMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoStartMysql$outboundSchema: z.ZodType<
-  MongoStartMysql$Outbound,
-  z.ZodTypeDef,
-  MongoStartMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMysql$ {
-  /** @deprecated use `MongoStartMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMysql$inboundSchema;
-  /** @deprecated use `MongoStartMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMysql$outboundSchema;
-  /** @deprecated use `MongoStartMysql$Outbound` instead. */
-  export type Outbound = MongoStartMysql$Outbound;
-}
-
-export function mongoStartMysqlToJSON(
-  mongoStartMysql: MongoStartMysql,
-): string {
-  return JSON.stringify(MongoStartMysql$outboundSchema.parse(mongoStartMysql));
-}
-
-export function mongoStartMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartMetadata$inboundSchema: z.ZodType<
-  MongoStartMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoStartPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MongoStartMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoStartMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoStartMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoStartMetadata$Outbound = {
-  postgres?: MongoStartPostgres$Outbound | undefined;
-  mariadb?: MongoStartMariadb$Outbound | undefined;
-  mongo?: MongoStartMongo$Outbound | undefined;
-  mysql?: MongoStartMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoStartMetadata$outboundSchema: z.ZodType<
-  MongoStartMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoStartMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoStartPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MongoStartMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoStartMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoStartMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMetadata$ {
-  /** @deprecated use `MongoStartMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMetadata$inboundSchema;
-  /** @deprecated use `MongoStartMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMetadata$outboundSchema;
-  /** @deprecated use `MongoStartMetadata$Outbound` instead. */
-  export type Outbound = MongoStartMetadata$Outbound;
-}
-
-export function mongoStartMetadataToJSON(
-  mongoStartMetadata: MongoStartMetadata,
-): string {
-  return JSON.stringify(
-    MongoStartMetadata$outboundSchema.parse(mongoStartMetadata),
-  );
-}
-
-export function mongoStartMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartMetadataUnion$inboundSchema: z.ZodType<
-  MongoStartMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoStartMetadata$inboundSchema),
-  MongoStartMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoStartMetadataUnion$Outbound =
-  | MongoStartMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MongoStartMetadataUnion$outboundSchema: z.ZodType<
-  MongoStartMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoStartMetadataUnion
-> = z.union([
-  z.lazy(() => MongoStartMetadata$outboundSchema),
-  MongoStartMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartMetadataUnion$ {
-  /** @deprecated use `MongoStartMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoStartMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoStartMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MongoStartMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoStartMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoStartMetadataUnion$Outbound;
-}
-
-export function mongoStartMetadataUnionToJSON(
-  mongoStartMetadataUnion: MongoStartMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoStartMetadataUnion$outboundSchema.parse(mongoStartMetadataUnion),
-  );
-}
-
-export function mongoStartMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoStartBackup$inboundSchema: z.ZodType<
-  MongoStartBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoStartBackupType$inboundSchema,
-  databaseType: MongoStartDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoStartMetadata$inboundSchema),
-      MongoStartMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoStartBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoStartMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoStartBackup$outboundSchema: z.ZodType<
-  MongoStartBackup$Outbound,
-  z.ZodTypeDef,
-  MongoStartBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoStartBackupType$outboundSchema,
-  databaseType: MongoStartDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoStartMetadata$outboundSchema),
-      MongoStartMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoStartBackup$ {
-  /** @deprecated use `MongoStartBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoStartBackup$inboundSchema;
-  /** @deprecated use `MongoStartBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoStartBackup$outboundSchema;
-  /** @deprecated use `MongoStartBackup$Outbound` instead. */
-  export type Outbound = MongoStartBackup$Outbound;
-}
-
-export function mongoStartBackupToJSON(
-  mongoStartBackup: MongoStartBackup,
-): string {
-  return JSON.stringify(
-    MongoStartBackup$outboundSchema.parse(mongoStartBackup),
-  );
-}
-
-export function mongoStartBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoStartBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoStartBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoStartBackup' from JSON`,
+    (x) => MongoStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoStartUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2585,86 +2519,86 @@ export const MongoStartResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoStartApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MongoStartBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoStartEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoStartHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoStartRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoStartModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoStartMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoStartNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoStartPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoStartUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoStartRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoStartRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoStartModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoStartNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoStartEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoStartMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoStartServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoStartBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoStartUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoStartResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoStartHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoStartRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoStartPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoStartUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoStartRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoStartModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoStartNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoStartEnvironment$Outbound;
-  mounts: Array<MongoStartMount$Outbound>;
-  server: MongoStartServer$Outbound | null;
   backups: Array<MongoStartBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoStartEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoStartHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoStartModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoStartMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoStartNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoStartPlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoStartRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoStartRollbackConfigSwarm$Outbound | null;
+  server: MongoStartServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoStartUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2673,50 +2607,50 @@ export const MongoStartResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoStartResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoStartApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MongoStartBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoStartEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoStartHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoStartRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoStartModeSwarm$outboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoStartMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoStartNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoStartPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoStartUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoStartRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoStartRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoStartModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoStartNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoStartEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoStartMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoStartServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoStartBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoStartUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

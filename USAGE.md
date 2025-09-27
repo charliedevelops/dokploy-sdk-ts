@@ -2,28 +2,28 @@
 ```typescript
 import { Dokploy } from "dokploy-sdk";
 
-const dokploy = new Dokploy();
+const dokploy = new Dokploy({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const result = await dokploy.admin.adminSetupMonitoring({
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const result = await dokploy.admin.setupMonitoring({
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });

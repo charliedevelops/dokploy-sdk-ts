@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeTemplatesSecurity = {
-  authorization: string;
-};
-
 export type ComposeTemplatesRequest = {
   baseUrl?: string | undefined;
 };
-
-/** @internal */
-export const ComposeTemplatesSecurity$inboundSchema: z.ZodType<
-  ComposeTemplatesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeTemplatesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeTemplatesSecurity$outboundSchema: z.ZodType<
-  ComposeTemplatesSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeTemplatesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeTemplatesSecurity$ {
-  /** @deprecated use `ComposeTemplatesSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeTemplatesSecurity$inboundSchema;
-  /** @deprecated use `ComposeTemplatesSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeTemplatesSecurity$outboundSchema;
-  /** @deprecated use `ComposeTemplatesSecurity$Outbound` instead. */
-  export type Outbound = ComposeTemplatesSecurity$Outbound;
-}
-
-export function composeTemplatesSecurityToJSON(
-  composeTemplatesSecurity: ComposeTemplatesSecurity,
-): string {
-  return JSON.stringify(
-    ComposeTemplatesSecurity$outboundSchema.parse(composeTemplatesSecurity),
-  );
-}
-
-export function composeTemplatesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeTemplatesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeTemplatesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeTemplatesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeTemplatesRequest$inboundSchema: z.ZodType<

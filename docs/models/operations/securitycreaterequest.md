@@ -7,8 +7,8 @@ import { SecurityCreateRequest } from "dokploy-sdk/models/operations";
 
 let value: SecurityCreateRequest = {
   applicationId: "<id>",
-  username: "Constantin.Kertzmann",
-  password: "eUkfMmPJCFOcmQZ",
+  password: "4OJAReUkfMmPJCF",
+  username: "Jenifer_Hauck",
 };
 ```
 
@@ -17,5 +17,5 @@ let value: SecurityCreateRequest = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
-| `username`         | *string*           | :heavy_check_mark: | N/A                |
 | `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

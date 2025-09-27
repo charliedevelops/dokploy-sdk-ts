@@ -3,85 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type PreviewDeploymentDeleteSecurity = {
-  authorization: string;
-};
 
 export type PreviewDeploymentDeleteRequest = {
   previewDeploymentId: string;
 };
 
 export type PreviewDeploymentDeleteResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const PreviewDeploymentDeleteSecurity$inboundSchema: z.ZodType<
-  PreviewDeploymentDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PreviewDeploymentDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PreviewDeploymentDeleteSecurity$outboundSchema: z.ZodType<
-  PreviewDeploymentDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  PreviewDeploymentDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PreviewDeploymentDeleteSecurity$ {
-  /** @deprecated use `PreviewDeploymentDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = PreviewDeploymentDeleteSecurity$inboundSchema;
-  /** @deprecated use `PreviewDeploymentDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = PreviewDeploymentDeleteSecurity$outboundSchema;
-  /** @deprecated use `PreviewDeploymentDeleteSecurity$Outbound` instead. */
-  export type Outbound = PreviewDeploymentDeleteSecurity$Outbound;
-}
-
-export function previewDeploymentDeleteSecurityToJSON(
-  previewDeploymentDeleteSecurity: PreviewDeploymentDeleteSecurity,
-): string {
-  return JSON.stringify(
-    PreviewDeploymentDeleteSecurity$outboundSchema.parse(
-      previewDeploymentDeleteSecurity,
-    ),
-  );
-}
-
-export function previewDeploymentDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PreviewDeploymentDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PreviewDeploymentDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PreviewDeploymentDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PreviewDeploymentDeleteRequest$inboundSchema: z.ZodType<

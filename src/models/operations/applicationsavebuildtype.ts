@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type ApplicationSaveBuildTypeSecurity = {
-  authorization: string;
-};
 
 export const ApplicationSaveBuildTypeBuildType = {
   Dockerfile: "dockerfile",
@@ -29,80 +24,16 @@ export type ApplicationSaveBuildTypeBuildType = ClosedEnum<
 export type ApplicationSaveBuildTypeRequest = {
   applicationId: string;
   buildType: ApplicationSaveBuildTypeBuildType;
-  dockerfile?: string | null | undefined;
-  dockerContextPath: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerfile?: string | null | undefined;
   herokuVersion?: string | null | undefined;
-  railpackVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
   isStaticSpa?: boolean | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
 };
 
 export type ApplicationSaveBuildTypeResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveBuildTypeSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveBuildTypeSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveBuildTypeSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveBuildTypeSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveBuildTypeSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveBuildTypeSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveBuildTypeSecurity$ {
-  /** @deprecated use `ApplicationSaveBuildTypeSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationSaveBuildTypeSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveBuildTypeSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationSaveBuildTypeSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveBuildTypeSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveBuildTypeSecurity$Outbound;
-}
-
-export function applicationSaveBuildTypeSecurityToJSON(
-  applicationSaveBuildTypeSecurity: ApplicationSaveBuildTypeSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveBuildTypeSecurity$outboundSchema.parse(
-      applicationSaveBuildTypeSecurity,
-    ),
-  );
-}
-
-export function applicationSaveBuildTypeSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveBuildTypeSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationSaveBuildTypeSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveBuildTypeSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveBuildTypeBuildType$inboundSchema: z.ZodNativeEnum<
@@ -134,26 +65,26 @@ export const ApplicationSaveBuildTypeRequest$inboundSchema: z.ZodType<
 > = z.object({
   applicationId: z.string(),
   buildType: ApplicationSaveBuildTypeBuildType$inboundSchema,
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()).optional(),
   herokuVersion: z.nullable(z.string()).optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
   isStaticSpa: z.nullable(z.boolean()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveBuildTypeRequest$Outbound = {
   applicationId: string;
   buildType: string;
-  dockerfile?: string | null | undefined;
-  dockerContextPath: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerfile?: string | null | undefined;
   herokuVersion?: string | null | undefined;
-  railpackVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
   isStaticSpa?: boolean | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
 };
 
 /** @internal */
@@ -164,13 +95,13 @@ export const ApplicationSaveBuildTypeRequest$outboundSchema: z.ZodType<
 > = z.object({
   applicationId: z.string(),
   buildType: ApplicationSaveBuildTypeBuildType$outboundSchema,
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()).optional(),
   herokuVersion: z.nullable(z.string()).optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
   isStaticSpa: z.nullable(z.boolean()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
 });
 
 /**

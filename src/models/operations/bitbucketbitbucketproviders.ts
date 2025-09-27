@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type BitbucketBitbucketProvidersSecurity = {
-  authorization: string;
-};
 
 export const BitbucketBitbucketProvidersProviderType = {
   Github: "github",
@@ -25,11 +20,11 @@ export type BitbucketBitbucketProvidersProviderType = ClosedEnum<
 >;
 
 export type BitbucketBitbucketProvidersGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: BitbucketBitbucketProvidersProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: BitbucketBitbucketProvidersProviderType;
   userId: string;
 };
 
@@ -41,73 +36,6 @@ export type BitbucketBitbucketProvidersResponseBody = {
 export type BitbucketBitbucketProvidersResponse =
   | models.ErrorT
   | Array<BitbucketBitbucketProvidersResponseBody>;
-
-/** @internal */
-export const BitbucketBitbucketProvidersSecurity$inboundSchema: z.ZodType<
-  BitbucketBitbucketProvidersSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketBitbucketProvidersSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketBitbucketProvidersSecurity$outboundSchema: z.ZodType<
-  BitbucketBitbucketProvidersSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketBitbucketProvidersSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketBitbucketProvidersSecurity$ {
-  /** @deprecated use `BitbucketBitbucketProvidersSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    BitbucketBitbucketProvidersSecurity$inboundSchema;
-  /** @deprecated use `BitbucketBitbucketProvidersSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BitbucketBitbucketProvidersSecurity$outboundSchema;
-  /** @deprecated use `BitbucketBitbucketProvidersSecurity$Outbound` instead. */
-  export type Outbound = BitbucketBitbucketProvidersSecurity$Outbound;
-}
-
-export function bitbucketBitbucketProvidersSecurityToJSON(
-  bitbucketBitbucketProvidersSecurity: BitbucketBitbucketProvidersSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketBitbucketProvidersSecurity$outboundSchema.parse(
-      bitbucketBitbucketProvidersSecurity,
-    ),
-  );
-}
-
-export function bitbucketBitbucketProvidersSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketBitbucketProvidersSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      BitbucketBitbucketProvidersSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketBitbucketProvidersSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketBitbucketProvidersProviderType$inboundSchema:
@@ -138,21 +66,21 @@ export const BitbucketBitbucketProvidersGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketBitbucketProvidersProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketBitbucketProvidersProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type BitbucketBitbucketProvidersGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -162,11 +90,11 @@ export const BitbucketBitbucketProvidersGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketBitbucketProvidersGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: BitbucketBitbucketProvidersProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: BitbucketBitbucketProvidersProviderType$outboundSchema,
   userId: z.string(),
 });
 

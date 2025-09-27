@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlStartSecurity = {
-  authorization: string;
-};
-
 export type MysqlStartRequest = {
   mysqlId: string;
 };
@@ -28,112 +24,122 @@ export type MysqlStartApplicationStatus = ClosedEnum<
   typeof MysqlStartApplicationStatus
 >;
 
+export const MysqlStartBackupType = {
+  Database: "database",
+  Compose: "compose",
+} as const;
+export type MysqlStartBackupType = ClosedEnum<typeof MysqlStartBackupType>;
+
+export const MysqlStartDatabaseType = {
+  Postgres: "postgres",
+  Mariadb: "mariadb",
+  Mysql: "mysql",
+  Mongo: "mongo",
+  WebServer: "web-server",
+} as const;
+export type MysqlStartDatabaseType = ClosedEnum<typeof MysqlStartDatabaseType>;
+
+export const MysqlStartMetadataEnum = {
+  Null: "null",
+} as const;
+export type MysqlStartMetadataEnum = ClosedEnum<typeof MysqlStartMetadataEnum>;
+
+export type MysqlStartMariadb = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlStartMongo = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+export type MysqlStartMysql = {
+  databaseRootPassword: string;
+};
+
+export type MysqlStartPostgres = {
+  databaseUser: string;
+};
+
+export type MysqlStartMetadata = {
+  mariadb?: MysqlStartMariadb | undefined;
+  mongo?: MysqlStartMongo | undefined;
+  mysql?: MysqlStartMysql | undefined;
+  postgres?: MysqlStartPostgres | undefined;
+};
+
+export type MysqlStartMetadataUnion =
+  | MysqlStartMetadata
+  | MysqlStartMetadataEnum;
+
+export type MysqlStartBackup = {
+  appName: string;
+  backupId: string;
+  backupType: MysqlStartBackupType;
+  composeId: string | null;
+  database: string;
+  databaseType: MysqlStartDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlStartMetadata | MysqlStartMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlStartProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlStartEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlStartProject;
+  projectId: string;
+};
+
 export type MysqlStartHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type MysqlStartRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type MysqlStartGlobal = {};
 
-export type MysqlStartSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlStartPreference = {
-  spread: MysqlStartSpread;
-};
-
-export type MysqlStartPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlStartPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlStartPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlStartPlatform> | undefined;
-};
-
-export type MysqlStartUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlStartRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type MysqlStartGlobalJob = {};
 
 export type MysqlStartReplicated = {
   replicas?: number | undefined;
 };
-
-export type MysqlStartGlobal = {};
 
 export type MysqlStartReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type MysqlStartGlobalJob = {};
-
 export type MysqlStartModeSwarm = {
-  replicated?: MysqlStartReplicated | undefined;
   global?: MysqlStartGlobal | undefined;
-  replicatedJob?: MysqlStartReplicatedJob | undefined;
   globalJob?: MysqlStartGlobalJob | undefined;
+  replicated?: MysqlStartReplicated | undefined;
+  replicatedJob?: MysqlStartReplicatedJob | undefined;
 };
-
-export type MysqlStartDriverOpts = {};
-
-export type MysqlStartNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlStartDriverOpts | undefined;
-};
-
-export type MysqlStartProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlStartEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlStartProject;
-};
-
-export const MysqlStartType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlStartType = ClosedEnum<typeof MysqlStartType>;
 
 export const MysqlStartServiceType = {
   Application: "application",
@@ -146,29 +152,74 @@ export const MysqlStartServiceType = {
 } as const;
 export type MysqlStartServiceType = ClosedEnum<typeof MysqlStartServiceType>;
 
+export const MysqlStartType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlStartType = ClosedEnum<typeof MysqlStartType>;
+
 export type MysqlStartMount = {
-  mountId: string;
-  type: MysqlStartType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlStartServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: MysqlStartServiceType;
+  type: MysqlStartType;
+  volumeName: string | null;
 };
 
-export const MysqlStartServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlStartServerStatus = ClosedEnum<typeof MysqlStartServerStatus>;
+export type MysqlStartDriverOpts = {};
+
+export type MysqlStartNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlStartDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlStartPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlStartSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlStartPreference = {
+  spread: MysqlStartSpread;
+};
+
+export type MysqlStartPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlStartPlatform> | undefined;
+  preferences?: Array<MysqlStartPreference> | undefined;
+};
+
+export type MysqlStartRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlStartRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const MysqlStartMetricsConfigEnum = {
   Null: "null",
@@ -191,20 +242,19 @@ export type MysqlStartMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const MysqlStartServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlStartServerStatus = ClosedEnum<typeof MysqlStartServerStatus>;
+
 export type MysqlStartServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlStartServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -212,180 +262,64 @@ export type MysqlStartServer = {
     | MysqlStartMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlStartServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const MysqlStartBackupType = {
-  Database: "database",
-  Compose: "compose",
-} as const;
-export type MysqlStartBackupType = ClosedEnum<typeof MysqlStartBackupType>;
-
-export const MysqlStartDatabaseType = {
-  Postgres: "postgres",
-  Mariadb: "mariadb",
-  Mysql: "mysql",
-  Mongo: "mongo",
-  WebServer: "web-server",
-} as const;
-export type MysqlStartDatabaseType = ClosedEnum<typeof MysqlStartDatabaseType>;
-
-export const MysqlStartMetadataEnum = {
-  Null: "null",
-} as const;
-export type MysqlStartMetadataEnum = ClosedEnum<typeof MysqlStartMetadataEnum>;
-
-export type MysqlStartPostgres = {
-  databaseUser: string;
-};
-
-export type MysqlStartMariadb = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlStartMongo = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-export type MysqlStartMysql = {
-  databaseRootPassword: string;
-};
-
-export type MysqlStartMetadata = {
-  postgres?: MysqlStartPostgres | undefined;
-  mariadb?: MysqlStartMariadb | undefined;
-  mongo?: MysqlStartMongo | undefined;
-  mysql?: MysqlStartMysql | undefined;
-};
-
-export type MysqlStartMetadataUnion =
-  | MysqlStartMetadata
-  | MysqlStartMetadataEnum;
-
-export type MysqlStartBackup = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: MysqlStartBackupType;
-  databaseType: MysqlStartDatabaseType;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlStartMetadata | MysqlStartMetadataEnum | null | undefined;
+export type MysqlStartUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlStartResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlStartApplicationStatus;
+  backups: Array<MysqlStartBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlStartApplicationStatus;
-  healthCheckSwarm: MysqlStartHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlStartRestartPolicySwarm | null;
-  placementSwarm: MysqlStartPlacementSwarm | null;
-  updateConfigSwarm: MysqlStartUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlStartRollbackConfigSwarm | null;
-  modeSwarm: MysqlStartModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlStartNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlStartEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlStartHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlStartModeSwarm | null;
   mounts: Array<MysqlStartMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlStartNetworkSwarm> | null;
+  placementSwarm: MysqlStartPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlStartRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlStartRollbackConfigSwarm | null;
   server: MysqlStartServer | null;
-  backups: Array<MysqlStartBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlStartUpdateConfigSwarm | null;
 };
 
 export type MysqlStartResponse = MysqlStartResponseBody | models.ErrorT;
-
-/** @internal */
-export const MysqlStartSecurity$inboundSchema: z.ZodType<
-  MysqlStartSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlStartSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlStartSecurity$outboundSchema: z.ZodType<
-  MysqlStartSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlStartSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartSecurity$ {
-  /** @deprecated use `MysqlStartSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartSecurity$inboundSchema;
-  /** @deprecated use `MysqlStartSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartSecurity$outboundSchema;
-  /** @deprecated use `MysqlStartSecurity$Outbound` instead. */
-  export type Outbound = MysqlStartSecurity$Outbound;
-}
-
-export function mysqlStartSecurityToJSON(
-  mysqlStartSecurity: MysqlStartSecurity,
-): string {
-  return JSON.stringify(
-    MysqlStartSecurity$outboundSchema.parse(mysqlStartSecurity),
-  );
-}
-
-export function mysqlStartSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlStartRequest$inboundSchema: z.ZodType<
@@ -463,33 +397,689 @@ export namespace MysqlStartApplicationStatus$ {
 }
 
 /** @internal */
+export const MysqlStartBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartBackupType
+> = z.nativeEnum(MysqlStartBackupType);
+
+/** @internal */
+export const MysqlStartBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartBackupType
+> = MysqlStartBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartBackupType$ {
+  /** @deprecated use `MysqlStartBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartBackupType$inboundSchema;
+  /** @deprecated use `MysqlStartBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStartDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartDatabaseType
+> = z.nativeEnum(MysqlStartDatabaseType);
+
+/** @internal */
+export const MysqlStartDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartDatabaseType
+> = MysqlStartDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartDatabaseType$ {
+  /** @deprecated use `MysqlStartDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlStartDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartMetadataEnum
+> = z.nativeEnum(MysqlStartMetadataEnum);
+
+/** @internal */
+export const MysqlStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartMetadataEnum
+> = MysqlStartMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMetadataEnum$ {
+  /** @deprecated use `MysqlStartMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlStartMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStartMariadb$inboundSchema: z.ZodType<
+  MysqlStartMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStartMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStartMariadb$outboundSchema: z.ZodType<
+  MysqlStartMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMariadb$ {
+  /** @deprecated use `MysqlStartMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMariadb$inboundSchema;
+  /** @deprecated use `MysqlStartMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMariadb$outboundSchema;
+  /** @deprecated use `MysqlStartMariadb$Outbound` instead. */
+  export type Outbound = MysqlStartMariadb$Outbound;
+}
+
+export function mysqlStartMariadbToJSON(
+  mysqlStartMariadb: MysqlStartMariadb,
+): string {
+  return JSON.stringify(
+    MysqlStartMariadb$outboundSchema.parse(mysqlStartMariadb),
+  );
+}
+
+export function mysqlStartMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartMongo$inboundSchema: z.ZodType<
+  MysqlStartMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStartMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStartMongo$outboundSchema: z.ZodType<
+  MysqlStartMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMongo$ {
+  /** @deprecated use `MysqlStartMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMongo$inboundSchema;
+  /** @deprecated use `MysqlStartMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMongo$outboundSchema;
+  /** @deprecated use `MysqlStartMongo$Outbound` instead. */
+  export type Outbound = MysqlStartMongo$Outbound;
+}
+
+export function mysqlStartMongoToJSON(
+  mysqlStartMongo: MysqlStartMongo,
+): string {
+  return JSON.stringify(MysqlStartMongo$outboundSchema.parse(mysqlStartMongo));
+}
+
+export function mysqlStartMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartMysql$inboundSchema: z.ZodType<
+  MysqlStartMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlStartMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlStartMysql$outboundSchema: z.ZodType<
+  MysqlStartMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMysql$ {
+  /** @deprecated use `MysqlStartMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMysql$inboundSchema;
+  /** @deprecated use `MysqlStartMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMysql$outboundSchema;
+  /** @deprecated use `MysqlStartMysql$Outbound` instead. */
+  export type Outbound = MysqlStartMysql$Outbound;
+}
+
+export function mysqlStartMysqlToJSON(
+  mysqlStartMysql: MysqlStartMysql,
+): string {
+  return JSON.stringify(MysqlStartMysql$outboundSchema.parse(mysqlStartMysql));
+}
+
+export function mysqlStartMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartPostgres$inboundSchema: z.ZodType<
+  MysqlStartPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlStartPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlStartPostgres$outboundSchema: z.ZodType<
+  MysqlStartPostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlStartPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartPostgres$ {
+  /** @deprecated use `MysqlStartPostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartPostgres$inboundSchema;
+  /** @deprecated use `MysqlStartPostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartPostgres$outboundSchema;
+  /** @deprecated use `MysqlStartPostgres$Outbound` instead. */
+  export type Outbound = MysqlStartPostgres$Outbound;
+}
+
+export function mysqlStartPostgresToJSON(
+  mysqlStartPostgres: MysqlStartPostgres,
+): string {
+  return JSON.stringify(
+    MysqlStartPostgres$outboundSchema.parse(mysqlStartPostgres),
+  );
+}
+
+export function mysqlStartPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartMetadata$inboundSchema: z.ZodType<
+  MysqlStartMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlStartMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlStartMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlStartMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlStartPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlStartMetadata$Outbound = {
+  mariadb?: MysqlStartMariadb$Outbound | undefined;
+  mongo?: MysqlStartMongo$Outbound | undefined;
+  mysql?: MysqlStartMysql$Outbound | undefined;
+  postgres?: MysqlStartPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlStartMetadata$outboundSchema: z.ZodType<
+  MysqlStartMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlStartMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlStartMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlStartMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlStartPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMetadata$ {
+  /** @deprecated use `MysqlStartMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMetadata$inboundSchema;
+  /** @deprecated use `MysqlStartMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMetadata$outboundSchema;
+  /** @deprecated use `MysqlStartMetadata$Outbound` instead. */
+  export type Outbound = MysqlStartMetadata$Outbound;
+}
+
+export function mysqlStartMetadataToJSON(
+  mysqlStartMetadata: MysqlStartMetadata,
+): string {
+  return JSON.stringify(
+    MysqlStartMetadata$outboundSchema.parse(mysqlStartMetadata),
+  );
+}
+
+export function mysqlStartMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartMetadataUnion$inboundSchema: z.ZodType<
+  MysqlStartMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlStartMetadata$inboundSchema),
+  MysqlStartMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlStartMetadataUnion$Outbound =
+  | MysqlStartMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlStartMetadataUnion$outboundSchema: z.ZodType<
+  MysqlStartMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlStartMetadata$outboundSchema),
+  MysqlStartMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMetadataUnion$ {
+  /** @deprecated use `MysqlStartMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlStartMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlStartMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlStartMetadataUnion$Outbound;
+}
+
+export function mysqlStartMetadataUnionToJSON(
+  mysqlStartMetadataUnion: MysqlStartMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlStartMetadataUnion$outboundSchema.parse(mysqlStartMetadataUnion),
+  );
+}
+
+export function mysqlStartMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartBackup$inboundSchema: z.ZodType<
+  MysqlStartBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlStartBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlStartDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlStartMetadata$inboundSchema),
+      MysqlStartMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlStartBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlStartMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlStartBackup$outboundSchema: z.ZodType<
+  MysqlStartBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlStartBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlStartBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlStartDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlStartMetadata$outboundSchema),
+      MysqlStartMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartBackup$ {
+  /** @deprecated use `MysqlStartBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartBackup$inboundSchema;
+  /** @deprecated use `MysqlStartBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartBackup$outboundSchema;
+  /** @deprecated use `MysqlStartBackup$Outbound` instead. */
+  export type Outbound = MysqlStartBackup$Outbound;
+}
+
+export function mysqlStartBackupToJSON(
+  mysqlStartBackup: MysqlStartBackup,
+): string {
+  return JSON.stringify(
+    MysqlStartBackup$outboundSchema.parse(mysqlStartBackup),
+  );
+}
+
+export function mysqlStartBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartProject$inboundSchema: z.ZodType<
+  MysqlStartProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlStartProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlStartProject$outboundSchema: z.ZodType<
+  MysqlStartProject$Outbound,
+  z.ZodTypeDef,
+  MysqlStartProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartProject$ {
+  /** @deprecated use `MysqlStartProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartProject$inboundSchema;
+  /** @deprecated use `MysqlStartProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartProject$outboundSchema;
+  /** @deprecated use `MysqlStartProject$Outbound` instead. */
+  export type Outbound = MysqlStartProject$Outbound;
+}
+
+export function mysqlStartProjectToJSON(
+  mysqlStartProject: MysqlStartProject,
+): string {
+  return JSON.stringify(
+    MysqlStartProject$outboundSchema.parse(mysqlStartProject),
+  );
+}
+
+export function mysqlStartProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartEnvironment$inboundSchema: z.ZodType<
+  MysqlStartEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlStartProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlStartEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlStartProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlStartEnvironment$outboundSchema: z.ZodType<
+  MysqlStartEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlStartEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlStartProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartEnvironment$ {
+  /** @deprecated use `MysqlStartEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartEnvironment$inboundSchema;
+  /** @deprecated use `MysqlStartEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartEnvironment$outboundSchema;
+  /** @deprecated use `MysqlStartEnvironment$Outbound` instead. */
+  export type Outbound = MysqlStartEnvironment$Outbound;
+}
+
+export function mysqlStartEnvironmentToJSON(
+  mysqlStartEnvironment: MysqlStartEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlStartEnvironment$outboundSchema.parse(mysqlStartEnvironment),
+  );
+}
+
+export function mysqlStartEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlStartHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlStartHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlStartHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -498,18 +1088,18 @@ export const MysqlStartHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStartHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -545,48 +1135,129 @@ export function mysqlStartHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlStartRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlStartRestartPolicySwarm,
+export const MysqlStartGlobal$inboundSchema: z.ZodType<
+  MysqlStartGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStartGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlStartGlobal$outboundSchema: z.ZodType<
+  MysqlStartGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlStartGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartGlobal$ {
+  /** @deprecated use `MysqlStartGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartGlobal$inboundSchema;
+  /** @deprecated use `MysqlStartGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartGlobal$outboundSchema;
+  /** @deprecated use `MysqlStartGlobal$Outbound` instead. */
+  export type Outbound = MysqlStartGlobal$Outbound;
+}
+
+export function mysqlStartGlobalToJSON(
+  mysqlStartGlobal: MysqlStartGlobal,
+): string {
+  return JSON.stringify(
+    MysqlStartGlobal$outboundSchema.parse(mysqlStartGlobal),
+  );
+}
+
+export function mysqlStartGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartGlobalJob$inboundSchema: z.ZodType<
+  MysqlStartGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStartGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlStartGlobalJob$outboundSchema: z.ZodType<
+  MysqlStartGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlStartGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartGlobalJob$ {
+  /** @deprecated use `MysqlStartGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlStartGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlStartGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlStartGlobalJob$Outbound;
+}
+
+export function mysqlStartGlobalJobToJSON(
+  mysqlStartGlobalJob: MysqlStartGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlStartGlobalJob$outboundSchema.parse(mysqlStartGlobalJob),
+  );
+}
+
+export function mysqlStartGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartReplicated$inboundSchema: z.ZodType<
+  MysqlStartReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlStartRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlStartReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlStartRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlStartRestartPolicySwarm$Outbound,
+export const MysqlStartReplicated$outboundSchema: z.ZodType<
+  MysqlStartReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlStartRestartPolicySwarm
+  MysqlStartReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -594,32 +1265,498 @@ export const MysqlStartRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStartRestartPolicySwarm$ {
-  /** @deprecated use `MysqlStartRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlStartRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlStartRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlStartRestartPolicySwarm$Outbound;
+export namespace MysqlStartReplicated$ {
+  /** @deprecated use `MysqlStartReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartReplicated$inboundSchema;
+  /** @deprecated use `MysqlStartReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartReplicated$outboundSchema;
+  /** @deprecated use `MysqlStartReplicated$Outbound` instead. */
+  export type Outbound = MysqlStartReplicated$Outbound;
 }
 
-export function mysqlStartRestartPolicySwarmToJSON(
-  mysqlStartRestartPolicySwarm: MysqlStartRestartPolicySwarm,
+export function mysqlStartReplicatedToJSON(
+  mysqlStartReplicated: MysqlStartReplicated,
 ): string {
   return JSON.stringify(
-    MysqlStartRestartPolicySwarm$outboundSchema.parse(
-      mysqlStartRestartPolicySwarm,
-    ),
+    MysqlStartReplicated$outboundSchema.parse(mysqlStartReplicated),
   );
 }
 
-export function mysqlStartRestartPolicySwarmFromJSON(
+export function mysqlStartReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStartRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlStartReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartRestartPolicySwarm' from JSON`,
+    (x) => MysqlStartReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartReplicatedJob$inboundSchema: z.ZodType<
+  MysqlStartReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlStartReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlStartReplicatedJob$outboundSchema: z.ZodType<
+  MysqlStartReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlStartReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartReplicatedJob$ {
+  /** @deprecated use `MysqlStartReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlStartReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlStartReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlStartReplicatedJob$Outbound;
+}
+
+export function mysqlStartReplicatedJobToJSON(
+  mysqlStartReplicatedJob: MysqlStartReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlStartReplicatedJob$outboundSchema.parse(mysqlStartReplicatedJob),
+  );
+}
+
+export function mysqlStartReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartModeSwarm$inboundSchema: z.ZodType<
+  MysqlStartModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlStartGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlStartGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlStartReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MysqlStartReplicatedJob$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlStartModeSwarm$Outbound = {
+  Global?: MysqlStartGlobal$Outbound | undefined;
+  GlobalJob?: MysqlStartGlobalJob$Outbound | undefined;
+  Replicated?: MysqlStartReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlStartReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlStartModeSwarm$outboundSchema: z.ZodType<
+  MysqlStartModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlStartModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlStartGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlStartGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlStartReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MysqlStartReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartModeSwarm$ {
+  /** @deprecated use `MysqlStartModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlStartModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlStartModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlStartModeSwarm$Outbound;
+}
+
+export function mysqlStartModeSwarmToJSON(
+  mysqlStartModeSwarm: MysqlStartModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlStartModeSwarm$outboundSchema.parse(mysqlStartModeSwarm),
+  );
+}
+
+export function mysqlStartModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartServiceType
+> = z.nativeEnum(MysqlStartServiceType);
+
+/** @internal */
+export const MysqlStartServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartServiceType
+> = MysqlStartServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartServiceType$ {
+  /** @deprecated use `MysqlStartServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartServiceType$inboundSchema;
+  /** @deprecated use `MysqlStartServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStartType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartType
+> = z.nativeEnum(MysqlStartType);
+
+/** @internal */
+export const MysqlStartType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartType
+> = MysqlStartType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartType$ {
+  /** @deprecated use `MysqlStartType$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartType$inboundSchema;
+  /** @deprecated use `MysqlStartType$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlStartMount$inboundSchema: z.ZodType<
+  MysqlStartMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlStartServiceType$inboundSchema,
+  type: MysqlStartType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlStartMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlStartMount$outboundSchema: z.ZodType<
+  MysqlStartMount$Outbound,
+  z.ZodTypeDef,
+  MysqlStartMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlStartServiceType$outboundSchema,
+  type: MysqlStartType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartMount$ {
+  /** @deprecated use `MysqlStartMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartMount$inboundSchema;
+  /** @deprecated use `MysqlStartMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartMount$outboundSchema;
+  /** @deprecated use `MysqlStartMount$Outbound` instead. */
+  export type Outbound = MysqlStartMount$Outbound;
+}
+
+export function mysqlStartMountToJSON(
+  mysqlStartMount: MysqlStartMount,
+): string {
+  return JSON.stringify(MysqlStartMount$outboundSchema.parse(mysqlStartMount));
+}
+
+export function mysqlStartMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartDriverOpts$inboundSchema: z.ZodType<
+  MysqlStartDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlStartDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlStartDriverOpts$outboundSchema: z.ZodType<
+  MysqlStartDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlStartDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartDriverOpts$ {
+  /** @deprecated use `MysqlStartDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlStartDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlStartDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlStartDriverOpts$Outbound;
+}
+
+export function mysqlStartDriverOptsToJSON(
+  mysqlStartDriverOpts: MysqlStartDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlStartDriverOpts$outboundSchema.parse(mysqlStartDriverOpts),
+  );
+}
+
+export function mysqlStartDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlStartNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlStartDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlStartNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlStartDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlStartNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlStartNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlStartNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlStartDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartNetworkSwarm$ {
+  /** @deprecated use `MysqlStartNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlStartNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlStartNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlStartNetworkSwarm$Outbound;
+}
+
+export function mysqlStartNetworkSwarmToJSON(
+  mysqlStartNetworkSwarm: MysqlStartNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlStartNetworkSwarm$outboundSchema.parse(mysqlStartNetworkSwarm),
+  );
+}
+
+export function mysqlStartNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlStartPlatform$inboundSchema: z.ZodType<
+  MysqlStartPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlStartPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlStartPlatform$outboundSchema: z.ZodType<
+  MysqlStartPlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlStartPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartPlatform$ {
+  /** @deprecated use `MysqlStartPlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartPlatform$inboundSchema;
+  /** @deprecated use `MysqlStartPlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartPlatform$outboundSchema;
+  /** @deprecated use `MysqlStartPlatform$Outbound` instead. */
+  export type Outbound = MysqlStartPlatform$Outbound;
+}
+
+export function mysqlStartPlatformToJSON(
+  mysqlStartPlatform: MysqlStartPlatform,
+): string {
+  return JSON.stringify(
+    MysqlStartPlatform$outboundSchema.parse(mysqlStartPlatform),
+  );
+}
+
+export function mysqlStartPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlStartPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlStartPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartPlatform' from JSON`,
   );
 }
 
@@ -748,98 +1885,31 @@ export function mysqlStartPreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlStartPlatform$inboundSchema: z.ZodType<
-  MysqlStartPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlStartPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlStartPlatform$outboundSchema: z.ZodType<
-  MysqlStartPlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlStartPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartPlatform$ {
-  /** @deprecated use `MysqlStartPlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartPlatform$inboundSchema;
-  /** @deprecated use `MysqlStartPlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartPlatform$outboundSchema;
-  /** @deprecated use `MysqlStartPlatform$Outbound` instead. */
-  export type Outbound = MysqlStartPlatform$Outbound;
-}
-
-export function mysqlStartPlatformToJSON(
-  mysqlStartPlatform: MysqlStartPlatform,
-): string {
-  return JSON.stringify(
-    MysqlStartPlatform$outboundSchema.parse(mysqlStartPlatform),
-  );
-}
-
-export function mysqlStartPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlStartPlacementSwarm$inboundSchema: z.ZodType<
   MysqlStartPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlStartPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlStartPlatform$inboundSchema)).optional(),
+  Preferences: z.array(z.lazy(() => MysqlStartPreference$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlStartPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlStartPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlStartPlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlStartPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -849,17 +1919,17 @@ export const MysqlStartPlacementSwarm$outboundSchema: z.ZodType<
   MysqlStartPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlStartPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlStartPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MysqlStartPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -895,58 +1965,48 @@ export function mysqlStartPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlStartUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlStartUpdateConfigSwarm,
+export const MysqlStartRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlStartRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlStartUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlStartRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlStartUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlStartUpdateConfigSwarm$Outbound,
+export const MysqlStartRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlStartRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlStartUpdateConfigSwarm
+  MysqlStartRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -954,32 +2014,32 @@ export const MysqlStartUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStartUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlStartUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlStartUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlStartUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlStartUpdateConfigSwarm$Outbound;
+export namespace MysqlStartRestartPolicySwarm$ {
+  /** @deprecated use `MysqlStartRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlStartRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlStartRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlStartRestartPolicySwarm$Outbound;
 }
 
-export function mysqlStartUpdateConfigSwarmToJSON(
-  mysqlStartUpdateConfigSwarm: MysqlStartUpdateConfigSwarm,
+export function mysqlStartRestartPolicySwarmToJSON(
+  mysqlStartRestartPolicySwarm: MysqlStartRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlStartUpdateConfigSwarm$outboundSchema.parse(
-      mysqlStartUpdateConfigSwarm,
+    MysqlStartRestartPolicySwarm$outboundSchema.parse(
+      mysqlStartRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlStartUpdateConfigSwarmFromJSON(
+export function mysqlStartRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStartUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlStartRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartUpdateConfigSwarm' from JSON`,
+    (x) => MysqlStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -989,31 +2049,31 @@ export const MysqlStartRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlStartRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1022,20 +2082,20 @@ export const MysqlStartRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStartRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1070,727 +2130,6 @@ export function mysqlStartRollbackConfigSwarmFromJSON(
     (x) => MysqlStartRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlStartRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlStartReplicated$inboundSchema: z.ZodType<
-  MysqlStartReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlStartReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlStartReplicated$outboundSchema: z.ZodType<
-  MysqlStartReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlStartReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartReplicated$ {
-  /** @deprecated use `MysqlStartReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartReplicated$inboundSchema;
-  /** @deprecated use `MysqlStartReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartReplicated$outboundSchema;
-  /** @deprecated use `MysqlStartReplicated$Outbound` instead. */
-  export type Outbound = MysqlStartReplicated$Outbound;
-}
-
-export function mysqlStartReplicatedToJSON(
-  mysqlStartReplicated: MysqlStartReplicated,
-): string {
-  return JSON.stringify(
-    MysqlStartReplicated$outboundSchema.parse(mysqlStartReplicated),
-  );
-}
-
-export function mysqlStartReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartGlobal$inboundSchema: z.ZodType<
-  MysqlStartGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStartGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlStartGlobal$outboundSchema: z.ZodType<
-  MysqlStartGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlStartGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartGlobal$ {
-  /** @deprecated use `MysqlStartGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartGlobal$inboundSchema;
-  /** @deprecated use `MysqlStartGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartGlobal$outboundSchema;
-  /** @deprecated use `MysqlStartGlobal$Outbound` instead. */
-  export type Outbound = MysqlStartGlobal$Outbound;
-}
-
-export function mysqlStartGlobalToJSON(
-  mysqlStartGlobal: MysqlStartGlobal,
-): string {
-  return JSON.stringify(
-    MysqlStartGlobal$outboundSchema.parse(mysqlStartGlobal),
-  );
-}
-
-export function mysqlStartGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartReplicatedJob$inboundSchema: z.ZodType<
-  MysqlStartReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlStartReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlStartReplicatedJob$outboundSchema: z.ZodType<
-  MysqlStartReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlStartReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartReplicatedJob$ {
-  /** @deprecated use `MysqlStartReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlStartReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlStartReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlStartReplicatedJob$Outbound;
-}
-
-export function mysqlStartReplicatedJobToJSON(
-  mysqlStartReplicatedJob: MysqlStartReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlStartReplicatedJob$outboundSchema.parse(mysqlStartReplicatedJob),
-  );
-}
-
-export function mysqlStartReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartGlobalJob$inboundSchema: z.ZodType<
-  MysqlStartGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStartGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlStartGlobalJob$outboundSchema: z.ZodType<
-  MysqlStartGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlStartGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartGlobalJob$ {
-  /** @deprecated use `MysqlStartGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlStartGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlStartGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlStartGlobalJob$Outbound;
-}
-
-export function mysqlStartGlobalJobToJSON(
-  mysqlStartGlobalJob: MysqlStartGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlStartGlobalJob$outboundSchema.parse(mysqlStartGlobalJob),
-  );
-}
-
-export function mysqlStartGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartModeSwarm$inboundSchema: z.ZodType<
-  MysqlStartModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlStartReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MysqlStartGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlStartReplicatedJob$inboundSchema).optional(),
-  GlobalJob: z.lazy(() => MysqlStartGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlStartModeSwarm$Outbound = {
-  Replicated?: MysqlStartReplicated$Outbound | undefined;
-  Global?: MysqlStartGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlStartReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlStartGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStartModeSwarm$outboundSchema: z.ZodType<
-  MysqlStartModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlStartModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlStartReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MysqlStartGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlStartReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlStartGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartModeSwarm$ {
-  /** @deprecated use `MysqlStartModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlStartModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlStartModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlStartModeSwarm$Outbound;
-}
-
-export function mysqlStartModeSwarmToJSON(
-  mysqlStartModeSwarm: MysqlStartModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlStartModeSwarm$outboundSchema.parse(mysqlStartModeSwarm),
-  );
-}
-
-export function mysqlStartModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartDriverOpts$inboundSchema: z.ZodType<
-  MysqlStartDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlStartDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlStartDriverOpts$outboundSchema: z.ZodType<
-  MysqlStartDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlStartDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartDriverOpts$ {
-  /** @deprecated use `MysqlStartDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlStartDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlStartDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlStartDriverOpts$Outbound;
-}
-
-export function mysqlStartDriverOptsToJSON(
-  mysqlStartDriverOpts: MysqlStartDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlStartDriverOpts$outboundSchema.parse(mysqlStartDriverOpts),
-  );
-}
-
-export function mysqlStartDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlStartNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlStartDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlStartNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlStartDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStartNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlStartNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlStartNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlStartDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartNetworkSwarm$ {
-  /** @deprecated use `MysqlStartNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlStartNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlStartNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlStartNetworkSwarm$Outbound;
-}
-
-export function mysqlStartNetworkSwarmToJSON(
-  mysqlStartNetworkSwarm: MysqlStartNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlStartNetworkSwarm$outboundSchema.parse(mysqlStartNetworkSwarm),
-  );
-}
-
-export function mysqlStartNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartProject$inboundSchema: z.ZodType<
-  MysqlStartProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlStartProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlStartProject$outboundSchema: z.ZodType<
-  MysqlStartProject$Outbound,
-  z.ZodTypeDef,
-  MysqlStartProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartProject$ {
-  /** @deprecated use `MysqlStartProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartProject$inboundSchema;
-  /** @deprecated use `MysqlStartProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartProject$outboundSchema;
-  /** @deprecated use `MysqlStartProject$Outbound` instead. */
-  export type Outbound = MysqlStartProject$Outbound;
-}
-
-export function mysqlStartProjectToJSON(
-  mysqlStartProject: MysqlStartProject,
-): string {
-  return JSON.stringify(
-    MysqlStartProject$outboundSchema.parse(mysqlStartProject),
-  );
-}
-
-export function mysqlStartProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartEnvironment$inboundSchema: z.ZodType<
-  MysqlStartEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlStartProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlStartEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlStartProject$Outbound;
-};
-
-/** @internal */
-export const MysqlStartEnvironment$outboundSchema: z.ZodType<
-  MysqlStartEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlStartEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlStartProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartEnvironment$ {
-  /** @deprecated use `MysqlStartEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartEnvironment$inboundSchema;
-  /** @deprecated use `MysqlStartEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartEnvironment$outboundSchema;
-  /** @deprecated use `MysqlStartEnvironment$Outbound` instead. */
-  export type Outbound = MysqlStartEnvironment$Outbound;
-}
-
-export function mysqlStartEnvironmentToJSON(
-  mysqlStartEnvironment: MysqlStartEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlStartEnvironment$outboundSchema.parse(mysqlStartEnvironment),
-  );
-}
-
-export function mysqlStartEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartType
-> = z.nativeEnum(MysqlStartType);
-
-/** @internal */
-export const MysqlStartType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartType
-> = MysqlStartType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartType$ {
-  /** @deprecated use `MysqlStartType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartType$inboundSchema;
-  /** @deprecated use `MysqlStartType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStartServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartServiceType
-> = z.nativeEnum(MysqlStartServiceType);
-
-/** @internal */
-export const MysqlStartServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartServiceType
-> = MysqlStartServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartServiceType$ {
-  /** @deprecated use `MysqlStartServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartServiceType$inboundSchema;
-  /** @deprecated use `MysqlStartServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStartMount$inboundSchema: z.ZodType<
-  MysqlStartMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlStartType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlStartServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlStartMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlStartMount$outboundSchema: z.ZodType<
-  MysqlStartMount$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlStartType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlStartServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMount$ {
-  /** @deprecated use `MysqlStartMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMount$inboundSchema;
-  /** @deprecated use `MysqlStartMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMount$outboundSchema;
-  /** @deprecated use `MysqlStartMount$Outbound` instead. */
-  export type Outbound = MysqlStartMount$Outbound;
-}
-
-export function mysqlStartMountToJSON(
-  mysqlStartMount: MysqlStartMount,
-): string {
-  return JSON.stringify(MysqlStartMount$outboundSchema.parse(mysqlStartMount));
-}
-
-export function mysqlStartMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartServerStatus
-> = z.nativeEnum(MysqlStartServerStatus);
-
-/** @internal */
-export const MysqlStartServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartServerStatus
-> = MysqlStartServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartServerStatus$ {
-  /** @deprecated use `MysqlStartServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartServerStatus$inboundSchema;
-  /** @deprecated use `MysqlStartServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1953,24 +2292,38 @@ export function mysqlStartMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlStartServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartServerStatus
+> = z.nativeEnum(MysqlStartServerStatus);
+
+/** @internal */
+export const MysqlStartServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlStartServerStatus
+> = MysqlStartServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlStartServerStatus$ {
+  /** @deprecated use `MysqlStartServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartServerStatus$inboundSchema;
+  /** @deprecated use `MysqlStartServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlStartServer$inboundSchema: z.ZodType<
   MysqlStartServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlStartServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1981,26 +2334,33 @@ export const MysqlStartServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlStartServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlStartServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2009,19 +2369,12 @@ export const MysqlStartServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStartServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlStartServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2032,6 +2385,13 @@ export const MysqlStartServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlStartServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2066,517 +2426,91 @@ export function mysqlStartServerFromJSON(
 }
 
 /** @internal */
-export const MysqlStartBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartBackupType
-> = z.nativeEnum(MysqlStartBackupType);
-
-/** @internal */
-export const MysqlStartBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartBackupType
-> = MysqlStartBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartBackupType$ {
-  /** @deprecated use `MysqlStartBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartBackupType$inboundSchema;
-  /** @deprecated use `MysqlStartBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStartDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartDatabaseType
-> = z.nativeEnum(MysqlStartDatabaseType);
-
-/** @internal */
-export const MysqlStartDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartDatabaseType
-> = MysqlStartDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartDatabaseType$ {
-  /** @deprecated use `MysqlStartDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlStartDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStartMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartMetadataEnum
-> = z.nativeEnum(MysqlStartMetadataEnum);
-
-/** @internal */
-export const MysqlStartMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlStartMetadataEnum
-> = MysqlStartMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMetadataEnum$ {
-  /** @deprecated use `MysqlStartMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlStartMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlStartPostgres$inboundSchema: z.ZodType<
-  MysqlStartPostgres,
+export const MysqlStartUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlStartUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlStartPostgres$Outbound = {
-  databaseUser: string;
+export type MysqlStartUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlStartPostgres$outboundSchema: z.ZodType<
-  MysqlStartPostgres$Outbound,
+export const MysqlStartUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlStartUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlStartPostgres
+  MysqlStartUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlStartPostgres$ {
-  /** @deprecated use `MysqlStartPostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartPostgres$inboundSchema;
-  /** @deprecated use `MysqlStartPostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartPostgres$outboundSchema;
-  /** @deprecated use `MysqlStartPostgres$Outbound` instead. */
-  export type Outbound = MysqlStartPostgres$Outbound;
+export namespace MysqlStartUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlStartUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlStartUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlStartUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlStartUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlStartUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlStartUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlStartPostgresToJSON(
-  mysqlStartPostgres: MysqlStartPostgres,
+export function mysqlStartUpdateConfigSwarmToJSON(
+  mysqlStartUpdateConfigSwarm: MysqlStartUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlStartPostgres$outboundSchema.parse(mysqlStartPostgres),
+    MysqlStartUpdateConfigSwarm$outboundSchema.parse(
+      mysqlStartUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mysqlStartPostgresFromJSON(
+export function mysqlStartUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlStartPostgres, SDKValidationError> {
+): SafeParseResult<MysqlStartUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlStartPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartMariadb$inboundSchema: z.ZodType<
-  MysqlStartMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStartMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlStartMariadb$outboundSchema: z.ZodType<
-  MysqlStartMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMariadb$ {
-  /** @deprecated use `MysqlStartMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMariadb$inboundSchema;
-  /** @deprecated use `MysqlStartMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMariadb$outboundSchema;
-  /** @deprecated use `MysqlStartMariadb$Outbound` instead. */
-  export type Outbound = MysqlStartMariadb$Outbound;
-}
-
-export function mysqlStartMariadbToJSON(
-  mysqlStartMariadb: MysqlStartMariadb,
-): string {
-  return JSON.stringify(
-    MysqlStartMariadb$outboundSchema.parse(mysqlStartMariadb),
-  );
-}
-
-export function mysqlStartMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartMongo$inboundSchema: z.ZodType<
-  MysqlStartMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStartMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlStartMongo$outboundSchema: z.ZodType<
-  MysqlStartMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMongo$ {
-  /** @deprecated use `MysqlStartMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMongo$inboundSchema;
-  /** @deprecated use `MysqlStartMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMongo$outboundSchema;
-  /** @deprecated use `MysqlStartMongo$Outbound` instead. */
-  export type Outbound = MysqlStartMongo$Outbound;
-}
-
-export function mysqlStartMongoToJSON(
-  mysqlStartMongo: MysqlStartMongo,
-): string {
-  return JSON.stringify(MysqlStartMongo$outboundSchema.parse(mysqlStartMongo));
-}
-
-export function mysqlStartMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartMysql$inboundSchema: z.ZodType<
-  MysqlStartMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlStartMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlStartMysql$outboundSchema: z.ZodType<
-  MysqlStartMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMysql$ {
-  /** @deprecated use `MysqlStartMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMysql$inboundSchema;
-  /** @deprecated use `MysqlStartMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMysql$outboundSchema;
-  /** @deprecated use `MysqlStartMysql$Outbound` instead. */
-  export type Outbound = MysqlStartMysql$Outbound;
-}
-
-export function mysqlStartMysqlToJSON(
-  mysqlStartMysql: MysqlStartMysql,
-): string {
-  return JSON.stringify(MysqlStartMysql$outboundSchema.parse(mysqlStartMysql));
-}
-
-export function mysqlStartMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartMetadata$inboundSchema: z.ZodType<
-  MysqlStartMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlStartPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlStartMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlStartMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlStartMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlStartMetadata$Outbound = {
-  postgres?: MysqlStartPostgres$Outbound | undefined;
-  mariadb?: MysqlStartMariadb$Outbound | undefined;
-  mongo?: MysqlStartMongo$Outbound | undefined;
-  mysql?: MysqlStartMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlStartMetadata$outboundSchema: z.ZodType<
-  MysqlStartMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlStartPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlStartMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlStartMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlStartMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMetadata$ {
-  /** @deprecated use `MysqlStartMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMetadata$inboundSchema;
-  /** @deprecated use `MysqlStartMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMetadata$outboundSchema;
-  /** @deprecated use `MysqlStartMetadata$Outbound` instead. */
-  export type Outbound = MysqlStartMetadata$Outbound;
-}
-
-export function mysqlStartMetadataToJSON(
-  mysqlStartMetadata: MysqlStartMetadata,
-): string {
-  return JSON.stringify(
-    MysqlStartMetadata$outboundSchema.parse(mysqlStartMetadata),
-  );
-}
-
-export function mysqlStartMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartMetadataUnion$inboundSchema: z.ZodType<
-  MysqlStartMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlStartMetadata$inboundSchema),
-  MysqlStartMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlStartMetadataUnion$Outbound =
-  | MysqlStartMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlStartMetadataUnion$outboundSchema: z.ZodType<
-  MysqlStartMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlStartMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlStartMetadata$outboundSchema),
-  MysqlStartMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartMetadataUnion$ {
-  /** @deprecated use `MysqlStartMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlStartMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlStartMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlStartMetadataUnion$Outbound;
-}
-
-export function mysqlStartMetadataUnionToJSON(
-  mysqlStartMetadataUnion: MysqlStartMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlStartMetadataUnion$outboundSchema.parse(mysqlStartMetadataUnion),
-  );
-}
-
-export function mysqlStartMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlStartBackup$inboundSchema: z.ZodType<
-  MysqlStartBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlStartBackupType$inboundSchema,
-  databaseType: MysqlStartDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlStartMetadata$inboundSchema),
-      MysqlStartMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlStartBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlStartMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlStartBackup$outboundSchema: z.ZodType<
-  MysqlStartBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlStartBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlStartBackupType$outboundSchema,
-  databaseType: MysqlStartDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlStartMetadata$outboundSchema),
-      MysqlStartMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlStartBackup$ {
-  /** @deprecated use `MysqlStartBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlStartBackup$inboundSchema;
-  /** @deprecated use `MysqlStartBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlStartBackup$outboundSchema;
-  /** @deprecated use `MysqlStartBackup$Outbound` instead. */
-  export type Outbound = MysqlStartBackup$Outbound;
-}
-
-export function mysqlStartBackupToJSON(
-  mysqlStartBackup: MysqlStartBackup,
-): string {
-  return JSON.stringify(
-    MysqlStartBackup$outboundSchema.parse(mysqlStartBackup),
-  );
-}
-
-export function mysqlStartBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlStartBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlStartBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlStartBackup' from JSON`,
+    (x) => MysqlStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlStartUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2586,88 +2520,88 @@ export const MysqlStartResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlStartApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlStartBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlStartEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlStartApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlStartHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlStartRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlStartModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlStartMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlStartNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlStartPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlStartUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlStartRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlStartRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlStartModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlStartNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlStartEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlStartMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlStartServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlStartBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlStartUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlStartResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlStartBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlStartHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlStartRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlStartPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlStartUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlStartRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlStartModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlStartNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlStartEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlStartHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlStartModeSwarm$Outbound | null;
   mounts: Array<MysqlStartMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlStartNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlStartPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlStartRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlStartRollbackConfigSwarm$Outbound | null;
   server: MysqlStartServer$Outbound | null;
-  backups: Array<MysqlStartBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlStartUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2676,51 +2610,51 @@ export const MysqlStartResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlStartResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlStartApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlStartBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlStartEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlStartApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlStartHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlStartRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlStartModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlStartMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlStartNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlStartPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlStartUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlStartRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlStartRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlStartModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlStartNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlStartEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlStartMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlStartServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlStartBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlStartUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

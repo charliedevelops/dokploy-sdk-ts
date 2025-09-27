@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UserDeleteApiKeySecurity = {
-  authorization: string;
-};
-
 export type UserDeleteApiKeyRequest = {
   apiKeyId: string;
 };
-
-/** @internal */
-export const UserDeleteApiKeySecurity$inboundSchema: z.ZodType<
-  UserDeleteApiKeySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserDeleteApiKeySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserDeleteApiKeySecurity$outboundSchema: z.ZodType<
-  UserDeleteApiKeySecurity$Outbound,
-  z.ZodTypeDef,
-  UserDeleteApiKeySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserDeleteApiKeySecurity$ {
-  /** @deprecated use `UserDeleteApiKeySecurity$inboundSchema` instead. */
-  export const inboundSchema = UserDeleteApiKeySecurity$inboundSchema;
-  /** @deprecated use `UserDeleteApiKeySecurity$outboundSchema` instead. */
-  export const outboundSchema = UserDeleteApiKeySecurity$outboundSchema;
-  /** @deprecated use `UserDeleteApiKeySecurity$Outbound` instead. */
-  export type Outbound = UserDeleteApiKeySecurity$Outbound;
-}
-
-export function userDeleteApiKeySecurityToJSON(
-  userDeleteApiKeySecurity: UserDeleteApiKeySecurity,
-): string {
-  return JSON.stringify(
-    UserDeleteApiKeySecurity$outboundSchema.parse(userDeleteApiKeySecurity),
-  );
-}
-
-export function userDeleteApiKeySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserDeleteApiKeySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserDeleteApiKeySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserDeleteApiKeySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserDeleteApiKeyRequest$inboundSchema: z.ZodType<

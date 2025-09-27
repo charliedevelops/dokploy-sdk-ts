@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerOneSecurity = {
-  authorization: string;
-};
-
 export type ServerOneRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const ServerOneSecurity$inboundSchema: z.ZodType<
-  ServerOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerOneSecurity$outboundSchema: z.ZodType<
-  ServerOneSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerOneSecurity$ {
-  /** @deprecated use `ServerOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerOneSecurity$inboundSchema;
-  /** @deprecated use `ServerOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerOneSecurity$outboundSchema;
-  /** @deprecated use `ServerOneSecurity$Outbound` instead. */
-  export type Outbound = ServerOneSecurity$Outbound;
-}
-
-export function serverOneSecurityToJSON(
-  serverOneSecurity: ServerOneSecurity,
-): string {
-  return JSON.stringify(
-    ServerOneSecurity$outboundSchema.parse(serverOneSecurity),
-  );
-}
-
-export function serverOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerOneRequest$inboundSchema: z.ZodType<

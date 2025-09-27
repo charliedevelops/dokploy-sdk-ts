@@ -3,86 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MariadbSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type MariadbSaveEnvironmentRequest = {
-  mariadbId: string;
   env?: string | null | undefined;
+  mariadbId: string;
 };
 
 export type MariadbSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MariadbSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  MariadbSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  MariadbSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbSaveEnvironmentSecurity$ {
-  /** @deprecated use `MariadbSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `MariadbSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `MariadbSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = MariadbSaveEnvironmentSecurity$Outbound;
-}
-
-export function mariadbSaveEnvironmentSecurityToJSON(
-  mariadbSaveEnvironmentSecurity: MariadbSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    MariadbSaveEnvironmentSecurity$outboundSchema.parse(
-      mariadbSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function mariadbSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -90,14 +21,14 @@ export const MariadbSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mariadbId: z.string(),
 });
 
 /** @internal */
 export type MariadbSaveEnvironmentRequest$Outbound = {
-  mariadbId: string;
   env?: string | null | undefined;
+  mariadbId: string;
 };
 
 /** @internal */
@@ -106,8 +37,8 @@ export const MariadbSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbSaveEnvironmentRequest
 > = z.object({
-  mariadbId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mariadbId: z.string(),
 });
 
 /**

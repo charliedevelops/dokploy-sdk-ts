@@ -6,14 +6,15 @@
 import { NotificationTestEmailConnectionRequest } from "dokploy-sdk/models/operations";
 
 let value: NotificationTestEmailConnectionRequest = {
+  fromAddress: "<value>",
+  password: "gU85PL6U1ez0w7X",
+  smtpPort: 8988.79,
   smtpServer: "<value>",
-  smtpPort: 364.16,
-  username: "Nadia_Ankunding25",
-  password: "5PL6U1ez0w7XvQ1",
   toAddresses: [
     "<value 1>",
+    "<value 2>",
   ],
-  fromAddress: "<value>",
+  username: "Chance_Cole",
 };
 ```
 
@@ -21,9 +22,9 @@ let value: NotificationTestEmailConnectionRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `smtpServer`       | *string*           | :heavy_check_mark: | N/A                |
-| `smtpPort`         | *number*           | :heavy_check_mark: | N/A                |
-| `username`         | *string*           | :heavy_check_mark: | N/A                |
-| `password`         | *string*           | :heavy_check_mark: | N/A                |
-| `toAddresses`      | *string*[]         | :heavy_check_mark: | N/A                |
 | `fromAddress`      | *string*           | :heavy_check_mark: | N/A                |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `smtpPort`         | *number*           | :heavy_check_mark: | N/A                |
+| `smtpServer`       | *string*           | :heavy_check_mark: | N/A                |
+| `toAddresses`      | *string*[]         | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

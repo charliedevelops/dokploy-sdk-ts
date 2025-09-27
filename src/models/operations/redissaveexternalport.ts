@@ -10,13 +10,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type RedisSaveExternalPortSecurity = {
-  authorization: string;
-};
-
 export type RedisSaveExternalPortRequest = {
-  redisId: string;
   externalPort: number | null;
+  redisId: string;
 };
 
 export const RedisSaveExternalPortApplicationStatus = {
@@ -29,114 +25,52 @@ export type RedisSaveExternalPortApplicationStatus = ClosedEnum<
   typeof RedisSaveExternalPortApplicationStatus
 >;
 
+export type RedisSaveExternalPortProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type RedisSaveExternalPortEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: RedisSaveExternalPortProject;
+  projectId: string;
+};
+
 export type RedisSaveExternalPortHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type RedisSaveExternalPortRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
+export type RedisSaveExternalPortGlobal = {};
 
-export type RedisSaveExternalPortSpread = {
-  spreadDescriptor: string;
-};
-
-export type RedisSaveExternalPortPreference = {
-  spread: RedisSaveExternalPortSpread;
-};
-
-export type RedisSaveExternalPortPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type RedisSaveExternalPortPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<RedisSaveExternalPortPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<RedisSaveExternalPortPlatform> | undefined;
-};
-
-export type RedisSaveExternalPortUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type RedisSaveExternalPortRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
+export type RedisSaveExternalPortGlobalJob = {};
 
 export type RedisSaveExternalPortReplicated = {
   replicas?: number | undefined;
 };
-
-export type RedisSaveExternalPortGlobal = {};
 
 export type RedisSaveExternalPortReplicatedJob = {
   maxConcurrent?: number | undefined;
   totalCompletions?: number | undefined;
 };
 
-export type RedisSaveExternalPortGlobalJob = {};
-
 export type RedisSaveExternalPortModeSwarm = {
-  replicated?: RedisSaveExternalPortReplicated | undefined;
   global?: RedisSaveExternalPortGlobal | undefined;
-  replicatedJob?: RedisSaveExternalPortReplicatedJob | undefined;
   globalJob?: RedisSaveExternalPortGlobalJob | undefined;
+  replicated?: RedisSaveExternalPortReplicated | undefined;
+  replicatedJob?: RedisSaveExternalPortReplicatedJob | undefined;
 };
-
-export type RedisSaveExternalPortDriverOpts = {};
-
-export type RedisSaveExternalPortNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: RedisSaveExternalPortDriverOpts | undefined;
-};
-
-export type RedisSaveExternalPortProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type RedisSaveExternalPortEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: RedisSaveExternalPortProject;
-};
-
-export const RedisSaveExternalPortType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type RedisSaveExternalPortType = ClosedEnum<
-  typeof RedisSaveExternalPortType
->;
 
 export const RedisSaveExternalPortServiceType = {
   Application: "application",
@@ -151,31 +85,76 @@ export type RedisSaveExternalPortServiceType = ClosedEnum<
   typeof RedisSaveExternalPortServiceType
 >;
 
+export const RedisSaveExternalPortType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type RedisSaveExternalPortType = ClosedEnum<
+  typeof RedisSaveExternalPortType
+>;
+
 export type RedisSaveExternalPortMount = {
-  mountId: string;
-  type: RedisSaveExternalPortType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: RedisSaveExternalPortServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: RedisSaveExternalPortServiceType;
+  type: RedisSaveExternalPortType;
+  volumeName: string | null;
 };
 
-export const RedisSaveExternalPortServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type RedisSaveExternalPortServerStatus = ClosedEnum<
-  typeof RedisSaveExternalPortServerStatus
->;
+export type RedisSaveExternalPortDriverOpts = {};
+
+export type RedisSaveExternalPortNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: RedisSaveExternalPortDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type RedisSaveExternalPortPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type RedisSaveExternalPortSpread = {
+  spreadDescriptor: string;
+};
+
+export type RedisSaveExternalPortPreference = {
+  spread: RedisSaveExternalPortSpread;
+};
+
+export type RedisSaveExternalPortPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<RedisSaveExternalPortPlatform> | undefined;
+  preferences?: Array<RedisSaveExternalPortPreference> | undefined;
+};
+
+export type RedisSaveExternalPortRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type RedisSaveExternalPortRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
 
 export const RedisSaveExternalPortMetricsConfigEnum = {
   Null: "null",
@@ -198,20 +177,21 @@ export type RedisSaveExternalPortMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const RedisSaveExternalPortServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type RedisSaveExternalPortServerStatus = ClosedEnum<
+  typeof RedisSaveExternalPortServerStatus
+>;
+
 export type RedisSaveExternalPortServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: RedisSaveExternalPortServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -219,41 +199,57 @@ export type RedisSaveExternalPortServer = {
     | RedisSaveExternalPortMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: RedisSaveExternalPortServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type RedisSaveExternalPortUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type RedisSaveExternalPortResponseBody = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: RedisSaveExternalPortApplicationStatus;
-  healthCheckSwarm: RedisSaveExternalPortHealthCheckSwarm | null;
-  restartPolicySwarm: RedisSaveExternalPortRestartPolicySwarm | null;
-  placementSwarm: RedisSaveExternalPortPlacementSwarm | null;
-  updateConfigSwarm: RedisSaveExternalPortUpdateConfigSwarm | null;
-  rollbackConfigSwarm: RedisSaveExternalPortRollbackConfigSwarm | null;
-  modeSwarm: RedisSaveExternalPortModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisSaveExternalPortNetworkSwarm> | null;
-  replicas: number;
-  environmentId: string;
-  serverId: string | null;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environment: RedisSaveExternalPortEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisSaveExternalPortHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisSaveExternalPortModeSwarm | null;
   mounts: Array<RedisSaveExternalPortMount>;
+  name: string;
+  networkSwarm: Array<RedisSaveExternalPortNetworkSwarm> | null;
+  placementSwarm: RedisSaveExternalPortPlacementSwarm | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisSaveExternalPortRestartPolicySwarm | null;
+  rollbackConfigSwarm: RedisSaveExternalPortRollbackConfigSwarm | null;
   server: RedisSaveExternalPortServer | null;
+  serverId: string | null;
+  updateConfigSwarm: RedisSaveExternalPortUpdateConfigSwarm | null;
 };
 
 export type RedisSaveExternalPortResponse =
@@ -261,83 +257,19 @@ export type RedisSaveExternalPortResponse =
   | models.ErrorT;
 
 /** @internal */
-export const RedisSaveExternalPortSecurity$inboundSchema: z.ZodType<
-  RedisSaveExternalPortSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedisSaveExternalPortSecurity$outboundSchema: z.ZodType<
-  RedisSaveExternalPortSecurity$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortSecurity$ {
-  /** @deprecated use `RedisSaveExternalPortSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortSecurity$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortSecurity$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortSecurity$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortSecurity$Outbound;
-}
-
-export function redisSaveExternalPortSecurityToJSON(
-  redisSaveExternalPortSecurity: RedisSaveExternalPortSecurity,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortSecurity$outboundSchema.parse(
-      redisSaveExternalPortSecurity,
-    ),
-  );
-}
-
-export function redisSaveExternalPortSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const RedisSaveExternalPortRequest$inboundSchema: z.ZodType<
   RedisSaveExternalPortRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
   externalPort: z.nullable(z.number()),
+  redisId: z.string(),
 });
 
 /** @internal */
 export type RedisSaveExternalPortRequest$Outbound = {
-  redisId: string;
   externalPort: number | null;
+  redisId: string;
 };
 
 /** @internal */
@@ -346,8 +278,8 @@ export const RedisSaveExternalPortRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveExternalPortRequest
 > = z.object({
-  redisId: z.string(),
   externalPort: z.nullable(z.number()),
+  redisId: z.string(),
 });
 
 /**
@@ -408,33 +340,178 @@ export namespace RedisSaveExternalPortApplicationStatus$ {
 }
 
 /** @internal */
+export const RedisSaveExternalPortProject$inboundSchema: z.ZodType<
+  RedisSaveExternalPortProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type RedisSaveExternalPortProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const RedisSaveExternalPortProject$outboundSchema: z.ZodType<
+  RedisSaveExternalPortProject$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortProject$ {
+  /** @deprecated use `RedisSaveExternalPortProject$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortProject$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortProject$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortProject$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortProject$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortProject$Outbound;
+}
+
+export function redisSaveExternalPortProjectToJSON(
+  redisSaveExternalPortProject: RedisSaveExternalPortProject,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortProject$outboundSchema.parse(
+      redisSaveExternalPortProject,
+    ),
+  );
+}
+
+export function redisSaveExternalPortProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortEnvironment$inboundSchema: z.ZodType<
+  RedisSaveExternalPortEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => RedisSaveExternalPortProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type RedisSaveExternalPortEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: RedisSaveExternalPortProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const RedisSaveExternalPortEnvironment$outboundSchema: z.ZodType<
+  RedisSaveExternalPortEnvironment$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => RedisSaveExternalPortProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortEnvironment$ {
+  /** @deprecated use `RedisSaveExternalPortEnvironment$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortEnvironment$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortEnvironment$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortEnvironment$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortEnvironment$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortEnvironment$Outbound;
+}
+
+export function redisSaveExternalPortEnvironmentToJSON(
+  redisSaveExternalPortEnvironment: RedisSaveExternalPortEnvironment,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortEnvironment$outboundSchema.parse(
+      redisSaveExternalPortEnvironment,
+    ),
+  );
+}
+
+export function redisSaveExternalPortEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const RedisSaveExternalPortHealthCheckSwarm$inboundSchema: z.ZodType<
   RedisSaveExternalPortHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type RedisSaveExternalPortHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -443,18 +520,18 @@ export const RedisSaveExternalPortHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveExternalPortHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -495,48 +572,133 @@ export function redisSaveExternalPortHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
-  RedisSaveExternalPortRestartPolicySwarm,
+export const RedisSaveExternalPortGlobal$inboundSchema: z.ZodType<
+  RedisSaveExternalPortGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisSaveExternalPortGlobal$Outbound = {};
+
+/** @internal */
+export const RedisSaveExternalPortGlobal$outboundSchema: z.ZodType<
+  RedisSaveExternalPortGlobal$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortGlobal$ {
+  /** @deprecated use `RedisSaveExternalPortGlobal$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortGlobal$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortGlobal$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortGlobal$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortGlobal$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortGlobal$Outbound;
+}
+
+export function redisSaveExternalPortGlobalToJSON(
+  redisSaveExternalPortGlobal: RedisSaveExternalPortGlobal,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortGlobal$outboundSchema.parse(
+      redisSaveExternalPortGlobal,
+    ),
+  );
+}
+
+export function redisSaveExternalPortGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
+  RedisSaveExternalPortGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisSaveExternalPortGlobalJob$Outbound = {};
+
+/** @internal */
+export const RedisSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
+  RedisSaveExternalPortGlobalJob$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortGlobalJob$ {
+  /** @deprecated use `RedisSaveExternalPortGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortGlobalJob$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortGlobalJob$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortGlobalJob$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortGlobalJob$Outbound;
+}
+
+export function redisSaveExternalPortGlobalJobToJSON(
+  redisSaveExternalPortGlobalJob: RedisSaveExternalPortGlobalJob,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortGlobalJob$outboundSchema.parse(
+      redisSaveExternalPortGlobalJob,
+    ),
+  );
+}
+
+export function redisSaveExternalPortGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortReplicated$inboundSchema: z.ZodType<
+  RedisSaveExternalPortReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type RedisSaveExternalPortRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type RedisSaveExternalPortReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const RedisSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
-  RedisSaveExternalPortRestartPolicySwarm$Outbound,
+export const RedisSaveExternalPortReplicated$outboundSchema: z.ZodType<
+  RedisSaveExternalPortReplicated$Outbound,
   z.ZodTypeDef,
-  RedisSaveExternalPortRestartPolicySwarm
+  RedisSaveExternalPortReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -544,41 +706,522 @@ export const RedisSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisSaveExternalPortRestartPolicySwarm$ {
-  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    RedisSaveExternalPortRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    RedisSaveExternalPortRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortRestartPolicySwarm$Outbound;
+export namespace RedisSaveExternalPortReplicated$ {
+  /** @deprecated use `RedisSaveExternalPortReplicated$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortReplicated$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortReplicated$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortReplicated$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortReplicated$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortReplicated$Outbound;
 }
 
-export function redisSaveExternalPortRestartPolicySwarmToJSON(
-  redisSaveExternalPortRestartPolicySwarm:
-    RedisSaveExternalPortRestartPolicySwarm,
+export function redisSaveExternalPortReplicatedToJSON(
+  redisSaveExternalPortReplicated: RedisSaveExternalPortReplicated,
 ): string {
   return JSON.stringify(
-    RedisSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
-      redisSaveExternalPortRestartPolicySwarm,
+    RedisSaveExternalPortReplicated$outboundSchema.parse(
+      redisSaveExternalPortReplicated,
     ),
   );
 }
 
-export function redisSaveExternalPortRestartPolicySwarmFromJSON(
+export function redisSaveExternalPortReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<
-  RedisSaveExternalPortRestartPolicySwarm,
-  SDKValidationError
-> {
+): SafeParseResult<RedisSaveExternalPortReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
+  RedisSaveExternalPortReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type RedisSaveExternalPortReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const RedisSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
+  RedisSaveExternalPortReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortReplicatedJob$ {
+  /** @deprecated use `RedisSaveExternalPortReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortReplicatedJob$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    RedisSaveExternalPortReplicatedJob$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortReplicatedJob$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortReplicatedJob$Outbound;
+}
+
+export function redisSaveExternalPortReplicatedJobToJSON(
+  redisSaveExternalPortReplicatedJob: RedisSaveExternalPortReplicatedJob,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortReplicatedJob$outboundSchema.parse(
+      redisSaveExternalPortReplicatedJob,
+    ),
+  );
+}
+
+export function redisSaveExternalPortReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      RedisSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RedisSaveExternalPortRestartPolicySwarm' from JSON`,
+      RedisSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
+  RedisSaveExternalPortModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => RedisSaveExternalPortGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => RedisSaveExternalPortGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => RedisSaveExternalPortReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => RedisSaveExternalPortReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type RedisSaveExternalPortModeSwarm$Outbound = {
+  Global?: RedisSaveExternalPortGlobal$Outbound | undefined;
+  GlobalJob?: RedisSaveExternalPortGlobalJob$Outbound | undefined;
+  Replicated?: RedisSaveExternalPortReplicated$Outbound | undefined;
+  ReplicatedJob?: RedisSaveExternalPortReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const RedisSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
+  RedisSaveExternalPortModeSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortModeSwarm
+> = z.object({
+  global: z.lazy(() => RedisSaveExternalPortGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => RedisSaveExternalPortGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => RedisSaveExternalPortReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => RedisSaveExternalPortReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortModeSwarm$ {
+  /** @deprecated use `RedisSaveExternalPortModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortModeSwarm$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortModeSwarm$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortModeSwarm$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortModeSwarm$Outbound;
+}
+
+export function redisSaveExternalPortModeSwarmToJSON(
+  redisSaveExternalPortModeSwarm: RedisSaveExternalPortModeSwarm,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortModeSwarm$outboundSchema.parse(
+      redisSaveExternalPortModeSwarm,
+    ),
+  );
+}
+
+export function redisSaveExternalPortModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortServiceType
+> = z.nativeEnum(RedisSaveExternalPortServiceType);
+
+/** @internal */
+export const RedisSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortServiceType
+> = RedisSaveExternalPortServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortServiceType$ {
+  /** @deprecated use `RedisSaveExternalPortServiceType$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortServiceType$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortServiceType$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortServiceType$outboundSchema;
+}
+
+/** @internal */
+export const RedisSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortType
+> = z.nativeEnum(RedisSaveExternalPortType);
+
+/** @internal */
+export const RedisSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortType
+> = RedisSaveExternalPortType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortType$ {
+  /** @deprecated use `RedisSaveExternalPortType$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortType$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortType$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortType$outboundSchema;
+}
+
+/** @internal */
+export const RedisSaveExternalPortMount$inboundSchema: z.ZodType<
+  RedisSaveExternalPortMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: RedisSaveExternalPortServiceType$inboundSchema,
+  type: RedisSaveExternalPortType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type RedisSaveExternalPortMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const RedisSaveExternalPortMount$outboundSchema: z.ZodType<
+  RedisSaveExternalPortMount$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: RedisSaveExternalPortServiceType$outboundSchema,
+  type: RedisSaveExternalPortType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortMount$ {
+  /** @deprecated use `RedisSaveExternalPortMount$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortMount$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortMount$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortMount$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortMount$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortMount$Outbound;
+}
+
+export function redisSaveExternalPortMountToJSON(
+  redisSaveExternalPortMount: RedisSaveExternalPortMount,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortMount$outboundSchema.parse(redisSaveExternalPortMount),
+  );
+}
+
+export function redisSaveExternalPortMountFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
+  RedisSaveExternalPortDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisSaveExternalPortDriverOpts$Outbound = {};
+
+/** @internal */
+export const RedisSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
+  RedisSaveExternalPortDriverOpts$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortDriverOpts$ {
+  /** @deprecated use `RedisSaveExternalPortDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortDriverOpts$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortDriverOpts$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortDriverOpts$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortDriverOpts$Outbound;
+}
+
+export function redisSaveExternalPortDriverOptsToJSON(
+  redisSaveExternalPortDriverOpts: RedisSaveExternalPortDriverOpts,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortDriverOpts$outboundSchema.parse(
+      redisSaveExternalPortDriverOpts,
+    ),
+  );
+}
+
+export function redisSaveExternalPortDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
+  RedisSaveExternalPortNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => RedisSaveExternalPortDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type RedisSaveExternalPortNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: RedisSaveExternalPortDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const RedisSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
+  RedisSaveExternalPortNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => RedisSaveExternalPortDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortNetworkSwarm$ {
+  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortNetworkSwarm$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    RedisSaveExternalPortNetworkSwarm$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortNetworkSwarm$Outbound;
+}
+
+export function redisSaveExternalPortNetworkSwarmToJSON(
+  redisSaveExternalPortNetworkSwarm: RedisSaveExternalPortNetworkSwarm,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortNetworkSwarm$outboundSchema.parse(
+      redisSaveExternalPortNetworkSwarm,
+    ),
+  );
+}
+
+export function redisSaveExternalPortNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisSaveExternalPortPlatform$inboundSchema: z.ZodType<
+  RedisSaveExternalPortPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type RedisSaveExternalPortPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const RedisSaveExternalPortPlatform$outboundSchema: z.ZodType<
+  RedisSaveExternalPortPlatform$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortPlatform$ {
+  /** @deprecated use `RedisSaveExternalPortPlatform$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortPlatform$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortPlatform$outboundSchema` instead. */
+  export const outboundSchema = RedisSaveExternalPortPlatform$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortPlatform$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortPlatform$Outbound;
+}
+
+export function redisSaveExternalPortPlatformToJSON(
+  redisSaveExternalPortPlatform: RedisSaveExternalPortPlatform,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortPlatform$outboundSchema.parse(
+      redisSaveExternalPortPlatform,
+    ),
+  );
+}
+
+export function redisSaveExternalPortPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortPlatform' from JSON`,
   );
 }
 
@@ -711,102 +1354,33 @@ export function redisSaveExternalPortPreferenceFromJSON(
 }
 
 /** @internal */
-export const RedisSaveExternalPortPlatform$inboundSchema: z.ZodType<
-  RedisSaveExternalPortPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const RedisSaveExternalPortPlatform$outboundSchema: z.ZodType<
-  RedisSaveExternalPortPlatform$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortPlatform$ {
-  /** @deprecated use `RedisSaveExternalPortPlatform$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortPlatform$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortPlatform$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortPlatform$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortPlatform$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortPlatform$Outbound;
-}
-
-export function redisSaveExternalPortPlatformToJSON(
-  redisSaveExternalPortPlatform: RedisSaveExternalPortPlatform,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortPlatform$outboundSchema.parse(
-      redisSaveExternalPortPlatform,
-    ),
-  );
-}
-
-export function redisSaveExternalPortPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const RedisSaveExternalPortPlacementSwarm$inboundSchema: z.ZodType<
   RedisSaveExternalPortPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => RedisSaveExternalPortPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => RedisSaveExternalPortPlatform$inboundSchema))
     .optional(),
+  Preferences: z.array(
+    z.lazy(() => RedisSaveExternalPortPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type RedisSaveExternalPortPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<RedisSaveExternalPortPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<RedisSaveExternalPortPlatform$Outbound> | undefined;
+  Preferences?: Array<RedisSaveExternalPortPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -816,18 +1390,18 @@ export const RedisSaveExternalPortPlacementSwarm$outboundSchema: z.ZodType<
   RedisSaveExternalPortPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => RedisSaveExternalPortPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => RedisSaveExternalPortPlatform$outboundSchema))
     .optional(),
+  preferences: z.array(
+    z.lazy(() => RedisSaveExternalPortPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -868,58 +1442,48 @@ export function redisSaveExternalPortPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
-  RedisSaveExternalPortUpdateConfigSwarm,
+export const RedisSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
+  RedisSaveExternalPortRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type RedisSaveExternalPortUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type RedisSaveExternalPortRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const RedisSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
-  RedisSaveExternalPortUpdateConfigSwarm$Outbound,
+export const RedisSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
+  RedisSaveExternalPortRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  RedisSaveExternalPortUpdateConfigSwarm
+  RedisSaveExternalPortRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -927,36 +1491,41 @@ export const RedisSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisSaveExternalPortUpdateConfigSwarm$ {
-  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+export namespace RedisSaveExternalPortRestartPolicySwarm$ {
+  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    RedisSaveExternalPortUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+    RedisSaveExternalPortRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    RedisSaveExternalPortUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortUpdateConfigSwarm$Outbound;
+    RedisSaveExternalPortRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortRestartPolicySwarm$Outbound;
 }
 
-export function redisSaveExternalPortUpdateConfigSwarmToJSON(
-  redisSaveExternalPortUpdateConfigSwarm:
-    RedisSaveExternalPortUpdateConfigSwarm,
+export function redisSaveExternalPortRestartPolicySwarmToJSON(
+  redisSaveExternalPortRestartPolicySwarm:
+    RedisSaveExternalPortRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    RedisSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
-      redisSaveExternalPortUpdateConfigSwarm,
+    RedisSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
+      redisSaveExternalPortRestartPolicySwarm,
     ),
   );
 }
 
-export function redisSaveExternalPortUpdateConfigSwarmFromJSON(
+export function redisSaveExternalPortRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<RedisSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<
+  RedisSaveExternalPortRestartPolicySwarm,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      RedisSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortUpdateConfigSwarm' from JSON`,
+      RedisSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'RedisSaveExternalPortRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -966,31 +1535,31 @@ export const RedisSaveExternalPortRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type RedisSaveExternalPortRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -999,20 +1568,20 @@ export const RedisSaveExternalPortRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveExternalPortRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1056,758 +1625,6 @@ export function redisSaveExternalPortRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'RedisSaveExternalPortRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const RedisSaveExternalPortReplicated$inboundSchema: z.ZodType<
-  RedisSaveExternalPortReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const RedisSaveExternalPortReplicated$outboundSchema: z.ZodType<
-  RedisSaveExternalPortReplicated$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortReplicated$ {
-  /** @deprecated use `RedisSaveExternalPortReplicated$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortReplicated$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortReplicated$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortReplicated$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortReplicated$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortReplicated$Outbound;
-}
-
-export function redisSaveExternalPortReplicatedToJSON(
-  redisSaveExternalPortReplicated: RedisSaveExternalPortReplicated,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortReplicated$outboundSchema.parse(
-      redisSaveExternalPortReplicated,
-    ),
-  );
-}
-
-export function redisSaveExternalPortReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortGlobal$inboundSchema: z.ZodType<
-  RedisSaveExternalPortGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisSaveExternalPortGlobal$Outbound = {};
-
-/** @internal */
-export const RedisSaveExternalPortGlobal$outboundSchema: z.ZodType<
-  RedisSaveExternalPortGlobal$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortGlobal$ {
-  /** @deprecated use `RedisSaveExternalPortGlobal$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortGlobal$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortGlobal$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortGlobal$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortGlobal$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortGlobal$Outbound;
-}
-
-export function redisSaveExternalPortGlobalToJSON(
-  redisSaveExternalPortGlobal: RedisSaveExternalPortGlobal,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortGlobal$outboundSchema.parse(
-      redisSaveExternalPortGlobal,
-    ),
-  );
-}
-
-export function redisSaveExternalPortGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
-  RedisSaveExternalPortReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const RedisSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
-  RedisSaveExternalPortReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortReplicatedJob$ {
-  /** @deprecated use `RedisSaveExternalPortReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortReplicatedJob$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    RedisSaveExternalPortReplicatedJob$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortReplicatedJob$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortReplicatedJob$Outbound;
-}
-
-export function redisSaveExternalPortReplicatedJobToJSON(
-  redisSaveExternalPortReplicatedJob: RedisSaveExternalPortReplicatedJob,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortReplicatedJob$outboundSchema.parse(
-      redisSaveExternalPortReplicatedJob,
-    ),
-  );
-}
-
-export function redisSaveExternalPortReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RedisSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
-  RedisSaveExternalPortGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisSaveExternalPortGlobalJob$Outbound = {};
-
-/** @internal */
-export const RedisSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
-  RedisSaveExternalPortGlobalJob$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortGlobalJob$ {
-  /** @deprecated use `RedisSaveExternalPortGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortGlobalJob$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortGlobalJob$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortGlobalJob$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortGlobalJob$Outbound;
-}
-
-export function redisSaveExternalPortGlobalJobToJSON(
-  redisSaveExternalPortGlobalJob: RedisSaveExternalPortGlobalJob,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortGlobalJob$outboundSchema.parse(
-      redisSaveExternalPortGlobalJob,
-    ),
-  );
-}
-
-export function redisSaveExternalPortGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
-  RedisSaveExternalPortModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => RedisSaveExternalPortReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => RedisSaveExternalPortGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => RedisSaveExternalPortReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => RedisSaveExternalPortGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortModeSwarm$Outbound = {
-  Replicated?: RedisSaveExternalPortReplicated$Outbound | undefined;
-  Global?: RedisSaveExternalPortGlobal$Outbound | undefined;
-  ReplicatedJob?: RedisSaveExternalPortReplicatedJob$Outbound | undefined;
-  GlobalJob?: RedisSaveExternalPortGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
-  RedisSaveExternalPortModeSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortModeSwarm
-> = z.object({
-  replicated: z.lazy(() => RedisSaveExternalPortReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => RedisSaveExternalPortGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => RedisSaveExternalPortReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => RedisSaveExternalPortGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortModeSwarm$ {
-  /** @deprecated use `RedisSaveExternalPortModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortModeSwarm$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortModeSwarm$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortModeSwarm$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortModeSwarm$Outbound;
-}
-
-export function redisSaveExternalPortModeSwarmToJSON(
-  redisSaveExternalPortModeSwarm: RedisSaveExternalPortModeSwarm,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortModeSwarm$outboundSchema.parse(
-      redisSaveExternalPortModeSwarm,
-    ),
-  );
-}
-
-export function redisSaveExternalPortModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
-  RedisSaveExternalPortDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisSaveExternalPortDriverOpts$Outbound = {};
-
-/** @internal */
-export const RedisSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
-  RedisSaveExternalPortDriverOpts$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortDriverOpts$ {
-  /** @deprecated use `RedisSaveExternalPortDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortDriverOpts$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortDriverOpts$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortDriverOpts$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortDriverOpts$Outbound;
-}
-
-export function redisSaveExternalPortDriverOptsToJSON(
-  redisSaveExternalPortDriverOpts: RedisSaveExternalPortDriverOpts,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortDriverOpts$outboundSchema.parse(
-      redisSaveExternalPortDriverOpts,
-    ),
-  );
-}
-
-export function redisSaveExternalPortDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
-  RedisSaveExternalPortNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => RedisSaveExternalPortDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type RedisSaveExternalPortNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: RedisSaveExternalPortDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
-  RedisSaveExternalPortNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => RedisSaveExternalPortDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortNetworkSwarm$ {
-  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortNetworkSwarm$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    RedisSaveExternalPortNetworkSwarm$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortNetworkSwarm$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortNetworkSwarm$Outbound;
-}
-
-export function redisSaveExternalPortNetworkSwarmToJSON(
-  redisSaveExternalPortNetworkSwarm: RedisSaveExternalPortNetworkSwarm,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortNetworkSwarm$outboundSchema.parse(
-      redisSaveExternalPortNetworkSwarm,
-    ),
-  );
-}
-
-export function redisSaveExternalPortNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortProject$inboundSchema: z.ZodType<
-  RedisSaveExternalPortProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type RedisSaveExternalPortProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const RedisSaveExternalPortProject$outboundSchema: z.ZodType<
-  RedisSaveExternalPortProject$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortProject$ {
-  /** @deprecated use `RedisSaveExternalPortProject$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortProject$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortProject$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortProject$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortProject$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortProject$Outbound;
-}
-
-export function redisSaveExternalPortProjectToJSON(
-  redisSaveExternalPortProject: RedisSaveExternalPortProject,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortProject$outboundSchema.parse(
-      redisSaveExternalPortProject,
-    ),
-  );
-}
-
-export function redisSaveExternalPortProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortEnvironment$inboundSchema: z.ZodType<
-  RedisSaveExternalPortEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => RedisSaveExternalPortProject$inboundSchema),
-});
-
-/** @internal */
-export type RedisSaveExternalPortEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: RedisSaveExternalPortProject$Outbound;
-};
-
-/** @internal */
-export const RedisSaveExternalPortEnvironment$outboundSchema: z.ZodType<
-  RedisSaveExternalPortEnvironment$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => RedisSaveExternalPortProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortEnvironment$ {
-  /** @deprecated use `RedisSaveExternalPortEnvironment$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortEnvironment$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortEnvironment$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortEnvironment$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortEnvironment$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortEnvironment$Outbound;
-}
-
-export function redisSaveExternalPortEnvironmentToJSON(
-  redisSaveExternalPortEnvironment: RedisSaveExternalPortEnvironment,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortEnvironment$outboundSchema.parse(
-      redisSaveExternalPortEnvironment,
-    ),
-  );
-}
-
-export function redisSaveExternalPortEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortType
-> = z.nativeEnum(RedisSaveExternalPortType);
-
-/** @internal */
-export const RedisSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortType
-> = RedisSaveExternalPortType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortType$ {
-  /** @deprecated use `RedisSaveExternalPortType$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortType$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortType$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortType$outboundSchema;
-}
-
-/** @internal */
-export const RedisSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortServiceType
-> = z.nativeEnum(RedisSaveExternalPortServiceType);
-
-/** @internal */
-export const RedisSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortServiceType
-> = RedisSaveExternalPortServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortServiceType$ {
-  /** @deprecated use `RedisSaveExternalPortServiceType$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortServiceType$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortServiceType$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortServiceType$outboundSchema;
-}
-
-/** @internal */
-export const RedisSaveExternalPortMount$inboundSchema: z.ZodType<
-  RedisSaveExternalPortMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: RedisSaveExternalPortType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: RedisSaveExternalPortServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type RedisSaveExternalPortMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const RedisSaveExternalPortMount$outboundSchema: z.ZodType<
-  RedisSaveExternalPortMount$Outbound,
-  z.ZodTypeDef,
-  RedisSaveExternalPortMount
-> = z.object({
-  mountId: z.string(),
-  type: RedisSaveExternalPortType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: RedisSaveExternalPortServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortMount$ {
-  /** @deprecated use `RedisSaveExternalPortMount$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortMount$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortMount$outboundSchema` instead. */
-  export const outboundSchema = RedisSaveExternalPortMount$outboundSchema;
-  /** @deprecated use `RedisSaveExternalPortMount$Outbound` instead. */
-  export type Outbound = RedisSaveExternalPortMount$Outbound;
-}
-
-export function redisSaveExternalPortMountToJSON(
-  redisSaveExternalPortMount: RedisSaveExternalPortMount,
-): string {
-  return JSON.stringify(
-    RedisSaveExternalPortMount$outboundSchema.parse(redisSaveExternalPortMount),
-  );
-}
-
-export function redisSaveExternalPortMountFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisSaveExternalPortMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisSaveExternalPortMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortServerStatus
-> = z.nativeEnum(RedisSaveExternalPortServerStatus);
-
-/** @internal */
-export const RedisSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof RedisSaveExternalPortServerStatus
-> = RedisSaveExternalPortServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisSaveExternalPortServerStatus$ {
-  /** @deprecated use `RedisSaveExternalPortServerStatus$inboundSchema` instead. */
-  export const inboundSchema = RedisSaveExternalPortServerStatus$inboundSchema;
-  /** @deprecated use `RedisSaveExternalPortServerStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    RedisSaveExternalPortServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1991,24 +1808,39 @@ export function redisSaveExternalPortMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const RedisSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortServerStatus
+> = z.nativeEnum(RedisSaveExternalPortServerStatus);
+
+/** @internal */
+export const RedisSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof RedisSaveExternalPortServerStatus
+> = RedisSaveExternalPortServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortServerStatus$ {
+  /** @deprecated use `RedisSaveExternalPortServerStatus$inboundSchema` instead. */
+  export const inboundSchema = RedisSaveExternalPortServerStatus$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortServerStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    RedisSaveExternalPortServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const RedisSaveExternalPortServer$inboundSchema: z.ZodType<
   RedisSaveExternalPortServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: RedisSaveExternalPortServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2019,26 +1851,33 @@ export const RedisSaveExternalPortServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: RedisSaveExternalPortServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type RedisSaveExternalPortServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2047,19 +1886,12 @@ export const RedisSaveExternalPortServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveExternalPortServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: RedisSaveExternalPortServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2070,6 +1902,13 @@ export const RedisSaveExternalPortServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: RedisSaveExternalPortServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2106,87 +1945,180 @@ export function redisSaveExternalPortServerFromJSON(
 }
 
 /** @internal */
+export const RedisSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
+  RedisSaveExternalPortUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
+
+/** @internal */
+export type RedisSaveExternalPortUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const RedisSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
+  RedisSaveExternalPortUpdateConfigSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisSaveExternalPortUpdateConfigSwarm
+> = z.object({
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisSaveExternalPortUpdateConfigSwarm$ {
+  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    RedisSaveExternalPortUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    RedisSaveExternalPortUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `RedisSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = RedisSaveExternalPortUpdateConfigSwarm$Outbound;
+}
+
+export function redisSaveExternalPortUpdateConfigSwarmToJSON(
+  redisSaveExternalPortUpdateConfigSwarm:
+    RedisSaveExternalPortUpdateConfigSwarm,
+): string {
+  return JSON.stringify(
+    RedisSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
+      redisSaveExternalPortUpdateConfigSwarm,
+    ),
+  );
+}
+
+export function redisSaveExternalPortUpdateConfigSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RedisSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisSaveExternalPortUpdateConfigSwarm' from JSON`,
+  );
+}
+
+/** @internal */
 export const RedisSaveExternalPortResponseBody$inboundSchema: z.ZodType<
   RedisSaveExternalPortResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisSaveExternalPortApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => RedisSaveExternalPortEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortModeSwarm$inboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => RedisSaveExternalPortMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisSaveExternalPortNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisSaveExternalPortNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => RedisSaveExternalPortEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => RedisSaveExternalPortMount$inboundSchema)),
   server: z.nullable(z.lazy(() => RedisSaveExternalPortServer$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type RedisSaveExternalPortResponseBody$Outbound = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: string;
-  healthCheckSwarm: RedisSaveExternalPortHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: RedisSaveExternalPortRestartPolicySwarm$Outbound | null;
-  placementSwarm: RedisSaveExternalPortPlacementSwarm$Outbound | null;
-  updateConfigSwarm: RedisSaveExternalPortUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: RedisSaveExternalPortRollbackConfigSwarm$Outbound | null;
-  modeSwarm: RedisSaveExternalPortModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisSaveExternalPortNetworkSwarm$Outbound> | null;
-  replicas: number;
-  environmentId: string;
-  serverId: string | null;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environment: RedisSaveExternalPortEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisSaveExternalPortHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisSaveExternalPortModeSwarm$Outbound | null;
   mounts: Array<RedisSaveExternalPortMount$Outbound>;
+  name: string;
+  networkSwarm: Array<RedisSaveExternalPortNetworkSwarm$Outbound> | null;
+  placementSwarm: RedisSaveExternalPortPlacementSwarm$Outbound | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisSaveExternalPortRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: RedisSaveExternalPortRollbackConfigSwarm$Outbound | null;
   server: RedisSaveExternalPortServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: RedisSaveExternalPortUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2195,49 +2127,49 @@ export const RedisSaveExternalPortResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisSaveExternalPortResponseBody
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisSaveExternalPortApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => RedisSaveExternalPortEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => RedisSaveExternalPortMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisSaveExternalPortNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisSaveExternalPortRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => RedisSaveExternalPortModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisSaveExternalPortNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => RedisSaveExternalPortEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => RedisSaveExternalPortMount$outboundSchema)),
   server: z.nullable(z.lazy(() => RedisSaveExternalPortServer$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

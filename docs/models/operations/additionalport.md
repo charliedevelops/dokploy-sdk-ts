@@ -6,9 +6,9 @@
 import { AdditionalPort } from "dokploy-sdk/models/operations";
 
 let value: AdditionalPort = {
-  targetPort: 7531.81,
+  protocol: "sctp",
   publishedPort: 6096.12,
-  protocol: "tcp",
+  targetPort: 3039.32,
 };
 ```
 
@@ -16,6 +16,6 @@ let value: AdditionalPort = {
 
 | Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `targetPort`                                                                                                   | *number*                                                                                                       | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
-| `publishedPort`                                                                                                | *number*                                                                                                       | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
 | `protocol`                                                                                                     | [operations.SettingsUpdateTraefikPortsProtocol](../../models/operations/settingsupdatetraefikportsprotocol.md) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `publishedPort`                                                                                                | *number*                                                                                                       | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `targetPort`                                                                                                   | *number*                                                                                                       | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

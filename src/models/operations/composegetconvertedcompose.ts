@@ -3,84 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeGetConvertedComposeSecurity = {
-  authorization: string;
-};
-
 export type ComposeGetConvertedComposeRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeGetConvertedComposeSecurity$inboundSchema: z.ZodType<
-  ComposeGetConvertedComposeSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeGetConvertedComposeSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeGetConvertedComposeSecurity$outboundSchema: z.ZodType<
-  ComposeGetConvertedComposeSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeGetConvertedComposeSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeGetConvertedComposeSecurity$ {
-  /** @deprecated use `ComposeGetConvertedComposeSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeGetConvertedComposeSecurity$inboundSchema;
-  /** @deprecated use `ComposeGetConvertedComposeSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ComposeGetConvertedComposeSecurity$outboundSchema;
-  /** @deprecated use `ComposeGetConvertedComposeSecurity$Outbound` instead. */
-  export type Outbound = ComposeGetConvertedComposeSecurity$Outbound;
-}
-
-export function composeGetConvertedComposeSecurityToJSON(
-  composeGetConvertedComposeSecurity: ComposeGetConvertedComposeSecurity,
-): string {
-  return JSON.stringify(
-    ComposeGetConvertedComposeSecurity$outboundSchema.parse(
-      composeGetConvertedComposeSecurity,
-    ),
-  );
-}
-
-export function composeGetConvertedComposeSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeGetConvertedComposeSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ComposeGetConvertedComposeSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeGetConvertedComposeSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeGetConvertedComposeRequest$inboundSchema: z.ZodType<

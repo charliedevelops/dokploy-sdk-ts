@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ApplicationCleanQueuesSecurity = {
-  authorization: string;
-};
-
 export type ApplicationCleanQueuesRequest = {
   applicationId: string;
 };
-
-/** @internal */
-export const ApplicationCleanQueuesSecurity$inboundSchema: z.ZodType<
-  ApplicationCleanQueuesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationCleanQueuesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationCleanQueuesSecurity$outboundSchema: z.ZodType<
-  ApplicationCleanQueuesSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationCleanQueuesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationCleanQueuesSecurity$ {
-  /** @deprecated use `ApplicationCleanQueuesSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationCleanQueuesSecurity$inboundSchema;
-  /** @deprecated use `ApplicationCleanQueuesSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationCleanQueuesSecurity$outboundSchema;
-  /** @deprecated use `ApplicationCleanQueuesSecurity$Outbound` instead. */
-  export type Outbound = ApplicationCleanQueuesSecurity$Outbound;
-}
-
-export function applicationCleanQueuesSecurityToJSON(
-  applicationCleanQueuesSecurity: ApplicationCleanQueuesSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationCleanQueuesSecurity$outboundSchema.parse(
-      applicationCleanQueuesSecurity,
-    ),
-  );
-}
-
-export function applicationCleanQueuesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationCleanQueuesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationCleanQueuesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationCleanQueuesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationCleanQueuesRequest$inboundSchema: z.ZodType<

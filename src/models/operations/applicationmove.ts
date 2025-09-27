@@ -10,124 +10,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationMoveSecurity = {
-  authorization: string;
-};
-
 export type ApplicationMoveRequest = {
   applicationId: string;
   targetEnvironmentId: string;
-};
-
-export const ApplicationMovePreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationMovePreviewCertificateType = ClosedEnum<
-  typeof ApplicationMovePreviewCertificateType
->;
-
-export const ApplicationMoveSourceType = {
-  Github: "github",
-  Docker: "docker",
-  Git: "git",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
-} as const;
-export type ApplicationMoveSourceType = ClosedEnum<
-  typeof ApplicationMoveSourceType
->;
-
-export const ApplicationMoveTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type ApplicationMoveTriggerType = ClosedEnum<
-  typeof ApplicationMoveTriggerType
->;
-
-export type ApplicationMoveHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type ApplicationMoveRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type ApplicationMoveSpread = {
-  spreadDescriptor: string;
-};
-
-export type ApplicationMovePreference = {
-  spread: ApplicationMoveSpread;
-};
-
-export type ApplicationMovePlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type ApplicationMovePlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<ApplicationMovePreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<ApplicationMovePlatform> | undefined;
-};
-
-export type ApplicationMoveUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationMoveRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationMoveReplicated = {
-  replicas?: number | undefined;
-};
-
-export type ApplicationMoveGlobal = {};
-
-export type ApplicationMoveReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type ApplicationMoveGlobalJob = {};
-
-export type ApplicationMoveModeSwarm = {
-  replicated?: ApplicationMoveReplicated | undefined;
-  global?: ApplicationMoveGlobal | undefined;
-  replicatedJob?: ApplicationMoveReplicatedJob | undefined;
-  globalJob?: ApplicationMoveGlobalJob | undefined;
-};
-
-export type ApplicationMoveDriverOpts = {};
-
-export type ApplicationMoveNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: ApplicationMoveDriverOpts | undefined;
 };
 
 export const ApplicationMoveApplicationStatus = {
@@ -152,164 +37,213 @@ export type ApplicationMoveBuildType = ClosedEnum<
   typeof ApplicationMoveBuildType
 >;
 
+export type ApplicationMoveHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type ApplicationMoveGlobal = {};
+
+export type ApplicationMoveGlobalJob = {};
+
+export type ApplicationMoveReplicated = {
+  replicas?: number | undefined;
+};
+
+export type ApplicationMoveReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type ApplicationMoveModeSwarm = {
+  global?: ApplicationMoveGlobal | undefined;
+  globalJob?: ApplicationMoveGlobalJob | undefined;
+  replicated?: ApplicationMoveReplicated | undefined;
+  replicatedJob?: ApplicationMoveReplicatedJob | undefined;
+};
+
+export type ApplicationMoveDriverOpts = {};
+
+export type ApplicationMoveNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: ApplicationMoveDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type ApplicationMovePlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type ApplicationMoveSpread = {
+  spreadDescriptor: string;
+};
+
+export type ApplicationMovePreference = {
+  spread: ApplicationMoveSpread;
+};
+
+export type ApplicationMovePlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<ApplicationMovePlatform> | undefined;
+  preferences?: Array<ApplicationMovePreference> | undefined;
+};
+
+export const ApplicationMovePreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
+} as const;
+export type ApplicationMovePreviewCertificateType = ClosedEnum<
+  typeof ApplicationMovePreviewCertificateType
+>;
+
+export type ApplicationMoveRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type ApplicationMoveRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const ApplicationMoveSourceType = {
+  Github: "github",
+  Docker: "docker",
+  Git: "git",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
+} as const;
+export type ApplicationMoveSourceType = ClosedEnum<
+  typeof ApplicationMoveSourceType
+>;
+
+export const ApplicationMoveTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type ApplicationMoveTriggerType = ClosedEnum<
+  typeof ApplicationMoveTriggerType
+>;
+
+export type ApplicationMoveUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
 /**
  * Successful response
  */
 export type ApplicationMoveResponseBody = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: ApplicationMovePreviewCertificateType | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ApplicationMoveSourceType | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: ApplicationMoveTriggerType | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: ApplicationMoveApplicationStatus | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: ApplicationMoveBuildType | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
   dropBuildPath?: string | null | undefined;
-  healthCheckSwarm?: ApplicationMoveHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: ApplicationMoveRestartPolicySwarm | null | undefined;
-  placementSwarm?: ApplicationMovePlacementSwarm | null | undefined;
-  updateConfigSwarm?: ApplicationMoveUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: ApplicationMoveRollbackConfigSwarm | null | undefined;
-  modeSwarm?: ApplicationMoveModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationMoveNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: ApplicationMoveApplicationStatus | undefined;
-  buildType?: ApplicationMoveBuildType | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
   environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
   giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
+  healthCheckSwarm?: ApplicationMoveHealthCheckSwarm | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationMoveModeSwarm | null | undefined;
+  name: string;
+  networkSwarm?: Array<ApplicationMoveNetworkSwarm> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationMovePlacementSwarm | null | undefined;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: ApplicationMovePreviewCertificateType | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  refreshToken?: string | null | undefined;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?: ApplicationMoveRestartPolicySwarm | null | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?: ApplicationMoveRollbackConfigSwarm | null | undefined;
   serverId?: string | null | undefined;
+  sourceType?: ApplicationMoveSourceType | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: ApplicationMoveTriggerType | null | undefined;
+  updateConfigSwarm?: ApplicationMoveUpdateConfigSwarm | null | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationMoveResponse =
   | ApplicationMoveResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const ApplicationMoveSecurity$inboundSchema: z.ZodType<
-  ApplicationMoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationMoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationMoveSecurity$outboundSchema: z.ZodType<
-  ApplicationMoveSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveSecurity$ {
-  /** @deprecated use `ApplicationMoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveSecurity$inboundSchema;
-  /** @deprecated use `ApplicationMoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveSecurity$outboundSchema;
-  /** @deprecated use `ApplicationMoveSecurity$Outbound` instead. */
-  export type Outbound = ApplicationMoveSecurity$Outbound;
-}
-
-export function applicationMoveSecurityToJSON(
-  applicationMoveSecurity: ApplicationMoveSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationMoveSecurity$outboundSchema.parse(applicationMoveSecurity),
-  );
-}
-
-export function applicationMoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationMoveRequest$inboundSchema: z.ZodType<
@@ -369,69 +303,45 @@ export function applicationMoveRequestFromJSON(
 }
 
 /** @internal */
-export const ApplicationMovePreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof ApplicationMovePreviewCertificateType> = z.nativeEnum(
-    ApplicationMovePreviewCertificateType,
-  );
+export const ApplicationMoveApplicationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveApplicationStatus
+> = z.nativeEnum(ApplicationMoveApplicationStatus);
 
 /** @internal */
-export const ApplicationMovePreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof ApplicationMovePreviewCertificateType> =
-    ApplicationMovePreviewCertificateType$inboundSchema;
+export const ApplicationMoveApplicationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveApplicationStatus
+> = ApplicationMoveApplicationStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationMovePreviewCertificateType$ {
-  /** @deprecated use `ApplicationMovePreviewCertificateType$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationMovePreviewCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationMovePreviewCertificateType$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationMovePreviewCertificateType$outboundSchema;
+export namespace ApplicationMoveApplicationStatus$ {
+  /** @deprecated use `ApplicationMoveApplicationStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveApplicationStatus$inboundSchema;
+  /** @deprecated use `ApplicationMoveApplicationStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveApplicationStatus$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationMoveSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveSourceType
-> = z.nativeEnum(ApplicationMoveSourceType);
+export const ApplicationMoveBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveBuildType
+> = z.nativeEnum(ApplicationMoveBuildType);
 
 /** @internal */
-export const ApplicationMoveSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveSourceType
-> = ApplicationMoveSourceType$inboundSchema;
+export const ApplicationMoveBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveBuildType
+> = ApplicationMoveBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationMoveSourceType$ {
-  /** @deprecated use `ApplicationMoveSourceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveSourceType$inboundSchema;
-  /** @deprecated use `ApplicationMoveSourceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveSourceType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationMoveTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveTriggerType
-> = z.nativeEnum(ApplicationMoveTriggerType);
-
-/** @internal */
-export const ApplicationMoveTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveTriggerType
-> = ApplicationMoveTriggerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveTriggerType$ {
-  /** @deprecated use `ApplicationMoveTriggerType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveTriggerType$inboundSchema;
-  /** @deprecated use `ApplicationMoveTriggerType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveTriggerType$outboundSchema;
+export namespace ApplicationMoveBuildType$ {
+  /** @deprecated use `ApplicationMoveBuildType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveBuildType$inboundSchema;
+  /** @deprecated use `ApplicationMoveBuildType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveBuildType$outboundSchema;
 }
 
 /** @internal */
@@ -440,28 +350,28 @@ export const ApplicationMoveHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type ApplicationMoveHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -470,18 +380,18 @@ export const ApplicationMoveHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationMoveHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -519,48 +429,129 @@ export function applicationMoveHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationMoveRestartPolicySwarm$inboundSchema: z.ZodType<
-  ApplicationMoveRestartPolicySwarm,
+export const ApplicationMoveGlobal$inboundSchema: z.ZodType<
+  ApplicationMoveGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationMoveGlobal$Outbound = {};
+
+/** @internal */
+export const ApplicationMoveGlobal$outboundSchema: z.ZodType<
+  ApplicationMoveGlobal$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveGlobal$ {
+  /** @deprecated use `ApplicationMoveGlobal$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveGlobal$inboundSchema;
+  /** @deprecated use `ApplicationMoveGlobal$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveGlobal$outboundSchema;
+  /** @deprecated use `ApplicationMoveGlobal$Outbound` instead. */
+  export type Outbound = ApplicationMoveGlobal$Outbound;
+}
+
+export function applicationMoveGlobalToJSON(
+  applicationMoveGlobal: ApplicationMoveGlobal,
+): string {
+  return JSON.stringify(
+    ApplicationMoveGlobal$outboundSchema.parse(applicationMoveGlobal),
+  );
+}
+
+export function applicationMoveGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveGlobalJob$inboundSchema: z.ZodType<
+  ApplicationMoveGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationMoveGlobalJob$Outbound = {};
+
+/** @internal */
+export const ApplicationMoveGlobalJob$outboundSchema: z.ZodType<
+  ApplicationMoveGlobalJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveGlobalJob$ {
+  /** @deprecated use `ApplicationMoveGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveGlobalJob$inboundSchema;
+  /** @deprecated use `ApplicationMoveGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveGlobalJob$outboundSchema;
+  /** @deprecated use `ApplicationMoveGlobalJob$Outbound` instead. */
+  export type Outbound = ApplicationMoveGlobalJob$Outbound;
+}
+
+export function applicationMoveGlobalJobToJSON(
+  applicationMoveGlobalJob: ApplicationMoveGlobalJob,
+): string {
+  return JSON.stringify(
+    ApplicationMoveGlobalJob$outboundSchema.parse(applicationMoveGlobalJob),
+  );
+}
+
+export function applicationMoveGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveReplicated$inboundSchema: z.ZodType<
+  ApplicationMoveReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type ApplicationMoveRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type ApplicationMoveReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationMoveRestartPolicySwarm$outboundSchema: z.ZodType<
-  ApplicationMoveRestartPolicySwarm$Outbound,
+export const ApplicationMoveReplicated$outboundSchema: z.ZodType<
+  ApplicationMoveReplicated$Outbound,
   z.ZodTypeDef,
-  ApplicationMoveRestartPolicySwarm
+  ApplicationMoveReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -568,33 +559,367 @@ export const ApplicationMoveRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationMoveRestartPolicySwarm$ {
-  /** @deprecated use `ApplicationMoveRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `ApplicationMoveRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationMoveRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `ApplicationMoveRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = ApplicationMoveRestartPolicySwarm$Outbound;
+export namespace ApplicationMoveReplicated$ {
+  /** @deprecated use `ApplicationMoveReplicated$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveReplicated$inboundSchema;
+  /** @deprecated use `ApplicationMoveReplicated$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveReplicated$outboundSchema;
+  /** @deprecated use `ApplicationMoveReplicated$Outbound` instead. */
+  export type Outbound = ApplicationMoveReplicated$Outbound;
 }
 
-export function applicationMoveRestartPolicySwarmToJSON(
-  applicationMoveRestartPolicySwarm: ApplicationMoveRestartPolicySwarm,
+export function applicationMoveReplicatedToJSON(
+  applicationMoveReplicated: ApplicationMoveReplicated,
 ): string {
   return JSON.stringify(
-    ApplicationMoveRestartPolicySwarm$outboundSchema.parse(
-      applicationMoveRestartPolicySwarm,
+    ApplicationMoveReplicated$outboundSchema.parse(applicationMoveReplicated),
+  );
+}
+
+export function applicationMoveReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveReplicatedJob$inboundSchema: z.ZodType<
+  ApplicationMoveReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type ApplicationMoveReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const ApplicationMoveReplicatedJob$outboundSchema: z.ZodType<
+  ApplicationMoveReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveReplicatedJob$ {
+  /** @deprecated use `ApplicationMoveReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveReplicatedJob$inboundSchema;
+  /** @deprecated use `ApplicationMoveReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveReplicatedJob$outboundSchema;
+  /** @deprecated use `ApplicationMoveReplicatedJob$Outbound` instead. */
+  export type Outbound = ApplicationMoveReplicatedJob$Outbound;
+}
+
+export function applicationMoveReplicatedJobToJSON(
+  applicationMoveReplicatedJob: ApplicationMoveReplicatedJob,
+): string {
+  return JSON.stringify(
+    ApplicationMoveReplicatedJob$outboundSchema.parse(
+      applicationMoveReplicatedJob,
     ),
   );
 }
 
-export function applicationMoveRestartPolicySwarmFromJSON(
+export function applicationMoveReplicatedJobFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationMoveRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<ApplicationMoveReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveRestartPolicySwarm' from JSON`,
+    (x) => ApplicationMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveModeSwarm$inboundSchema: z.ZodType<
+  ApplicationMoveModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => ApplicationMoveGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => ApplicationMoveGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => ApplicationMoveReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => ApplicationMoveReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type ApplicationMoveModeSwarm$Outbound = {
+  Global?: ApplicationMoveGlobal$Outbound | undefined;
+  GlobalJob?: ApplicationMoveGlobalJob$Outbound | undefined;
+  Replicated?: ApplicationMoveReplicated$Outbound | undefined;
+  ReplicatedJob?: ApplicationMoveReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const ApplicationMoveModeSwarm$outboundSchema: z.ZodType<
+  ApplicationMoveModeSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveModeSwarm
+> = z.object({
+  global: z.lazy(() => ApplicationMoveGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => ApplicationMoveGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => ApplicationMoveReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => ApplicationMoveReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveModeSwarm$ {
+  /** @deprecated use `ApplicationMoveModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveModeSwarm$inboundSchema;
+  /** @deprecated use `ApplicationMoveModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveModeSwarm$outboundSchema;
+  /** @deprecated use `ApplicationMoveModeSwarm$Outbound` instead. */
+  export type Outbound = ApplicationMoveModeSwarm$Outbound;
+}
+
+export function applicationMoveModeSwarmToJSON(
+  applicationMoveModeSwarm: ApplicationMoveModeSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationMoveModeSwarm$outboundSchema.parse(applicationMoveModeSwarm),
+  );
+}
+
+export function applicationMoveModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveDriverOpts$inboundSchema: z.ZodType<
+  ApplicationMoveDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationMoveDriverOpts$Outbound = {};
+
+/** @internal */
+export const ApplicationMoveDriverOpts$outboundSchema: z.ZodType<
+  ApplicationMoveDriverOpts$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveDriverOpts$ {
+  /** @deprecated use `ApplicationMoveDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveDriverOpts$inboundSchema;
+  /** @deprecated use `ApplicationMoveDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveDriverOpts$outboundSchema;
+  /** @deprecated use `ApplicationMoveDriverOpts$Outbound` instead. */
+  export type Outbound = ApplicationMoveDriverOpts$Outbound;
+}
+
+export function applicationMoveDriverOptsToJSON(
+  applicationMoveDriverOpts: ApplicationMoveDriverOpts,
+): string {
+  return JSON.stringify(
+    ApplicationMoveDriverOpts$outboundSchema.parse(applicationMoveDriverOpts),
+  );
+}
+
+export function applicationMoveDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMoveNetworkSwarm$inboundSchema: z.ZodType<
+  ApplicationMoveNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => ApplicationMoveDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type ApplicationMoveNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: ApplicationMoveDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const ApplicationMoveNetworkSwarm$outboundSchema: z.ZodType<
+  ApplicationMoveNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationMoveNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => ApplicationMoveDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveNetworkSwarm$ {
+  /** @deprecated use `ApplicationMoveNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveNetworkSwarm$inboundSchema;
+  /** @deprecated use `ApplicationMoveNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveNetworkSwarm$outboundSchema;
+  /** @deprecated use `ApplicationMoveNetworkSwarm$Outbound` instead. */
+  export type Outbound = ApplicationMoveNetworkSwarm$Outbound;
+}
+
+export function applicationMoveNetworkSwarmToJSON(
+  applicationMoveNetworkSwarm: ApplicationMoveNetworkSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationMoveNetworkSwarm$outboundSchema.parse(
+      applicationMoveNetworkSwarm,
+    ),
+  );
+}
+
+export function applicationMoveNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMoveNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationMovePlatform$inboundSchema: z.ZodType<
+  ApplicationMovePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type ApplicationMovePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const ApplicationMovePlatform$outboundSchema: z.ZodType<
+  ApplicationMovePlatform$Outbound,
+  z.ZodTypeDef,
+  ApplicationMovePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMovePlatform$ {
+  /** @deprecated use `ApplicationMovePlatform$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMovePlatform$inboundSchema;
+  /** @deprecated use `ApplicationMovePlatform$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMovePlatform$outboundSchema;
+  /** @deprecated use `ApplicationMovePlatform$Outbound` instead. */
+  export type Outbound = ApplicationMovePlatform$Outbound;
+}
+
+export function applicationMovePlatformToJSON(
+  applicationMovePlatform: ApplicationMovePlatform,
+): string {
+  return JSON.stringify(
+    ApplicationMovePlatform$outboundSchema.parse(applicationMovePlatform),
+  );
+}
+
+export function applicationMovePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationMovePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationMovePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMovePlatform' from JSON`,
   );
 }
 
@@ -723,99 +1048,32 @@ export function applicationMovePreferenceFromJSON(
 }
 
 /** @internal */
-export const ApplicationMovePlatform$inboundSchema: z.ZodType<
-  ApplicationMovePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type ApplicationMovePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const ApplicationMovePlatform$outboundSchema: z.ZodType<
-  ApplicationMovePlatform$Outbound,
-  z.ZodTypeDef,
-  ApplicationMovePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMovePlatform$ {
-  /** @deprecated use `ApplicationMovePlatform$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMovePlatform$inboundSchema;
-  /** @deprecated use `ApplicationMovePlatform$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMovePlatform$outboundSchema;
-  /** @deprecated use `ApplicationMovePlatform$Outbound` instead. */
-  export type Outbound = ApplicationMovePlatform$Outbound;
-}
-
-export function applicationMovePlatformToJSON(
-  applicationMovePlatform: ApplicationMovePlatform,
-): string {
-  return JSON.stringify(
-    ApplicationMovePlatform$outboundSchema.parse(applicationMovePlatform),
-  );
-}
-
-export function applicationMovePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMovePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMovePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMovePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationMovePlacementSwarm$inboundSchema: z.ZodType<
   ApplicationMovePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => ApplicationMovePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => ApplicationMovePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => ApplicationMovePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type ApplicationMovePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<ApplicationMovePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<ApplicationMovePlatform$Outbound> | undefined;
+  Preferences?: Array<ApplicationMovePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -825,17 +1083,17 @@ export const ApplicationMovePlacementSwarm$outboundSchema: z.ZodType<
   ApplicationMovePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => ApplicationMovePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => ApplicationMovePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => ApplicationMovePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -873,58 +1131,72 @@ export function applicationMovePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
-  ApplicationMoveUpdateConfigSwarm,
+export const ApplicationMovePreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof ApplicationMovePreviewCertificateType> = z.nativeEnum(
+    ApplicationMovePreviewCertificateType,
+  );
+
+/** @internal */
+export const ApplicationMovePreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof ApplicationMovePreviewCertificateType> =
+    ApplicationMovePreviewCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMovePreviewCertificateType$ {
+  /** @deprecated use `ApplicationMovePreviewCertificateType$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationMovePreviewCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationMovePreviewCertificateType$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationMovePreviewCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationMoveRestartPolicySwarm$inboundSchema: z.ZodType<
+  ApplicationMoveRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type ApplicationMoveUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type ApplicationMoveRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
-  ApplicationMoveUpdateConfigSwarm$Outbound,
+export const ApplicationMoveRestartPolicySwarm$outboundSchema: z.ZodType<
+  ApplicationMoveRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationMoveUpdateConfigSwarm
+  ApplicationMoveRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -932,32 +1204,33 @@ export const ApplicationMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationMoveUpdateConfigSwarm$ {
-  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = ApplicationMoveUpdateConfigSwarm$Outbound;
+export namespace ApplicationMoveRestartPolicySwarm$ {
+  /** @deprecated use `ApplicationMoveRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `ApplicationMoveRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationMoveRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `ApplicationMoveRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = ApplicationMoveRestartPolicySwarm$Outbound;
 }
 
-export function applicationMoveUpdateConfigSwarmToJSON(
-  applicationMoveUpdateConfigSwarm: ApplicationMoveUpdateConfigSwarm,
+export function applicationMoveRestartPolicySwarmToJSON(
+  applicationMoveRestartPolicySwarm: ApplicationMoveRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    ApplicationMoveUpdateConfigSwarm$outboundSchema.parse(
-      applicationMoveUpdateConfigSwarm,
+    ApplicationMoveRestartPolicySwarm$outboundSchema.parse(
+      applicationMoveRestartPolicySwarm,
     ),
   );
 }
 
-export function applicationMoveUpdateConfigSwarmFromJSON(
+export function applicationMoveRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationMoveUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<ApplicationMoveRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveUpdateConfigSwarm' from JSON`,
+    (x) => ApplicationMoveRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -967,31 +1240,31 @@ export const ApplicationMoveRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type ApplicationMoveRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1000,20 +1273,20 @@ export const ApplicationMoveRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationMoveRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1053,33 +1326,100 @@ export function applicationMoveRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationMoveReplicated$inboundSchema: z.ZodType<
-  ApplicationMoveReplicated,
+export const ApplicationMoveSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveSourceType
+> = z.nativeEnum(ApplicationMoveSourceType);
+
+/** @internal */
+export const ApplicationMoveSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveSourceType
+> = ApplicationMoveSourceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveSourceType$ {
+  /** @deprecated use `ApplicationMoveSourceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveSourceType$inboundSchema;
+  /** @deprecated use `ApplicationMoveSourceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveSourceType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationMoveTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveTriggerType
+> = z.nativeEnum(ApplicationMoveTriggerType);
+
+/** @internal */
+export const ApplicationMoveTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationMoveTriggerType
+> = ApplicationMoveTriggerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationMoveTriggerType$ {
+  /** @deprecated use `ApplicationMoveTriggerType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveTriggerType$inboundSchema;
+  /** @deprecated use `ApplicationMoveTriggerType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveTriggerType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationMoveUpdateConfigSwarm$inboundSchema: z.ZodType<
+  ApplicationMoveUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type ApplicationMoveReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type ApplicationMoveUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const ApplicationMoveReplicated$outboundSchema: z.ZodType<
-  ApplicationMoveReplicated$Outbound,
+export const ApplicationMoveUpdateConfigSwarm$outboundSchema: z.ZodType<
+  ApplicationMoveUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationMoveReplicated
+  ApplicationMoveUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1087,439 +1427,33 @@ export const ApplicationMoveReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationMoveReplicated$ {
-  /** @deprecated use `ApplicationMoveReplicated$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveReplicated$inboundSchema;
-  /** @deprecated use `ApplicationMoveReplicated$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveReplicated$outboundSchema;
-  /** @deprecated use `ApplicationMoveReplicated$Outbound` instead. */
-  export type Outbound = ApplicationMoveReplicated$Outbound;
+export namespace ApplicationMoveUpdateConfigSwarm$ {
+  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationMoveUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationMoveUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `ApplicationMoveUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = ApplicationMoveUpdateConfigSwarm$Outbound;
 }
 
-export function applicationMoveReplicatedToJSON(
-  applicationMoveReplicated: ApplicationMoveReplicated,
+export function applicationMoveUpdateConfigSwarmToJSON(
+  applicationMoveUpdateConfigSwarm: ApplicationMoveUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    ApplicationMoveReplicated$outboundSchema.parse(applicationMoveReplicated),
-  );
-}
-
-export function applicationMoveReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveGlobal$inboundSchema: z.ZodType<
-  ApplicationMoveGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationMoveGlobal$Outbound = {};
-
-/** @internal */
-export const ApplicationMoveGlobal$outboundSchema: z.ZodType<
-  ApplicationMoveGlobal$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveGlobal$ {
-  /** @deprecated use `ApplicationMoveGlobal$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveGlobal$inboundSchema;
-  /** @deprecated use `ApplicationMoveGlobal$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveGlobal$outboundSchema;
-  /** @deprecated use `ApplicationMoveGlobal$Outbound` instead. */
-  export type Outbound = ApplicationMoveGlobal$Outbound;
-}
-
-export function applicationMoveGlobalToJSON(
-  applicationMoveGlobal: ApplicationMoveGlobal,
-): string {
-  return JSON.stringify(
-    ApplicationMoveGlobal$outboundSchema.parse(applicationMoveGlobal),
-  );
-}
-
-export function applicationMoveGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveReplicatedJob$inboundSchema: z.ZodType<
-  ApplicationMoveReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type ApplicationMoveReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationMoveReplicatedJob$outboundSchema: z.ZodType<
-  ApplicationMoveReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveReplicatedJob$ {
-  /** @deprecated use `ApplicationMoveReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveReplicatedJob$inboundSchema;
-  /** @deprecated use `ApplicationMoveReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveReplicatedJob$outboundSchema;
-  /** @deprecated use `ApplicationMoveReplicatedJob$Outbound` instead. */
-  export type Outbound = ApplicationMoveReplicatedJob$Outbound;
-}
-
-export function applicationMoveReplicatedJobToJSON(
-  applicationMoveReplicatedJob: ApplicationMoveReplicatedJob,
-): string {
-  return JSON.stringify(
-    ApplicationMoveReplicatedJob$outboundSchema.parse(
-      applicationMoveReplicatedJob,
+    ApplicationMoveUpdateConfigSwarm$outboundSchema.parse(
+      applicationMoveUpdateConfigSwarm,
     ),
   );
 }
 
-export function applicationMoveReplicatedJobFromJSON(
+export function applicationMoveUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationMoveReplicatedJob, SDKValidationError> {
+): SafeParseResult<ApplicationMoveUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationMoveReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveReplicatedJob' from JSON`,
+    (x) => ApplicationMoveUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationMoveUpdateConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const ApplicationMoveGlobalJob$inboundSchema: z.ZodType<
-  ApplicationMoveGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationMoveGlobalJob$Outbound = {};
-
-/** @internal */
-export const ApplicationMoveGlobalJob$outboundSchema: z.ZodType<
-  ApplicationMoveGlobalJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveGlobalJob$ {
-  /** @deprecated use `ApplicationMoveGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveGlobalJob$inboundSchema;
-  /** @deprecated use `ApplicationMoveGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveGlobalJob$outboundSchema;
-  /** @deprecated use `ApplicationMoveGlobalJob$Outbound` instead. */
-  export type Outbound = ApplicationMoveGlobalJob$Outbound;
-}
-
-export function applicationMoveGlobalJobToJSON(
-  applicationMoveGlobalJob: ApplicationMoveGlobalJob,
-): string {
-  return JSON.stringify(
-    ApplicationMoveGlobalJob$outboundSchema.parse(applicationMoveGlobalJob),
-  );
-}
-
-export function applicationMoveGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveModeSwarm$inboundSchema: z.ZodType<
-  ApplicationMoveModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => ApplicationMoveReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => ApplicationMoveGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => ApplicationMoveReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => ApplicationMoveGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type ApplicationMoveModeSwarm$Outbound = {
-  Replicated?: ApplicationMoveReplicated$Outbound | undefined;
-  Global?: ApplicationMoveGlobal$Outbound | undefined;
-  ReplicatedJob?: ApplicationMoveReplicatedJob$Outbound | undefined;
-  GlobalJob?: ApplicationMoveGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationMoveModeSwarm$outboundSchema: z.ZodType<
-  ApplicationMoveModeSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveModeSwarm
-> = z.object({
-  replicated: z.lazy(() => ApplicationMoveReplicated$outboundSchema).optional(),
-  global: z.lazy(() => ApplicationMoveGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => ApplicationMoveReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => ApplicationMoveGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveModeSwarm$ {
-  /** @deprecated use `ApplicationMoveModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveModeSwarm$inboundSchema;
-  /** @deprecated use `ApplicationMoveModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveModeSwarm$outboundSchema;
-  /** @deprecated use `ApplicationMoveModeSwarm$Outbound` instead. */
-  export type Outbound = ApplicationMoveModeSwarm$Outbound;
-}
-
-export function applicationMoveModeSwarmToJSON(
-  applicationMoveModeSwarm: ApplicationMoveModeSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationMoveModeSwarm$outboundSchema.parse(applicationMoveModeSwarm),
-  );
-}
-
-export function applicationMoveModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveDriverOpts$inboundSchema: z.ZodType<
-  ApplicationMoveDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationMoveDriverOpts$Outbound = {};
-
-/** @internal */
-export const ApplicationMoveDriverOpts$outboundSchema: z.ZodType<
-  ApplicationMoveDriverOpts$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveDriverOpts$ {
-  /** @deprecated use `ApplicationMoveDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveDriverOpts$inboundSchema;
-  /** @deprecated use `ApplicationMoveDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveDriverOpts$outboundSchema;
-  /** @deprecated use `ApplicationMoveDriverOpts$Outbound` instead. */
-  export type Outbound = ApplicationMoveDriverOpts$Outbound;
-}
-
-export function applicationMoveDriverOptsToJSON(
-  applicationMoveDriverOpts: ApplicationMoveDriverOpts,
-): string {
-  return JSON.stringify(
-    ApplicationMoveDriverOpts$outboundSchema.parse(applicationMoveDriverOpts),
-  );
-}
-
-export function applicationMoveDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveNetworkSwarm$inboundSchema: z.ZodType<
-  ApplicationMoveNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => ApplicationMoveDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type ApplicationMoveNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: ApplicationMoveDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationMoveNetworkSwarm$outboundSchema: z.ZodType<
-  ApplicationMoveNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationMoveNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => ApplicationMoveDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveNetworkSwarm$ {
-  /** @deprecated use `ApplicationMoveNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveNetworkSwarm$inboundSchema;
-  /** @deprecated use `ApplicationMoveNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveNetworkSwarm$outboundSchema;
-  /** @deprecated use `ApplicationMoveNetworkSwarm$Outbound` instead. */
-  export type Outbound = ApplicationMoveNetworkSwarm$Outbound;
-}
-
-export function applicationMoveNetworkSwarmToJSON(
-  applicationMoveNetworkSwarm: ApplicationMoveNetworkSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationMoveNetworkSwarm$outboundSchema.parse(
-      applicationMoveNetworkSwarm,
-    ),
-  );
-}
-
-export function applicationMoveNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMoveNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMoveNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMoveNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationMoveApplicationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveApplicationStatus
-> = z.nativeEnum(ApplicationMoveApplicationStatus);
-
-/** @internal */
-export const ApplicationMoveApplicationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveApplicationStatus
-> = ApplicationMoveApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveApplicationStatus$ {
-  /** @deprecated use `ApplicationMoveApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveApplicationStatus$inboundSchema;
-  /** @deprecated use `ApplicationMoveApplicationStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveApplicationStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationMoveBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveBuildType
-> = z.nativeEnum(ApplicationMoveBuildType);
-
-/** @internal */
-export const ApplicationMoveBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationMoveBuildType
-> = ApplicationMoveBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMoveBuildType$ {
-  /** @deprecated use `ApplicationMoveBuildType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMoveBuildType$inboundSchema;
-  /** @deprecated use `ApplicationMoveBuildType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMoveBuildType$outboundSchema;
 }
 
 /** @internal */
@@ -1528,210 +1462,210 @@ export const ApplicationMoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationMovePreviewCertificateType$inboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationMoveSourceType$inboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationMoveTriggerType$inboundSchema).optional(),
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationMoveApplicationStatus$inboundSchema.optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationMoveBuildType$inboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationMoveHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationMoveRestartPolicySwarm$inboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationMovePlacementSwarm$inboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationMoveUpdateConfigSwarm$inboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationMoveRollbackConfigSwarm$inboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationMoveModeSwarm$inboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationMoveNetworkSwarm$inboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationMoveApplicationStatus$inboundSchema.optional(),
-  buildType: ApplicationMoveBuildType$inboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationMovePlacementSwarm$inboundSchema),
+  ).optional(),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationMovePreviewCertificateType$inboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
   publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  refreshToken: z.nullable(z.string()).optional(),
   registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationMoveRestartPolicySwarm$inboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationMoveRollbackConfigSwarm$inboundSchema),
+  ).optional(),
   serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationMoveSourceType$inboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationMoveTriggerType$inboundSchema).optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationMoveUpdateConfigSwarm$inboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationMoveResponseBody$Outbound = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: string | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: string | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: string | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: string | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
   dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environmentId: string;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  githubId?: string | null | undefined;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   healthCheckSwarm?:
     | ApplicationMoveHealthCheckSwarm$Outbound
     | null
     | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationMoveModeSwarm$Outbound | null | undefined;
+  name: string;
+  networkSwarm?: Array<ApplicationMoveNetworkSwarm$Outbound> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationMovePlacementSwarm$Outbound | null | undefined;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: string | undefined;
+  previewCustomCertResolver?: string | null | undefined;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  refreshToken?: string | null | undefined;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
   restartPolicySwarm?:
     | ApplicationMoveRestartPolicySwarm$Outbound
     | null
     | undefined;
-  placementSwarm?: ApplicationMovePlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?:
-    | ApplicationMoveUpdateConfigSwarm$Outbound
-    | null
-    | undefined;
+  rollbackActive?: boolean | null | undefined;
   rollbackConfigSwarm?:
     | ApplicationMoveRollbackConfigSwarm$Outbound
     | null
     | undefined;
-  modeSwarm?: ApplicationMoveModeSwarm$Outbound | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationMoveNetworkSwarm$Outbound> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: string | undefined;
-  buildType?: string | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
   serverId?: string | null | undefined;
+  sourceType?: string | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: string | null | undefined;
+  updateConfigSwarm?:
+    | ApplicationMoveUpdateConfigSwarm$Outbound
+    | null
+    | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -1740,107 +1674,107 @@ export const ApplicationMoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationMoveResponseBody
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationMovePreviewCertificateType$outboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationMoveSourceType$outboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationMoveTriggerType$outboundSchema).optional(),
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationMoveApplicationStatus$outboundSchema.optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationMoveBuildType$outboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  githubId: z.nullable(z.string()).optional(),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationMoveHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationMoveRestartPolicySwarm$outboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationMovePlacementSwarm$outboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationMoveUpdateConfigSwarm$outboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationMoveRollbackConfigSwarm$outboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationMoveModeSwarm$outboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationMoveNetworkSwarm$outboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationMoveApplicationStatus$outboundSchema.optional(),
-  buildType: ApplicationMoveBuildType$outboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationMovePlacementSwarm$outboundSchema),
+  ).optional(),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationMovePreviewCertificateType$outboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
   publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  refreshToken: z.nullable(z.string()).optional(),
   registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationMoveRestartPolicySwarm$outboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationMoveRollbackConfigSwarm$outboundSchema),
+  ).optional(),
   serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationMoveSourceType$outboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationMoveTriggerType$outboundSchema).optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationMoveUpdateConfigSwarm$outboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

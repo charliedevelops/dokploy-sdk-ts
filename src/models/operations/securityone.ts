@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type SecurityOneSecurity = {
-  authorization: string;
-};
 
 export type SecurityOneRequest = {
   securityId: string;
@@ -21,76 +16,14 @@ export type SecurityOneRequest = {
  * Successful response
  */
 export type SecurityOneResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityOneResponse = SecurityOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const SecurityOneSecurity$inboundSchema: z.ZodType<
-  SecurityOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SecurityOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SecurityOneSecurity$outboundSchema: z.ZodType<
-  SecurityOneSecurity$Outbound,
-  z.ZodTypeDef,
-  SecurityOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SecurityOneSecurity$ {
-  /** @deprecated use `SecurityOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = SecurityOneSecurity$inboundSchema;
-  /** @deprecated use `SecurityOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = SecurityOneSecurity$outboundSchema;
-  /** @deprecated use `SecurityOneSecurity$Outbound` instead. */
-  export type Outbound = SecurityOneSecurity$Outbound;
-}
-
-export function securityOneSecurityToJSON(
-  securityOneSecurity: SecurityOneSecurity,
-): string {
-  return JSON.stringify(
-    SecurityOneSecurity$outboundSchema.parse(securityOneSecurity),
-  );
-}
-
-export function securityOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SecurityOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SecurityOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SecurityOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SecurityOneRequest$inboundSchema: z.ZodType<
@@ -152,20 +85,20 @@ export const SecurityOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityOneResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -174,11 +107,11 @@ export const SecurityOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityOneResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type PostgresRebuildSecurity = {
-  authorization: string;
-};
 
 export type PostgresRebuildRequest = {
   postgresId: string;
 };
 
 export type PostgresRebuildResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const PostgresRebuildSecurity$inboundSchema: z.ZodType<
-  PostgresRebuildSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresRebuildSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresRebuildSecurity$outboundSchema: z.ZodType<
-  PostgresRebuildSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresRebuildSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresRebuildSecurity$ {
-  /** @deprecated use `PostgresRebuildSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresRebuildSecurity$inboundSchema;
-  /** @deprecated use `PostgresRebuildSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresRebuildSecurity$outboundSchema;
-  /** @deprecated use `PostgresRebuildSecurity$Outbound` instead. */
-  export type Outbound = PostgresRebuildSecurity$Outbound;
-}
-
-export function postgresRebuildSecurityToJSON(
-  postgresRebuildSecurity: PostgresRebuildSecurity,
-): string {
-  return JSON.stringify(
-    PostgresRebuildSecurity$outboundSchema.parse(postgresRebuildSecurity),
-  );
-}
-
-export function postgresRebuildSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresRebuildSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresRebuildSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresRebuildSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresRebuildRequest$inboundSchema: z.ZodType<

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupOneSecurity = {
-  authorization: string;
-};
-
 export type BackupOneRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupOneSecurity$inboundSchema: z.ZodType<
-  BackupOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupOneSecurity$outboundSchema: z.ZodType<
-  BackupOneSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupOneSecurity$ {
-  /** @deprecated use `BackupOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupOneSecurity$inboundSchema;
-  /** @deprecated use `BackupOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupOneSecurity$outboundSchema;
-  /** @deprecated use `BackupOneSecurity$Outbound` instead. */
-  export type Outbound = BackupOneSecurity$Outbound;
-}
-
-export function backupOneSecurityToJSON(
-  backupOneSecurity: BackupOneSecurity,
-): string {
-  return JSON.stringify(
-    BackupOneSecurity$outboundSchema.parse(backupOneSecurity),
-  );
-}
-
-export function backupOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupOneRequest$inboundSchema: z.ZodType<

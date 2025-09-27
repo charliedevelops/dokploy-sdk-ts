@@ -7,44 +7,43 @@
 
 ```typescript
 const value: operations.MongoMoveResponseBody = {
-  mongoId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description: "elver dim hastily nor pivot instead appropriate vice wherever",
-  databaseUser: "<value>",
-  databasePassword: "<value>",
-  dockerImage: "<value>",
+  applicationStatus: "error",
   command: "<value>",
-  env: "<value>",
-  memoryReservation: "<value>",
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
   cpuLimit: "<value>",
+  cpuReservation: "<value>",
+  createdAt: "1728917275717",
+  databasePassword: "<value>",
+  databaseUser: "<value>",
+  description: "lazy ick modulo insist celebrate quickly yuck kissingly before",
+  dockerImage: "<value>",
+  env: "<value>",
+  environmentId: "<id>",
   externalPort: 3213.26,
-  applicationStatus: "running",
   healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 3987.08,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 1547.11,
-    order: "<value>",
-  },
-  modeSwarm: {},
   labelsSwarm: {
     "key": "<value>",
     "key1": "<value>",
-    "key2": "<value>",
   },
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  mongoId: "<id>",
+  name: "<value>",
   networkSwarm: [],
-  replicas: 4388.33,
-  createdAt: "1729564218049",
-  environmentId: "<id>",
-  serverId: "<id>",
+  placementSwarm: {},
   replicaSets: false,
+  replicas: 5232.11,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 8057.66,
+  },
+  serverId: "<id>",
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 8091.17,
+  },
 };
 ```
 
@@ -52,8 +51,8 @@ const value: operations.MongoMoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

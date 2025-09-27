@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SettingsUpdateTraefikPortsSecurity = {
-  authorization: string;
-};
 
 export const SettingsUpdateTraefikPortsProtocol = {
   Tcp: "tcp",
@@ -23,81 +18,15 @@ export type SettingsUpdateTraefikPortsProtocol = ClosedEnum<
 >;
 
 export type AdditionalPort = {
-  targetPort: number;
-  publishedPort: number;
   protocol: SettingsUpdateTraefikPortsProtocol;
+  publishedPort: number;
+  targetPort: number;
 };
 
 export type SettingsUpdateTraefikPortsRequest = {
-  serverId?: string | undefined;
   additionalPorts: Array<AdditionalPort>;
+  serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsUpdateTraefikPortsSecurity$inboundSchema: z.ZodType<
-  SettingsUpdateTraefikPortsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsUpdateTraefikPortsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsUpdateTraefikPortsSecurity$outboundSchema: z.ZodType<
-  SettingsUpdateTraefikPortsSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsUpdateTraefikPortsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsUpdateTraefikPortsSecurity$ {
-  /** @deprecated use `SettingsUpdateTraefikPortsSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsUpdateTraefikPortsSecurity$inboundSchema;
-  /** @deprecated use `SettingsUpdateTraefikPortsSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsUpdateTraefikPortsSecurity$outboundSchema;
-  /** @deprecated use `SettingsUpdateTraefikPortsSecurity$Outbound` instead. */
-  export type Outbound = SettingsUpdateTraefikPortsSecurity$Outbound;
-}
-
-export function settingsUpdateTraefikPortsSecurityToJSON(
-  settingsUpdateTraefikPortsSecurity: SettingsUpdateTraefikPortsSecurity,
-): string {
-  return JSON.stringify(
-    SettingsUpdateTraefikPortsSecurity$outboundSchema.parse(
-      settingsUpdateTraefikPortsSecurity,
-    ),
-  );
-}
-
-export function settingsUpdateTraefikPortsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsUpdateTraefikPortsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsUpdateTraefikPortsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsUpdateTraefikPortsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsUpdateTraefikPortsProtocol$inboundSchema: z.ZodNativeEnum<
@@ -127,16 +56,16 @@ export const AdditionalPort$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  targetPort: z.number(),
-  publishedPort: z.number(),
   protocol: SettingsUpdateTraefikPortsProtocol$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type AdditionalPort$Outbound = {
-  targetPort: number;
-  publishedPort: number;
   protocol: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -145,9 +74,9 @@ export const AdditionalPort$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AdditionalPort
 > = z.object({
-  targetPort: z.number(),
-  publishedPort: z.number(),
   protocol: SettingsUpdateTraefikPortsProtocol$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**
@@ -183,14 +112,14 @@ export const SettingsUpdateTraefikPortsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string().optional(),
   additionalPorts: z.array(z.lazy(() => AdditionalPort$inboundSchema)),
+  serverId: z.string().optional(),
 });
 
 /** @internal */
 export type SettingsUpdateTraefikPortsRequest$Outbound = {
-  serverId?: string | undefined;
   additionalPorts: Array<AdditionalPort$Outbound>;
+  serverId?: string | undefined;
 };
 
 /** @internal */
@@ -199,8 +128,8 @@ export const SettingsUpdateTraefikPortsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SettingsUpdateTraefikPortsRequest
 > = z.object({
-  serverId: z.string().optional(),
   additionalPorts: z.array(z.lazy(() => AdditionalPort$outboundSchema)),
+  serverId: z.string().optional(),
 });
 
 /**

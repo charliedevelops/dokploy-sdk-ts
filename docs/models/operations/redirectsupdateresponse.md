@@ -7,13 +7,13 @@
 
 ```typescript
 const value: operations.RedirectsUpdateResponseBody = {
+  applicationId: "<id>",
+  createdAt: "1730293937254",
+  permanent: true,
   redirectId: "<id>",
   regex: "<value>",
   replacement: "<value>",
-  permanent: false,
-  uniqueConfigKey: 3240.08,
-  createdAt: "1723319638594",
-  applicationId: "<id>",
+  uniqueConfigKey: 6077.51,
 };
 ```
 
@@ -21,8 +21,8 @@ const value: operations.RedirectsUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

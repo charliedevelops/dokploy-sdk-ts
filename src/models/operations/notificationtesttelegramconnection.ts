@@ -3,92 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type NotificationTestTelegramConnectionSecurity = {
-  authorization: string;
-};
 
 export type NotificationTestTelegramConnectionRequest = {
   botToken: string;
   chatId: string;
   messageThreadId: string;
 };
-
-/** @internal */
-export const NotificationTestTelegramConnectionSecurity$inboundSchema:
-  z.ZodType<NotificationTestTelegramConnectionSecurity, z.ZodTypeDef, unknown> =
-    z.object({
-      Authorization: z.string(),
-    }).transform((v) => {
-      return remap$(v, {
-        "Authorization": "authorization",
-      });
-    });
-
-/** @internal */
-export type NotificationTestTelegramConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationTestTelegramConnectionSecurity$outboundSchema:
-  z.ZodType<
-    NotificationTestTelegramConnectionSecurity$Outbound,
-    z.ZodTypeDef,
-    NotificationTestTelegramConnectionSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationTestTelegramConnectionSecurity$ {
-  /** @deprecated use `NotificationTestTelegramConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    NotificationTestTelegramConnectionSecurity$inboundSchema;
-  /** @deprecated use `NotificationTestTelegramConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationTestTelegramConnectionSecurity$outboundSchema;
-  /** @deprecated use `NotificationTestTelegramConnectionSecurity$Outbound` instead. */
-  export type Outbound = NotificationTestTelegramConnectionSecurity$Outbound;
-}
-
-export function notificationTestTelegramConnectionSecurityToJSON(
-  notificationTestTelegramConnectionSecurity:
-    NotificationTestTelegramConnectionSecurity,
-): string {
-  return JSON.stringify(
-    NotificationTestTelegramConnectionSecurity$outboundSchema.parse(
-      notificationTestTelegramConnectionSecurity,
-    ),
-  );
-}
-
-export function notificationTestTelegramConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  NotificationTestTelegramConnectionSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      NotificationTestTelegramConnectionSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'NotificationTestTelegramConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationTestTelegramConnectionRequest$inboundSchema: z.ZodType<

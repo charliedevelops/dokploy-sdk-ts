@@ -3,29 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type DomainByComposeIdSecurity = {
-  authorization: string;
-};
-
 export type DomainByComposeIdRequest = {
   composeId: string;
 };
-
-export const DomainByComposeIdDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
-} as const;
-export type DomainByComposeIdDomainType = ClosedEnum<
-  typeof DomainByComposeIdDomainType
->;
 
 export const DomainByComposeIdCertificateType = {
   Letsencrypt: "letsencrypt",
@@ -36,90 +22,37 @@ export type DomainByComposeIdCertificateType = ClosedEnum<
   typeof DomainByComposeIdCertificateType
 >;
 
+export const DomainByComposeIdDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type DomainByComposeIdDomainType = ClosedEnum<
+  typeof DomainByComposeIdDomainType
+>;
+
 export type DomainByComposeIdResponseBody = {
+  applicationId: string | null;
+  certificateType: DomainByComposeIdCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: DomainByComposeIdDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: DomainByComposeIdDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: DomainByComposeIdCertificateType;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 export type DomainByComposeIdResponse =
   | models.ErrorT
   | Array<DomainByComposeIdResponseBody>;
-
-/** @internal */
-export const DomainByComposeIdSecurity$inboundSchema: z.ZodType<
-  DomainByComposeIdSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DomainByComposeIdSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DomainByComposeIdSecurity$outboundSchema: z.ZodType<
-  DomainByComposeIdSecurity$Outbound,
-  z.ZodTypeDef,
-  DomainByComposeIdSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainByComposeIdSecurity$ {
-  /** @deprecated use `DomainByComposeIdSecurity$inboundSchema` instead. */
-  export const inboundSchema = DomainByComposeIdSecurity$inboundSchema;
-  /** @deprecated use `DomainByComposeIdSecurity$outboundSchema` instead. */
-  export const outboundSchema = DomainByComposeIdSecurity$outboundSchema;
-  /** @deprecated use `DomainByComposeIdSecurity$Outbound` instead. */
-  export type Outbound = DomainByComposeIdSecurity$Outbound;
-}
-
-export function domainByComposeIdSecurityToJSON(
-  domainByComposeIdSecurity: DomainByComposeIdSecurity,
-): string {
-  return JSON.stringify(
-    DomainByComposeIdSecurity$outboundSchema.parse(domainByComposeIdSecurity),
-  );
-}
-
-export function domainByComposeIdSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DomainByComposeIdSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DomainByComposeIdSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DomainByComposeIdSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DomainByComposeIdRequest$inboundSchema: z.ZodType<
@@ -176,27 +109,6 @@ export function domainByComposeIdRequestFromJSON(
 }
 
 /** @internal */
-export const DomainByComposeIdDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof DomainByComposeIdDomainType
-> = z.nativeEnum(DomainByComposeIdDomainType);
-
-/** @internal */
-export const DomainByComposeIdDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof DomainByComposeIdDomainType
-> = DomainByComposeIdDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DomainByComposeIdDomainType$ {
-  /** @deprecated use `DomainByComposeIdDomainType$inboundSchema` instead. */
-  export const inboundSchema = DomainByComposeIdDomainType$inboundSchema;
-  /** @deprecated use `DomainByComposeIdDomainType$outboundSchema` instead. */
-  export const outboundSchema = DomainByComposeIdDomainType$outboundSchema;
-}
-
-/** @internal */
 export const DomainByComposeIdCertificateType$inboundSchema: z.ZodNativeEnum<
   typeof DomainByComposeIdCertificateType
 > = z.nativeEnum(DomainByComposeIdCertificateType);
@@ -218,47 +130,68 @@ export namespace DomainByComposeIdCertificateType$ {
 }
 
 /** @internal */
+export const DomainByComposeIdDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof DomainByComposeIdDomainType
+> = z.nativeEnum(DomainByComposeIdDomainType);
+
+/** @internal */
+export const DomainByComposeIdDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof DomainByComposeIdDomainType
+> = DomainByComposeIdDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DomainByComposeIdDomainType$ {
+  /** @deprecated use `DomainByComposeIdDomainType$inboundSchema` instead. */
+  export const inboundSchema = DomainByComposeIdDomainType$inboundSchema;
+  /** @deprecated use `DomainByComposeIdDomainType$outboundSchema` instead. */
+  export const outboundSchema = DomainByComposeIdDomainType$outboundSchema;
+}
+
+/** @internal */
 export const DomainByComposeIdResponseBody$inboundSchema: z.ZodType<
   DomainByComposeIdResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainByComposeIdCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainByComposeIdDomainType$inboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainByComposeIdDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainByComposeIdCertificateType$inboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /** @internal */
 export type DomainByComposeIdResponseBody$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: string | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
   internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
   stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
 /** @internal */
@@ -267,22 +200,22 @@ export const DomainByComposeIdResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DomainByComposeIdResponseBody
 > = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: DomainByComposeIdCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
   domainId: z.string(),
+  domainType: z.nullable(DomainByComposeIdDomainType$outboundSchema),
   host: z.string(),
   https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(DomainByComposeIdDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: DomainByComposeIdCertificateType$outboundSchema,
   internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
   stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
 });
 
 /**

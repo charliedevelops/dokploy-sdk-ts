@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ApplicationRefreshTokenSecurity = {
-  authorization: string;
-};
-
 export type ApplicationRefreshTokenRequest = {
   applicationId: string;
 };
-
-/** @internal */
-export const ApplicationRefreshTokenSecurity$inboundSchema: z.ZodType<
-  ApplicationRefreshTokenSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationRefreshTokenSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationRefreshTokenSecurity$outboundSchema: z.ZodType<
-  ApplicationRefreshTokenSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationRefreshTokenSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationRefreshTokenSecurity$ {
-  /** @deprecated use `ApplicationRefreshTokenSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationRefreshTokenSecurity$inboundSchema;
-  /** @deprecated use `ApplicationRefreshTokenSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationRefreshTokenSecurity$outboundSchema;
-  /** @deprecated use `ApplicationRefreshTokenSecurity$Outbound` instead. */
-  export type Outbound = ApplicationRefreshTokenSecurity$Outbound;
-}
-
-export function applicationRefreshTokenSecurityToJSON(
-  applicationRefreshTokenSecurity: ApplicationRefreshTokenSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationRefreshTokenSecurity$outboundSchema.parse(
-      applicationRefreshTokenSecurity,
-    ),
-  );
-}
-
-export function applicationRefreshTokenSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationRefreshTokenSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationRefreshTokenSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationRefreshTokenSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationRefreshTokenRequest$inboundSchema: z.ZodType<

@@ -3,94 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type DockerGetServiceContainersByAppNameSecurity = {
-  authorization: string;
-};
 
 export type DockerGetServiceContainersByAppNameRequest = {
   appName: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DockerGetServiceContainersByAppNameSecurity$inboundSchema:
-  z.ZodType<
-    DockerGetServiceContainersByAppNameSecurity,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    Authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "Authorization": "authorization",
-    });
-  });
-
-/** @internal */
-export type DockerGetServiceContainersByAppNameSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DockerGetServiceContainersByAppNameSecurity$outboundSchema:
-  z.ZodType<
-    DockerGetServiceContainersByAppNameSecurity$Outbound,
-    z.ZodTypeDef,
-    DockerGetServiceContainersByAppNameSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DockerGetServiceContainersByAppNameSecurity$ {
-  /** @deprecated use `DockerGetServiceContainersByAppNameSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    DockerGetServiceContainersByAppNameSecurity$inboundSchema;
-  /** @deprecated use `DockerGetServiceContainersByAppNameSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    DockerGetServiceContainersByAppNameSecurity$outboundSchema;
-  /** @deprecated use `DockerGetServiceContainersByAppNameSecurity$Outbound` instead. */
-  export type Outbound = DockerGetServiceContainersByAppNameSecurity$Outbound;
-}
-
-export function dockerGetServiceContainersByAppNameSecurityToJSON(
-  dockerGetServiceContainersByAppNameSecurity:
-    DockerGetServiceContainersByAppNameSecurity,
-): string {
-  return JSON.stringify(
-    DockerGetServiceContainersByAppNameSecurity$outboundSchema.parse(
-      dockerGetServiceContainersByAppNameSecurity,
-    ),
-  );
-}
-
-export function dockerGetServiceContainersByAppNameSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DockerGetServiceContainersByAppNameSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DockerGetServiceContainersByAppNameSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DockerGetServiceContainersByAppNameSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DockerGetServiceContainersByAppNameRequest$inboundSchema:

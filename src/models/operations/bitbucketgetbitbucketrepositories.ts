@@ -3,92 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BitbucketGetBitbucketRepositoriesSecurity = {
-  authorization: string;
-};
-
 export type BitbucketGetBitbucketRepositoriesRequest = {
   bitbucketId: string;
 };
-
-/** @internal */
-export const BitbucketGetBitbucketRepositoriesSecurity$inboundSchema: z.ZodType<
-  BitbucketGetBitbucketRepositoriesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketGetBitbucketRepositoriesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketGetBitbucketRepositoriesSecurity$outboundSchema:
-  z.ZodType<
-    BitbucketGetBitbucketRepositoriesSecurity$Outbound,
-    z.ZodTypeDef,
-    BitbucketGetBitbucketRepositoriesSecurity
-  > = z.object({
-    authorization: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      authorization: "Authorization",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketGetBitbucketRepositoriesSecurity$ {
-  /** @deprecated use `BitbucketGetBitbucketRepositoriesSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    BitbucketGetBitbucketRepositoriesSecurity$inboundSchema;
-  /** @deprecated use `BitbucketGetBitbucketRepositoriesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BitbucketGetBitbucketRepositoriesSecurity$outboundSchema;
-  /** @deprecated use `BitbucketGetBitbucketRepositoriesSecurity$Outbound` instead. */
-  export type Outbound = BitbucketGetBitbucketRepositoriesSecurity$Outbound;
-}
-
-export function bitbucketGetBitbucketRepositoriesSecurityToJSON(
-  bitbucketGetBitbucketRepositoriesSecurity:
-    BitbucketGetBitbucketRepositoriesSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketGetBitbucketRepositoriesSecurity$outboundSchema.parse(
-      bitbucketGetBitbucketRepositoriesSecurity,
-    ),
-  );
-}
-
-export function bitbucketGetBitbucketRepositoriesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  BitbucketGetBitbucketRepositoriesSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      BitbucketGetBitbucketRepositoriesSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'BitbucketGetBitbucketRepositoriesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketGetBitbucketRepositoriesRequest$inboundSchema: z.ZodType<

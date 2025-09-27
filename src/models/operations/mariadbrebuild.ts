@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type MariadbRebuildSecurity = {
-  authorization: string;
-};
 
 export type MariadbRebuildRequest = {
   mariadbId: string;
 };
 
 export type MariadbRebuildResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MariadbRebuildSecurity$inboundSchema: z.ZodType<
-  MariadbRebuildSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbRebuildSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbRebuildSecurity$outboundSchema: z.ZodType<
-  MariadbRebuildSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbRebuildSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbRebuildSecurity$ {
-  /** @deprecated use `MariadbRebuildSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbRebuildSecurity$inboundSchema;
-  /** @deprecated use `MariadbRebuildSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbRebuildSecurity$outboundSchema;
-  /** @deprecated use `MariadbRebuildSecurity$Outbound` instead. */
-  export type Outbound = MariadbRebuildSecurity$Outbound;
-}
-
-export function mariadbRebuildSecurityToJSON(
-  mariadbRebuildSecurity: MariadbRebuildSecurity,
-): string {
-  return JSON.stringify(
-    MariadbRebuildSecurity$outboundSchema.parse(mariadbRebuildSecurity),
-  );
-}
-
-export function mariadbRebuildSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbRebuildSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbRebuildSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbRebuildSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbRebuildRequest$inboundSchema: z.ZodType<

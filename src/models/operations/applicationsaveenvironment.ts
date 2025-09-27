@@ -3,89 +3,18 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveEnvironmentRequest = {
   applicationId: string;
-  env?: string | null | undefined;
   buildArgs?: string | null | undefined;
+  env?: string | null | undefined;
 };
 
 export type ApplicationSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveEnvironmentSecurity$ {
-  /** @deprecated use `ApplicationSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveEnvironmentSecurity$Outbound;
-}
-
-export function applicationSaveEnvironmentSecurityToJSON(
-  applicationSaveEnvironmentSecurity: ApplicationSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveEnvironmentSecurity$outboundSchema.parse(
-      applicationSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function applicationSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -94,15 +23,15 @@ export const ApplicationSaveEnvironmentRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  env: z.nullable(z.string()).optional(),
   buildArgs: z.nullable(z.string()).optional(),
+  env: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveEnvironmentRequest$Outbound = {
   applicationId: string;
-  env?: string | null | undefined;
   buildArgs?: string | null | undefined;
+  env?: string | null | undefined;
 };
 
 /** @internal */
@@ -112,8 +41,8 @@ export const ApplicationSaveEnvironmentRequest$outboundSchema: z.ZodType<
   ApplicationSaveEnvironmentRequest
 > = z.object({
   applicationId: z.string(),
-  env: z.nullable(z.string()).optional(),
   buildArgs: z.nullable(z.string()).optional(),
+  env: z.nullable(z.string()).optional(),
 });
 
 /**

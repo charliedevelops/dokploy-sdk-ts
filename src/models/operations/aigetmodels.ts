@@ -3,81 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type AiGetModelsSecurity = {
-  authorization: string;
-};
 
 export type AiGetModelsRequest = {
   apiUrl: string;
   apiKey: string;
 };
-
-/** @internal */
-export const AiGetModelsSecurity$inboundSchema: z.ZodType<
-  AiGetModelsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiGetModelsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiGetModelsSecurity$outboundSchema: z.ZodType<
-  AiGetModelsSecurity$Outbound,
-  z.ZodTypeDef,
-  AiGetModelsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiGetModelsSecurity$ {
-  /** @deprecated use `AiGetModelsSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiGetModelsSecurity$inboundSchema;
-  /** @deprecated use `AiGetModelsSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiGetModelsSecurity$outboundSchema;
-  /** @deprecated use `AiGetModelsSecurity$Outbound` instead. */
-  export type Outbound = AiGetModelsSecurity$Outbound;
-}
-
-export function aiGetModelsSecurityToJSON(
-  aiGetModelsSecurity: AiGetModelsSecurity,
-): string {
-  return JSON.stringify(
-    AiGetModelsSecurity$outboundSchema.parse(aiGetModelsSecurity),
-  );
-}
-
-export function aiGetModelsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiGetModelsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiGetModelsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiGetModelsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiGetModelsRequest$inboundSchema: z.ZodType<

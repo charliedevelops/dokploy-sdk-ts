@@ -3,37 +3,32 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ProjectCreateSecurity = {
-  authorization: string;
-};
-
 export type ProjectCreateRequest = {
-  name: string;
   description?: string | null | undefined;
   env?: string | undefined;
-};
-
-export type ProjectCreateProject = {
-  projectId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
 };
 
 export type ProjectCreateEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
+  projectId: string;
+};
+
+export type ProjectCreateProject = {
   createdAt: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
   projectId: string;
 };
 
@@ -41,73 +36,11 @@ export type ProjectCreateEnvironment = {
  * Successful response
  */
 export type ProjectCreateResponseBody = {
-  project: ProjectCreateProject;
   environment: ProjectCreateEnvironment;
+  project: ProjectCreateProject;
 };
 
 export type ProjectCreateResponse = ProjectCreateResponseBody | models.ErrorT;
-
-/** @internal */
-export const ProjectCreateSecurity$inboundSchema: z.ZodType<
-  ProjectCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ProjectCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ProjectCreateSecurity$outboundSchema: z.ZodType<
-  ProjectCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  ProjectCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProjectCreateSecurity$ {
-  /** @deprecated use `ProjectCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ProjectCreateSecurity$inboundSchema;
-  /** @deprecated use `ProjectCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ProjectCreateSecurity$outboundSchema;
-  /** @deprecated use `ProjectCreateSecurity$Outbound` instead. */
-  export type Outbound = ProjectCreateSecurity$Outbound;
-}
-
-export function projectCreateSecurityToJSON(
-  projectCreateSecurity: ProjectCreateSecurity,
-): string {
-  return JSON.stringify(
-    ProjectCreateSecurity$outboundSchema.parse(projectCreateSecurity),
-  );
-}
-
-export function projectCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ProjectCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProjectCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProjectCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ProjectCreateRequest$inboundSchema: z.ZodType<
@@ -115,16 +48,16 @@ export const ProjectCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string(),
 });
 
 /** @internal */
 export type ProjectCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
   env?: string | undefined;
+  name: string;
 };
 
 /** @internal */
@@ -133,9 +66,9 @@ export const ProjectCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string(),
 });
 
 /**
@@ -170,95 +103,26 @@ export function projectCreateRequestFromJSON(
 }
 
 /** @internal */
-export const ProjectCreateProject$inboundSchema: z.ZodType<
-  ProjectCreateProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type ProjectCreateProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const ProjectCreateProject$outboundSchema: z.ZodType<
-  ProjectCreateProject$Outbound,
-  z.ZodTypeDef,
-  ProjectCreateProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProjectCreateProject$ {
-  /** @deprecated use `ProjectCreateProject$inboundSchema` instead. */
-  export const inboundSchema = ProjectCreateProject$inboundSchema;
-  /** @deprecated use `ProjectCreateProject$outboundSchema` instead. */
-  export const outboundSchema = ProjectCreateProject$outboundSchema;
-  /** @deprecated use `ProjectCreateProject$Outbound` instead. */
-  export type Outbound = ProjectCreateProject$Outbound;
-}
-
-export function projectCreateProjectToJSON(
-  projectCreateProject: ProjectCreateProject,
-): string {
-  return JSON.stringify(
-    ProjectCreateProject$outboundSchema.parse(projectCreateProject),
-  );
-}
-
-export function projectCreateProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<ProjectCreateProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProjectCreateProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProjectCreateProject' from JSON`,
-  );
-}
-
-/** @internal */
 export const ProjectCreateEnvironment$inboundSchema: z.ZodType<
   ProjectCreateEnvironment,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectCreateEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -268,11 +132,11 @@ export const ProjectCreateEnvironment$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectCreateEnvironment
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
@@ -308,19 +172,88 @@ export function projectCreateEnvironmentFromJSON(
 }
 
 /** @internal */
+export const ProjectCreateProject$inboundSchema: z.ZodType<
+  ProjectCreateProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ProjectCreateProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const ProjectCreateProject$outboundSchema: z.ZodType<
+  ProjectCreateProject$Outbound,
+  z.ZodTypeDef,
+  ProjectCreateProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ProjectCreateProject$ {
+  /** @deprecated use `ProjectCreateProject$inboundSchema` instead. */
+  export const inboundSchema = ProjectCreateProject$inboundSchema;
+  /** @deprecated use `ProjectCreateProject$outboundSchema` instead. */
+  export const outboundSchema = ProjectCreateProject$outboundSchema;
+  /** @deprecated use `ProjectCreateProject$Outbound` instead. */
+  export type Outbound = ProjectCreateProject$Outbound;
+}
+
+export function projectCreateProjectToJSON(
+  projectCreateProject: ProjectCreateProject,
+): string {
+  return JSON.stringify(
+    ProjectCreateProject$outboundSchema.parse(projectCreateProject),
+  );
+}
+
+export function projectCreateProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<ProjectCreateProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProjectCreateProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProjectCreateProject' from JSON`,
+  );
+}
+
+/** @internal */
 export const ProjectCreateResponseBody$inboundSchema: z.ZodType<
   ProjectCreateResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  project: z.lazy(() => ProjectCreateProject$inboundSchema),
   environment: z.lazy(() => ProjectCreateEnvironment$inboundSchema),
+  project: z.lazy(() => ProjectCreateProject$inboundSchema),
 });
 
 /** @internal */
 export type ProjectCreateResponseBody$Outbound = {
-  project: ProjectCreateProject$Outbound;
   environment: ProjectCreateEnvironment$Outbound;
+  project: ProjectCreateProject$Outbound;
 };
 
 /** @internal */
@@ -329,8 +262,8 @@ export const ProjectCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectCreateResponseBody
 > = z.object({
-  project: z.lazy(() => ProjectCreateProject$outboundSchema),
   environment: z.lazy(() => ProjectCreateEnvironment$outboundSchema),
+  project: z.lazy(() => ProjectCreateProject$outboundSchema),
 });
 
 /**

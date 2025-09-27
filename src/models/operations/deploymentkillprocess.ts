@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DeploymentKillProcessSecurity = {
-  authorization: string;
-};
-
 export type DeploymentKillProcessRequest = {
   deploymentId: string;
 };
-
-/** @internal */
-export const DeploymentKillProcessSecurity$inboundSchema: z.ZodType<
-  DeploymentKillProcessSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DeploymentKillProcessSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DeploymentKillProcessSecurity$outboundSchema: z.ZodType<
-  DeploymentKillProcessSecurity$Outbound,
-  z.ZodTypeDef,
-  DeploymentKillProcessSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeploymentKillProcessSecurity$ {
-  /** @deprecated use `DeploymentKillProcessSecurity$inboundSchema` instead. */
-  export const inboundSchema = DeploymentKillProcessSecurity$inboundSchema;
-  /** @deprecated use `DeploymentKillProcessSecurity$outboundSchema` instead. */
-  export const outboundSchema = DeploymentKillProcessSecurity$outboundSchema;
-  /** @deprecated use `DeploymentKillProcessSecurity$Outbound` instead. */
-  export type Outbound = DeploymentKillProcessSecurity$Outbound;
-}
-
-export function deploymentKillProcessSecurityToJSON(
-  deploymentKillProcessSecurity: DeploymentKillProcessSecurity,
-): string {
-  return JSON.stringify(
-    DeploymentKillProcessSecurity$outboundSchema.parse(
-      deploymentKillProcessSecurity,
-    ),
-  );
-}
-
-export function deploymentKillProcessSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DeploymentKillProcessSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeploymentKillProcessSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeploymentKillProcessSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DeploymentKillProcessRequest$inboundSchema: z.ZodType<

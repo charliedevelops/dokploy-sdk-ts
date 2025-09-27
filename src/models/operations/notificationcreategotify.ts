@@ -3,91 +3,22 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationCreateGotifySecurity = {
-  authorization: string;
-};
-
 export type NotificationCreateGotifyRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  appToken: string;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverUrl: string;
-  appToken: string;
   priority: number;
-  decoration: boolean;
+  serverUrl: string;
 };
-
-/** @internal */
-export const NotificationCreateGotifySecurity$inboundSchema: z.ZodType<
-  NotificationCreateGotifySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationCreateGotifySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationCreateGotifySecurity$outboundSchema: z.ZodType<
-  NotificationCreateGotifySecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationCreateGotifySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationCreateGotifySecurity$ {
-  /** @deprecated use `NotificationCreateGotifySecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationCreateGotifySecurity$inboundSchema;
-  /** @deprecated use `NotificationCreateGotifySecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationCreateGotifySecurity$outboundSchema;
-  /** @deprecated use `NotificationCreateGotifySecurity$Outbound` instead. */
-  export type Outbound = NotificationCreateGotifySecurity$Outbound;
-}
-
-export function notificationCreateGotifySecurityToJSON(
-  notificationCreateGotifySecurity: NotificationCreateGotifySecurity,
-): string {
-  return JSON.stringify(
-    NotificationCreateGotifySecurity$outboundSchema.parse(
-      notificationCreateGotifySecurity,
-    ),
-  );
-}
-
-export function notificationCreateGotifySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationCreateGotifySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationCreateGotifySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationCreateGotifySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationCreateGotifyRequest$inboundSchema: z.ZodType<
@@ -96,29 +27,29 @@ export const NotificationCreateGotifyRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  appToken: z.string(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverUrl: z.string(),
-  appToken: z.string(),
   priority: z.number(),
-  decoration: z.boolean(),
+  serverUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationCreateGotifyRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  appToken: string;
   databaseBackup: boolean;
+  decoration: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
-  serverUrl: string;
-  appToken: string;
   priority: number;
-  decoration: boolean;
+  serverUrl: string;
 };
 
 /** @internal */
@@ -128,15 +59,15 @@ export const NotificationCreateGotifyRequest$outboundSchema: z.ZodType<
   NotificationCreateGotifyRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  appToken: z.string(),
   databaseBackup: z.boolean(),
+  decoration: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
-  serverUrl: z.string(),
-  appToken: z.string(),
   priority: z.number(),
-  decoration: z.boolean(),
+  serverUrl: z.string(),
 });
 
 /**

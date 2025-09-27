@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsSetupGPUSecurity = {
-  authorization: string;
-};
-
 export type SettingsSetupGPURequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsSetupGPUSecurity$inboundSchema: z.ZodType<
-  SettingsSetupGPUSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsSetupGPUSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsSetupGPUSecurity$outboundSchema: z.ZodType<
-  SettingsSetupGPUSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsSetupGPUSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsSetupGPUSecurity$ {
-  /** @deprecated use `SettingsSetupGPUSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsSetupGPUSecurity$inboundSchema;
-  /** @deprecated use `SettingsSetupGPUSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsSetupGPUSecurity$outboundSchema;
-  /** @deprecated use `SettingsSetupGPUSecurity$Outbound` instead. */
-  export type Outbound = SettingsSetupGPUSecurity$Outbound;
-}
-
-export function settingsSetupGPUSecurityToJSON(
-  settingsSetupGPUSecurity: SettingsSetupGPUSecurity,
-): string {
-  return JSON.stringify(
-    SettingsSetupGPUSecurity$outboundSchema.parse(settingsSetupGPUSecurity),
-  );
-}
-
-export function settingsSetupGPUSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsSetupGPUSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsSetupGPUSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsSetupGPUSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsSetupGPURequest$inboundSchema: z.ZodType<

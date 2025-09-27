@@ -8,101 +8,81 @@ Successful response
 import { MariadbSaveExternalPortResponseBody } from "dokploy-sdk/models/operations";
 
 let value: MariadbSaveExternalPortResponseBody = {
-  mariadbId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description: "brr immediately stump hmph",
+  applicationStatus: "done",
+  backups: [],
+  command: null,
+  cpuLimit: null,
+  cpuReservation: "<value>",
+  createdAt: "1712284784177",
   databaseName: "<value>",
-  databaseUser: "<value>",
   databasePassword: "<value>",
   databaseRootPassword: "<value>",
+  databaseUser: "<value>",
+  description: "apropos uh-huh so",
   dockerImage: "<value>",
-  command: "<value>",
   env: "<value>",
-  memoryReservation: "<value>",
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
-  cpuLimit: "<value>",
-  externalPort: 5549.03,
-  applicationStatus: "done",
+  environment: {
+    createdAt: "1711048859426",
+    description: "rue label um but including apud",
+    env: "<value>",
+    environmentId: "<id>",
+    name: "<value>",
+    project: {
+      createdAt: "1733180289037",
+      description: "uh-huh reasoning beside even duh er per huzzah",
+      env: "<value>",
+      name: "<value>",
+      organizationId: "<id>",
+      projectId: "<id>",
+    },
+    projectId: "<id>",
+  },
+  environmentId: "<id>",
+  externalPort: 5832.89,
   healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 201.89,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 2378.06,
-    order: "<value>",
-  },
-  modeSwarm: {},
   labelsSwarm: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
-  networkSwarm: [],
-  replicas: 8769.89,
-  createdAt: "1724799748148",
-  environmentId: "<id>",
-  serverId: "<id>",
-  environment: {
-    environmentId: "<id>",
-    name: "<value>",
-    description: "grandson until playfully gentle reschedule annually",
-    createdAt: "1704180096982",
-    env: "<value>",
-    projectId: "<id>",
-    project: {
-      projectId: "<id>",
-      name: "<value>",
-      description: "assail although er",
-      createdAt: "1723720328670",
-      organizationId: "<id>",
-      env: "<value>",
-    },
-  },
+  mariadbId: "<id>",
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
   mounts: [],
-  server: {
-    serverId: "<id>",
-    name: "<value>",
-    description: "geez whine sneaky gee but till excluding reproachfully",
-    ipAddress: "df4b:4b23:02da:6d87:3b66:a56f:e92b:adea",
-    port: 9320.4,
-    username: "Lia73",
-    appName: "<value>",
-    enableDockerCleanup: false,
-    createdAt: "1718959776780",
-    organizationId: "<id>",
-    serverStatus: "active",
-    command: "<value>",
-    sshKeyId: "<id>",
-    metricsConfig: [
-      "<value 1>",
-    ],
-  },
-  backups: [
-    {
-      backupId: "<id>",
-      appName: "<value>",
-      schedule: "<value>",
-      enabled: false,
-      database: "<value>",
-      prefix: "<value>",
-      serviceName: "<value>",
-      destinationId: "<id>",
-      keepLatestCount: 9882.1,
-      backupType: "database",
-      databaseType: "mysql",
-      composeId: "<id>",
-      postgresId: "<id>",
-      mariadbId: "<id>",
-      mysqlId: "<id>",
-      mongoId: "<id>",
-      userId: "<id>",
-    },
+  name: "<value>",
+  networkSwarm: [
+    {},
   ],
+  placementSwarm: {},
+  replicas: 493.99,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 7268.99,
+  },
+  server: {
+    appName: "<value>",
+    command: "<value>",
+    createdAt: "1708402517607",
+    description: null,
+    enableDockerCleanup: true,
+    ipAddress: "81.8.0.37",
+    metricsConfig: {},
+    name: "<value>",
+    organizationId: "<id>",
+    port: 6661.24,
+    serverId: "<id>",
+    serverStatus: "active",
+    sshKeyId: "<id>",
+    username: "Sid.Wyman23",
+  },
+  serverId: "<id>",
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 9919.51,
+  },
 };
 ```
 
@@ -110,36 +90,36 @@ let value: MariadbSaveExternalPortResponseBody = {
 
 | Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `mariadbId`                                                                                                                    | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `name`                                                                                                                         | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `appName`                                                                                                                      | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `description`                                                                                                                  | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `applicationStatus`                                                                                                            | [operations.MariadbSaveExternalPortApplicationStatus](../../models/operations/mariadbsaveexternalportapplicationstatus.md)     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `backups`                                                                                                                      | [operations.MariadbSaveExternalPortBackup](../../models/operations/mariadbsaveexternalportbackup.md)[]                         | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `command`                                                                                                                      | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `cpuLimit`                                                                                                                     | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `cpuReservation`                                                                                                               | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `createdAt`                                                                                                                    | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `databaseName`                                                                                                                 | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `databaseUser`                                                                                                                 | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `databasePassword`                                                                                                             | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `databaseRootPassword`                                                                                                         | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `databaseUser`                                                                                                                 | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `description`                                                                                                                  | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `dockerImage`                                                                                                                  | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `command`                                                                                                                      | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `env`                                                                                                                          | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `memoryReservation`                                                                                                            | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `memoryLimit`                                                                                                                  | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `cpuReservation`                                                                                                               | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `cpuLimit`                                                                                                                     | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `externalPort`                                                                                                                 | *number*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `applicationStatus`                                                                                                            | [operations.MariadbSaveExternalPortApplicationStatus](../../models/operations/mariadbsaveexternalportapplicationstatus.md)     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `healthCheckSwarm`                                                                                                             | [operations.MariadbSaveExternalPortHealthCheckSwarm](../../models/operations/mariadbsaveexternalporthealthcheckswarm.md)       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `restartPolicySwarm`                                                                                                           | [operations.MariadbSaveExternalPortRestartPolicySwarm](../../models/operations/mariadbsaveexternalportrestartpolicyswarm.md)   | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `placementSwarm`                                                                                                               | [operations.MariadbSaveExternalPortPlacementSwarm](../../models/operations/mariadbsaveexternalportplacementswarm.md)           | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `updateConfigSwarm`                                                                                                            | [operations.MariadbSaveExternalPortUpdateConfigSwarm](../../models/operations/mariadbsaveexternalportupdateconfigswarm.md)     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `rollbackConfigSwarm`                                                                                                          | [operations.MariadbSaveExternalPortRollbackConfigSwarm](../../models/operations/mariadbsaveexternalportrollbackconfigswarm.md) | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `modeSwarm`                                                                                                                    | [operations.MariadbSaveExternalPortModeSwarm](../../models/operations/mariadbsaveexternalportmodeswarm.md)                     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `labelsSwarm`                                                                                                                  | Record<string, *string*>                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `networkSwarm`                                                                                                                 | [operations.MariadbSaveExternalPortNetworkSwarm](../../models/operations/mariadbsaveexternalportnetworkswarm.md)[]             | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `replicas`                                                                                                                     | *number*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `createdAt`                                                                                                                    | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `environmentId`                                                                                                                | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `serverId`                                                                                                                     | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `environment`                                                                                                                  | [operations.MariadbSaveExternalPortEnvironment](../../models/operations/mariadbsaveexternalportenvironment.md)                 | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `environmentId`                                                                                                                | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `externalPort`                                                                                                                 | *number*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `healthCheckSwarm`                                                                                                             | [operations.MariadbSaveExternalPortHealthCheckSwarm](../../models/operations/mariadbsaveexternalporthealthcheckswarm.md)       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `labelsSwarm`                                                                                                                  | Record<string, *string*>                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `mariadbId`                                                                                                                    | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `memoryLimit`                                                                                                                  | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `memoryReservation`                                                                                                            | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `modeSwarm`                                                                                                                    | [operations.MariadbSaveExternalPortModeSwarm](../../models/operations/mariadbsaveexternalportmodeswarm.md)                     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `mounts`                                                                                                                       | [operations.MariadbSaveExternalPortMount](../../models/operations/mariadbsaveexternalportmount.md)[]                           | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `name`                                                                                                                         | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `networkSwarm`                                                                                                                 | [operations.MariadbSaveExternalPortNetworkSwarm](../../models/operations/mariadbsaveexternalportnetworkswarm.md)[]             | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `placementSwarm`                                                                                                               | [operations.MariadbSaveExternalPortPlacementSwarm](../../models/operations/mariadbsaveexternalportplacementswarm.md)           | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `replicas`                                                                                                                     | *number*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `restartPolicySwarm`                                                                                                           | [operations.MariadbSaveExternalPortRestartPolicySwarm](../../models/operations/mariadbsaveexternalportrestartpolicyswarm.md)   | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `rollbackConfigSwarm`                                                                                                          | [operations.MariadbSaveExternalPortRollbackConfigSwarm](../../models/operations/mariadbsaveexternalportrollbackconfigswarm.md) | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
 | `server`                                                                                                                       | [operations.MariadbSaveExternalPortServer](../../models/operations/mariadbsaveexternalportserver.md)                           | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
-| `backups`                                                                                                                      | [operations.MariadbSaveExternalPortBackup](../../models/operations/mariadbsaveexternalportbackup.md)[]                         | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `serverId`                                                                                                                     | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `updateConfigSwarm`                                                                                                            | [operations.MariadbSaveExternalPortUpdateConfigSwarm](../../models/operations/mariadbsaveexternalportupdateconfigswarm.md)     | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |

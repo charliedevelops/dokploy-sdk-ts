@@ -3,83 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ClusterRemoveWorkerSecurity = {
-  authorization: string;
-};
 
 export type ClusterRemoveWorkerRequest = {
   nodeId: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const ClusterRemoveWorkerSecurity$inboundSchema: z.ZodType<
-  ClusterRemoveWorkerSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ClusterRemoveWorkerSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ClusterRemoveWorkerSecurity$outboundSchema: z.ZodType<
-  ClusterRemoveWorkerSecurity$Outbound,
-  z.ZodTypeDef,
-  ClusterRemoveWorkerSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ClusterRemoveWorkerSecurity$ {
-  /** @deprecated use `ClusterRemoveWorkerSecurity$inboundSchema` instead. */
-  export const inboundSchema = ClusterRemoveWorkerSecurity$inboundSchema;
-  /** @deprecated use `ClusterRemoveWorkerSecurity$outboundSchema` instead. */
-  export const outboundSchema = ClusterRemoveWorkerSecurity$outboundSchema;
-  /** @deprecated use `ClusterRemoveWorkerSecurity$Outbound` instead. */
-  export type Outbound = ClusterRemoveWorkerSecurity$Outbound;
-}
-
-export function clusterRemoveWorkerSecurityToJSON(
-  clusterRemoveWorkerSecurity: ClusterRemoveWorkerSecurity,
-): string {
-  return JSON.stringify(
-    ClusterRemoveWorkerSecurity$outboundSchema.parse(
-      clusterRemoveWorkerSecurity,
-    ),
-  );
-}
-
-export function clusterRemoveWorkerSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ClusterRemoveWorkerSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ClusterRemoveWorkerSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ClusterRemoveWorkerSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ClusterRemoveWorkerRequest$inboundSchema: z.ZodType<

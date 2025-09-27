@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerGetDefaultCommandSecurity = {
-  authorization: string;
-};
-
 export type ServerGetDefaultCommandRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const ServerGetDefaultCommandSecurity$inboundSchema: z.ZodType<
-  ServerGetDefaultCommandSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerGetDefaultCommandSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerGetDefaultCommandSecurity$outboundSchema: z.ZodType<
-  ServerGetDefaultCommandSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerGetDefaultCommandSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerGetDefaultCommandSecurity$ {
-  /** @deprecated use `ServerGetDefaultCommandSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerGetDefaultCommandSecurity$inboundSchema;
-  /** @deprecated use `ServerGetDefaultCommandSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerGetDefaultCommandSecurity$outboundSchema;
-  /** @deprecated use `ServerGetDefaultCommandSecurity$Outbound` instead. */
-  export type Outbound = ServerGetDefaultCommandSecurity$Outbound;
-}
-
-export function serverGetDefaultCommandSecurityToJSON(
-  serverGetDefaultCommandSecurity: ServerGetDefaultCommandSecurity,
-): string {
-  return JSON.stringify(
-    ServerGetDefaultCommandSecurity$outboundSchema.parse(
-      serverGetDefaultCommandSecurity,
-    ),
-  );
-}
-
-export function serverGetDefaultCommandSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerGetDefaultCommandSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerGetDefaultCommandSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerGetDefaultCommandSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerGetDefaultCommandRequest$inboundSchema: z.ZodType<

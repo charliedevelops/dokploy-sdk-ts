@@ -6,8 +6,8 @@
 import { PostgresSaveExternalPortRequest } from "dokploy-sdk/models/operations";
 
 let value: PostgresSaveExternalPortRequest = {
-  postgresId: "<id>",
   externalPort: 4252.53,
+  postgresId: "<id>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: PostgresSaveExternalPortRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `postgresId`       | *string*           | :heavy_check_mark: | N/A                |
 | `externalPort`     | *number*           | :heavy_check_mark: | N/A                |
+| `postgresId`       | *string*           | :heavy_check_mark: | N/A                |

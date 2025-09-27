@@ -7,11 +7,11 @@
 
 ```typescript
 const value: operations.EnvironmentCreateResponseBody = {
+  createdAt: "1714742852080",
+  description: "or beneath deselect",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: "outside king courageous hierarchy whose sup ride when clean",
-  createdAt: "1705510552977",
-  env: "<value>",
   projectId: "<id>",
 };
 ```
@@ -20,8 +20,8 @@ const value: operations.EnvironmentCreateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeCancelDeploymentSecurity = {
-  authorization: string;
-};
-
 export type ComposeCancelDeploymentRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeCancelDeploymentSecurity$inboundSchema: z.ZodType<
-  ComposeCancelDeploymentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeCancelDeploymentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeCancelDeploymentSecurity$outboundSchema: z.ZodType<
-  ComposeCancelDeploymentSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeCancelDeploymentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeCancelDeploymentSecurity$ {
-  /** @deprecated use `ComposeCancelDeploymentSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeCancelDeploymentSecurity$inboundSchema;
-  /** @deprecated use `ComposeCancelDeploymentSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeCancelDeploymentSecurity$outboundSchema;
-  /** @deprecated use `ComposeCancelDeploymentSecurity$Outbound` instead. */
-  export type Outbound = ComposeCancelDeploymentSecurity$Outbound;
-}
-
-export function composeCancelDeploymentSecurityToJSON(
-  composeCancelDeploymentSecurity: ComposeCancelDeploymentSecurity,
-): string {
-  return JSON.stringify(
-    ComposeCancelDeploymentSecurity$outboundSchema.parse(
-      composeCancelDeploymentSecurity,
-    ),
-  );
-}
-
-export function composeCancelDeploymentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeCancelDeploymentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeCancelDeploymentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeCancelDeploymentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeCancelDeploymentRequest$inboundSchema: z.ZodType<

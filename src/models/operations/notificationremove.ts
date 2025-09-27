@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationRemoveSecurity = {
-  authorization: string;
-};
-
 export type NotificationRemoveRequest = {
   notificationId: string;
 };
-
-/** @internal */
-export const NotificationRemoveSecurity$inboundSchema: z.ZodType<
-  NotificationRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationRemoveSecurity$outboundSchema: z.ZodType<
-  NotificationRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationRemoveSecurity$ {
-  /** @deprecated use `NotificationRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationRemoveSecurity$inboundSchema;
-  /** @deprecated use `NotificationRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationRemoveSecurity$outboundSchema;
-  /** @deprecated use `NotificationRemoveSecurity$Outbound` instead. */
-  export type Outbound = NotificationRemoveSecurity$Outbound;
-}
-
-export function notificationRemoveSecurityToJSON(
-  notificationRemoveSecurity: NotificationRemoveSecurity,
-): string {
-  return JSON.stringify(
-    NotificationRemoveSecurity$outboundSchema.parse(notificationRemoveSecurity),
-  );
-}
-
-export function notificationRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationRemoveRequest$inboundSchema: z.ZodType<

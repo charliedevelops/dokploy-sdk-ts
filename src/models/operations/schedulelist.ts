@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ScheduleListSecurity = {
-  authorization: string;
-};
 
 export const ScheduleListScheduleType = {
   Application: "application",
@@ -27,68 +22,6 @@ export type ScheduleListRequest = {
   id: string;
   scheduleType: ScheduleListScheduleType;
 };
-
-/** @internal */
-export const ScheduleListSecurity$inboundSchema: z.ZodType<
-  ScheduleListSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ScheduleListSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ScheduleListSecurity$outboundSchema: z.ZodType<
-  ScheduleListSecurity$Outbound,
-  z.ZodTypeDef,
-  ScheduleListSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScheduleListSecurity$ {
-  /** @deprecated use `ScheduleListSecurity$inboundSchema` instead. */
-  export const inboundSchema = ScheduleListSecurity$inboundSchema;
-  /** @deprecated use `ScheduleListSecurity$outboundSchema` instead. */
-  export const outboundSchema = ScheduleListSecurity$outboundSchema;
-  /** @deprecated use `ScheduleListSecurity$Outbound` instead. */
-  export type Outbound = ScheduleListSecurity$Outbound;
-}
-
-export function scheduleListSecurityToJSON(
-  scheduleListSecurity: ScheduleListSecurity,
-): string {
-  return JSON.stringify(
-    ScheduleListSecurity$outboundSchema.parse(scheduleListSecurity),
-  );
-}
-
-export function scheduleListSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ScheduleListSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ScheduleListSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ScheduleListSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ScheduleListScheduleType$inboundSchema: z.ZodNativeEnum<

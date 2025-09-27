@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupManualBackupMongoSecurity = {
-  authorization: string;
-};
-
 export type BackupManualBackupMongoRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupManualBackupMongoSecurity$inboundSchema: z.ZodType<
-  BackupManualBackupMongoSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupManualBackupMongoSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupManualBackupMongoSecurity$outboundSchema: z.ZodType<
-  BackupManualBackupMongoSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupManualBackupMongoSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupManualBackupMongoSecurity$ {
-  /** @deprecated use `BackupManualBackupMongoSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupManualBackupMongoSecurity$inboundSchema;
-  /** @deprecated use `BackupManualBackupMongoSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupManualBackupMongoSecurity$outboundSchema;
-  /** @deprecated use `BackupManualBackupMongoSecurity$Outbound` instead. */
-  export type Outbound = BackupManualBackupMongoSecurity$Outbound;
-}
-
-export function backupManualBackupMongoSecurityToJSON(
-  backupManualBackupMongoSecurity: BackupManualBackupMongoSecurity,
-): string {
-  return JSON.stringify(
-    BackupManualBackupMongoSecurity$outboundSchema.parse(
-      backupManualBackupMongoSecurity,
-    ),
-  );
-}
-
-export function backupManualBackupMongoSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupManualBackupMongoSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupManualBackupMongoSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupManualBackupMongoSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupManualBackupMongoRequest$inboundSchema: z.ZodType<

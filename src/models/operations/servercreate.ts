@@ -3,85 +3,18 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerCreateSecurity = {
-  authorization: string;
-};
-
 export type ServerCreateRequest = {
-  name: string;
   description?: string | null | undefined;
   ipAddress: string;
+  name: string;
   port: number;
-  username: string;
   sshKeyId: string | null;
+  username: string;
 };
-
-/** @internal */
-export const ServerCreateSecurity$inboundSchema: z.ZodType<
-  ServerCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerCreateSecurity$outboundSchema: z.ZodType<
-  ServerCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerCreateSecurity$ {
-  /** @deprecated use `ServerCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerCreateSecurity$inboundSchema;
-  /** @deprecated use `ServerCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerCreateSecurity$outboundSchema;
-  /** @deprecated use `ServerCreateSecurity$Outbound` instead. */
-  export type Outbound = ServerCreateSecurity$Outbound;
-}
-
-export function serverCreateSecurityToJSON(
-  serverCreateSecurity: ServerCreateSecurity,
-): string {
-  return JSON.stringify(
-    ServerCreateSecurity$outboundSchema.parse(serverCreateSecurity),
-  );
-}
-
-export function serverCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerCreateRequest$inboundSchema: z.ZodType<
@@ -89,22 +22,22 @@ export const ServerCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   ipAddress: z.string(),
+  name: z.string(),
   port: z.number(),
-  username: z.string(),
   sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ServerCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
   ipAddress: string;
+  name: string;
   port: number;
-  username: string;
   sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -113,12 +46,12 @@ export const ServerCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ServerCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
   ipAddress: z.string(),
+  name: z.string(),
   port: z.number(),
-  username: z.string(),
   sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**

@@ -7,43 +7,43 @@
 
 ```typescript
 const value: operations.MariadbMoveResponseBody = {
-  mariadbId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description: "density statue jury eek lively heavily",
+  applicationStatus: "error",
+  command: "<value>",
+  cpuLimit: null,
+  cpuReservation: "<value>",
+  createdAt: "1718282058731",
   databaseName: "<value>",
-  databaseUser: "<value>",
   databasePassword: "<value>",
   databaseRootPassword: "<value>",
+  databaseUser: "<value>",
+  description: "because scoop um commonly birdbath",
   dockerImage: "<value>",
-  command: "<value>",
   env: "<value>",
-  memoryReservation: "<value>",
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
-  cpuLimit: "<value>",
-  externalPort: 925.55,
-  applicationStatus: "running",
-  healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 380.99,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: {
-    parallelism: 2772.24,
-    order: "<value>",
-  },
-  modeSwarm: {},
-  labelsSwarm: {},
-  networkSwarm: [
-    {},
-  ],
-  replicas: 7238.19,
-  createdAt: "1722124551851",
   environmentId: "<id>",
-  serverId: "<id>",
+  externalPort: 3068.54,
+  healthCheckSwarm: {},
+  labelsSwarm: {
+    "key": "<value>",
+  },
+  mariadbId: "<id>",
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  name: "<value>",
+  networkSwarm: null,
+  placementSwarm: {},
+  replicas: 1300.44,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 3627.87,
+  },
+  serverId: null,
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 2772.24,
+  },
 };
 ```
 
@@ -51,8 +51,8 @@ const value: operations.MariadbMoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

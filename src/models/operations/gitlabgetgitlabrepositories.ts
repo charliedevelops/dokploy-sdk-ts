@@ -3,85 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type GitlabGetGitlabRepositoriesSecurity = {
-  authorization: string;
-};
-
 export type GitlabGetGitlabRepositoriesRequest = {
   gitlabId: string;
 };
-
-/** @internal */
-export const GitlabGetGitlabRepositoriesSecurity$inboundSchema: z.ZodType<
-  GitlabGetGitlabRepositoriesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GitlabGetGitlabRepositoriesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GitlabGetGitlabRepositoriesSecurity$outboundSchema: z.ZodType<
-  GitlabGetGitlabRepositoriesSecurity$Outbound,
-  z.ZodTypeDef,
-  GitlabGetGitlabRepositoriesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitlabGetGitlabRepositoriesSecurity$ {
-  /** @deprecated use `GitlabGetGitlabRepositoriesSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    GitlabGetGitlabRepositoriesSecurity$inboundSchema;
-  /** @deprecated use `GitlabGetGitlabRepositoriesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    GitlabGetGitlabRepositoriesSecurity$outboundSchema;
-  /** @deprecated use `GitlabGetGitlabRepositoriesSecurity$Outbound` instead. */
-  export type Outbound = GitlabGetGitlabRepositoriesSecurity$Outbound;
-}
-
-export function gitlabGetGitlabRepositoriesSecurityToJSON(
-  gitlabGetGitlabRepositoriesSecurity: GitlabGetGitlabRepositoriesSecurity,
-): string {
-  return JSON.stringify(
-    GitlabGetGitlabRepositoriesSecurity$outboundSchema.parse(
-      gitlabGetGitlabRepositoriesSecurity,
-    ),
-  );
-}
-
-export function gitlabGetGitlabRepositoriesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GitlabGetGitlabRepositoriesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GitlabGetGitlabRepositoriesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitlabGetGitlabRepositoriesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GitlabGetGitlabRepositoriesRequest$inboundSchema: z.ZodType<

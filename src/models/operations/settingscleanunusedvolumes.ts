@@ -3,84 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanUnusedVolumesSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanUnusedVolumesRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanUnusedVolumesSecurity$inboundSchema: z.ZodType<
-  SettingsCleanUnusedVolumesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanUnusedVolumesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanUnusedVolumesSecurity$outboundSchema: z.ZodType<
-  SettingsCleanUnusedVolumesSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanUnusedVolumesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanUnusedVolumesSecurity$ {
-  /** @deprecated use `SettingsCleanUnusedVolumesSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsCleanUnusedVolumesSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanUnusedVolumesSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsCleanUnusedVolumesSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanUnusedVolumesSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanUnusedVolumesSecurity$Outbound;
-}
-
-export function settingsCleanUnusedVolumesSecurityToJSON(
-  settingsCleanUnusedVolumesSecurity: SettingsCleanUnusedVolumesSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanUnusedVolumesSecurity$outboundSchema.parse(
-      settingsCleanUnusedVolumesSecurity,
-    ),
-  );
-}
-
-export function settingsCleanUnusedVolumesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanUnusedVolumesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsCleanUnusedVolumesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanUnusedVolumesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanUnusedVolumesRequest$inboundSchema: z.ZodType<

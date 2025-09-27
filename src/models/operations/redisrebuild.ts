@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type RedisRebuildSecurity = {
-  authorization: string;
-};
 
 export type RedisRebuildRequest = {
   redisId: string;
 };
 
 export type RedisRebuildResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const RedisRebuildSecurity$inboundSchema: z.ZodType<
-  RedisRebuildSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedisRebuildSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedisRebuildSecurity$outboundSchema: z.ZodType<
-  RedisRebuildSecurity$Outbound,
-  z.ZodTypeDef,
-  RedisRebuildSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisRebuildSecurity$ {
-  /** @deprecated use `RedisRebuildSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedisRebuildSecurity$inboundSchema;
-  /** @deprecated use `RedisRebuildSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedisRebuildSecurity$outboundSchema;
-  /** @deprecated use `RedisRebuildSecurity$Outbound` instead. */
-  export type Outbound = RedisRebuildSecurity$Outbound;
-}
-
-export function redisRebuildSecurityToJSON(
-  redisRebuildSecurity: RedisRebuildSecurity,
-): string {
-  return JSON.stringify(
-    RedisRebuildSecurity$outboundSchema.parse(redisRebuildSecurity),
-  );
-}
-
-export function redisRebuildSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisRebuildSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisRebuildSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisRebuildSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisRebuildRequest$inboundSchema: z.ZodType<

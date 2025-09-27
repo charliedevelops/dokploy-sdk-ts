@@ -3,94 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UserAssignPermissionsSecurity = {
-  authorization: string;
-};
-
 export type UserAssignPermissionsRequest = {
-  id: string;
-  accessedProjects: Array<string>;
   accessedEnvironments: Array<string>;
+  accessedProjects: Array<string>;
   accessedServices: Array<string>;
+  canAccessToAPI: boolean;
+  canAccessToDocker: boolean;
+  canAccessToGitProviders: boolean;
+  canAccessToSSHKeys: boolean;
+  canAccessToTraefikFiles: boolean;
   canCreateProjects: boolean;
   canCreateServices: boolean;
   canDeleteProjects: boolean;
   canDeleteServices: boolean;
-  canAccessToDocker: boolean;
-  canAccessToTraefikFiles: boolean;
-  canAccessToAPI: boolean;
-  canAccessToSSHKeys: boolean;
-  canAccessToGitProviders: boolean;
+  id: string;
 };
-
-/** @internal */
-export const UserAssignPermissionsSecurity$inboundSchema: z.ZodType<
-  UserAssignPermissionsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserAssignPermissionsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserAssignPermissionsSecurity$outboundSchema: z.ZodType<
-  UserAssignPermissionsSecurity$Outbound,
-  z.ZodTypeDef,
-  UserAssignPermissionsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserAssignPermissionsSecurity$ {
-  /** @deprecated use `UserAssignPermissionsSecurity$inboundSchema` instead. */
-  export const inboundSchema = UserAssignPermissionsSecurity$inboundSchema;
-  /** @deprecated use `UserAssignPermissionsSecurity$outboundSchema` instead. */
-  export const outboundSchema = UserAssignPermissionsSecurity$outboundSchema;
-  /** @deprecated use `UserAssignPermissionsSecurity$Outbound` instead. */
-  export type Outbound = UserAssignPermissionsSecurity$Outbound;
-}
-
-export function userAssignPermissionsSecurityToJSON(
-  userAssignPermissionsSecurity: UserAssignPermissionsSecurity,
-): string {
-  return JSON.stringify(
-    UserAssignPermissionsSecurity$outboundSchema.parse(
-      userAssignPermissionsSecurity,
-    ),
-  );
-}
-
-export function userAssignPermissionsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserAssignPermissionsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserAssignPermissionsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserAssignPermissionsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserAssignPermissionsRequest$inboundSchema: z.ZodType<
@@ -98,36 +29,36 @@ export const UserAssignPermissionsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  accessedProjects: z.array(z.string()),
   accessedEnvironments: z.array(z.string()),
+  accessedProjects: z.array(z.string()),
   accessedServices: z.array(z.string()),
+  canAccessToAPI: z.boolean(),
+  canAccessToDocker: z.boolean(),
+  canAccessToGitProviders: z.boolean(),
+  canAccessToSSHKeys: z.boolean(),
+  canAccessToTraefikFiles: z.boolean(),
   canCreateProjects: z.boolean(),
   canCreateServices: z.boolean(),
   canDeleteProjects: z.boolean(),
   canDeleteServices: z.boolean(),
-  canAccessToDocker: z.boolean(),
-  canAccessToTraefikFiles: z.boolean(),
-  canAccessToAPI: z.boolean(),
-  canAccessToSSHKeys: z.boolean(),
-  canAccessToGitProviders: z.boolean(),
+  id: z.string(),
 });
 
 /** @internal */
 export type UserAssignPermissionsRequest$Outbound = {
-  id: string;
-  accessedProjects: Array<string>;
   accessedEnvironments: Array<string>;
+  accessedProjects: Array<string>;
   accessedServices: Array<string>;
+  canAccessToAPI: boolean;
+  canAccessToDocker: boolean;
+  canAccessToGitProviders: boolean;
+  canAccessToSSHKeys: boolean;
+  canAccessToTraefikFiles: boolean;
   canCreateProjects: boolean;
   canCreateServices: boolean;
   canDeleteProjects: boolean;
   canDeleteServices: boolean;
-  canAccessToDocker: boolean;
-  canAccessToTraefikFiles: boolean;
-  canAccessToAPI: boolean;
-  canAccessToSSHKeys: boolean;
-  canAccessToGitProviders: boolean;
+  id: string;
 };
 
 /** @internal */
@@ -136,19 +67,19 @@ export const UserAssignPermissionsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserAssignPermissionsRequest
 > = z.object({
-  id: z.string(),
-  accessedProjects: z.array(z.string()),
   accessedEnvironments: z.array(z.string()),
+  accessedProjects: z.array(z.string()),
   accessedServices: z.array(z.string()),
+  canAccessToAPI: z.boolean(),
+  canAccessToDocker: z.boolean(),
+  canAccessToGitProviders: z.boolean(),
+  canAccessToSSHKeys: z.boolean(),
+  canAccessToTraefikFiles: z.boolean(),
   canCreateProjects: z.boolean(),
   canCreateServices: z.boolean(),
   canDeleteProjects: z.boolean(),
   canDeleteServices: z.boolean(),
-  canAccessToDocker: z.boolean(),
-  canAccessToTraefikFiles: z.boolean(),
-  canAccessToAPI: z.boolean(),
-  canAccessToSSHKeys: z.boolean(),
-  canAccessToGitProviders: z.boolean(),
+  id: z.string(),
 });
 
 /**

@@ -3,58 +3,36 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type EnvironmentOneSecurity = {
-  authorization: string;
-};
-
 export type EnvironmentOneRequest = {
   environmentId: string;
 };
 
-export type EnvironmentOneProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export const EnvironmentOnePreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
+export const EnvironmentOneApplicationApplicationStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
 } as const;
-export type EnvironmentOnePreviewCertificateType = ClosedEnum<
-  typeof EnvironmentOnePreviewCertificateType
+export type EnvironmentOneApplicationApplicationStatus = ClosedEnum<
+  typeof EnvironmentOneApplicationApplicationStatus
 >;
 
-export const EnvironmentOneApplicationSourceType = {
-  Docker: "docker",
-  Git: "git",
-  Github: "github",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
+export const EnvironmentOneBuildType = {
+  Dockerfile: "dockerfile",
+  HerokuBuildpacks: "heroku_buildpacks",
+  PaketoBuildpacks: "paketo_buildpacks",
+  Nixpacks: "nixpacks",
+  Static: "static",
+  Railpack: "railpack",
 } as const;
-export type EnvironmentOneApplicationSourceType = ClosedEnum<
-  typeof EnvironmentOneApplicationSourceType
->;
-
-export const EnvironmentOneApplicationTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type EnvironmentOneApplicationTriggerType = ClosedEnum<
-  typeof EnvironmentOneApplicationTriggerType
+export type EnvironmentOneBuildType = ClosedEnum<
+  typeof EnvironmentOneBuildType
 >;
 
 export const EnvironmentOneHealthCheckSwarmApplicationEnum = {
@@ -75,111 +53,6 @@ export type EnvironmentOneApplicationHealthCheckSwarmUnion =
   | number
   | boolean
   | EnvironmentOneHealthCheckSwarmApplicationEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRestartPolicySwarmApplicationEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRestartPolicySwarmApplicationEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmApplicationEnum
->;
-
-export type EnvironmentOneRestartPolicySwarmApplicationUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRestartPolicySwarmApplicationEnum;
-
-export type EnvironmentOneApplicationRestartPolicySwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRestartPolicySwarmApplicationEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmApplicationEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmApplicationEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmApplicationEnum
->;
-
-export type EnvironmentOnePlacementSwarmApplicationUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmApplicationEnum;
-
-export type EnvironmentOneApplicationPlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmApplicationEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmApplicationEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmApplicationEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmApplicationEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmApplicationUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmApplicationEnum;
-
-export type EnvironmentOneApplicationUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmApplicationEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmApplicationEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmApplicationEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmApplicationEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmApplicationUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmApplicationEnum;
-
-export type EnvironmentOneApplicationRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmApplicationEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneModeSwarmApplicationEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneModeSwarmApplicationEnum = ClosedEnum<
-  typeof EnvironmentOneModeSwarmApplicationEnum
->;
-
-export type EnvironmentOneModeSwarmApplicationUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneModeSwarmApplicationEnum;
-
-export type EnvironmentOneApplicationModeSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneModeSwarmApplicationEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -204,6 +77,27 @@ export type EnvironmentOneApplicationLabelsSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOneModeSwarmApplicationEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneModeSwarmApplicationEnum = ClosedEnum<
+  typeof EnvironmentOneModeSwarmApplicationEnum
+>;
+
+export type EnvironmentOneModeSwarmApplicationUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneModeSwarmApplicationEnum;
+
+export type EnvironmentOneApplicationModeSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneModeSwarmApplicationEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export const EnvironmentOneNetworkSwarmApplicationEnum = {
   Null: "null",
 } as const;
@@ -225,93 +119,166 @@ export type EnvironmentOneApplicationNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneApplicationApplicationStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
+export const EnvironmentOnePlacementSwarmApplicationEnum = {
+  Null: "null",
 } as const;
-export type EnvironmentOneApplicationApplicationStatus = ClosedEnum<
-  typeof EnvironmentOneApplicationApplicationStatus
+export type EnvironmentOnePlacementSwarmApplicationEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmApplicationEnum
 >;
 
-export const EnvironmentOneBuildType = {
-  Dockerfile: "dockerfile",
-  HerokuBuildpacks: "heroku_buildpacks",
-  PaketoBuildpacks: "paketo_buildpacks",
-  Nixpacks: "nixpacks",
-  Static: "static",
-  Railpack: "railpack",
+export type EnvironmentOnePlacementSwarmApplicationUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmApplicationEnum;
+
+export type EnvironmentOneApplicationPlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmApplicationEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOnePreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
 } as const;
-export type EnvironmentOneBuildType = ClosedEnum<
-  typeof EnvironmentOneBuildType
+export type EnvironmentOnePreviewCertificateType = ClosedEnum<
+  typeof EnvironmentOnePreviewCertificateType
 >;
+
+export const EnvironmentOneRestartPolicySwarmApplicationEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmApplicationEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmApplicationEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmApplicationUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmApplicationEnum;
+
+export type EnvironmentOneApplicationRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmApplicationEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmApplicationEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmApplicationEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmApplicationEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmApplicationUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmApplicationEnum;
+
+export type EnvironmentOneApplicationRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmApplicationEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneApplicationSourceType = {
+  Docker: "docker",
+  Git: "git",
+  Github: "github",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
+} as const;
+export type EnvironmentOneApplicationSourceType = ClosedEnum<
+  typeof EnvironmentOneApplicationSourceType
+>;
+
+export const EnvironmentOneApplicationTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type EnvironmentOneApplicationTriggerType = ClosedEnum<
+  typeof EnvironmentOneApplicationTriggerType
+>;
+
+export const EnvironmentOneUpdateConfigSwarmApplicationEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmApplicationEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmApplicationEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmApplicationUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmApplicationEnum;
+
+export type EnvironmentOneApplicationUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmApplicationEnum
+  | Array<any>
+  | { [k: string]: any };
 
 export type EnvironmentOneApplication = {
-  applicationId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  env: string | null;
-  previewEnv: string | null;
-  watchPaths: Array<string> | null;
-  previewBuildArgs: string | null;
-  previewLabels: Array<string> | null;
-  previewWildcard: string | null;
-  previewPort: number | null;
-  previewHttps: boolean;
-  previewPath: string | null;
-  previewCertificateType: EnvironmentOnePreviewCertificateType;
-  previewCustomCertResolver: string | null;
-  previewLimit: number | null;
-  isPreviewDeploymentsActive: boolean | null;
-  previewRequireCollaboratorPermissions: boolean | null;
-  rollbackActive: boolean | null;
-  buildArgs: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  title: string | null;
-  enabled: boolean | null;
-  subtitle: string | null;
-  command: string | null;
-  refreshToken: string | null;
-  sourceType: EnvironmentOneApplicationSourceType;
-  cleanCache: boolean | null;
-  repository: string | null;
-  owner: string | null;
-  branch: string | null;
-  buildPath: string | null;
-  triggerType: EnvironmentOneApplicationTriggerType | null;
+  applicationId: string;
+  applicationStatus: EnvironmentOneApplicationApplicationStatus;
   autoDeploy: boolean | null;
-  gitlabProjectId: number | null;
-  gitlabRepository: string | null;
-  gitlabOwner: string | null;
-  gitlabBranch: string | null;
-  gitlabBuildPath: string | null;
-  gitlabPathNamespace: string | null;
-  giteaRepository: string | null;
-  giteaOwner: string | null;
-  giteaBranch: string | null;
-  giteaBuildPath: string | null;
-  bitbucketRepository: string | null;
-  bitbucketOwner: string | null;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
-  username: string | null;
-  password: string | null;
-  dockerImage: string | null;
-  registryUrl: string | null;
-  customGitUrl: string | null;
+  bitbucketId: string | null;
+  bitbucketOwner: string | null;
+  bitbucketRepository: string | null;
+  branch: string | null;
+  buildArgs: string | null;
+  buildPath: string | null;
+  buildType: EnvironmentOneBuildType;
+  cleanCache: boolean | null;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   customGitBranch: string | null;
   customGitBuildPath: string | null;
   customGitSSHKeyId: string | null;
-  enableSubmodules: boolean;
-  dockerfile: string | null;
-  dockerContextPath: string | null;
+  customGitUrl: string | null;
+  description: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerImage: string | null;
+  dockerfile: string | null;
   dropBuildPath: string | null;
+  enableSubmodules: boolean;
+  enabled: boolean | null;
+  env: string | null;
+  environmentId: string;
+  giteaBranch: string | null;
+  giteaBuildPath: string | null;
+  giteaId: string | null;
+  giteaOwner: string | null;
+  giteaRepository: string | null;
+  githubId: string | null;
+  gitlabBranch: string | null;
+  gitlabBuildPath: string | null;
+  gitlabId: string | null;
+  gitlabOwner: string | null;
+  gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   healthCheckSwarm:
     | string
     | number
@@ -320,46 +287,9 @@ export type EnvironmentOneApplication = {
     | Array<any>
     | { [k: string]: any }
     | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmApplicationEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmApplicationEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmApplicationEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmApplicationEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmApplicationEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
+  herokuVersion: string | null;
+  isPreviewDeploymentsActive: boolean | null;
+  isStaticSpa: boolean | null;
   labelsSwarm:
     | string
     | number
@@ -368,6 +298,17 @@ export type EnvironmentOneApplication = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmApplicationEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -376,21 +317,151 @@ export type EnvironmentOneApplication = {
     | Array<any>
     | { [k: string]: any }
     | null;
-  replicas: number;
-  applicationStatus: EnvironmentOneApplicationApplicationStatus;
-  buildType: EnvironmentOneBuildType;
-  railpackVersion: string | null;
-  herokuVersion: string | null;
+  owner: string | null;
+  password: string | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmApplicationEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  previewBuildArgs: string | null;
+  previewCertificateType: EnvironmentOnePreviewCertificateType;
+  previewCustomCertResolver: string | null;
+  previewEnv: string | null;
+  previewHttps: boolean;
+  previewLabels: Array<string> | null;
+  previewLimit: number | null;
+  previewPath: string | null;
+  previewPort: number | null;
+  previewRequireCollaboratorPermissions: boolean | null;
+  previewWildcard: string | null;
   publishDirectory: string | null;
-  isStaticSpa: boolean | null;
-  createdAt: string;
+  railpackVersion: string | null;
+  refreshToken: string | null;
   registryId: string | null;
-  environmentId: string;
-  githubId: string | null;
-  gitlabId: string | null;
-  giteaId: string | null;
-  bitbucketId: string | null;
+  registryUrl: string | null;
+  replicas: number;
+  repository: string | null;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmApplicationEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackActive: boolean | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmApplicationEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   serverId: string | null;
+  sourceType: EnvironmentOneApplicationSourceType;
+  subtitle: string | null;
+  title: string | null;
+  triggerType: EnvironmentOneApplicationTriggerType | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmApplicationEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  username: string | null;
+  watchPaths: Array<string> | null;
+};
+
+export const EnvironmentOneComposeStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
+} as const;
+export type EnvironmentOneComposeStatus = ClosedEnum<
+  typeof EnvironmentOneComposeStatus
+>;
+
+export const EnvironmentOneComposeType = {
+  DockerCompose: "docker-compose",
+  Stack: "stack",
+} as const;
+export type EnvironmentOneComposeType = ClosedEnum<
+  typeof EnvironmentOneComposeType
+>;
+
+export const EnvironmentOneComposeSourceType = {
+  Git: "git",
+  Github: "github",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Raw: "raw",
+} as const;
+export type EnvironmentOneComposeSourceType = ClosedEnum<
+  typeof EnvironmentOneComposeSourceType
+>;
+
+export const EnvironmentOneComposeTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type EnvironmentOneComposeTriggerType = ClosedEnum<
+  typeof EnvironmentOneComposeTriggerType
+>;
+
+export type EnvironmentOneCompose = {
+  appName: string;
+  autoDeploy: boolean | null;
+  bitbucketBranch: string | null;
+  bitbucketId: string | null;
+  bitbucketOwner: string | null;
+  bitbucketRepository: string | null;
+  branch: string | null;
+  command: string;
+  composeFile: string;
+  composeId: string;
+  composePath: string;
+  composeStatus: EnvironmentOneComposeStatus;
+  composeType: EnvironmentOneComposeType;
+  createdAt: string;
+  customGitBranch: string | null;
+  customGitSSHKeyId: string | null;
+  customGitUrl: string | null;
+  description: string | null;
+  enableSubmodules: boolean;
+  env: string | null;
+  environmentId: string;
+  giteaBranch: string | null;
+  giteaId: string | null;
+  giteaOwner: string | null;
+  giteaRepository: string | null;
+  githubId: string | null;
+  gitlabBranch: string | null;
+  gitlabId: string | null;
+  gitlabOwner: string | null;
+  gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
+  isolatedDeployment: boolean;
+  isolatedDeploymentsVolume: boolean;
+  name: string;
+  owner: string | null;
+  randomize: boolean;
+  refreshToken: string | null;
+  repository: string | null;
+  serverId: string | null;
+  sourceType: EnvironmentOneComposeSourceType;
+  suffix: string;
+  triggerType: EnvironmentOneComposeTriggerType | null;
+  watchPaths: Array<string> | null;
 };
 
 export const EnvironmentOneMariadbApplicationStatus = {
@@ -424,87 +495,24 @@ export type EnvironmentOneMariadbHealthCheckSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneRestartPolicySwarmMariadbEnum = {
+export const EnvironmentOneLabelsSwarmMariadbEnum = {
   Null: "null",
 } as const;
-export type EnvironmentOneRestartPolicySwarmMariadbEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmMariadbEnum
+export type EnvironmentOneLabelsSwarmMariadbEnum = ClosedEnum<
+  typeof EnvironmentOneLabelsSwarmMariadbEnum
 >;
 
-export type EnvironmentOneRestartPolicySwarmMariadbUnion =
+export type EnvironmentOneLabelsSwarmMariadbUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMariadbEnum;
+  | EnvironmentOneLabelsSwarmMariadbEnum;
 
-export type EnvironmentOneMariadbRestartPolicySwarmUnion =
+export type EnvironmentOneMariadbLabelsSwarmUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMariadbEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmMariadbEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmMariadbEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmMariadbEnum
->;
-
-export type EnvironmentOnePlacementSwarmMariadbUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMariadbEnum;
-
-export type EnvironmentOneMariadbPlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMariadbEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmMariadbEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmMariadbEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmMariadbEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmMariadbUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMariadbEnum;
-
-export type EnvironmentOneMariadbUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMariadbEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmMariadbEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmMariadbEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmMariadbEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmMariadbUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMariadbEnum;
-
-export type EnvironmentOneMariadbRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMariadbEnum
+  | EnvironmentOneLabelsSwarmMariadbEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -529,27 +537,6 @@ export type EnvironmentOneMariadbModeSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneLabelsSwarmMariadbEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneLabelsSwarmMariadbEnum = ClosedEnum<
-  typeof EnvironmentOneLabelsSwarmMariadbEnum
->;
-
-export type EnvironmentOneLabelsSwarmMariadbUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMariadbEnum;
-
-export type EnvironmentOneMariadbLabelsSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMariadbEnum
-  | Array<any>
-  | { [k: string]: any };
-
 export const EnvironmentOneNetworkSwarmMariadbEnum = {
   Null: "null",
 } as const;
@@ -571,69 +558,111 @@ export type EnvironmentOneMariadbNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOnePlacementSwarmMariadbEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOnePlacementSwarmMariadbEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmMariadbEnum
+>;
+
+export type EnvironmentOnePlacementSwarmMariadbUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMariadbEnum;
+
+export type EnvironmentOneMariadbPlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMariadbEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRestartPolicySwarmMariadbEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmMariadbEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmMariadbEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmMariadbUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMariadbEnum;
+
+export type EnvironmentOneMariadbRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMariadbEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmMariadbEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmMariadbEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmMariadbEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmMariadbUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMariadbEnum;
+
+export type EnvironmentOneMariadbRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMariadbEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneUpdateConfigSwarmMariadbEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmMariadbEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmMariadbEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmMariadbUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMariadbEnum;
+
+export type EnvironmentOneMariadbUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMariadbEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export type EnvironmentOneMariadb = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: EnvironmentOneMariadbApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
+  environmentId: string;
   externalPort: number | null;
-  applicationStatus: EnvironmentOneMariadbApplicationStatus;
   healthCheckSwarm:
     | string
     | number
     | boolean
     | EnvironmentOneHealthCheckSwarmMariadbEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmMariadbEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmMariadbEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmMariadbEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmMariadbEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmMariadbEnum
     | Array<any>
     | { [k: string]: any }
     | null;
@@ -645,6 +674,18 @@ export type EnvironmentOneMariadb = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmMariadbEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -653,10 +694,40 @@ export type EnvironmentOneMariadb = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmMariadbEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   replicas: number;
-  createdAt: string;
-  environmentId: string;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmMariadbEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmMariadbEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   serverId: string | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmMariadbEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
 };
 
 export const EnvironmentOneMongoApplicationStatus = {
@@ -690,87 +761,24 @@ export type EnvironmentOneMongoHealthCheckSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneRestartPolicySwarmMongoEnum = {
+export const EnvironmentOneLabelsSwarmMongoEnum = {
   Null: "null",
 } as const;
-export type EnvironmentOneRestartPolicySwarmMongoEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmMongoEnum
+export type EnvironmentOneLabelsSwarmMongoEnum = ClosedEnum<
+  typeof EnvironmentOneLabelsSwarmMongoEnum
 >;
 
-export type EnvironmentOneRestartPolicySwarmMongoUnion =
+export type EnvironmentOneLabelsSwarmMongoUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMongoEnum;
+  | EnvironmentOneLabelsSwarmMongoEnum;
 
-export type EnvironmentOneMongoRestartPolicySwarmUnion =
+export type EnvironmentOneMongoLabelsSwarmUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMongoEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmMongoEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmMongoEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmMongoEnum
->;
-
-export type EnvironmentOnePlacementSwarmMongoUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMongoEnum;
-
-export type EnvironmentOneMongoPlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMongoEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmMongoEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmMongoEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmMongoEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmMongoUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMongoEnum;
-
-export type EnvironmentOneMongoUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMongoEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmMongoEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmMongoEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmMongoEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmMongoUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMongoEnum;
-
-export type EnvironmentOneMongoRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMongoEnum
+  | EnvironmentOneLabelsSwarmMongoEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -795,27 +803,6 @@ export type EnvironmentOneMongoModeSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneLabelsSwarmMongoEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneLabelsSwarmMongoEnum = ClosedEnum<
-  typeof EnvironmentOneLabelsSwarmMongoEnum
->;
-
-export type EnvironmentOneLabelsSwarmMongoUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMongoEnum;
-
-export type EnvironmentOneMongoLabelsSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMongoEnum
-  | Array<any>
-  | { [k: string]: any };
-
 export const EnvironmentOneNetworkSwarmMongoEnum = {
   Null: "null",
 } as const;
@@ -837,67 +824,109 @@ export type EnvironmentOneMongoNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOnePlacementSwarmMongoEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOnePlacementSwarmMongoEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmMongoEnum
+>;
+
+export type EnvironmentOnePlacementSwarmMongoUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMongoEnum;
+
+export type EnvironmentOneMongoPlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMongoEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRestartPolicySwarmMongoEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmMongoEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmMongoEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmMongoUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMongoEnum;
+
+export type EnvironmentOneMongoRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMongoEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmMongoEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmMongoEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmMongoEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmMongoUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMongoEnum;
+
+export type EnvironmentOneMongoRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMongoEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneUpdateConfigSwarmMongoEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmMongoEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmMongoEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmMongoUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMongoEnum;
+
+export type EnvironmentOneMongoUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMongoEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export type EnvironmentOneMongo = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: EnvironmentOneMongoApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
   healthCheckSwarm:
     | string
     | number
     | boolean
     | EnvironmentOneHealthCheckSwarmMongoEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmMongoEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmMongoEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmMongoEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmMongoEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmMongoEnum
     | Array<any>
     | { [k: string]: any }
     | null;
@@ -909,6 +938,18 @@ export type EnvironmentOneMongo = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmMongoEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  mongoId: string;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -917,11 +958,41 @@ export type EnvironmentOneMongo = {
     | Array<any>
     | { [k: string]: any }
     | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmMongoEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmMongoEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmMongoEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  serverId: string | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmMongoEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
 };
 
 export const EnvironmentOneMysqlApplicationStatus = {
@@ -955,87 +1026,24 @@ export type EnvironmentOneMysqlHealthCheckSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneRestartPolicySwarmMysqlEnum = {
+export const EnvironmentOneLabelsSwarmMysqlEnum = {
   Null: "null",
 } as const;
-export type EnvironmentOneRestartPolicySwarmMysqlEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmMysqlEnum
+export type EnvironmentOneLabelsSwarmMysqlEnum = ClosedEnum<
+  typeof EnvironmentOneLabelsSwarmMysqlEnum
 >;
 
-export type EnvironmentOneRestartPolicySwarmMysqlUnion =
+export type EnvironmentOneLabelsSwarmMysqlUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMysqlEnum;
+  | EnvironmentOneLabelsSwarmMysqlEnum;
 
-export type EnvironmentOneMysqlRestartPolicySwarmUnion =
+export type EnvironmentOneMysqlLabelsSwarmUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmMysqlEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmMysqlEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmMysqlEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmMysqlEnum
->;
-
-export type EnvironmentOnePlacementSwarmMysqlUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMysqlEnum;
-
-export type EnvironmentOneMysqlPlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmMysqlEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmMysqlEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmMysqlEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmMysqlEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmMysqlUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMysqlEnum;
-
-export type EnvironmentOneMysqlUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmMysqlEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmMysqlEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmMysqlEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmMysqlEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmMysqlUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMysqlEnum;
-
-export type EnvironmentOneMysqlRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmMysqlEnum
+  | EnvironmentOneLabelsSwarmMysqlEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -1060,27 +1068,6 @@ export type EnvironmentOneMysqlModeSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneLabelsSwarmMysqlEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneLabelsSwarmMysqlEnum = ClosedEnum<
-  typeof EnvironmentOneLabelsSwarmMysqlEnum
->;
-
-export type EnvironmentOneLabelsSwarmMysqlUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMysqlEnum;
-
-export type EnvironmentOneMysqlLabelsSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmMysqlEnum
-  | Array<any>
-  | { [k: string]: any };
-
 export const EnvironmentOneNetworkSwarmMysqlEnum = {
   Null: "null",
 } as const;
@@ -1102,69 +1089,111 @@ export type EnvironmentOneMysqlNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOnePlacementSwarmMysqlEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOnePlacementSwarmMysqlEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmMysqlEnum
+>;
+
+export type EnvironmentOnePlacementSwarmMysqlUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMysqlEnum;
+
+export type EnvironmentOneMysqlPlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmMysqlEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRestartPolicySwarmMysqlEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmMysqlEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmMysqlEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmMysqlUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMysqlEnum;
+
+export type EnvironmentOneMysqlRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmMysqlEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmMysqlEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmMysqlEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmMysqlEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmMysqlUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMysqlEnum;
+
+export type EnvironmentOneMysqlRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmMysqlEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneUpdateConfigSwarmMysqlEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmMysqlEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmMysqlEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmMysqlUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMysqlEnum;
+
+export type EnvironmentOneMysqlUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmMysqlEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export type EnvironmentOneMysql = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: EnvironmentOneMysqlApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
+  environmentId: string;
   externalPort: number | null;
-  applicationStatus: EnvironmentOneMysqlApplicationStatus;
   healthCheckSwarm:
     | string
     | number
     | boolean
     | EnvironmentOneHealthCheckSwarmMysqlEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmMysqlEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmMysqlEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmMysqlEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmMysqlEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmMysqlEnum
     | Array<any>
     | { [k: string]: any }
     | null;
@@ -1176,6 +1205,18 @@ export type EnvironmentOneMysql = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmMysqlEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  mysqlId: string;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -1184,10 +1225,40 @@ export type EnvironmentOneMysql = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmMysqlEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   replicas: number;
-  createdAt: string;
-  environmentId: string;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmMysqlEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmMysqlEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   serverId: string | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmMysqlEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
 };
 
 export const EnvironmentOnePostgreApplicationStatus = {
@@ -1221,87 +1292,24 @@ export type EnvironmentOnePostgreHealthCheckSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneRestartPolicySwarmPostgreEnum = {
+export const EnvironmentOneLabelsSwarmPostgreEnum = {
   Null: "null",
 } as const;
-export type EnvironmentOneRestartPolicySwarmPostgreEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmPostgreEnum
+export type EnvironmentOneLabelsSwarmPostgreEnum = ClosedEnum<
+  typeof EnvironmentOneLabelsSwarmPostgreEnum
 >;
 
-export type EnvironmentOneRestartPolicySwarmPostgreUnion =
+export type EnvironmentOneLabelsSwarmPostgreUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmPostgreEnum;
+  | EnvironmentOneLabelsSwarmPostgreEnum;
 
-export type EnvironmentOnePostgreRestartPolicySwarmUnion =
+export type EnvironmentOnePostgreLabelsSwarmUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmPostgreEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmPostgreEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmPostgreEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmPostgreEnum
->;
-
-export type EnvironmentOnePlacementSwarmPostgreUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmPostgreEnum;
-
-export type EnvironmentOnePostgrePlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmPostgreEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmPostgreEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmPostgreEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmPostgreEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmPostgreUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmPostgreEnum;
-
-export type EnvironmentOnePostgreUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmPostgreEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmPostgreEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmPostgreEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmPostgreEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmPostgreUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmPostgreEnum;
-
-export type EnvironmentOnePostgreRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmPostgreEnum
+  | EnvironmentOneLabelsSwarmPostgreEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -1326,27 +1334,6 @@ export type EnvironmentOnePostgreModeSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneLabelsSwarmPostgreEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneLabelsSwarmPostgreEnum = ClosedEnum<
-  typeof EnvironmentOneLabelsSwarmPostgreEnum
->;
-
-export type EnvironmentOneLabelsSwarmPostgreUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmPostgreEnum;
-
-export type EnvironmentOnePostgreLabelsSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmPostgreEnum
-  | Array<any>
-  | { [k: string]: any };
-
 export const EnvironmentOneNetworkSwarmPostgreEnum = {
   Null: "null",
 } as const;
@@ -1368,68 +1355,110 @@ export type EnvironmentOnePostgreNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOnePlacementSwarmPostgreEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOnePlacementSwarmPostgreEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmPostgreEnum
+>;
+
+export type EnvironmentOnePlacementSwarmPostgreUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmPostgreEnum;
+
+export type EnvironmentOnePostgrePlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmPostgreEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRestartPolicySwarmPostgreEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmPostgreEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmPostgreEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmPostgreUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmPostgreEnum;
+
+export type EnvironmentOnePostgreRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmPostgreEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmPostgreEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmPostgreEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmPostgreEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmPostgreUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmPostgreEnum;
+
+export type EnvironmentOnePostgreRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmPostgreEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneUpdateConfigSwarmPostgreEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmPostgreEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmPostgreEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmPostgreUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmPostgreEnum;
+
+export type EnvironmentOnePostgreUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmPostgreEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export type EnvironmentOnePostgre = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: EnvironmentOnePostgreApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
+  environmentId: string;
   externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: EnvironmentOnePostgreApplicationStatus;
   healthCheckSwarm:
     | string
     | number
     | boolean
     | EnvironmentOneHealthCheckSwarmPostgreEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmPostgreEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmPostgreEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmPostgreEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmPostgreEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmPostgreEnum
     | Array<any>
     | { [k: string]: any }
     | null;
@@ -1441,6 +1470,17 @@ export type EnvironmentOnePostgre = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmPostgreEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -1449,10 +1489,50 @@ export type EnvironmentOnePostgre = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmPostgreEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  postgresId: string;
   replicas: number;
-  createdAt: string;
-  environmentId: string;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmPostgreEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmPostgreEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   serverId: string | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmPostgreEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+};
+
+export type EnvironmentOneProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 export const EnvironmentOneRediApplicationStatus = {
@@ -1486,87 +1566,24 @@ export type EnvironmentOneRediHealthCheckSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneRestartPolicySwarmRediEnum = {
+export const EnvironmentOneLabelsSwarmRediEnum = {
   Null: "null",
 } as const;
-export type EnvironmentOneRestartPolicySwarmRediEnum = ClosedEnum<
-  typeof EnvironmentOneRestartPolicySwarmRediEnum
+export type EnvironmentOneLabelsSwarmRediEnum = ClosedEnum<
+  typeof EnvironmentOneLabelsSwarmRediEnum
 >;
 
-export type EnvironmentOneRestartPolicySwarmRediUnion =
+export type EnvironmentOneLabelsSwarmRediUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmRediEnum;
+  | EnvironmentOneLabelsSwarmRediEnum;
 
-export type EnvironmentOneRediRestartPolicySwarmUnion =
+export type EnvironmentOneRediLabelsSwarmUnion =
   | string
   | number
   | boolean
-  | EnvironmentOneRestartPolicySwarmRediEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOnePlacementSwarmRediEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOnePlacementSwarmRediEnum = ClosedEnum<
-  typeof EnvironmentOnePlacementSwarmRediEnum
->;
-
-export type EnvironmentOnePlacementSwarmRediUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmRediEnum;
-
-export type EnvironmentOneRediPlacementSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOnePlacementSwarmRediEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneUpdateConfigSwarmRediEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneUpdateConfigSwarmRediEnum = ClosedEnum<
-  typeof EnvironmentOneUpdateConfigSwarmRediEnum
->;
-
-export type EnvironmentOneUpdateConfigSwarmRediUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmRediEnum;
-
-export type EnvironmentOneRediUpdateConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneUpdateConfigSwarmRediEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export const EnvironmentOneRollbackConfigSwarmRediEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneRollbackConfigSwarmRediEnum = ClosedEnum<
-  typeof EnvironmentOneRollbackConfigSwarmRediEnum
->;
-
-export type EnvironmentOneRollbackConfigSwarmRediUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmRediEnum;
-
-export type EnvironmentOneRediRollbackConfigSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneRollbackConfigSwarmRediEnum
+  | EnvironmentOneLabelsSwarmRediEnum
   | Array<any>
   | { [k: string]: any };
 
@@ -1591,27 +1608,6 @@ export type EnvironmentOneRediModeSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
-export const EnvironmentOneLabelsSwarmRediEnum = {
-  Null: "null",
-} as const;
-export type EnvironmentOneLabelsSwarmRediEnum = ClosedEnum<
-  typeof EnvironmentOneLabelsSwarmRediEnum
->;
-
-export type EnvironmentOneLabelsSwarmRediUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmRediEnum;
-
-export type EnvironmentOneRediLabelsSwarmUnion =
-  | string
-  | number
-  | boolean
-  | EnvironmentOneLabelsSwarmRediEnum
-  | Array<any>
-  | { [k: string]: any };
-
 export const EnvironmentOneNetworkSwarmRediEnum = {
   Null: "null",
 } as const;
@@ -1633,67 +1629,108 @@ export type EnvironmentOneRediNetworkSwarmUnion =
   | Array<any>
   | { [k: string]: any };
 
+export const EnvironmentOnePlacementSwarmRediEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOnePlacementSwarmRediEnum = ClosedEnum<
+  typeof EnvironmentOnePlacementSwarmRediEnum
+>;
+
+export type EnvironmentOnePlacementSwarmRediUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmRediEnum;
+
+export type EnvironmentOneRediPlacementSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOnePlacementSwarmRediEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRestartPolicySwarmRediEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRestartPolicySwarmRediEnum = ClosedEnum<
+  typeof EnvironmentOneRestartPolicySwarmRediEnum
+>;
+
+export type EnvironmentOneRestartPolicySwarmRediUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmRediEnum;
+
+export type EnvironmentOneRediRestartPolicySwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRestartPolicySwarmRediEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneRollbackConfigSwarmRediEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneRollbackConfigSwarmRediEnum = ClosedEnum<
+  typeof EnvironmentOneRollbackConfigSwarmRediEnum
+>;
+
+export type EnvironmentOneRollbackConfigSwarmRediUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmRediEnum;
+
+export type EnvironmentOneRediRollbackConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneRollbackConfigSwarmRediEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const EnvironmentOneUpdateConfigSwarmRediEnum = {
+  Null: "null",
+} as const;
+export type EnvironmentOneUpdateConfigSwarmRediEnum = ClosedEnum<
+  typeof EnvironmentOneUpdateConfigSwarmRediEnum
+>;
+
+export type EnvironmentOneUpdateConfigSwarmRediUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmRediEnum;
+
+export type EnvironmentOneRediUpdateConfigSwarmUnion =
+  | string
+  | number
+  | boolean
+  | EnvironmentOneUpdateConfigSwarmRediEnum
+  | Array<any>
+  | { [k: string]: any };
+
 export type EnvironmentOneRedi = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: EnvironmentOneRediApplicationStatus;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
   healthCheckSwarm:
     | string
     | number
     | boolean
     | EnvironmentOneHealthCheckSwarmRediEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  restartPolicySwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRestartPolicySwarmRediEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  placementSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOnePlacementSwarmRediEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  updateConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneUpdateConfigSwarmRediEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  rollbackConfigSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneRollbackConfigSwarmRediEnum
-    | Array<any>
-    | { [k: string]: any }
-    | null;
-  modeSwarm:
-    | string
-    | number
-    | boolean
-    | EnvironmentOneModeSwarmRediEnum
     | Array<any>
     | { [k: string]: any }
     | null;
@@ -1705,6 +1742,17 @@ export type EnvironmentOneRedi = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneModeSwarmRediEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  name: string;
   networkSwarm:
     | string
     | number
@@ -1713,179 +1761,64 @@ export type EnvironmentOneRedi = {
     | Array<any>
     | { [k: string]: any }
     | null;
+  placementSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOnePlacementSwarmRediEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  redisId: string;
   replicas: number;
-  environmentId: string;
+  restartPolicySwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRestartPolicySwarmRediEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
+  rollbackConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneRollbackConfigSwarmRediEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
   serverId: string | null;
-};
-
-export const EnvironmentOneComposeSourceType = {
-  Git: "git",
-  Github: "github",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Raw: "raw",
-} as const;
-export type EnvironmentOneComposeSourceType = ClosedEnum<
-  typeof EnvironmentOneComposeSourceType
->;
-
-export const EnvironmentOneComposeType = {
-  DockerCompose: "docker-compose",
-  Stack: "stack",
-} as const;
-export type EnvironmentOneComposeType = ClosedEnum<
-  typeof EnvironmentOneComposeType
->;
-
-export const EnvironmentOneComposeTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type EnvironmentOneComposeTriggerType = ClosedEnum<
-  typeof EnvironmentOneComposeTriggerType
->;
-
-export const EnvironmentOneComposeStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
-} as const;
-export type EnvironmentOneComposeStatus = ClosedEnum<
-  typeof EnvironmentOneComposeStatus
->;
-
-export type EnvironmentOneCompose = {
-  composeId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  env: string | null;
-  composeFile: string;
-  refreshToken: string | null;
-  sourceType: EnvironmentOneComposeSourceType;
-  composeType: EnvironmentOneComposeType;
-  repository: string | null;
-  owner: string | null;
-  branch: string | null;
-  autoDeploy: boolean | null;
-  gitlabProjectId: number | null;
-  gitlabRepository: string | null;
-  gitlabOwner: string | null;
-  gitlabBranch: string | null;
-  gitlabPathNamespace: string | null;
-  bitbucketRepository: string | null;
-  bitbucketOwner: string | null;
-  bitbucketBranch: string | null;
-  giteaRepository: string | null;
-  giteaOwner: string | null;
-  giteaBranch: string | null;
-  customGitUrl: string | null;
-  customGitBranch: string | null;
-  customGitSSHKeyId: string | null;
-  command: string;
-  enableSubmodules: boolean;
-  composePath: string;
-  suffix: string;
-  randomize: boolean;
-  isolatedDeployment: boolean;
-  isolatedDeploymentsVolume: boolean;
-  triggerType: EnvironmentOneComposeTriggerType | null;
-  composeStatus: EnvironmentOneComposeStatus;
-  environmentId: string;
-  createdAt: string;
-  watchPaths: Array<string> | null;
-  githubId: string | null;
-  gitlabId: string | null;
-  bitbucketId: string | null;
-  giteaId: string | null;
-  serverId: string | null;
+  updateConfigSwarm:
+    | string
+    | number
+    | boolean
+    | EnvironmentOneUpdateConfigSwarmRediEnum
+    | Array<any>
+    | { [k: string]: any }
+    | null;
 };
 
 /**
  * Successful response
  */
 export type EnvironmentOneResponseBody = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: EnvironmentOneProject;
   applications: Array<EnvironmentOneApplication>;
+  compose: Array<EnvironmentOneCompose>;
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
   mariadb: Array<EnvironmentOneMariadb>;
   mongo: Array<EnvironmentOneMongo>;
   mysql: Array<EnvironmentOneMysql>;
+  name: string;
   postgres: Array<EnvironmentOnePostgre>;
+  project: EnvironmentOneProject;
+  projectId: string;
   redis: Array<EnvironmentOneRedi>;
-  compose: Array<EnvironmentOneCompose>;
 };
 
 export type EnvironmentOneResponse = EnvironmentOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const EnvironmentOneSecurity$inboundSchema: z.ZodType<
-  EnvironmentOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type EnvironmentOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const EnvironmentOneSecurity$outboundSchema: z.ZodType<
-  EnvironmentOneSecurity$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneSecurity$ {
-  /** @deprecated use `EnvironmentOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneSecurity$inboundSchema;
-  /** @deprecated use `EnvironmentOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneSecurity$outboundSchema;
-  /** @deprecated use `EnvironmentOneSecurity$Outbound` instead. */
-  export type Outbound = EnvironmentOneSecurity$Outbound;
-}
-
-export function environmentOneSecurityToJSON(
-  environmentOneSecurity: EnvironmentOneSecurity,
-): string {
-  return JSON.stringify(
-    EnvironmentOneSecurity$outboundSchema.parse(environmentOneSecurity),
-  );
-}
-
-export function environmentOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const EnvironmentOneRequest$inboundSchema: z.ZodType<
@@ -1942,143 +1875,47 @@ export function environmentOneRequestFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneProject$inboundSchema: z.ZodType<
-  EnvironmentOneProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
+export const EnvironmentOneApplicationApplicationStatus$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneApplicationApplicationStatus> = z
+    .nativeEnum(EnvironmentOneApplicationApplicationStatus);
 
 /** @internal */
-export type EnvironmentOneProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const EnvironmentOneProject$outboundSchema: z.ZodType<
-  EnvironmentOneProject$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
+export const EnvironmentOneApplicationApplicationStatus$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneApplicationApplicationStatus> =
+    EnvironmentOneApplicationApplicationStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneProject$ {
-  /** @deprecated use `EnvironmentOneProject$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneProject$inboundSchema;
-  /** @deprecated use `EnvironmentOneProject$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneProject$outboundSchema;
-  /** @deprecated use `EnvironmentOneProject$Outbound` instead. */
-  export type Outbound = EnvironmentOneProject$Outbound;
-}
-
-export function environmentOneProjectToJSON(
-  environmentOneProject: EnvironmentOneProject,
-): string {
-  return JSON.stringify(
-    EnvironmentOneProject$outboundSchema.parse(environmentOneProject),
-  );
-}
-
-export function environmentOneProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOnePreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOnePreviewCertificateType> = z.nativeEnum(
-    EnvironmentOnePreviewCertificateType,
-  );
-
-/** @internal */
-export const EnvironmentOnePreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOnePreviewCertificateType> =
-    EnvironmentOnePreviewCertificateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOnePreviewCertificateType$ {
-  /** @deprecated use `EnvironmentOnePreviewCertificateType$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationApplicationStatus$ {
+  /** @deprecated use `EnvironmentOneApplicationApplicationStatus$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePreviewCertificateType$inboundSchema;
-  /** @deprecated use `EnvironmentOnePreviewCertificateType$outboundSchema` instead. */
+    EnvironmentOneApplicationApplicationStatus$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationApplicationStatus$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePreviewCertificateType$outboundSchema;
+    EnvironmentOneApplicationApplicationStatus$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneApplicationSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneApplicationSourceType
-> = z.nativeEnum(EnvironmentOneApplicationSourceType);
+export const EnvironmentOneBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneBuildType
+> = z.nativeEnum(EnvironmentOneBuildType);
 
 /** @internal */
-export const EnvironmentOneApplicationSourceType$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneApplicationSourceType> =
-    EnvironmentOneApplicationSourceType$inboundSchema;
+export const EnvironmentOneBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneBuildType
+> = EnvironmentOneBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneApplicationSourceType$ {
-  /** @deprecated use `EnvironmentOneApplicationSourceType$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneApplicationSourceType$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationSourceType$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneApplicationSourceType$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneApplicationTriggerType$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneApplicationTriggerType> = z.nativeEnum(
-    EnvironmentOneApplicationTriggerType,
-  );
-
-/** @internal */
-export const EnvironmentOneApplicationTriggerType$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneApplicationTriggerType> =
-    EnvironmentOneApplicationTriggerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneApplicationTriggerType$ {
-  /** @deprecated use `EnvironmentOneApplicationTriggerType$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneApplicationTriggerType$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationTriggerType$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneApplicationTriggerType$outboundSchema;
+export namespace EnvironmentOneBuildType$ {
+  /** @deprecated use `EnvironmentOneBuildType$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneBuildType$inboundSchema;
+  /** @deprecated use `EnvironmentOneBuildType$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneBuildType$outboundSchema;
 }
 
 /** @internal */
@@ -2267,123 +2104,120 @@ export function environmentOneApplicationHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmApplicationEnum> = z
-    .nativeEnum(EnvironmentOneRestartPolicySwarmApplicationEnum);
+export const EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmApplicationEnum> = z
+    .nativeEnum(EnvironmentOneLabelsSwarmApplicationEnum);
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmApplicationEnum> =
-    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema;
+export const EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmApplicationEnum> =
+    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmApplicationEnum$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmApplicationEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema;
+    EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmApplicationUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmApplicationUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema,
+]);
 
 /** @internal */
-export type EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound =
+export type EnvironmentOneLabelsSwarmApplicationUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema:
+export const EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound,
+    EnvironmentOneLabelsSwarmApplicationUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneRestartPolicySwarmApplicationUnion
+    EnvironmentOneLabelsSwarmApplicationUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
+    EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmApplicationUnion$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmApplicationUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound` instead. */
-  export type Outbound =
-    EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound;
+    EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmApplicationUnion$Outbound;
 }
 
-export function environmentOneRestartPolicySwarmApplicationUnionToJSON(
-  environmentOneRestartPolicySwarmApplicationUnion:
-    EnvironmentOneRestartPolicySwarmApplicationUnion,
+export function environmentOneLabelsSwarmApplicationUnionToJSON(
+  environmentOneLabelsSwarmApplicationUnion:
+    EnvironmentOneLabelsSwarmApplicationUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema.parse(
-      environmentOneRestartPolicySwarmApplicationUnion,
+    EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmApplicationUnion,
     ),
   );
 }
 
-export function environmentOneRestartPolicySwarmApplicationUnionFromJSON(
+export function environmentOneLabelsSwarmApplicationUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneRestartPolicySwarmApplicationUnion,
+  EnvironmentOneLabelsSwarmApplicationUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema.parse(
+      EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneRestartPolicySwarmApplicationUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneLabelsSwarmApplicationUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOneApplicationRestartPolicySwarmUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneApplicationLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /** @internal */
-export type EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound =
+export type EnvironmentOneApplicationLabelsSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -2392,17 +2226,17 @@ export type EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema:
+export const EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound,
+    EnvironmentOneApplicationLabelsSwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneApplicationRestartPolicySwarmUnion
+    EnvironmentOneApplicationLabelsSwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
+      EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -2412,42 +2246,398 @@ export const EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneApplicationRestartPolicySwarmUnion$ {
-  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema` instead. */
+    EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound` instead. */
-  export type Outbound =
-    EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound;
+    EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneApplicationLabelsSwarmUnion$Outbound;
 }
 
-export function environmentOneApplicationRestartPolicySwarmUnionToJSON(
-  environmentOneApplicationRestartPolicySwarmUnion:
-    EnvironmentOneApplicationRestartPolicySwarmUnion,
+export function environmentOneApplicationLabelsSwarmUnionToJSON(
+  environmentOneApplicationLabelsSwarmUnion:
+    EnvironmentOneApplicationLabelsSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema.parse(
-      environmentOneApplicationRestartPolicySwarmUnion,
+    EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema.parse(
+      environmentOneApplicationLabelsSwarmUnion,
     ),
   );
 }
 
-export function environmentOneApplicationRestartPolicySwarmUnionFromJSON(
+export function environmentOneApplicationLabelsSwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneApplicationRestartPolicySwarmUnion,
+  EnvironmentOneApplicationLabelsSwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema.parse(
+      EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneApplicationRestartPolicySwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneApplicationLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmApplicationEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneModeSwarmApplicationEnum> = z.nativeEnum(
+    EnvironmentOneModeSwarmApplicationEnum,
+  );
+
+/** @internal */
+export const EnvironmentOneModeSwarmApplicationEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneModeSwarmApplicationEnum> =
+    EnvironmentOneModeSwarmApplicationEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmApplicationEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmApplicationEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneModeSwarmApplicationEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmApplicationEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmApplicationEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmApplicationUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmApplicationUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmApplicationUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmApplicationUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmApplicationUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmApplicationUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmApplicationUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneModeSwarmApplicationUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmApplicationUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmApplicationUnion$Outbound;
+}
+
+export function environmentOneModeSwarmApplicationUnionToJSON(
+  environmentOneModeSwarmApplicationUnion:
+    EnvironmentOneModeSwarmApplicationUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmApplicationUnion$outboundSchema.parse(
+      environmentOneModeSwarmApplicationUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmApplicationUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  EnvironmentOneModeSwarmApplicationUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneModeSwarmApplicationUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneModeSwarmApplicationUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneApplicationModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneApplicationModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneApplicationModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneApplicationModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneApplicationModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneApplicationModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneApplicationModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneApplicationModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneApplicationModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneApplicationModeSwarmUnion$Outbound;
+}
+
+export function environmentOneApplicationModeSwarmUnionToJSON(
+  environmentOneApplicationModeSwarmUnion:
+    EnvironmentOneApplicationModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneApplicationModeSwarmUnion$outboundSchema.parse(
+      environmentOneApplicationModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneApplicationModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  EnvironmentOneApplicationModeSwarmUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneApplicationModeSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneApplicationModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmApplicationEnum> = z
+    .nativeEnum(EnvironmentOneNetworkSwarmApplicationEnum);
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmApplicationEnum> =
+    EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmApplicationEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema:
+  z.ZodType<EnvironmentOneNetworkSwarmApplicationUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema,
+    ]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmApplicationUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneNetworkSwarmApplicationUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneNetworkSwarmApplicationUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema,
+  ]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmApplicationUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmApplicationUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmApplicationUnionToJSON(
+  environmentOneNetworkSwarmApplicationUnion:
+    EnvironmentOneNetworkSwarmApplicationUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmApplicationUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmApplicationUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  EnvironmentOneNetworkSwarmApplicationUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneNetworkSwarmApplicationUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema:
+  z.ZodType<EnvironmentOneApplicationNetworkSwarmUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]);
+
+/** @internal */
+export type EnvironmentOneApplicationNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneApplicationNetworkSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneApplicationNetworkSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneApplicationNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneApplicationNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOneApplicationNetworkSwarmUnionToJSON(
+  environmentOneApplicationNetworkSwarmUnion:
+    EnvironmentOneApplicationNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema.parse(
+      environmentOneApplicationNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneApplicationNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  EnvironmentOneApplicationNetworkSwarmUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneApplicationNetworkSwarmUnion' from JSON`,
   );
 }
 
@@ -2635,108 +2825,132 @@ export function environmentOneApplicationPlacementSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmApplicationEnum> = z
-    .nativeEnum(EnvironmentOneUpdateConfigSwarmApplicationEnum);
+export const EnvironmentOnePreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOnePreviewCertificateType> = z.nativeEnum(
+    EnvironmentOnePreviewCertificateType,
+  );
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmApplicationEnum> =
-    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema;
+export const EnvironmentOnePreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOnePreviewCertificateType> =
+    EnvironmentOnePreviewCertificateType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmApplicationEnum$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema` instead. */
+export namespace EnvironmentOnePreviewCertificateType$ {
+  /** @deprecated use `EnvironmentOnePreviewCertificateType$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema` instead. */
+    EnvironmentOnePreviewCertificateType$inboundSchema;
+  /** @deprecated use `EnvironmentOnePreviewCertificateType$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema;
+    EnvironmentOnePreviewCertificateType$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema:
+export const EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmApplicationEnum> = z
+    .nativeEnum(EnvironmentOneRestartPolicySwarmApplicationEnum);
+
+/** @internal */
+export const EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmApplicationEnum> =
+    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneRestartPolicySwarmApplicationEnum$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmApplicationUnion,
+    EnvironmentOneRestartPolicySwarmApplicationUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
+    EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
   ]);
 
 /** @internal */
-export type EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound =
+export type EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema:
+export const EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound,
+    EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneUpdateConfigSwarmApplicationUnion
+    EnvironmentOneRestartPolicySwarmApplicationUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
+    EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmApplicationUnion$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmApplicationUnion$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound` instead. */
+    EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound` instead. */
   export type Outbound =
-    EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound;
+    EnvironmentOneRestartPolicySwarmApplicationUnion$Outbound;
 }
 
-export function environmentOneUpdateConfigSwarmApplicationUnionToJSON(
-  environmentOneUpdateConfigSwarmApplicationUnion:
-    EnvironmentOneUpdateConfigSwarmApplicationUnion,
+export function environmentOneRestartPolicySwarmApplicationUnionToJSON(
+  environmentOneRestartPolicySwarmApplicationUnion:
+    EnvironmentOneRestartPolicySwarmApplicationUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema.parse(
-      environmentOneUpdateConfigSwarmApplicationUnion,
+    EnvironmentOneRestartPolicySwarmApplicationUnion$outboundSchema.parse(
+      environmentOneRestartPolicySwarmApplicationUnion,
     ),
   );
 }
 
-export function environmentOneUpdateConfigSwarmApplicationUnionFromJSON(
+export function environmentOneRestartPolicySwarmApplicationUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneUpdateConfigSwarmApplicationUnion,
+  EnvironmentOneRestartPolicySwarmApplicationUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema.parse(
+      EnvironmentOneRestartPolicySwarmApplicationUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneUpdateConfigSwarmApplicationUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneRestartPolicySwarmApplicationUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema:
+export const EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneApplicationUpdateConfigSwarmUnion,
+    EnvironmentOneApplicationRestartPolicySwarmUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
@@ -2744,14 +2958,14 @@ export const EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema:
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
+      EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
   ]);
 
 /** @internal */
-export type EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound =
+export type EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -2760,17 +2974,17 @@ export type EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema:
+export const EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound,
+    EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneApplicationUpdateConfigSwarmUnion
+    EnvironmentOneApplicationRestartPolicySwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
+      EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -2780,42 +2994,42 @@ export const EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneApplicationUpdateConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationRestartPolicySwarmUnion$ {
+  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound` instead. */
+    EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound` instead. */
   export type Outbound =
-    EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound;
+    EnvironmentOneApplicationRestartPolicySwarmUnion$Outbound;
 }
 
-export function environmentOneApplicationUpdateConfigSwarmUnionToJSON(
-  environmentOneApplicationUpdateConfigSwarmUnion:
-    EnvironmentOneApplicationUpdateConfigSwarmUnion,
+export function environmentOneApplicationRestartPolicySwarmUnionToJSON(
+  environmentOneApplicationRestartPolicySwarmUnion:
+    EnvironmentOneApplicationRestartPolicySwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema.parse(
-      environmentOneApplicationUpdateConfigSwarmUnion,
+    EnvironmentOneApplicationRestartPolicySwarmUnion$outboundSchema.parse(
+      environmentOneApplicationRestartPolicySwarmUnion,
     ),
   );
 }
 
-export function environmentOneApplicationUpdateConfigSwarmUnionFromJSON(
+export function environmentOneApplicationRestartPolicySwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneApplicationUpdateConfigSwarmUnion,
+  EnvironmentOneApplicationRestartPolicySwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema.parse(
+      EnvironmentOneApplicationRestartPolicySwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneApplicationUpdateConfigSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneApplicationRestartPolicySwarmUnion' from JSON`,
   );
 }
 
@@ -3005,300 +3219,170 @@ export function environmentOneApplicationRollbackConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmApplicationEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneModeSwarmApplicationEnum> = z.nativeEnum(
-    EnvironmentOneModeSwarmApplicationEnum,
-  );
+export const EnvironmentOneApplicationSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneApplicationSourceType
+> = z.nativeEnum(EnvironmentOneApplicationSourceType);
 
 /** @internal */
-export const EnvironmentOneModeSwarmApplicationEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneModeSwarmApplicationEnum> =
-    EnvironmentOneModeSwarmApplicationEnum$inboundSchema;
+export const EnvironmentOneApplicationSourceType$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneApplicationSourceType> =
+    EnvironmentOneApplicationSourceType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmApplicationEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmApplicationEnum$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationSourceType$ {
+  /** @deprecated use `EnvironmentOneApplicationSourceType$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneModeSwarmApplicationEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmApplicationEnum$outboundSchema` instead. */
+    EnvironmentOneApplicationSourceType$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationSourceType$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmApplicationEnum$outboundSchema;
+    EnvironmentOneApplicationSourceType$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmApplicationUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmApplicationUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
-]);
+export const EnvironmentOneApplicationTriggerType$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneApplicationTriggerType> = z.nativeEnum(
+    EnvironmentOneApplicationTriggerType,
+  );
 
 /** @internal */
-export type EnvironmentOneModeSwarmApplicationUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneModeSwarmApplicationUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmApplicationUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmApplicationUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
-]);
+export const EnvironmentOneApplicationTriggerType$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneApplicationTriggerType> =
+    EnvironmentOneApplicationTriggerType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmApplicationUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationTriggerType$ {
+  /** @deprecated use `EnvironmentOneApplicationTriggerType$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneModeSwarmApplicationUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$outboundSchema` instead. */
+    EnvironmentOneApplicationTriggerType$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationTriggerType$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmApplicationUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmApplicationUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmApplicationUnion$Outbound;
-}
-
-export function environmentOneModeSwarmApplicationUnionToJSON(
-  environmentOneModeSwarmApplicationUnion:
-    EnvironmentOneModeSwarmApplicationUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneModeSwarmApplicationUnion$outboundSchema.parse(
-      environmentOneModeSwarmApplicationUnion,
-    ),
-  );
-}
-
-export function environmentOneModeSwarmApplicationUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneModeSwarmApplicationUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneModeSwarmApplicationUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneModeSwarmApplicationUnion' from JSON`,
-  );
+    EnvironmentOneApplicationTriggerType$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneApplicationModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneApplicationModeSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmApplicationEnum> = z
+    .nativeEnum(EnvironmentOneUpdateConfigSwarmApplicationEnum);
 
 /** @internal */
-export type EnvironmentOneApplicationModeSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneApplicationModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneApplicationModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneApplicationModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmApplicationEnum> =
+    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneApplicationModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmApplicationEnum$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneApplicationModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneApplicationModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneApplicationModeSwarmUnion$Outbound;
-}
-
-export function environmentOneApplicationModeSwarmUnionToJSON(
-  environmentOneApplicationModeSwarmUnion:
-    EnvironmentOneApplicationModeSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneApplicationModeSwarmUnion$outboundSchema.parse(
-      environmentOneApplicationModeSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneApplicationModeSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneApplicationModeSwarmUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneApplicationModeSwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneApplicationModeSwarmUnion' from JSON`,
-  );
+    EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmApplicationEnum> = z
-    .nativeEnum(EnvironmentOneLabelsSwarmApplicationEnum);
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmApplicationEnum> =
-    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmApplicationEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmApplicationUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmApplicationUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema:
+export const EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneLabelsSwarmApplicationUnion$Outbound,
+    EnvironmentOneUpdateConfigSwarmApplicationUnion,
     z.ZodTypeDef,
-    EnvironmentOneLabelsSwarmApplicationUnion
+    unknown
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema,
+    EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
+  ]);
+
+/** @internal */
+export type EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneUpdateConfigSwarmApplicationUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneLabelsSwarmApplicationUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmApplicationUnion$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema` instead. */
+    EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmApplicationUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmApplicationUnion$Outbound;
+    EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound` instead. */
+  export type Outbound =
+    EnvironmentOneUpdateConfigSwarmApplicationUnion$Outbound;
 }
 
-export function environmentOneLabelsSwarmApplicationUnionToJSON(
-  environmentOneLabelsSwarmApplicationUnion:
-    EnvironmentOneLabelsSwarmApplicationUnion,
+export function environmentOneUpdateConfigSwarmApplicationUnionToJSON(
+  environmentOneUpdateConfigSwarmApplicationUnion:
+    EnvironmentOneUpdateConfigSwarmApplicationUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneLabelsSwarmApplicationUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmApplicationUnion,
+    EnvironmentOneUpdateConfigSwarmApplicationUnion$outboundSchema.parse(
+      environmentOneUpdateConfigSwarmApplicationUnion,
     ),
   );
 }
 
-export function environmentOneLabelsSwarmApplicationUnionFromJSON(
+export function environmentOneUpdateConfigSwarmApplicationUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneLabelsSwarmApplicationUnion,
+  EnvironmentOneUpdateConfigSwarmApplicationUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneLabelsSwarmApplicationUnion$inboundSchema.parse(
+      EnvironmentOneUpdateConfigSwarmApplicationUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneLabelsSwarmApplicationUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneUpdateConfigSwarmApplicationUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneApplicationLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmApplicationEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema:
+  z.ZodType<
+    EnvironmentOneApplicationUpdateConfigSwarmUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /** @internal */
-export type EnvironmentOneApplicationLabelsSwarmUnion$Outbound =
+export type EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -3307,17 +3391,17 @@ export type EnvironmentOneApplicationLabelsSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema:
+export const EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneApplicationLabelsSwarmUnion$Outbound,
+    EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneApplicationLabelsSwarmUnion
+    EnvironmentOneApplicationUpdateConfigSwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneLabelsSwarmApplicationEnum$outboundSchema,
+      EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -3327,263 +3411,43 @@ export const EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneApplicationLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneApplicationUpdateConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneApplicationLabelsSwarmUnion$Outbound;
+    EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound` instead. */
+  export type Outbound =
+    EnvironmentOneApplicationUpdateConfigSwarmUnion$Outbound;
 }
 
-export function environmentOneApplicationLabelsSwarmUnionToJSON(
-  environmentOneApplicationLabelsSwarmUnion:
-    EnvironmentOneApplicationLabelsSwarmUnion,
+export function environmentOneApplicationUpdateConfigSwarmUnionToJSON(
+  environmentOneApplicationUpdateConfigSwarmUnion:
+    EnvironmentOneApplicationUpdateConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneApplicationLabelsSwarmUnion$outboundSchema.parse(
-      environmentOneApplicationLabelsSwarmUnion,
+    EnvironmentOneApplicationUpdateConfigSwarmUnion$outboundSchema.parse(
+      environmentOneApplicationUpdateConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOneApplicationLabelsSwarmUnionFromJSON(
+export function environmentOneApplicationUpdateConfigSwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneApplicationLabelsSwarmUnion,
+  EnvironmentOneApplicationUpdateConfigSwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneApplicationLabelsSwarmUnion$inboundSchema.parse(
+      EnvironmentOneApplicationUpdateConfigSwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneApplicationLabelsSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneApplicationUpdateConfigSwarmUnion' from JSON`,
   );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmApplicationEnum> = z
-    .nativeEnum(EnvironmentOneNetworkSwarmApplicationEnum);
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmApplicationEnum> =
-    EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmApplicationEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema:
-  z.ZodType<EnvironmentOneNetworkSwarmApplicationUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema,
-    ]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmApplicationUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneNetworkSwarmApplicationUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneNetworkSwarmApplicationUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema,
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmApplicationUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmApplicationUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmApplicationUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmApplicationUnionToJSON(
-  environmentOneNetworkSwarmApplicationUnion:
-    EnvironmentOneNetworkSwarmApplicationUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmApplicationUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmApplicationUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmApplicationUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneNetworkSwarmApplicationUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmApplicationUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneNetworkSwarmApplicationUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema:
-  z.ZodType<EnvironmentOneApplicationNetworkSwarmUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneNetworkSwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]);
-
-/** @internal */
-export type EnvironmentOneApplicationNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneApplicationNetworkSwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneApplicationNetworkSwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneNetworkSwarmApplicationEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneApplicationNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneApplicationNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOneApplicationNetworkSwarmUnionToJSON(
-  environmentOneApplicationNetworkSwarmUnion:
-    EnvironmentOneApplicationNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneApplicationNetworkSwarmUnion$outboundSchema.parse(
-      environmentOneApplicationNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneApplicationNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneApplicationNetworkSwarmUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneApplicationNetworkSwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneApplicationNetworkSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneApplicationApplicationStatus$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneApplicationApplicationStatus> = z
-    .nativeEnum(EnvironmentOneApplicationApplicationStatus);
-
-/** @internal */
-export const EnvironmentOneApplicationApplicationStatus$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneApplicationApplicationStatus> =
-    EnvironmentOneApplicationApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneApplicationApplicationStatus$ {
-  /** @deprecated use `EnvironmentOneApplicationApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneApplicationApplicationStatus$inboundSchema;
-  /** @deprecated use `EnvironmentOneApplicationApplicationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneApplicationApplicationStatus$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneBuildType
-> = z.nativeEnum(EnvironmentOneBuildType);
-
-/** @internal */
-export const EnvironmentOneBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneBuildType
-> = EnvironmentOneBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneBuildType$ {
-  /** @deprecated use `EnvironmentOneBuildType$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneBuildType$inboundSchema;
-  /** @deprecated use `EnvironmentOneBuildType$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneBuildType$outboundSchema;
 }
 
 /** @internal */
@@ -3592,70 +3456,51 @@ export const EnvironmentOneApplication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  previewEnv: z.nullable(z.string()),
-  watchPaths: z.nullable(z.array(z.string())),
-  previewBuildArgs: z.nullable(z.string()),
-  previewLabels: z.nullable(z.array(z.string())),
-  previewWildcard: z.nullable(z.string()),
-  previewPort: z.nullable(z.number()),
-  previewHttps: z.boolean(),
-  previewPath: z.nullable(z.string()),
-  previewCertificateType: EnvironmentOnePreviewCertificateType$inboundSchema,
-  previewCustomCertResolver: z.nullable(z.string()),
-  previewLimit: z.nullable(z.number()),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()),
-  rollbackActive: z.nullable(z.boolean()),
-  buildArgs: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  title: z.nullable(z.string()),
-  enabled: z.nullable(z.boolean()),
-  subtitle: z.nullable(z.string()),
-  command: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  sourceType: EnvironmentOneApplicationSourceType$inboundSchema,
-  cleanCache: z.nullable(z.boolean()),
-  repository: z.nullable(z.string()),
-  owner: z.nullable(z.string()),
-  branch: z.nullable(z.string()),
-  buildPath: z.nullable(z.string()),
-  triggerType: z.nullable(EnvironmentOneApplicationTriggerType$inboundSchema),
+  applicationId: z.string(),
+  applicationStatus: EnvironmentOneApplicationApplicationStatus$inboundSchema,
   autoDeploy: z.nullable(z.boolean()),
-  gitlabProjectId: z.nullable(z.number()),
-  gitlabRepository: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabBranch: z.nullable(z.string()),
-  gitlabBuildPath: z.nullable(z.string()),
-  gitlabPathNamespace: z.nullable(z.string()),
-  giteaRepository: z.nullable(z.string()),
-  giteaOwner: z.nullable(z.string()),
-  giteaBranch: z.nullable(z.string()),
-  giteaBuildPath: z.nullable(z.string()),
-  bitbucketRepository: z.nullable(z.string()),
-  bitbucketOwner: z.nullable(z.string()),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
-  username: z.nullable(z.string()),
-  password: z.nullable(z.string()),
-  dockerImage: z.nullable(z.string()),
-  registryUrl: z.nullable(z.string()),
-  customGitUrl: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
+  bitbucketOwner: z.nullable(z.string()),
+  bitbucketRepository: z.nullable(z.string()),
+  branch: z.nullable(z.string()),
+  buildArgs: z.nullable(z.string()),
+  buildPath: z.nullable(z.string()),
+  buildType: EnvironmentOneBuildType$inboundSchema,
+  cleanCache: z.nullable(z.boolean()),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   customGitBranch: z.nullable(z.string()),
   customGitBuildPath: z.nullable(z.string()),
   customGitSSHKeyId: z.nullable(z.string()),
-  enableSubmodules: z.boolean(),
-  dockerfile: z.nullable(z.string()),
-  dockerContextPath: z.nullable(z.string()),
+  customGitUrl: z.nullable(z.string()),
+  description: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerImage: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()),
   dropBuildPath: z.nullable(z.string()),
+  enableSubmodules: z.boolean(),
+  enabled: z.nullable(z.boolean()),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()),
+  giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
+  giteaOwner: z.nullable(z.string()),
+  giteaRepository: z.nullable(z.string()),
+  githubId: z.nullable(z.string()),
+  gitlabBranch: z.nullable(z.string()),
+  gitlabBuildPath: z.nullable(z.string()),
+  gitlabId: z.nullable(z.string()),
+  gitlabOwner: z.nullable(z.string()),
+  gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -3668,66 +3513,9 @@ export const EnvironmentOneApplication$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
+  herokuVersion: z.nullable(z.string()),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()),
+  isStaticSpa: z.nullable(z.boolean()),
   labelsSwarm: z.nullable(
     z.union([
       z.union([
@@ -3740,6 +3528,21 @@ export const EnvironmentOneApplication$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -3752,128 +3555,189 @@ export const EnvironmentOneApplication$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  applicationStatus: EnvironmentOneApplicationApplicationStatus$inboundSchema,
-  buildType: EnvironmentOneBuildType$inboundSchema,
-  railpackVersion: z.nullable(z.string()),
-  herokuVersion: z.nullable(z.string()),
+  owner: z.nullable(z.string()),
+  password: z.nullable(z.string()),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  previewBuildArgs: z.nullable(z.string()),
+  previewCertificateType: EnvironmentOnePreviewCertificateType$inboundSchema,
+  previewCustomCertResolver: z.nullable(z.string()),
+  previewEnv: z.nullable(z.string()),
+  previewHttps: z.boolean(),
+  previewLabels: z.nullable(z.array(z.string())),
+  previewLimit: z.nullable(z.number()),
+  previewPath: z.nullable(z.string()),
+  previewPort: z.nullable(z.number()),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()),
+  previewWildcard: z.nullable(z.string()),
   publishDirectory: z.nullable(z.string()),
-  isStaticSpa: z.nullable(z.boolean()),
-  createdAt: z.string(),
+  railpackVersion: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
   registryId: z.nullable(z.string()),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()),
-  gitlabId: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
+  registryUrl: z.nullable(z.string()),
+  replicas: z.number(),
+  repository: z.nullable(z.string()),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackActive: z.nullable(z.boolean()),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  sourceType: EnvironmentOneApplicationSourceType$inboundSchema,
+  subtitle: z.nullable(z.string()),
+  title: z.nullable(z.string()),
+  triggerType: z.nullable(EnvironmentOneApplicationTriggerType$inboundSchema),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmApplicationEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  username: z.nullable(z.string()),
+  watchPaths: z.nullable(z.array(z.string())),
 });
 
 /** @internal */
 export type EnvironmentOneApplication$Outbound = {
-  applicationId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  env: string | null;
-  previewEnv: string | null;
-  watchPaths: Array<string> | null;
-  previewBuildArgs: string | null;
-  previewLabels: Array<string> | null;
-  previewWildcard: string | null;
-  previewPort: number | null;
-  previewHttps: boolean;
-  previewPath: string | null;
-  previewCertificateType: string;
-  previewCustomCertResolver: string | null;
-  previewLimit: number | null;
-  isPreviewDeploymentsActive: boolean | null;
-  previewRequireCollaboratorPermissions: boolean | null;
-  rollbackActive: boolean | null;
-  buildArgs: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  title: string | null;
-  enabled: boolean | null;
-  subtitle: string | null;
-  command: string | null;
-  refreshToken: string | null;
-  sourceType: string;
-  cleanCache: boolean | null;
-  repository: string | null;
-  owner: string | null;
-  branch: string | null;
-  buildPath: string | null;
-  triggerType: string | null;
+  applicationId: string;
+  applicationStatus: string;
   autoDeploy: boolean | null;
-  gitlabProjectId: number | null;
-  gitlabRepository: string | null;
-  gitlabOwner: string | null;
-  gitlabBranch: string | null;
-  gitlabBuildPath: string | null;
-  gitlabPathNamespace: string | null;
-  giteaRepository: string | null;
-  giteaOwner: string | null;
-  giteaBranch: string | null;
-  giteaBuildPath: string | null;
-  bitbucketRepository: string | null;
-  bitbucketOwner: string | null;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
-  username: string | null;
-  password: string | null;
-  dockerImage: string | null;
-  registryUrl: string | null;
-  customGitUrl: string | null;
+  bitbucketId: string | null;
+  bitbucketOwner: string | null;
+  bitbucketRepository: string | null;
+  branch: string | null;
+  buildArgs: string | null;
+  buildPath: string | null;
+  buildType: string;
+  cleanCache: boolean | null;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   customGitBranch: string | null;
   customGitBuildPath: string | null;
   customGitSSHKeyId: string | null;
-  enableSubmodules: boolean;
-  dockerfile: string | null;
-  dockerContextPath: string | null;
+  customGitUrl: string | null;
+  description: string | null;
   dockerBuildStage: string | null;
+  dockerContextPath: string | null;
+  dockerImage: string | null;
+  dockerfile: string | null;
   dropBuildPath: string | null;
+  enableSubmodules: boolean;
+  enabled: boolean | null;
+  env: string | null;
+  environmentId: string;
+  giteaBranch: string | null;
+  giteaBuildPath: string | null;
+  giteaId: string | null;
+  giteaOwner: string | null;
+  giteaRepository: string | null;
+  githubId: string | null;
+  gitlabBranch: string | null;
+  gitlabBuildPath: string | null;
+  gitlabId: string | null;
+  gitlabOwner: string | null;
+  gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   healthCheckSwarm: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
+  herokuVersion: string | null;
+  isPreviewDeploymentsActive: boolean | null;
+  isStaticSpa: boolean | null;
   labelsSwarm: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  name: string;
   networkSwarm: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   } | null;
-  replicas: number;
-  applicationStatus: string;
-  buildType: string;
-  railpackVersion: string | null;
-  herokuVersion: string | null;
+  owner: string | null;
+  password: string | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  previewBuildArgs: string | null;
+  previewCertificateType: string;
+  previewCustomCertResolver: string | null;
+  previewEnv: string | null;
+  previewHttps: boolean;
+  previewLabels: Array<string> | null;
+  previewLimit: number | null;
+  previewPath: string | null;
+  previewPort: number | null;
+  previewRequireCollaboratorPermissions: boolean | null;
+  previewWildcard: string | null;
   publishDirectory: string | null;
-  isStaticSpa: boolean | null;
-  createdAt: string;
+  railpackVersion: string | null;
+  refreshToken: string | null;
   registryId: string | null;
-  environmentId: string;
-  githubId: string | null;
-  gitlabId: string | null;
-  giteaId: string | null;
-  bitbucketId: string | null;
+  registryUrl: string | null;
+  replicas: number;
+  repository: string | null;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackActive: boolean | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
   serverId: string | null;
+  sourceType: string;
+  subtitle: string | null;
+  title: string | null;
+  triggerType: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  username: string | null;
+  watchPaths: Array<string> | null;
 };
 
 /** @internal */
@@ -3882,70 +3746,51 @@ export const EnvironmentOneApplication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentOneApplication
 > = z.object({
-  applicationId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  previewEnv: z.nullable(z.string()),
-  watchPaths: z.nullable(z.array(z.string())),
-  previewBuildArgs: z.nullable(z.string()),
-  previewLabels: z.nullable(z.array(z.string())),
-  previewWildcard: z.nullable(z.string()),
-  previewPort: z.nullable(z.number()),
-  previewHttps: z.boolean(),
-  previewPath: z.nullable(z.string()),
-  previewCertificateType: EnvironmentOnePreviewCertificateType$outboundSchema,
-  previewCustomCertResolver: z.nullable(z.string()),
-  previewLimit: z.nullable(z.number()),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()),
-  rollbackActive: z.nullable(z.boolean()),
-  buildArgs: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  title: z.nullable(z.string()),
-  enabled: z.nullable(z.boolean()),
-  subtitle: z.nullable(z.string()),
-  command: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  sourceType: EnvironmentOneApplicationSourceType$outboundSchema,
-  cleanCache: z.nullable(z.boolean()),
-  repository: z.nullable(z.string()),
-  owner: z.nullable(z.string()),
-  branch: z.nullable(z.string()),
-  buildPath: z.nullable(z.string()),
-  triggerType: z.nullable(EnvironmentOneApplicationTriggerType$outboundSchema),
+  applicationId: z.string(),
+  applicationStatus: EnvironmentOneApplicationApplicationStatus$outboundSchema,
   autoDeploy: z.nullable(z.boolean()),
-  gitlabProjectId: z.nullable(z.number()),
-  gitlabRepository: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabBranch: z.nullable(z.string()),
-  gitlabBuildPath: z.nullable(z.string()),
-  gitlabPathNamespace: z.nullable(z.string()),
-  giteaRepository: z.nullable(z.string()),
-  giteaOwner: z.nullable(z.string()),
-  giteaBranch: z.nullable(z.string()),
-  giteaBuildPath: z.nullable(z.string()),
-  bitbucketRepository: z.nullable(z.string()),
-  bitbucketOwner: z.nullable(z.string()),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
-  username: z.nullable(z.string()),
-  password: z.nullable(z.string()),
-  dockerImage: z.nullable(z.string()),
-  registryUrl: z.nullable(z.string()),
-  customGitUrl: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
+  bitbucketOwner: z.nullable(z.string()),
+  bitbucketRepository: z.nullable(z.string()),
+  branch: z.nullable(z.string()),
+  buildArgs: z.nullable(z.string()),
+  buildPath: z.nullable(z.string()),
+  buildType: EnvironmentOneBuildType$outboundSchema,
+  cleanCache: z.nullable(z.boolean()),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   customGitBranch: z.nullable(z.string()),
   customGitBuildPath: z.nullable(z.string()),
   customGitSSHKeyId: z.nullable(z.string()),
-  enableSubmodules: z.boolean(),
-  dockerfile: z.nullable(z.string()),
-  dockerContextPath: z.nullable(z.string()),
+  customGitUrl: z.nullable(z.string()),
+  description: z.nullable(z.string()),
   dockerBuildStage: z.nullable(z.string()),
+  dockerContextPath: z.nullable(z.string()),
+  dockerImage: z.nullable(z.string()),
+  dockerfile: z.nullable(z.string()),
   dropBuildPath: z.nullable(z.string()),
+  enableSubmodules: z.boolean(),
+  enabled: z.nullable(z.boolean()),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()),
+  giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
+  giteaOwner: z.nullable(z.string()),
+  giteaRepository: z.nullable(z.string()),
+  githubId: z.nullable(z.string()),
+  gitlabBranch: z.nullable(z.string()),
+  gitlabBuildPath: z.nullable(z.string()),
+  gitlabId: z.nullable(z.string()),
+  gitlabOwner: z.nullable(z.string()),
+  gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -3958,66 +3803,9 @@ export const EnvironmentOneApplication$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmApplicationEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmApplicationEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
+  herokuVersion: z.nullable(z.string()),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()),
+  isStaticSpa: z.nullable(z.boolean()),
   labelsSwarm: z.nullable(
     z.union([
       z.union([
@@ -4030,6 +3818,21 @@ export const EnvironmentOneApplication$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmApplicationEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -4042,21 +3845,82 @@ export const EnvironmentOneApplication$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  applicationStatus: EnvironmentOneApplicationApplicationStatus$outboundSchema,
-  buildType: EnvironmentOneBuildType$outboundSchema,
-  railpackVersion: z.nullable(z.string()),
-  herokuVersion: z.nullable(z.string()),
+  owner: z.nullable(z.string()),
+  password: z.nullable(z.string()),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmApplicationEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  previewBuildArgs: z.nullable(z.string()),
+  previewCertificateType: EnvironmentOnePreviewCertificateType$outboundSchema,
+  previewCustomCertResolver: z.nullable(z.string()),
+  previewEnv: z.nullable(z.string()),
+  previewHttps: z.boolean(),
+  previewLabels: z.nullable(z.array(z.string())),
+  previewLimit: z.nullable(z.number()),
+  previewPath: z.nullable(z.string()),
+  previewPort: z.nullable(z.number()),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()),
+  previewWildcard: z.nullable(z.string()),
   publishDirectory: z.nullable(z.string()),
-  isStaticSpa: z.nullable(z.boolean()),
-  createdAt: z.string(),
+  railpackVersion: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
   registryId: z.nullable(z.string()),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()),
-  gitlabId: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
+  registryUrl: z.nullable(z.string()),
+  replicas: z.number(),
+  repository: z.nullable(z.string()),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmApplicationEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackActive: z.nullable(z.boolean()),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmApplicationEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  sourceType: EnvironmentOneApplicationSourceType$outboundSchema,
+  subtitle: z.nullable(z.string()),
+  title: z.nullable(z.string()),
+  triggerType: z.nullable(EnvironmentOneApplicationTriggerType$outboundSchema),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmApplicationEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  username: z.nullable(z.string()),
+  watchPaths: z.nullable(z.array(z.string())),
 });
 
 /**
@@ -4087,6 +3951,273 @@ export function environmentOneApplicationFromJSON(
     jsonString,
     (x) => EnvironmentOneApplication$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'EnvironmentOneApplication' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneComposeStatus$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeStatus
+> = z.nativeEnum(EnvironmentOneComposeStatus);
+
+/** @internal */
+export const EnvironmentOneComposeStatus$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeStatus
+> = EnvironmentOneComposeStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneComposeStatus$ {
+  /** @deprecated use `EnvironmentOneComposeStatus$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneComposeStatus$inboundSchema;
+  /** @deprecated use `EnvironmentOneComposeStatus$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneComposeStatus$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneComposeType$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeType
+> = z.nativeEnum(EnvironmentOneComposeType);
+
+/** @internal */
+export const EnvironmentOneComposeType$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeType
+> = EnvironmentOneComposeType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneComposeType$ {
+  /** @deprecated use `EnvironmentOneComposeType$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneComposeType$inboundSchema;
+  /** @deprecated use `EnvironmentOneComposeType$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneComposeType$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneComposeSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeSourceType
+> = z.nativeEnum(EnvironmentOneComposeSourceType);
+
+/** @internal */
+export const EnvironmentOneComposeSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeSourceType
+> = EnvironmentOneComposeSourceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneComposeSourceType$ {
+  /** @deprecated use `EnvironmentOneComposeSourceType$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneComposeSourceType$inboundSchema;
+  /** @deprecated use `EnvironmentOneComposeSourceType$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneComposeSourceType$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneComposeTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeTriggerType
+> = z.nativeEnum(EnvironmentOneComposeTriggerType);
+
+/** @internal */
+export const EnvironmentOneComposeTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneComposeTriggerType
+> = EnvironmentOneComposeTriggerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneComposeTriggerType$ {
+  /** @deprecated use `EnvironmentOneComposeTriggerType$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneComposeTriggerType$inboundSchema;
+  /** @deprecated use `EnvironmentOneComposeTriggerType$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneComposeTriggerType$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneCompose$inboundSchema: z.ZodType<
+  EnvironmentOneCompose,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  autoDeploy: z.nullable(z.boolean()),
+  bitbucketBranch: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
+  bitbucketOwner: z.nullable(z.string()),
+  bitbucketRepository: z.nullable(z.string()),
+  branch: z.nullable(z.string()),
+  command: z.string(),
+  composeFile: z.string(),
+  composeId: z.string(),
+  composePath: z.string(),
+  composeStatus: EnvironmentOneComposeStatus$inboundSchema,
+  composeType: EnvironmentOneComposeType$inboundSchema,
+  createdAt: z.string(),
+  customGitBranch: z.nullable(z.string()),
+  customGitSSHKeyId: z.nullable(z.string()),
+  customGitUrl: z.nullable(z.string()),
+  description: z.nullable(z.string()),
+  enableSubmodules: z.boolean(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
+  giteaOwner: z.nullable(z.string()),
+  giteaRepository: z.nullable(z.string()),
+  githubId: z.nullable(z.string()),
+  gitlabBranch: z.nullable(z.string()),
+  gitlabId: z.nullable(z.string()),
+  gitlabOwner: z.nullable(z.string()),
+  gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
+  isolatedDeployment: z.boolean(),
+  isolatedDeploymentsVolume: z.boolean(),
+  name: z.string(),
+  owner: z.nullable(z.string()),
+  randomize: z.boolean(),
+  refreshToken: z.nullable(z.string()),
+  repository: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  sourceType: EnvironmentOneComposeSourceType$inboundSchema,
+  suffix: z.string(),
+  triggerType: z.nullable(EnvironmentOneComposeTriggerType$inboundSchema),
+  watchPaths: z.nullable(z.array(z.string())),
+});
+
+/** @internal */
+export type EnvironmentOneCompose$Outbound = {
+  appName: string;
+  autoDeploy: boolean | null;
+  bitbucketBranch: string | null;
+  bitbucketId: string | null;
+  bitbucketOwner: string | null;
+  bitbucketRepository: string | null;
+  branch: string | null;
+  command: string;
+  composeFile: string;
+  composeId: string;
+  composePath: string;
+  composeStatus: string;
+  composeType: string;
+  createdAt: string;
+  customGitBranch: string | null;
+  customGitSSHKeyId: string | null;
+  customGitUrl: string | null;
+  description: string | null;
+  enableSubmodules: boolean;
+  env: string | null;
+  environmentId: string;
+  giteaBranch: string | null;
+  giteaId: string | null;
+  giteaOwner: string | null;
+  giteaRepository: string | null;
+  githubId: string | null;
+  gitlabBranch: string | null;
+  gitlabId: string | null;
+  gitlabOwner: string | null;
+  gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
+  isolatedDeployment: boolean;
+  isolatedDeploymentsVolume: boolean;
+  name: string;
+  owner: string | null;
+  randomize: boolean;
+  refreshToken: string | null;
+  repository: string | null;
+  serverId: string | null;
+  sourceType: string;
+  suffix: string;
+  triggerType: string | null;
+  watchPaths: Array<string> | null;
+};
+
+/** @internal */
+export const EnvironmentOneCompose$outboundSchema: z.ZodType<
+  EnvironmentOneCompose$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneCompose
+> = z.object({
+  appName: z.string(),
+  autoDeploy: z.nullable(z.boolean()),
+  bitbucketBranch: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
+  bitbucketOwner: z.nullable(z.string()),
+  bitbucketRepository: z.nullable(z.string()),
+  branch: z.nullable(z.string()),
+  command: z.string(),
+  composeFile: z.string(),
+  composeId: z.string(),
+  composePath: z.string(),
+  composeStatus: EnvironmentOneComposeStatus$outboundSchema,
+  composeType: EnvironmentOneComposeType$outboundSchema,
+  createdAt: z.string(),
+  customGitBranch: z.nullable(z.string()),
+  customGitSSHKeyId: z.nullable(z.string()),
+  customGitUrl: z.nullable(z.string()),
+  description: z.nullable(z.string()),
+  enableSubmodules: z.boolean(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  giteaBranch: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
+  giteaOwner: z.nullable(z.string()),
+  giteaRepository: z.nullable(z.string()),
+  githubId: z.nullable(z.string()),
+  gitlabBranch: z.nullable(z.string()),
+  gitlabId: z.nullable(z.string()),
+  gitlabOwner: z.nullable(z.string()),
+  gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
+  isolatedDeployment: z.boolean(),
+  isolatedDeploymentsVolume: z.boolean(),
+  name: z.string(),
+  owner: z.nullable(z.string()),
+  randomize: z.boolean(),
+  refreshToken: z.nullable(z.string()),
+  repository: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  sourceType: EnvironmentOneComposeSourceType$outboundSchema,
+  suffix: z.string(),
+  triggerType: z.nullable(EnvironmentOneComposeTriggerType$outboundSchema),
+  watchPaths: z.nullable(z.array(z.string())),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneCompose$ {
+  /** @deprecated use `EnvironmentOneCompose$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneCompose$inboundSchema;
+  /** @deprecated use `EnvironmentOneCompose$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneCompose$outboundSchema;
+  /** @deprecated use `EnvironmentOneCompose$Outbound` instead. */
+  export type Outbound = EnvironmentOneCompose$Outbound;
+}
+
+export function environmentOneComposeToJSON(
+  environmentOneCompose: EnvironmentOneCompose,
+): string {
+  return JSON.stringify(
+    EnvironmentOneCompose$outboundSchema.parse(environmentOneCompose),
+  );
+}
+
+export function environmentOneComposeFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneCompose, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneCompose$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneCompose' from JSON`,
   );
 }
 
@@ -4292,122 +4423,114 @@ export function environmentOneMariadbHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMariadbEnum> = z
-    .nativeEnum(EnvironmentOneRestartPolicySwarmMariadbEnum);
+export const EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmMariadbEnum> = z.nativeEnum(
+    EnvironmentOneLabelsSwarmMariadbEnum,
+  );
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMariadbEnum> =
-    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema;
+export const EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmMariadbEnum> =
+    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMariadbEnum$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMariadbEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema;
+    EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmMariadbUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMariadbUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema,
+]);
 
 /** @internal */
-export type EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound =
+export type EnvironmentOneLabelsSwarmMariadbUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRestartPolicySwarmMariadbUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMariadbUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneLabelsSwarmMariadbUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema,
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMariadbUnion$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMariadbUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound;
+    EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmMariadbUnion$Outbound;
 }
 
-export function environmentOneRestartPolicySwarmMariadbUnionToJSON(
-  environmentOneRestartPolicySwarmMariadbUnion:
-    EnvironmentOneRestartPolicySwarmMariadbUnion,
+export function environmentOneLabelsSwarmMariadbUnionToJSON(
+  environmentOneLabelsSwarmMariadbUnion: EnvironmentOneLabelsSwarmMariadbUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema.parse(
-      environmentOneRestartPolicySwarmMariadbUnion,
+    EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmMariadbUnion,
     ),
   );
 }
 
-export function environmentOneRestartPolicySwarmMariadbUnionFromJSON(
+export function environmentOneLabelsSwarmMariadbUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRestartPolicySwarmMariadbUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneLabelsSwarmMariadbUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRestartPolicySwarmMariadbUnion' from JSON`,
+      EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneLabelsSwarmMariadbUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOneMariadbRestartPolicySwarmUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMariadbLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /** @internal */
-export type EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound =
+export type EnvironmentOneMariadbLabelsSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -4416,61 +4539,390 @@ export type EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneMariadbRestartPolicySwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMariadbLabelsSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMariadbLabelsSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMariadbRestartPolicySwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMariadbLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound;
+    EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMariadbLabelsSwarmUnion$Outbound;
 }
 
-export function environmentOneMariadbRestartPolicySwarmUnionToJSON(
-  environmentOneMariadbRestartPolicySwarmUnion:
-    EnvironmentOneMariadbRestartPolicySwarmUnion,
+export function environmentOneMariadbLabelsSwarmUnionToJSON(
+  environmentOneMariadbLabelsSwarmUnion: EnvironmentOneMariadbLabelsSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema.parse(
-      environmentOneMariadbRestartPolicySwarmUnion,
+    EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema.parse(
+      environmentOneMariadbLabelsSwarmUnion,
     ),
   );
 }
 
-export function environmentOneMariadbRestartPolicySwarmUnionFromJSON(
+export function environmentOneMariadbLabelsSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneMariadbRestartPolicySwarmUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneMariadbLabelsSwarmUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneMariadbRestartPolicySwarmUnion' from JSON`,
+      EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMariadbLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMariadbEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMariadbEnum
+> = z.nativeEnum(EnvironmentOneModeSwarmMariadbEnum);
+
+/** @internal */
+export const EnvironmentOneModeSwarmMariadbEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMariadbEnum
+> = EnvironmentOneModeSwarmMariadbEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMariadbEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMariadbEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmMariadbEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMariadbEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmMariadbEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMariadbUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMariadbUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmMariadbUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmMariadbUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMariadbUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmMariadbUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMariadbUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneModeSwarmMariadbUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmMariadbUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmMariadbUnion$Outbound;
+}
+
+export function environmentOneModeSwarmMariadbUnionToJSON(
+  environmentOneModeSwarmMariadbUnion: EnvironmentOneModeSwarmMariadbUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmMariadbUnion$outboundSchema.parse(
+      environmentOneModeSwarmMariadbUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmMariadbUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneModeSwarmMariadbUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneModeSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneModeSwarmMariadbUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMariadbModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMariadbModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMariadbModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMariadbModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMariadbModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMariadbModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMariadbModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneMariadbModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMariadbModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMariadbModeSwarmUnion$Outbound;
+}
+
+export function environmentOneMariadbModeSwarmUnionToJSON(
+  environmentOneMariadbModeSwarmUnion: EnvironmentOneMariadbModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMariadbModeSwarmUnion$outboundSchema.parse(
+      environmentOneMariadbModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMariadbModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMariadbModeSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneMariadbModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMariadbModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMariadbEnum> = z.nativeEnum(
+    EnvironmentOneNetworkSwarmMariadbEnum,
+  );
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMariadbEnum> =
+    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMariadbEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMariadbUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmMariadbUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMariadbUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneNetworkSwarmMariadbUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMariadbUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmMariadbUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmMariadbUnionToJSON(
+  environmentOneNetworkSwarmMariadbUnion:
+    EnvironmentOneNetworkSwarmMariadbUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmMariadbUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmMariadbUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneNetworkSwarmMariadbUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneNetworkSwarmMariadbUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMariadbNetworkSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMariadbNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMariadbNetworkSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMariadbNetworkSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMariadbNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMariadbNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOneMariadbNetworkSwarmUnionToJSON(
+  environmentOneMariadbNetworkSwarmUnion:
+    EnvironmentOneMariadbNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema.parse(
+      environmentOneMariadbNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMariadbNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMariadbNetworkSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMariadbNetworkSwarmUnion' from JSON`,
   );
 }
 
@@ -4654,107 +5106,107 @@ export function environmentOneMariadbPlacementSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMariadbEnum> = z
-    .nativeEnum(EnvironmentOneUpdateConfigSwarmMariadbEnum);
+export const EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMariadbEnum> = z
+    .nativeEnum(EnvironmentOneRestartPolicySwarmMariadbEnum);
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMariadbEnum> =
-    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema;
+export const EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMariadbEnum> =
+    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMariadbEnum$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMariadbEnum$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema;
+    EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema:
+export const EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmMariadbUnion,
+    EnvironmentOneRestartPolicySwarmMariadbUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
+    EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
   ]);
 
 /** @internal */
-export type EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound =
+export type EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema:
+export const EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound,
+    EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneUpdateConfigSwarmMariadbUnion
+    EnvironmentOneRestartPolicySwarmMariadbUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+    EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMariadbUnion$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMariadbUnion$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound;
+    EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRestartPolicySwarmMariadbUnion$Outbound;
 }
 
-export function environmentOneUpdateConfigSwarmMariadbUnionToJSON(
-  environmentOneUpdateConfigSwarmMariadbUnion:
-    EnvironmentOneUpdateConfigSwarmMariadbUnion,
+export function environmentOneRestartPolicySwarmMariadbUnionToJSON(
+  environmentOneRestartPolicySwarmMariadbUnion:
+    EnvironmentOneRestartPolicySwarmMariadbUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema.parse(
-      environmentOneUpdateConfigSwarmMariadbUnion,
+    EnvironmentOneRestartPolicySwarmMariadbUnion$outboundSchema.parse(
+      environmentOneRestartPolicySwarmMariadbUnion,
     ),
   );
 }
 
-export function environmentOneUpdateConfigSwarmMariadbUnionFromJSON(
+export function environmentOneRestartPolicySwarmMariadbUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneUpdateConfigSwarmMariadbUnion,
+  EnvironmentOneRestartPolicySwarmMariadbUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema.parse(
+      EnvironmentOneRestartPolicySwarmMariadbUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMariadbUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneRestartPolicySwarmMariadbUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema:
+export const EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneMariadbUpdateConfigSwarmUnion,
+    EnvironmentOneMariadbRestartPolicySwarmUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
@@ -4762,14 +5214,14 @@ export const EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema:
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
+      EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
   ]);
 
 /** @internal */
-export type EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound =
+export type EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -4778,17 +5230,17 @@ export type EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema:
+export const EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound,
+    EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneMariadbUpdateConfigSwarmUnion
+    EnvironmentOneMariadbRestartPolicySwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+      EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -4798,41 +5250,41 @@ export const EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMariadbUpdateConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMariadbRestartPolicySwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound;
+    EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMariadbRestartPolicySwarmUnion$Outbound;
 }
 
-export function environmentOneMariadbUpdateConfigSwarmUnionToJSON(
-  environmentOneMariadbUpdateConfigSwarmUnion:
-    EnvironmentOneMariadbUpdateConfigSwarmUnion,
+export function environmentOneMariadbRestartPolicySwarmUnionToJSON(
+  environmentOneMariadbRestartPolicySwarmUnion:
+    EnvironmentOneMariadbRestartPolicySwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema.parse(
-      environmentOneMariadbUpdateConfigSwarmUnion,
+    EnvironmentOneMariadbRestartPolicySwarmUnion$outboundSchema.parse(
+      environmentOneMariadbRestartPolicySwarmUnion,
     ),
   );
 }
 
-export function environmentOneMariadbUpdateConfigSwarmUnionFromJSON(
+export function environmentOneMariadbRestartPolicySwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneMariadbUpdateConfigSwarmUnion,
+  EnvironmentOneMariadbRestartPolicySwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema.parse(
+      EnvironmentOneMariadbRestartPolicySwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneMariadbUpdateConfigSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneMariadbRestartPolicySwarmUnion' from JSON`,
   );
 }
 
@@ -5020,112 +5472,122 @@ export function environmentOneMariadbRollbackConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMariadbEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMariadbEnum
-> = z.nativeEnum(EnvironmentOneModeSwarmMariadbEnum);
+export const EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMariadbEnum> = z
+    .nativeEnum(EnvironmentOneUpdateConfigSwarmMariadbEnum);
 
 /** @internal */
-export const EnvironmentOneModeSwarmMariadbEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMariadbEnum
-> = EnvironmentOneModeSwarmMariadbEnum$inboundSchema;
+export const EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMariadbEnum> =
+    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMariadbEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMariadbEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmMariadbEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMariadbEnum$outboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmMariadbEnum$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmMariadbEnum$outboundSchema;
+    EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMariadbUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMariadbUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmMariadbUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
+  ]);
 
 /** @internal */
-export type EnvironmentOneModeSwarmMariadbUnion$Outbound =
+export type EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneModeSwarmMariadbUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMariadbUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmMariadbUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneUpdateConfigSwarmMariadbUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMariadbUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$inboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmMariadbUnion$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneModeSwarmMariadbUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$outboundSchema` instead. */
+    EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmMariadbUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMariadbUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmMariadbUnion$Outbound;
+    EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneUpdateConfigSwarmMariadbUnion$Outbound;
 }
 
-export function environmentOneModeSwarmMariadbUnionToJSON(
-  environmentOneModeSwarmMariadbUnion: EnvironmentOneModeSwarmMariadbUnion,
+export function environmentOneUpdateConfigSwarmMariadbUnionToJSON(
+  environmentOneUpdateConfigSwarmMariadbUnion:
+    EnvironmentOneUpdateConfigSwarmMariadbUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneModeSwarmMariadbUnion$outboundSchema.parse(
-      environmentOneModeSwarmMariadbUnion,
+    EnvironmentOneUpdateConfigSwarmMariadbUnion$outboundSchema.parse(
+      environmentOneUpdateConfigSwarmMariadbUnion,
     ),
   );
 }
 
-export function environmentOneModeSwarmMariadbUnionFromJSON(
+export function environmentOneUpdateConfigSwarmMariadbUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneModeSwarmMariadbUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneUpdateConfigSwarmMariadbUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneModeSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneModeSwarmMariadbUnion' from JSON`,
+      EnvironmentOneUpdateConfigSwarmMariadbUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMariadbUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMariadbModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMariadbModeSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema:
+  z.ZodType<
+    EnvironmentOneMariadbUpdateConfigSwarmUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /** @internal */
-export type EnvironmentOneMariadbModeSwarmUnion$Outbound =
+export type EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -5134,392 +5596,61 @@ export type EnvironmentOneMariadbModeSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMariadbModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMariadbModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMariadbModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneMariadbUpdateConfigSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMariadbModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMariadbUpdateConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMariadbModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMariadbModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMariadbModeSwarmUnion$Outbound;
+    EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMariadbUpdateConfigSwarmUnion$Outbound;
 }
 
-export function environmentOneMariadbModeSwarmUnionToJSON(
-  environmentOneMariadbModeSwarmUnion: EnvironmentOneMariadbModeSwarmUnion,
+export function environmentOneMariadbUpdateConfigSwarmUnionToJSON(
+  environmentOneMariadbUpdateConfigSwarmUnion:
+    EnvironmentOneMariadbUpdateConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMariadbModeSwarmUnion$outboundSchema.parse(
-      environmentOneMariadbModeSwarmUnion,
+    EnvironmentOneMariadbUpdateConfigSwarmUnion$outboundSchema.parse(
+      environmentOneMariadbUpdateConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOneMariadbModeSwarmUnionFromJSON(
+export function environmentOneMariadbUpdateConfigSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneMariadbModeSwarmUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneMariadbUpdateConfigSwarmUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMariadbModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMariadbModeSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmMariadbEnum> = z.nativeEnum(
-    EnvironmentOneLabelsSwarmMariadbEnum,
-  );
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmMariadbEnum> =
-    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMariadbEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMariadbUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmMariadbUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMariadbUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneLabelsSwarmMariadbUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMariadbUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMariadbUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmMariadbUnion$Outbound;
-}
-
-export function environmentOneLabelsSwarmMariadbUnionToJSON(
-  environmentOneLabelsSwarmMariadbUnion: EnvironmentOneLabelsSwarmMariadbUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneLabelsSwarmMariadbUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmMariadbUnion,
-    ),
-  );
-}
-
-export function environmentOneLabelsSwarmMariadbUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneLabelsSwarmMariadbUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneLabelsSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneLabelsSwarmMariadbUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMariadbLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMariadbEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMariadbLabelsSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMariadbLabelsSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMariadbLabelsSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMariadbEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMariadbLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMariadbLabelsSwarmUnion$Outbound;
-}
-
-export function environmentOneMariadbLabelsSwarmUnionToJSON(
-  environmentOneMariadbLabelsSwarmUnion: EnvironmentOneMariadbLabelsSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMariadbLabelsSwarmUnion$outboundSchema.parse(
-      environmentOneMariadbLabelsSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMariadbLabelsSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMariadbLabelsSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMariadbLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMariadbLabelsSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMariadbEnum> = z.nativeEnum(
-    EnvironmentOneNetworkSwarmMariadbEnum,
-  );
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMariadbEnum> =
-    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMariadbEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMariadbUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmMariadbUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMariadbUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneNetworkSwarmMariadbUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMariadbUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMariadbUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmMariadbUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmMariadbUnionToJSON(
-  environmentOneNetworkSwarmMariadbUnion:
-    EnvironmentOneNetworkSwarmMariadbUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmMariadbUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmMariadbUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmMariadbUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneNetworkSwarmMariadbUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmMariadbUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneNetworkSwarmMariadbUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMariadbNetworkSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMariadbEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMariadbNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMariadbNetworkSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMariadbNetworkSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMariadbEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMariadbNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMariadbNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMariadbNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOneMariadbNetworkSwarmUnionToJSON(
-  environmentOneMariadbNetworkSwarmUnion:
-    EnvironmentOneMariadbNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMariadbNetworkSwarmUnion$outboundSchema.parse(
-      environmentOneMariadbNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMariadbNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMariadbNetworkSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMariadbNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMariadbNetworkSwarmUnion' from JSON`,
+      EnvironmentOneMariadbUpdateConfigSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneMariadbUpdateConfigSwarmUnion' from JSON`,
   );
 }
 
@@ -5529,23 +5660,21 @@ export const EnvironmentOneMariadb$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: EnvironmentOneMariadbApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: EnvironmentOneMariadbApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -5553,66 +5682,6 @@ export const EnvironmentOneMariadb$inboundSchema: z.ZodType<
         z.number(),
         z.boolean(),
         EnvironmentOneHealthCheckSwarmMariadbEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmMariadbEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMariadbEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -5630,6 +5699,22 @@ export const EnvironmentOneMariadb$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMariadbEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -5642,127 +5727,26 @@ export const EnvironmentOneMariadb$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type EnvironmentOneMariadb$Outbound = {
-  mariadbId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  databaseName: string;
-  databaseUser: string;
-  databasePassword: string;
-  databaseRootPassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  labelsSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  networkSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-};
-
-/** @internal */
-export const EnvironmentOneMariadb$outboundSchema: z.ZodType<
-  EnvironmentOneMariadb$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMariadb
-> = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  databaseRootPassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  applicationStatus: EnvironmentOneMariadbApplicationStatus$outboundSchema,
-  healthCheckSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneHealthCheckSwarmMariadbEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
   placementSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOnePlacementSwarmMariadbEnum$outboundSchema,
+        EnvironmentOnePlacementSwarmMariadbEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  updateConfigSwarm: z.nullable(
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+        EnvironmentOneRestartPolicySwarmMariadbEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -5774,19 +5758,104 @@ export const EnvironmentOneMariadb$outboundSchema: z.ZodType<
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMariadbEnum$outboundSchema,
+        EnvironmentOneRollbackConfigSwarmMariadbEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  modeSwarm: z.nullable(
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
+        EnvironmentOneUpdateConfigSwarmMariadbEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+});
+
+/** @internal */
+export type EnvironmentOneMariadb$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databaseName: string;
+  databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  labelsSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  name: string;
+  networkSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  replicas: number;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  serverId: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+};
+
+/** @internal */
+export const EnvironmentOneMariadb$outboundSchema: z.ZodType<
+  EnvironmentOneMariadb$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMariadb
+> = z.object({
+  appName: z.string(),
+  applicationStatus: EnvironmentOneMariadbApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
+  healthCheckSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneHealthCheckSwarmMariadbEnum$outboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -5804,6 +5873,22 @@ export const EnvironmentOneMariadb$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMariadbEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -5816,10 +5901,56 @@ export const EnvironmentOneMariadb$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmMariadbEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmMariadbEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmMariadbEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmMariadbEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
 });
 
 /**
@@ -6057,116 +6188,112 @@ export function environmentOneMongoHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMongoEnum> = z
-    .nativeEnum(EnvironmentOneRestartPolicySwarmMongoEnum);
+export const EnvironmentOneLabelsSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmMongoEnum
+> = z.nativeEnum(EnvironmentOneLabelsSwarmMongoEnum);
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMongoEnum> =
-    EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema;
+export const EnvironmentOneLabelsSwarmMongoEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmMongoEnum
+> = EnvironmentOneLabelsSwarmMongoEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMongoEnum$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMongoEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMongoEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneLabelsSwarmMongoEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMongoEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema;
+    EnvironmentOneLabelsSwarmMongoEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema:
-  z.ZodType<EnvironmentOneRestartPolicySwarmMongoUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
-    ]);
+export const EnvironmentOneLabelsSwarmMongoUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMongoUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMongoEnum$inboundSchema,
+]);
 
 /** @internal */
-export type EnvironmentOneRestartPolicySwarmMongoUnion$Outbound =
+export type EnvironmentOneLabelsSwarmMongoUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmMongoUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRestartPolicySwarmMongoUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmMongoUnion$outboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMongoUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneLabelsSwarmMongoUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMongoEnum$outboundSchema,
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMongoUnion$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMongoUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmMongoUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRestartPolicySwarmMongoUnion$Outbound;
+    EnvironmentOneLabelsSwarmMongoUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmMongoUnion$Outbound;
 }
 
-export function environmentOneRestartPolicySwarmMongoUnionToJSON(
-  environmentOneRestartPolicySwarmMongoUnion:
-    EnvironmentOneRestartPolicySwarmMongoUnion,
+export function environmentOneLabelsSwarmMongoUnionToJSON(
+  environmentOneLabelsSwarmMongoUnion: EnvironmentOneLabelsSwarmMongoUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema.parse(
-      environmentOneRestartPolicySwarmMongoUnion,
+    EnvironmentOneLabelsSwarmMongoUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmMongoUnion,
     ),
   );
 }
 
-export function environmentOneRestartPolicySwarmMongoUnionFromJSON(
+export function environmentOneLabelsSwarmMongoUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRestartPolicySwarmMongoUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneLabelsSwarmMongoUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRestartPolicySwarmMongoUnion' from JSON`,
+      EnvironmentOneLabelsSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneLabelsSwarmMongoUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema:
-  z.ZodType<EnvironmentOneMongoRestartPolicySwarmUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]);
+export const EnvironmentOneMongoLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMongoLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMongoEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /** @internal */
-export type EnvironmentOneMongoRestartPolicySwarmUnion$Outbound =
+export type EnvironmentOneMongoLabelsSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -6175,61 +6302,382 @@ export type EnvironmentOneMongoRestartPolicySwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneMongoRestartPolicySwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneMongoRestartPolicySwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOneMongoLabelsSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMongoLabelsSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMongoLabelsSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMongoEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMongoRestartPolicySwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMongoLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMongoLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMongoRestartPolicySwarmUnion$Outbound;
+    EnvironmentOneMongoLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMongoLabelsSwarmUnion$Outbound;
 }
 
-export function environmentOneMongoRestartPolicySwarmUnionToJSON(
-  environmentOneMongoRestartPolicySwarmUnion:
-    EnvironmentOneMongoRestartPolicySwarmUnion,
+export function environmentOneMongoLabelsSwarmUnionToJSON(
+  environmentOneMongoLabelsSwarmUnion: EnvironmentOneMongoLabelsSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema.parse(
-      environmentOneMongoRestartPolicySwarmUnion,
+    EnvironmentOneMongoLabelsSwarmUnion$outboundSchema.parse(
+      environmentOneMongoLabelsSwarmUnion,
     ),
   );
 }
 
-export function environmentOneMongoRestartPolicySwarmUnionFromJSON(
+export function environmentOneMongoLabelsSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneMongoRestartPolicySwarmUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneMongoLabelsSwarmUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneMongoRestartPolicySwarmUnion' from JSON`,
+      EnvironmentOneMongoLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMongoLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMongoEnum
+> = z.nativeEnum(EnvironmentOneModeSwarmMongoEnum);
+
+/** @internal */
+export const EnvironmentOneModeSwarmMongoEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMongoEnum
+> = EnvironmentOneModeSwarmMongoEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMongoEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMongoEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmMongoEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMongoEnum$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneModeSwarmMongoEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMongoUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMongoUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMongoEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmMongoUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmMongoUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMongoUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmMongoUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMongoEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMongoUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmMongoUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmMongoUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmMongoUnion$Outbound;
+}
+
+export function environmentOneModeSwarmMongoUnionToJSON(
+  environmentOneModeSwarmMongoUnion: EnvironmentOneModeSwarmMongoUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmMongoUnion$outboundSchema.parse(
+      environmentOneModeSwarmMongoUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmMongoUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneModeSwarmMongoUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneModeSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneModeSwarmMongoUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMongoModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMongoModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMongoEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMongoModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMongoModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMongoModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMongoModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMongoEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMongoModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneMongoModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMongoModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMongoModeSwarmUnion$Outbound;
+}
+
+export function environmentOneMongoModeSwarmUnionToJSON(
+  environmentOneMongoModeSwarmUnion: EnvironmentOneMongoModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMongoModeSwarmUnion$outboundSchema.parse(
+      environmentOneMongoModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMongoModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMongoModeSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneMongoModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMongoModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneNetworkSwarmMongoEnum
+> = z.nativeEnum(EnvironmentOneNetworkSwarmMongoEnum);
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMongoEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMongoEnum> =
+    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMongoEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMongoEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMongoEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMongoEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMongoUnion$inboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMongoUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMongoEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmMongoUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMongoUnion$outboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMongoUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneNetworkSwarmMongoUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMongoEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMongoUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMongoUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMongoUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmMongoUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmMongoUnionToJSON(
+  environmentOneNetworkSwarmMongoUnion: EnvironmentOneNetworkSwarmMongoUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmMongoUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmMongoUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmMongoUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneNetworkSwarmMongoUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneNetworkSwarmMongoUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMongoNetworkSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMongoNetworkSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMongoNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMongoNetworkSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMongoNetworkSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMongoNetworkSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMongoEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMongoNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneMongoNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMongoNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMongoNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOneMongoNetworkSwarmUnionToJSON(
+  environmentOneMongoNetworkSwarmUnion: EnvironmentOneMongoNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMongoNetworkSwarmUnion$outboundSchema.parse(
+      environmentOneMongoNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMongoNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMongoNetworkSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneMongoNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMongoNetworkSwarmUnion' from JSON`,
   );
 }
 
@@ -6404,120 +6852,116 @@ export function environmentOneMongoPlacementSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMongoEnum> = z
-    .nativeEnum(EnvironmentOneUpdateConfigSwarmMongoEnum);
+export const EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMongoEnum> = z
+    .nativeEnum(EnvironmentOneRestartPolicySwarmMongoEnum);
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMongoEnum> =
-    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema;
+export const EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMongoEnum> =
+    EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMongoEnum$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMongoEnum$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema;
+    EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema: z.ZodType<
-  EnvironmentOneUpdateConfigSwarmMongoUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
-]);
+export const EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema:
+  z.ZodType<EnvironmentOneRestartPolicySwarmMongoUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
+    ]);
 
 /** @internal */
-export type EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound =
+export type EnvironmentOneRestartPolicySwarmMongoUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema:
+export const EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound,
+    EnvironmentOneRestartPolicySwarmMongoUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneUpdateConfigSwarmMongoUnion
+    EnvironmentOneRestartPolicySwarmMongoUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+    EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMongoUnion$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMongoUnion$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound;
+    EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMongoUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRestartPolicySwarmMongoUnion$Outbound;
 }
 
-export function environmentOneUpdateConfigSwarmMongoUnionToJSON(
-  environmentOneUpdateConfigSwarmMongoUnion:
-    EnvironmentOneUpdateConfigSwarmMongoUnion,
+export function environmentOneRestartPolicySwarmMongoUnionToJSON(
+  environmentOneRestartPolicySwarmMongoUnion:
+    EnvironmentOneRestartPolicySwarmMongoUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema.parse(
-      environmentOneUpdateConfigSwarmMongoUnion,
+    EnvironmentOneRestartPolicySwarmMongoUnion$outboundSchema.parse(
+      environmentOneRestartPolicySwarmMongoUnion,
     ),
   );
 }
 
-export function environmentOneUpdateConfigSwarmMongoUnionFromJSON(
+export function environmentOneRestartPolicySwarmMongoUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneUpdateConfigSwarmMongoUnion,
+  EnvironmentOneRestartPolicySwarmMongoUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema.parse(
+      EnvironmentOneRestartPolicySwarmMongoUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMongoUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneRestartPolicySwarmMongoUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMongoUpdateConfigSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema:
+  z.ZodType<EnvironmentOneMongoRestartPolicySwarmUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]);
 
 /** @internal */
-export type EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound =
+export type EnvironmentOneMongoRestartPolicySwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -6526,17 +6970,17 @@ export type EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema:
+export const EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound,
+    EnvironmentOneMongoRestartPolicySwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneMongoUpdateConfigSwarmUnion
+    EnvironmentOneMongoRestartPolicySwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+      EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -6546,41 +6990,41 @@ export const EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMongoUpdateConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMongoRestartPolicySwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound;
+    EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMongoRestartPolicySwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMongoRestartPolicySwarmUnion$Outbound;
 }
 
-export function environmentOneMongoUpdateConfigSwarmUnionToJSON(
-  environmentOneMongoUpdateConfigSwarmUnion:
-    EnvironmentOneMongoUpdateConfigSwarmUnion,
+export function environmentOneMongoRestartPolicySwarmUnionToJSON(
+  environmentOneMongoRestartPolicySwarmUnion:
+    EnvironmentOneMongoRestartPolicySwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema.parse(
-      environmentOneMongoUpdateConfigSwarmUnion,
+    EnvironmentOneMongoRestartPolicySwarmUnion$outboundSchema.parse(
+      environmentOneMongoRestartPolicySwarmUnion,
     ),
   );
 }
 
-export function environmentOneMongoUpdateConfigSwarmUnionFromJSON(
+export function environmentOneMongoRestartPolicySwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneMongoUpdateConfigSwarmUnion,
+  EnvironmentOneMongoRestartPolicySwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema.parse(
+      EnvironmentOneMongoRestartPolicySwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneMongoUpdateConfigSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneMongoRestartPolicySwarmUnion' from JSON`,
   );
 }
 
@@ -6768,94 +7212,105 @@ export function environmentOneMongoRollbackConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMongoEnum
-> = z.nativeEnum(EnvironmentOneModeSwarmMongoEnum);
+export const EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMongoEnum> = z
+    .nativeEnum(EnvironmentOneUpdateConfigSwarmMongoEnum);
 
 /** @internal */
-export const EnvironmentOneModeSwarmMongoEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMongoEnum
-> = EnvironmentOneModeSwarmMongoEnum$inboundSchema;
+export const EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMongoEnum> =
+    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMongoEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMongoEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmMongoEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMongoEnum$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneModeSwarmMongoEnum$outboundSchema;
+export namespace EnvironmentOneUpdateConfigSwarmMongoEnum$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMongoUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMongoUnion,
+export const EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema: z.ZodType<
+  EnvironmentOneUpdateConfigSwarmMongoUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
   z.string(),
   z.number(),
   z.boolean(),
-  EnvironmentOneModeSwarmMongoEnum$inboundSchema,
+  EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
 ]);
 
 /** @internal */
-export type EnvironmentOneModeSwarmMongoUnion$Outbound =
+export type EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneModeSwarmMongoUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMongoUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmMongoUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmMongoEnum$outboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneUpdateConfigSwarmMongoUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMongoUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmMongoUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$outboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmMongoUnion$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmMongoUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMongoUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmMongoUnion$Outbound;
+    EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneUpdateConfigSwarmMongoUnion$Outbound;
 }
 
-export function environmentOneModeSwarmMongoUnionToJSON(
-  environmentOneModeSwarmMongoUnion: EnvironmentOneModeSwarmMongoUnion,
+export function environmentOneUpdateConfigSwarmMongoUnionToJSON(
+  environmentOneUpdateConfigSwarmMongoUnion:
+    EnvironmentOneUpdateConfigSwarmMongoUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneModeSwarmMongoUnion$outboundSchema.parse(
-      environmentOneModeSwarmMongoUnion,
+    EnvironmentOneUpdateConfigSwarmMongoUnion$outboundSchema.parse(
+      environmentOneUpdateConfigSwarmMongoUnion,
     ),
   );
 }
 
-export function environmentOneModeSwarmMongoUnionFromJSON(
+export function environmentOneUpdateConfigSwarmMongoUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneModeSwarmMongoUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneUpdateConfigSwarmMongoUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => EnvironmentOneModeSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneModeSwarmMongoUnion' from JSON`,
+    (x) =>
+      EnvironmentOneUpdateConfigSwarmMongoUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMongoUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMongoModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMongoModeSwarmUnion,
+export const EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMongoUpdateConfigSwarmUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
@@ -6863,14 +7318,14 @@ export const EnvironmentOneMongoModeSwarmUnion$inboundSchema: z.ZodType<
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneModeSwarmMongoEnum$inboundSchema,
+    EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
   ]),
   z.array(z.any()),
   z.record(z.any()),
 ]);
 
 /** @internal */
-export type EnvironmentOneMongoModeSwarmUnion$Outbound =
+export type EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -6879,385 +7334,61 @@ export type EnvironmentOneMongoModeSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMongoModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMongoModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMongoModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmMongoEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneMongoUpdateConfigSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMongoModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneMongoModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMongoModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMongoModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMongoModeSwarmUnion$Outbound;
-}
-
-export function environmentOneMongoModeSwarmUnionToJSON(
-  environmentOneMongoModeSwarmUnion: EnvironmentOneMongoModeSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMongoModeSwarmUnion$outboundSchema.parse(
-      environmentOneMongoModeSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMongoModeSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMongoModeSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneMongoModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMongoModeSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmMongoEnum
-> = z.nativeEnum(EnvironmentOneLabelsSwarmMongoEnum);
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMongoEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmMongoEnum
-> = EnvironmentOneLabelsSwarmMongoEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMongoEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMongoEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneLabelsSwarmMongoEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMongoEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmMongoEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMongoUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMongoUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMongoEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmMongoUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMongoUnion$outboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMongoUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneLabelsSwarmMongoUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMongoEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMongoUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMongoUpdateConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneLabelsSwarmMongoUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$outboundSchema` instead. */
+    EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneLabelsSwarmMongoUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMongoUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmMongoUnion$Outbound;
+    EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMongoUpdateConfigSwarmUnion$Outbound;
 }
 
-export function environmentOneLabelsSwarmMongoUnionToJSON(
-  environmentOneLabelsSwarmMongoUnion: EnvironmentOneLabelsSwarmMongoUnion,
+export function environmentOneMongoUpdateConfigSwarmUnionToJSON(
+  environmentOneMongoUpdateConfigSwarmUnion:
+    EnvironmentOneMongoUpdateConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneLabelsSwarmMongoUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmMongoUnion,
+    EnvironmentOneMongoUpdateConfigSwarmUnion$outboundSchema.parse(
+      environmentOneMongoUpdateConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOneLabelsSwarmMongoUnionFromJSON(
+export function environmentOneMongoUpdateConfigSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneLabelsSwarmMongoUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneMongoUpdateConfigSwarmUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneLabelsSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneLabelsSwarmMongoUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMongoLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMongoLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMongoEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMongoLabelsSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMongoLabelsSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMongoLabelsSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMongoLabelsSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMongoEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMongoLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMongoLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMongoLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMongoLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMongoLabelsSwarmUnion$Outbound;
-}
-
-export function environmentOneMongoLabelsSwarmUnionToJSON(
-  environmentOneMongoLabelsSwarmUnion: EnvironmentOneMongoLabelsSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMongoLabelsSwarmUnion$outboundSchema.parse(
-      environmentOneMongoLabelsSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMongoLabelsSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMongoLabelsSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMongoLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMongoLabelsSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMongoEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneNetworkSwarmMongoEnum
-> = z.nativeEnum(EnvironmentOneNetworkSwarmMongoEnum);
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMongoEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMongoEnum> =
-    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMongoEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMongoEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMongoEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMongoEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMongoUnion$inboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMongoUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMongoEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmMongoUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMongoUnion$outboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMongoUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneNetworkSwarmMongoUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMongoEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMongoUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMongoUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMongoUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMongoUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmMongoUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmMongoUnionToJSON(
-  environmentOneNetworkSwarmMongoUnion: EnvironmentOneNetworkSwarmMongoUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmMongoUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmMongoUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmMongoUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneNetworkSwarmMongoUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmMongoUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneNetworkSwarmMongoUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMongoNetworkSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMongoNetworkSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMongoEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMongoNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMongoNetworkSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMongoNetworkSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMongoNetworkSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMongoEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMongoNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMongoNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMongoNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMongoNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMongoNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOneMongoNetworkSwarmUnionToJSON(
-  environmentOneMongoNetworkSwarmUnion: EnvironmentOneMongoNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMongoNetworkSwarmUnion$outboundSchema.parse(
-      environmentOneMongoNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMongoNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMongoNetworkSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMongoNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMongoNetworkSwarmUnion' from JSON`,
+      EnvironmentOneMongoUpdateConfigSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneMongoUpdateConfigSwarmUnion' from JSON`,
   );
 }
 
@@ -7267,21 +7398,19 @@ export const EnvironmentOneMongo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: EnvironmentOneMongoApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -7289,66 +7418,6 @@ export const EnvironmentOneMongo$inboundSchema: z.ZodType<
         z.number(),
         z.boolean(),
         EnvironmentOneHealthCheckSwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMongoEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmMongoEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -7366,6 +7435,22 @@ export const EnvironmentOneMongo$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMongoEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  mongoId: z.string(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -7378,125 +7463,27 @@ export const EnvironmentOneMongo$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-});
-
-/** @internal */
-export type EnvironmentOneMongo$Outbound = {
-  mongoId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  labelsSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  networkSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-};
-
-/** @internal */
-export const EnvironmentOneMongo$outboundSchema: z.ZodType<
-  EnvironmentOneMongo$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMongo
-> = z.object({
-  mongoId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  applicationStatus: EnvironmentOneMongoApplicationStatus$outboundSchema,
-  healthCheckSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneHealthCheckSwarmMongoEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
   placementSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOnePlacementSwarmMongoEnum$outboundSchema,
+        EnvironmentOnePlacementSwarmMongoEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  updateConfigSwarm: z.nullable(
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+        EnvironmentOneRestartPolicySwarmMongoEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -7508,19 +7495,101 @@ export const EnvironmentOneMongo$outboundSchema: z.ZodType<
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMongoEnum$outboundSchema,
+        EnvironmentOneRollbackConfigSwarmMongoEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  modeSwarm: z.nullable(
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneModeSwarmMongoEnum$outboundSchema,
+        EnvironmentOneUpdateConfigSwarmMongoEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+});
+
+/** @internal */
+export type EnvironmentOneMongo$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  labelsSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  mongoId: string;
+  name: string;
+  networkSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  serverId: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+};
+
+/** @internal */
+export const EnvironmentOneMongo$outboundSchema: z.ZodType<
+  EnvironmentOneMongo$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMongo
+> = z.object({
+  appName: z.string(),
+  applicationStatus: EnvironmentOneMongoApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
+  healthCheckSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneHealthCheckSwarmMongoEnum$outboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -7538,6 +7607,22 @@ export const EnvironmentOneMongo$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMongoEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  mongoId: z.string(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -7550,11 +7635,57 @@ export const EnvironmentOneMongo$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmMongoEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmMongoEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmMongoEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmMongoEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
 });
 
 /**
@@ -7792,116 +7923,112 @@ export function environmentOneMysqlHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMysqlEnum> = z
-    .nativeEnum(EnvironmentOneRestartPolicySwarmMysqlEnum);
+export const EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmMysqlEnum
+> = z.nativeEnum(EnvironmentOneLabelsSwarmMysqlEnum);
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMysqlEnum> =
-    EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema;
+export const EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmMysqlEnum
+> = EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMysqlEnum$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMysqlEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema;
+    EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema:
-  z.ZodType<EnvironmentOneRestartPolicySwarmMysqlUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
-    ]);
+export const EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMysqlUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema,
+]);
 
 /** @internal */
-export type EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound =
+export type EnvironmentOneLabelsSwarmMysqlUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRestartPolicySwarmMysqlUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmMysqlUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneLabelsSwarmMysqlUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema,
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmMysqlUnion$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmMysqlUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound;
+    EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmMysqlUnion$Outbound;
 }
 
-export function environmentOneRestartPolicySwarmMysqlUnionToJSON(
-  environmentOneRestartPolicySwarmMysqlUnion:
-    EnvironmentOneRestartPolicySwarmMysqlUnion,
+export function environmentOneLabelsSwarmMysqlUnionToJSON(
+  environmentOneLabelsSwarmMysqlUnion: EnvironmentOneLabelsSwarmMysqlUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema.parse(
-      environmentOneRestartPolicySwarmMysqlUnion,
+    EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmMysqlUnion,
     ),
   );
 }
 
-export function environmentOneRestartPolicySwarmMysqlUnionFromJSON(
+export function environmentOneLabelsSwarmMysqlUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRestartPolicySwarmMysqlUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneLabelsSwarmMysqlUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRestartPolicySwarmMysqlUnion' from JSON`,
+      EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneLabelsSwarmMysqlUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema:
-  z.ZodType<EnvironmentOneMysqlRestartPolicySwarmUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]);
+export const EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMysqlLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /** @internal */
-export type EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound =
+export type EnvironmentOneMysqlLabelsSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -7910,61 +8037,382 @@ export type EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneMysqlRestartPolicySwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMysqlLabelsSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMysqlLabelsSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMysqlRestartPolicySwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMysqlLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound;
+    EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMysqlLabelsSwarmUnion$Outbound;
 }
 
-export function environmentOneMysqlRestartPolicySwarmUnionToJSON(
-  environmentOneMysqlRestartPolicySwarmUnion:
-    EnvironmentOneMysqlRestartPolicySwarmUnion,
+export function environmentOneMysqlLabelsSwarmUnionToJSON(
+  environmentOneMysqlLabelsSwarmUnion: EnvironmentOneMysqlLabelsSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema.parse(
-      environmentOneMysqlRestartPolicySwarmUnion,
+    EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema.parse(
+      environmentOneMysqlLabelsSwarmUnion,
     ),
   );
 }
 
-export function environmentOneMysqlRestartPolicySwarmUnionFromJSON(
+export function environmentOneMysqlLabelsSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneMysqlRestartPolicySwarmUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneMysqlLabelsSwarmUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneMysqlRestartPolicySwarmUnion' from JSON`,
+      EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMysqlLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMysqlEnum
+> = z.nativeEnum(EnvironmentOneModeSwarmMysqlEnum);
+
+/** @internal */
+export const EnvironmentOneModeSwarmMysqlEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmMysqlEnum
+> = EnvironmentOneModeSwarmMysqlEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMysqlEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMysqlEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmMysqlEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMysqlEnum$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneModeSwarmMysqlEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmMysqlUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMysqlUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmMysqlUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmMysqlUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmMysqlUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmMysqlUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmMysqlUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmMysqlUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmMysqlUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmMysqlUnion$Outbound;
+}
+
+export function environmentOneModeSwarmMysqlUnionToJSON(
+  environmentOneModeSwarmMysqlUnion: EnvironmentOneModeSwarmMysqlUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmMysqlUnion$outboundSchema.parse(
+      environmentOneModeSwarmMysqlUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmMysqlUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneModeSwarmMysqlUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneModeSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneModeSwarmMysqlUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMysqlModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMysqlModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMysqlModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMysqlModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMysqlModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMysqlModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMysqlModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneMysqlModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMysqlModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMysqlModeSwarmUnion$Outbound;
+}
+
+export function environmentOneMysqlModeSwarmUnionToJSON(
+  environmentOneMysqlModeSwarmUnion: EnvironmentOneMysqlModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMysqlModeSwarmUnion$outboundSchema.parse(
+      environmentOneMysqlModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMysqlModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMysqlModeSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneMysqlModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMysqlModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneNetworkSwarmMysqlEnum
+> = z.nativeEnum(EnvironmentOneNetworkSwarmMysqlEnum);
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMysqlEnum> =
+    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMysqlEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMysqlUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmMysqlUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmMysqlUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneNetworkSwarmMysqlUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmMysqlUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmMysqlUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmMysqlUnionToJSON(
+  environmentOneNetworkSwarmMysqlUnion: EnvironmentOneNetworkSwarmMysqlUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmMysqlUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmMysqlUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneNetworkSwarmMysqlUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneNetworkSwarmMysqlUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMysqlNetworkSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneMysqlNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneMysqlNetworkSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMysqlNetworkSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneMysqlNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMysqlNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOneMysqlNetworkSwarmUnionToJSON(
+  environmentOneMysqlNetworkSwarmUnion: EnvironmentOneMysqlNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema.parse(
+      environmentOneMysqlNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneMysqlNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneMysqlNetworkSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneMysqlNetworkSwarmUnion' from JSON`,
   );
 }
 
@@ -8139,120 +8587,116 @@ export function environmentOneMysqlPlacementSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMysqlEnum> = z
-    .nativeEnum(EnvironmentOneUpdateConfigSwarmMysqlEnum);
+export const EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMysqlEnum> = z
+    .nativeEnum(EnvironmentOneRestartPolicySwarmMysqlEnum);
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMysqlEnum> =
-    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema;
+export const EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmMysqlEnum> =
+    EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMysqlEnum$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMysqlEnum$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema;
+    EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema: z.ZodType<
-  EnvironmentOneUpdateConfigSwarmMysqlUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
-]);
+export const EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema:
+  z.ZodType<EnvironmentOneRestartPolicySwarmMysqlUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
+    ]);
 
 /** @internal */
-export type EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound =
+export type EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema:
+export const EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound,
+    EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneUpdateConfigSwarmMysqlUnion
+    EnvironmentOneRestartPolicySwarmMysqlUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+    EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmMysqlUnion$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmMysqlUnion$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound;
+    EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRestartPolicySwarmMysqlUnion$Outbound;
 }
 
-export function environmentOneUpdateConfigSwarmMysqlUnionToJSON(
-  environmentOneUpdateConfigSwarmMysqlUnion:
-    EnvironmentOneUpdateConfigSwarmMysqlUnion,
+export function environmentOneRestartPolicySwarmMysqlUnionToJSON(
+  environmentOneRestartPolicySwarmMysqlUnion:
+    EnvironmentOneRestartPolicySwarmMysqlUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema.parse(
-      environmentOneUpdateConfigSwarmMysqlUnion,
+    EnvironmentOneRestartPolicySwarmMysqlUnion$outboundSchema.parse(
+      environmentOneRestartPolicySwarmMysqlUnion,
     ),
   );
 }
 
-export function environmentOneUpdateConfigSwarmMysqlUnionFromJSON(
+export function environmentOneRestartPolicySwarmMysqlUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneUpdateConfigSwarmMysqlUnion,
+  EnvironmentOneRestartPolicySwarmMysqlUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema.parse(
+      EnvironmentOneRestartPolicySwarmMysqlUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMysqlUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneRestartPolicySwarmMysqlUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMysqlUpdateConfigSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema:
+  z.ZodType<EnvironmentOneMysqlRestartPolicySwarmUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]);
 
 /** @internal */
-export type EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound =
+export type EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -8261,17 +8705,17 @@ export type EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema:
+export const EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound,
+    EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneMysqlUpdateConfigSwarmUnion
+    EnvironmentOneMysqlRestartPolicySwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+      EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -8281,41 +8725,41 @@ export const EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMysqlUpdateConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMysqlRestartPolicySwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound;
+    EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMysqlRestartPolicySwarmUnion$Outbound;
 }
 
-export function environmentOneMysqlUpdateConfigSwarmUnionToJSON(
-  environmentOneMysqlUpdateConfigSwarmUnion:
-    EnvironmentOneMysqlUpdateConfigSwarmUnion,
+export function environmentOneMysqlRestartPolicySwarmUnionToJSON(
+  environmentOneMysqlRestartPolicySwarmUnion:
+    EnvironmentOneMysqlRestartPolicySwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema.parse(
-      environmentOneMysqlUpdateConfigSwarmUnion,
+    EnvironmentOneMysqlRestartPolicySwarmUnion$outboundSchema.parse(
+      environmentOneMysqlRestartPolicySwarmUnion,
     ),
   );
 }
 
-export function environmentOneMysqlUpdateConfigSwarmUnionFromJSON(
+export function environmentOneMysqlRestartPolicySwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneMysqlUpdateConfigSwarmUnion,
+  EnvironmentOneMysqlRestartPolicySwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema.parse(
+      EnvironmentOneMysqlRestartPolicySwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneMysqlUpdateConfigSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneMysqlRestartPolicySwarmUnion' from JSON`,
   );
 }
 
@@ -8503,94 +8947,105 @@ export function environmentOneMysqlRollbackConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMysqlEnum
-> = z.nativeEnum(EnvironmentOneModeSwarmMysqlEnum);
+export const EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMysqlEnum> = z
+    .nativeEnum(EnvironmentOneUpdateConfigSwarmMysqlEnum);
 
 /** @internal */
-export const EnvironmentOneModeSwarmMysqlEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmMysqlEnum
-> = EnvironmentOneModeSwarmMysqlEnum$inboundSchema;
+export const EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmMysqlEnum> =
+    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMysqlEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMysqlEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmMysqlEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMysqlEnum$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneModeSwarmMysqlEnum$outboundSchema;
+export namespace EnvironmentOneUpdateConfigSwarmMysqlEnum$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmMysqlUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMysqlUnion,
+export const EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema: z.ZodType<
+  EnvironmentOneUpdateConfigSwarmMysqlUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
   z.string(),
   z.number(),
   z.boolean(),
-  EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
+  EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
 ]);
 
 /** @internal */
-export type EnvironmentOneModeSwarmMysqlUnion$Outbound =
+export type EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneModeSwarmMysqlUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmMysqlUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmMysqlUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneUpdateConfigSwarmMysqlUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmMysqlUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmMysqlUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$outboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmMysqlUnion$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmMysqlUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmMysqlUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmMysqlUnion$Outbound;
+    EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneUpdateConfigSwarmMysqlUnion$Outbound;
 }
 
-export function environmentOneModeSwarmMysqlUnionToJSON(
-  environmentOneModeSwarmMysqlUnion: EnvironmentOneModeSwarmMysqlUnion,
+export function environmentOneUpdateConfigSwarmMysqlUnionToJSON(
+  environmentOneUpdateConfigSwarmMysqlUnion:
+    EnvironmentOneUpdateConfigSwarmMysqlUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneModeSwarmMysqlUnion$outboundSchema.parse(
-      environmentOneModeSwarmMysqlUnion,
+    EnvironmentOneUpdateConfigSwarmMysqlUnion$outboundSchema.parse(
+      environmentOneUpdateConfigSwarmMysqlUnion,
     ),
   );
 }
 
-export function environmentOneModeSwarmMysqlUnionFromJSON(
+export function environmentOneUpdateConfigSwarmMysqlUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneModeSwarmMysqlUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneUpdateConfigSwarmMysqlUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => EnvironmentOneModeSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneModeSwarmMysqlUnion' from JSON`,
+    (x) =>
+      EnvironmentOneUpdateConfigSwarmMysqlUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneUpdateConfigSwarmMysqlUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneMysqlModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMysqlModeSwarmUnion,
+export const EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneMysqlUpdateConfigSwarmUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
@@ -8598,14 +9053,14 @@ export const EnvironmentOneMysqlModeSwarmUnion$inboundSchema: z.ZodType<
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
+    EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
   ]),
   z.array(z.any()),
   z.record(z.any()),
 ]);
 
 /** @internal */
-export type EnvironmentOneMysqlModeSwarmUnion$Outbound =
+export type EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -8614,385 +9069,61 @@ export type EnvironmentOneMysqlModeSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneMysqlModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMysqlModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMysqlModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneMysqlUpdateConfigSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneMysqlModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneMysqlModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMysqlModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMysqlModeSwarmUnion$Outbound;
-}
-
-export function environmentOneMysqlModeSwarmUnionToJSON(
-  environmentOneMysqlModeSwarmUnion: EnvironmentOneMysqlModeSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMysqlModeSwarmUnion$outboundSchema.parse(
-      environmentOneMysqlModeSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMysqlModeSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMysqlModeSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneMysqlModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMysqlModeSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmMysqlEnum
-> = z.nativeEnum(EnvironmentOneLabelsSwarmMysqlEnum);
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmMysqlEnum
-> = EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMysqlEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMysqlUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmMysqlUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmMysqlUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneLabelsSwarmMysqlUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmMysqlUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema` instead. */
+export namespace EnvironmentOneMysqlUpdateConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema` instead. */
+    EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmMysqlUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmMysqlUnion$Outbound;
+    EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneMysqlUpdateConfigSwarmUnion$Outbound;
 }
 
-export function environmentOneLabelsSwarmMysqlUnionToJSON(
-  environmentOneLabelsSwarmMysqlUnion: EnvironmentOneLabelsSwarmMysqlUnion,
+export function environmentOneMysqlUpdateConfigSwarmUnionToJSON(
+  environmentOneMysqlUpdateConfigSwarmUnion:
+    EnvironmentOneMysqlUpdateConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneLabelsSwarmMysqlUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmMysqlUnion,
+    EnvironmentOneMysqlUpdateConfigSwarmUnion$outboundSchema.parse(
+      environmentOneMysqlUpdateConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOneLabelsSwarmMysqlUnionFromJSON(
+export function environmentOneMysqlUpdateConfigSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneLabelsSwarmMysqlUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneMysqlUpdateConfigSwarmUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneLabelsSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneLabelsSwarmMysqlUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMysqlLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMysqlEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMysqlLabelsSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMysqlLabelsSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMysqlLabelsSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmMysqlEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMysqlLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMysqlLabelsSwarmUnion$Outbound;
-}
-
-export function environmentOneMysqlLabelsSwarmUnionToJSON(
-  environmentOneMysqlLabelsSwarmUnion: EnvironmentOneMysqlLabelsSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMysqlLabelsSwarmUnion$outboundSchema.parse(
-      environmentOneMysqlLabelsSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMysqlLabelsSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMysqlLabelsSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMysqlLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMysqlLabelsSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneNetworkSwarmMysqlEnum
-> = z.nativeEnum(EnvironmentOneNetworkSwarmMysqlEnum);
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmMysqlEnum> =
-    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMysqlEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMysqlUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmMysqlUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmMysqlUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneNetworkSwarmMysqlUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmMysqlUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmMysqlUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmMysqlUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmMysqlUnionToJSON(
-  environmentOneNetworkSwarmMysqlUnion: EnvironmentOneNetworkSwarmMysqlUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmMysqlUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmMysqlUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmMysqlUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneNetworkSwarmMysqlUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmMysqlUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneNetworkSwarmMysqlUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneMysqlNetworkSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMysqlEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneMysqlNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneMysqlNetworkSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMysqlNetworkSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmMysqlEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneMysqlNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneMysqlNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneMysqlNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOneMysqlNetworkSwarmUnionToJSON(
-  environmentOneMysqlNetworkSwarmUnion: EnvironmentOneMysqlNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneMysqlNetworkSwarmUnion$outboundSchema.parse(
-      environmentOneMysqlNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneMysqlNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneMysqlNetworkSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneMysqlNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneMysqlNetworkSwarmUnion' from JSON`,
+      EnvironmentOneMysqlUpdateConfigSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneMysqlUpdateConfigSwarmUnion' from JSON`,
   );
 }
 
@@ -9002,23 +9133,21 @@ export const EnvironmentOneMysql$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: EnvironmentOneMysqlApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: EnvironmentOneMysqlApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -9026,66 +9155,6 @@ export const EnvironmentOneMysql$inboundSchema: z.ZodType<
         z.number(),
         z.boolean(),
         EnvironmentOneHealthCheckSwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMysqlEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -9103,6 +9172,22 @@ export const EnvironmentOneMysql$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMysqlEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  mysqlId: z.string(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -9115,127 +9200,26 @@ export const EnvironmentOneMysql$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type EnvironmentOneMysql$Outbound = {
-  mysqlId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  databaseName: string;
-  databaseUser: string;
-  databasePassword: string;
-  databaseRootPassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  labelsSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  networkSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-};
-
-/** @internal */
-export const EnvironmentOneMysql$outboundSchema: z.ZodType<
-  EnvironmentOneMysql$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneMysql
-> = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  databaseRootPassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  applicationStatus: EnvironmentOneMysqlApplicationStatus$outboundSchema,
-  healthCheckSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneHealthCheckSwarmMysqlEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
   placementSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOnePlacementSwarmMysqlEnum$outboundSchema,
+        EnvironmentOnePlacementSwarmMysqlEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  updateConfigSwarm: z.nullable(
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+        EnvironmentOneRestartPolicySwarmMysqlEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -9247,19 +9231,104 @@ export const EnvironmentOneMysql$outboundSchema: z.ZodType<
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneRollbackConfigSwarmMysqlEnum$outboundSchema,
+        EnvironmentOneRollbackConfigSwarmMysqlEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  modeSwarm: z.nullable(
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
+        EnvironmentOneUpdateConfigSwarmMysqlEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+});
+
+/** @internal */
+export type EnvironmentOneMysql$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databaseName: string;
+  databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  labelsSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  mysqlId: string;
+  name: string;
+  networkSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  replicas: number;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  serverId: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+};
+
+/** @internal */
+export const EnvironmentOneMysql$outboundSchema: z.ZodType<
+  EnvironmentOneMysql$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneMysql
+> = z.object({
+  appName: z.string(),
+  applicationStatus: EnvironmentOneMysqlApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
+  healthCheckSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneHealthCheckSwarmMysqlEnum$outboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -9277,6 +9346,22 @@ export const EnvironmentOneMysql$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmMysqlEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  mysqlId: z.string(),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -9289,10 +9374,56 @@ export const EnvironmentOneMysql$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmMysqlEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmMysqlEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmMysqlEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmMysqlEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
 });
 
 /**
@@ -9528,122 +9659,114 @@ export function environmentOnePostgreHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmPostgreEnum> = z
-    .nativeEnum(EnvironmentOneRestartPolicySwarmPostgreEnum);
+export const EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmPostgreEnum> = z.nativeEnum(
+    EnvironmentOneLabelsSwarmPostgreEnum,
+  );
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmPostgreEnum> =
-    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema;
+export const EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmPostgreEnum> =
+    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmPostgreEnum$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmPostgreEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema;
+    EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmPostgreUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmPostgreUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema,
+]);
 
 /** @internal */
-export type EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound =
+export type EnvironmentOneLabelsSwarmPostgreUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRestartPolicySwarmPostgreUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
-  ]);
+export const EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmPostgreUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneLabelsSwarmPostgreUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema,
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRestartPolicySwarmPostgreUnion$ {
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema` instead. */
+export namespace EnvironmentOneLabelsSwarmPostgreUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema` instead. */
+    EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound;
+    EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmPostgreUnion$Outbound;
 }
 
-export function environmentOneRestartPolicySwarmPostgreUnionToJSON(
-  environmentOneRestartPolicySwarmPostgreUnion:
-    EnvironmentOneRestartPolicySwarmPostgreUnion,
+export function environmentOneLabelsSwarmPostgreUnionToJSON(
+  environmentOneLabelsSwarmPostgreUnion: EnvironmentOneLabelsSwarmPostgreUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema.parse(
-      environmentOneRestartPolicySwarmPostgreUnion,
+    EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmPostgreUnion,
     ),
   );
 }
 
-export function environmentOneRestartPolicySwarmPostgreUnionFromJSON(
+export function environmentOneLabelsSwarmPostgreUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRestartPolicySwarmPostgreUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOneLabelsSwarmPostgreUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRestartPolicySwarmPostgreUnion' from JSON`,
+      EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneLabelsSwarmPostgreUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema:
-  z.ZodType<
-    EnvironmentOnePostgreRestartPolicySwarmUnion,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOnePostgreLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /** @internal */
-export type EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound =
+export type EnvironmentOnePostgreLabelsSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -9652,61 +9775,390 @@ export type EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOnePostgreRestartPolicySwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
+export const EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOnePostgreLabelsSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOnePostgreLabelsSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOnePostgreRestartPolicySwarmUnion$ {
-  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOnePostgreLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema` instead. */
+    EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound;
+    EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePostgreLabelsSwarmUnion$Outbound;
 }
 
-export function environmentOnePostgreRestartPolicySwarmUnionToJSON(
-  environmentOnePostgreRestartPolicySwarmUnion:
-    EnvironmentOnePostgreRestartPolicySwarmUnion,
+export function environmentOnePostgreLabelsSwarmUnionToJSON(
+  environmentOnePostgreLabelsSwarmUnion: EnvironmentOnePostgreLabelsSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema.parse(
-      environmentOnePostgreRestartPolicySwarmUnion,
+    EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema.parse(
+      environmentOnePostgreLabelsSwarmUnion,
     ),
   );
 }
 
-export function environmentOnePostgreRestartPolicySwarmUnionFromJSON(
+export function environmentOnePostgreLabelsSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  EnvironmentOnePostgreRestartPolicySwarmUnion,
-  SDKValidationError
-> {
+): SafeParseResult<EnvironmentOnePostgreLabelsSwarmUnion, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOnePostgreRestartPolicySwarmUnion' from JSON`,
+      EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOnePostgreLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmPostgreEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmPostgreEnum
+> = z.nativeEnum(EnvironmentOneModeSwarmPostgreEnum);
+
+/** @internal */
+export const EnvironmentOneModeSwarmPostgreEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmPostgreEnum
+> = EnvironmentOneModeSwarmPostgreEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmPostgreEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmPostgreEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmPostgreEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmPostgreEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmPostgreEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmPostgreUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmPostgreUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmPostgreUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmPostgreUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmPostgreUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmPostgreUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmPostgreUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneModeSwarmPostgreUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneModeSwarmPostgreUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmPostgreUnion$Outbound;
+}
+
+export function environmentOneModeSwarmPostgreUnionToJSON(
+  environmentOneModeSwarmPostgreUnion: EnvironmentOneModeSwarmPostgreUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmPostgreUnion$outboundSchema.parse(
+      environmentOneModeSwarmPostgreUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmPostgreUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneModeSwarmPostgreUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneModeSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneModeSwarmPostgreUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOnePostgreModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOnePostgreModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOnePostgreModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOnePostgreModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOnePostgreModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOnePostgreModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOnePostgreModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOnePostgreModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOnePostgreModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePostgreModeSwarmUnion$Outbound;
+}
+
+export function environmentOnePostgreModeSwarmUnionToJSON(
+  environmentOnePostgreModeSwarmUnion: EnvironmentOnePostgreModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOnePostgreModeSwarmUnion$outboundSchema.parse(
+      environmentOnePostgreModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOnePostgreModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOnePostgreModeSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOnePostgreModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOnePostgreModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmPostgreEnum> = z.nativeEnum(
+    EnvironmentOneNetworkSwarmPostgreEnum,
+  );
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmPostgreEnum> =
+    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmPostgreEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmPostgreUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmPostgreUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmPostgreUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneNetworkSwarmPostgreUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmPostgreUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmPostgreUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmPostgreUnionToJSON(
+  environmentOneNetworkSwarmPostgreUnion:
+    EnvironmentOneNetworkSwarmPostgreUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmPostgreUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmPostgreUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneNetworkSwarmPostgreUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneNetworkSwarmPostgreUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOnePostgreNetworkSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOnePostgreNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOnePostgreNetworkSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOnePostgreNetworkSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOnePostgreNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePostgreNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOnePostgreNetworkSwarmUnionToJSON(
+  environmentOnePostgreNetworkSwarmUnion:
+    EnvironmentOnePostgreNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema.parse(
+      environmentOnePostgreNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOnePostgreNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOnePostgreNetworkSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOnePostgreNetworkSwarmUnion' from JSON`,
   );
 }
 
@@ -9890,107 +10342,107 @@ export function environmentOnePostgrePlacementSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmPostgreEnum> = z
-    .nativeEnum(EnvironmentOneUpdateConfigSwarmPostgreEnum);
+export const EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmPostgreEnum> = z
+    .nativeEnum(EnvironmentOneRestartPolicySwarmPostgreEnum);
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmPostgreEnum> =
-    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema;
+export const EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmPostgreEnum> =
+    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmPostgreEnum$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmPostgreEnum$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema;
+    EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema:
+export const EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmPostgreUnion,
+    EnvironmentOneRestartPolicySwarmPostgreUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
+    EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
   ]);
 
 /** @internal */
-export type EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound =
+export type EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema:
+export const EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound,
+    EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOneUpdateConfigSwarmPostgreUnion
+    EnvironmentOneRestartPolicySwarmPostgreUnion
   > = z.union([
     z.string(),
     z.number(),
     z.boolean(),
-    EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+    EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
   ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneUpdateConfigSwarmPostgreUnion$ {
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRestartPolicySwarmPostgreUnion$ {
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema` instead. */
+    EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound;
+    EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRestartPolicySwarmPostgreUnion$Outbound;
 }
 
-export function environmentOneUpdateConfigSwarmPostgreUnionToJSON(
-  environmentOneUpdateConfigSwarmPostgreUnion:
-    EnvironmentOneUpdateConfigSwarmPostgreUnion,
+export function environmentOneRestartPolicySwarmPostgreUnionToJSON(
+  environmentOneRestartPolicySwarmPostgreUnion:
+    EnvironmentOneRestartPolicySwarmPostgreUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema.parse(
-      environmentOneUpdateConfigSwarmPostgreUnion,
+    EnvironmentOneRestartPolicySwarmPostgreUnion$outboundSchema.parse(
+      environmentOneRestartPolicySwarmPostgreUnion,
     ),
   );
 }
 
-export function environmentOneUpdateConfigSwarmPostgreUnionFromJSON(
+export function environmentOneRestartPolicySwarmPostgreUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOneUpdateConfigSwarmPostgreUnion,
+  EnvironmentOneRestartPolicySwarmPostgreUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema.parse(
+      EnvironmentOneRestartPolicySwarmPostgreUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOneUpdateConfigSwarmPostgreUnion' from JSON`,
+    `Failed to parse 'EnvironmentOneRestartPolicySwarmPostgreUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema:
+export const EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema:
   z.ZodType<
-    EnvironmentOnePostgreUpdateConfigSwarmUnion,
+    EnvironmentOnePostgreRestartPolicySwarmUnion,
     z.ZodTypeDef,
     unknown
   > = z.union([
@@ -9998,14 +10450,14 @@ export const EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema:
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
+      EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
   ]);
 
 /** @internal */
-export type EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound =
+export type EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -10014,17 +10466,17 @@ export type EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema:
+export const EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema:
   z.ZodType<
-    EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound,
+    EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound,
     z.ZodTypeDef,
-    EnvironmentOnePostgreUpdateConfigSwarmUnion
+    EnvironmentOnePostgreRestartPolicySwarmUnion
   > = z.union([
     z.union([
       z.string(),
       z.number(),
       z.boolean(),
-      EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+      EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
     ]),
     z.array(z.any()),
     z.record(z.any()),
@@ -10034,41 +10486,41 @@ export const EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema:
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOnePostgreUpdateConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOnePostgreRestartPolicySwarmUnion$ {
+  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema` instead. */
+    EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound;
+    EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePostgreRestartPolicySwarmUnion$Outbound;
 }
 
-export function environmentOnePostgreUpdateConfigSwarmUnionToJSON(
-  environmentOnePostgreUpdateConfigSwarmUnion:
-    EnvironmentOnePostgreUpdateConfigSwarmUnion,
+export function environmentOnePostgreRestartPolicySwarmUnionToJSON(
+  environmentOnePostgreRestartPolicySwarmUnion:
+    EnvironmentOnePostgreRestartPolicySwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema.parse(
-      environmentOnePostgreUpdateConfigSwarmUnion,
+    EnvironmentOnePostgreRestartPolicySwarmUnion$outboundSchema.parse(
+      environmentOnePostgreRestartPolicySwarmUnion,
     ),
   );
 }
 
-export function environmentOnePostgreUpdateConfigSwarmUnionFromJSON(
+export function environmentOnePostgreRestartPolicySwarmUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  EnvironmentOnePostgreUpdateConfigSwarmUnion,
+  EnvironmentOnePostgreRestartPolicySwarmUnion,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema.parse(
+      EnvironmentOnePostgreRestartPolicySwarmUnion$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'EnvironmentOnePostgreUpdateConfigSwarmUnion' from JSON`,
+    `Failed to parse 'EnvironmentOnePostgreRestartPolicySwarmUnion' from JSON`,
   );
 }
 
@@ -10256,112 +10708,122 @@ export function environmentOnePostgreRollbackConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmPostgreEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmPostgreEnum
-> = z.nativeEnum(EnvironmentOneModeSwarmPostgreEnum);
+export const EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmPostgreEnum> = z
+    .nativeEnum(EnvironmentOneUpdateConfigSwarmPostgreEnum);
 
 /** @internal */
-export const EnvironmentOneModeSwarmPostgreEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmPostgreEnum
-> = EnvironmentOneModeSwarmPostgreEnum$inboundSchema;
+export const EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneUpdateConfigSwarmPostgreEnum> =
+    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmPostgreEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmPostgreEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmPostgreEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmPostgreEnum$outboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmPostgreEnum$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmPostgreEnum$outboundSchema;
+    EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOneModeSwarmPostgreUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmPostgreUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmPostgreUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
+  ]);
 
 /** @internal */
-export type EnvironmentOneModeSwarmPostgreUnion$Outbound =
+export type EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOneModeSwarmPostgreUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmPostgreUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmPostgreUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
-]);
+export const EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneUpdateConfigSwarmPostgreUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneModeSwarmPostgreUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$inboundSchema` instead. */
+export namespace EnvironmentOneUpdateConfigSwarmPostgreUnion$ {
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneModeSwarmPostgreUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$outboundSchema` instead. */
+    EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneModeSwarmPostgreUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmPostgreUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmPostgreUnion$Outbound;
+    EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneUpdateConfigSwarmPostgreUnion$Outbound;
 }
 
-export function environmentOneModeSwarmPostgreUnionToJSON(
-  environmentOneModeSwarmPostgreUnion: EnvironmentOneModeSwarmPostgreUnion,
+export function environmentOneUpdateConfigSwarmPostgreUnionToJSON(
+  environmentOneUpdateConfigSwarmPostgreUnion:
+    EnvironmentOneUpdateConfigSwarmPostgreUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneModeSwarmPostgreUnion$outboundSchema.parse(
-      environmentOneModeSwarmPostgreUnion,
+    EnvironmentOneUpdateConfigSwarmPostgreUnion$outboundSchema.parse(
+      environmentOneUpdateConfigSwarmPostgreUnion,
     ),
   );
 }
 
-export function environmentOneModeSwarmPostgreUnionFromJSON(
+export function environmentOneUpdateConfigSwarmPostgreUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneModeSwarmPostgreUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneUpdateConfigSwarmPostgreUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneModeSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneModeSwarmPostgreUnion' from JSON`,
+      EnvironmentOneUpdateConfigSwarmPostgreUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneUpdateConfigSwarmPostgreUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOnePostgreModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOnePostgreModeSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema:
+  z.ZodType<
+    EnvironmentOnePostgreUpdateConfigSwarmUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /** @internal */
-export type EnvironmentOnePostgreModeSwarmUnion$Outbound =
+export type EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -10370,392 +10832,61 @@ export type EnvironmentOnePostgreModeSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOnePostgreModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOnePostgreModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOnePostgreModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOnePostgreUpdateConfigSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOnePostgreModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOnePostgreUpdateConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePostgreModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$outboundSchema` instead. */
+    EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePostgreModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePostgreModeSwarmUnion$Outbound;
+    EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePostgreUpdateConfigSwarmUnion$Outbound;
 }
 
-export function environmentOnePostgreModeSwarmUnionToJSON(
-  environmentOnePostgreModeSwarmUnion: EnvironmentOnePostgreModeSwarmUnion,
+export function environmentOnePostgreUpdateConfigSwarmUnionToJSON(
+  environmentOnePostgreUpdateConfigSwarmUnion:
+    EnvironmentOnePostgreUpdateConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOnePostgreModeSwarmUnion$outboundSchema.parse(
-      environmentOnePostgreModeSwarmUnion,
+    EnvironmentOnePostgreUpdateConfigSwarmUnion$outboundSchema.parse(
+      environmentOnePostgreUpdateConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOnePostgreModeSwarmUnionFromJSON(
+export function environmentOnePostgreUpdateConfigSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOnePostgreModeSwarmUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOnePostgreUpdateConfigSwarmUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOnePostgreModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOnePostgreModeSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmPostgreEnum> = z.nativeEnum(
-    EnvironmentOneLabelsSwarmPostgreEnum,
-  );
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneLabelsSwarmPostgreEnum> =
-    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmPostgreEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmPostgreUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmPostgreUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmPostgreUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneLabelsSwarmPostgreUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmPostgreUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmPostgreUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmPostgreUnion$Outbound;
-}
-
-export function environmentOneLabelsSwarmPostgreUnionToJSON(
-  environmentOneLabelsSwarmPostgreUnion: EnvironmentOneLabelsSwarmPostgreUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneLabelsSwarmPostgreUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmPostgreUnion,
-    ),
-  );
-}
-
-export function environmentOneLabelsSwarmPostgreUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneLabelsSwarmPostgreUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneLabelsSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneLabelsSwarmPostgreUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOnePostgreLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmPostgreEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOnePostgreLabelsSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOnePostgreLabelsSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOnePostgreLabelsSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmPostgreEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOnePostgreLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePostgreLabelsSwarmUnion$Outbound;
-}
-
-export function environmentOnePostgreLabelsSwarmUnionToJSON(
-  environmentOnePostgreLabelsSwarmUnion: EnvironmentOnePostgreLabelsSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOnePostgreLabelsSwarmUnion$outboundSchema.parse(
-      environmentOnePostgreLabelsSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOnePostgreLabelsSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOnePostgreLabelsSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOnePostgreLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOnePostgreLabelsSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmPostgreEnum> = z.nativeEnum(
-    EnvironmentOneNetworkSwarmPostgreEnum,
-  );
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneNetworkSwarmPostgreEnum> =
-    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmPostgreEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmPostgreUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmPostgreUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmPostgreUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneNetworkSwarmPostgreUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmPostgreUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmPostgreUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmPostgreUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmPostgreUnionToJSON(
-  environmentOneNetworkSwarmPostgreUnion:
-    EnvironmentOneNetworkSwarmPostgreUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmPostgreUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmPostgreUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmPostgreUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneNetworkSwarmPostgreUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmPostgreUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneNetworkSwarmPostgreUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOnePostgreNetworkSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmPostgreEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOnePostgreNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOnePostgreNetworkSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOnePostgreNetworkSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmPostgreEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOnePostgreNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePostgreNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePostgreNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOnePostgreNetworkSwarmUnionToJSON(
-  environmentOnePostgreNetworkSwarmUnion:
-    EnvironmentOnePostgreNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOnePostgreNetworkSwarmUnion$outboundSchema.parse(
-      environmentOnePostgreNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOnePostgreNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOnePostgreNetworkSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOnePostgreNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOnePostgreNetworkSwarmUnion' from JSON`,
+      EnvironmentOnePostgreUpdateConfigSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOnePostgreUpdateConfigSwarmUnion' from JSON`,
   );
 }
 
@@ -10765,22 +10896,20 @@ export const EnvironmentOnePostgre$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: EnvironmentOnePostgreApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: EnvironmentOnePostgreApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -10788,66 +10917,6 @@ export const EnvironmentOnePostgre$inboundSchema: z.ZodType<
         z.number(),
         z.boolean(),
         EnvironmentOneHealthCheckSwarmPostgreEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmPostgreEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmPostgreEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -10865,6 +10934,21 @@ export const EnvironmentOnePostgre$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmPostgreEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -10877,125 +10961,27 @@ export const EnvironmentOnePostgre$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type EnvironmentOnePostgre$Outbound = {
-  postgresId: string;
-  name: string;
-  appName: string;
-  databaseName: string;
-  databaseUser: string;
-  databasePassword: string;
-  description: string | null;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  labelsSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  networkSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-};
-
-/** @internal */
-export const EnvironmentOnePostgre$outboundSchema: z.ZodType<
-  EnvironmentOnePostgre$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOnePostgre
-> = z.object({
-  postgresId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  databaseName: z.string(),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  description: z.nullable(z.string()),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: EnvironmentOnePostgreApplicationStatus$outboundSchema,
-  healthCheckSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneHealthCheckSwarmPostgreEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
   placementSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOnePlacementSwarmPostgreEnum$outboundSchema,
+        EnvironmentOnePlacementSwarmPostgreEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  updateConfigSwarm: z.nullable(
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+        EnvironmentOneRestartPolicySwarmPostgreEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -11007,19 +10993,102 @@ export const EnvironmentOnePostgre$outboundSchema: z.ZodType<
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneRollbackConfigSwarmPostgreEnum$outboundSchema,
+        EnvironmentOneRollbackConfigSwarmPostgreEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  modeSwarm: z.nullable(
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
+        EnvironmentOneUpdateConfigSwarmPostgreEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+});
+
+/** @internal */
+export type EnvironmentOnePostgre$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databaseName: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  labelsSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  name: string;
+  networkSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  serverId: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+};
+
+/** @internal */
+export const EnvironmentOnePostgre$outboundSchema: z.ZodType<
+  EnvironmentOnePostgre$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOnePostgre
+> = z.object({
+  appName: z.string(),
+  applicationStatus: EnvironmentOnePostgreApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databaseName: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
+  healthCheckSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneHealthCheckSwarmPostgreEnum$outboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -11037,6 +11106,21 @@ export const EnvironmentOnePostgre$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmPostgreEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -11049,10 +11133,57 @@ export const EnvironmentOnePostgre$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmPostgreEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  postgresId: z.string(),
   replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmPostgreEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmPostgreEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmPostgreEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
 });
 
 /**
@@ -11083,6 +11214,75 @@ export function environmentOnePostgreFromJSON(
     jsonString,
     (x) => EnvironmentOnePostgre$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'EnvironmentOnePostgre' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneProject$inboundSchema: z.ZodType<
+  EnvironmentOneProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type EnvironmentOneProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const EnvironmentOneProject$outboundSchema: z.ZodType<
+  EnvironmentOneProject$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneProject$ {
+  /** @deprecated use `EnvironmentOneProject$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneProject$inboundSchema;
+  /** @deprecated use `EnvironmentOneProject$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneProject$outboundSchema;
+  /** @deprecated use `EnvironmentOneProject$Outbound` instead. */
+  export type Outbound = EnvironmentOneProject$Outbound;
+}
+
+export function environmentOneProjectToJSON(
+  environmentOneProject: EnvironmentOneProject,
+): string {
+  return JSON.stringify(
+    EnvironmentOneProject$outboundSchema.parse(environmentOneProject),
+  );
+}
+
+export function environmentOneProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneProject' from JSON`,
   );
 }
 
@@ -11290,6 +11490,663 @@ export function environmentOneRediHealthCheckSwarmUnionFromJSON(
 }
 
 /** @internal */
+export const EnvironmentOneLabelsSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmRediEnum
+> = z.nativeEnum(EnvironmentOneLabelsSwarmRediEnum);
+
+/** @internal */
+export const EnvironmentOneLabelsSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneLabelsSwarmRediEnum
+> = EnvironmentOneLabelsSwarmRediEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneLabelsSwarmRediEnum$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmRediEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneLabelsSwarmRediEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmRediEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneLabelsSwarmRediEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneLabelsSwarmRediUnion$inboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmRediUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmRediEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneLabelsSwarmRediUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneLabelsSwarmRediUnion$outboundSchema: z.ZodType<
+  EnvironmentOneLabelsSwarmRediUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneLabelsSwarmRediUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneLabelsSwarmRediEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneLabelsSwarmRediUnion$ {
+  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneLabelsSwarmRediUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneLabelsSwarmRediUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneLabelsSwarmRediUnion$Outbound;
+}
+
+export function environmentOneLabelsSwarmRediUnionToJSON(
+  environmentOneLabelsSwarmRediUnion: EnvironmentOneLabelsSwarmRediUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneLabelsSwarmRediUnion$outboundSchema.parse(
+      environmentOneLabelsSwarmRediUnion,
+    ),
+  );
+}
+
+export function environmentOneLabelsSwarmRediUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneLabelsSwarmRediUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneLabelsSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneLabelsSwarmRediUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneRediLabelsSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneRediLabelsSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmRediEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneRediLabelsSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneRediLabelsSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneRediLabelsSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneRediLabelsSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneLabelsSwarmRediEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneRediLabelsSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneRediLabelsSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneRediLabelsSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRediLabelsSwarmUnion$Outbound;
+}
+
+export function environmentOneRediLabelsSwarmUnionToJSON(
+  environmentOneRediLabelsSwarmUnion: EnvironmentOneRediLabelsSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneRediLabelsSwarmUnion$outboundSchema.parse(
+      environmentOneRediLabelsSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneRediLabelsSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneRediLabelsSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneRediLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneRediLabelsSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmRediEnum
+> = z.nativeEnum(EnvironmentOneModeSwarmRediEnum);
+
+/** @internal */
+export const EnvironmentOneModeSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneModeSwarmRediEnum
+> = EnvironmentOneModeSwarmRediEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmRediEnum$ {
+  /** @deprecated use `EnvironmentOneModeSwarmRediEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmRediEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmRediEnum$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneModeSwarmRediEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneModeSwarmRediUnion$inboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmRediUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmRediEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneModeSwarmRediUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneModeSwarmRediUnion$outboundSchema: z.ZodType<
+  EnvironmentOneModeSwarmRediUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneModeSwarmRediUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneModeSwarmRediEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneModeSwarmRediUnion$ {
+  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneModeSwarmRediUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneModeSwarmRediUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneModeSwarmRediUnion$Outbound;
+}
+
+export function environmentOneModeSwarmRediUnionToJSON(
+  environmentOneModeSwarmRediUnion: EnvironmentOneModeSwarmRediUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneModeSwarmRediUnion$outboundSchema.parse(
+      environmentOneModeSwarmRediUnion,
+    ),
+  );
+}
+
+export function environmentOneModeSwarmRediUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneModeSwarmRediUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneModeSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneModeSwarmRediUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneRediModeSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneRediModeSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmRediEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneRediModeSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneRediModeSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneRediModeSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneRediModeSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneModeSwarmRediEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneRediModeSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneRediModeSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema = EnvironmentOneRediModeSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRediModeSwarmUnion$Outbound;
+}
+
+export function environmentOneRediModeSwarmUnionToJSON(
+  environmentOneRediModeSwarmUnion: EnvironmentOneRediModeSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneRediModeSwarmUnion$outboundSchema.parse(
+      environmentOneRediModeSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneRediModeSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneRediModeSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EnvironmentOneRediModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneRediModeSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneNetworkSwarmRediEnum
+> = z.nativeEnum(EnvironmentOneNetworkSwarmRediEnum);
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
+  typeof EnvironmentOneNetworkSwarmRediEnum
+> = EnvironmentOneNetworkSwarmRediEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmRediEnum$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmRediEnum$inboundSchema` instead. */
+  export const inboundSchema = EnvironmentOneNetworkSwarmRediEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmRediEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmRediEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmRediUnion$inboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmRediUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmRediEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOneNetworkSwarmRediUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOneNetworkSwarmRediUnion$outboundSchema: z.ZodType<
+  EnvironmentOneNetworkSwarmRediUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneNetworkSwarmRediUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOneNetworkSwarmRediEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneNetworkSwarmRediUnion$ {
+  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneNetworkSwarmRediUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneNetworkSwarmRediUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneNetworkSwarmRediUnion$Outbound;
+}
+
+export function environmentOneNetworkSwarmRediUnionToJSON(
+  environmentOneNetworkSwarmRediUnion: EnvironmentOneNetworkSwarmRediUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneNetworkSwarmRediUnion$outboundSchema.parse(
+      environmentOneNetworkSwarmRediUnion,
+    ),
+  );
+}
+
+export function environmentOneNetworkSwarmRediUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneNetworkSwarmRediUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneNetworkSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneNetworkSwarmRediUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneRediNetworkSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneRediNetworkSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmRediEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneRediNetworkSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneRediNetworkSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneRediNetworkSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneRediNetworkSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneNetworkSwarmRediEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneRediNetworkSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneRediNetworkSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneRediNetworkSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRediNetworkSwarmUnion$Outbound;
+}
+
+export function environmentOneRediNetworkSwarmUnionToJSON(
+  environmentOneRediNetworkSwarmUnion: EnvironmentOneRediNetworkSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneRediNetworkSwarmUnion$outboundSchema.parse(
+      environmentOneRediNetworkSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneRediNetworkSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneRediNetworkSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneRediNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneRediNetworkSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOnePlacementSwarmRediEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOnePlacementSwarmRediEnum> = z.nativeEnum(
+    EnvironmentOnePlacementSwarmRediEnum,
+  );
+
+/** @internal */
+export const EnvironmentOnePlacementSwarmRediEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOnePlacementSwarmRediEnum> =
+    EnvironmentOnePlacementSwarmRediEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOnePlacementSwarmRediEnum$ {
+  /** @deprecated use `EnvironmentOnePlacementSwarmRediEnum$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOnePlacementSwarmRediEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOnePlacementSwarmRediEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOnePlacementSwarmRediEnum$outboundSchema;
+}
+
+/** @internal */
+export const EnvironmentOnePlacementSwarmRediUnion$inboundSchema: z.ZodType<
+  EnvironmentOnePlacementSwarmRediUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
+]);
+
+/** @internal */
+export type EnvironmentOnePlacementSwarmRediUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string;
+
+/** @internal */
+export const EnvironmentOnePlacementSwarmRediUnion$outboundSchema: z.ZodType<
+  EnvironmentOnePlacementSwarmRediUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOnePlacementSwarmRediUnion
+> = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOnePlacementSwarmRediUnion$ {
+  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOnePlacementSwarmRediUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOnePlacementSwarmRediUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOnePlacementSwarmRediUnion$Outbound;
+}
+
+export function environmentOnePlacementSwarmRediUnionToJSON(
+  environmentOnePlacementSwarmRediUnion: EnvironmentOnePlacementSwarmRediUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOnePlacementSwarmRediUnion$outboundSchema.parse(
+      environmentOnePlacementSwarmRediUnion,
+    ),
+  );
+}
+
+export function environmentOnePlacementSwarmRediUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOnePlacementSwarmRediUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOnePlacementSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOnePlacementSwarmRediUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const EnvironmentOneRediPlacementSwarmUnion$inboundSchema: z.ZodType<
+  EnvironmentOneRediPlacementSwarmUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/** @internal */
+export type EnvironmentOneRediPlacementSwarmUnion$Outbound =
+  | string
+  | number
+  | boolean
+  | string
+  | Array<any>
+  | { [k: string]: any };
+
+/** @internal */
+export const EnvironmentOneRediPlacementSwarmUnion$outboundSchema: z.ZodType<
+  EnvironmentOneRediPlacementSwarmUnion$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneRediPlacementSwarmUnion
+> = z.union([
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
+  ]),
+  z.array(z.any()),
+  z.record(z.any()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EnvironmentOneRediPlacementSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$inboundSchema` instead. */
+  export const inboundSchema =
+    EnvironmentOneRediPlacementSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    EnvironmentOneRediPlacementSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRediPlacementSwarmUnion$Outbound;
+}
+
+export function environmentOneRediPlacementSwarmUnionToJSON(
+  environmentOneRediPlacementSwarmUnion: EnvironmentOneRediPlacementSwarmUnion,
+): string {
+  return JSON.stringify(
+    EnvironmentOneRediPlacementSwarmUnion$outboundSchema.parse(
+      environmentOneRediPlacementSwarmUnion,
+    ),
+  );
+}
+
+export function environmentOneRediPlacementSwarmUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EnvironmentOneRediPlacementSwarmUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      EnvironmentOneRediPlacementSwarmUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EnvironmentOneRediPlacementSwarmUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const EnvironmentOneRestartPolicySwarmRediEnum$inboundSchema:
   z.ZodNativeEnum<typeof EnvironmentOneRestartPolicySwarmRediEnum> = z
     .nativeEnum(EnvironmentOneRestartPolicySwarmRediEnum);
@@ -11471,114 +12328,116 @@ export function environmentOneRediRestartPolicySwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOnePlacementSwarmRediEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOnePlacementSwarmRediEnum> = z.nativeEnum(
-    EnvironmentOnePlacementSwarmRediEnum,
-  );
+export const EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRollbackConfigSwarmRediEnum> = z
+    .nativeEnum(EnvironmentOneRollbackConfigSwarmRediEnum);
 
 /** @internal */
-export const EnvironmentOnePlacementSwarmRediEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOnePlacementSwarmRediEnum> =
-    EnvironmentOnePlacementSwarmRediEnum$inboundSchema;
+export const EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema:
+  z.ZodNativeEnum<typeof EnvironmentOneRollbackConfigSwarmRediEnum> =
+    EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOnePlacementSwarmRediEnum$ {
-  /** @deprecated use `EnvironmentOnePlacementSwarmRediEnum$inboundSchema` instead. */
+export namespace EnvironmentOneRollbackConfigSwarmRediEnum$ {
+  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePlacementSwarmRediEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOnePlacementSwarmRediEnum$outboundSchema` instead. */
+    EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema;
+  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePlacementSwarmRediEnum$outboundSchema;
+    EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema;
 }
 
 /** @internal */
-export const EnvironmentOnePlacementSwarmRediUnion$inboundSchema: z.ZodType<
-  EnvironmentOnePlacementSwarmRediUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
-]);
+export const EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema:
+  z.ZodType<EnvironmentOneRollbackConfigSwarmRediUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
+    ]);
 
 /** @internal */
-export type EnvironmentOnePlacementSwarmRediUnion$Outbound =
+export type EnvironmentOneRollbackConfigSwarmRediUnion$Outbound =
   | string
   | number
   | boolean
   | string;
 
 /** @internal */
-export const EnvironmentOnePlacementSwarmRediUnion$outboundSchema: z.ZodType<
-  EnvironmentOnePlacementSwarmRediUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOnePlacementSwarmRediUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
-]);
+export const EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneRollbackConfigSwarmRediUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneRollbackConfigSwarmRediUnion
+  > = z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOnePlacementSwarmRediUnion$ {
-  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRollbackConfigSwarmRediUnion$ {
+  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOnePlacementSwarmRediUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$outboundSchema` instead. */
+    EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOnePlacementSwarmRediUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOnePlacementSwarmRediUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOnePlacementSwarmRediUnion$Outbound;
+    EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRollbackConfigSwarmRediUnion$Outbound;
 }
 
-export function environmentOnePlacementSwarmRediUnionToJSON(
-  environmentOnePlacementSwarmRediUnion: EnvironmentOnePlacementSwarmRediUnion,
+export function environmentOneRollbackConfigSwarmRediUnionToJSON(
+  environmentOneRollbackConfigSwarmRediUnion:
+    EnvironmentOneRollbackConfigSwarmRediUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOnePlacementSwarmRediUnion$outboundSchema.parse(
-      environmentOnePlacementSwarmRediUnion,
+    EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema.parse(
+      environmentOneRollbackConfigSwarmRediUnion,
     ),
   );
 }
 
-export function environmentOnePlacementSwarmRediUnionFromJSON(
+export function environmentOneRollbackConfigSwarmRediUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOnePlacementSwarmRediUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneRollbackConfigSwarmRediUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOnePlacementSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOnePlacementSwarmRediUnion' from JSON`,
+      EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneRollbackConfigSwarmRediUnion' from JSON`,
   );
 }
 
 /** @internal */
-export const EnvironmentOneRediPlacementSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneRediPlacementSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema:
+  z.ZodType<EnvironmentOneRediRollbackConfigSwarmUnion, z.ZodTypeDef, unknown> =
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]);
 
 /** @internal */
-export type EnvironmentOneRediPlacementSwarmUnion$Outbound =
+export type EnvironmentOneRediRollbackConfigSwarmUnion$Outbound =
   | string
   | number
   | boolean
@@ -11587,54 +12446,61 @@ export type EnvironmentOneRediPlacementSwarmUnion$Outbound =
   | { [k: string]: any };
 
 /** @internal */
-export const EnvironmentOneRediPlacementSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneRediPlacementSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneRediPlacementSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
+export const EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema:
+  z.ZodType<
+    EnvironmentOneRediRollbackConfigSwarmUnion$Outbound,
+    z.ZodTypeDef,
+    EnvironmentOneRediRollbackConfigSwarmUnion
+  > = z.union([
+    z.union([
+      z.string(),
+      z.number(),
+      z.boolean(),
+      EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
+    ]),
+    z.array(z.any()),
+    z.record(z.any()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EnvironmentOneRediPlacementSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$inboundSchema` instead. */
+export namespace EnvironmentOneRediRollbackConfigSwarmUnion$ {
+  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema` instead. */
   export const inboundSchema =
-    EnvironmentOneRediPlacementSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$outboundSchema` instead. */
+    EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema;
+  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema` instead. */
   export const outboundSchema =
-    EnvironmentOneRediPlacementSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRediPlacementSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRediPlacementSwarmUnion$Outbound;
+    EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema;
+  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$Outbound` instead. */
+  export type Outbound = EnvironmentOneRediRollbackConfigSwarmUnion$Outbound;
 }
 
-export function environmentOneRediPlacementSwarmUnionToJSON(
-  environmentOneRediPlacementSwarmUnion: EnvironmentOneRediPlacementSwarmUnion,
+export function environmentOneRediRollbackConfigSwarmUnionToJSON(
+  environmentOneRediRollbackConfigSwarmUnion:
+    EnvironmentOneRediRollbackConfigSwarmUnion,
 ): string {
   return JSON.stringify(
-    EnvironmentOneRediPlacementSwarmUnion$outboundSchema.parse(
-      environmentOneRediPlacementSwarmUnion,
+    EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema.parse(
+      environmentOneRediRollbackConfigSwarmUnion,
     ),
   );
 }
 
-export function environmentOneRediPlacementSwarmUnionFromJSON(
+export function environmentOneRediRollbackConfigSwarmUnionFromJSON(
   jsonString: string,
-): SafeParseResult<EnvironmentOneRediPlacementSwarmUnion, SDKValidationError> {
+): SafeParseResult<
+  EnvironmentOneRediRollbackConfigSwarmUnion,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      EnvironmentOneRediPlacementSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneRediPlacementSwarmUnion' from JSON`,
+      EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'EnvironmentOneRediRollbackConfigSwarmUnion' from JSON`,
   );
 }
 
@@ -11818,692 +12684,23 @@ export function environmentOneRediUpdateConfigSwarmUnionFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRollbackConfigSwarmRediEnum> = z
-    .nativeEnum(EnvironmentOneRollbackConfigSwarmRediEnum);
-
-/** @internal */
-export const EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema:
-  z.ZodNativeEnum<typeof EnvironmentOneRollbackConfigSwarmRediEnum> =
-    EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRollbackConfigSwarmRediEnum$ {
-  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema:
-  z.ZodType<EnvironmentOneRollbackConfigSwarmRediUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
-    ]);
-
-/** @internal */
-export type EnvironmentOneRollbackConfigSwarmRediUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRollbackConfigSwarmRediUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRollbackConfigSwarmRediUnion
-  > = z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRollbackConfigSwarmRediUnion$ {
-  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRollbackConfigSwarmRediUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRollbackConfigSwarmRediUnion$Outbound;
-}
-
-export function environmentOneRollbackConfigSwarmRediUnionToJSON(
-  environmentOneRollbackConfigSwarmRediUnion:
-    EnvironmentOneRollbackConfigSwarmRediUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneRollbackConfigSwarmRediUnion$outboundSchema.parse(
-      environmentOneRollbackConfigSwarmRediUnion,
-    ),
-  );
-}
-
-export function environmentOneRollbackConfigSwarmRediUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRollbackConfigSwarmRediUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneRollbackConfigSwarmRediUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRollbackConfigSwarmRediUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema:
-  z.ZodType<EnvironmentOneRediRollbackConfigSwarmUnion, z.ZodTypeDef, unknown> =
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]);
-
-/** @internal */
-export type EnvironmentOneRediRollbackConfigSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema:
-  z.ZodType<
-    EnvironmentOneRediRollbackConfigSwarmUnion$Outbound,
-    z.ZodTypeDef,
-    EnvironmentOneRediRollbackConfigSwarmUnion
-  > = z.union([
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
-    ]),
-    z.array(z.any()),
-    z.record(z.any()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRediRollbackConfigSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRediRollbackConfigSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRediRollbackConfigSwarmUnion$Outbound;
-}
-
-export function environmentOneRediRollbackConfigSwarmUnionToJSON(
-  environmentOneRediRollbackConfigSwarmUnion:
-    EnvironmentOneRediRollbackConfigSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneRediRollbackConfigSwarmUnion$outboundSchema.parse(
-      environmentOneRediRollbackConfigSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneRediRollbackConfigSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  EnvironmentOneRediRollbackConfigSwarmUnion,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneRediRollbackConfigSwarmUnion$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'EnvironmentOneRediRollbackConfigSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneModeSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmRediEnum
-> = z.nativeEnum(EnvironmentOneModeSwarmRediEnum);
-
-/** @internal */
-export const EnvironmentOneModeSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneModeSwarmRediEnum
-> = EnvironmentOneModeSwarmRediEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneModeSwarmRediEnum$ {
-  /** @deprecated use `EnvironmentOneModeSwarmRediEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmRediEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmRediEnum$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneModeSwarmRediEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneModeSwarmRediUnion$inboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmRediUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmRediEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneModeSwarmRediUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneModeSwarmRediUnion$outboundSchema: z.ZodType<
-  EnvironmentOneModeSwarmRediUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneModeSwarmRediUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneModeSwarmRediEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneModeSwarmRediUnion$ {
-  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneModeSwarmRediUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneModeSwarmRediUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneModeSwarmRediUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneModeSwarmRediUnion$Outbound;
-}
-
-export function environmentOneModeSwarmRediUnionToJSON(
-  environmentOneModeSwarmRediUnion: EnvironmentOneModeSwarmRediUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneModeSwarmRediUnion$outboundSchema.parse(
-      environmentOneModeSwarmRediUnion,
-    ),
-  );
-}
-
-export function environmentOneModeSwarmRediUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneModeSwarmRediUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneModeSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneModeSwarmRediUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneRediModeSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneRediModeSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmRediEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneRediModeSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneRediModeSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneRediModeSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneRediModeSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneModeSwarmRediEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRediModeSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneRediModeSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneRediModeSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRediModeSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRediModeSwarmUnion$Outbound;
-}
-
-export function environmentOneRediModeSwarmUnionToJSON(
-  environmentOneRediModeSwarmUnion: EnvironmentOneRediModeSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneRediModeSwarmUnion$outboundSchema.parse(
-      environmentOneRediModeSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneRediModeSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneRediModeSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneRediModeSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneRediModeSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmRediEnum
-> = z.nativeEnum(EnvironmentOneLabelsSwarmRediEnum);
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneLabelsSwarmRediEnum
-> = EnvironmentOneLabelsSwarmRediEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmRediEnum$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmRediEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneLabelsSwarmRediEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmRediEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmRediEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmRediUnion$inboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmRediUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmRediEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneLabelsSwarmRediUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneLabelsSwarmRediUnion$outboundSchema: z.ZodType<
-  EnvironmentOneLabelsSwarmRediUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneLabelsSwarmRediUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneLabelsSwarmRediEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneLabelsSwarmRediUnion$ {
-  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneLabelsSwarmRediUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneLabelsSwarmRediUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneLabelsSwarmRediUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneLabelsSwarmRediUnion$Outbound;
-}
-
-export function environmentOneLabelsSwarmRediUnionToJSON(
-  environmentOneLabelsSwarmRediUnion: EnvironmentOneLabelsSwarmRediUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneLabelsSwarmRediUnion$outboundSchema.parse(
-      environmentOneLabelsSwarmRediUnion,
-    ),
-  );
-}
-
-export function environmentOneLabelsSwarmRediUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneLabelsSwarmRediUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneLabelsSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneLabelsSwarmRediUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneRediLabelsSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneRediLabelsSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmRediEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneRediLabelsSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneRediLabelsSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneRediLabelsSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneRediLabelsSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneLabelsSwarmRediEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRediLabelsSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneRediLabelsSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneRediLabelsSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRediLabelsSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRediLabelsSwarmUnion$Outbound;
-}
-
-export function environmentOneRediLabelsSwarmUnionToJSON(
-  environmentOneRediLabelsSwarmUnion: EnvironmentOneRediLabelsSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneRediLabelsSwarmUnion$outboundSchema.parse(
-      environmentOneRediLabelsSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneRediLabelsSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneRediLabelsSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneRediLabelsSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneRediLabelsSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmRediEnum$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneNetworkSwarmRediEnum
-> = z.nativeEnum(EnvironmentOneNetworkSwarmRediEnum);
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmRediEnum$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneNetworkSwarmRediEnum
-> = EnvironmentOneNetworkSwarmRediEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmRediEnum$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmRediEnum$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneNetworkSwarmRediEnum$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmRediEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmRediEnum$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmRediUnion$inboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmRediUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmRediEnum$inboundSchema,
-]);
-
-/** @internal */
-export type EnvironmentOneNetworkSwarmRediUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string;
-
-/** @internal */
-export const EnvironmentOneNetworkSwarmRediUnion$outboundSchema: z.ZodType<
-  EnvironmentOneNetworkSwarmRediUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneNetworkSwarmRediUnion
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  EnvironmentOneNetworkSwarmRediEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneNetworkSwarmRediUnion$ {
-  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneNetworkSwarmRediUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneNetworkSwarmRediUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneNetworkSwarmRediUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneNetworkSwarmRediUnion$Outbound;
-}
-
-export function environmentOneNetworkSwarmRediUnionToJSON(
-  environmentOneNetworkSwarmRediUnion: EnvironmentOneNetworkSwarmRediUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneNetworkSwarmRediUnion$outboundSchema.parse(
-      environmentOneNetworkSwarmRediUnion,
-    ),
-  );
-}
-
-export function environmentOneNetworkSwarmRediUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneNetworkSwarmRediUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneNetworkSwarmRediUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneNetworkSwarmRediUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const EnvironmentOneRediNetworkSwarmUnion$inboundSchema: z.ZodType<
-  EnvironmentOneRediNetworkSwarmUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmRediEnum$inboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/** @internal */
-export type EnvironmentOneRediNetworkSwarmUnion$Outbound =
-  | string
-  | number
-  | boolean
-  | string
-  | Array<any>
-  | { [k: string]: any };
-
-/** @internal */
-export const EnvironmentOneRediNetworkSwarmUnion$outboundSchema: z.ZodType<
-  EnvironmentOneRediNetworkSwarmUnion$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneRediNetworkSwarmUnion
-> = z.union([
-  z.union([
-    z.string(),
-    z.number(),
-    z.boolean(),
-    EnvironmentOneNetworkSwarmRediEnum$outboundSchema,
-  ]),
-  z.array(z.any()),
-  z.record(z.any()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneRediNetworkSwarmUnion$ {
-  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$inboundSchema` instead. */
-  export const inboundSchema =
-    EnvironmentOneRediNetworkSwarmUnion$inboundSchema;
-  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    EnvironmentOneRediNetworkSwarmUnion$outboundSchema;
-  /** @deprecated use `EnvironmentOneRediNetworkSwarmUnion$Outbound` instead. */
-  export type Outbound = EnvironmentOneRediNetworkSwarmUnion$Outbound;
-}
-
-export function environmentOneRediNetworkSwarmUnionToJSON(
-  environmentOneRediNetworkSwarmUnion: EnvironmentOneRediNetworkSwarmUnion,
-): string {
-  return JSON.stringify(
-    EnvironmentOneRediNetworkSwarmUnion$outboundSchema.parse(
-      environmentOneRediNetworkSwarmUnion,
-    ),
-  );
-}
-
-export function environmentOneRediNetworkSwarmUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneRediNetworkSwarmUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EnvironmentOneRediNetworkSwarmUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneRediNetworkSwarmUnion' from JSON`,
-  );
-}
-
-/** @internal */
 export const EnvironmentOneRedi$inboundSchema: z.ZodType<
   EnvironmentOneRedi,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: EnvironmentOneRediApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.union([
       z.union([
@@ -12511,66 +12708,6 @@ export const EnvironmentOneRedi$inboundSchema: z.ZodType<
         z.number(),
         z.boolean(),
         EnvironmentOneHealthCheckSwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  placementSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  updateConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneUpdateConfigSwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  rollbackConfigSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  modeSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneModeSwarmRediEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -12588,6 +12725,21 @@ export const EnvironmentOneRedi$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmRediEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -12600,121 +12752,27 @@ export const EnvironmentOneRedi$inboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
-  replicas: z.number(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type EnvironmentOneRedi$Outbound = {
-  redisId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
-  applicationStatus: string;
-  healthCheckSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  restartPolicySwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  placementSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  updateConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  modeSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  labelsSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  networkSwarm: string | number | boolean | string | Array<any> | {
-    [k: string]: any;
-  } | null;
-  replicas: number;
-  environmentId: string;
-  serverId: string | null;
-};
-
-/** @internal */
-export const EnvironmentOneRedi$outboundSchema: z.ZodType<
-  EnvironmentOneRedi$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneRedi
-> = z.object({
-  redisId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
-  applicationStatus: EnvironmentOneRediApplicationStatus$outboundSchema,
-  healthCheckSwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneHealthCheckSwarmRediEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
-  restartPolicySwarm: z.nullable(
-    z.union([
-      z.union([
-        z.string(),
-        z.number(),
-        z.boolean(),
-        EnvironmentOneRestartPolicySwarmRediEnum$outboundSchema,
-      ]),
-      z.array(z.any()),
-      z.record(z.any()),
-    ]),
-  ),
   placementSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
+        EnvironmentOnePlacementSwarmRediEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  updateConfigSwarm: z.nullable(
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneUpdateConfigSwarmRediEnum$outboundSchema,
+        EnvironmentOneRestartPolicySwarmRediEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -12726,19 +12784,98 @@ export const EnvironmentOneRedi$outboundSchema: z.ZodType<
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
+        EnvironmentOneRollbackConfigSwarmRediEnum$inboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
     ]),
   ),
-  modeSwarm: z.nullable(
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
     z.union([
       z.union([
         z.string(),
         z.number(),
         z.boolean(),
-        EnvironmentOneModeSwarmRediEnum$outboundSchema,
+        EnvironmentOneUpdateConfigSwarmRediEnum$inboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+});
+
+/** @internal */
+export type EnvironmentOneRedi$Outbound = {
+  appName: string;
+  applicationStatus: string;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  labelsSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  name: string;
+  networkSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  placementSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  rollbackConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+  serverId: string | null;
+  updateConfigSwarm: string | number | boolean | string | Array<any> | {
+    [k: string]: any;
+  } | null;
+};
+
+/** @internal */
+export const EnvironmentOneRedi$outboundSchema: z.ZodType<
+  EnvironmentOneRedi$Outbound,
+  z.ZodTypeDef,
+  EnvironmentOneRedi
+> = z.object({
+  appName: z.string(),
+  applicationStatus: EnvironmentOneRediApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
+  healthCheckSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneHealthCheckSwarmRediEnum$outboundSchema,
       ]),
       z.array(z.any()),
       z.record(z.any()),
@@ -12756,6 +12893,21 @@ export const EnvironmentOneRedi$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneModeSwarmRediEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.union([
       z.union([
@@ -12768,9 +12920,57 @@ export const EnvironmentOneRedi$outboundSchema: z.ZodType<
       z.record(z.any()),
     ]),
   ),
+  placementSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOnePlacementSwarmRediEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  redisId: z.string(),
   replicas: z.number(),
-  environmentId: z.string(),
+  restartPolicySwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRestartPolicySwarmRediEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
+  rollbackConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneRollbackConfigSwarmRediEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.union([
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        EnvironmentOneUpdateConfigSwarmRediEnum$outboundSchema,
+      ]),
+      z.array(z.any()),
+      z.record(z.any()),
+    ]),
+  ),
 });
 
 /**
@@ -12805,310 +13005,43 @@ export function environmentOneRediFromJSON(
 }
 
 /** @internal */
-export const EnvironmentOneComposeSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeSourceType
-> = z.nativeEnum(EnvironmentOneComposeSourceType);
-
-/** @internal */
-export const EnvironmentOneComposeSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeSourceType
-> = EnvironmentOneComposeSourceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneComposeSourceType$ {
-  /** @deprecated use `EnvironmentOneComposeSourceType$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneComposeSourceType$inboundSchema;
-  /** @deprecated use `EnvironmentOneComposeSourceType$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneComposeSourceType$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneComposeType$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeType
-> = z.nativeEnum(EnvironmentOneComposeType);
-
-/** @internal */
-export const EnvironmentOneComposeType$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeType
-> = EnvironmentOneComposeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneComposeType$ {
-  /** @deprecated use `EnvironmentOneComposeType$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneComposeType$inboundSchema;
-  /** @deprecated use `EnvironmentOneComposeType$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneComposeType$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneComposeTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeTriggerType
-> = z.nativeEnum(EnvironmentOneComposeTriggerType);
-
-/** @internal */
-export const EnvironmentOneComposeTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeTriggerType
-> = EnvironmentOneComposeTriggerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneComposeTriggerType$ {
-  /** @deprecated use `EnvironmentOneComposeTriggerType$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneComposeTriggerType$inboundSchema;
-  /** @deprecated use `EnvironmentOneComposeTriggerType$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneComposeTriggerType$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneComposeStatus$inboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeStatus
-> = z.nativeEnum(EnvironmentOneComposeStatus);
-
-/** @internal */
-export const EnvironmentOneComposeStatus$outboundSchema: z.ZodNativeEnum<
-  typeof EnvironmentOneComposeStatus
-> = EnvironmentOneComposeStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneComposeStatus$ {
-  /** @deprecated use `EnvironmentOneComposeStatus$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneComposeStatus$inboundSchema;
-  /** @deprecated use `EnvironmentOneComposeStatus$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneComposeStatus$outboundSchema;
-}
-
-/** @internal */
-export const EnvironmentOneCompose$inboundSchema: z.ZodType<
-  EnvironmentOneCompose,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  composeId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  composeFile: z.string(),
-  refreshToken: z.nullable(z.string()),
-  sourceType: EnvironmentOneComposeSourceType$inboundSchema,
-  composeType: EnvironmentOneComposeType$inboundSchema,
-  repository: z.nullable(z.string()),
-  owner: z.nullable(z.string()),
-  branch: z.nullable(z.string()),
-  autoDeploy: z.nullable(z.boolean()),
-  gitlabProjectId: z.nullable(z.number()),
-  gitlabRepository: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabBranch: z.nullable(z.string()),
-  gitlabPathNamespace: z.nullable(z.string()),
-  bitbucketRepository: z.nullable(z.string()),
-  bitbucketOwner: z.nullable(z.string()),
-  bitbucketBranch: z.nullable(z.string()),
-  giteaRepository: z.nullable(z.string()),
-  giteaOwner: z.nullable(z.string()),
-  giteaBranch: z.nullable(z.string()),
-  customGitUrl: z.nullable(z.string()),
-  customGitBranch: z.nullable(z.string()),
-  customGitSSHKeyId: z.nullable(z.string()),
-  command: z.string(),
-  enableSubmodules: z.boolean(),
-  composePath: z.string(),
-  suffix: z.string(),
-  randomize: z.boolean(),
-  isolatedDeployment: z.boolean(),
-  isolatedDeploymentsVolume: z.boolean(),
-  triggerType: z.nullable(EnvironmentOneComposeTriggerType$inboundSchema),
-  composeStatus: EnvironmentOneComposeStatus$inboundSchema,
-  environmentId: z.string(),
-  createdAt: z.string(),
-  watchPaths: z.nullable(z.array(z.string())),
-  githubId: z.nullable(z.string()),
-  gitlabId: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type EnvironmentOneCompose$Outbound = {
-  composeId: string;
-  name: string;
-  appName: string;
-  description: string | null;
-  env: string | null;
-  composeFile: string;
-  refreshToken: string | null;
-  sourceType: string;
-  composeType: string;
-  repository: string | null;
-  owner: string | null;
-  branch: string | null;
-  autoDeploy: boolean | null;
-  gitlabProjectId: number | null;
-  gitlabRepository: string | null;
-  gitlabOwner: string | null;
-  gitlabBranch: string | null;
-  gitlabPathNamespace: string | null;
-  bitbucketRepository: string | null;
-  bitbucketOwner: string | null;
-  bitbucketBranch: string | null;
-  giteaRepository: string | null;
-  giteaOwner: string | null;
-  giteaBranch: string | null;
-  customGitUrl: string | null;
-  customGitBranch: string | null;
-  customGitSSHKeyId: string | null;
-  command: string;
-  enableSubmodules: boolean;
-  composePath: string;
-  suffix: string;
-  randomize: boolean;
-  isolatedDeployment: boolean;
-  isolatedDeploymentsVolume: boolean;
-  triggerType: string | null;
-  composeStatus: string;
-  environmentId: string;
-  createdAt: string;
-  watchPaths: Array<string> | null;
-  githubId: string | null;
-  gitlabId: string | null;
-  bitbucketId: string | null;
-  giteaId: string | null;
-  serverId: string | null;
-};
-
-/** @internal */
-export const EnvironmentOneCompose$outboundSchema: z.ZodType<
-  EnvironmentOneCompose$Outbound,
-  z.ZodTypeDef,
-  EnvironmentOneCompose
-> = z.object({
-  composeId: z.string(),
-  name: z.string(),
-  appName: z.string(),
-  description: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  composeFile: z.string(),
-  refreshToken: z.nullable(z.string()),
-  sourceType: EnvironmentOneComposeSourceType$outboundSchema,
-  composeType: EnvironmentOneComposeType$outboundSchema,
-  repository: z.nullable(z.string()),
-  owner: z.nullable(z.string()),
-  branch: z.nullable(z.string()),
-  autoDeploy: z.nullable(z.boolean()),
-  gitlabProjectId: z.nullable(z.number()),
-  gitlabRepository: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabBranch: z.nullable(z.string()),
-  gitlabPathNamespace: z.nullable(z.string()),
-  bitbucketRepository: z.nullable(z.string()),
-  bitbucketOwner: z.nullable(z.string()),
-  bitbucketBranch: z.nullable(z.string()),
-  giteaRepository: z.nullable(z.string()),
-  giteaOwner: z.nullable(z.string()),
-  giteaBranch: z.nullable(z.string()),
-  customGitUrl: z.nullable(z.string()),
-  customGitBranch: z.nullable(z.string()),
-  customGitSSHKeyId: z.nullable(z.string()),
-  command: z.string(),
-  enableSubmodules: z.boolean(),
-  composePath: z.string(),
-  suffix: z.string(),
-  randomize: z.boolean(),
-  isolatedDeployment: z.boolean(),
-  isolatedDeploymentsVolume: z.boolean(),
-  triggerType: z.nullable(EnvironmentOneComposeTriggerType$outboundSchema),
-  composeStatus: EnvironmentOneComposeStatus$outboundSchema,
-  environmentId: z.string(),
-  createdAt: z.string(),
-  watchPaths: z.nullable(z.array(z.string())),
-  githubId: z.nullable(z.string()),
-  gitlabId: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentOneCompose$ {
-  /** @deprecated use `EnvironmentOneCompose$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentOneCompose$inboundSchema;
-  /** @deprecated use `EnvironmentOneCompose$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentOneCompose$outboundSchema;
-  /** @deprecated use `EnvironmentOneCompose$Outbound` instead. */
-  export type Outbound = EnvironmentOneCompose$Outbound;
-}
-
-export function environmentOneComposeToJSON(
-  environmentOneCompose: EnvironmentOneCompose,
-): string {
-  return JSON.stringify(
-    EnvironmentOneCompose$outboundSchema.parse(environmentOneCompose),
-  );
-}
-
-export function environmentOneComposeFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentOneCompose, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentOneCompose$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentOneCompose' from JSON`,
-  );
-}
-
-/** @internal */
 export const EnvironmentOneResponseBody$inboundSchema: z.ZodType<
   EnvironmentOneResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => EnvironmentOneProject$inboundSchema),
   applications: z.array(z.lazy(() => EnvironmentOneApplication$inboundSchema)),
+  compose: z.array(z.lazy(() => EnvironmentOneCompose$inboundSchema)),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
   mariadb: z.array(z.lazy(() => EnvironmentOneMariadb$inboundSchema)),
   mongo: z.array(z.lazy(() => EnvironmentOneMongo$inboundSchema)),
   mysql: z.array(z.lazy(() => EnvironmentOneMysql$inboundSchema)),
+  name: z.string(),
   postgres: z.array(z.lazy(() => EnvironmentOnePostgre$inboundSchema)),
+  project: z.lazy(() => EnvironmentOneProject$inboundSchema),
+  projectId: z.string(),
   redis: z.array(z.lazy(() => EnvironmentOneRedi$inboundSchema)),
-  compose: z.array(z.lazy(() => EnvironmentOneCompose$inboundSchema)),
 });
 
 /** @internal */
 export type EnvironmentOneResponseBody$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: EnvironmentOneProject$Outbound;
   applications: Array<EnvironmentOneApplication$Outbound>;
+  compose: Array<EnvironmentOneCompose$Outbound>;
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
   mariadb: Array<EnvironmentOneMariadb$Outbound>;
   mongo: Array<EnvironmentOneMongo$Outbound>;
   mysql: Array<EnvironmentOneMysql$Outbound>;
+  name: string;
   postgres: Array<EnvironmentOnePostgre$Outbound>;
+  project: EnvironmentOneProject$Outbound;
+  projectId: string;
   redis: Array<EnvironmentOneRedi$Outbound>;
-  compose: Array<EnvironmentOneCompose$Outbound>;
 };
 
 /** @internal */
@@ -13117,20 +13050,20 @@ export const EnvironmentOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentOneResponseBody
 > = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => EnvironmentOneProject$outboundSchema),
   applications: z.array(z.lazy(() => EnvironmentOneApplication$outboundSchema)),
+  compose: z.array(z.lazy(() => EnvironmentOneCompose$outboundSchema)),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
   mariadb: z.array(z.lazy(() => EnvironmentOneMariadb$outboundSchema)),
   mongo: z.array(z.lazy(() => EnvironmentOneMongo$outboundSchema)),
   mysql: z.array(z.lazy(() => EnvironmentOneMysql$outboundSchema)),
+  name: z.string(),
   postgres: z.array(z.lazy(() => EnvironmentOnePostgre$outboundSchema)),
+  project: z.lazy(() => EnvironmentOneProject$outboundSchema),
+  projectId: z.string(),
   redis: z.array(z.lazy(() => EnvironmentOneRedi$outboundSchema)),
-  compose: z.array(z.lazy(() => EnvironmentOneCompose$outboundSchema)),
 });
 
 /**

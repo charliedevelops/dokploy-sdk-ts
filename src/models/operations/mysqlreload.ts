@@ -3,84 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlReloadSecurity = {
-  authorization: string;
-};
-
 export type MysqlReloadRequest = {
-  mysqlId: string;
   appName: string;
+  mysqlId: string;
 };
 
 export type MysqlReloadResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MysqlReloadSecurity$inboundSchema: z.ZodType<
-  MysqlReloadSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlReloadSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlReloadSecurity$outboundSchema: z.ZodType<
-  MysqlReloadSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlReloadSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlReloadSecurity$ {
-  /** @deprecated use `MysqlReloadSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlReloadSecurity$inboundSchema;
-  /** @deprecated use `MysqlReloadSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlReloadSecurity$outboundSchema;
-  /** @deprecated use `MysqlReloadSecurity$Outbound` instead. */
-  export type Outbound = MysqlReloadSecurity$Outbound;
-}
-
-export function mysqlReloadSecurityToJSON(
-  mysqlReloadSecurity: MysqlReloadSecurity,
-): string {
-  return JSON.stringify(
-    MysqlReloadSecurity$outboundSchema.parse(mysqlReloadSecurity),
-  );
-}
-
-export function mysqlReloadSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlReloadSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlReloadSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlReloadSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlReloadRequest$inboundSchema: z.ZodType<
@@ -88,14 +21,14 @@ export const MysqlReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   appName: z.string(),
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlReloadRequest$Outbound = {
-  mysqlId: string;
   appName: string;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -104,8 +37,8 @@ export const MysqlReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlReloadRequest
 > = z.object({
-  mysqlId: z.string(),
   appName: z.string(),
+  mysqlId: z.string(),
 });
 
 /**

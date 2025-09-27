@@ -3,83 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type MongoRebuildSecurity = {
-  authorization: string;
-};
 
 export type MongoRebuildRequest = {
   mongoId: string;
 };
 
 export type MongoRebuildResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MongoRebuildSecurity$inboundSchema: z.ZodType<
-  MongoRebuildSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoRebuildSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoRebuildSecurity$outboundSchema: z.ZodType<
-  MongoRebuildSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoRebuildSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoRebuildSecurity$ {
-  /** @deprecated use `MongoRebuildSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoRebuildSecurity$inboundSchema;
-  /** @deprecated use `MongoRebuildSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoRebuildSecurity$outboundSchema;
-  /** @deprecated use `MongoRebuildSecurity$Outbound` instead. */
-  export type Outbound = MongoRebuildSecurity$Outbound;
-}
-
-export function mongoRebuildSecurityToJSON(
-  mongoRebuildSecurity: MongoRebuildSecurity,
-): string {
-  return JSON.stringify(
-    MongoRebuildSecurity$outboundSchema.parse(mongoRebuildSecurity),
-  );
-}
-
-export function mongoRebuildSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoRebuildSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoRebuildSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoRebuildSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoRebuildRequest$inboundSchema: z.ZodType<

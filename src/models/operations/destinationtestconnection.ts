@@ -3,90 +3,20 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DestinationTestConnectionSecurity = {
-  authorization: string;
-};
-
 export type DestinationTestConnectionRequest = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DestinationTestConnectionSecurity$inboundSchema: z.ZodType<
-  DestinationTestConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DestinationTestConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DestinationTestConnectionSecurity$outboundSchema: z.ZodType<
-  DestinationTestConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  DestinationTestConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestinationTestConnectionSecurity$ {
-  /** @deprecated use `DestinationTestConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema = DestinationTestConnectionSecurity$inboundSchema;
-  /** @deprecated use `DestinationTestConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    DestinationTestConnectionSecurity$outboundSchema;
-  /** @deprecated use `DestinationTestConnectionSecurity$Outbound` instead. */
-  export type Outbound = DestinationTestConnectionSecurity$Outbound;
-}
-
-export function destinationTestConnectionSecurityToJSON(
-  destinationTestConnectionSecurity: DestinationTestConnectionSecurity,
-): string {
-  return JSON.stringify(
-    DestinationTestConnectionSecurity$outboundSchema.parse(
-      destinationTestConnectionSecurity,
-    ),
-  );
-}
-
-export function destinationTestConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DestinationTestConnectionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DestinationTestConnectionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DestinationTestConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DestinationTestConnectionRequest$inboundSchema: z.ZodType<
@@ -94,24 +24,24 @@ export const DestinationTestConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationTestConnectionRequest$Outbound = {
-  name: string;
-  provider: string | null;
   accessKey: string;
   bucket: string;
-  region: string;
   endpoint: string;
+  name: string;
+  provider: string | null;
+  region: string;
   secretAccessKey: string;
   serverId?: string | undefined;
 };
@@ -122,12 +52,12 @@ export const DestinationTestConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationTestConnectionRequest
 > = z.object({
-  name: z.string(),
-  provider: z.nullable(z.string()),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
   endpoint: z.string(),
+  name: z.string(),
+  provider: z.nullable(z.string()),
+  region: z.string(),
   secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });

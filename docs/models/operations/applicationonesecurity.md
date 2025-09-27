@@ -6,7 +6,11 @@
 import { ApplicationOneSecurity } from "dokploy-sdk/models/operations";
 
 let value: ApplicationOneSecurity = {
-  authorization: "<value>",
+  applicationId: "<id>",
+  createdAt: "1723805697740",
+  password: "SZ3Iy0eYRMr4ogu",
+  securityId: "<id>",
+  username: "Flo67",
 };
 ```
 
@@ -14,4 +18,8 @@ let value: ApplicationOneSecurity = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `authorization`    | *string*           | :heavy_check_mark: | N/A                |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `securityId`       | *string*           | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

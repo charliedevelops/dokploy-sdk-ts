@@ -3,23 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ScheduleCreateSecurity = {
-  authorization: string;
-};
-
-export const ScheduleCreateShellType = {
-  Bash: "bash",
-  Sh: "sh",
-} as const;
-export type ScheduleCreateShellType = ClosedEnum<
-  typeof ScheduleCreateShellType
->;
 
 export const ScheduleCreateScheduleType = {
   Application: "application",
@@ -31,84 +18,51 @@ export type ScheduleCreateScheduleType = ClosedEnum<
   typeof ScheduleCreateScheduleType
 >;
 
+export const ScheduleCreateShellType = {
+  Bash: "bash",
+  Sh: "sh",
+} as const;
+export type ScheduleCreateShellType = ClosedEnum<
+  typeof ScheduleCreateShellType
+>;
+
 export type ScheduleCreateRequest = {
-  scheduleId?: string | undefined;
-  name: string;
-  cronExpression: string;
   appName?: string | undefined;
+  applicationId?: string | null | undefined;
+  command: string;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  enabled?: boolean | undefined;
+  name: string;
+  scheduleId?: string | undefined;
+  scheduleType?: ScheduleCreateScheduleType | undefined;
+  script?: string | null | undefined;
+  serverId?: string | null | undefined;
   serviceName?: string | null | undefined;
   shellType?: ScheduleCreateShellType | undefined;
-  scheduleType?: ScheduleCreateScheduleType | undefined;
-  command: string;
-  script?: string | null | undefined;
-  applicationId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  serverId?: string | null | undefined;
   userId?: string | null | undefined;
-  enabled?: boolean | undefined;
-  createdAt?: string | undefined;
 };
 
 /** @internal */
-export const ScheduleCreateSecurity$inboundSchema: z.ZodType<
-  ScheduleCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
+export const ScheduleCreateScheduleType$inboundSchema: z.ZodNativeEnum<
+  typeof ScheduleCreateScheduleType
+> = z.nativeEnum(ScheduleCreateScheduleType);
 
 /** @internal */
-export type ScheduleCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ScheduleCreateSecurity$outboundSchema: z.ZodType<
-  ScheduleCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  ScheduleCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
+export const ScheduleCreateScheduleType$outboundSchema: z.ZodNativeEnum<
+  typeof ScheduleCreateScheduleType
+> = ScheduleCreateScheduleType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScheduleCreateSecurity$ {
-  /** @deprecated use `ScheduleCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ScheduleCreateSecurity$inboundSchema;
-  /** @deprecated use `ScheduleCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ScheduleCreateSecurity$outboundSchema;
-  /** @deprecated use `ScheduleCreateSecurity$Outbound` instead. */
-  export type Outbound = ScheduleCreateSecurity$Outbound;
-}
-
-export function scheduleCreateSecurityToJSON(
-  scheduleCreateSecurity: ScheduleCreateSecurity,
-): string {
-  return JSON.stringify(
-    ScheduleCreateSecurity$outboundSchema.parse(scheduleCreateSecurity),
-  );
-}
-
-export function scheduleCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ScheduleCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ScheduleCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ScheduleCreateSecurity' from JSON`,
-  );
+export namespace ScheduleCreateScheduleType$ {
+  /** @deprecated use `ScheduleCreateScheduleType$inboundSchema` instead. */
+  export const inboundSchema = ScheduleCreateScheduleType$inboundSchema;
+  /** @deprecated use `ScheduleCreateScheduleType$outboundSchema` instead. */
+  export const outboundSchema = ScheduleCreateScheduleType$outboundSchema;
 }
 
 /** @internal */
@@ -133,66 +87,45 @@ export namespace ScheduleCreateShellType$ {
 }
 
 /** @internal */
-export const ScheduleCreateScheduleType$inboundSchema: z.ZodNativeEnum<
-  typeof ScheduleCreateScheduleType
-> = z.nativeEnum(ScheduleCreateScheduleType);
-
-/** @internal */
-export const ScheduleCreateScheduleType$outboundSchema: z.ZodNativeEnum<
-  typeof ScheduleCreateScheduleType
-> = ScheduleCreateScheduleType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScheduleCreateScheduleType$ {
-  /** @deprecated use `ScheduleCreateScheduleType$inboundSchema` instead. */
-  export const inboundSchema = ScheduleCreateScheduleType$inboundSchema;
-  /** @deprecated use `ScheduleCreateScheduleType$outboundSchema` instead. */
-  export const outboundSchema = ScheduleCreateScheduleType$outboundSchema;
-}
-
-/** @internal */
 export const ScheduleCreateRequest$inboundSchema: z.ZodType<
   ScheduleCreateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  scheduleId: z.string().optional(),
-  name: z.string(),
-  cronExpression: z.string(),
   appName: z.string().optional(),
+  applicationId: z.nullable(z.string()).optional(),
+  command: z.string(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  enabled: z.boolean().optional(),
+  name: z.string(),
+  scheduleId: z.string().optional(),
+  scheduleType: ScheduleCreateScheduleType$inboundSchema.optional(),
+  script: z.nullable(z.string()).optional(),
+  serverId: z.nullable(z.string()).optional(),
   serviceName: z.nullable(z.string()).optional(),
   shellType: ScheduleCreateShellType$inboundSchema.optional(),
-  scheduleType: ScheduleCreateScheduleType$inboundSchema.optional(),
-  command: z.string(),
-  script: z.nullable(z.string()).optional(),
-  applicationId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
   userId: z.nullable(z.string()).optional(),
-  enabled: z.boolean().optional(),
-  createdAt: z.string().optional(),
 });
 
 /** @internal */
 export type ScheduleCreateRequest$Outbound = {
-  scheduleId?: string | undefined;
-  name: string;
-  cronExpression: string;
   appName?: string | undefined;
+  applicationId?: string | null | undefined;
+  command: string;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  enabled?: boolean | undefined;
+  name: string;
+  scheduleId?: string | undefined;
+  scheduleType?: string | undefined;
+  script?: string | null | undefined;
+  serverId?: string | null | undefined;
   serviceName?: string | null | undefined;
   shellType?: string | undefined;
-  scheduleType?: string | undefined;
-  command: string;
-  script?: string | null | undefined;
-  applicationId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  serverId?: string | null | undefined;
   userId?: string | null | undefined;
-  enabled?: boolean | undefined;
-  createdAt?: string | undefined;
 };
 
 /** @internal */
@@ -201,21 +134,21 @@ export const ScheduleCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ScheduleCreateRequest
 > = z.object({
-  scheduleId: z.string().optional(),
-  name: z.string(),
-  cronExpression: z.string(),
   appName: z.string().optional(),
+  applicationId: z.nullable(z.string()).optional(),
+  command: z.string(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  enabled: z.boolean().optional(),
+  name: z.string(),
+  scheduleId: z.string().optional(),
+  scheduleType: ScheduleCreateScheduleType$outboundSchema.optional(),
+  script: z.nullable(z.string()).optional(),
+  serverId: z.nullable(z.string()).optional(),
   serviceName: z.nullable(z.string()).optional(),
   shellType: ScheduleCreateShellType$outboundSchema.optional(),
-  scheduleType: ScheduleCreateScheduleType$outboundSchema.optional(),
-  command: z.string(),
-  script: z.nullable(z.string()).optional(),
-  applicationId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
   userId: z.nullable(z.string()).optional(),
-  enabled: z.boolean().optional(),
-  createdAt: z.string().optional(),
 });
 
 /**

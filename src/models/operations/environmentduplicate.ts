@@ -3,31 +3,26 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type EnvironmentDuplicateSecurity = {
-  authorization: string;
-};
-
 export type EnvironmentDuplicateRequest = {
+  description?: string | null | undefined;
   environmentId: string;
   name: string;
-  description?: string | null | undefined;
 };
 
 /**
  * Successful response
  */
 export type EnvironmentDuplicateResponseBody = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -36,85 +31,21 @@ export type EnvironmentDuplicateResponse =
   | models.ErrorT;
 
 /** @internal */
-export const EnvironmentDuplicateSecurity$inboundSchema: z.ZodType<
-  EnvironmentDuplicateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type EnvironmentDuplicateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const EnvironmentDuplicateSecurity$outboundSchema: z.ZodType<
-  EnvironmentDuplicateSecurity$Outbound,
-  z.ZodTypeDef,
-  EnvironmentDuplicateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EnvironmentDuplicateSecurity$ {
-  /** @deprecated use `EnvironmentDuplicateSecurity$inboundSchema` instead. */
-  export const inboundSchema = EnvironmentDuplicateSecurity$inboundSchema;
-  /** @deprecated use `EnvironmentDuplicateSecurity$outboundSchema` instead. */
-  export const outboundSchema = EnvironmentDuplicateSecurity$outboundSchema;
-  /** @deprecated use `EnvironmentDuplicateSecurity$Outbound` instead. */
-  export type Outbound = EnvironmentDuplicateSecurity$Outbound;
-}
-
-export function environmentDuplicateSecurityToJSON(
-  environmentDuplicateSecurity: EnvironmentDuplicateSecurity,
-): string {
-  return JSON.stringify(
-    EnvironmentDuplicateSecurity$outboundSchema.parse(
-      environmentDuplicateSecurity,
-    ),
-  );
-}
-
-export function environmentDuplicateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<EnvironmentDuplicateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EnvironmentDuplicateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EnvironmentDuplicateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const EnvironmentDuplicateRequest$inboundSchema: z.ZodType<
   EnvironmentDuplicateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type EnvironmentDuplicateRequest$Outbound = {
+  description?: string | null | undefined;
   environmentId: string;
   name: string;
-  description?: string | null | undefined;
 };
 
 /** @internal */
@@ -123,9 +54,9 @@ export const EnvironmentDuplicateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentDuplicateRequest
 > = z.object({
+  description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()).optional(),
 });
 
 /**
@@ -167,21 +98,21 @@ export const EnvironmentDuplicateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 
 /** @internal */
 export type EnvironmentDuplicateResponseBody$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
   environmentId: string;
   name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
   projectId: string;
 };
 
@@ -191,11 +122,11 @@ export const EnvironmentDuplicateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   EnvironmentDuplicateResponseBody
 > = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
   environmentId: z.string(),
   name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
   projectId: z.string(),
 });
 

@@ -3,93 +3,26 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type UserCreateApiKeySecurity = {
-  authorization: string;
-};
 
 export type UserCreateApiKeyMetadata = {
   organizationId: string;
 };
 
 export type UserCreateApiKeyRequest = {
-  name: string;
-  prefix?: string | undefined;
   expiresIn?: number | undefined;
   metadata: UserCreateApiKeyMetadata;
+  name: string;
+  prefix?: string | undefined;
   rateLimitEnabled?: boolean | undefined;
-  rateLimitTimeWindow?: number | undefined;
   rateLimitMax?: number | undefined;
-  remaining?: number | undefined;
+  rateLimitTimeWindow?: number | undefined;
   refillAmount?: number | undefined;
   refillInterval?: number | undefined;
+  remaining?: number | undefined;
 };
-
-/** @internal */
-export const UserCreateApiKeySecurity$inboundSchema: z.ZodType<
-  UserCreateApiKeySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserCreateApiKeySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserCreateApiKeySecurity$outboundSchema: z.ZodType<
-  UserCreateApiKeySecurity$Outbound,
-  z.ZodTypeDef,
-  UserCreateApiKeySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserCreateApiKeySecurity$ {
-  /** @deprecated use `UserCreateApiKeySecurity$inboundSchema` instead. */
-  export const inboundSchema = UserCreateApiKeySecurity$inboundSchema;
-  /** @deprecated use `UserCreateApiKeySecurity$outboundSchema` instead. */
-  export const outboundSchema = UserCreateApiKeySecurity$outboundSchema;
-  /** @deprecated use `UserCreateApiKeySecurity$Outbound` instead. */
-  export type Outbound = UserCreateApiKeySecurity$Outbound;
-}
-
-export function userCreateApiKeySecurityToJSON(
-  userCreateApiKeySecurity: UserCreateApiKeySecurity,
-): string {
-  return JSON.stringify(
-    UserCreateApiKeySecurity$outboundSchema.parse(userCreateApiKeySecurity),
-  );
-}
-
-export function userCreateApiKeySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserCreateApiKeySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserCreateApiKeySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserCreateApiKeySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserCreateApiKeyMetadata$inboundSchema: z.ZodType<
@@ -151,30 +84,30 @@ export const UserCreateApiKeyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  prefix: z.string().optional(),
   expiresIn: z.number().optional(),
   metadata: z.lazy(() => UserCreateApiKeyMetadata$inboundSchema),
+  name: z.string(),
+  prefix: z.string().optional(),
   rateLimitEnabled: z.boolean().optional(),
-  rateLimitTimeWindow: z.number().optional(),
   rateLimitMax: z.number().optional(),
-  remaining: z.number().optional(),
+  rateLimitTimeWindow: z.number().optional(),
   refillAmount: z.number().optional(),
   refillInterval: z.number().optional(),
+  remaining: z.number().optional(),
 });
 
 /** @internal */
 export type UserCreateApiKeyRequest$Outbound = {
-  name: string;
-  prefix?: string | undefined;
   expiresIn?: number | undefined;
   metadata: UserCreateApiKeyMetadata$Outbound;
+  name: string;
+  prefix?: string | undefined;
   rateLimitEnabled?: boolean | undefined;
-  rateLimitTimeWindow?: number | undefined;
   rateLimitMax?: number | undefined;
-  remaining?: number | undefined;
+  rateLimitTimeWindow?: number | undefined;
   refillAmount?: number | undefined;
   refillInterval?: number | undefined;
+  remaining?: number | undefined;
 };
 
 /** @internal */
@@ -183,16 +116,16 @@ export const UserCreateApiKeyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UserCreateApiKeyRequest
 > = z.object({
-  name: z.string(),
-  prefix: z.string().optional(),
   expiresIn: z.number().optional(),
   metadata: z.lazy(() => UserCreateApiKeyMetadata$outboundSchema),
+  name: z.string(),
+  prefix: z.string().optional(),
   rateLimitEnabled: z.boolean().optional(),
-  rateLimitTimeWindow: z.number().optional(),
   rateLimitMax: z.number().optional(),
-  remaining: z.number().optional(),
+  rateLimitTimeWindow: z.number().optional(),
   refillAmount: z.number().optional(),
   refillInterval: z.number().optional(),
+  remaining: z.number().optional(),
 });
 
 /**

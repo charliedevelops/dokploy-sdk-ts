@@ -3,88 +3,21 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type DestinationUpdateSecurity = {
-  authorization: string;
-};
-
 export type DestinationUpdateRequest = {
-  name: string;
   accessKey: string;
   bucket: string;
-  region: string;
-  endpoint: string;
-  secretAccessKey: string;
   destinationId: string;
+  endpoint: string;
+  name: string;
   provider: string | null;
+  region: string;
+  secretAccessKey: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const DestinationUpdateSecurity$inboundSchema: z.ZodType<
-  DestinationUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type DestinationUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const DestinationUpdateSecurity$outboundSchema: z.ZodType<
-  DestinationUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  DestinationUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DestinationUpdateSecurity$ {
-  /** @deprecated use `DestinationUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = DestinationUpdateSecurity$inboundSchema;
-  /** @deprecated use `DestinationUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = DestinationUpdateSecurity$outboundSchema;
-  /** @deprecated use `DestinationUpdateSecurity$Outbound` instead. */
-  export type Outbound = DestinationUpdateSecurity$Outbound;
-}
-
-export function destinationUpdateSecurityToJSON(
-  destinationUpdateSecurity: DestinationUpdateSecurity,
-): string {
-  return JSON.stringify(
-    DestinationUpdateSecurity$outboundSchema.parse(destinationUpdateSecurity),
-  );
-}
-
-export function destinationUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<DestinationUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DestinationUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DestinationUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const DestinationUpdateRequest$inboundSchema: z.ZodType<
@@ -92,27 +25,27 @@ export const DestinationUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  secretAccessKey: z.string(),
   destinationId: z.string(),
+  endpoint: z.string(),
+  name: z.string(),
   provider: z.nullable(z.string()),
+  region: z.string(),
+  secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 
 /** @internal */
 export type DestinationUpdateRequest$Outbound = {
-  name: string;
   accessKey: string;
   bucket: string;
-  region: string;
-  endpoint: string;
-  secretAccessKey: string;
   destinationId: string;
+  endpoint: string;
+  name: string;
   provider: string | null;
+  region: string;
+  secretAccessKey: string;
   serverId?: string | undefined;
 };
 
@@ -122,14 +55,14 @@ export const DestinationUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DestinationUpdateRequest
 > = z.object({
-  name: z.string(),
   accessKey: z.string(),
   bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string(),
-  secretAccessKey: z.string(),
   destinationId: z.string(),
+  endpoint: z.string(),
+  name: z.string(),
   provider: z.nullable(z.string()),
+  region: z.string(),
+  secretAccessKey: z.string(),
   serverId: z.string().optional(),
 });
 

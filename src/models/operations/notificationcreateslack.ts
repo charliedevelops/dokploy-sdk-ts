@@ -3,90 +3,21 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationCreateSlackSecurity = {
-  authorization: string;
-};
-
 export type NotificationCreateSlackRequest = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  channel: string;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  channel: string;
 };
-
-/** @internal */
-export const NotificationCreateSlackSecurity$inboundSchema: z.ZodType<
-  NotificationCreateSlackSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationCreateSlackSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationCreateSlackSecurity$outboundSchema: z.ZodType<
-  NotificationCreateSlackSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationCreateSlackSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationCreateSlackSecurity$ {
-  /** @deprecated use `NotificationCreateSlackSecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationCreateSlackSecurity$inboundSchema;
-  /** @deprecated use `NotificationCreateSlackSecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationCreateSlackSecurity$outboundSchema;
-  /** @deprecated use `NotificationCreateSlackSecurity$Outbound` instead. */
-  export type Outbound = NotificationCreateSlackSecurity$Outbound;
-}
-
-export function notificationCreateSlackSecurityToJSON(
-  notificationCreateSlackSecurity: NotificationCreateSlackSecurity,
-): string {
-  return JSON.stringify(
-    NotificationCreateSlackSecurity$outboundSchema.parse(
-      notificationCreateSlackSecurity,
-    ),
-  );
-}
-
-export function notificationCreateSlackSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationCreateSlackSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationCreateSlackSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationCreateSlackSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationCreateSlackRequest$inboundSchema: z.ZodType<
@@ -95,27 +26,27 @@ export const NotificationCreateSlackRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  channel: z.string(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  channel: z.string(),
 });
 
 /** @internal */
 export type NotificationCreateSlackRequest$Outbound = {
   appBuildError: boolean;
+  appDeploy: boolean;
+  channel: string;
   databaseBackup: boolean;
+  dockerCleanup: boolean;
   dokployRestart: boolean;
   name: string;
-  appDeploy: boolean;
-  dockerCleanup: boolean;
   serverThreshold: boolean;
   webhookUrl: string;
-  channel: string;
 };
 
 /** @internal */
@@ -125,14 +56,14 @@ export const NotificationCreateSlackRequest$outboundSchema: z.ZodType<
   NotificationCreateSlackRequest
 > = z.object({
   appBuildError: z.boolean(),
+  appDeploy: z.boolean(),
+  channel: z.string(),
   databaseBackup: z.boolean(),
+  dockerCleanup: z.boolean(),
   dokployRestart: z.boolean(),
   name: z.string(),
-  appDeploy: z.boolean(),
-  dockerCleanup: z.boolean(),
   serverThreshold: z.boolean(),
   webhookUrl: z.string(),
-  channel: z.string(),
 });
 
 /**

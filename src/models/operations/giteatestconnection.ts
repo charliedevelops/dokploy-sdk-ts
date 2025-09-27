@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GiteaTestConnectionSecurity = {
-  authorization: string;
-};
 
 export type GiteaTestConnectionRequest = {
   giteaId?: string | undefined;
@@ -19,70 +14,6 @@ export type GiteaTestConnectionRequest = {
 };
 
 export type GiteaTestConnectionResponse = models.ErrorT | string;
-
-/** @internal */
-export const GiteaTestConnectionSecurity$inboundSchema: z.ZodType<
-  GiteaTestConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GiteaTestConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GiteaTestConnectionSecurity$outboundSchema: z.ZodType<
-  GiteaTestConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  GiteaTestConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GiteaTestConnectionSecurity$ {
-  /** @deprecated use `GiteaTestConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema = GiteaTestConnectionSecurity$inboundSchema;
-  /** @deprecated use `GiteaTestConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema = GiteaTestConnectionSecurity$outboundSchema;
-  /** @deprecated use `GiteaTestConnectionSecurity$Outbound` instead. */
-  export type Outbound = GiteaTestConnectionSecurity$Outbound;
-}
-
-export function giteaTestConnectionSecurityToJSON(
-  giteaTestConnectionSecurity: GiteaTestConnectionSecurity,
-): string {
-  return JSON.stringify(
-    GiteaTestConnectionSecurity$outboundSchema.parse(
-      giteaTestConnectionSecurity,
-    ),
-  );
-}
-
-export function giteaTestConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GiteaTestConnectionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GiteaTestConnectionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GiteaTestConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GiteaTestConnectionRequest$inboundSchema: z.ZodType<

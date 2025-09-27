@@ -3,94 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationUpdateGotifySecurity = {
-  authorization: string;
-};
-
 export type NotificationUpdateGotifyRequest = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
   appToken?: string | undefined;
-  priority?: number | undefined;
+  databaseBackup?: boolean | undefined;
   decoration?: boolean | undefined;
-  notificationId: string;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   gotifyId: string;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
 };
-
-/** @internal */
-export const NotificationUpdateGotifySecurity$inboundSchema: z.ZodType<
-  NotificationUpdateGotifySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationUpdateGotifySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationUpdateGotifySecurity$outboundSchema: z.ZodType<
-  NotificationUpdateGotifySecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationUpdateGotifySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationUpdateGotifySecurity$ {
-  /** @deprecated use `NotificationUpdateGotifySecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationUpdateGotifySecurity$inboundSchema;
-  /** @deprecated use `NotificationUpdateGotifySecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationUpdateGotifySecurity$outboundSchema;
-  /** @deprecated use `NotificationUpdateGotifySecurity$Outbound` instead. */
-  export type Outbound = NotificationUpdateGotifySecurity$Outbound;
-}
-
-export function notificationUpdateGotifySecurityToJSON(
-  notificationUpdateGotifySecurity: NotificationUpdateGotifySecurity,
-): string {
-  return JSON.stringify(
-    NotificationUpdateGotifySecurity$outboundSchema.parse(
-      notificationUpdateGotifySecurity,
-    ),
-  );
-}
-
-export function notificationUpdateGotifySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationUpdateGotifySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationUpdateGotifySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationUpdateGotifySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationUpdateGotifyRequest$inboundSchema: z.ZodType<
@@ -99,35 +30,35 @@ export const NotificationUpdateGotifyRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
   appToken: z.string().optional(),
-  priority: z.number().optional(),
+  databaseBackup: z.boolean().optional(),
   decoration: z.boolean().optional(),
-  notificationId: z.string(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   gotifyId: z.string(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
 });
 
 /** @internal */
 export type NotificationUpdateGotifyRequest$Outbound = {
   appBuildError?: boolean | undefined;
-  databaseBackup?: boolean | undefined;
-  dokployRestart?: boolean | undefined;
-  name?: string | undefined;
   appDeploy?: boolean | undefined;
-  dockerCleanup?: boolean | undefined;
-  serverUrl?: string | undefined;
   appToken?: string | undefined;
-  priority?: number | undefined;
+  databaseBackup?: boolean | undefined;
   decoration?: boolean | undefined;
-  notificationId: string;
+  dockerCleanup?: boolean | undefined;
+  dokployRestart?: boolean | undefined;
   gotifyId: string;
+  name?: string | undefined;
+  notificationId: string;
   organizationId?: string | undefined;
+  priority?: number | undefined;
+  serverUrl?: string | undefined;
 };
 
 /** @internal */
@@ -137,18 +68,18 @@ export const NotificationUpdateGotifyRequest$outboundSchema: z.ZodType<
   NotificationUpdateGotifyRequest
 > = z.object({
   appBuildError: z.boolean().optional(),
-  databaseBackup: z.boolean().optional(),
-  dokployRestart: z.boolean().optional(),
-  name: z.string().optional(),
   appDeploy: z.boolean().optional(),
-  dockerCleanup: z.boolean().optional(),
-  serverUrl: z.string().optional(),
   appToken: z.string().optional(),
-  priority: z.number().optional(),
+  databaseBackup: z.boolean().optional(),
   decoration: z.boolean().optional(),
-  notificationId: z.string(),
+  dockerCleanup: z.boolean().optional(),
+  dokployRestart: z.boolean().optional(),
   gotifyId: z.string(),
+  name: z.string().optional(),
+  notificationId: z.string(),
   organizationId: z.string().optional(),
+  priority: z.number().optional(),
+  serverUrl: z.string().optional(),
 });
 
 /**

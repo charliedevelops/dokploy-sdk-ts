@@ -3,100 +3,33 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ProjectUpdateSecurity = {
-  authorization: string;
-};
-
 export type ProjectUpdateRequest = {
-  projectId: string;
-  name?: string | undefined;
-  description?: string | null | undefined;
   createdAt?: string | undefined;
-  organizationId?: string | undefined;
+  description?: string | null | undefined;
   env?: string | undefined;
+  name?: string | undefined;
+  organizationId?: string | undefined;
+  projectId: string;
 };
 
 /**
  * Successful response
  */
 export type ProjectUpdateResponseBody = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 export type ProjectUpdateResponse = ProjectUpdateResponseBody | models.ErrorT;
-
-/** @internal */
-export const ProjectUpdateSecurity$inboundSchema: z.ZodType<
-  ProjectUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ProjectUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ProjectUpdateSecurity$outboundSchema: z.ZodType<
-  ProjectUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  ProjectUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProjectUpdateSecurity$ {
-  /** @deprecated use `ProjectUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ProjectUpdateSecurity$inboundSchema;
-  /** @deprecated use `ProjectUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ProjectUpdateSecurity$outboundSchema;
-  /** @deprecated use `ProjectUpdateSecurity$Outbound` instead. */
-  export type Outbound = ProjectUpdateSecurity$Outbound;
-}
-
-export function projectUpdateSecurityToJSON(
-  projectUpdateSecurity: ProjectUpdateSecurity,
-): string {
-  return JSON.stringify(
-    ProjectUpdateSecurity$outboundSchema.parse(projectUpdateSecurity),
-  );
-}
-
-export function projectUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ProjectUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProjectUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProjectUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ProjectUpdateRequest$inboundSchema: z.ZodType<
@@ -104,22 +37,22 @@ export const ProjectUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
   createdAt: z.string().optional(),
-  organizationId: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string().optional(),
+  organizationId: z.string().optional(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectUpdateRequest$Outbound = {
-  projectId: string;
-  name?: string | undefined;
-  description?: string | null | undefined;
   createdAt?: string | undefined;
-  organizationId?: string | undefined;
+  description?: string | null | undefined;
   env?: string | undefined;
+  name?: string | undefined;
+  organizationId?: string | undefined;
+  projectId: string;
 };
 
 /** @internal */
@@ -128,12 +61,12 @@ export const ProjectUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectUpdateRequest
 > = z.object({
-  projectId: z.string(),
-  name: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
   createdAt: z.string().optional(),
-  organizationId: z.string().optional(),
+  description: z.nullable(z.string()).optional(),
   env: z.string().optional(),
+  name: z.string().optional(),
+  organizationId: z.string().optional(),
+  projectId: z.string(),
 });
 
 /**
@@ -173,22 +106,22 @@ export const ProjectUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /** @internal */
 export type ProjectUpdateResponseBody$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
   createdAt: string;
-  organizationId: string;
+  description: string | null;
   env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
 };
 
 /** @internal */
@@ -197,12 +130,12 @@ export const ProjectUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectUpdateResponseBody
 > = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
   createdAt: z.string(),
-  organizationId: z.string(),
+  description: z.nullable(z.string()),
   env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
 });
 
 /**

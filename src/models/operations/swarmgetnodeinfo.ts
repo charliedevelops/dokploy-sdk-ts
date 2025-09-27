@@ -3,81 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SwarmGetNodeInfoSecurity = {
-  authorization: string;
-};
 
 export type SwarmGetNodeInfoRequest = {
   nodeId: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SwarmGetNodeInfoSecurity$inboundSchema: z.ZodType<
-  SwarmGetNodeInfoSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SwarmGetNodeInfoSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SwarmGetNodeInfoSecurity$outboundSchema: z.ZodType<
-  SwarmGetNodeInfoSecurity$Outbound,
-  z.ZodTypeDef,
-  SwarmGetNodeInfoSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SwarmGetNodeInfoSecurity$ {
-  /** @deprecated use `SwarmGetNodeInfoSecurity$inboundSchema` instead. */
-  export const inboundSchema = SwarmGetNodeInfoSecurity$inboundSchema;
-  /** @deprecated use `SwarmGetNodeInfoSecurity$outboundSchema` instead. */
-  export const outboundSchema = SwarmGetNodeInfoSecurity$outboundSchema;
-  /** @deprecated use `SwarmGetNodeInfoSecurity$Outbound` instead. */
-  export type Outbound = SwarmGetNodeInfoSecurity$Outbound;
-}
-
-export function swarmGetNodeInfoSecurityToJSON(
-  swarmGetNodeInfoSecurity: SwarmGetNodeInfoSecurity,
-): string {
-  return JSON.stringify(
-    SwarmGetNodeInfoSecurity$outboundSchema.parse(swarmGetNodeInfoSecurity),
-  );
-}
-
-export function swarmGetNodeInfoSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SwarmGetNodeInfoSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SwarmGetNodeInfoSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SwarmGetNodeInfoSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SwarmGetNodeInfoRequest$inboundSchema: z.ZodType<

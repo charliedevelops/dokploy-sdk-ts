@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsGetTraefikPortsSecurity = {
-  authorization: string;
-};
-
 export type SettingsGetTraefikPortsRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsGetTraefikPortsSecurity$inboundSchema: z.ZodType<
-  SettingsGetTraefikPortsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsGetTraefikPortsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsGetTraefikPortsSecurity$outboundSchema: z.ZodType<
-  SettingsGetTraefikPortsSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsGetTraefikPortsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsGetTraefikPortsSecurity$ {
-  /** @deprecated use `SettingsGetTraefikPortsSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsGetTraefikPortsSecurity$inboundSchema;
-  /** @deprecated use `SettingsGetTraefikPortsSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsGetTraefikPortsSecurity$outboundSchema;
-  /** @deprecated use `SettingsGetTraefikPortsSecurity$Outbound` instead. */
-  export type Outbound = SettingsGetTraefikPortsSecurity$Outbound;
-}
-
-export function settingsGetTraefikPortsSecurityToJSON(
-  settingsGetTraefikPortsSecurity: SettingsGetTraefikPortsSecurity,
-): string {
-  return JSON.stringify(
-    SettingsGetTraefikPortsSecurity$outboundSchema.parse(
-      settingsGetTraefikPortsSecurity,
-    ),
-  );
-}
-
-export function settingsGetTraefikPortsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsGetTraefikPortsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsGetTraefikPortsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsGetTraefikPortsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsGetTraefikPortsRequest$inboundSchema: z.ZodType<

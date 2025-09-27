@@ -3,92 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationTestSlackConnectionSecurity = {
-  authorization: string;
-};
-
 export type NotificationTestSlackConnectionRequest = {
-  webhookUrl: string;
   channel: string;
+  webhookUrl: string;
 };
-
-/** @internal */
-export const NotificationTestSlackConnectionSecurity$inboundSchema: z.ZodType<
-  NotificationTestSlackConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationTestSlackConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationTestSlackConnectionSecurity$outboundSchema: z.ZodType<
-  NotificationTestSlackConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationTestSlackConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationTestSlackConnectionSecurity$ {
-  /** @deprecated use `NotificationTestSlackConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    NotificationTestSlackConnectionSecurity$inboundSchema;
-  /** @deprecated use `NotificationTestSlackConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationTestSlackConnectionSecurity$outboundSchema;
-  /** @deprecated use `NotificationTestSlackConnectionSecurity$Outbound` instead. */
-  export type Outbound = NotificationTestSlackConnectionSecurity$Outbound;
-}
-
-export function notificationTestSlackConnectionSecurityToJSON(
-  notificationTestSlackConnectionSecurity:
-    NotificationTestSlackConnectionSecurity,
-): string {
-  return JSON.stringify(
-    NotificationTestSlackConnectionSecurity$outboundSchema.parse(
-      notificationTestSlackConnectionSecurity,
-    ),
-  );
-}
-
-export function notificationTestSlackConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  NotificationTestSlackConnectionSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      NotificationTestSlackConnectionSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'NotificationTestSlackConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationTestSlackConnectionRequest$inboundSchema: z.ZodType<
@@ -96,14 +18,14 @@ export const NotificationTestSlackConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  webhookUrl: z.string(),
   channel: z.string(),
+  webhookUrl: z.string(),
 });
 
 /** @internal */
 export type NotificationTestSlackConnectionRequest$Outbound = {
-  webhookUrl: string;
   channel: string;
+  webhookUrl: string;
 };
 
 /** @internal */
@@ -112,8 +34,8 @@ export const NotificationTestSlackConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestSlackConnectionRequest
 > = z.object({
-  webhookUrl: z.string(),
   channel: z.string(),
+  webhookUrl: z.string(),
 });
 
 /**

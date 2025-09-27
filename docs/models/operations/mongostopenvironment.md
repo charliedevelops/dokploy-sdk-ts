@@ -6,20 +6,21 @@
 import { MongoStopEnvironment } from "dokploy-sdk/models/operations";
 
 let value: MongoStopEnvironment = {
+  createdAt: "1705503692690",
+  description:
+    "unless huzzah below gee unlawful who collaboration bustling happy unbearably",
+  env: "<value>",
   environmentId: "<id>",
   name: "<value>",
-  description: null,
-  createdAt: "1735215791196",
-  env: "<value>",
-  projectId: "<id>",
   project: {
-    projectId: "<id>",
-    name: "<value>",
-    description: "unwelcome hopelessly anneal",
-    createdAt: "1725708514063",
-    organizationId: "<id>",
+    createdAt: "1718458472155",
+    description: "guilt next pessimistic so surprisingly massage because",
     env: "<value>",
+    name: "<value>",
+    organizationId: "<id>",
+    projectId: "<id>",
   },
+  projectId: "<id>",
 };
 ```
 
@@ -27,10 +28,10 @@ let value: MongoStopEnvironment = {
 
 | Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `createdAt`                                                                | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `description`                                                              | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `env`                                                                      | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
 | `environmentId`                                                            | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
 | `name`                                                                     | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `description`                                                              | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `createdAt`                                                                | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `env`                                                                      | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `projectId`                                                                | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
 | `project`                                                                  | [operations.MongoStopProject](../../models/operations/mongostopproject.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `projectId`                                                                | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |

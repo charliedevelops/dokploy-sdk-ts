@@ -6,8 +6,8 @@
 import { ConfigFile } from "dokploy-sdk/models/operations";
 
 let value: ConfigFile = {
-  filePath: "/var/log/courteous.ogx",
   content: "<value>",
+  filePath: "/var/log/courteous.ogx",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: ConfigFile = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `filePath`         | *string*           | :heavy_check_mark: | N/A                |
 | `content`          | *string*           | :heavy_check_mark: | N/A                |
+| `filePath`         | *string*           | :heavy_check_mark: | N/A                |

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type MountsRemoveSecurity = {
-  authorization: string;
-};
-
 export type MountsRemoveRequest = {
   mountId: string;
 };
-
-/** @internal */
-export const MountsRemoveSecurity$inboundSchema: z.ZodType<
-  MountsRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MountsRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MountsRemoveSecurity$outboundSchema: z.ZodType<
-  MountsRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  MountsRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MountsRemoveSecurity$ {
-  /** @deprecated use `MountsRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = MountsRemoveSecurity$inboundSchema;
-  /** @deprecated use `MountsRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = MountsRemoveSecurity$outboundSchema;
-  /** @deprecated use `MountsRemoveSecurity$Outbound` instead. */
-  export type Outbound = MountsRemoveSecurity$Outbound;
-}
-
-export function mountsRemoveSecurityToJSON(
-  mountsRemoveSecurity: MountsRemoveSecurity,
-): string {
-  return JSON.stringify(
-    MountsRemoveSecurity$outboundSchema.parse(mountsRemoveSecurity),
-  );
-}
-
-export function mountsRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MountsRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MountsRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MountsRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MountsRemoveRequest$inboundSchema: z.ZodType<

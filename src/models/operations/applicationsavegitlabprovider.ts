@@ -3,97 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveGitlabProviderSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveGitlabProviderRequest = {
   applicationId: string;
+  enableSubmodules: boolean;
   gitlabBranch: string | null;
   gitlabBuildPath: string | null;
-  gitlabOwner: string | null;
-  gitlabRepository: string | null;
   gitlabId: string | null;
-  gitlabProjectId: number | null;
+  gitlabOwner: string | null;
   gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 export type ApplicationSaveGitlabProviderResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveGitlabProviderSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveGitlabProviderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveGitlabProviderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveGitlabProviderSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveGitlabProviderSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveGitlabProviderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveGitlabProviderSecurity$ {
-  /** @deprecated use `ApplicationSaveGitlabProviderSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationSaveGitlabProviderSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveGitlabProviderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveGitlabProviderSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveGitlabProviderSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveGitlabProviderSecurity$Outbound;
-}
-
-export function applicationSaveGitlabProviderSecurityToJSON(
-  applicationSaveGitlabProviderSecurity: ApplicationSaveGitlabProviderSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveGitlabProviderSecurity$outboundSchema.parse(
-      applicationSaveGitlabProviderSecurity,
-    ),
-  );
-}
-
-export function applicationSaveGitlabProviderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveGitlabProviderSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveGitlabProviderSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveGitlabProviderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveGitlabProviderRequest$inboundSchema: z.ZodType<
@@ -102,29 +30,29 @@ export const ApplicationSaveGitlabProviderRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   gitlabBranch: z.nullable(z.string()),
   gitlabBuildPath: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabRepository: z.nullable(z.string()),
   gitlabId: z.nullable(z.string()),
-  gitlabProjectId: z.nullable(z.number()),
+  gitlabOwner: z.nullable(z.string()),
   gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /** @internal */
 export type ApplicationSaveGitlabProviderRequest$Outbound = {
   applicationId: string;
+  enableSubmodules: boolean;
   gitlabBranch: string | null;
   gitlabBuildPath: string | null;
-  gitlabOwner: string | null;
-  gitlabRepository: string | null;
   gitlabId: string | null;
-  gitlabProjectId: number | null;
+  gitlabOwner: string | null;
   gitlabPathNamespace: string | null;
+  gitlabProjectId: number | null;
+  gitlabRepository: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 /** @internal */
@@ -134,15 +62,15 @@ export const ApplicationSaveGitlabProviderRequest$outboundSchema: z.ZodType<
   ApplicationSaveGitlabProviderRequest
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   gitlabBranch: z.nullable(z.string()),
   gitlabBuildPath: z.nullable(z.string()),
-  gitlabOwner: z.nullable(z.string()),
-  gitlabRepository: z.nullable(z.string()),
   gitlabId: z.nullable(z.string()),
-  gitlabProjectId: z.nullable(z.number()),
+  gitlabOwner: z.nullable(z.string()),
   gitlabPathNamespace: z.nullable(z.string()),
+  gitlabProjectId: z.nullable(z.number()),
+  gitlabRepository: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /**

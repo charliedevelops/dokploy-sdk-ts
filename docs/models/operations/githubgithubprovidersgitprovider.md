@@ -6,11 +6,11 @@
 import { GithubGithubProvidersGitProvider } from "dokploy-sdk/models/operations";
 
 let value: GithubGithubProvidersGitProvider = {
+  createdAt: "1709545049421",
   gitProviderId: "<id>",
   name: "<value>",
-  providerType: "github",
-  createdAt: "1705193332704",
   organizationId: "<id>",
+  providerType: "github",
   userId: "<id>",
 };
 ```
@@ -19,9 +19,9 @@ let value: GithubGithubProvidersGitProvider = {
 
 | Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `createdAt`                                                                                                  | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
 | `gitProviderId`                                                                                              | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
 | `name`                                                                                                       | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `providerType`                                                                                               | [operations.GithubGithubProvidersProviderType](../../models/operations/githubgithubprovidersprovidertype.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `createdAt`                                                                                                  | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
 | `organizationId`                                                                                             | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `providerType`                                                                                               | [operations.GithubGithubProvidersProviderType](../../models/operations/githubgithubprovidersprovidertype.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
 | `userId`                                                                                                     | *string*                                                                                                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

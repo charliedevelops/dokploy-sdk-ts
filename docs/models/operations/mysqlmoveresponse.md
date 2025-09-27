@@ -7,42 +7,46 @@
 
 ```typescript
 const value: operations.MysqlMoveResponseBody = {
-  mysqlId: "<id>",
-  name: "<value>",
   appName: "<value>",
-  description: "apropos atomize sham word pro hence searchingly",
+  applicationStatus: "running",
+  command: "<value>",
+  cpuLimit: "<value>",
+  cpuReservation: "<value>",
+  createdAt: "1716834555583",
   databaseName: "<value>",
-  databaseUser: "<value>",
   databasePassword: "<value>",
   databaseRootPassword: "<value>",
+  databaseUser: "<value>",
+  description: "careless tighten pish boo clumsy",
   dockerImage: "<value>",
-  command: "<value>",
   env: "<value>",
-  memoryReservation: "<value>",
-  memoryLimit: "<value>",
-  cpuReservation: "<value>",
-  cpuLimit: "<value>",
-  externalPort: 9077.83,
-  applicationStatus: "done",
+  environmentId: "<id>",
+  externalPort: 4033.1,
   healthCheckSwarm: {},
-  restartPolicySwarm: {},
-  placementSwarm: {},
-  updateConfigSwarm: {
-    parallelism: 8005.81,
-    order: "<value>",
-  },
-  rollbackConfigSwarm: null,
-  modeSwarm: {},
   labelsSwarm: {
     "key": "<value>",
+    "key1": "<value>",
   },
+  memoryLimit: "<value>",
+  memoryReservation: "<value>",
+  modeSwarm: {},
+  mysqlId: "<id>",
+  name: "<value>",
   networkSwarm: [
     {},
   ],
-  replicas: 6175.68,
-  createdAt: "1724585844746",
-  environmentId: "<id>",
+  placementSwarm: {},
+  replicas: 7882.34,
+  restartPolicySwarm: {},
+  rollbackConfigSwarm: {
+    order: "<value>",
+    parallelism: 4428.62,
+  },
   serverId: "<id>",
+  updateConfigSwarm: {
+    order: "<value>",
+    parallelism: 5348.91,
+  },
 };
 ```
 
@@ -50,8 +54,8 @@ const value: operations.MysqlMoveResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

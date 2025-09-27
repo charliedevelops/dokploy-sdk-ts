@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type OrganizationDeleteSecurity = {
-  authorization: string;
-};
 
 export type OrganizationDeleteRequest = {
   organizationId: string;
@@ -21,80 +16,18 @@ export type OrganizationDeleteRequest = {
  * Successful response
  */
 export type OrganizationDeleteResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationDeleteResponse =
   | OrganizationDeleteResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const OrganizationDeleteSecurity$inboundSchema: z.ZodType<
-  OrganizationDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type OrganizationDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const OrganizationDeleteSecurity$outboundSchema: z.ZodType<
-  OrganizationDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  OrganizationDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationDeleteSecurity$ {
-  /** @deprecated use `OrganizationDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = OrganizationDeleteSecurity$inboundSchema;
-  /** @deprecated use `OrganizationDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = OrganizationDeleteSecurity$outboundSchema;
-  /** @deprecated use `OrganizationDeleteSecurity$Outbound` instead. */
-  export type Outbound = OrganizationDeleteSecurity$Outbound;
-}
-
-export function organizationDeleteSecurityToJSON(
-  organizationDeleteSecurity: OrganizationDeleteSecurity,
-): string {
-  return JSON.stringify(
-    OrganizationDeleteSecurity$outboundSchema.parse(organizationDeleteSecurity),
-  );
-}
-
-export function organizationDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<OrganizationDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OrganizationDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OrganizationDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const OrganizationDeleteRequest$inboundSchema: z.ZodType<
@@ -156,24 +89,24 @@ export const OrganizationDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationDeleteResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -182,13 +115,13 @@ export const OrganizationDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationDeleteResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

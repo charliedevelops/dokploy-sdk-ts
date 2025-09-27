@@ -3,85 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ComposeLoadMountsByServiceSecurity = {
-  authorization: string;
-};
 
 export type ComposeLoadMountsByServiceRequest = {
   composeId: string;
   serviceName: string;
 };
-
-/** @internal */
-export const ComposeLoadMountsByServiceSecurity$inboundSchema: z.ZodType<
-  ComposeLoadMountsByServiceSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeLoadMountsByServiceSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeLoadMountsByServiceSecurity$outboundSchema: z.ZodType<
-  ComposeLoadMountsByServiceSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeLoadMountsByServiceSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeLoadMountsByServiceSecurity$ {
-  /** @deprecated use `ComposeLoadMountsByServiceSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeLoadMountsByServiceSecurity$inboundSchema;
-  /** @deprecated use `ComposeLoadMountsByServiceSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ComposeLoadMountsByServiceSecurity$outboundSchema;
-  /** @deprecated use `ComposeLoadMountsByServiceSecurity$Outbound` instead. */
-  export type Outbound = ComposeLoadMountsByServiceSecurity$Outbound;
-}
-
-export function composeLoadMountsByServiceSecurityToJSON(
-  composeLoadMountsByServiceSecurity: ComposeLoadMountsByServiceSecurity,
-): string {
-  return JSON.stringify(
-    ComposeLoadMountsByServiceSecurity$outboundSchema.parse(
-      composeLoadMountsByServiceSecurity,
-    ),
-  );
-}
-
-export function composeLoadMountsByServiceSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeLoadMountsByServiceSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ComposeLoadMountsByServiceSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeLoadMountsByServiceSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeLoadMountsByServiceRequest$inboundSchema: z.ZodType<

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeOneSecurity = {
-  authorization: string;
-};
-
 export type ComposeOneRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeOneSecurity$inboundSchema: z.ZodType<
-  ComposeOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeOneSecurity$outboundSchema: z.ZodType<
-  ComposeOneSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeOneSecurity$ {
-  /** @deprecated use `ComposeOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeOneSecurity$inboundSchema;
-  /** @deprecated use `ComposeOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeOneSecurity$outboundSchema;
-  /** @deprecated use `ComposeOneSecurity$Outbound` instead. */
-  export type Outbound = ComposeOneSecurity$Outbound;
-}
-
-export function composeOneSecurityToJSON(
-  composeOneSecurity: ComposeOneSecurity,
-): string {
-  return JSON.stringify(
-    ComposeOneSecurity$outboundSchema.parse(composeOneSecurity),
-  );
-}
-
-export function composeOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeOneRequest$inboundSchema: z.ZodType<

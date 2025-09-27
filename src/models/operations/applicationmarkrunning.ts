@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ApplicationMarkRunningSecurity = {
-  authorization: string;
-};
-
 export type ApplicationMarkRunningRequest = {
   applicationId: string;
 };
-
-/** @internal */
-export const ApplicationMarkRunningSecurity$inboundSchema: z.ZodType<
-  ApplicationMarkRunningSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationMarkRunningSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationMarkRunningSecurity$outboundSchema: z.ZodType<
-  ApplicationMarkRunningSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationMarkRunningSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationMarkRunningSecurity$ {
-  /** @deprecated use `ApplicationMarkRunningSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationMarkRunningSecurity$inboundSchema;
-  /** @deprecated use `ApplicationMarkRunningSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationMarkRunningSecurity$outboundSchema;
-  /** @deprecated use `ApplicationMarkRunningSecurity$Outbound` instead. */
-  export type Outbound = ApplicationMarkRunningSecurity$Outbound;
-}
-
-export function applicationMarkRunningSecurityToJSON(
-  applicationMarkRunningSecurity: ApplicationMarkRunningSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationMarkRunningSecurity$outboundSchema.parse(
-      applicationMarkRunningSecurity,
-    ),
-  );
-}
-
-export function applicationMarkRunningSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationMarkRunningSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationMarkRunningSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationMarkRunningSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationMarkRunningRequest$inboundSchema: z.ZodType<

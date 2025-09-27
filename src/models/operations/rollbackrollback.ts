@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type RollbackRollbackSecurity = {
-  authorization: string;
-};
-
 export type RollbackRollbackRequest = {
   rollbackId: string;
 };
-
-/** @internal */
-export const RollbackRollbackSecurity$inboundSchema: z.ZodType<
-  RollbackRollbackSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RollbackRollbackSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RollbackRollbackSecurity$outboundSchema: z.ZodType<
-  RollbackRollbackSecurity$Outbound,
-  z.ZodTypeDef,
-  RollbackRollbackSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RollbackRollbackSecurity$ {
-  /** @deprecated use `RollbackRollbackSecurity$inboundSchema` instead. */
-  export const inboundSchema = RollbackRollbackSecurity$inboundSchema;
-  /** @deprecated use `RollbackRollbackSecurity$outboundSchema` instead. */
-  export const outboundSchema = RollbackRollbackSecurity$outboundSchema;
-  /** @deprecated use `RollbackRollbackSecurity$Outbound` instead. */
-  export type Outbound = RollbackRollbackSecurity$Outbound;
-}
-
-export function rollbackRollbackSecurityToJSON(
-  rollbackRollbackSecurity: RollbackRollbackSecurity,
-): string {
-  return JSON.stringify(
-    RollbackRollbackSecurity$outboundSchema.parse(rollbackRollbackSecurity),
-  );
-}
-
-export function rollbackRollbackSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RollbackRollbackSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RollbackRollbackSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RollbackRollbackSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RollbackRollbackRequest$inboundSchema: z.ZodType<

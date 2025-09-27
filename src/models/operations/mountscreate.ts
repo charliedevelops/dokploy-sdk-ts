@@ -3,22 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type MountsCreateSecurity = {
-  authorization: string;
-};
-
-export const MountsCreateType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MountsCreateType = ClosedEnum<typeof MountsCreateType>;
 
 export const MountsCreateServiceType = {
   Application: "application",
@@ -33,77 +21,43 @@ export type MountsCreateServiceType = ClosedEnum<
   typeof MountsCreateServiceType
 >;
 
+export const MountsCreateType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MountsCreateType = ClosedEnum<typeof MountsCreateType>;
+
 export type MountsCreateRequest = {
-  type: MountsCreateType;
-  hostPath?: string | null | undefined;
-  volumeName?: string | null | undefined;
   content?: string | null | undefined;
-  mountPath: string;
-  serviceType?: MountsCreateServiceType | undefined;
   filePath?: string | null | undefined;
+  hostPath?: string | null | undefined;
+  mountPath: string;
   serviceId: string;
+  serviceType?: MountsCreateServiceType | undefined;
+  type: MountsCreateType;
+  volumeName?: string | null | undefined;
 };
 
 /** @internal */
-export const MountsCreateSecurity$inboundSchema: z.ZodType<
-  MountsCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
+export const MountsCreateServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MountsCreateServiceType
+> = z.nativeEnum(MountsCreateServiceType);
 
 /** @internal */
-export type MountsCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MountsCreateSecurity$outboundSchema: z.ZodType<
-  MountsCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  MountsCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
+export const MountsCreateServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MountsCreateServiceType
+> = MountsCreateServiceType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MountsCreateSecurity$ {
-  /** @deprecated use `MountsCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = MountsCreateSecurity$inboundSchema;
-  /** @deprecated use `MountsCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = MountsCreateSecurity$outboundSchema;
-  /** @deprecated use `MountsCreateSecurity$Outbound` instead. */
-  export type Outbound = MountsCreateSecurity$Outbound;
-}
-
-export function mountsCreateSecurityToJSON(
-  mountsCreateSecurity: MountsCreateSecurity,
-): string {
-  return JSON.stringify(
-    MountsCreateSecurity$outboundSchema.parse(mountsCreateSecurity),
-  );
-}
-
-export function mountsCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MountsCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MountsCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MountsCreateSecurity' from JSON`,
-  );
+export namespace MountsCreateServiceType$ {
+  /** @deprecated use `MountsCreateServiceType$inboundSchema` instead. */
+  export const inboundSchema = MountsCreateServiceType$inboundSchema;
+  /** @deprecated use `MountsCreateServiceType$outboundSchema` instead. */
+  export const outboundSchema = MountsCreateServiceType$outboundSchema;
 }
 
 /** @internal */
@@ -128,52 +82,31 @@ export namespace MountsCreateType$ {
 }
 
 /** @internal */
-export const MountsCreateServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MountsCreateServiceType
-> = z.nativeEnum(MountsCreateServiceType);
-
-/** @internal */
-export const MountsCreateServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MountsCreateServiceType
-> = MountsCreateServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MountsCreateServiceType$ {
-  /** @deprecated use `MountsCreateServiceType$inboundSchema` instead. */
-  export const inboundSchema = MountsCreateServiceType$inboundSchema;
-  /** @deprecated use `MountsCreateServiceType$outboundSchema` instead. */
-  export const outboundSchema = MountsCreateServiceType$outboundSchema;
-}
-
-/** @internal */
 export const MountsCreateRequest$inboundSchema: z.ZodType<
   MountsCreateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: MountsCreateType$inboundSchema,
-  hostPath: z.nullable(z.string()).optional(),
-  volumeName: z.nullable(z.string()).optional(),
   content: z.nullable(z.string()).optional(),
-  mountPath: z.string(),
-  serviceType: MountsCreateServiceType$inboundSchema.default("application"),
   filePath: z.nullable(z.string()).optional(),
+  hostPath: z.nullable(z.string()).optional(),
+  mountPath: z.string(),
   serviceId: z.string(),
+  serviceType: MountsCreateServiceType$inboundSchema.default("application"),
+  type: MountsCreateType$inboundSchema,
+  volumeName: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MountsCreateRequest$Outbound = {
-  type: string;
-  hostPath?: string | null | undefined;
-  volumeName?: string | null | undefined;
   content?: string | null | undefined;
-  mountPath: string;
-  serviceType: string;
   filePath?: string | null | undefined;
+  hostPath?: string | null | undefined;
+  mountPath: string;
   serviceId: string;
+  serviceType: string;
+  type: string;
+  volumeName?: string | null | undefined;
 };
 
 /** @internal */
@@ -182,14 +115,14 @@ export const MountsCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MountsCreateRequest
 > = z.object({
-  type: MountsCreateType$outboundSchema,
-  hostPath: z.nullable(z.string()).optional(),
-  volumeName: z.nullable(z.string()).optional(),
   content: z.nullable(z.string()).optional(),
-  mountPath: z.string(),
-  serviceType: MountsCreateServiceType$outboundSchema.default("application"),
   filePath: z.nullable(z.string()).optional(),
+  hostPath: z.nullable(z.string()).optional(),
+  mountPath: z.string(),
   serviceId: z.string(),
+  serviceType: MountsCreateServiceType$outboundSchema.default("application"),
+  type: MountsCreateType$outboundSchema,
+  volumeName: z.nullable(z.string()).optional(),
 });
 
 /**

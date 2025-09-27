@@ -4,6 +4,8 @@ sources:
     Dokploy API:
         inputs:
             - location: https://raw.githubusercontent.com/charliedevelops/dokploy-api/refs/heads/main/API.json
+        overlays:
+            - location: .speakeasy/speakeasy-modifications-overlay.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/polariselabs/dokploy/dokploy-api

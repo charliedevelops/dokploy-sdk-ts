@@ -6,7 +6,11 @@
 import { ApplicationStopSecurity } from "dokploy-sdk/models/operations";
 
 let value: ApplicationStopSecurity = {
-  authorization: "<value>",
+  applicationId: "<id>",
+  createdAt: "1721774267964",
+  password: "4uHpAKxgFnFaIZK",
+  securityId: "<id>",
+  username: "Abbey.Roberts",
 };
 ```
 
@@ -14,4 +18,8 @@ let value: ApplicationStopSecurity = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `authorization`    | *string*           | :heavy_check_mark: | N/A                |
+| `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
+| `createdAt`        | *string*           | :heavy_check_mark: | N/A                |
+| `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `securityId`       | *string*           | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

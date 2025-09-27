@@ -3,84 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type BackupListBackupFilesSecurity = {
-  authorization: string;
-};
 
 export type BackupListBackupFilesRequest = {
   destinationId: string;
   search: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const BackupListBackupFilesSecurity$inboundSchema: z.ZodType<
-  BackupListBackupFilesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupListBackupFilesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupListBackupFilesSecurity$outboundSchema: z.ZodType<
-  BackupListBackupFilesSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupListBackupFilesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupListBackupFilesSecurity$ {
-  /** @deprecated use `BackupListBackupFilesSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupListBackupFilesSecurity$inboundSchema;
-  /** @deprecated use `BackupListBackupFilesSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupListBackupFilesSecurity$outboundSchema;
-  /** @deprecated use `BackupListBackupFilesSecurity$Outbound` instead. */
-  export type Outbound = BackupListBackupFilesSecurity$Outbound;
-}
-
-export function backupListBackupFilesSecurityToJSON(
-  backupListBackupFilesSecurity: BackupListBackupFilesSecurity,
-): string {
-  return JSON.stringify(
-    BackupListBackupFilesSecurity$outboundSchema.parse(
-      backupListBackupFilesSecurity,
-    ),
-  );
-}
-
-export function backupListBackupFilesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupListBackupFilesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupListBackupFilesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupListBackupFilesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupListBackupFilesRequest$inboundSchema: z.ZodType<

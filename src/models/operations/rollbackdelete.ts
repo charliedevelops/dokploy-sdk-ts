@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type RollbackDeleteSecurity = {
-  authorization: string;
-};
-
 export type RollbackDeleteRequest = {
   rollbackId: string;
 };
-
-/** @internal */
-export const RollbackDeleteSecurity$inboundSchema: z.ZodType<
-  RollbackDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RollbackDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RollbackDeleteSecurity$outboundSchema: z.ZodType<
-  RollbackDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  RollbackDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RollbackDeleteSecurity$ {
-  /** @deprecated use `RollbackDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = RollbackDeleteSecurity$inboundSchema;
-  /** @deprecated use `RollbackDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = RollbackDeleteSecurity$outboundSchema;
-  /** @deprecated use `RollbackDeleteSecurity$Outbound` instead. */
-  export type Outbound = RollbackDeleteSecurity$Outbound;
-}
-
-export function rollbackDeleteSecurityToJSON(
-  rollbackDeleteSecurity: RollbackDeleteSecurity,
-): string {
-  return JSON.stringify(
-    RollbackDeleteSecurity$outboundSchema.parse(rollbackDeleteSecurity),
-  );
-}
-
-export function rollbackDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RollbackDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RollbackDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RollbackDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RollbackDeleteRequest$inboundSchema: z.ZodType<

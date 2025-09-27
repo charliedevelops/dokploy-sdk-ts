@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanAllSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanAllRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanAllSecurity$inboundSchema: z.ZodType<
-  SettingsCleanAllSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanAllSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanAllSecurity$outboundSchema: z.ZodType<
-  SettingsCleanAllSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanAllSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanAllSecurity$ {
-  /** @deprecated use `SettingsCleanAllSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsCleanAllSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanAllSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsCleanAllSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanAllSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanAllSecurity$Outbound;
-}
-
-export function settingsCleanAllSecurityToJSON(
-  settingsCleanAllSecurity: SettingsCleanAllSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanAllSecurity$outboundSchema.parse(settingsCleanAllSecurity),
-  );
-}
-
-export function settingsCleanAllSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanAllSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsCleanAllSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanAllSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanAllRequest$inboundSchema: z.ZodType<

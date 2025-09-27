@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type CertificatesRemoveSecurity = {
-  authorization: string;
-};
 
 export type CertificatesRemoveRequest = {
   certificateId: string;
@@ -21,81 +16,19 @@ export type CertificatesRemoveRequest = {
  * Successful response
  */
 export type CertificatesRemoveResponseBody = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
 export type CertificatesRemoveResponse =
   | CertificatesRemoveResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const CertificatesRemoveSecurity$inboundSchema: z.ZodType<
-  CertificatesRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type CertificatesRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const CertificatesRemoveSecurity$outboundSchema: z.ZodType<
-  CertificatesRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  CertificatesRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CertificatesRemoveSecurity$ {
-  /** @deprecated use `CertificatesRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = CertificatesRemoveSecurity$inboundSchema;
-  /** @deprecated use `CertificatesRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = CertificatesRemoveSecurity$outboundSchema;
-  /** @deprecated use `CertificatesRemoveSecurity$Outbound` instead. */
-  export type Outbound = CertificatesRemoveSecurity$Outbound;
-}
-
-export function certificatesRemoveSecurityToJSON(
-  certificatesRemoveSecurity: CertificatesRemoveSecurity,
-): string {
-  return JSON.stringify(
-    CertificatesRemoveSecurity$outboundSchema.parse(certificatesRemoveSecurity),
-  );
-}
-
-export function certificatesRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<CertificatesRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CertificatesRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CertificatesRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const CertificatesRemoveRequest$inboundSchema: z.ZodType<
@@ -157,25 +90,25 @@ export const CertificatesRemoveResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 
 /** @internal */
 export type CertificatesRemoveResponseBody$Outbound = {
-  certificateId: string;
-  name: string;
-  certificateData: string;
-  privateKey: string;
-  certificatePath: string;
   autoRenew: boolean | null;
+  certificateData: string;
+  certificateId: string;
+  certificatePath: string;
+  name: string;
   organizationId: string;
+  privateKey: string;
   serverId: string | null;
 };
 
@@ -185,13 +118,13 @@ export const CertificatesRemoveResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CertificatesRemoveResponseBody
 > = z.object({
-  certificateId: z.string(),
-  name: z.string(),
-  certificateData: z.string(),
-  privateKey: z.string(),
-  certificatePath: z.string(),
   autoRenew: z.nullable(z.boolean()),
+  certificateData: z.string(),
+  certificateId: z.string(),
+  certificatePath: z.string(),
+  name: z.string(),
   organizationId: z.string(),
+  privateKey: z.string(),
   serverId: z.nullable(z.string()),
 });
 

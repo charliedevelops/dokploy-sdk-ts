@@ -3,93 +3,22 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveGitProdiverSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveGitProdiverRequest = {
-  customGitBranch?: string | null | undefined;
   applicationId: string;
+  customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
   customGitSSHKeyId?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationSaveGitProdiverResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveGitProdiverSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveGitProdiverSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveGitProdiverSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveGitProdiverSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveGitProdiverSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveGitProdiverSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveGitProdiverSecurity$ {
-  /** @deprecated use `ApplicationSaveGitProdiverSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationSaveGitProdiverSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveGitProdiverSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveGitProdiverSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveGitProdiverSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveGitProdiverSecurity$Outbound;
-}
-
-export function applicationSaveGitProdiverSecurityToJSON(
-  applicationSaveGitProdiverSecurity: ApplicationSaveGitProdiverSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveGitProdiverSecurity$outboundSchema.parse(
-      applicationSaveGitProdiverSecurity,
-    ),
-  );
-}
-
-export function applicationSaveGitProdiverSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveGitProdiverSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveGitProdiverSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveGitProdiverSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveGitProdiverRequest$inboundSchema: z.ZodType<
@@ -97,24 +26,24 @@ export const ApplicationSaveGitProdiverRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  customGitBranch: z.nullable(z.string()).optional(),
   applicationId: z.string(),
+  customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveGitProdiverRequest$Outbound = {
-  customGitBranch?: string | null | undefined;
   applicationId: string;
+  customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
   customGitSSHKeyId?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -123,13 +52,13 @@ export const ApplicationSaveGitProdiverRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveGitProdiverRequest
 > = z.object({
-  customGitBranch: z.nullable(z.string()).optional(),
   applicationId: z.string(),
+  customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

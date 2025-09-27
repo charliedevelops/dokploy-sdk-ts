@@ -10,123 +10,8 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationStartSecurity = {
-  authorization: string;
-};
-
 export type ApplicationStartRequest = {
   applicationId: string;
-};
-
-export const ApplicationStartPreviewCertificateType = {
-  Letsencrypt: "letsencrypt",
-  None: "none",
-  Custom: "custom",
-} as const;
-export type ApplicationStartPreviewCertificateType = ClosedEnum<
-  typeof ApplicationStartPreviewCertificateType
->;
-
-export const ApplicationStartSourceType = {
-  Github: "github",
-  Docker: "docker",
-  Git: "git",
-  Gitlab: "gitlab",
-  Bitbucket: "bitbucket",
-  Gitea: "gitea",
-  Drop: "drop",
-} as const;
-export type ApplicationStartSourceType = ClosedEnum<
-  typeof ApplicationStartSourceType
->;
-
-export const ApplicationStartTriggerType = {
-  Push: "push",
-  Tag: "tag",
-} as const;
-export type ApplicationStartTriggerType = ClosedEnum<
-  typeof ApplicationStartTriggerType
->;
-
-export type ApplicationStartHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type ApplicationStartRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type ApplicationStartSpread = {
-  spreadDescriptor: string;
-};
-
-export type ApplicationStartPreference = {
-  spread: ApplicationStartSpread;
-};
-
-export type ApplicationStartPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type ApplicationStartPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<ApplicationStartPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<ApplicationStartPlatform> | undefined;
-};
-
-export type ApplicationStartUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationStartRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type ApplicationStartReplicated = {
-  replicas?: number | undefined;
-};
-
-export type ApplicationStartGlobal = {};
-
-export type ApplicationStartReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type ApplicationStartGlobalJob = {};
-
-export type ApplicationStartModeSwarm = {
-  replicated?: ApplicationStartReplicated | undefined;
-  global?: ApplicationStartGlobal | undefined;
-  replicatedJob?: ApplicationStartReplicatedJob | undefined;
-  globalJob?: ApplicationStartGlobalJob | undefined;
-};
-
-export type ApplicationStartDriverOpts = {};
-
-export type ApplicationStartNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: ApplicationStartDriverOpts | undefined;
 };
 
 export const ApplicationStartApplicationStatus = {
@@ -138,6 +23,14 @@ export const ApplicationStartApplicationStatus = {
 export type ApplicationStartApplicationStatus = ClosedEnum<
   typeof ApplicationStartApplicationStatus
 >;
+
+export type ApplicationStartBitbucket = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
 
 export const ApplicationStartBuildType = {
   Dockerfile: "dockerfile",
@@ -151,33 +44,34 @@ export type ApplicationStartBuildType = ClosedEnum<
   typeof ApplicationStartBuildType
 >;
 
-export type ApplicationStartProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type ApplicationStartEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationStartProject;
-};
-
-export const ApplicationStartDomainType = {
-  Compose: "compose",
-  Application: "application",
-  Preview: "preview",
+export const ApplicationStartStatus = {
+  Running: "running",
+  Done: "done",
+  Error: "error",
 } as const;
-export type ApplicationStartDomainType = ClosedEnum<
-  typeof ApplicationStartDomainType
->;
+export type ApplicationStartStatus = ClosedEnum<typeof ApplicationStartStatus>;
+
+export type ApplicationStartDeployment = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
+  deploymentId: string;
+  description: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
+  logPath: string;
+  pid: string | null;
+  previewDeploymentId: string | null;
+  rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: ApplicationStartStatus | null;
+  title: string;
+  volumeBackupId: string | null;
+};
 
 export const ApplicationStartCertificateType = {
   Letsencrypt: "letsencrypt",
@@ -188,60 +82,119 @@ export type ApplicationStartCertificateType = ClosedEnum<
   typeof ApplicationStartCertificateType
 >;
 
+export const ApplicationStartDomainType = {
+  Compose: "compose",
+  Application: "application",
+  Preview: "preview",
+} as const;
+export type ApplicationStartDomainType = ClosedEnum<
+  typeof ApplicationStartDomainType
+>;
+
 export type ApplicationStartDomain = {
+  applicationId: string | null;
+  certificateType: ApplicationStartCertificateType;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
   domainId: string;
+  domainType: ApplicationStartDomainType | null;
   host: string;
   https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: ApplicationStartDomainType | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: ApplicationStartCertificateType;
   internalPath: string | null;
-  stripPath: boolean;
-};
-
-export const ApplicationStartStatus = {
-  Running: "running",
-  Done: "done",
-  Error: "error",
-} as const;
-export type ApplicationStartStatus = ClosedEnum<typeof ApplicationStartStatus>;
-
-export type ApplicationStartDeployment = {
-  deploymentId: string;
-  title: string;
-  description: string | null;
-  status: ApplicationStartStatus | null;
-  logPath: string;
-  pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
+  path: string | null;
+  port: number | null;
   previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
-  rollbackId: string | null;
-  volumeBackupId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
 };
 
-export const ApplicationStartType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type ApplicationStartType = ClosedEnum<typeof ApplicationStartType>;
+export type ApplicationStartProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type ApplicationStartEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationStartProject;
+  projectId: string;
+};
+
+export type ApplicationStartGitea = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+export type ApplicationStartGithub = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+export type ApplicationStartGitlab = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+export type ApplicationStartHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type ApplicationStartGlobal = {};
+
+export type ApplicationStartGlobalJob = {};
+
+export type ApplicationStartReplicated = {
+  replicas?: number | undefined;
+};
+
+export type ApplicationStartReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type ApplicationStartModeSwarm = {
+  global?: ApplicationStartGlobal | undefined;
+  globalJob?: ApplicationStartGlobalJob | undefined;
+  replicated?: ApplicationStartReplicated | undefined;
+  replicatedJob?: ApplicationStartReplicatedJob | undefined;
+};
 
 export const ApplicationStartServiceType = {
   Application: "application",
@@ -256,49 +209,58 @@ export type ApplicationStartServiceType = ClosedEnum<
   typeof ApplicationStartServiceType
 >;
 
+export const ApplicationStartType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type ApplicationStartType = ClosedEnum<typeof ApplicationStartType>;
+
 export type ApplicationStartMount = {
-  mountId: string;
-  type: ApplicationStartType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: ApplicationStartServiceType;
-  mountPath: string;
   applicationId: string | null;
-  postgresId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
   mariadbId: string | null;
   mongoId: string | null;
+  mountId: string;
+  mountPath: string;
   mysqlId: string | null;
+  postgresId: string | null;
   redisId: string | null;
-  composeId: string | null;
+  serviceType: ApplicationStartServiceType;
+  type: ApplicationStartType;
+  volumeName: string | null;
 };
 
-export type ApplicationStartRedirect = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationStartDriverOpts = {};
+
+export type ApplicationStartNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: ApplicationStartDriverOpts | undefined;
+  target?: string | undefined;
 };
 
-export type ApplicationStartSecurityResponse = {
-  securityId: string;
-  username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
+export type ApplicationStartPlatform = {
+  architecture: string;
+  os: string;
 };
 
-export const ApplicationStartPublishMode = {
-  Ingress: "ingress",
-  Host: "host",
-} as const;
-export type ApplicationStartPublishMode = ClosedEnum<
-  typeof ApplicationStartPublishMode
->;
+export type ApplicationStartSpread = {
+  spreadDescriptor: string;
+};
+
+export type ApplicationStartPreference = {
+  spread: ApplicationStartSpread;
+};
+
+export type ApplicationStartPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<ApplicationStartPlatform> | undefined;
+  preferences?: Array<ApplicationStartPreference> | undefined;
+};
 
 export const ApplicationStartProtocol = {
   Tcp: "tcp",
@@ -308,13 +270,66 @@ export type ApplicationStartProtocol = ClosedEnum<
   typeof ApplicationStartProtocol
 >;
 
+export const ApplicationStartPublishMode = {
+  Ingress: "ingress",
+  Host: "host",
+} as const;
+export type ApplicationStartPublishMode = ClosedEnum<
+  typeof ApplicationStartPublishMode
+>;
+
 export type ApplicationStartPort = {
-  portId: string;
-  publishedPort: number;
-  publishMode: ApplicationStartPublishMode;
-  targetPort: number;
-  protocol: ApplicationStartProtocol;
   applicationId: string;
+  portId: string;
+  protocol: ApplicationStartProtocol;
+  publishMode: ApplicationStartPublishMode;
+  publishedPort: number;
+  targetPort: number;
+};
+
+export const ApplicationStartPreviewCertificateType = {
+  Letsencrypt: "letsencrypt",
+  None: "none",
+  Custom: "custom",
+} as const;
+export type ApplicationStartPreviewCertificateType = ClosedEnum<
+  typeof ApplicationStartPreviewCertificateType
+>;
+
+export const ApplicationStartPreviewStatus = {
+  Idle: "idle",
+  Running: "running",
+  Done: "done",
+  Error: "error",
+} as const;
+export type ApplicationStartPreviewStatus = ClosedEnum<
+  typeof ApplicationStartPreviewStatus
+>;
+
+export type ApplicationStartPreviewDeployment = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: ApplicationStartPreviewStatus;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+export type ApplicationStartRedirect = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
 };
 
 export const ApplicationStartRegistryType = {
@@ -326,71 +341,40 @@ export type ApplicationStartRegistryType = ClosedEnum<
 >;
 
 export type ApplicationStartRegistry = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
   registryId: string;
   registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
   registryType: ApplicationStartRegistryType;
-  organizationId: string;
+  registryUrl: string;
+  username: string;
 };
 
-export type ApplicationStartGithub = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
+export type ApplicationStartRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
-export type ApplicationStartGitlab = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
+export type ApplicationStartRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
-export type ApplicationStartBitbucket = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
+export type ApplicationStartSecurity = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
+  securityId: string;
+  username: string;
 };
-
-export type ApplicationStartGitea = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-export const ApplicationStartServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type ApplicationStartServerStatus = ClosedEnum<
-  typeof ApplicationStartServerStatus
->;
 
 export const ApplicationStartMetricsConfigEnum = {
   Null: "null",
@@ -413,20 +397,21 @@ export type ApplicationStartMetricsConfigUnion2 =
   | Array<any>
   | { [k: string]: any };
 
+export const ApplicationStartServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type ApplicationStartServerStatus = ClosedEnum<
+  typeof ApplicationStartServerStatus
+>;
+
 export type ApplicationStartServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: ApplicationStartServerStatus;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig:
     | string
     | number
@@ -434,206 +419,155 @@ export type ApplicationStartServer = {
     | ApplicationStartMetricsConfigEnum
     | Array<any>
     | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: ApplicationStartServerStatus;
+  sshKeyId: string | null;
+  username: string;
 };
 
-export const ApplicationStartPreviewStatus = {
-  Idle: "idle",
-  Running: "running",
-  Done: "done",
-  Error: "error",
+export const ApplicationStartSourceType = {
+  Github: "github",
+  Docker: "docker",
+  Git: "git",
+  Gitlab: "gitlab",
+  Bitbucket: "bitbucket",
+  Gitea: "gitea",
+  Drop: "drop",
 } as const;
-export type ApplicationStartPreviewStatus = ClosedEnum<
-  typeof ApplicationStartPreviewStatus
+export type ApplicationStartSourceType = ClosedEnum<
+  typeof ApplicationStartSourceType
 >;
 
-export type ApplicationStartPreviewDeployment = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: ApplicationStartPreviewStatus;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
+export const ApplicationStartTriggerType = {
+  Push: "push",
+  Tag: "tag",
+} as const;
+export type ApplicationStartTriggerType = ClosedEnum<
+  typeof ApplicationStartTriggerType
+>;
+
+export type ApplicationStartUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type ApplicationStartResponseBody = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: ApplicationStartPreviewCertificateType | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: ApplicationStartSourceType | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: ApplicationStartTriggerType | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: ApplicationStartApplicationStatus | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationStartBitbucket | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: ApplicationStartBuildType | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
-  dockerBuildStage?: string | null | undefined;
-  dropBuildPath?: string | null | undefined;
-  healthCheckSwarm?: ApplicationStartHealthCheckSwarm | null | undefined;
-  restartPolicySwarm?: ApplicationStartRestartPolicySwarm | null | undefined;
-  placementSwarm?: ApplicationStartPlacementSwarm | null | undefined;
-  updateConfigSwarm?: ApplicationStartUpdateConfigSwarm | null | undefined;
-  rollbackConfigSwarm?: ApplicationStartRollbackConfigSwarm | null | undefined;
-  modeSwarm?: ApplicationStartModeSwarm | null | undefined;
-  labelsSwarm?: { [k: string]: string } | null | undefined;
-  networkSwarm?: Array<ApplicationStartNetworkSwarm> | null | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: ApplicationStartApplicationStatus | undefined;
-  buildType?: ApplicationStartBuildType | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationStartEnvironment;
-  domains: Array<ApplicationStartDomain>;
+  customGitUrl?: string | null | undefined;
   deployments: Array<ApplicationStartDeployment>;
-  mounts: Array<ApplicationStartMount>;
-  redirects: Array<ApplicationStartRedirect>;
-  security: Array<ApplicationStartSecurityResponse>;
-  ports: Array<ApplicationStartPort>;
-  registry: ApplicationStartRegistry | null;
-  github: ApplicationStartGithub | null;
-  gitlab: ApplicationStartGitlab | null;
-  bitbucket: ApplicationStartBitbucket | null;
+  description?: string | null | undefined;
+  dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationStartDomain>;
+  dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationStartEnvironment;
+  environmentId: string;
   gitea: ApplicationStartGitea | null;
-  server: ApplicationStartServer | null;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationStartGithub | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationStartGitlab | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
+  healthCheckSwarm?: ApplicationStartHealthCheckSwarm | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
+  labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationStartModeSwarm | null | undefined;
+  mounts: Array<ApplicationStartMount>;
+  name: string;
+  networkSwarm?: Array<ApplicationStartNetworkSwarm> | null | undefined;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationStartPlacementSwarm | null | undefined;
+  ports: Array<ApplicationStartPort>;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: ApplicationStartPreviewCertificateType | undefined;
+  previewCustomCertResolver?: string | null | undefined;
   previewDeployments: Array<ApplicationStartPreviewDeployment>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationStartRedirect>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationStartRegistry | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?: ApplicationStartRestartPolicySwarm | null | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?: ApplicationStartRollbackConfigSwarm | null | undefined;
+  security: Array<ApplicationStartSecurity>;
+  server: ApplicationStartServer | null;
+  serverId?: string | null | undefined;
+  sourceType?: ApplicationStartSourceType | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: ApplicationStartTriggerType | null | undefined;
+  updateConfigSwarm?: ApplicationStartUpdateConfigSwarm | null | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationStartResponse =
   | ApplicationStartResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const ApplicationStartSecurity$inboundSchema: z.ZodType<
-  ApplicationStartSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationStartSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationStartSecurity$outboundSchema: z.ZodType<
-  ApplicationStartSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartSecurity$ {
-  /** @deprecated use `ApplicationStartSecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartSecurity$inboundSchema;
-  /** @deprecated use `ApplicationStartSecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartSecurity$outboundSchema;
-  /** @deprecated use `ApplicationStartSecurity$Outbound` instead. */
-  export type Outbound = ApplicationStartSecurity$Outbound;
-}
-
-export function applicationStartSecurityToJSON(
-  applicationStartSecurity: ApplicationStartSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationStartSecurity$outboundSchema.parse(applicationStartSecurity),
-  );
-}
-
-export function applicationStartSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationStartRequest$inboundSchema: z.ZodType<
@@ -690,69 +624,768 @@ export function applicationStartRequestFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartPreviewCertificateType$inboundSchema:
-  z.ZodNativeEnum<typeof ApplicationStartPreviewCertificateType> = z.nativeEnum(
-    ApplicationStartPreviewCertificateType,
-  );
+export const ApplicationStartApplicationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartApplicationStatus
+> = z.nativeEnum(ApplicationStartApplicationStatus);
 
 /** @internal */
-export const ApplicationStartPreviewCertificateType$outboundSchema:
-  z.ZodNativeEnum<typeof ApplicationStartPreviewCertificateType> =
-    ApplicationStartPreviewCertificateType$inboundSchema;
+export const ApplicationStartApplicationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartApplicationStatus
+> = ApplicationStartApplicationStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartPreviewCertificateType$ {
-  /** @deprecated use `ApplicationStartPreviewCertificateType$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationStartPreviewCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationStartPreviewCertificateType$outboundSchema` instead. */
+export namespace ApplicationStartApplicationStatus$ {
+  /** @deprecated use `ApplicationStartApplicationStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartApplicationStatus$inboundSchema;
+  /** @deprecated use `ApplicationStartApplicationStatus$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationStartPreviewCertificateType$outboundSchema;
+    ApplicationStartApplicationStatus$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationStartSourceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartSourceType
-> = z.nativeEnum(ApplicationStartSourceType);
+export const ApplicationStartBitbucket$inboundSchema: z.ZodType<
+  ApplicationStartBitbucket,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
 
 /** @internal */
-export const ApplicationStartSourceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartSourceType
-> = ApplicationStartSourceType$inboundSchema;
+export type ApplicationStartBitbucket$Outbound = {
+  appPassword: string | null;
+  bitbucketId: string;
+  bitbucketUsername: string | null;
+  bitbucketWorkspaceName: string | null;
+  gitProviderId: string;
+};
+
+/** @internal */
+export const ApplicationStartBitbucket$outboundSchema: z.ZodType<
+  ApplicationStartBitbucket$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartBitbucket
+> = z.object({
+  appPassword: z.nullable(z.string()),
+  bitbucketId: z.string(),
+  bitbucketUsername: z.nullable(z.string()),
+  bitbucketWorkspaceName: z.nullable(z.string()),
+  gitProviderId: z.string(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartSourceType$ {
-  /** @deprecated use `ApplicationStartSourceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartSourceType$inboundSchema;
-  /** @deprecated use `ApplicationStartSourceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartSourceType$outboundSchema;
+export namespace ApplicationStartBitbucket$ {
+  /** @deprecated use `ApplicationStartBitbucket$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartBitbucket$inboundSchema;
+  /** @deprecated use `ApplicationStartBitbucket$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartBitbucket$outboundSchema;
+  /** @deprecated use `ApplicationStartBitbucket$Outbound` instead. */
+  export type Outbound = ApplicationStartBitbucket$Outbound;
+}
+
+export function applicationStartBitbucketToJSON(
+  applicationStartBitbucket: ApplicationStartBitbucket,
+): string {
+  return JSON.stringify(
+    ApplicationStartBitbucket$outboundSchema.parse(applicationStartBitbucket),
+  );
+}
+
+export function applicationStartBitbucketFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartBitbucket, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartBitbucket$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartBitbucket' from JSON`,
+  );
 }
 
 /** @internal */
-export const ApplicationStartTriggerType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartTriggerType
-> = z.nativeEnum(ApplicationStartTriggerType);
+export const ApplicationStartBuildType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartBuildType
+> = z.nativeEnum(ApplicationStartBuildType);
 
 /** @internal */
-export const ApplicationStartTriggerType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartTriggerType
-> = ApplicationStartTriggerType$inboundSchema;
+export const ApplicationStartBuildType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartBuildType
+> = ApplicationStartBuildType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartTriggerType$ {
-  /** @deprecated use `ApplicationStartTriggerType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartTriggerType$inboundSchema;
-  /** @deprecated use `ApplicationStartTriggerType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartTriggerType$outboundSchema;
+export namespace ApplicationStartBuildType$ {
+  /** @deprecated use `ApplicationStartBuildType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartBuildType$inboundSchema;
+  /** @deprecated use `ApplicationStartBuildType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartBuildType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartStatus
+> = z.nativeEnum(ApplicationStartStatus);
+
+/** @internal */
+export const ApplicationStartStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartStatus
+> = ApplicationStartStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartStatus$ {
+  /** @deprecated use `ApplicationStartStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartStatus$inboundSchema;
+  /** @deprecated use `ApplicationStartStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartDeployment$inboundSchema: z.ZodType<
+  ApplicationStartDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationStartStatus$inboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationStartDeployment$Outbound = {
+  applicationId: string | null;
+  backupId: string | null;
+  composeId: string | null;
+  createdAt: string;
+  deploymentId: string;
+  description: string | null;
+  errorMessage: string | null;
+  finishedAt: string | null;
+  isPreviewDeployment: boolean | null;
+  logPath: string;
+  pid: string | null;
+  previewDeploymentId: string | null;
+  rollbackId: string | null;
+  scheduleId: string | null;
+  serverId: string | null;
+  startedAt: string | null;
+  status: string | null;
+  title: string;
+  volumeBackupId: string | null;
+};
+
+/** @internal */
+export const ApplicationStartDeployment$outboundSchema: z.ZodType<
+  ApplicationStartDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartDeployment
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  backupId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  deploymentId: z.string(),
+  description: z.nullable(z.string()),
+  errorMessage: z.nullable(z.string()),
+  finishedAt: z.nullable(z.string()),
+  isPreviewDeployment: z.nullable(z.boolean()),
+  logPath: z.string(),
+  pid: z.nullable(z.string()),
+  previewDeploymentId: z.nullable(z.string()),
+  rollbackId: z.nullable(z.string()),
+  scheduleId: z.nullable(z.string()),
+  serverId: z.nullable(z.string()),
+  startedAt: z.nullable(z.string()),
+  status: z.nullable(ApplicationStartStatus$outboundSchema),
+  title: z.string(),
+  volumeBackupId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartDeployment$ {
+  /** @deprecated use `ApplicationStartDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartDeployment$inboundSchema;
+  /** @deprecated use `ApplicationStartDeployment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartDeployment$outboundSchema;
+  /** @deprecated use `ApplicationStartDeployment$Outbound` instead. */
+  export type Outbound = ApplicationStartDeployment$Outbound;
+}
+
+export function applicationStartDeploymentToJSON(
+  applicationStartDeployment: ApplicationStartDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationStartDeployment$outboundSchema.parse(applicationStartDeployment),
+  );
+}
+
+export function applicationStartDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartCertificateType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartCertificateType
+> = z.nativeEnum(ApplicationStartCertificateType);
+
+/** @internal */
+export const ApplicationStartCertificateType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartCertificateType
+> = ApplicationStartCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartCertificateType$ {
+  /** @deprecated use `ApplicationStartCertificateType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationStartCertificateType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartDomainType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartDomainType
+> = z.nativeEnum(ApplicationStartDomainType);
+
+/** @internal */
+export const ApplicationStartDomainType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartDomainType
+> = ApplicationStartDomainType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartDomainType$ {
+  /** @deprecated use `ApplicationStartDomainType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartDomainType$inboundSchema;
+  /** @deprecated use `ApplicationStartDomainType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartDomainType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartDomain$inboundSchema: z.ZodType<
+  ApplicationStartDomain,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationStartCertificateType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationStartDomainType$inboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationStartDomain$Outbound = {
+  applicationId: string | null;
+  certificateType: string;
+  composeId: string | null;
+  createdAt: string;
+  customCertResolver: string | null;
+  domainId: string;
+  domainType: string | null;
+  host: string;
+  https: boolean;
+  internalPath: string | null;
+  path: string | null;
+  port: number | null;
+  previewDeploymentId: string | null;
+  serviceName: string | null;
+  stripPath: boolean;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationStartDomain$outboundSchema: z.ZodType<
+  ApplicationStartDomain$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartDomain
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  certificateType: ApplicationStartCertificateType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  createdAt: z.string(),
+  customCertResolver: z.nullable(z.string()),
+  domainId: z.string(),
+  domainType: z.nullable(ApplicationStartDomainType$outboundSchema),
+  host: z.string(),
+  https: z.boolean(),
+  internalPath: z.nullable(z.string()),
+  path: z.nullable(z.string()),
+  port: z.nullable(z.number()),
+  previewDeploymentId: z.nullable(z.string()),
+  serviceName: z.nullable(z.string()),
+  stripPath: z.boolean(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartDomain$ {
+  /** @deprecated use `ApplicationStartDomain$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartDomain$inboundSchema;
+  /** @deprecated use `ApplicationStartDomain$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartDomain$outboundSchema;
+  /** @deprecated use `ApplicationStartDomain$Outbound` instead. */
+  export type Outbound = ApplicationStartDomain$Outbound;
+}
+
+export function applicationStartDomainToJSON(
+  applicationStartDomain: ApplicationStartDomain,
+): string {
+  return JSON.stringify(
+    ApplicationStartDomain$outboundSchema.parse(applicationStartDomain),
+  );
+}
+
+export function applicationStartDomainFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartDomain, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartDomain$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartDomain' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartProject$inboundSchema: z.ZodType<
+  ApplicationStartProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationStartProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationStartProject$outboundSchema: z.ZodType<
+  ApplicationStartProject$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartProject$ {
+  /** @deprecated use `ApplicationStartProject$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartProject$inboundSchema;
+  /** @deprecated use `ApplicationStartProject$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartProject$outboundSchema;
+  /** @deprecated use `ApplicationStartProject$Outbound` instead. */
+  export type Outbound = ApplicationStartProject$Outbound;
+}
+
+export function applicationStartProjectToJSON(
+  applicationStartProject: ApplicationStartProject,
+): string {
+  return JSON.stringify(
+    ApplicationStartProject$outboundSchema.parse(applicationStartProject),
+  );
+}
+
+export function applicationStartProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartEnvironment$inboundSchema: z.ZodType<
+  ApplicationStartEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationStartProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type ApplicationStartEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: ApplicationStartProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const ApplicationStartEnvironment$outboundSchema: z.ZodType<
+  ApplicationStartEnvironment$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => ApplicationStartProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartEnvironment$ {
+  /** @deprecated use `ApplicationStartEnvironment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartEnvironment$inboundSchema;
+  /** @deprecated use `ApplicationStartEnvironment$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartEnvironment$outboundSchema;
+  /** @deprecated use `ApplicationStartEnvironment$Outbound` instead. */
+  export type Outbound = ApplicationStartEnvironment$Outbound;
+}
+
+export function applicationStartEnvironmentToJSON(
+  applicationStartEnvironment: ApplicationStartEnvironment,
+): string {
+  return JSON.stringify(
+    ApplicationStartEnvironment$outboundSchema.parse(
+      applicationStartEnvironment,
+    ),
+  );
+}
+
+export function applicationStartEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartGitea$inboundSchema: z.ZodType<
+  ApplicationStartGitea,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationStartGitea$Outbound = {
+  accessToken: string | null;
+  clientId: string | null;
+  clientSecret: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
+};
+
+/** @internal */
+export const ApplicationStartGitea$outboundSchema: z.ZodType<
+  ApplicationStartGitea$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartGitea
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  clientId: z.nullable(z.string()),
+  clientSecret: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartGitea$ {
+  /** @deprecated use `ApplicationStartGitea$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartGitea$inboundSchema;
+  /** @deprecated use `ApplicationStartGitea$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartGitea$outboundSchema;
+  /** @deprecated use `ApplicationStartGitea$Outbound` instead. */
+  export type Outbound = ApplicationStartGitea$Outbound;
+}
+
+export function applicationStartGiteaToJSON(
+  applicationStartGitea: ApplicationStartGitea,
+): string {
+  return JSON.stringify(
+    ApplicationStartGitea$outboundSchema.parse(applicationStartGitea),
+  );
+}
+
+export function applicationStartGiteaFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartGitea, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartGitea$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartGitea' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartGithub$inboundSchema: z.ZodType<
+  ApplicationStartGithub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationStartGithub$Outbound = {
+  gitProviderId: string;
+  githubAppId: number | null;
+  githubAppName: string | null;
+  githubClientId: string | null;
+  githubClientSecret: string | null;
+  githubId: string;
+  githubInstallationId: string | null;
+  githubPrivateKey: string | null;
+  githubWebhookSecret: string | null;
+};
+
+/** @internal */
+export const ApplicationStartGithub$outboundSchema: z.ZodType<
+  ApplicationStartGithub$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartGithub
+> = z.object({
+  gitProviderId: z.string(),
+  githubAppId: z.nullable(z.number()),
+  githubAppName: z.nullable(z.string()),
+  githubClientId: z.nullable(z.string()),
+  githubClientSecret: z.nullable(z.string()),
+  githubId: z.string(),
+  githubInstallationId: z.nullable(z.string()),
+  githubPrivateKey: z.nullable(z.string()),
+  githubWebhookSecret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartGithub$ {
+  /** @deprecated use `ApplicationStartGithub$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartGithub$inboundSchema;
+  /** @deprecated use `ApplicationStartGithub$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartGithub$outboundSchema;
+  /** @deprecated use `ApplicationStartGithub$Outbound` instead. */
+  export type Outbound = ApplicationStartGithub$Outbound;
+}
+
+export function applicationStartGithubToJSON(
+  applicationStartGithub: ApplicationStartGithub,
+): string {
+  return JSON.stringify(
+    ApplicationStartGithub$outboundSchema.parse(applicationStartGithub),
+  );
+}
+
+export function applicationStartGithubFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartGithub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartGithub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartGithub' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartGitlab$inboundSchema: z.ZodType<
+  ApplicationStartGitlab,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationStartGitlab$Outbound = {
+  accessToken: string | null;
+  applicationId: string | null;
+  expiresAt: number | null;
+  gitProviderId: string;
+  gitlabId: string;
+  gitlabUrl: string;
+  groupName: string | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  secret: string | null;
+};
+
+/** @internal */
+export const ApplicationStartGitlab$outboundSchema: z.ZodType<
+  ApplicationStartGitlab$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartGitlab
+> = z.object({
+  accessToken: z.nullable(z.string()),
+  applicationId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.number()),
+  gitProviderId: z.string(),
+  gitlabId: z.string(),
+  gitlabUrl: z.string(),
+  groupName: z.nullable(z.string()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  secret: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartGitlab$ {
+  /** @deprecated use `ApplicationStartGitlab$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartGitlab$inboundSchema;
+  /** @deprecated use `ApplicationStartGitlab$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartGitlab$outboundSchema;
+  /** @deprecated use `ApplicationStartGitlab$Outbound` instead. */
+  export type Outbound = ApplicationStartGitlab$Outbound;
+}
+
+export function applicationStartGitlabToJSON(
+  applicationStartGitlab: ApplicationStartGitlab,
+): string {
+  return JSON.stringify(
+    ApplicationStartGitlab$outboundSchema.parse(applicationStartGitlab),
+  );
+}
+
+export function applicationStartGitlabFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartGitlab, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartGitlab$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartGitlab' from JSON`,
+  );
 }
 
 /** @internal */
@@ -761,28 +1394,28 @@ export const ApplicationStartHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type ApplicationStartHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -791,18 +1424,18 @@ export const ApplicationStartHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationStartHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -840,48 +1473,129 @@ export function applicationStartHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartRestartPolicySwarm$inboundSchema: z.ZodType<
-  ApplicationStartRestartPolicySwarm,
+export const ApplicationStartGlobal$inboundSchema: z.ZodType<
+  ApplicationStartGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationStartGlobal$Outbound = {};
+
+/** @internal */
+export const ApplicationStartGlobal$outboundSchema: z.ZodType<
+  ApplicationStartGlobal$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartGlobal$ {
+  /** @deprecated use `ApplicationStartGlobal$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartGlobal$inboundSchema;
+  /** @deprecated use `ApplicationStartGlobal$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartGlobal$outboundSchema;
+  /** @deprecated use `ApplicationStartGlobal$Outbound` instead. */
+  export type Outbound = ApplicationStartGlobal$Outbound;
+}
+
+export function applicationStartGlobalToJSON(
+  applicationStartGlobal: ApplicationStartGlobal,
+): string {
+  return JSON.stringify(
+    ApplicationStartGlobal$outboundSchema.parse(applicationStartGlobal),
+  );
+}
+
+export function applicationStartGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartGlobalJob$inboundSchema: z.ZodType<
+  ApplicationStartGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationStartGlobalJob$Outbound = {};
+
+/** @internal */
+export const ApplicationStartGlobalJob$outboundSchema: z.ZodType<
+  ApplicationStartGlobalJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartGlobalJob$ {
+  /** @deprecated use `ApplicationStartGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartGlobalJob$inboundSchema;
+  /** @deprecated use `ApplicationStartGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartGlobalJob$outboundSchema;
+  /** @deprecated use `ApplicationStartGlobalJob$Outbound` instead. */
+  export type Outbound = ApplicationStartGlobalJob$Outbound;
+}
+
+export function applicationStartGlobalJobToJSON(
+  applicationStartGlobalJob: ApplicationStartGlobalJob,
+): string {
+  return JSON.stringify(
+    ApplicationStartGlobalJob$outboundSchema.parse(applicationStartGlobalJob),
+  );
+}
+
+export function applicationStartGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartReplicated$inboundSchema: z.ZodType<
+  ApplicationStartReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type ApplicationStartRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type ApplicationStartReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationStartRestartPolicySwarm$outboundSchema: z.ZodType<
-  ApplicationStartRestartPolicySwarm$Outbound,
+export const ApplicationStartReplicated$outboundSchema: z.ZodType<
+  ApplicationStartReplicated$Outbound,
   z.ZodTypeDef,
-  ApplicationStartRestartPolicySwarm
+  ApplicationStartReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -889,34 +1603,507 @@ export const ApplicationStartRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartRestartPolicySwarm$ {
-  /** @deprecated use `ApplicationStartRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `ApplicationStartRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationStartRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `ApplicationStartRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = ApplicationStartRestartPolicySwarm$Outbound;
+export namespace ApplicationStartReplicated$ {
+  /** @deprecated use `ApplicationStartReplicated$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartReplicated$inboundSchema;
+  /** @deprecated use `ApplicationStartReplicated$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartReplicated$outboundSchema;
+  /** @deprecated use `ApplicationStartReplicated$Outbound` instead. */
+  export type Outbound = ApplicationStartReplicated$Outbound;
 }
 
-export function applicationStartRestartPolicySwarmToJSON(
-  applicationStartRestartPolicySwarm: ApplicationStartRestartPolicySwarm,
+export function applicationStartReplicatedToJSON(
+  applicationStartReplicated: ApplicationStartReplicated,
 ): string {
   return JSON.stringify(
-    ApplicationStartRestartPolicySwarm$outboundSchema.parse(
-      applicationStartRestartPolicySwarm,
+    ApplicationStartReplicated$outboundSchema.parse(applicationStartReplicated),
+  );
+}
+
+export function applicationStartReplicatedFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartReplicatedJob$inboundSchema: z.ZodType<
+  ApplicationStartReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type ApplicationStartReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const ApplicationStartReplicatedJob$outboundSchema: z.ZodType<
+  ApplicationStartReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartReplicatedJob$ {
+  /** @deprecated use `ApplicationStartReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartReplicatedJob$inboundSchema;
+  /** @deprecated use `ApplicationStartReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartReplicatedJob$outboundSchema;
+  /** @deprecated use `ApplicationStartReplicatedJob$Outbound` instead. */
+  export type Outbound = ApplicationStartReplicatedJob$Outbound;
+}
+
+export function applicationStartReplicatedJobToJSON(
+  applicationStartReplicatedJob: ApplicationStartReplicatedJob,
+): string {
+  return JSON.stringify(
+    ApplicationStartReplicatedJob$outboundSchema.parse(
+      applicationStartReplicatedJob,
     ),
   );
 }
 
-export function applicationStartRestartPolicySwarmFromJSON(
+export function applicationStartReplicatedJobFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationStartRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<ApplicationStartReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      ApplicationStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartRestartPolicySwarm' from JSON`,
+    (x) => ApplicationStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartModeSwarm$inboundSchema: z.ZodType<
+  ApplicationStartModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => ApplicationStartGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => ApplicationStartGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => ApplicationStartReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => ApplicationStartReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type ApplicationStartModeSwarm$Outbound = {
+  Global?: ApplicationStartGlobal$Outbound | undefined;
+  GlobalJob?: ApplicationStartGlobalJob$Outbound | undefined;
+  Replicated?: ApplicationStartReplicated$Outbound | undefined;
+  ReplicatedJob?: ApplicationStartReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const ApplicationStartModeSwarm$outboundSchema: z.ZodType<
+  ApplicationStartModeSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartModeSwarm
+> = z.object({
+  global: z.lazy(() => ApplicationStartGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => ApplicationStartGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => ApplicationStartReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => ApplicationStartReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartModeSwarm$ {
+  /** @deprecated use `ApplicationStartModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartModeSwarm$inboundSchema;
+  /** @deprecated use `ApplicationStartModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartModeSwarm$outboundSchema;
+  /** @deprecated use `ApplicationStartModeSwarm$Outbound` instead. */
+  export type Outbound = ApplicationStartModeSwarm$Outbound;
+}
+
+export function applicationStartModeSwarmToJSON(
+  applicationStartModeSwarm: ApplicationStartModeSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationStartModeSwarm$outboundSchema.parse(applicationStartModeSwarm),
+  );
+}
+
+export function applicationStartModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartServiceType
+> = z.nativeEnum(ApplicationStartServiceType);
+
+/** @internal */
+export const ApplicationStartServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartServiceType
+> = ApplicationStartServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartServiceType$ {
+  /** @deprecated use `ApplicationStartServiceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartServiceType$inboundSchema;
+  /** @deprecated use `ApplicationStartServiceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartServiceType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartType
+> = z.nativeEnum(ApplicationStartType);
+
+/** @internal */
+export const ApplicationStartType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartType
+> = ApplicationStartType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartType$ {
+  /** @deprecated use `ApplicationStartType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartType$inboundSchema;
+  /** @deprecated use `ApplicationStartType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartMount$inboundSchema: z.ZodType<
+  ApplicationStartMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationStartServiceType$inboundSchema,
+  type: ApplicationStartType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type ApplicationStartMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const ApplicationStartMount$outboundSchema: z.ZodType<
+  ApplicationStartMount$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: ApplicationStartServiceType$outboundSchema,
+  type: ApplicationStartType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartMount$ {
+  /** @deprecated use `ApplicationStartMount$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartMount$inboundSchema;
+  /** @deprecated use `ApplicationStartMount$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartMount$outboundSchema;
+  /** @deprecated use `ApplicationStartMount$Outbound` instead. */
+  export type Outbound = ApplicationStartMount$Outbound;
+}
+
+export function applicationStartMountToJSON(
+  applicationStartMount: ApplicationStartMount,
+): string {
+  return JSON.stringify(
+    ApplicationStartMount$outboundSchema.parse(applicationStartMount),
+  );
+}
+
+export function applicationStartMountFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartDriverOpts$inboundSchema: z.ZodType<
+  ApplicationStartDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type ApplicationStartDriverOpts$Outbound = {};
+
+/** @internal */
+export const ApplicationStartDriverOpts$outboundSchema: z.ZodType<
+  ApplicationStartDriverOpts$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartDriverOpts$ {
+  /** @deprecated use `ApplicationStartDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartDriverOpts$inboundSchema;
+  /** @deprecated use `ApplicationStartDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartDriverOpts$outboundSchema;
+  /** @deprecated use `ApplicationStartDriverOpts$Outbound` instead. */
+  export type Outbound = ApplicationStartDriverOpts$Outbound;
+}
+
+export function applicationStartDriverOptsToJSON(
+  applicationStartDriverOpts: ApplicationStartDriverOpts,
+): string {
+  return JSON.stringify(
+    ApplicationStartDriverOpts$outboundSchema.parse(applicationStartDriverOpts),
+  );
+}
+
+export function applicationStartDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartNetworkSwarm$inboundSchema: z.ZodType<
+  ApplicationStartNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => ApplicationStartDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type ApplicationStartNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: ApplicationStartDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const ApplicationStartNetworkSwarm$outboundSchema: z.ZodType<
+  ApplicationStartNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => ApplicationStartDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartNetworkSwarm$ {
+  /** @deprecated use `ApplicationStartNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartNetworkSwarm$inboundSchema;
+  /** @deprecated use `ApplicationStartNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartNetworkSwarm$outboundSchema;
+  /** @deprecated use `ApplicationStartNetworkSwarm$Outbound` instead. */
+  export type Outbound = ApplicationStartNetworkSwarm$Outbound;
+}
+
+export function applicationStartNetworkSwarmToJSON(
+  applicationStartNetworkSwarm: ApplicationStartNetworkSwarm,
+): string {
+  return JSON.stringify(
+    ApplicationStartNetworkSwarm$outboundSchema.parse(
+      applicationStartNetworkSwarm,
+    ),
+  );
+}
+
+export function applicationStartNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartPlatform$inboundSchema: z.ZodType<
+  ApplicationStartPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type ApplicationStartPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const ApplicationStartPlatform$outboundSchema: z.ZodType<
+  ApplicationStartPlatform$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPlatform$ {
+  /** @deprecated use `ApplicationStartPlatform$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartPlatform$inboundSchema;
+  /** @deprecated use `ApplicationStartPlatform$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartPlatform$outboundSchema;
+  /** @deprecated use `ApplicationStartPlatform$Outbound` instead. */
+  export type Outbound = ApplicationStartPlatform$Outbound;
+}
+
+export function applicationStartPlatformToJSON(
+  applicationStartPlatform: ApplicationStartPlatform,
+): string {
+  return JSON.stringify(
+    ApplicationStartPlatform$outboundSchema.parse(applicationStartPlatform),
+  );
+}
+
+export function applicationStartPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartPlatform' from JSON`,
   );
 }
 
@@ -1045,99 +2232,32 @@ export function applicationStartPreferenceFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartPlatform$inboundSchema: z.ZodType<
-  ApplicationStartPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type ApplicationStartPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const ApplicationStartPlatform$outboundSchema: z.ZodType<
-  ApplicationStartPlatform$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartPlatform$ {
-  /** @deprecated use `ApplicationStartPlatform$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartPlatform$inboundSchema;
-  /** @deprecated use `ApplicationStartPlatform$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartPlatform$outboundSchema;
-  /** @deprecated use `ApplicationStartPlatform$Outbound` instead. */
-  export type Outbound = ApplicationStartPlatform$Outbound;
-}
-
-export function applicationStartPlatformToJSON(
-  applicationStartPlatform: ApplicationStartPlatform,
-): string {
-  return JSON.stringify(
-    ApplicationStartPlatform$outboundSchema.parse(applicationStartPlatform),
-  );
-}
-
-export function applicationStartPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const ApplicationStartPlacementSwarm$inboundSchema: z.ZodType<
   ApplicationStartPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => ApplicationStartPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => ApplicationStartPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => ApplicationStartPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type ApplicationStartPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<ApplicationStartPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<ApplicationStartPlatform$Outbound> | undefined;
+  Preferences?: Array<ApplicationStartPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1147,17 +2267,17 @@ export const ApplicationStartPlacementSwarm$outboundSchema: z.ZodType<
   ApplicationStartPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => ApplicationStartPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => ApplicationStartPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => ApplicationStartPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -1195,58 +2315,468 @@ export function applicationStartPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartUpdateConfigSwarm$inboundSchema: z.ZodType<
-  ApplicationStartUpdateConfigSwarm,
+export const ApplicationStartProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartProtocol
+> = z.nativeEnum(ApplicationStartProtocol);
+
+/** @internal */
+export const ApplicationStartProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartProtocol
+> = ApplicationStartProtocol$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartProtocol$ {
+  /** @deprecated use `ApplicationStartProtocol$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartProtocol$inboundSchema;
+  /** @deprecated use `ApplicationStartProtocol$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartProtocol$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartPublishMode$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartPublishMode
+> = z.nativeEnum(ApplicationStartPublishMode);
+
+/** @internal */
+export const ApplicationStartPublishMode$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartPublishMode
+> = ApplicationStartPublishMode$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPublishMode$ {
+  /** @deprecated use `ApplicationStartPublishMode$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartPublishMode$inboundSchema;
+  /** @deprecated use `ApplicationStartPublishMode$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartPublishMode$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartPort$inboundSchema: z.ZodType<
+  ApplicationStartPort,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationStartProtocol$inboundSchema,
+  publishMode: ApplicationStartPublishMode$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/** @internal */
+export type ApplicationStartPort$Outbound = {
+  applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
+};
+
+/** @internal */
+export const ApplicationStartPort$outboundSchema: z.ZodType<
+  ApplicationStartPort$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartPort
+> = z.object({
+  applicationId: z.string(),
+  portId: z.string(),
+  protocol: ApplicationStartProtocol$outboundSchema,
+  publishMode: ApplicationStartPublishMode$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPort$ {
+  /** @deprecated use `ApplicationStartPort$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartPort$inboundSchema;
+  /** @deprecated use `ApplicationStartPort$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartPort$outboundSchema;
+  /** @deprecated use `ApplicationStartPort$Outbound` instead. */
+  export type Outbound = ApplicationStartPort$Outbound;
+}
+
+export function applicationStartPortToJSON(
+  applicationStartPort: ApplicationStartPort,
+): string {
+  return JSON.stringify(
+    ApplicationStartPort$outboundSchema.parse(applicationStartPort),
+  );
+}
+
+export function applicationStartPortFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartPort, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartPort$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartPort' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartPreviewCertificateType$inboundSchema:
+  z.ZodNativeEnum<typeof ApplicationStartPreviewCertificateType> = z.nativeEnum(
+    ApplicationStartPreviewCertificateType,
+  );
+
+/** @internal */
+export const ApplicationStartPreviewCertificateType$outboundSchema:
+  z.ZodNativeEnum<typeof ApplicationStartPreviewCertificateType> =
+    ApplicationStartPreviewCertificateType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPreviewCertificateType$ {
+  /** @deprecated use `ApplicationStartPreviewCertificateType$inboundSchema` instead. */
+  export const inboundSchema =
+    ApplicationStartPreviewCertificateType$inboundSchema;
+  /** @deprecated use `ApplicationStartPreviewCertificateType$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationStartPreviewCertificateType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartPreviewStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartPreviewStatus
+> = z.nativeEnum(ApplicationStartPreviewStatus);
+
+/** @internal */
+export const ApplicationStartPreviewStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartPreviewStatus
+> = ApplicationStartPreviewStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPreviewStatus$ {
+  /** @deprecated use `ApplicationStartPreviewStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartPreviewStatus$inboundSchema;
+  /** @deprecated use `ApplicationStartPreviewStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartPreviewStatus$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartPreviewDeployment$inboundSchema: z.ZodType<
+  ApplicationStartPreviewDeployment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationStartPreviewStatus$inboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/** @internal */
+export type ApplicationStartPreviewDeployment$Outbound = {
+  appName: string;
+  applicationId: string;
+  branch: string;
+  createdAt: string;
+  domainId: string | null;
+  expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: string;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
+};
+
+/** @internal */
+export const ApplicationStartPreviewDeployment$outboundSchema: z.ZodType<
+  ApplicationStartPreviewDeployment$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartPreviewDeployment
+> = z.object({
+  appName: z.string(),
+  applicationId: z.string(),
+  branch: z.string(),
+  createdAt: z.string(),
+  domainId: z.nullable(z.string()),
+  expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: ApplicationStartPreviewStatus$outboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartPreviewDeployment$ {
+  /** @deprecated use `ApplicationStartPreviewDeployment$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartPreviewDeployment$inboundSchema;
+  /** @deprecated use `ApplicationStartPreviewDeployment$outboundSchema` instead. */
+  export const outboundSchema =
+    ApplicationStartPreviewDeployment$outboundSchema;
+  /** @deprecated use `ApplicationStartPreviewDeployment$Outbound` instead. */
+  export type Outbound = ApplicationStartPreviewDeployment$Outbound;
+}
+
+export function applicationStartPreviewDeploymentToJSON(
+  applicationStartPreviewDeployment: ApplicationStartPreviewDeployment,
+): string {
+  return JSON.stringify(
+    ApplicationStartPreviewDeployment$outboundSchema.parse(
+      applicationStartPreviewDeployment,
+    ),
+  );
+}
+
+export function applicationStartPreviewDeploymentFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartPreviewDeployment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartPreviewDeployment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartPreviewDeployment' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartRedirect$inboundSchema: z.ZodType<
+  ApplicationStartRedirect,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/** @internal */
+export type ApplicationStartRedirect$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
+  redirectId: string;
+  regex: string;
+  replacement: string;
+  uniqueConfigKey: number;
+};
+
+/** @internal */
+export const ApplicationStartRedirect$outboundSchema: z.ZodType<
+  ApplicationStartRedirect$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartRedirect
+> = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
+  redirectId: z.string(),
+  regex: z.string(),
+  replacement: z.string(),
+  uniqueConfigKey: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartRedirect$ {
+  /** @deprecated use `ApplicationStartRedirect$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartRedirect$inboundSchema;
+  /** @deprecated use `ApplicationStartRedirect$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartRedirect$outboundSchema;
+  /** @deprecated use `ApplicationStartRedirect$Outbound` instead. */
+  export type Outbound = ApplicationStartRedirect$Outbound;
+}
+
+export function applicationStartRedirectToJSON(
+  applicationStartRedirect: ApplicationStartRedirect,
+): string {
+  return JSON.stringify(
+    ApplicationStartRedirect$outboundSchema.parse(applicationStartRedirect),
+  );
+}
+
+export function applicationStartRedirectFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartRedirect, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartRedirect$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartRedirect' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartRegistryType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartRegistryType
+> = z.nativeEnum(ApplicationStartRegistryType);
+
+/** @internal */
+export const ApplicationStartRegistryType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartRegistryType
+> = ApplicationStartRegistryType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartRegistryType$ {
+  /** @deprecated use `ApplicationStartRegistryType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartRegistryType$inboundSchema;
+  /** @deprecated use `ApplicationStartRegistryType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartRegistryType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartRegistry$inboundSchema: z.ZodType<
+  ApplicationStartRegistry,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationStartRegistryType$inboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/** @internal */
+export type ApplicationStartRegistry$Outbound = {
+  createdAt: string;
+  imagePrefix: string | null;
+  organizationId: string;
+  password: string;
+  registryId: string;
+  registryName: string;
+  registryType: string;
+  registryUrl: string;
+  username: string;
+};
+
+/** @internal */
+export const ApplicationStartRegistry$outboundSchema: z.ZodType<
+  ApplicationStartRegistry$Outbound,
+  z.ZodTypeDef,
+  ApplicationStartRegistry
+> = z.object({
+  createdAt: z.string(),
+  imagePrefix: z.nullable(z.string()),
+  organizationId: z.string(),
+  password: z.string(),
+  registryId: z.string(),
+  registryName: z.string(),
+  registryType: ApplicationStartRegistryType$outboundSchema,
+  registryUrl: z.string(),
+  username: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartRegistry$ {
+  /** @deprecated use `ApplicationStartRegistry$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartRegistry$inboundSchema;
+  /** @deprecated use `ApplicationStartRegistry$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartRegistry$outboundSchema;
+  /** @deprecated use `ApplicationStartRegistry$Outbound` instead. */
+  export type Outbound = ApplicationStartRegistry$Outbound;
+}
+
+export function applicationStartRegistryToJSON(
+  applicationStartRegistry: ApplicationStartRegistry,
+): string {
+  return JSON.stringify(
+    ApplicationStartRegistry$outboundSchema.parse(applicationStartRegistry),
+  );
+}
+
+export function applicationStartRegistryFromJSON(
+  jsonString: string,
+): SafeParseResult<ApplicationStartRegistry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ApplicationStartRegistry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartRegistry' from JSON`,
+  );
+}
+
+/** @internal */
+export const ApplicationStartRestartPolicySwarm$inboundSchema: z.ZodType<
+  ApplicationStartRestartPolicySwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type ApplicationStartUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type ApplicationStartRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const ApplicationStartUpdateConfigSwarm$outboundSchema: z.ZodType<
-  ApplicationStartUpdateConfigSwarm$Outbound,
+export const ApplicationStartRestartPolicySwarm$outboundSchema: z.ZodType<
+  ApplicationStartRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationStartUpdateConfigSwarm
+  ApplicationStartRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1254,33 +2784,34 @@ export const ApplicationStartUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartUpdateConfigSwarm$ {
-  /** @deprecated use `ApplicationStartUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `ApplicationStartUpdateConfigSwarm$outboundSchema` instead. */
+export namespace ApplicationStartRestartPolicySwarm$ {
+  /** @deprecated use `ApplicationStartRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `ApplicationStartRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationStartUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `ApplicationStartUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = ApplicationStartUpdateConfigSwarm$Outbound;
+    ApplicationStartRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `ApplicationStartRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = ApplicationStartRestartPolicySwarm$Outbound;
 }
 
-export function applicationStartUpdateConfigSwarmToJSON(
-  applicationStartUpdateConfigSwarm: ApplicationStartUpdateConfigSwarm,
+export function applicationStartRestartPolicySwarmToJSON(
+  applicationStartRestartPolicySwarm: ApplicationStartRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    ApplicationStartUpdateConfigSwarm$outboundSchema.parse(
-      applicationStartUpdateConfigSwarm,
+    ApplicationStartRestartPolicySwarm$outboundSchema.parse(
+      applicationStartRestartPolicySwarm,
     ),
   );
 }
 
-export function applicationStartUpdateConfigSwarmFromJSON(
+export function applicationStartRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationStartUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<ApplicationStartRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartUpdateConfigSwarm' from JSON`,
+    (x) =>
+      ApplicationStartRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1290,31 +2821,31 @@ export const ApplicationStartRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type ApplicationStartRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1323,20 +2854,20 @@ export const ApplicationStartRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationStartRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1377,1707 +2908,69 @@ export function applicationStartRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartReplicated$inboundSchema: z.ZodType<
-  ApplicationStartReplicated,
+export const ApplicationStartSecurity$inboundSchema: z.ZodType<
+  ApplicationStartSecurity,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type ApplicationStartReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationStartReplicated$outboundSchema: z.ZodType<
-  ApplicationStartReplicated$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartReplicated$ {
-  /** @deprecated use `ApplicationStartReplicated$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartReplicated$inboundSchema;
-  /** @deprecated use `ApplicationStartReplicated$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartReplicated$outboundSchema;
-  /** @deprecated use `ApplicationStartReplicated$Outbound` instead. */
-  export type Outbound = ApplicationStartReplicated$Outbound;
-}
-
-export function applicationStartReplicatedToJSON(
-  applicationStartReplicated: ApplicationStartReplicated,
-): string {
-  return JSON.stringify(
-    ApplicationStartReplicated$outboundSchema.parse(applicationStartReplicated),
-  );
-}
-
-export function applicationStartReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartGlobal$inboundSchema: z.ZodType<
-  ApplicationStartGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationStartGlobal$Outbound = {};
-
-/** @internal */
-export const ApplicationStartGlobal$outboundSchema: z.ZodType<
-  ApplicationStartGlobal$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartGlobal$ {
-  /** @deprecated use `ApplicationStartGlobal$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartGlobal$inboundSchema;
-  /** @deprecated use `ApplicationStartGlobal$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartGlobal$outboundSchema;
-  /** @deprecated use `ApplicationStartGlobal$Outbound` instead. */
-  export type Outbound = ApplicationStartGlobal$Outbound;
-}
-
-export function applicationStartGlobalToJSON(
-  applicationStartGlobal: ApplicationStartGlobal,
-): string {
-  return JSON.stringify(
-    ApplicationStartGlobal$outboundSchema.parse(applicationStartGlobal),
-  );
-}
-
-export function applicationStartGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartReplicatedJob$inboundSchema: z.ZodType<
-  ApplicationStartReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type ApplicationStartReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const ApplicationStartReplicatedJob$outboundSchema: z.ZodType<
-  ApplicationStartReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartReplicatedJob$ {
-  /** @deprecated use `ApplicationStartReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartReplicatedJob$inboundSchema;
-  /** @deprecated use `ApplicationStartReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartReplicatedJob$outboundSchema;
-  /** @deprecated use `ApplicationStartReplicatedJob$Outbound` instead. */
-  export type Outbound = ApplicationStartReplicatedJob$Outbound;
-}
-
-export function applicationStartReplicatedJobToJSON(
-  applicationStartReplicatedJob: ApplicationStartReplicatedJob,
-): string {
-  return JSON.stringify(
-    ApplicationStartReplicatedJob$outboundSchema.parse(
-      applicationStartReplicatedJob,
-    ),
-  );
-}
-
-export function applicationStartReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartGlobalJob$inboundSchema: z.ZodType<
-  ApplicationStartGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationStartGlobalJob$Outbound = {};
-
-/** @internal */
-export const ApplicationStartGlobalJob$outboundSchema: z.ZodType<
-  ApplicationStartGlobalJob$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartGlobalJob$ {
-  /** @deprecated use `ApplicationStartGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartGlobalJob$inboundSchema;
-  /** @deprecated use `ApplicationStartGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartGlobalJob$outboundSchema;
-  /** @deprecated use `ApplicationStartGlobalJob$Outbound` instead. */
-  export type Outbound = ApplicationStartGlobalJob$Outbound;
-}
-
-export function applicationStartGlobalJobToJSON(
-  applicationStartGlobalJob: ApplicationStartGlobalJob,
-): string {
-  return JSON.stringify(
-    ApplicationStartGlobalJob$outboundSchema.parse(applicationStartGlobalJob),
-  );
-}
-
-export function applicationStartGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartModeSwarm$inboundSchema: z.ZodType<
-  ApplicationStartModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => ApplicationStartReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => ApplicationStartGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => ApplicationStartReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => ApplicationStartGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type ApplicationStartModeSwarm$Outbound = {
-  Replicated?: ApplicationStartReplicated$Outbound | undefined;
-  Global?: ApplicationStartGlobal$Outbound | undefined;
-  ReplicatedJob?: ApplicationStartReplicatedJob$Outbound | undefined;
-  GlobalJob?: ApplicationStartGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationStartModeSwarm$outboundSchema: z.ZodType<
-  ApplicationStartModeSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartModeSwarm
-> = z.object({
-  replicated: z.lazy(() => ApplicationStartReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => ApplicationStartGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => ApplicationStartReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => ApplicationStartGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartModeSwarm$ {
-  /** @deprecated use `ApplicationStartModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartModeSwarm$inboundSchema;
-  /** @deprecated use `ApplicationStartModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartModeSwarm$outboundSchema;
-  /** @deprecated use `ApplicationStartModeSwarm$Outbound` instead. */
-  export type Outbound = ApplicationStartModeSwarm$Outbound;
-}
-
-export function applicationStartModeSwarmToJSON(
-  applicationStartModeSwarm: ApplicationStartModeSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationStartModeSwarm$outboundSchema.parse(applicationStartModeSwarm),
-  );
-}
-
-export function applicationStartModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartDriverOpts$inboundSchema: z.ZodType<
-  ApplicationStartDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type ApplicationStartDriverOpts$Outbound = {};
-
-/** @internal */
-export const ApplicationStartDriverOpts$outboundSchema: z.ZodType<
-  ApplicationStartDriverOpts$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartDriverOpts$ {
-  /** @deprecated use `ApplicationStartDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartDriverOpts$inboundSchema;
-  /** @deprecated use `ApplicationStartDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartDriverOpts$outboundSchema;
-  /** @deprecated use `ApplicationStartDriverOpts$Outbound` instead. */
-  export type Outbound = ApplicationStartDriverOpts$Outbound;
-}
-
-export function applicationStartDriverOptsToJSON(
-  applicationStartDriverOpts: ApplicationStartDriverOpts,
-): string {
-  return JSON.stringify(
-    ApplicationStartDriverOpts$outboundSchema.parse(applicationStartDriverOpts),
-  );
-}
-
-export function applicationStartDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartNetworkSwarm$inboundSchema: z.ZodType<
-  ApplicationStartNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => ApplicationStartDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type ApplicationStartNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: ApplicationStartDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const ApplicationStartNetworkSwarm$outboundSchema: z.ZodType<
-  ApplicationStartNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => ApplicationStartDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartNetworkSwarm$ {
-  /** @deprecated use `ApplicationStartNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartNetworkSwarm$inboundSchema;
-  /** @deprecated use `ApplicationStartNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartNetworkSwarm$outboundSchema;
-  /** @deprecated use `ApplicationStartNetworkSwarm$Outbound` instead. */
-  export type Outbound = ApplicationStartNetworkSwarm$Outbound;
-}
-
-export function applicationStartNetworkSwarmToJSON(
-  applicationStartNetworkSwarm: ApplicationStartNetworkSwarm,
-): string {
-  return JSON.stringify(
-    ApplicationStartNetworkSwarm$outboundSchema.parse(
-      applicationStartNetworkSwarm,
-    ),
-  );
-}
-
-export function applicationStartNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartApplicationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartApplicationStatus
-> = z.nativeEnum(ApplicationStartApplicationStatus);
-
-/** @internal */
-export const ApplicationStartApplicationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartApplicationStatus
-> = ApplicationStartApplicationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartApplicationStatus$ {
-  /** @deprecated use `ApplicationStartApplicationStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartApplicationStatus$inboundSchema;
-  /** @deprecated use `ApplicationStartApplicationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationStartApplicationStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartBuildType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartBuildType
-> = z.nativeEnum(ApplicationStartBuildType);
-
-/** @internal */
-export const ApplicationStartBuildType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartBuildType
-> = ApplicationStartBuildType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartBuildType$ {
-  /** @deprecated use `ApplicationStartBuildType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartBuildType$inboundSchema;
-  /** @deprecated use `ApplicationStartBuildType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartBuildType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartProject$inboundSchema: z.ZodType<
-  ApplicationStartProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const ApplicationStartProject$outboundSchema: z.ZodType<
-  ApplicationStartProject$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartProject$ {
-  /** @deprecated use `ApplicationStartProject$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartProject$inboundSchema;
-  /** @deprecated use `ApplicationStartProject$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartProject$outboundSchema;
-  /** @deprecated use `ApplicationStartProject$Outbound` instead. */
-  export type Outbound = ApplicationStartProject$Outbound;
-}
-
-export function applicationStartProjectToJSON(
-  applicationStartProject: ApplicationStartProject,
-): string {
-  return JSON.stringify(
-    ApplicationStartProject$outboundSchema.parse(applicationStartProject),
-  );
-}
-
-export function applicationStartProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartEnvironment$inboundSchema: z.ZodType<
-  ApplicationStartEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationStartProject$inboundSchema),
-});
-
-/** @internal */
-export type ApplicationStartEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: ApplicationStartProject$Outbound;
-};
-
-/** @internal */
-export const ApplicationStartEnvironment$outboundSchema: z.ZodType<
-  ApplicationStartEnvironment$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => ApplicationStartProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartEnvironment$ {
-  /** @deprecated use `ApplicationStartEnvironment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartEnvironment$inboundSchema;
-  /** @deprecated use `ApplicationStartEnvironment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartEnvironment$outboundSchema;
-  /** @deprecated use `ApplicationStartEnvironment$Outbound` instead. */
-  export type Outbound = ApplicationStartEnvironment$Outbound;
-}
-
-export function applicationStartEnvironmentToJSON(
-  applicationStartEnvironment: ApplicationStartEnvironment,
-): string {
-  return JSON.stringify(
-    ApplicationStartEnvironment$outboundSchema.parse(
-      applicationStartEnvironment,
-    ),
-  );
-}
-
-export function applicationStartEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartDomainType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartDomainType
-> = z.nativeEnum(ApplicationStartDomainType);
-
-/** @internal */
-export const ApplicationStartDomainType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartDomainType
-> = ApplicationStartDomainType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartDomainType$ {
-  /** @deprecated use `ApplicationStartDomainType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartDomainType$inboundSchema;
-  /** @deprecated use `ApplicationStartDomainType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartDomainType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartCertificateType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartCertificateType
-> = z.nativeEnum(ApplicationStartCertificateType);
-
-/** @internal */
-export const ApplicationStartCertificateType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartCertificateType
-> = ApplicationStartCertificateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartCertificateType$ {
-  /** @deprecated use `ApplicationStartCertificateType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartCertificateType$inboundSchema;
-  /** @deprecated use `ApplicationStartCertificateType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartCertificateType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartDomain$inboundSchema: z.ZodType<
-  ApplicationStartDomain,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationStartDomainType$inboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationStartCertificateType$inboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/** @internal */
-export type ApplicationStartDomain$Outbound = {
-  domainId: string;
-  host: string;
-  https: boolean;
-  port: number | null;
-  path: string | null;
-  serviceName: string | null;
-  domainType: string | null;
-  uniqueConfigKey: number;
-  createdAt: string;
-  composeId: string | null;
-  customCertResolver: string | null;
-  applicationId: string | null;
-  previewDeploymentId: string | null;
-  certificateType: string;
-  internalPath: string | null;
-  stripPath: boolean;
-};
-
-/** @internal */
-export const ApplicationStartDomain$outboundSchema: z.ZodType<
-  ApplicationStartDomain$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartDomain
-> = z.object({
-  domainId: z.string(),
-  host: z.string(),
-  https: z.boolean(),
-  port: z.nullable(z.number()),
-  path: z.nullable(z.string()),
-  serviceName: z.nullable(z.string()),
-  domainType: z.nullable(ApplicationStartDomainType$outboundSchema),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  composeId: z.nullable(z.string()),
-  customCertResolver: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  previewDeploymentId: z.nullable(z.string()),
-  certificateType: ApplicationStartCertificateType$outboundSchema,
-  internalPath: z.nullable(z.string()),
-  stripPath: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartDomain$ {
-  /** @deprecated use `ApplicationStartDomain$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartDomain$inboundSchema;
-  /** @deprecated use `ApplicationStartDomain$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartDomain$outboundSchema;
-  /** @deprecated use `ApplicationStartDomain$Outbound` instead. */
-  export type Outbound = ApplicationStartDomain$Outbound;
-}
-
-export function applicationStartDomainToJSON(
-  applicationStartDomain: ApplicationStartDomain,
-): string {
-  return JSON.stringify(
-    ApplicationStartDomain$outboundSchema.parse(applicationStartDomain),
-  );
-}
-
-export function applicationStartDomainFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartDomain, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartDomain$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartDomain' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartStatus
-> = z.nativeEnum(ApplicationStartStatus);
-
-/** @internal */
-export const ApplicationStartStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartStatus
-> = ApplicationStartStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartStatus$ {
-  /** @deprecated use `ApplicationStartStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartStatus$inboundSchema;
-  /** @deprecated use `ApplicationStartStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartStatus$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartDeployment$inboundSchema: z.ZodType<
-  ApplicationStartDeployment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationStartStatus$inboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationStartDeployment$Outbound = {
-  deploymentId: string;
-  title: string;
-  description: string | null;
-  status: string | null;
-  logPath: string;
-  pid: string | null;
-  applicationId: string | null;
-  composeId: string | null;
-  serverId: string | null;
-  isPreviewDeployment: boolean | null;
-  previewDeploymentId: string | null;
-  createdAt: string;
-  startedAt: string | null;
-  finishedAt: string | null;
-  errorMessage: string | null;
-  scheduleId: string | null;
-  backupId: string | null;
-  rollbackId: string | null;
-  volumeBackupId: string | null;
-};
-
-/** @internal */
-export const ApplicationStartDeployment$outboundSchema: z.ZodType<
-  ApplicationStartDeployment$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartDeployment
-> = z.object({
-  deploymentId: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()),
-  status: z.nullable(ApplicationStartStatus$outboundSchema),
-  logPath: z.string(),
-  pid: z.nullable(z.string()),
-  applicationId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-  serverId: z.nullable(z.string()),
-  isPreviewDeployment: z.nullable(z.boolean()),
-  previewDeploymentId: z.nullable(z.string()),
-  createdAt: z.string(),
-  startedAt: z.nullable(z.string()),
-  finishedAt: z.nullable(z.string()),
-  errorMessage: z.nullable(z.string()),
-  scheduleId: z.nullable(z.string()),
-  backupId: z.nullable(z.string()),
-  rollbackId: z.nullable(z.string()),
-  volumeBackupId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartDeployment$ {
-  /** @deprecated use `ApplicationStartDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartDeployment$inboundSchema;
-  /** @deprecated use `ApplicationStartDeployment$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartDeployment$outboundSchema;
-  /** @deprecated use `ApplicationStartDeployment$Outbound` instead. */
-  export type Outbound = ApplicationStartDeployment$Outbound;
-}
-
-export function applicationStartDeploymentToJSON(
-  applicationStartDeployment: ApplicationStartDeployment,
-): string {
-  return JSON.stringify(
-    ApplicationStartDeployment$outboundSchema.parse(applicationStartDeployment),
-  );
-}
-
-export function applicationStartDeploymentFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartDeployment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartDeployment' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartType
-> = z.nativeEnum(ApplicationStartType);
-
-/** @internal */
-export const ApplicationStartType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartType
-> = ApplicationStartType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartType$ {
-  /** @deprecated use `ApplicationStartType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartType$inboundSchema;
-  /** @deprecated use `ApplicationStartType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartServiceType
-> = z.nativeEnum(ApplicationStartServiceType);
-
-/** @internal */
-export const ApplicationStartServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartServiceType
-> = ApplicationStartServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartServiceType$ {
-  /** @deprecated use `ApplicationStartServiceType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartServiceType$inboundSchema;
-  /** @deprecated use `ApplicationStartServiceType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartServiceType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartMount$inboundSchema: z.ZodType<
-  ApplicationStartMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationStartType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationStartServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type ApplicationStartMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const ApplicationStartMount$outboundSchema: z.ZodType<
-  ApplicationStartMount$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartMount
-> = z.object({
-  mountId: z.string(),
-  type: ApplicationStartType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: ApplicationStartServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartMount$ {
-  /** @deprecated use `ApplicationStartMount$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartMount$inboundSchema;
-  /** @deprecated use `ApplicationStartMount$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartMount$outboundSchema;
-  /** @deprecated use `ApplicationStartMount$Outbound` instead. */
-  export type Outbound = ApplicationStartMount$Outbound;
-}
-
-export function applicationStartMountToJSON(
-  applicationStartMount: ApplicationStartMount,
-): string {
-  return JSON.stringify(
-    ApplicationStartMount$outboundSchema.parse(applicationStartMount),
-  );
-}
-
-export function applicationStartMountFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartRedirect$inboundSchema: z.ZodType<
-  ApplicationStartRedirect,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
-  createdAt: z.string(),
   applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartRedirect$Outbound = {
-  redirectId: string;
-  regex: string;
-  replacement: string;
-  permanent: boolean;
-  uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationStartRedirect$outboundSchema: z.ZodType<
-  ApplicationStartRedirect$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartRedirect
-> = z.object({
-  redirectId: z.string(),
-  regex: z.string(),
-  replacement: z.string(),
-  permanent: z.boolean(),
-  uniqueConfigKey: z.number(),
   createdAt: z.string(),
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartRedirect$ {
-  /** @deprecated use `ApplicationStartRedirect$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartRedirect$inboundSchema;
-  /** @deprecated use `ApplicationStartRedirect$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartRedirect$outboundSchema;
-  /** @deprecated use `ApplicationStartRedirect$Outbound` instead. */
-  export type Outbound = ApplicationStartRedirect$Outbound;
-}
-
-export function applicationStartRedirectToJSON(
-  applicationStartRedirect: ApplicationStartRedirect,
-): string {
-  return JSON.stringify(
-    ApplicationStartRedirect$outboundSchema.parse(applicationStartRedirect),
-  );
-}
-
-export function applicationStartRedirectFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartRedirect, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartRedirect$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartRedirect' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartSecurityResponse$inboundSchema: z.ZodType<
-  ApplicationStartSecurityResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
-export type ApplicationStartSecurityResponse$Outbound = {
+export type ApplicationStartSecurity$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
-export const ApplicationStartSecurityResponse$outboundSchema: z.ZodType<
-  ApplicationStartSecurityResponse$Outbound,
+export const ApplicationStartSecurity$outboundSchema: z.ZodType<
+  ApplicationStartSecurity$Outbound,
   z.ZodTypeDef,
-  ApplicationStartSecurityResponse
+  ApplicationStartSecurity
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartSecurityResponse$ {
-  /** @deprecated use `ApplicationStartSecurityResponse$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartSecurityResponse$inboundSchema;
-  /** @deprecated use `ApplicationStartSecurityResponse$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartSecurityResponse$outboundSchema;
-  /** @deprecated use `ApplicationStartSecurityResponse$Outbound` instead. */
-  export type Outbound = ApplicationStartSecurityResponse$Outbound;
+export namespace ApplicationStartSecurity$ {
+  /** @deprecated use `ApplicationStartSecurity$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartSecurity$inboundSchema;
+  /** @deprecated use `ApplicationStartSecurity$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartSecurity$outboundSchema;
+  /** @deprecated use `ApplicationStartSecurity$Outbound` instead. */
+  export type Outbound = ApplicationStartSecurity$Outbound;
 }
 
-export function applicationStartSecurityResponseToJSON(
-  applicationStartSecurityResponse: ApplicationStartSecurityResponse,
+export function applicationStartSecurityToJSON(
+  applicationStartSecurity: ApplicationStartSecurity,
 ): string {
   return JSON.stringify(
-    ApplicationStartSecurityResponse$outboundSchema.parse(
-      applicationStartSecurityResponse,
-    ),
+    ApplicationStartSecurity$outboundSchema.parse(applicationStartSecurity),
   );
 }
 
-export function applicationStartSecurityResponseFromJSON(
+export function applicationStartSecurityFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationStartSecurityResponse, SDKValidationError> {
+): SafeParseResult<ApplicationStartSecurity, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationStartSecurityResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartSecurityResponse' from JSON`,
+    (x) => ApplicationStartSecurity$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartSecurity' from JSON`,
   );
-}
-
-/** @internal */
-export const ApplicationStartPublishMode$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartPublishMode
-> = z.nativeEnum(ApplicationStartPublishMode);
-
-/** @internal */
-export const ApplicationStartPublishMode$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartPublishMode
-> = ApplicationStartPublishMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartPublishMode$ {
-  /** @deprecated use `ApplicationStartPublishMode$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartPublishMode$inboundSchema;
-  /** @deprecated use `ApplicationStartPublishMode$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartPublishMode$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartProtocol$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartProtocol
-> = z.nativeEnum(ApplicationStartProtocol);
-
-/** @internal */
-export const ApplicationStartProtocol$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartProtocol
-> = ApplicationStartProtocol$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartProtocol$ {
-  /** @deprecated use `ApplicationStartProtocol$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartProtocol$inboundSchema;
-  /** @deprecated use `ApplicationStartProtocol$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartProtocol$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartPort$inboundSchema: z.ZodType<
-  ApplicationStartPort,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationStartPublishMode$inboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationStartProtocol$inboundSchema,
-  applicationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartPort$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
-  applicationId: string;
-};
-
-/** @internal */
-export const ApplicationStartPort$outboundSchema: z.ZodType<
-  ApplicationStartPort$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartPort
-> = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: ApplicationStartPublishMode$outboundSchema,
-  targetPort: z.number(),
-  protocol: ApplicationStartProtocol$outboundSchema,
-  applicationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartPort$ {
-  /** @deprecated use `ApplicationStartPort$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartPort$inboundSchema;
-  /** @deprecated use `ApplicationStartPort$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartPort$outboundSchema;
-  /** @deprecated use `ApplicationStartPort$Outbound` instead. */
-  export type Outbound = ApplicationStartPort$Outbound;
-}
-
-export function applicationStartPortToJSON(
-  applicationStartPort: ApplicationStartPort,
-): string {
-  return JSON.stringify(
-    ApplicationStartPort$outboundSchema.parse(applicationStartPort),
-  );
-}
-
-export function applicationStartPortFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartPort, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartPort$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartPort' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartRegistryType$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartRegistryType
-> = z.nativeEnum(ApplicationStartRegistryType);
-
-/** @internal */
-export const ApplicationStartRegistryType$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartRegistryType
-> = ApplicationStartRegistryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartRegistryType$ {
-  /** @deprecated use `ApplicationStartRegistryType$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartRegistryType$inboundSchema;
-  /** @deprecated use `ApplicationStartRegistryType$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartRegistryType$outboundSchema;
-}
-
-/** @internal */
-export const ApplicationStartRegistry$inboundSchema: z.ZodType<
-  ApplicationStartRegistry,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationStartRegistryType$inboundSchema,
-  organizationId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartRegistry$Outbound = {
-  registryId: string;
-  registryName: string;
-  imagePrefix: string | null;
-  username: string;
-  password: string;
-  registryUrl: string;
-  createdAt: string;
-  registryType: string;
-  organizationId: string;
-};
-
-/** @internal */
-export const ApplicationStartRegistry$outboundSchema: z.ZodType<
-  ApplicationStartRegistry$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartRegistry
-> = z.object({
-  registryId: z.string(),
-  registryName: z.string(),
-  imagePrefix: z.nullable(z.string()),
-  username: z.string(),
-  password: z.string(),
-  registryUrl: z.string(),
-  createdAt: z.string(),
-  registryType: ApplicationStartRegistryType$outboundSchema,
-  organizationId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartRegistry$ {
-  /** @deprecated use `ApplicationStartRegistry$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartRegistry$inboundSchema;
-  /** @deprecated use `ApplicationStartRegistry$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartRegistry$outboundSchema;
-  /** @deprecated use `ApplicationStartRegistry$Outbound` instead. */
-  export type Outbound = ApplicationStartRegistry$Outbound;
-}
-
-export function applicationStartRegistryToJSON(
-  applicationStartRegistry: ApplicationStartRegistry,
-): string {
-  return JSON.stringify(
-    ApplicationStartRegistry$outboundSchema.parse(applicationStartRegistry),
-  );
-}
-
-export function applicationStartRegistryFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartRegistry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartRegistry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartRegistry' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartGithub$inboundSchema: z.ZodType<
-  ApplicationStartGithub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartGithub$Outbound = {
-  githubId: string;
-  githubAppName: string | null;
-  githubAppId: number | null;
-  githubClientId: string | null;
-  githubClientSecret: string | null;
-  githubInstallationId: string | null;
-  githubPrivateKey: string | null;
-  githubWebhookSecret: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationStartGithub$outboundSchema: z.ZodType<
-  ApplicationStartGithub$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartGithub
-> = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()),
-  githubAppId: z.nullable(z.number()),
-  githubClientId: z.nullable(z.string()),
-  githubClientSecret: z.nullable(z.string()),
-  githubInstallationId: z.nullable(z.string()),
-  githubPrivateKey: z.nullable(z.string()),
-  githubWebhookSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartGithub$ {
-  /** @deprecated use `ApplicationStartGithub$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartGithub$inboundSchema;
-  /** @deprecated use `ApplicationStartGithub$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartGithub$outboundSchema;
-  /** @deprecated use `ApplicationStartGithub$Outbound` instead. */
-  export type Outbound = ApplicationStartGithub$Outbound;
-}
-
-export function applicationStartGithubToJSON(
-  applicationStartGithub: ApplicationStartGithub,
-): string {
-  return JSON.stringify(
-    ApplicationStartGithub$outboundSchema.parse(applicationStartGithub),
-  );
-}
-
-export function applicationStartGithubFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartGithub, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartGithub$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartGithub' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartGitlab$inboundSchema: z.ZodType<
-  ApplicationStartGitlab,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartGitlab$Outbound = {
-  gitlabId: string;
-  gitlabUrl: string;
-  applicationId: string | null;
-  redirectUri: string | null;
-  secret: string | null;
-  accessToken: string | null;
-  refreshToken: string | null;
-  groupName: string | null;
-  expiresAt: number | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationStartGitlab$outboundSchema: z.ZodType<
-  ApplicationStartGitlab$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartGitlab
-> = z.object({
-  gitlabId: z.string(),
-  gitlabUrl: z.string(),
-  applicationId: z.nullable(z.string()),
-  redirectUri: z.nullable(z.string()),
-  secret: z.nullable(z.string()),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  groupName: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartGitlab$ {
-  /** @deprecated use `ApplicationStartGitlab$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartGitlab$inboundSchema;
-  /** @deprecated use `ApplicationStartGitlab$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartGitlab$outboundSchema;
-  /** @deprecated use `ApplicationStartGitlab$Outbound` instead. */
-  export type Outbound = ApplicationStartGitlab$Outbound;
-}
-
-export function applicationStartGitlabToJSON(
-  applicationStartGitlab: ApplicationStartGitlab,
-): string {
-  return JSON.stringify(
-    ApplicationStartGitlab$outboundSchema.parse(applicationStartGitlab),
-  );
-}
-
-export function applicationStartGitlabFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartGitlab, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartGitlab$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartGitlab' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartBitbucket$inboundSchema: z.ZodType<
-  ApplicationStartBitbucket,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/** @internal */
-export type ApplicationStartBitbucket$Outbound = {
-  bitbucketId: string;
-  bitbucketUsername: string | null;
-  appPassword: string | null;
-  bitbucketWorkspaceName: string | null;
-  gitProviderId: string;
-};
-
-/** @internal */
-export const ApplicationStartBitbucket$outboundSchema: z.ZodType<
-  ApplicationStartBitbucket$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartBitbucket
-> = z.object({
-  bitbucketId: z.string(),
-  bitbucketUsername: z.nullable(z.string()),
-  appPassword: z.nullable(z.string()),
-  bitbucketWorkspaceName: z.nullable(z.string()),
-  gitProviderId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartBitbucket$ {
-  /** @deprecated use `ApplicationStartBitbucket$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartBitbucket$inboundSchema;
-  /** @deprecated use `ApplicationStartBitbucket$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartBitbucket$outboundSchema;
-  /** @deprecated use `ApplicationStartBitbucket$Outbound` instead. */
-  export type Outbound = ApplicationStartBitbucket$Outbound;
-}
-
-export function applicationStartBitbucketToJSON(
-  applicationStartBitbucket: ApplicationStartBitbucket,
-): string {
-  return JSON.stringify(
-    ApplicationStartBitbucket$outboundSchema.parse(applicationStartBitbucket),
-  );
-}
-
-export function applicationStartBitbucketFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartBitbucket, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartBitbucket$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartBitbucket' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartGitea$inboundSchema: z.ZodType<
-  ApplicationStartGitea,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/** @internal */
-export type ApplicationStartGitea$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
-  clientId: string | null;
-  clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
-};
-
-/** @internal */
-export const ApplicationStartGitea$outboundSchema: z.ZodType<
-  ApplicationStartGitea$Outbound,
-  z.ZodTypeDef,
-  ApplicationStartGitea
-> = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
-  clientId: z.nullable(z.string()),
-  clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
-  expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartGitea$ {
-  /** @deprecated use `ApplicationStartGitea$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartGitea$inboundSchema;
-  /** @deprecated use `ApplicationStartGitea$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartGitea$outboundSchema;
-  /** @deprecated use `ApplicationStartGitea$Outbound` instead. */
-  export type Outbound = ApplicationStartGitea$Outbound;
-}
-
-export function applicationStartGiteaToJSON(
-  applicationStartGitea: ApplicationStartGitea,
-): string {
-  return JSON.stringify(
-    ApplicationStartGitea$outboundSchema.parse(applicationStartGitea),
-  );
-}
-
-export function applicationStartGiteaFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationStartGitea, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationStartGitea$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartGitea' from JSON`,
-  );
-}
-
-/** @internal */
-export const ApplicationStartServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartServerStatus
-> = z.nativeEnum(ApplicationStartServerStatus);
-
-/** @internal */
-export const ApplicationStartServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartServerStatus
-> = ApplicationStartServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationStartServerStatus$ {
-  /** @deprecated use `ApplicationStartServerStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartServerStatus$inboundSchema;
-  /** @deprecated use `ApplicationStartServerStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -3247,24 +3140,38 @@ export function applicationStartMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const ApplicationStartServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartServerStatus
+> = z.nativeEnum(ApplicationStartServerStatus);
+
+/** @internal */
+export const ApplicationStartServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartServerStatus
+> = ApplicationStartServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartServerStatus$ {
+  /** @deprecated use `ApplicationStartServerStatus$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartServerStatus$inboundSchema;
+  /** @deprecated use `ApplicationStartServerStatus$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const ApplicationStartServer$inboundSchema: z.ZodType<
   ApplicationStartServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationStartServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3275,26 +3182,33 @@ export const ApplicationStartServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationStartServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type ApplicationStartServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -3303,19 +3217,12 @@ export const ApplicationStartServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationStartServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: ApplicationStartServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -3326,6 +3233,13 @@ export const ApplicationStartServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: ApplicationStartServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -3360,116 +3274,134 @@ export function applicationStartServerFromJSON(
 }
 
 /** @internal */
-export const ApplicationStartPreviewStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartPreviewStatus
-> = z.nativeEnum(ApplicationStartPreviewStatus);
+export const ApplicationStartSourceType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartSourceType
+> = z.nativeEnum(ApplicationStartSourceType);
 
 /** @internal */
-export const ApplicationStartPreviewStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ApplicationStartPreviewStatus
-> = ApplicationStartPreviewStatus$inboundSchema;
+export const ApplicationStartSourceType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartSourceType
+> = ApplicationStartSourceType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartPreviewStatus$ {
-  /** @deprecated use `ApplicationStartPreviewStatus$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartPreviewStatus$inboundSchema;
-  /** @deprecated use `ApplicationStartPreviewStatus$outboundSchema` instead. */
-  export const outboundSchema = ApplicationStartPreviewStatus$outboundSchema;
+export namespace ApplicationStartSourceType$ {
+  /** @deprecated use `ApplicationStartSourceType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartSourceType$inboundSchema;
+  /** @deprecated use `ApplicationStartSourceType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartSourceType$outboundSchema;
 }
 
 /** @internal */
-export const ApplicationStartPreviewDeployment$inboundSchema: z.ZodType<
-  ApplicationStartPreviewDeployment,
+export const ApplicationStartTriggerType$inboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartTriggerType
+> = z.nativeEnum(ApplicationStartTriggerType);
+
+/** @internal */
+export const ApplicationStartTriggerType$outboundSchema: z.ZodNativeEnum<
+  typeof ApplicationStartTriggerType
+> = ApplicationStartTriggerType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ApplicationStartTriggerType$ {
+  /** @deprecated use `ApplicationStartTriggerType$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartTriggerType$inboundSchema;
+  /** @deprecated use `ApplicationStartTriggerType$outboundSchema` instead. */
+  export const outboundSchema = ApplicationStartTriggerType$outboundSchema;
+}
+
+/** @internal */
+export const ApplicationStartUpdateConfigSwarm$inboundSchema: z.ZodType<
+  ApplicationStartUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationStartPreviewStatus$inboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type ApplicationStartPreviewDeployment$Outbound = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: string;
-  appName: string;
-  applicationId: string;
-  domainId: string | null;
-  createdAt: string;
-  expiresAt: string | null;
+export type ApplicationStartUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const ApplicationStartPreviewDeployment$outboundSchema: z.ZodType<
-  ApplicationStartPreviewDeployment$Outbound,
+export const ApplicationStartUpdateConfigSwarm$outboundSchema: z.ZodType<
+  ApplicationStartUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  ApplicationStartPreviewDeployment
+  ApplicationStartUpdateConfigSwarm
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: ApplicationStartPreviewStatus$outboundSchema,
-  appName: z.string(),
-  applicationId: z.string(),
-  domainId: z.nullable(z.string()),
-  createdAt: z.string(),
-  expiresAt: z.nullable(z.string()),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ApplicationStartPreviewDeployment$ {
-  /** @deprecated use `ApplicationStartPreviewDeployment$inboundSchema` instead. */
-  export const inboundSchema = ApplicationStartPreviewDeployment$inboundSchema;
-  /** @deprecated use `ApplicationStartPreviewDeployment$outboundSchema` instead. */
+export namespace ApplicationStartUpdateConfigSwarm$ {
+  /** @deprecated use `ApplicationStartUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = ApplicationStartUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `ApplicationStartUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    ApplicationStartPreviewDeployment$outboundSchema;
-  /** @deprecated use `ApplicationStartPreviewDeployment$Outbound` instead. */
-  export type Outbound = ApplicationStartPreviewDeployment$Outbound;
+    ApplicationStartUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `ApplicationStartUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = ApplicationStartUpdateConfigSwarm$Outbound;
 }
 
-export function applicationStartPreviewDeploymentToJSON(
-  applicationStartPreviewDeployment: ApplicationStartPreviewDeployment,
+export function applicationStartUpdateConfigSwarmToJSON(
+  applicationStartUpdateConfigSwarm: ApplicationStartUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    ApplicationStartPreviewDeployment$outboundSchema.parse(
-      applicationStartPreviewDeployment,
+    ApplicationStartUpdateConfigSwarm$outboundSchema.parse(
+      applicationStartUpdateConfigSwarm,
     ),
   );
 }
 
-export function applicationStartPreviewDeploymentFromJSON(
+export function applicationStartUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<ApplicationStartPreviewDeployment, SDKValidationError> {
+): SafeParseResult<ApplicationStartUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ApplicationStartPreviewDeployment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationStartPreviewDeployment' from JSON`,
+    (x) => ApplicationStartUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ApplicationStartUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -3479,245 +3411,243 @@ export const ApplicationStartResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationStartPreviewCertificateType$inboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationStartSourceType$inboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationStartTriggerType$inboundSchema).optional(),
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationStartApplicationStatus$inboundSchema.optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucket: z.nullable(z.lazy(() => ApplicationStartBitbucket$inboundSchema)),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationStartBuildType$inboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(z.lazy(() => ApplicationStartDeployment$inboundSchema)),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationStartDomain$inboundSchema)),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationStartEnvironment$inboundSchema),
+  environmentId: z.string(),
+  gitea: z.nullable(z.lazy(() => ApplicationStartGitea$inboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationStartGithub$inboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationStartGitlab$inboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationStartHealthCheckSwarm$inboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationStartRestartPolicySwarm$inboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationStartPlacementSwarm$inboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationStartUpdateConfigSwarm$inboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationStartRollbackConfigSwarm$inboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationStartModeSwarm$inboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  mounts: z.array(z.lazy(() => ApplicationStartMount$inboundSchema)),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationStartNetworkSwarm$inboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationStartApplicationStatus$inboundSchema.optional(),
-  buildType: ApplicationStartBuildType$inboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationStartEnvironment$inboundSchema),
-  domains: z.array(z.lazy(() => ApplicationStartDomain$inboundSchema)),
-  deployments: z.array(z.lazy(() => ApplicationStartDeployment$inboundSchema)),
-  mounts: z.array(z.lazy(() => ApplicationStartMount$inboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationStartRedirect$inboundSchema)),
-  security: z.array(
-    z.lazy(() => ApplicationStartSecurityResponse$inboundSchema),
-  ),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationStartPlacementSwarm$inboundSchema),
+  ).optional(),
   ports: z.array(z.lazy(() => ApplicationStartPort$inboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationStartRegistry$inboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationStartGithub$inboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationStartGitlab$inboundSchema)),
-  bitbucket: z.nullable(z.lazy(() => ApplicationStartBitbucket$inboundSchema)),
-  gitea: z.nullable(z.lazy(() => ApplicationStartGitea$inboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationStartServer$inboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationStartPreviewCertificateType$inboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationStartPreviewDeployment$inboundSchema),
   ),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationStartRedirect$inboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationStartRegistry$inboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationStartRestartPolicySwarm$inboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationStartRollbackConfigSwarm$inboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationStartSecurity$inboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationStartServer$inboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationStartSourceType$inboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationStartTriggerType$inboundSchema).optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationStartUpdateConfigSwarm$inboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationStartResponseBody$Outbound = {
-  applicationId?: string | undefined;
-  name: string;
   appName?: string | undefined;
-  description?: string | null | undefined;
-  env?: string | null | undefined;
-  previewEnv?: string | null | undefined;
-  watchPaths?: Array<string> | null | undefined;
-  previewBuildArgs?: string | null | undefined;
-  previewLabels?: Array<string> | null | undefined;
-  previewWildcard?: string | null | undefined;
-  previewPort?: number | null | undefined;
-  previewHttps?: boolean | undefined;
-  previewPath?: string | null | undefined;
-  previewCertificateType?: string | undefined;
-  previewCustomCertResolver?: string | null | undefined;
-  previewLimit?: number | null | undefined;
-  isPreviewDeploymentsActive?: boolean | null | undefined;
-  previewRequireCollaboratorPermissions?: boolean | null | undefined;
-  rollbackActive?: boolean | null | undefined;
-  buildArgs?: string | null | undefined;
-  memoryReservation?: string | null | undefined;
-  memoryLimit?: string | null | undefined;
-  cpuReservation?: string | null | undefined;
-  cpuLimit?: string | null | undefined;
-  title?: string | null | undefined;
-  enabled?: boolean | null | undefined;
-  subtitle?: string | null | undefined;
-  command?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  sourceType?: string | undefined;
-  cleanCache?: boolean | null | undefined;
-  repository?: string | null | undefined;
-  owner?: string | null | undefined;
-  branch?: string | null | undefined;
-  buildPath?: string | null | undefined;
-  triggerType?: string | null | undefined;
+  applicationId?: string | undefined;
+  applicationStatus?: string | undefined;
   autoDeploy?: boolean | null | undefined;
-  gitlabProjectId?: number | null | undefined;
-  gitlabRepository?: string | null | undefined;
-  gitlabOwner?: string | null | undefined;
-  gitlabBranch?: string | null | undefined;
-  gitlabBuildPath?: string | null | undefined;
-  gitlabPathNamespace?: string | null | undefined;
-  giteaRepository?: string | null | undefined;
-  giteaOwner?: string | null | undefined;
-  giteaBranch?: string | null | undefined;
-  giteaBuildPath?: string | null | undefined;
-  bitbucketRepository?: string | null | undefined;
-  bitbucketOwner?: string | null | undefined;
+  bitbucket: ApplicationStartBitbucket$Outbound | null;
   bitbucketBranch?: string | null | undefined;
   bitbucketBuildPath?: string | null | undefined;
-  username?: string | null | undefined;
-  password?: string | null | undefined;
-  dockerImage?: string | null | undefined;
-  registryUrl?: string | null | undefined;
-  customGitUrl?: string | null | undefined;
+  bitbucketId?: string | null | undefined;
+  bitbucketOwner?: string | null | undefined;
+  bitbucketRepository?: string | null | undefined;
+  branch?: string | null | undefined;
+  buildArgs?: string | null | undefined;
+  buildPath?: string | null | undefined;
+  buildType?: string | undefined;
+  cleanCache?: boolean | null | undefined;
+  command?: string | null | undefined;
+  cpuLimit?: string | null | undefined;
+  cpuReservation?: string | null | undefined;
+  createdAt?: string | undefined;
   customGitBranch?: string | null | undefined;
   customGitBuildPath?: string | null | undefined;
   customGitSSHKeyId?: string | null | undefined;
-  enableSubmodules?: boolean | undefined;
-  dockerfile?: string | null | undefined;
-  dockerContextPath?: string | null | undefined;
+  customGitUrl?: string | null | undefined;
+  deployments: Array<ApplicationStartDeployment$Outbound>;
+  description?: string | null | undefined;
   dockerBuildStage?: string | null | undefined;
+  dockerContextPath?: string | null | undefined;
+  dockerImage?: string | null | undefined;
+  dockerfile?: string | null | undefined;
+  domains: Array<ApplicationStartDomain$Outbound>;
   dropBuildPath?: string | null | undefined;
+  enableSubmodules?: boolean | undefined;
+  enabled?: boolean | null | undefined;
+  env?: string | null | undefined;
+  environment: ApplicationStartEnvironment$Outbound;
+  environmentId: string;
+  gitea: ApplicationStartGitea$Outbound | null;
+  giteaBranch?: string | null | undefined;
+  giteaBuildPath?: string | null | undefined;
+  giteaId?: string | null | undefined;
+  giteaOwner?: string | null | undefined;
+  giteaRepository?: string | null | undefined;
+  github: ApplicationStartGithub$Outbound | null;
+  githubId?: string | null | undefined;
+  gitlab: ApplicationStartGitlab$Outbound | null;
+  gitlabBranch?: string | null | undefined;
+  gitlabBuildPath?: string | null | undefined;
+  gitlabId?: string | null | undefined;
+  gitlabOwner?: string | null | undefined;
+  gitlabPathNamespace?: string | null | undefined;
+  gitlabProjectId?: number | null | undefined;
+  gitlabRepository?: string | null | undefined;
   healthCheckSwarm?:
     | ApplicationStartHealthCheckSwarm$Outbound
     | null
     | undefined;
-  restartPolicySwarm?:
-    | ApplicationStartRestartPolicySwarm$Outbound
-    | null
-    | undefined;
-  placementSwarm?: ApplicationStartPlacementSwarm$Outbound | null | undefined;
-  updateConfigSwarm?:
-    | ApplicationStartUpdateConfigSwarm$Outbound
-    | null
-    | undefined;
-  rollbackConfigSwarm?:
-    | ApplicationStartRollbackConfigSwarm$Outbound
-    | null
-    | undefined;
-  modeSwarm?: ApplicationStartModeSwarm$Outbound | null | undefined;
+  herokuVersion?: string | null | undefined;
+  isPreviewDeploymentsActive?: boolean | null | undefined;
+  isStaticSpa?: boolean | null | undefined;
   labelsSwarm?: { [k: string]: string } | null | undefined;
+  memoryLimit?: string | null | undefined;
+  memoryReservation?: string | null | undefined;
+  modeSwarm?: ApplicationStartModeSwarm$Outbound | null | undefined;
+  mounts: Array<ApplicationStartMount$Outbound>;
+  name: string;
   networkSwarm?:
     | Array<ApplicationStartNetworkSwarm$Outbound>
     | null
     | undefined;
-  replicas?: number | undefined;
-  applicationStatus?: string | undefined;
-  buildType?: string | undefined;
-  railpackVersion?: string | null | undefined;
-  herokuVersion?: string | null | undefined;
-  publishDirectory?: string | null | undefined;
-  isStaticSpa?: boolean | null | undefined;
-  createdAt?: string | undefined;
-  registryId?: string | null | undefined;
-  environmentId: string;
-  githubId?: string | null | undefined;
-  gitlabId?: string | null | undefined;
-  giteaId?: string | null | undefined;
-  bitbucketId?: string | null | undefined;
-  serverId?: string | null | undefined;
-  environment: ApplicationStartEnvironment$Outbound;
-  domains: Array<ApplicationStartDomain$Outbound>;
-  deployments: Array<ApplicationStartDeployment$Outbound>;
-  mounts: Array<ApplicationStartMount$Outbound>;
-  redirects: Array<ApplicationStartRedirect$Outbound>;
-  security: Array<ApplicationStartSecurityResponse$Outbound>;
+  owner?: string | null | undefined;
+  password?: string | null | undefined;
+  placementSwarm?: ApplicationStartPlacementSwarm$Outbound | null | undefined;
   ports: Array<ApplicationStartPort$Outbound>;
-  registry: ApplicationStartRegistry$Outbound | null;
-  github: ApplicationStartGithub$Outbound | null;
-  gitlab: ApplicationStartGitlab$Outbound | null;
-  bitbucket: ApplicationStartBitbucket$Outbound | null;
-  gitea: ApplicationStartGitea$Outbound | null;
-  server: ApplicationStartServer$Outbound | null;
+  previewBuildArgs?: string | null | undefined;
+  previewCertificateType?: string | undefined;
+  previewCustomCertResolver?: string | null | undefined;
   previewDeployments: Array<ApplicationStartPreviewDeployment$Outbound>;
+  previewEnv?: string | null | undefined;
+  previewHttps?: boolean | undefined;
+  previewLabels?: Array<string> | null | undefined;
+  previewLimit?: number | null | undefined;
+  previewPath?: string | null | undefined;
+  previewPort?: number | null | undefined;
+  previewRequireCollaboratorPermissions?: boolean | null | undefined;
+  previewWildcard?: string | null | undefined;
+  publishDirectory?: string | null | undefined;
+  railpackVersion?: string | null | undefined;
+  redirects: Array<ApplicationStartRedirect$Outbound>;
+  refreshToken?: string | null | undefined;
+  registry: ApplicationStartRegistry$Outbound | null;
+  registryId?: string | null | undefined;
+  registryUrl?: string | null | undefined;
+  replicas?: number | undefined;
+  repository?: string | null | undefined;
+  restartPolicySwarm?:
+    | ApplicationStartRestartPolicySwarm$Outbound
+    | null
+    | undefined;
+  rollbackActive?: boolean | null | undefined;
+  rollbackConfigSwarm?:
+    | ApplicationStartRollbackConfigSwarm$Outbound
+    | null
+    | undefined;
+  security: Array<ApplicationStartSecurity$Outbound>;
+  server: ApplicationStartServer$Outbound | null;
+  serverId?: string | null | undefined;
+  sourceType?: string | undefined;
+  subtitle?: string | null | undefined;
+  title?: string | null | undefined;
+  triggerType?: string | null | undefined;
+  updateConfigSwarm?:
+    | ApplicationStartUpdateConfigSwarm$Outbound
+    | null
+    | undefined;
+  username?: string | null | undefined;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -3726,127 +3656,125 @@ export const ApplicationStartResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationStartResponseBody
 > = z.object({
-  applicationId: z.string().optional(),
-  name: z.string(),
   appName: z.string().optional(),
-  description: z.nullable(z.string()).optional(),
-  env: z.nullable(z.string()).optional(),
-  previewEnv: z.nullable(z.string()).optional(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
-  previewBuildArgs: z.nullable(z.string()).optional(),
-  previewLabels: z.nullable(z.array(z.string())).optional(),
-  previewWildcard: z.nullable(z.string()).optional(),
-  previewPort: z.nullable(z.number()).optional(),
-  previewHttps: z.boolean().optional(),
-  previewPath: z.nullable(z.string()).optional(),
-  previewCertificateType: ApplicationStartPreviewCertificateType$outboundSchema
-    .optional(),
-  previewCustomCertResolver: z.nullable(z.string()).optional(),
-  previewLimit: z.nullable(z.number()).optional(),
-  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
-  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
-  rollbackActive: z.nullable(z.boolean()).optional(),
-  buildArgs: z.nullable(z.string()).optional(),
-  memoryReservation: z.nullable(z.string()).optional(),
-  memoryLimit: z.nullable(z.string()).optional(),
-  cpuReservation: z.nullable(z.string()).optional(),
-  cpuLimit: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
-  subtitle: z.nullable(z.string()).optional(),
-  command: z.nullable(z.string()).optional(),
-  refreshToken: z.nullable(z.string()).optional(),
-  sourceType: ApplicationStartSourceType$outboundSchema.optional(),
-  cleanCache: z.nullable(z.boolean()).optional(),
-  repository: z.nullable(z.string()).optional(),
-  owner: z.nullable(z.string()).optional(),
-  branch: z.nullable(z.string()).optional(),
-  buildPath: z.nullable(z.string()).optional(),
-  triggerType: z.nullable(ApplicationStartTriggerType$outboundSchema)
+  applicationId: z.string().optional(),
+  applicationStatus: ApplicationStartApplicationStatus$outboundSchema
     .optional(),
   autoDeploy: z.nullable(z.boolean()).optional(),
-  gitlabProjectId: z.nullable(z.number()).optional(),
-  gitlabRepository: z.nullable(z.string()).optional(),
-  gitlabOwner: z.nullable(z.string()).optional(),
-  gitlabBranch: z.nullable(z.string()).optional(),
-  gitlabBuildPath: z.nullable(z.string()).optional(),
-  gitlabPathNamespace: z.nullable(z.string()).optional(),
-  giteaRepository: z.nullable(z.string()).optional(),
-  giteaOwner: z.nullable(z.string()).optional(),
-  giteaBranch: z.nullable(z.string()).optional(),
-  giteaBuildPath: z.nullable(z.string()).optional(),
-  bitbucketRepository: z.nullable(z.string()).optional(),
-  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucket: z.nullable(z.lazy(() => ApplicationStartBitbucket$outboundSchema)),
   bitbucketBranch: z.nullable(z.string()).optional(),
   bitbucketBuildPath: z.nullable(z.string()).optional(),
-  username: z.nullable(z.string()).optional(),
-  password: z.nullable(z.string()).optional(),
-  dockerImage: z.nullable(z.string()).optional(),
-  registryUrl: z.nullable(z.string()).optional(),
-  customGitUrl: z.nullable(z.string()).optional(),
+  bitbucketId: z.nullable(z.string()).optional(),
+  bitbucketOwner: z.nullable(z.string()).optional(),
+  bitbucketRepository: z.nullable(z.string()).optional(),
+  branch: z.nullable(z.string()).optional(),
+  buildArgs: z.nullable(z.string()).optional(),
+  buildPath: z.nullable(z.string()).optional(),
+  buildType: ApplicationStartBuildType$outboundSchema.optional(),
+  cleanCache: z.nullable(z.boolean()).optional(),
+  command: z.nullable(z.string()).optional(),
+  cpuLimit: z.nullable(z.string()).optional(),
+  cpuReservation: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
   customGitBranch: z.nullable(z.string()).optional(),
   customGitBuildPath: z.nullable(z.string()).optional(),
   customGitSSHKeyId: z.nullable(z.string()).optional(),
-  enableSubmodules: z.boolean().optional(),
-  dockerfile: z.nullable(z.string()).optional(),
-  dockerContextPath: z.nullable(z.string()).optional(),
+  customGitUrl: z.nullable(z.string()).optional(),
+  deployments: z.array(z.lazy(() => ApplicationStartDeployment$outboundSchema)),
+  description: z.nullable(z.string()).optional(),
   dockerBuildStage: z.nullable(z.string()).optional(),
+  dockerContextPath: z.nullable(z.string()).optional(),
+  dockerImage: z.nullable(z.string()).optional(),
+  dockerfile: z.nullable(z.string()).optional(),
+  domains: z.array(z.lazy(() => ApplicationStartDomain$outboundSchema)),
   dropBuildPath: z.nullable(z.string()).optional(),
+  enableSubmodules: z.boolean().optional(),
+  enabled: z.nullable(z.boolean()).optional(),
+  env: z.nullable(z.string()).optional(),
+  environment: z.lazy(() => ApplicationStartEnvironment$outboundSchema),
+  environmentId: z.string(),
+  gitea: z.nullable(z.lazy(() => ApplicationStartGitea$outboundSchema)),
+  giteaBranch: z.nullable(z.string()).optional(),
+  giteaBuildPath: z.nullable(z.string()).optional(),
+  giteaId: z.nullable(z.string()).optional(),
+  giteaOwner: z.nullable(z.string()).optional(),
+  giteaRepository: z.nullable(z.string()).optional(),
+  github: z.nullable(z.lazy(() => ApplicationStartGithub$outboundSchema)),
+  githubId: z.nullable(z.string()).optional(),
+  gitlab: z.nullable(z.lazy(() => ApplicationStartGitlab$outboundSchema)),
+  gitlabBranch: z.nullable(z.string()).optional(),
+  gitlabBuildPath: z.nullable(z.string()).optional(),
+  gitlabId: z.nullable(z.string()).optional(),
+  gitlabOwner: z.nullable(z.string()).optional(),
+  gitlabPathNamespace: z.nullable(z.string()).optional(),
+  gitlabProjectId: z.nullable(z.number()).optional(),
+  gitlabRepository: z.nullable(z.string()).optional(),
   healthCheckSwarm: z.nullable(
     z.lazy(() => ApplicationStartHealthCheckSwarm$outboundSchema),
   ).optional(),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => ApplicationStartRestartPolicySwarm$outboundSchema),
-  ).optional(),
-  placementSwarm: z.nullable(
-    z.lazy(() => ApplicationStartPlacementSwarm$outboundSchema),
-  ).optional(),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationStartUpdateConfigSwarm$outboundSchema),
-  ).optional(),
-  rollbackConfigSwarm: z.nullable(
-    z.lazy(() => ApplicationStartRollbackConfigSwarm$outboundSchema),
-  ).optional(),
+  herokuVersion: z.nullable(z.string()).optional(),
+  isPreviewDeploymentsActive: z.nullable(z.boolean()).optional(),
+  isStaticSpa: z.nullable(z.boolean()).optional(),
+  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  memoryLimit: z.nullable(z.string()).optional(),
+  memoryReservation: z.nullable(z.string()).optional(),
   modeSwarm: z.nullable(z.lazy(() => ApplicationStartModeSwarm$outboundSchema))
     .optional(),
-  labelsSwarm: z.nullable(z.record(z.string())).optional(),
+  mounts: z.array(z.lazy(() => ApplicationStartMount$outboundSchema)),
+  name: z.string(),
   networkSwarm: z.nullable(
     z.array(z.lazy(() => ApplicationStartNetworkSwarm$outboundSchema)),
   ).optional(),
-  replicas: z.number().optional(),
-  applicationStatus: ApplicationStartApplicationStatus$outboundSchema
-    .optional(),
-  buildType: ApplicationStartBuildType$outboundSchema.optional(),
-  railpackVersion: z.nullable(z.string()).optional(),
-  herokuVersion: z.nullable(z.string()).optional(),
-  publishDirectory: z.nullable(z.string()).optional(),
-  isStaticSpa: z.nullable(z.boolean()).optional(),
-  createdAt: z.string().optional(),
-  registryId: z.nullable(z.string()).optional(),
-  environmentId: z.string(),
-  githubId: z.nullable(z.string()).optional(),
-  gitlabId: z.nullable(z.string()).optional(),
-  giteaId: z.nullable(z.string()).optional(),
-  bitbucketId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
-  environment: z.lazy(() => ApplicationStartEnvironment$outboundSchema),
-  domains: z.array(z.lazy(() => ApplicationStartDomain$outboundSchema)),
-  deployments: z.array(z.lazy(() => ApplicationStartDeployment$outboundSchema)),
-  mounts: z.array(z.lazy(() => ApplicationStartMount$outboundSchema)),
-  redirects: z.array(z.lazy(() => ApplicationStartRedirect$outboundSchema)),
-  security: z.array(
-    z.lazy(() => ApplicationStartSecurityResponse$outboundSchema),
-  ),
+  owner: z.nullable(z.string()).optional(),
+  password: z.nullable(z.string()).optional(),
+  placementSwarm: z.nullable(
+    z.lazy(() => ApplicationStartPlacementSwarm$outboundSchema),
+  ).optional(),
   ports: z.array(z.lazy(() => ApplicationStartPort$outboundSchema)),
-  registry: z.nullable(z.lazy(() => ApplicationStartRegistry$outboundSchema)),
-  github: z.nullable(z.lazy(() => ApplicationStartGithub$outboundSchema)),
-  gitlab: z.nullable(z.lazy(() => ApplicationStartGitlab$outboundSchema)),
-  bitbucket: z.nullable(z.lazy(() => ApplicationStartBitbucket$outboundSchema)),
-  gitea: z.nullable(z.lazy(() => ApplicationStartGitea$outboundSchema)),
-  server: z.nullable(z.lazy(() => ApplicationStartServer$outboundSchema)),
+  previewBuildArgs: z.nullable(z.string()).optional(),
+  previewCertificateType: ApplicationStartPreviewCertificateType$outboundSchema
+    .optional(),
+  previewCustomCertResolver: z.nullable(z.string()).optional(),
   previewDeployments: z.array(
     z.lazy(() => ApplicationStartPreviewDeployment$outboundSchema),
   ),
+  previewEnv: z.nullable(z.string()).optional(),
+  previewHttps: z.boolean().optional(),
+  previewLabels: z.nullable(z.array(z.string())).optional(),
+  previewLimit: z.nullable(z.number()).optional(),
+  previewPath: z.nullable(z.string()).optional(),
+  previewPort: z.nullable(z.number()).optional(),
+  previewRequireCollaboratorPermissions: z.nullable(z.boolean()).optional(),
+  previewWildcard: z.nullable(z.string()).optional(),
+  publishDirectory: z.nullable(z.string()).optional(),
+  railpackVersion: z.nullable(z.string()).optional(),
+  redirects: z.array(z.lazy(() => ApplicationStartRedirect$outboundSchema)),
+  refreshToken: z.nullable(z.string()).optional(),
+  registry: z.nullable(z.lazy(() => ApplicationStartRegistry$outboundSchema)),
+  registryId: z.nullable(z.string()).optional(),
+  registryUrl: z.nullable(z.string()).optional(),
+  replicas: z.number().optional(),
+  repository: z.nullable(z.string()).optional(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => ApplicationStartRestartPolicySwarm$outboundSchema),
+  ).optional(),
+  rollbackActive: z.nullable(z.boolean()).optional(),
+  rollbackConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationStartRollbackConfigSwarm$outboundSchema),
+  ).optional(),
+  security: z.array(z.lazy(() => ApplicationStartSecurity$outboundSchema)),
+  server: z.nullable(z.lazy(() => ApplicationStartServer$outboundSchema)),
+  serverId: z.nullable(z.string()).optional(),
+  sourceType: ApplicationStartSourceType$outboundSchema.optional(),
+  subtitle: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+  triggerType: z.nullable(ApplicationStartTriggerType$outboundSchema)
+    .optional(),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => ApplicationStartUpdateConfigSwarm$outboundSchema),
+  ).optional(),
+  username: z.nullable(z.string()).optional(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

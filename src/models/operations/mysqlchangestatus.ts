@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlChangeStatusSecurity = {
-  authorization: string;
-};
-
 export const MysqlChangeStatusApplicationStatusRequest = {
   Idle: "idle",
   Running: "running",
@@ -25,8 +21,8 @@ export type MysqlChangeStatusApplicationStatusRequest = ClosedEnum<
 >;
 
 export type MysqlChangeStatusRequest = {
-  mysqlId: string;
   applicationStatus: MysqlChangeStatusApplicationStatusRequest;
+  mysqlId: string;
 };
 
 export const MysqlChangeStatusApplicationStatusResponse = {
@@ -38,196 +34,6 @@ export const MysqlChangeStatusApplicationStatusResponse = {
 export type MysqlChangeStatusApplicationStatusResponse = ClosedEnum<
   typeof MysqlChangeStatusApplicationStatusResponse
 >;
-
-export type MysqlChangeStatusHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MysqlChangeStatusRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MysqlChangeStatusSpread = {
-  spreadDescriptor: string;
-};
-
-export type MysqlChangeStatusPreference = {
-  spread: MysqlChangeStatusSpread;
-};
-
-export type MysqlChangeStatusPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MysqlChangeStatusPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MysqlChangeStatusPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MysqlChangeStatusPlatform> | undefined;
-};
-
-export type MysqlChangeStatusUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlChangeStatusRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MysqlChangeStatusReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MysqlChangeStatusGlobal = {};
-
-export type MysqlChangeStatusReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MysqlChangeStatusGlobalJob = {};
-
-export type MysqlChangeStatusModeSwarm = {
-  replicated?: MysqlChangeStatusReplicated | undefined;
-  global?: MysqlChangeStatusGlobal | undefined;
-  replicatedJob?: MysqlChangeStatusReplicatedJob | undefined;
-  globalJob?: MysqlChangeStatusGlobalJob | undefined;
-};
-
-export type MysqlChangeStatusDriverOpts = {};
-
-export type MysqlChangeStatusNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MysqlChangeStatusDriverOpts | undefined;
-};
-
-export type MysqlChangeStatusProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MysqlChangeStatusEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlChangeStatusProject;
-};
-
-export const MysqlChangeStatusType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MysqlChangeStatusType = ClosedEnum<typeof MysqlChangeStatusType>;
-
-export const MysqlChangeStatusServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MysqlChangeStatusServiceType = ClosedEnum<
-  typeof MysqlChangeStatusServiceType
->;
-
-export type MysqlChangeStatusMount = {
-  mountId: string;
-  type: MysqlChangeStatusType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MysqlChangeStatusServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MysqlChangeStatusServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MysqlChangeStatusServerStatus = ClosedEnum<
-  typeof MysqlChangeStatusServerStatus
->;
-
-export const MysqlChangeStatusMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MysqlChangeStatusMetricsConfigEnum = ClosedEnum<
-  typeof MysqlChangeStatusMetricsConfigEnum
->;
-
-export type MysqlChangeStatusMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MysqlChangeStatusMetricsConfigEnum;
-
-export type MysqlChangeStatusMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MysqlChangeStatusMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MysqlChangeStatusServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MysqlChangeStatusServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MysqlChangeStatusMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MysqlChangeStatusBackupType = {
   Database: "database",
@@ -255,29 +61,29 @@ export type MysqlChangeStatusMetadataEnum = ClosedEnum<
   typeof MysqlChangeStatusMetadataEnum
 >;
 
-export type MysqlChangeStatusPostgres = {
-  databaseUser: string;
-};
-
 export type MysqlChangeStatusMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlChangeStatusMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MysqlChangeStatusMysql = {
   databaseRootPassword: string;
 };
 
+export type MysqlChangeStatusPostgres = {
+  databaseUser: string;
+};
+
 export type MysqlChangeStatusMetadata = {
-  postgres?: MysqlChangeStatusPostgres | undefined;
   mariadb?: MysqlChangeStatusMariadb | undefined;
   mongo?: MysqlChangeStatusMongo | undefined;
   mysql?: MysqlChangeStatusMysql | undefined;
+  postgres?: MysqlChangeStatusPostgres | undefined;
 };
 
 export type MysqlChangeStatusMetadataUnion =
@@ -285,134 +91,262 @@ export type MysqlChangeStatusMetadataUnion =
   | MysqlChangeStatusMetadataEnum;
 
 export type MysqlChangeStatusBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MysqlChangeStatusBackupType;
-  databaseType: MysqlChangeStatusDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MysqlChangeStatusDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MysqlChangeStatusMetadata
     | MysqlChangeStatusMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MysqlChangeStatusProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MysqlChangeStatusEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlChangeStatusProject;
+  projectId: string;
+};
+
+export type MysqlChangeStatusHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MysqlChangeStatusGlobal = {};
+
+export type MysqlChangeStatusGlobalJob = {};
+
+export type MysqlChangeStatusReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MysqlChangeStatusReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MysqlChangeStatusModeSwarm = {
+  global?: MysqlChangeStatusGlobal | undefined;
+  globalJob?: MysqlChangeStatusGlobalJob | undefined;
+  replicated?: MysqlChangeStatusReplicated | undefined;
+  replicatedJob?: MysqlChangeStatusReplicatedJob | undefined;
+};
+
+export const MysqlChangeStatusServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MysqlChangeStatusServiceType = ClosedEnum<
+  typeof MysqlChangeStatusServiceType
+>;
+
+export const MysqlChangeStatusType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MysqlChangeStatusType = ClosedEnum<typeof MysqlChangeStatusType>;
+
+export type MysqlChangeStatusMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MysqlChangeStatusServiceType;
+  type: MysqlChangeStatusType;
+  volumeName: string | null;
+};
+
+export type MysqlChangeStatusDriverOpts = {};
+
+export type MysqlChangeStatusNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MysqlChangeStatusDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MysqlChangeStatusPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MysqlChangeStatusSpread = {
+  spreadDescriptor: string;
+};
+
+export type MysqlChangeStatusPreference = {
+  spread: MysqlChangeStatusSpread;
+};
+
+export type MysqlChangeStatusPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MysqlChangeStatusPlatform> | undefined;
+  preferences?: Array<MysqlChangeStatusPreference> | undefined;
+};
+
+export type MysqlChangeStatusRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MysqlChangeStatusRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MysqlChangeStatusMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MysqlChangeStatusMetricsConfigEnum = ClosedEnum<
+  typeof MysqlChangeStatusMetricsConfigEnum
+>;
+
+export type MysqlChangeStatusMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MysqlChangeStatusMetricsConfigEnum;
+
+export type MysqlChangeStatusMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MysqlChangeStatusMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MysqlChangeStatusServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MysqlChangeStatusServerStatus = ClosedEnum<
+  typeof MysqlChangeStatusServerStatus
+>;
+
+export type MysqlChangeStatusServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MysqlChangeStatusMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MysqlChangeStatusServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MysqlChangeStatusUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MysqlChangeStatusResponseBody = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MysqlChangeStatusApplicationStatusResponse;
+  backups: Array<MysqlChangeStatusBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MysqlChangeStatusApplicationStatusResponse;
-  healthCheckSwarm: MysqlChangeStatusHealthCheckSwarm | null;
-  restartPolicySwarm: MysqlChangeStatusRestartPolicySwarm | null;
-  placementSwarm: MysqlChangeStatusPlacementSwarm | null;
-  updateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MysqlChangeStatusRollbackConfigSwarm | null;
-  modeSwarm: MysqlChangeStatusModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlChangeStatusNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlChangeStatusEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlChangeStatusHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlChangeStatusModeSwarm | null;
   mounts: Array<MysqlChangeStatusMount>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlChangeStatusNetworkSwarm> | null;
+  placementSwarm: MysqlChangeStatusPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MysqlChangeStatusRestartPolicySwarm | null;
+  rollbackConfigSwarm: MysqlChangeStatusRollbackConfigSwarm | null;
   server: MysqlChangeStatusServer | null;
-  backups: Array<MysqlChangeStatusBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm | null;
 };
 
 export type MysqlChangeStatusResponse =
   | MysqlChangeStatusResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const MysqlChangeStatusSecurity$inboundSchema: z.ZodType<
-  MysqlChangeStatusSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusSecurity$outboundSchema: z.ZodType<
-  MysqlChangeStatusSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusSecurity$ {
-  /** @deprecated use `MysqlChangeStatusSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusSecurity$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusSecurity$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusSecurity$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusSecurity$Outbound;
-}
-
-export function mysqlChangeStatusSecurityToJSON(
-  mysqlChangeStatusSecurity: MysqlChangeStatusSecurity,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusSecurity$outboundSchema.parse(mysqlChangeStatusSecurity),
-  );
-}
-
-export function mysqlChangeStatusSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlChangeStatusApplicationStatusRequest$inboundSchema:
@@ -443,14 +377,14 @@ export const MysqlChangeStatusRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
   applicationStatus: MysqlChangeStatusApplicationStatusRequest$inboundSchema,
+  mysqlId: z.string(),
 });
 
 /** @internal */
 export type MysqlChangeStatusRequest$Outbound = {
-  mysqlId: string;
   applicationStatus: string;
+  mysqlId: string;
 };
 
 /** @internal */
@@ -459,8 +393,8 @@ export const MysqlChangeStatusRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlChangeStatusRequest
 > = z.object({
-  mysqlId: z.string(),
   applicationStatus: MysqlChangeStatusApplicationStatusRequest$outboundSchema,
+  mysqlId: z.string(),
 });
 
 /**
@@ -518,33 +452,697 @@ export namespace MysqlChangeStatusApplicationStatusResponse$ {
 }
 
 /** @internal */
+export const MysqlChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusBackupType
+> = z.nativeEnum(MysqlChangeStatusBackupType);
+
+/** @internal */
+export const MysqlChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusBackupType
+> = MysqlChangeStatusBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusBackupType$ {
+  /** @deprecated use `MysqlChangeStatusBackupType$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusBackupType$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusBackupType$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusDatabaseType
+> = z.nativeEnum(MysqlChangeStatusDatabaseType);
+
+/** @internal */
+export const MysqlChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusDatabaseType
+> = MysqlChangeStatusDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusDatabaseType$ {
+  /** @deprecated use `MysqlChangeStatusDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusDatabaseType$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusMetadataEnum
+> = z.nativeEnum(MysqlChangeStatusMetadataEnum);
+
+/** @internal */
+export const MysqlChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusMetadataEnum
+> = MysqlChangeStatusMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMetadataEnum$ {
+  /** @deprecated use `MysqlChangeStatusMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMetadataEnum$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MysqlChangeStatusMariadb$inboundSchema: z.ZodType<
+  MysqlChangeStatusMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusMariadb$outboundSchema: z.ZodType<
+  MysqlChangeStatusMariadb$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMariadb$ {
+  /** @deprecated use `MysqlChangeStatusMariadb$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMariadb$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMariadb$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMariadb$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMariadb$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMariadb$Outbound;
+}
+
+export function mysqlChangeStatusMariadbToJSON(
+  mysqlChangeStatusMariadb: MysqlChangeStatusMariadb,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMariadb$outboundSchema.parse(mysqlChangeStatusMariadb),
+  );
+}
+
+export function mysqlChangeStatusMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusMongo$inboundSchema: z.ZodType<
+  MysqlChangeStatusMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusMongo$outboundSchema: z.ZodType<
+  MysqlChangeStatusMongo$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMongo$ {
+  /** @deprecated use `MysqlChangeStatusMongo$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMongo$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMongo$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMongo$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMongo$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMongo$Outbound;
+}
+
+export function mysqlChangeStatusMongoToJSON(
+  mysqlChangeStatusMongo: MysqlChangeStatusMongo,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMongo$outboundSchema.parse(mysqlChangeStatusMongo),
+  );
+}
+
+export function mysqlChangeStatusMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusMysql$inboundSchema: z.ZodType<
+  MysqlChangeStatusMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusMysql$outboundSchema: z.ZodType<
+  MysqlChangeStatusMysql$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMysql$ {
+  /** @deprecated use `MysqlChangeStatusMysql$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMysql$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMysql$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMysql$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMysql$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMysql$Outbound;
+}
+
+export function mysqlChangeStatusMysqlToJSON(
+  mysqlChangeStatusMysql: MysqlChangeStatusMysql,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMysql$outboundSchema.parse(mysqlChangeStatusMysql),
+  );
+}
+
+export function mysqlChangeStatusMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusPostgres$inboundSchema: z.ZodType<
+  MysqlChangeStatusPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusPostgres$outboundSchema: z.ZodType<
+  MysqlChangeStatusPostgres$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusPostgres$ {
+  /** @deprecated use `MysqlChangeStatusPostgres$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusPostgres$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusPostgres$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusPostgres$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusPostgres$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusPostgres$Outbound;
+}
+
+export function mysqlChangeStatusPostgresToJSON(
+  mysqlChangeStatusPostgres: MysqlChangeStatusPostgres,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusPostgres$outboundSchema.parse(mysqlChangeStatusPostgres),
+  );
+}
+
+export function mysqlChangeStatusPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusMetadata$inboundSchema: z.ZodType<
+  MysqlChangeStatusMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MysqlChangeStatusMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MysqlChangeStatusMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MysqlChangeStatusMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MysqlChangeStatusPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MysqlChangeStatusMetadata$Outbound = {
+  mariadb?: MysqlChangeStatusMariadb$Outbound | undefined;
+  mongo?: MysqlChangeStatusMongo$Outbound | undefined;
+  mysql?: MysqlChangeStatusMysql$Outbound | undefined;
+  postgres?: MysqlChangeStatusPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlChangeStatusMetadata$outboundSchema: z.ZodType<
+  MysqlChangeStatusMetadata$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMetadata
+> = z.object({
+  mariadb: z.lazy(() => MysqlChangeStatusMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MysqlChangeStatusMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MysqlChangeStatusMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MysqlChangeStatusPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMetadata$ {
+  /** @deprecated use `MysqlChangeStatusMetadata$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMetadata$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMetadata$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMetadata$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMetadata$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMetadata$Outbound;
+}
+
+export function mysqlChangeStatusMetadataToJSON(
+  mysqlChangeStatusMetadata: MysqlChangeStatusMetadata,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMetadata$outboundSchema.parse(mysqlChangeStatusMetadata),
+  );
+}
+
+export function mysqlChangeStatusMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusMetadataUnion$inboundSchema: z.ZodType<
+  MysqlChangeStatusMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MysqlChangeStatusMetadata$inboundSchema),
+  MysqlChangeStatusMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MysqlChangeStatusMetadataUnion$Outbound =
+  | MysqlChangeStatusMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MysqlChangeStatusMetadataUnion$outboundSchema: z.ZodType<
+  MysqlChangeStatusMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMetadataUnion
+> = z.union([
+  z.lazy(() => MysqlChangeStatusMetadata$outboundSchema),
+  MysqlChangeStatusMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMetadataUnion$ {
+  /** @deprecated use `MysqlChangeStatusMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMetadataUnion$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMetadataUnion$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMetadataUnion$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMetadataUnion$Outbound;
+}
+
+export function mysqlChangeStatusMetadataUnionToJSON(
+  mysqlChangeStatusMetadataUnion: MysqlChangeStatusMetadataUnion,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMetadataUnion$outboundSchema.parse(
+      mysqlChangeStatusMetadataUnion,
+    ),
+  );
+}
+
+export function mysqlChangeStatusMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusBackup$inboundSchema: z.ZodType<
+  MysqlChangeStatusBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlChangeStatusBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlChangeStatusDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlChangeStatusMetadata$inboundSchema),
+      MysqlChangeStatusMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlChangeStatusBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MysqlChangeStatusMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MysqlChangeStatusBackup$outboundSchema: z.ZodType<
+  MysqlChangeStatusBackup$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MysqlChangeStatusBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MysqlChangeStatusDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MysqlChangeStatusMetadata$outboundSchema),
+      MysqlChangeStatusMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusBackup$ {
+  /** @deprecated use `MysqlChangeStatusBackup$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusBackup$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusBackup$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusBackup$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusBackup$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusBackup$Outbound;
+}
+
+export function mysqlChangeStatusBackupToJSON(
+  mysqlChangeStatusBackup: MysqlChangeStatusBackup,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusBackup$outboundSchema.parse(mysqlChangeStatusBackup),
+  );
+}
+
+export function mysqlChangeStatusBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusProject$inboundSchema: z.ZodType<
+  MysqlChangeStatusProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusProject$outboundSchema: z.ZodType<
+  MysqlChangeStatusProject$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusProject$ {
+  /** @deprecated use `MysqlChangeStatusProject$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusProject$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusProject$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusProject$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusProject$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusProject$Outbound;
+}
+
+export function mysqlChangeStatusProjectToJSON(
+  mysqlChangeStatusProject: MysqlChangeStatusProject,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusProject$outboundSchema.parse(mysqlChangeStatusProject),
+  );
+}
+
+export function mysqlChangeStatusProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusEnvironment$inboundSchema: z.ZodType<
+  MysqlChangeStatusEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlChangeStatusProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MysqlChangeStatusEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MysqlChangeStatusProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusEnvironment$outboundSchema: z.ZodType<
+  MysqlChangeStatusEnvironment$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MysqlChangeStatusProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusEnvironment$ {
+  /** @deprecated use `MysqlChangeStatusEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusEnvironment$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusEnvironment$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusEnvironment$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusEnvironment$Outbound;
+}
+
+export function mysqlChangeStatusEnvironmentToJSON(
+  mysqlChangeStatusEnvironment: MysqlChangeStatusEnvironment,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusEnvironment$outboundSchema.parse(
+      mysqlChangeStatusEnvironment,
+    ),
+  );
+}
+
+export function mysqlChangeStatusEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MysqlChangeStatusHealthCheckSwarm$inboundSchema: z.ZodType<
   MysqlChangeStatusHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MysqlChangeStatusHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -553,18 +1151,18 @@ export const MysqlChangeStatusHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlChangeStatusHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -603,48 +1201,129 @@ export function mysqlChangeStatusHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
-  MysqlChangeStatusRestartPolicySwarm,
+export const MysqlChangeStatusGlobal$inboundSchema: z.ZodType<
+  MysqlChangeStatusGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlChangeStatusGlobal$Outbound = {};
+
+/** @internal */
+export const MysqlChangeStatusGlobal$outboundSchema: z.ZodType<
+  MysqlChangeStatusGlobal$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusGlobal$ {
+  /** @deprecated use `MysqlChangeStatusGlobal$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusGlobal$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusGlobal$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusGlobal$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusGlobal$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusGlobal$Outbound;
+}
+
+export function mysqlChangeStatusGlobalToJSON(
+  mysqlChangeStatusGlobal: MysqlChangeStatusGlobal,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusGlobal$outboundSchema.parse(mysqlChangeStatusGlobal),
+  );
+}
+
+export function mysqlChangeStatusGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusGlobalJob$inboundSchema: z.ZodType<
+  MysqlChangeStatusGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlChangeStatusGlobalJob$Outbound = {};
+
+/** @internal */
+export const MysqlChangeStatusGlobalJob$outboundSchema: z.ZodType<
+  MysqlChangeStatusGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusGlobalJob$ {
+  /** @deprecated use `MysqlChangeStatusGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusGlobalJob$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusGlobalJob$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusGlobalJob$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusGlobalJob$Outbound;
+}
+
+export function mysqlChangeStatusGlobalJobToJSON(
+  mysqlChangeStatusGlobalJob: MysqlChangeStatusGlobalJob,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusGlobalJob$outboundSchema.parse(mysqlChangeStatusGlobalJob),
+  );
+}
+
+export function mysqlChangeStatusGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusReplicated$inboundSchema: z.ZodType<
+  MysqlChangeStatusReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MysqlChangeStatusRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MysqlChangeStatusReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MysqlChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
-  MysqlChangeStatusRestartPolicySwarm$Outbound,
+export const MysqlChangeStatusReplicated$outboundSchema: z.ZodType<
+  MysqlChangeStatusReplicated$Outbound,
   z.ZodTypeDef,
-  MysqlChangeStatusRestartPolicySwarm
+  MysqlChangeStatusReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -652,35 +1331,513 @@ export const MysqlChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlChangeStatusRestartPolicySwarm$ {
-  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MysqlChangeStatusRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MysqlChangeStatusRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusRestartPolicySwarm$Outbound;
+export namespace MysqlChangeStatusReplicated$ {
+  /** @deprecated use `MysqlChangeStatusReplicated$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusReplicated$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusReplicated$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusReplicated$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusReplicated$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusReplicated$Outbound;
 }
 
-export function mysqlChangeStatusRestartPolicySwarmToJSON(
-  mysqlChangeStatusRestartPolicySwarm: MysqlChangeStatusRestartPolicySwarm,
+export function mysqlChangeStatusReplicatedToJSON(
+  mysqlChangeStatusReplicated: MysqlChangeStatusReplicated,
 ): string {
   return JSON.stringify(
-    MysqlChangeStatusRestartPolicySwarm$outboundSchema.parse(
-      mysqlChangeStatusRestartPolicySwarm,
+    MysqlChangeStatusReplicated$outboundSchema.parse(
+      mysqlChangeStatusReplicated,
     ),
   );
 }
 
-export function mysqlChangeStatusRestartPolicySwarmFromJSON(
+export function mysqlChangeStatusReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlChangeStatusRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MysqlChangeStatusReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      MysqlChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusRestartPolicySwarm' from JSON`,
+    (x) => MysqlChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusReplicatedJob$inboundSchema: z.ZodType<
+  MysqlChangeStatusReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MysqlChangeStatusReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MysqlChangeStatusReplicatedJob$outboundSchema: z.ZodType<
+  MysqlChangeStatusReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusReplicatedJob$ {
+  /** @deprecated use `MysqlChangeStatusReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusReplicatedJob$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusReplicatedJob$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusReplicatedJob$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusReplicatedJob$Outbound;
+}
+
+export function mysqlChangeStatusReplicatedJobToJSON(
+  mysqlChangeStatusReplicatedJob: MysqlChangeStatusReplicatedJob,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusReplicatedJob$outboundSchema.parse(
+      mysqlChangeStatusReplicatedJob,
+    ),
+  );
+}
+
+export function mysqlChangeStatusReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusModeSwarm$inboundSchema: z.ZodType<
+  MysqlChangeStatusModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MysqlChangeStatusGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MysqlChangeStatusGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MysqlChangeStatusReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => MysqlChangeStatusReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MysqlChangeStatusModeSwarm$Outbound = {
+  Global?: MysqlChangeStatusGlobal$Outbound | undefined;
+  GlobalJob?: MysqlChangeStatusGlobalJob$Outbound | undefined;
+  Replicated?: MysqlChangeStatusReplicated$Outbound | undefined;
+  ReplicatedJob?: MysqlChangeStatusReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MysqlChangeStatusModeSwarm$outboundSchema: z.ZodType<
+  MysqlChangeStatusModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusModeSwarm
+> = z.object({
+  global: z.lazy(() => MysqlChangeStatusGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MysqlChangeStatusGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MysqlChangeStatusReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => MysqlChangeStatusReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusModeSwarm$ {
+  /** @deprecated use `MysqlChangeStatusModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusModeSwarm$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusModeSwarm$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusModeSwarm$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusModeSwarm$Outbound;
+}
+
+export function mysqlChangeStatusModeSwarmToJSON(
+  mysqlChangeStatusModeSwarm: MysqlChangeStatusModeSwarm,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusModeSwarm$outboundSchema.parse(mysqlChangeStatusModeSwarm),
+  );
+}
+
+export function mysqlChangeStatusModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusServiceType
+> = z.nativeEnum(MysqlChangeStatusServiceType);
+
+/** @internal */
+export const MysqlChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusServiceType
+> = MysqlChangeStatusServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusServiceType$ {
+  /** @deprecated use `MysqlChangeStatusServiceType$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusServiceType$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusServiceType$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlChangeStatusType$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusType
+> = z.nativeEnum(MysqlChangeStatusType);
+
+/** @internal */
+export const MysqlChangeStatusType$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusType
+> = MysqlChangeStatusType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusType$ {
+  /** @deprecated use `MysqlChangeStatusType$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusType$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusType$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusType$outboundSchema;
+}
+
+/** @internal */
+export const MysqlChangeStatusMount$inboundSchema: z.ZodType<
+  MysqlChangeStatusMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlChangeStatusServiceType$inboundSchema,
+  type: MysqlChangeStatusType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MysqlChangeStatusMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MysqlChangeStatusMount$outboundSchema: z.ZodType<
+  MysqlChangeStatusMount$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MysqlChangeStatusServiceType$outboundSchema,
+  type: MysqlChangeStatusType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusMount$ {
+  /** @deprecated use `MysqlChangeStatusMount$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusMount$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusMount$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusMount$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusMount$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusMount$Outbound;
+}
+
+export function mysqlChangeStatusMountToJSON(
+  mysqlChangeStatusMount: MysqlChangeStatusMount,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusMount$outboundSchema.parse(mysqlChangeStatusMount),
+  );
+}
+
+export function mysqlChangeStatusMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusDriverOpts$inboundSchema: z.ZodType<
+  MysqlChangeStatusDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MysqlChangeStatusDriverOpts$Outbound = {};
+
+/** @internal */
+export const MysqlChangeStatusDriverOpts$outboundSchema: z.ZodType<
+  MysqlChangeStatusDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusDriverOpts$ {
+  /** @deprecated use `MysqlChangeStatusDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusDriverOpts$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusDriverOpts$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusDriverOpts$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusDriverOpts$Outbound;
+}
+
+export function mysqlChangeStatusDriverOptsToJSON(
+  mysqlChangeStatusDriverOpts: MysqlChangeStatusDriverOpts,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusDriverOpts$outboundSchema.parse(
+      mysqlChangeStatusDriverOpts,
+    ),
+  );
+}
+
+export function mysqlChangeStatusDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
+  MysqlChangeStatusNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MysqlChangeStatusDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MysqlChangeStatusNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MysqlChangeStatusDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MysqlChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
+  MysqlChangeStatusNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MysqlChangeStatusDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusNetworkSwarm$ {
+  /** @deprecated use `MysqlChangeStatusNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusNetworkSwarm$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusNetworkSwarm$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusNetworkSwarm$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusNetworkSwarm$Outbound;
+}
+
+export function mysqlChangeStatusNetworkSwarmToJSON(
+  mysqlChangeStatusNetworkSwarm: MysqlChangeStatusNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusNetworkSwarm$outboundSchema.parse(
+      mysqlChangeStatusNetworkSwarm,
+    ),
+  );
+}
+
+export function mysqlChangeStatusNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MysqlChangeStatusPlatform$inboundSchema: z.ZodType<
+  MysqlChangeStatusPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MysqlChangeStatusPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MysqlChangeStatusPlatform$outboundSchema: z.ZodType<
+  MysqlChangeStatusPlatform$Outbound,
+  z.ZodTypeDef,
+  MysqlChangeStatusPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusPlatform$ {
+  /** @deprecated use `MysqlChangeStatusPlatform$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusPlatform$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusPlatform$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusPlatform$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusPlatform$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusPlatform$Outbound;
+}
+
+export function mysqlChangeStatusPlatformToJSON(
+  mysqlChangeStatusPlatform: MysqlChangeStatusPlatform,
+): string {
+  return JSON.stringify(
+    MysqlChangeStatusPlatform$outboundSchema.parse(mysqlChangeStatusPlatform),
+  );
+}
+
+export function mysqlChangeStatusPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MysqlChangeStatusPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MysqlChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusPlatform' from JSON`,
   );
 }
 
@@ -811,99 +1968,32 @@ export function mysqlChangeStatusPreferenceFromJSON(
 }
 
 /** @internal */
-export const MysqlChangeStatusPlatform$inboundSchema: z.ZodType<
-  MysqlChangeStatusPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusPlatform$outboundSchema: z.ZodType<
-  MysqlChangeStatusPlatform$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusPlatform$ {
-  /** @deprecated use `MysqlChangeStatusPlatform$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusPlatform$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusPlatform$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusPlatform$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusPlatform$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusPlatform$Outbound;
-}
-
-export function mysqlChangeStatusPlatformToJSON(
-  mysqlChangeStatusPlatform: MysqlChangeStatusPlatform,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusPlatform$outboundSchema.parse(mysqlChangeStatusPlatform),
-  );
-}
-
-export function mysqlChangeStatusPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MysqlChangeStatusPlacementSwarm$inboundSchema: z.ZodType<
   MysqlChangeStatusPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MysqlChangeStatusPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MysqlChangeStatusPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MysqlChangeStatusPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MysqlChangeStatusPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MysqlChangeStatusPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MysqlChangeStatusPlatform$Outbound> | undefined;
+  Preferences?: Array<MysqlChangeStatusPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -913,17 +2003,17 @@ export const MysqlChangeStatusPlacementSwarm$outboundSchema: z.ZodType<
   MysqlChangeStatusPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MysqlChangeStatusPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MysqlChangeStatusPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MysqlChangeStatusPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -961,58 +2051,48 @@ export function mysqlChangeStatusPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MysqlChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MysqlChangeStatusUpdateConfigSwarm,
+export const MysqlChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
+  MysqlChangeStatusRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MysqlChangeStatusUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MysqlChangeStatusRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MysqlChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MysqlChangeStatusUpdateConfigSwarm$Outbound,
+export const MysqlChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
+  MysqlChangeStatusRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MysqlChangeStatusUpdateConfigSwarm
+  MysqlChangeStatusRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1020,34 +2100,35 @@ export const MysqlChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlChangeStatusUpdateConfigSwarm$ {
-  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+export namespace MysqlChangeStatusRestartPolicySwarm$ {
+  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MysqlChangeStatusRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MysqlChangeStatusUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusUpdateConfigSwarm$Outbound;
+    MysqlChangeStatusRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusRestartPolicySwarm$Outbound;
 }
 
-export function mysqlChangeStatusUpdateConfigSwarmToJSON(
-  mysqlChangeStatusUpdateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm,
+export function mysqlChangeStatusRestartPolicySwarmToJSON(
+  mysqlChangeStatusRestartPolicySwarm: MysqlChangeStatusRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MysqlChangeStatusUpdateConfigSwarm$outboundSchema.parse(
-      mysqlChangeStatusUpdateConfigSwarm,
+    MysqlChangeStatusRestartPolicySwarm$outboundSchema.parse(
+      mysqlChangeStatusRestartPolicySwarm,
     ),
   );
 }
 
-export function mysqlChangeStatusUpdateConfigSwarmFromJSON(
+export function mysqlChangeStatusRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlChangeStatusUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MysqlChangeStatusRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MysqlChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusUpdateConfigSwarm' from JSON`,
+      MysqlChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1057,31 +2138,31 @@ export const MysqlChangeStatusRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MysqlChangeStatusRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1090,20 +2171,20 @@ export const MysqlChangeStatusRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlChangeStatusRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1141,744 +2222,6 @@ export function mysqlChangeStatusRollbackConfigSwarmFromJSON(
       MysqlChangeStatusRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MysqlChangeStatusRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MysqlChangeStatusReplicated$inboundSchema: z.ZodType<
-  MysqlChangeStatusReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusReplicated$outboundSchema: z.ZodType<
-  MysqlChangeStatusReplicated$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusReplicated$ {
-  /** @deprecated use `MysqlChangeStatusReplicated$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusReplicated$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusReplicated$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusReplicated$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusReplicated$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusReplicated$Outbound;
-}
-
-export function mysqlChangeStatusReplicatedToJSON(
-  mysqlChangeStatusReplicated: MysqlChangeStatusReplicated,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusReplicated$outboundSchema.parse(
-      mysqlChangeStatusReplicated,
-    ),
-  );
-}
-
-export function mysqlChangeStatusReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusGlobal$inboundSchema: z.ZodType<
-  MysqlChangeStatusGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlChangeStatusGlobal$Outbound = {};
-
-/** @internal */
-export const MysqlChangeStatusGlobal$outboundSchema: z.ZodType<
-  MysqlChangeStatusGlobal$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusGlobal$ {
-  /** @deprecated use `MysqlChangeStatusGlobal$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusGlobal$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusGlobal$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusGlobal$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusGlobal$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusGlobal$Outbound;
-}
-
-export function mysqlChangeStatusGlobalToJSON(
-  mysqlChangeStatusGlobal: MysqlChangeStatusGlobal,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusGlobal$outboundSchema.parse(mysqlChangeStatusGlobal),
-  );
-}
-
-export function mysqlChangeStatusGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusReplicatedJob$inboundSchema: z.ZodType<
-  MysqlChangeStatusReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusReplicatedJob$outboundSchema: z.ZodType<
-  MysqlChangeStatusReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusReplicatedJob$ {
-  /** @deprecated use `MysqlChangeStatusReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusReplicatedJob$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusReplicatedJob$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusReplicatedJob$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusReplicatedJob$Outbound;
-}
-
-export function mysqlChangeStatusReplicatedJobToJSON(
-  mysqlChangeStatusReplicatedJob: MysqlChangeStatusReplicatedJob,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusReplicatedJob$outboundSchema.parse(
-      mysqlChangeStatusReplicatedJob,
-    ),
-  );
-}
-
-export function mysqlChangeStatusReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusGlobalJob$inboundSchema: z.ZodType<
-  MysqlChangeStatusGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlChangeStatusGlobalJob$Outbound = {};
-
-/** @internal */
-export const MysqlChangeStatusGlobalJob$outboundSchema: z.ZodType<
-  MysqlChangeStatusGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusGlobalJob$ {
-  /** @deprecated use `MysqlChangeStatusGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusGlobalJob$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusGlobalJob$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusGlobalJob$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusGlobalJob$Outbound;
-}
-
-export function mysqlChangeStatusGlobalJobToJSON(
-  mysqlChangeStatusGlobalJob: MysqlChangeStatusGlobalJob,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusGlobalJob$outboundSchema.parse(mysqlChangeStatusGlobalJob),
-  );
-}
-
-export function mysqlChangeStatusGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusModeSwarm$inboundSchema: z.ZodType<
-  MysqlChangeStatusModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MysqlChangeStatusReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MysqlChangeStatusGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MysqlChangeStatusReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MysqlChangeStatusGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusModeSwarm$Outbound = {
-  Replicated?: MysqlChangeStatusReplicated$Outbound | undefined;
-  Global?: MysqlChangeStatusGlobal$Outbound | undefined;
-  ReplicatedJob?: MysqlChangeStatusReplicatedJob$Outbound | undefined;
-  GlobalJob?: MysqlChangeStatusGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusModeSwarm$outboundSchema: z.ZodType<
-  MysqlChangeStatusModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MysqlChangeStatusReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MysqlChangeStatusGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MysqlChangeStatusReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MysqlChangeStatusGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusModeSwarm$ {
-  /** @deprecated use `MysqlChangeStatusModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusModeSwarm$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusModeSwarm$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusModeSwarm$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusModeSwarm$Outbound;
-}
-
-export function mysqlChangeStatusModeSwarmToJSON(
-  mysqlChangeStatusModeSwarm: MysqlChangeStatusModeSwarm,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusModeSwarm$outboundSchema.parse(mysqlChangeStatusModeSwarm),
-  );
-}
-
-export function mysqlChangeStatusModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusDriverOpts$inboundSchema: z.ZodType<
-  MysqlChangeStatusDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MysqlChangeStatusDriverOpts$Outbound = {};
-
-/** @internal */
-export const MysqlChangeStatusDriverOpts$outboundSchema: z.ZodType<
-  MysqlChangeStatusDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusDriverOpts$ {
-  /** @deprecated use `MysqlChangeStatusDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusDriverOpts$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusDriverOpts$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusDriverOpts$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusDriverOpts$Outbound;
-}
-
-export function mysqlChangeStatusDriverOptsToJSON(
-  mysqlChangeStatusDriverOpts: MysqlChangeStatusDriverOpts,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusDriverOpts$outboundSchema.parse(
-      mysqlChangeStatusDriverOpts,
-    ),
-  );
-}
-
-export function mysqlChangeStatusDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
-  MysqlChangeStatusNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MysqlChangeStatusDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MysqlChangeStatusNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MysqlChangeStatusDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
-  MysqlChangeStatusNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MysqlChangeStatusDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusNetworkSwarm$ {
-  /** @deprecated use `MysqlChangeStatusNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusNetworkSwarm$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusNetworkSwarm$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusNetworkSwarm$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusNetworkSwarm$Outbound;
-}
-
-export function mysqlChangeStatusNetworkSwarmToJSON(
-  mysqlChangeStatusNetworkSwarm: MysqlChangeStatusNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusNetworkSwarm$outboundSchema.parse(
-      mysqlChangeStatusNetworkSwarm,
-    ),
-  );
-}
-
-export function mysqlChangeStatusNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusProject$inboundSchema: z.ZodType<
-  MysqlChangeStatusProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MysqlChangeStatusProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusProject$outboundSchema: z.ZodType<
-  MysqlChangeStatusProject$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusProject$ {
-  /** @deprecated use `MysqlChangeStatusProject$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusProject$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusProject$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusProject$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusProject$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusProject$Outbound;
-}
-
-export function mysqlChangeStatusProjectToJSON(
-  mysqlChangeStatusProject: MysqlChangeStatusProject,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusProject$outboundSchema.parse(mysqlChangeStatusProject),
-  );
-}
-
-export function mysqlChangeStatusProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusEnvironment$inboundSchema: z.ZodType<
-  MysqlChangeStatusEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlChangeStatusProject$inboundSchema),
-});
-
-/** @internal */
-export type MysqlChangeStatusEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MysqlChangeStatusProject$Outbound;
-};
-
-/** @internal */
-export const MysqlChangeStatusEnvironment$outboundSchema: z.ZodType<
-  MysqlChangeStatusEnvironment$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MysqlChangeStatusProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusEnvironment$ {
-  /** @deprecated use `MysqlChangeStatusEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusEnvironment$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusEnvironment$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusEnvironment$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusEnvironment$Outbound;
-}
-
-export function mysqlChangeStatusEnvironmentToJSON(
-  mysqlChangeStatusEnvironment: MysqlChangeStatusEnvironment,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusEnvironment$outboundSchema.parse(
-      mysqlChangeStatusEnvironment,
-    ),
-  );
-}
-
-export function mysqlChangeStatusEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusType
-> = z.nativeEnum(MysqlChangeStatusType);
-
-/** @internal */
-export const MysqlChangeStatusType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusType
-> = MysqlChangeStatusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusType$ {
-  /** @deprecated use `MysqlChangeStatusType$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusType$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusType$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusServiceType
-> = z.nativeEnum(MysqlChangeStatusServiceType);
-
-/** @internal */
-export const MysqlChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusServiceType
-> = MysqlChangeStatusServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusServiceType$ {
-  /** @deprecated use `MysqlChangeStatusServiceType$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusServiceType$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusServiceType$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlChangeStatusMount$inboundSchema: z.ZodType<
-  MysqlChangeStatusMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MysqlChangeStatusType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlChangeStatusServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MysqlChangeStatusMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MysqlChangeStatusMount$outboundSchema: z.ZodType<
-  MysqlChangeStatusMount$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMount
-> = z.object({
-  mountId: z.string(),
-  type: MysqlChangeStatusType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MysqlChangeStatusServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMount$ {
-  /** @deprecated use `MysqlChangeStatusMount$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMount$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMount$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMount$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMount$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMount$Outbound;
-}
-
-export function mysqlChangeStatusMountToJSON(
-  mysqlChangeStatusMount: MysqlChangeStatusMount,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMount$outboundSchema.parse(mysqlChangeStatusMount),
-  );
-}
-
-export function mysqlChangeStatusMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusServerStatus
-> = z.nativeEnum(MysqlChangeStatusServerStatus);
-
-/** @internal */
-export const MysqlChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusServerStatus
-> = MysqlChangeStatusServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusServerStatus$ {
-  /** @deprecated use `MysqlChangeStatusServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusServerStatus$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2048,24 +2391,38 @@ export function mysqlChangeStatusMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MysqlChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusServerStatus
+> = z.nativeEnum(MysqlChangeStatusServerStatus);
+
+/** @internal */
+export const MysqlChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MysqlChangeStatusServerStatus
+> = MysqlChangeStatusServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MysqlChangeStatusServerStatus$ {
+  /** @deprecated use `MysqlChangeStatusServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusServerStatus$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MysqlChangeStatusServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MysqlChangeStatusServer$inboundSchema: z.ZodType<
   MysqlChangeStatusServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlChangeStatusServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2076,26 +2433,33 @@ export const MysqlChangeStatusServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlChangeStatusServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MysqlChangeStatusServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2104,19 +2468,12 @@ export const MysqlChangeStatusServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlChangeStatusServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MysqlChangeStatusServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2127,6 +2484,13 @@ export const MysqlChangeStatusServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MysqlChangeStatusServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2161,523 +2525,93 @@ export function mysqlChangeStatusServerFromJSON(
 }
 
 /** @internal */
-export const MysqlChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusBackupType
-> = z.nativeEnum(MysqlChangeStatusBackupType);
-
-/** @internal */
-export const MysqlChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusBackupType
-> = MysqlChangeStatusBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusBackupType$ {
-  /** @deprecated use `MysqlChangeStatusBackupType$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusBackupType$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusBackupType$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusDatabaseType
-> = z.nativeEnum(MysqlChangeStatusDatabaseType);
-
-/** @internal */
-export const MysqlChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusDatabaseType
-> = MysqlChangeStatusDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusDatabaseType$ {
-  /** @deprecated use `MysqlChangeStatusDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusDatabaseType$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MysqlChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusMetadataEnum
-> = z.nativeEnum(MysqlChangeStatusMetadataEnum);
-
-/** @internal */
-export const MysqlChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MysqlChangeStatusMetadataEnum
-> = MysqlChangeStatusMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMetadataEnum$ {
-  /** @deprecated use `MysqlChangeStatusMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMetadataEnum$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MysqlChangeStatusPostgres$inboundSchema: z.ZodType<
-  MysqlChangeStatusPostgres,
+export const MysqlChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MysqlChangeStatusUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MysqlChangeStatusPostgres$Outbound = {
-  databaseUser: string;
+export type MysqlChangeStatusUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MysqlChangeStatusPostgres$outboundSchema: z.ZodType<
-  MysqlChangeStatusPostgres$Outbound,
+export const MysqlChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MysqlChangeStatusUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MysqlChangeStatusPostgres
+  MysqlChangeStatusUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MysqlChangeStatusPostgres$ {
-  /** @deprecated use `MysqlChangeStatusPostgres$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusPostgres$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusPostgres$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusPostgres$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusPostgres$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusPostgres$Outbound;
+export namespace MysqlChangeStatusUpdateConfigSwarm$ {
+  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MysqlChangeStatusUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MysqlChangeStatusUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MysqlChangeStatusUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MysqlChangeStatusUpdateConfigSwarm$Outbound;
 }
 
-export function mysqlChangeStatusPostgresToJSON(
-  mysqlChangeStatusPostgres: MysqlChangeStatusPostgres,
+export function mysqlChangeStatusUpdateConfigSwarmToJSON(
+  mysqlChangeStatusUpdateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MysqlChangeStatusPostgres$outboundSchema.parse(mysqlChangeStatusPostgres),
-  );
-}
-
-export function mysqlChangeStatusPostgresFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusMariadb$inboundSchema: z.ZodType<
-  MysqlChangeStatusMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlChangeStatusMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusMariadb$outboundSchema: z.ZodType<
-  MysqlChangeStatusMariadb$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMariadb$ {
-  /** @deprecated use `MysqlChangeStatusMariadb$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMariadb$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMariadb$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMariadb$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMariadb$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMariadb$Outbound;
-}
-
-export function mysqlChangeStatusMariadbToJSON(
-  mysqlChangeStatusMariadb: MysqlChangeStatusMariadb,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMariadb$outboundSchema.parse(mysqlChangeStatusMariadb),
-  );
-}
-
-export function mysqlChangeStatusMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusMongo$inboundSchema: z.ZodType<
-  MysqlChangeStatusMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MysqlChangeStatusMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusMongo$outboundSchema: z.ZodType<
-  MysqlChangeStatusMongo$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMongo$ {
-  /** @deprecated use `MysqlChangeStatusMongo$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMongo$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMongo$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMongo$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMongo$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMongo$Outbound;
-}
-
-export function mysqlChangeStatusMongoToJSON(
-  mysqlChangeStatusMongo: MysqlChangeStatusMongo,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMongo$outboundSchema.parse(mysqlChangeStatusMongo),
-  );
-}
-
-export function mysqlChangeStatusMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusMysql$inboundSchema: z.ZodType<
-  MysqlChangeStatusMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MysqlChangeStatusMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MysqlChangeStatusMysql$outboundSchema: z.ZodType<
-  MysqlChangeStatusMysql$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMysql$ {
-  /** @deprecated use `MysqlChangeStatusMysql$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMysql$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMysql$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMysql$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMysql$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMysql$Outbound;
-}
-
-export function mysqlChangeStatusMysqlToJSON(
-  mysqlChangeStatusMysql: MysqlChangeStatusMysql,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMysql$outboundSchema.parse(mysqlChangeStatusMysql),
-  );
-}
-
-export function mysqlChangeStatusMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusMetadata$inboundSchema: z.ZodType<
-  MysqlChangeStatusMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MysqlChangeStatusPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlChangeStatusMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MysqlChangeStatusMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MysqlChangeStatusMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MysqlChangeStatusMetadata$Outbound = {
-  postgres?: MysqlChangeStatusPostgres$Outbound | undefined;
-  mariadb?: MysqlChangeStatusMariadb$Outbound | undefined;
-  mongo?: MysqlChangeStatusMongo$Outbound | undefined;
-  mysql?: MysqlChangeStatusMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusMetadata$outboundSchema: z.ZodType<
-  MysqlChangeStatusMetadata$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMetadata
-> = z.object({
-  postgres: z.lazy(() => MysqlChangeStatusPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MysqlChangeStatusMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MysqlChangeStatusMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MysqlChangeStatusMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMetadata$ {
-  /** @deprecated use `MysqlChangeStatusMetadata$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMetadata$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMetadata$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMetadata$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMetadata$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMetadata$Outbound;
-}
-
-export function mysqlChangeStatusMetadataToJSON(
-  mysqlChangeStatusMetadata: MysqlChangeStatusMetadata,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMetadata$outboundSchema.parse(mysqlChangeStatusMetadata),
-  );
-}
-
-export function mysqlChangeStatusMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusMetadataUnion$inboundSchema: z.ZodType<
-  MysqlChangeStatusMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MysqlChangeStatusMetadata$inboundSchema),
-  MysqlChangeStatusMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MysqlChangeStatusMetadataUnion$Outbound =
-  | MysqlChangeStatusMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MysqlChangeStatusMetadataUnion$outboundSchema: z.ZodType<
-  MysqlChangeStatusMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusMetadataUnion
-> = z.union([
-  z.lazy(() => MysqlChangeStatusMetadata$outboundSchema),
-  MysqlChangeStatusMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusMetadataUnion$ {
-  /** @deprecated use `MysqlChangeStatusMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusMetadataUnion$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusMetadataUnion$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusMetadataUnion$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusMetadataUnion$Outbound;
-}
-
-export function mysqlChangeStatusMetadataUnionToJSON(
-  mysqlChangeStatusMetadataUnion: MysqlChangeStatusMetadataUnion,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusMetadataUnion$outboundSchema.parse(
-      mysqlChangeStatusMetadataUnion,
+    MysqlChangeStatusUpdateConfigSwarm$outboundSchema.parse(
+      mysqlChangeStatusUpdateConfigSwarm,
     ),
   );
 }
 
-export function mysqlChangeStatusMetadataUnionFromJSON(
+export function mysqlChangeStatusUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MysqlChangeStatusMetadataUnion, SDKValidationError> {
+): SafeParseResult<MysqlChangeStatusUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MysqlChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MysqlChangeStatusBackup$inboundSchema: z.ZodType<
-  MysqlChangeStatusBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlChangeStatusBackupType$inboundSchema,
-  databaseType: MysqlChangeStatusDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlChangeStatusMetadata$inboundSchema),
-      MysqlChangeStatusMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MysqlChangeStatusBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MysqlChangeStatusMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MysqlChangeStatusBackup$outboundSchema: z.ZodType<
-  MysqlChangeStatusBackup$Outbound,
-  z.ZodTypeDef,
-  MysqlChangeStatusBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MysqlChangeStatusBackupType$outboundSchema,
-  databaseType: MysqlChangeStatusDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MysqlChangeStatusMetadata$outboundSchema),
-      MysqlChangeStatusMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlChangeStatusBackup$ {
-  /** @deprecated use `MysqlChangeStatusBackup$inboundSchema` instead. */
-  export const inboundSchema = MysqlChangeStatusBackup$inboundSchema;
-  /** @deprecated use `MysqlChangeStatusBackup$outboundSchema` instead. */
-  export const outboundSchema = MysqlChangeStatusBackup$outboundSchema;
-  /** @deprecated use `MysqlChangeStatusBackup$Outbound` instead. */
-  export type Outbound = MysqlChangeStatusBackup$Outbound;
-}
-
-export function mysqlChangeStatusBackupToJSON(
-  mysqlChangeStatusBackup: MysqlChangeStatusBackup,
-): string {
-  return JSON.stringify(
-    MysqlChangeStatusBackup$outboundSchema.parse(mysqlChangeStatusBackup),
-  );
-}
-
-export function mysqlChangeStatusBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlChangeStatusBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlChangeStatusBackup' from JSON`,
+    (x) =>
+      MysqlChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MysqlChangeStatusUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2687,88 +2621,88 @@ export const MysqlChangeStatusResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlChangeStatusApplicationStatusResponse$inboundSchema,
+  backups: z.array(z.lazy(() => MysqlChangeStatusBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlChangeStatusEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlChangeStatusApplicationStatusResponse$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlChangeStatusRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MysqlChangeStatusModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MysqlChangeStatusMount$inboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlChangeStatusNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlChangeStatusUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlChangeStatusRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MysqlChangeStatusModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlChangeStatusNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlChangeStatusEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MysqlChangeStatusMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MysqlChangeStatusServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MysqlChangeStatusBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlChangeStatusUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MysqlChangeStatusResponseBody$Outbound = {
-  mysqlId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MysqlChangeStatusBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MysqlChangeStatusHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MysqlChangeStatusRestartPolicySwarm$Outbound | null;
-  placementSwarm: MysqlChangeStatusPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MysqlChangeStatusRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MysqlChangeStatusModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MysqlChangeStatusNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MysqlChangeStatusEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MysqlChangeStatusHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MysqlChangeStatusModeSwarm$Outbound | null;
   mounts: Array<MysqlChangeStatusMount$Outbound>;
+  mysqlId: string;
+  name: string;
+  networkSwarm: Array<MysqlChangeStatusNetworkSwarm$Outbound> | null;
+  placementSwarm: MysqlChangeStatusPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MysqlChangeStatusRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MysqlChangeStatusRollbackConfigSwarm$Outbound | null;
   server: MysqlChangeStatusServer$Outbound | null;
-  backups: Array<MysqlChangeStatusBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MysqlChangeStatusUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2777,53 +2711,53 @@ export const MysqlChangeStatusResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlChangeStatusResponseBody
 > = z.object({
-  mysqlId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MysqlChangeStatusApplicationStatusResponse$outboundSchema,
+  backups: z.array(z.lazy(() => MysqlChangeStatusBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MysqlChangeStatusEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MysqlChangeStatusApplicationStatusResponse$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MysqlChangeStatusRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MysqlChangeStatusModeSwarm$outboundSchema),
+  ),
+  mounts: z.array(z.lazy(() => MysqlChangeStatusMount$outboundSchema)),
+  mysqlId: z.string(),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MysqlChangeStatusNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MysqlChangeStatusUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MysqlChangeStatusRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MysqlChangeStatusRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MysqlChangeStatusModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MysqlChangeStatusNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MysqlChangeStatusEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MysqlChangeStatusMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MysqlChangeStatusServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MysqlChangeStatusBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MysqlChangeStatusUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

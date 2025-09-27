@@ -3,86 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoSaveEnvironmentSecurity = {
-  authorization: string;
-};
-
 export type MongoSaveEnvironmentRequest = {
-  mongoId: string;
   env?: string | null | undefined;
+  mongoId: string;
 };
 
 export type MongoSaveEnvironmentResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MongoSaveEnvironmentSecurity$inboundSchema: z.ZodType<
-  MongoSaveEnvironmentSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoSaveEnvironmentSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoSaveEnvironmentSecurity$outboundSchema: z.ZodType<
-  MongoSaveEnvironmentSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoSaveEnvironmentSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveEnvironmentSecurity$ {
-  /** @deprecated use `MongoSaveEnvironmentSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveEnvironmentSecurity$inboundSchema;
-  /** @deprecated use `MongoSaveEnvironmentSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveEnvironmentSecurity$outboundSchema;
-  /** @deprecated use `MongoSaveEnvironmentSecurity$Outbound` instead. */
-  export type Outbound = MongoSaveEnvironmentSecurity$Outbound;
-}
-
-export function mongoSaveEnvironmentSecurityToJSON(
-  mongoSaveEnvironmentSecurity: MongoSaveEnvironmentSecurity,
-): string {
-  return JSON.stringify(
-    MongoSaveEnvironmentSecurity$outboundSchema.parse(
-      mongoSaveEnvironmentSecurity,
-    ),
-  );
-}
-
-export function mongoSaveEnvironmentSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveEnvironmentSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveEnvironmentSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveEnvironmentSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoSaveEnvironmentRequest$inboundSchema: z.ZodType<
@@ -90,14 +21,14 @@ export const MongoSaveEnvironmentRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoSaveEnvironmentRequest$Outbound = {
-  mongoId: string;
   env?: string | null | undefined;
+  mongoId: string;
 };
 
 /** @internal */
@@ -106,8 +37,8 @@ export const MongoSaveEnvironmentRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveEnvironmentRequest
 > = z.object({
-  mongoId: z.string(),
   env: z.nullable(z.string()).optional(),
+  mongoId: z.string(),
 });
 
 /**

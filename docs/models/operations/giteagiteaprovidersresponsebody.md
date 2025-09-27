@@ -6,15 +6,15 @@
 import { GiteaGiteaProvidersResponseBody } from "dokploy-sdk/models/operations";
 
 let value: GiteaGiteaProvidersResponseBody = {
-  giteaId: "<id>",
   gitProvider: {
+    createdAt: "1711586805857",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "github",
-    createdAt: "1715522586443",
     organizationId: "<id>",
+    providerType: "gitlab",
     userId: "<id>",
   },
+  giteaId: "<id>",
 };
 ```
 
@@ -22,5 +22,5 @@ let value: GiteaGiteaProvidersResponseBody = {
 
 | Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `giteaId`                                                                                              | *string*                                                                                               | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
 | `gitProvider`                                                                                          | [operations.GiteaGiteaProvidersGitProvider](../../models/operations/giteagiteaprovidersgitprovider.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `giteaId`                                                                                              | *string*                                                                                               | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

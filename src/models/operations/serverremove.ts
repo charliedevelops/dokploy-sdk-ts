@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ServerRemoveSecurity = {
-  authorization: string;
-};
-
 export type ServerRemoveRequest = {
   serverId: string;
 };
-
-/** @internal */
-export const ServerRemoveSecurity$inboundSchema: z.ZodType<
-  ServerRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ServerRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ServerRemoveSecurity$outboundSchema: z.ZodType<
-  ServerRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  ServerRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerRemoveSecurity$ {
-  /** @deprecated use `ServerRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = ServerRemoveSecurity$inboundSchema;
-  /** @deprecated use `ServerRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = ServerRemoveSecurity$outboundSchema;
-  /** @deprecated use `ServerRemoveSecurity$Outbound` instead. */
-  export type Outbound = ServerRemoveSecurity$Outbound;
-}
-
-export function serverRemoveSecurityToJSON(
-  serverRemoveSecurity: ServerRemoveSecurity,
-): string {
-  return JSON.stringify(
-    ServerRemoveSecurity$outboundSchema.parse(serverRemoveSecurity),
-  );
-}
-
-export function serverRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ServerRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ServerRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ServerRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerRemoveRequest$inboundSchema: z.ZodType<

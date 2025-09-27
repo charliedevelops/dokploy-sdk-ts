@@ -6,15 +6,15 @@
 import { GitlabGitlabProvidersResponseBody } from "dokploy-sdk/models/operations";
 
 let value: GitlabGitlabProvidersResponseBody = {
-  gitlabId: "<id>",
   gitProvider: {
+    createdAt: "1708419374984",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "github",
-    createdAt: "1732934313716",
     organizationId: "<id>",
+    providerType: "gitea",
     userId: "<id>",
   },
+  gitlabId: "<id>",
   gitlabUrl: "https://terrible-sushi.org",
 };
 ```
@@ -23,6 +23,6 @@ let value: GitlabGitlabProvidersResponseBody = {
 
 | Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `gitlabId`                                                                                                 | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
 | `gitProvider`                                                                                              | [operations.GitlabGitlabProvidersGitProvider](../../models/operations/gitlabgitlabprovidersgitprovider.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `gitlabId`                                                                                                 | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
 | `gitlabUrl`                                                                                                | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

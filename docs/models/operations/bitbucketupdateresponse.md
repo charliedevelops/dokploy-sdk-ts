@@ -7,9 +7,9 @@
 
 ```typescript
 const value: operations.BitbucketUpdateResponseBody = {
+  appPassword: "<value>",
   bitbucketId: "<id>",
-  bitbucketUsername: "<value>",
-  appPassword: null,
+  bitbucketUsername: null,
   bitbucketWorkspaceName: "<value>",
   gitProviderId: "<id>",
 };
@@ -19,8 +19,8 @@ const value: operations.BitbucketUpdateResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

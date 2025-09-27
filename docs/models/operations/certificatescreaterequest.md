@@ -6,10 +6,10 @@
 import { CertificatesCreateRequest } from "dokploy-sdk/models/operations";
 
 let value: CertificatesCreateRequest = {
-  name: "<value>",
   certificateData: "<value>",
-  privateKey: "<value>",
+  name: "<value>",
   organizationId: "<id>",
+  privateKey: "<value>",
 };
 ```
 
@@ -17,11 +17,11 @@ let value: CertificatesCreateRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `certificateId`    | *string*           | :heavy_minus_sign: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `certificateData`  | *string*           | :heavy_check_mark: | N/A                |
-| `privateKey`       | *string*           | :heavy_check_mark: | N/A                |
-| `certificatePath`  | *string*           | :heavy_minus_sign: | N/A                |
 | `autoRenew`        | *boolean*          | :heavy_minus_sign: | N/A                |
+| `certificateData`  | *string*           | :heavy_check_mark: | N/A                |
+| `certificateId`    | *string*           | :heavy_minus_sign: | N/A                |
+| `certificatePath`  | *string*           | :heavy_minus_sign: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | N/A                |
 | `organizationId`   | *string*           | :heavy_check_mark: | N/A                |
+| `privateKey`       | *string*           | :heavy_check_mark: | N/A                |
 | `serverId`         | *string*           | :heavy_minus_sign: | N/A                |

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupRemoveSecurity = {
-  authorization: string;
-};
-
 export type BackupRemoveRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupRemoveSecurity$inboundSchema: z.ZodType<
-  BackupRemoveSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupRemoveSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupRemoveSecurity$outboundSchema: z.ZodType<
-  BackupRemoveSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupRemoveSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupRemoveSecurity$ {
-  /** @deprecated use `BackupRemoveSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupRemoveSecurity$inboundSchema;
-  /** @deprecated use `BackupRemoveSecurity$outboundSchema` instead. */
-  export const outboundSchema = BackupRemoveSecurity$outboundSchema;
-  /** @deprecated use `BackupRemoveSecurity$Outbound` instead. */
-  export type Outbound = BackupRemoveSecurity$Outbound;
-}
-
-export function backupRemoveSecurityToJSON(
-  backupRemoveSecurity: BackupRemoveSecurity,
-): string {
-  return JSON.stringify(
-    BackupRemoveSecurity$outboundSchema.parse(backupRemoveSecurity),
-  );
-}
-
-export function backupRemoveSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupRemoveSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BackupRemoveSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupRemoveSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupRemoveRequest$inboundSchema: z.ZodType<

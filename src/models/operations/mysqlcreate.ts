@@ -3,92 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MysqlCreateSecurity = {
-  authorization: string;
-};
-
 export type MysqlCreateRequest = {
-  name: string;
   appName: string;
-  dockerImage?: string | undefined;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage?: string | undefined;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
 export type MysqlCreateResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MysqlCreateSecurity$inboundSchema: z.ZodType<
-  MysqlCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MysqlCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MysqlCreateSecurity$outboundSchema: z.ZodType<
-  MysqlCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  MysqlCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MysqlCreateSecurity$ {
-  /** @deprecated use `MysqlCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = MysqlCreateSecurity$inboundSchema;
-  /** @deprecated use `MysqlCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = MysqlCreateSecurity$outboundSchema;
-  /** @deprecated use `MysqlCreateSecurity$Outbound` instead. */
-  export type Outbound = MysqlCreateSecurity$Outbound;
-}
-
-export function mysqlCreateSecurityToJSON(
-  mysqlCreateSecurity: MysqlCreateSecurity,
-): string {
-  return JSON.stringify(
-    MysqlCreateSecurity$outboundSchema.parse(mysqlCreateSecurity),
-  );
-}
-
-export function mysqlCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MysqlCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MysqlCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MysqlCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MysqlCreateRequest$inboundSchema: z.ZodType<
@@ -96,29 +29,29 @@ export const MysqlCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mysql:8"),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mysql:8"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MysqlCreateRequest$Outbound = {
-  name: string;
   appName: string;
-  dockerImage: string;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage: string;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -128,15 +61,15 @@ export const MysqlCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MysqlCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mysql:8"),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mysql:8"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 

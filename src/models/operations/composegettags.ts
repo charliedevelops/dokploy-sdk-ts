@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeGetTagsSecurity = {
-  authorization: string;
-};
-
 export type ComposeGetTagsRequest = {
   baseUrl?: string | undefined;
 };
-
-/** @internal */
-export const ComposeGetTagsSecurity$inboundSchema: z.ZodType<
-  ComposeGetTagsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeGetTagsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeGetTagsSecurity$outboundSchema: z.ZodType<
-  ComposeGetTagsSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeGetTagsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeGetTagsSecurity$ {
-  /** @deprecated use `ComposeGetTagsSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeGetTagsSecurity$inboundSchema;
-  /** @deprecated use `ComposeGetTagsSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeGetTagsSecurity$outboundSchema;
-  /** @deprecated use `ComposeGetTagsSecurity$Outbound` instead. */
-  export type Outbound = ComposeGetTagsSecurity$Outbound;
-}
-
-export function composeGetTagsSecurityToJSON(
-  composeGetTagsSecurity: ComposeGetTagsSecurity,
-): string {
-  return JSON.stringify(
-    ComposeGetTagsSecurity$outboundSchema.parse(composeGetTagsSecurity),
-  );
-}
-
-export function composeGetTagsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeGetTagsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeGetTagsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeGetTagsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeGetTagsRequest$inboundSchema: z.ZodType<

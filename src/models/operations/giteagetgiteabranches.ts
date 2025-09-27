@@ -3,84 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type GiteaGetGiteaBranchesSecurity = {
-  authorization: string;
-};
 
 export type GiteaGetGiteaBranchesRequest = {
   owner: string;
   repositoryName: string;
   giteaId?: string | undefined;
 };
-
-/** @internal */
-export const GiteaGetGiteaBranchesSecurity$inboundSchema: z.ZodType<
-  GiteaGetGiteaBranchesSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GiteaGetGiteaBranchesSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GiteaGetGiteaBranchesSecurity$outboundSchema: z.ZodType<
-  GiteaGetGiteaBranchesSecurity$Outbound,
-  z.ZodTypeDef,
-  GiteaGetGiteaBranchesSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GiteaGetGiteaBranchesSecurity$ {
-  /** @deprecated use `GiteaGetGiteaBranchesSecurity$inboundSchema` instead. */
-  export const inboundSchema = GiteaGetGiteaBranchesSecurity$inboundSchema;
-  /** @deprecated use `GiteaGetGiteaBranchesSecurity$outboundSchema` instead. */
-  export const outboundSchema = GiteaGetGiteaBranchesSecurity$outboundSchema;
-  /** @deprecated use `GiteaGetGiteaBranchesSecurity$Outbound` instead. */
-  export type Outbound = GiteaGetGiteaBranchesSecurity$Outbound;
-}
-
-export function giteaGetGiteaBranchesSecurityToJSON(
-  giteaGetGiteaBranchesSecurity: GiteaGetGiteaBranchesSecurity,
-): string {
-  return JSON.stringify(
-    GiteaGetGiteaBranchesSecurity$outboundSchema.parse(
-      giteaGetGiteaBranchesSecurity,
-    ),
-  );
-}
-
-export function giteaGetGiteaBranchesSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GiteaGetGiteaBranchesSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GiteaGetGiteaBranchesSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GiteaGetGiteaBranchesSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GiteaGetGiteaBranchesRequest$inboundSchema: z.ZodType<

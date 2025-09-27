@@ -7,24 +7,24 @@
 
 ```typescript
 const value: operations.GitlabOneResponseBody = {
-  gitlabId: "<id>",
-  gitlabUrl: "https://spotless-flat.biz/",
-  applicationId: "<id>",
-  redirectUri: "https://fortunate-castanet.org",
-  secret: "<value>",
   accessToken: "<value>",
-  refreshToken: "<value>",
-  groupName: "<value>",
-  expiresAt: 1291.78,
-  gitProviderId: "<id>",
+  applicationId: "<id>",
+  expiresAt: 1894.32,
   gitProvider: {
+    createdAt: "1718061385664",
     gitProviderId: "<id>",
     name: "<value>",
-    providerType: "bitbucket",
-    createdAt: "1711072502659",
     organizationId: "<id>",
+    providerType: "gitea",
     userId: "<id>",
   },
+  gitProviderId: "<id>",
+  gitlabId: "<id>",
+  gitlabUrl: "https://fortunate-castanet.org",
+  groupName: "<value>",
+  redirectUri: "https://favorable-subexpression.com",
+  refreshToken: "<value>",
+  secret: "<value>",
 };
 ```
 
@@ -32,8 +32,8 @@ const value: operations.GitlabOneResponseBody = {
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

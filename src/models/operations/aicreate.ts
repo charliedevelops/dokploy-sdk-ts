@@ -3,84 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type AiCreateSecurity = {
-  authorization: string;
-};
-
 export type AiCreateRequest = {
-  name: string;
-  apiUrl: string;
   apiKey: string;
-  model: string;
+  apiUrl: string;
   isEnabled: boolean;
+  model: string;
+  name: string;
 };
-
-/** @internal */
-export const AiCreateSecurity$inboundSchema: z.ZodType<
-  AiCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiCreateSecurity$outboundSchema: z.ZodType<
-  AiCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  AiCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiCreateSecurity$ {
-  /** @deprecated use `AiCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiCreateSecurity$inboundSchema;
-  /** @deprecated use `AiCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiCreateSecurity$outboundSchema;
-  /** @deprecated use `AiCreateSecurity$Outbound` instead. */
-  export type Outbound = AiCreateSecurity$Outbound;
-}
-
-export function aiCreateSecurityToJSON(
-  aiCreateSecurity: AiCreateSecurity,
-): string {
-  return JSON.stringify(
-    AiCreateSecurity$outboundSchema.parse(aiCreateSecurity),
-  );
-}
-
-export function aiCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiCreateRequest$inboundSchema: z.ZodType<
@@ -88,20 +21,20 @@ export const AiCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  apiUrl: z.string(),
   apiKey: z.string(),
-  model: z.string(),
+  apiUrl: z.string(),
   isEnabled: z.boolean(),
+  model: z.string(),
+  name: z.string(),
 });
 
 /** @internal */
 export type AiCreateRequest$Outbound = {
-  name: string;
-  apiUrl: string;
   apiKey: string;
-  model: string;
+  apiUrl: string;
   isEnabled: boolean;
+  model: string;
+  name: string;
 };
 
 /** @internal */
@@ -110,11 +43,11 @@ export const AiCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AiCreateRequest
 > = z.object({
-  name: z.string(),
-  apiUrl: z.string(),
   apiKey: z.string(),
-  model: z.string(),
+  apiUrl: z.string(),
   isEnabled: z.boolean(),
+  model: z.string(),
+  name: z.string(),
 });
 
 /**

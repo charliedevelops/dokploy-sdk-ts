@@ -10,17 +10,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type RedisCreateSecurity = {
-  authorization: string;
-};
-
 export type RedisCreateRequest = {
-  name: string;
   appName: string;
   databasePassword: string;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -35,18 +31,44 @@ export type RedisCreateApplicationStatus = ClosedEnum<
 >;
 
 export type RedisCreateHealthCheckSwarm = {
-  test?: Array<string> | undefined;
   interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
   retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
 };
 
-export type RedisCreateRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
+export type RedisCreateGlobal = {};
+
+export type RedisCreateGlobalJob = {};
+
+export type RedisCreateReplicated = {
+  replicas?: number | undefined;
+};
+
+export type RedisCreateReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type RedisCreateModeSwarm = {
+  global?: RedisCreateGlobal | undefined;
+  globalJob?: RedisCreateGlobalJob | undefined;
+  replicated?: RedisCreateReplicated | undefined;
+  replicatedJob?: RedisCreateReplicatedJob | undefined;
+};
+
+export type RedisCreateDriverOpts = {};
+
+export type RedisCreateNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: RedisCreateDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type RedisCreatePlatform = {
+  architecture: string;
+  os: string;
 };
 
 export type RedisCreateSpread = {
@@ -57,159 +79,71 @@ export type RedisCreatePreference = {
   spread: RedisCreateSpread;
 };
 
-export type RedisCreatePlatform = {
-  architecture: string;
-  os: string;
-};
-
 export type RedisCreatePlacementSwarm = {
   constraints?: Array<string> | undefined;
-  preferences?: Array<RedisCreatePreference> | undefined;
   maxReplicas?: number | undefined;
   platforms?: Array<RedisCreatePlatform> | undefined;
+  preferences?: Array<RedisCreatePreference> | undefined;
 };
 
-export type RedisCreateUpdateConfigSwarm = {
-  parallelism: number;
+export type RedisCreateRestartPolicySwarm = {
+  condition?: string | undefined;
   delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
 };
 
 export type RedisCreateRollbackConfigSwarm = {
-  parallelism: number;
   delay?: number | undefined;
   failureAction?: string | undefined;
-  monitor?: number | undefined;
   maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
   order: string;
+  parallelism: number;
 };
 
-export type RedisCreateReplicated = {
-  replicas?: number | undefined;
-};
-
-export type RedisCreateGlobal = {};
-
-export type RedisCreateReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type RedisCreateGlobalJob = {};
-
-export type RedisCreateModeSwarm = {
-  replicated?: RedisCreateReplicated | undefined;
-  global?: RedisCreateGlobal | undefined;
-  replicatedJob?: RedisCreateReplicatedJob | undefined;
-  globalJob?: RedisCreateGlobalJob | undefined;
-};
-
-export type RedisCreateDriverOpts = {};
-
-export type RedisCreateNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: RedisCreateDriverOpts | undefined;
+export type RedisCreateUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type RedisCreateResponseBody = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: RedisCreateApplicationStatus;
-  healthCheckSwarm: RedisCreateHealthCheckSwarm | null;
-  restartPolicySwarm: RedisCreateRestartPolicySwarm | null;
-  placementSwarm: RedisCreatePlacementSwarm | null;
-  updateConfigSwarm: RedisCreateUpdateConfigSwarm | null;
-  rollbackConfigSwarm: RedisCreateRollbackConfigSwarm | null;
-  modeSwarm: RedisCreateModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisCreateNetworkSwarm> | null;
-  replicas: number;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisCreateHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisCreateModeSwarm | null;
+  name: string;
+  networkSwarm: Array<RedisCreateNetworkSwarm> | null;
+  placementSwarm: RedisCreatePlacementSwarm | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisCreateRestartPolicySwarm | null;
+  rollbackConfigSwarm: RedisCreateRollbackConfigSwarm | null;
   serverId: string | null;
+  updateConfigSwarm: RedisCreateUpdateConfigSwarm | null;
 };
 
 export type RedisCreateResponse = RedisCreateResponseBody | models.ErrorT;
-
-/** @internal */
-export const RedisCreateSecurity$inboundSchema: z.ZodType<
-  RedisCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedisCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedisCreateSecurity$outboundSchema: z.ZodType<
-  RedisCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  RedisCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateSecurity$ {
-  /** @deprecated use `RedisCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateSecurity$inboundSchema;
-  /** @deprecated use `RedisCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateSecurity$outboundSchema;
-  /** @deprecated use `RedisCreateSecurity$Outbound` instead. */
-  export type Outbound = RedisCreateSecurity$Outbound;
-}
-
-export function redisCreateSecurityToJSON(
-  redisCreateSecurity: RedisCreateSecurity,
-): string {
-  return JSON.stringify(
-    RedisCreateSecurity$outboundSchema.parse(redisCreateSecurity),
-  );
-}
-
-export function redisCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const RedisCreateRequest$inboundSchema: z.ZodType<
@@ -217,23 +151,23 @@ export const RedisCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databasePassword: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("redis:8"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type RedisCreateRequest$Outbound = {
-  name: string;
   appName: string;
   databasePassword: string;
+  description?: string | null | undefined;
   dockerImage: string;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -243,12 +177,12 @@ export const RedisCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databasePassword: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("redis:8"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
@@ -310,28 +244,28 @@ export const RedisCreateHealthCheckSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type RedisCreateHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -340,18 +274,18 @@ export const RedisCreateHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisCreateHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -389,48 +323,129 @@ export function redisCreateHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisCreateRestartPolicySwarm$inboundSchema: z.ZodType<
-  RedisCreateRestartPolicySwarm,
+export const RedisCreateGlobal$inboundSchema: z.ZodType<
+  RedisCreateGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisCreateGlobal$Outbound = {};
+
+/** @internal */
+export const RedisCreateGlobal$outboundSchema: z.ZodType<
+  RedisCreateGlobal$Outbound,
+  z.ZodTypeDef,
+  RedisCreateGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateGlobal$ {
+  /** @deprecated use `RedisCreateGlobal$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateGlobal$inboundSchema;
+  /** @deprecated use `RedisCreateGlobal$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateGlobal$outboundSchema;
+  /** @deprecated use `RedisCreateGlobal$Outbound` instead. */
+  export type Outbound = RedisCreateGlobal$Outbound;
+}
+
+export function redisCreateGlobalToJSON(
+  redisCreateGlobal: RedisCreateGlobal,
+): string {
+  return JSON.stringify(
+    RedisCreateGlobal$outboundSchema.parse(redisCreateGlobal),
+  );
+}
+
+export function redisCreateGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateGlobalJob$inboundSchema: z.ZodType<
+  RedisCreateGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisCreateGlobalJob$Outbound = {};
+
+/** @internal */
+export const RedisCreateGlobalJob$outboundSchema: z.ZodType<
+  RedisCreateGlobalJob$Outbound,
+  z.ZodTypeDef,
+  RedisCreateGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateGlobalJob$ {
+  /** @deprecated use `RedisCreateGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateGlobalJob$inboundSchema;
+  /** @deprecated use `RedisCreateGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateGlobalJob$outboundSchema;
+  /** @deprecated use `RedisCreateGlobalJob$Outbound` instead. */
+  export type Outbound = RedisCreateGlobalJob$Outbound;
+}
+
+export function redisCreateGlobalJobToJSON(
+  redisCreateGlobalJob: RedisCreateGlobalJob,
+): string {
+  return JSON.stringify(
+    RedisCreateGlobalJob$outboundSchema.parse(redisCreateGlobalJob),
+  );
+}
+
+export function redisCreateGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateReplicated$inboundSchema: z.ZodType<
+  RedisCreateReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type RedisCreateRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type RedisCreateReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const RedisCreateRestartPolicySwarm$outboundSchema: z.ZodType<
-  RedisCreateRestartPolicySwarm$Outbound,
+export const RedisCreateReplicated$outboundSchema: z.ZodType<
+  RedisCreateReplicated$Outbound,
   z.ZodTypeDef,
-  RedisCreateRestartPolicySwarm
+  RedisCreateReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -438,32 +453,363 @@ export const RedisCreateRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisCreateRestartPolicySwarm$ {
-  /** @deprecated use `RedisCreateRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `RedisCreateRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `RedisCreateRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = RedisCreateRestartPolicySwarm$Outbound;
+export namespace RedisCreateReplicated$ {
+  /** @deprecated use `RedisCreateReplicated$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateReplicated$inboundSchema;
+  /** @deprecated use `RedisCreateReplicated$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateReplicated$outboundSchema;
+  /** @deprecated use `RedisCreateReplicated$Outbound` instead. */
+  export type Outbound = RedisCreateReplicated$Outbound;
 }
 
-export function redisCreateRestartPolicySwarmToJSON(
-  redisCreateRestartPolicySwarm: RedisCreateRestartPolicySwarm,
+export function redisCreateReplicatedToJSON(
+  redisCreateReplicated: RedisCreateReplicated,
 ): string {
   return JSON.stringify(
-    RedisCreateRestartPolicySwarm$outboundSchema.parse(
-      redisCreateRestartPolicySwarm,
-    ),
+    RedisCreateReplicated$outboundSchema.parse(redisCreateReplicated),
   );
 }
 
-export function redisCreateRestartPolicySwarmFromJSON(
+export function redisCreateReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<RedisCreateRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<RedisCreateReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisCreateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateRestartPolicySwarm' from JSON`,
+    (x) => RedisCreateReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateReplicatedJob$inboundSchema: z.ZodType<
+  RedisCreateReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type RedisCreateReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const RedisCreateReplicatedJob$outboundSchema: z.ZodType<
+  RedisCreateReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  RedisCreateReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateReplicatedJob$ {
+  /** @deprecated use `RedisCreateReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateReplicatedJob$inboundSchema;
+  /** @deprecated use `RedisCreateReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateReplicatedJob$outboundSchema;
+  /** @deprecated use `RedisCreateReplicatedJob$Outbound` instead. */
+  export type Outbound = RedisCreateReplicatedJob$Outbound;
+}
+
+export function redisCreateReplicatedJobToJSON(
+  redisCreateReplicatedJob: RedisCreateReplicatedJob,
+): string {
+  return JSON.stringify(
+    RedisCreateReplicatedJob$outboundSchema.parse(redisCreateReplicatedJob),
+  );
+}
+
+export function redisCreateReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateModeSwarm$inboundSchema: z.ZodType<
+  RedisCreateModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => RedisCreateGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => RedisCreateGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => RedisCreateReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => RedisCreateReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type RedisCreateModeSwarm$Outbound = {
+  Global?: RedisCreateGlobal$Outbound | undefined;
+  GlobalJob?: RedisCreateGlobalJob$Outbound | undefined;
+  Replicated?: RedisCreateReplicated$Outbound | undefined;
+  ReplicatedJob?: RedisCreateReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const RedisCreateModeSwarm$outboundSchema: z.ZodType<
+  RedisCreateModeSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisCreateModeSwarm
+> = z.object({
+  global: z.lazy(() => RedisCreateGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => RedisCreateGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => RedisCreateReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => RedisCreateReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateModeSwarm$ {
+  /** @deprecated use `RedisCreateModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateModeSwarm$inboundSchema;
+  /** @deprecated use `RedisCreateModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateModeSwarm$outboundSchema;
+  /** @deprecated use `RedisCreateModeSwarm$Outbound` instead. */
+  export type Outbound = RedisCreateModeSwarm$Outbound;
+}
+
+export function redisCreateModeSwarmToJSON(
+  redisCreateModeSwarm: RedisCreateModeSwarm,
+): string {
+  return JSON.stringify(
+    RedisCreateModeSwarm$outboundSchema.parse(redisCreateModeSwarm),
+  );
+}
+
+export function redisCreateModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateDriverOpts$inboundSchema: z.ZodType<
+  RedisCreateDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type RedisCreateDriverOpts$Outbound = {};
+
+/** @internal */
+export const RedisCreateDriverOpts$outboundSchema: z.ZodType<
+  RedisCreateDriverOpts$Outbound,
+  z.ZodTypeDef,
+  RedisCreateDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateDriverOpts$ {
+  /** @deprecated use `RedisCreateDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateDriverOpts$inboundSchema;
+  /** @deprecated use `RedisCreateDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateDriverOpts$outboundSchema;
+  /** @deprecated use `RedisCreateDriverOpts$Outbound` instead. */
+  export type Outbound = RedisCreateDriverOpts$Outbound;
+}
+
+export function redisCreateDriverOptsToJSON(
+  redisCreateDriverOpts: RedisCreateDriverOpts,
+): string {
+  return JSON.stringify(
+    RedisCreateDriverOpts$outboundSchema.parse(redisCreateDriverOpts),
+  );
+}
+
+export function redisCreateDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreateNetworkSwarm$inboundSchema: z.ZodType<
+  RedisCreateNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => RedisCreateDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type RedisCreateNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: RedisCreateDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const RedisCreateNetworkSwarm$outboundSchema: z.ZodType<
+  RedisCreateNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  RedisCreateNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => RedisCreateDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreateNetworkSwarm$ {
+  /** @deprecated use `RedisCreateNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateNetworkSwarm$inboundSchema;
+  /** @deprecated use `RedisCreateNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateNetworkSwarm$outboundSchema;
+  /** @deprecated use `RedisCreateNetworkSwarm$Outbound` instead. */
+  export type Outbound = RedisCreateNetworkSwarm$Outbound;
+}
+
+export function redisCreateNetworkSwarmToJSON(
+  redisCreateNetworkSwarm: RedisCreateNetworkSwarm,
+): string {
+  return JSON.stringify(
+    RedisCreateNetworkSwarm$outboundSchema.parse(redisCreateNetworkSwarm),
+  );
+}
+
+export function redisCreateNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreateNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const RedisCreatePlatform$inboundSchema: z.ZodType<
+  RedisCreatePlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type RedisCreatePlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const RedisCreatePlatform$outboundSchema: z.ZodType<
+  RedisCreatePlatform$Outbound,
+  z.ZodTypeDef,
+  RedisCreatePlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RedisCreatePlatform$ {
+  /** @deprecated use `RedisCreatePlatform$inboundSchema` instead. */
+  export const inboundSchema = RedisCreatePlatform$inboundSchema;
+  /** @deprecated use `RedisCreatePlatform$outboundSchema` instead. */
+  export const outboundSchema = RedisCreatePlatform$outboundSchema;
+  /** @deprecated use `RedisCreatePlatform$Outbound` instead. */
+  export type Outbound = RedisCreatePlatform$Outbound;
+}
+
+export function redisCreatePlatformToJSON(
+  redisCreatePlatform: RedisCreatePlatform,
+): string {
+  return JSON.stringify(
+    RedisCreatePlatform$outboundSchema.parse(redisCreatePlatform),
+  );
+}
+
+export function redisCreatePlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<RedisCreatePlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RedisCreatePlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreatePlatform' from JSON`,
   );
 }
 
@@ -592,99 +938,32 @@ export function redisCreatePreferenceFromJSON(
 }
 
 /** @internal */
-export const RedisCreatePlatform$inboundSchema: z.ZodType<
-  RedisCreatePlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type RedisCreatePlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const RedisCreatePlatform$outboundSchema: z.ZodType<
-  RedisCreatePlatform$Outbound,
-  z.ZodTypeDef,
-  RedisCreatePlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreatePlatform$ {
-  /** @deprecated use `RedisCreatePlatform$inboundSchema` instead. */
-  export const inboundSchema = RedisCreatePlatform$inboundSchema;
-  /** @deprecated use `RedisCreatePlatform$outboundSchema` instead. */
-  export const outboundSchema = RedisCreatePlatform$outboundSchema;
-  /** @deprecated use `RedisCreatePlatform$Outbound` instead. */
-  export type Outbound = RedisCreatePlatform$Outbound;
-}
-
-export function redisCreatePlatformToJSON(
-  redisCreatePlatform: RedisCreatePlatform,
-): string {
-  return JSON.stringify(
-    RedisCreatePlatform$outboundSchema.parse(redisCreatePlatform),
-  );
-}
-
-export function redisCreatePlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreatePlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreatePlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreatePlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const RedisCreatePlacementSwarm$inboundSchema: z.ZodType<
   RedisCreatePlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => RedisCreatePreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => RedisCreatePlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => RedisCreatePreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type RedisCreatePlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<RedisCreatePreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<RedisCreatePlatform$Outbound> | undefined;
+  Preferences?: Array<RedisCreatePreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -694,17 +973,17 @@ export const RedisCreatePlacementSwarm$outboundSchema: z.ZodType<
   RedisCreatePlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => RedisCreatePreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => RedisCreatePlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => RedisCreatePreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -740,58 +1019,48 @@ export function redisCreatePlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisCreateUpdateConfigSwarm$inboundSchema: z.ZodType<
-  RedisCreateUpdateConfigSwarm,
+export const RedisCreateRestartPolicySwarm$inboundSchema: z.ZodType<
+  RedisCreateRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type RedisCreateUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type RedisCreateRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const RedisCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
-  RedisCreateUpdateConfigSwarm$Outbound,
+export const RedisCreateRestartPolicySwarm$outboundSchema: z.ZodType<
+  RedisCreateRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  RedisCreateUpdateConfigSwarm
+  RedisCreateRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -799,32 +1068,32 @@ export const RedisCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisCreateUpdateConfigSwarm$ {
-  /** @deprecated use `RedisCreateUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `RedisCreateUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `RedisCreateUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = RedisCreateUpdateConfigSwarm$Outbound;
+export namespace RedisCreateRestartPolicySwarm$ {
+  /** @deprecated use `RedisCreateRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `RedisCreateRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `RedisCreateRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = RedisCreateRestartPolicySwarm$Outbound;
 }
 
-export function redisCreateUpdateConfigSwarmToJSON(
-  redisCreateUpdateConfigSwarm: RedisCreateUpdateConfigSwarm,
+export function redisCreateRestartPolicySwarmToJSON(
+  redisCreateRestartPolicySwarm: RedisCreateRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    RedisCreateUpdateConfigSwarm$outboundSchema.parse(
-      redisCreateUpdateConfigSwarm,
+    RedisCreateRestartPolicySwarm$outboundSchema.parse(
+      redisCreateRestartPolicySwarm,
     ),
   );
 }
 
-export function redisCreateUpdateConfigSwarmFromJSON(
+export function redisCreateRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<RedisCreateUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<RedisCreateRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisCreateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateUpdateConfigSwarm' from JSON`,
+    (x) => RedisCreateRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -834,31 +1103,31 @@ export const RedisCreateRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type RedisCreateRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -867,20 +1136,20 @@ export const RedisCreateRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisCreateRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -918,33 +1187,58 @@ export function redisCreateRollbackConfigSwarmFromJSON(
 }
 
 /** @internal */
-export const RedisCreateReplicated$inboundSchema: z.ZodType<
-  RedisCreateReplicated,
+export const RedisCreateUpdateConfigSwarm$inboundSchema: z.ZodType<
+  RedisCreateUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Replicas: z.number().optional(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Replicas": "replicas",
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
-export type RedisCreateReplicated$Outbound = {
-  Replicas?: number | undefined;
+export type RedisCreateUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const RedisCreateReplicated$outboundSchema: z.ZodType<
-  RedisCreateReplicated$Outbound,
+export const RedisCreateUpdateConfigSwarm$outboundSchema: z.ZodType<
+  RedisCreateUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  RedisCreateReplicated
+  RedisCreateUpdateConfigSwarm
 > = z.object({
-  replicas: z.number().optional(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    replicas: "Replicas",
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -952,392 +1246,32 @@ export const RedisCreateReplicated$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RedisCreateReplicated$ {
-  /** @deprecated use `RedisCreateReplicated$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateReplicated$inboundSchema;
-  /** @deprecated use `RedisCreateReplicated$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateReplicated$outboundSchema;
-  /** @deprecated use `RedisCreateReplicated$Outbound` instead. */
-  export type Outbound = RedisCreateReplicated$Outbound;
+export namespace RedisCreateUpdateConfigSwarm$ {
+  /** @deprecated use `RedisCreateUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = RedisCreateUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `RedisCreateUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = RedisCreateUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `RedisCreateUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = RedisCreateUpdateConfigSwarm$Outbound;
 }
 
-export function redisCreateReplicatedToJSON(
-  redisCreateReplicated: RedisCreateReplicated,
+export function redisCreateUpdateConfigSwarmToJSON(
+  redisCreateUpdateConfigSwarm: RedisCreateUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    RedisCreateReplicated$outboundSchema.parse(redisCreateReplicated),
+    RedisCreateUpdateConfigSwarm$outboundSchema.parse(
+      redisCreateUpdateConfigSwarm,
+    ),
   );
 }
 
-export function redisCreateReplicatedFromJSON(
+export function redisCreateUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<RedisCreateReplicated, SDKValidationError> {
+): SafeParseResult<RedisCreateUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RedisCreateReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateGlobal$inboundSchema: z.ZodType<
-  RedisCreateGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisCreateGlobal$Outbound = {};
-
-/** @internal */
-export const RedisCreateGlobal$outboundSchema: z.ZodType<
-  RedisCreateGlobal$Outbound,
-  z.ZodTypeDef,
-  RedisCreateGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateGlobal$ {
-  /** @deprecated use `RedisCreateGlobal$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateGlobal$inboundSchema;
-  /** @deprecated use `RedisCreateGlobal$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateGlobal$outboundSchema;
-  /** @deprecated use `RedisCreateGlobal$Outbound` instead. */
-  export type Outbound = RedisCreateGlobal$Outbound;
-}
-
-export function redisCreateGlobalToJSON(
-  redisCreateGlobal: RedisCreateGlobal,
-): string {
-  return JSON.stringify(
-    RedisCreateGlobal$outboundSchema.parse(redisCreateGlobal),
-  );
-}
-
-export function redisCreateGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateReplicatedJob$inboundSchema: z.ZodType<
-  RedisCreateReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type RedisCreateReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const RedisCreateReplicatedJob$outboundSchema: z.ZodType<
-  RedisCreateReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  RedisCreateReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateReplicatedJob$ {
-  /** @deprecated use `RedisCreateReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateReplicatedJob$inboundSchema;
-  /** @deprecated use `RedisCreateReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateReplicatedJob$outboundSchema;
-  /** @deprecated use `RedisCreateReplicatedJob$Outbound` instead. */
-  export type Outbound = RedisCreateReplicatedJob$Outbound;
-}
-
-export function redisCreateReplicatedJobToJSON(
-  redisCreateReplicatedJob: RedisCreateReplicatedJob,
-): string {
-  return JSON.stringify(
-    RedisCreateReplicatedJob$outboundSchema.parse(redisCreateReplicatedJob),
-  );
-}
-
-export function redisCreateReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateGlobalJob$inboundSchema: z.ZodType<
-  RedisCreateGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisCreateGlobalJob$Outbound = {};
-
-/** @internal */
-export const RedisCreateGlobalJob$outboundSchema: z.ZodType<
-  RedisCreateGlobalJob$Outbound,
-  z.ZodTypeDef,
-  RedisCreateGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateGlobalJob$ {
-  /** @deprecated use `RedisCreateGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateGlobalJob$inboundSchema;
-  /** @deprecated use `RedisCreateGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateGlobalJob$outboundSchema;
-  /** @deprecated use `RedisCreateGlobalJob$Outbound` instead. */
-  export type Outbound = RedisCreateGlobalJob$Outbound;
-}
-
-export function redisCreateGlobalJobToJSON(
-  redisCreateGlobalJob: RedisCreateGlobalJob,
-): string {
-  return JSON.stringify(
-    RedisCreateGlobalJob$outboundSchema.parse(redisCreateGlobalJob),
-  );
-}
-
-export function redisCreateGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateModeSwarm$inboundSchema: z.ZodType<
-  RedisCreateModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => RedisCreateReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => RedisCreateGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => RedisCreateReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => RedisCreateGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type RedisCreateModeSwarm$Outbound = {
-  Replicated?: RedisCreateReplicated$Outbound | undefined;
-  Global?: RedisCreateGlobal$Outbound | undefined;
-  ReplicatedJob?: RedisCreateReplicatedJob$Outbound | undefined;
-  GlobalJob?: RedisCreateGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisCreateModeSwarm$outboundSchema: z.ZodType<
-  RedisCreateModeSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisCreateModeSwarm
-> = z.object({
-  replicated: z.lazy(() => RedisCreateReplicated$outboundSchema).optional(),
-  global: z.lazy(() => RedisCreateGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => RedisCreateReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => RedisCreateGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateModeSwarm$ {
-  /** @deprecated use `RedisCreateModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateModeSwarm$inboundSchema;
-  /** @deprecated use `RedisCreateModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateModeSwarm$outboundSchema;
-  /** @deprecated use `RedisCreateModeSwarm$Outbound` instead. */
-  export type Outbound = RedisCreateModeSwarm$Outbound;
-}
-
-export function redisCreateModeSwarmToJSON(
-  redisCreateModeSwarm: RedisCreateModeSwarm,
-): string {
-  return JSON.stringify(
-    RedisCreateModeSwarm$outboundSchema.parse(redisCreateModeSwarm),
-  );
-}
-
-export function redisCreateModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateDriverOpts$inboundSchema: z.ZodType<
-  RedisCreateDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RedisCreateDriverOpts$Outbound = {};
-
-/** @internal */
-export const RedisCreateDriverOpts$outboundSchema: z.ZodType<
-  RedisCreateDriverOpts$Outbound,
-  z.ZodTypeDef,
-  RedisCreateDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateDriverOpts$ {
-  /** @deprecated use `RedisCreateDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateDriverOpts$inboundSchema;
-  /** @deprecated use `RedisCreateDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateDriverOpts$outboundSchema;
-  /** @deprecated use `RedisCreateDriverOpts$Outbound` instead. */
-  export type Outbound = RedisCreateDriverOpts$Outbound;
-}
-
-export function redisCreateDriverOptsToJSON(
-  redisCreateDriverOpts: RedisCreateDriverOpts,
-): string {
-  return JSON.stringify(
-    RedisCreateDriverOpts$outboundSchema.parse(redisCreateDriverOpts),
-  );
-}
-
-export function redisCreateDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const RedisCreateNetworkSwarm$inboundSchema: z.ZodType<
-  RedisCreateNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => RedisCreateDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type RedisCreateNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: RedisCreateDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const RedisCreateNetworkSwarm$outboundSchema: z.ZodType<
-  RedisCreateNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  RedisCreateNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => RedisCreateDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedisCreateNetworkSwarm$ {
-  /** @deprecated use `RedisCreateNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = RedisCreateNetworkSwarm$inboundSchema;
-  /** @deprecated use `RedisCreateNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = RedisCreateNetworkSwarm$outboundSchema;
-  /** @deprecated use `RedisCreateNetworkSwarm$Outbound` instead. */
-  export type Outbound = RedisCreateNetworkSwarm$Outbound;
-}
-
-export function redisCreateNetworkSwarmToJSON(
-  redisCreateNetworkSwarm: RedisCreateNetworkSwarm,
-): string {
-  return JSON.stringify(
-    RedisCreateNetworkSwarm$outboundSchema.parse(redisCreateNetworkSwarm),
-  );
-}
-
-export function redisCreateNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<RedisCreateNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedisCreateNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedisCreateNetworkSwarm' from JSON`,
+    (x) => RedisCreateUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RedisCreateUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -1347,74 +1281,74 @@ export const RedisCreateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisCreateApplicationStatus$inboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisCreateHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisCreateRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => RedisCreateModeSwarm$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisCreateNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisCreatePlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisCreateUpdateConfigSwarm$inboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisCreateRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisCreateRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => RedisCreateModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisCreateNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisCreateUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type RedisCreateResponseBody$Outbound = {
-  redisId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  createdAt: string;
   applicationStatus: string;
-  healthCheckSwarm: RedisCreateHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: RedisCreateRestartPolicySwarm$Outbound | null;
-  placementSwarm: RedisCreatePlacementSwarm$Outbound | null;
-  updateConfigSwarm: RedisCreateUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: RedisCreateRollbackConfigSwarm$Outbound | null;
-  modeSwarm: RedisCreateModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<RedisCreateNetworkSwarm$Outbound> | null;
-  replicas: number;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
   environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: RedisCreateHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: RedisCreateModeSwarm$Outbound | null;
+  name: string;
+  networkSwarm: Array<RedisCreateNetworkSwarm$Outbound> | null;
+  placementSwarm: RedisCreatePlacementSwarm$Outbound | null;
+  redisId: string;
+  replicas: number;
+  restartPolicySwarm: RedisCreateRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: RedisCreateRollbackConfigSwarm$Outbound | null;
   serverId: string | null;
+  updateConfigSwarm: RedisCreateUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -1423,44 +1357,44 @@ export const RedisCreateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedisCreateResponseBody
 > = z.object({
-  redisId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
-  createdAt: z.string(),
   applicationStatus: RedisCreateApplicationStatus$outboundSchema,
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => RedisCreateHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => RedisCreateRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => RedisCreateModeSwarm$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => RedisCreateNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => RedisCreatePlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => RedisCreateUpdateConfigSwarm$outboundSchema),
+  redisId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => RedisCreateRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => RedisCreateRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => RedisCreateModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => RedisCreateNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  environmentId: z.string(),
   serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => RedisCreateUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

@@ -3,91 +3,24 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PostgresCreateSecurity = {
-  authorization: string;
-};
-
 export type PostgresCreateRequest = {
-  name: string;
   appName: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage?: string | undefined;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
 export type PostgresCreateResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const PostgresCreateSecurity$inboundSchema: z.ZodType<
-  PostgresCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresCreateSecurity$outboundSchema: z.ZodType<
-  PostgresCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresCreateSecurity$ {
-  /** @deprecated use `PostgresCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresCreateSecurity$inboundSchema;
-  /** @deprecated use `PostgresCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresCreateSecurity$outboundSchema;
-  /** @deprecated use `PostgresCreateSecurity$Outbound` instead. */
-  export type Outbound = PostgresCreateSecurity$Outbound;
-}
-
-export function postgresCreateSecurityToJSON(
-  postgresCreateSecurity: PostgresCreateSecurity,
-): string {
-  return JSON.stringify(
-    PostgresCreateSecurity$outboundSchema.parse(postgresCreateSecurity),
-  );
-}
-
-export function postgresCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresCreateRequest$inboundSchema: z.ZodType<
@@ -95,27 +28,27 @@ export const PostgresCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("postgres:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type PostgresCreateRequest$Outbound = {
-  name: string;
   appName: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
   dockerImage: string;
   environmentId: string;
-  description?: string | null | undefined;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -125,14 +58,14 @@ export const PostgresCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
   dockerImage: z.string().default("postgres:15"),
   environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 

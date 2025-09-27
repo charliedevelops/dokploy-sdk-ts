@@ -3,34 +3,29 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type RedirectsUpdateSecurity = {
-  authorization: string;
-};
-
 export type RedirectsUpdateRequest = {
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
 };
 
 /**
  * Successful response
  */
 export type RedirectsUpdateResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type RedirectsUpdateResponse =
@@ -38,85 +33,23 @@ export type RedirectsUpdateResponse =
   | models.ErrorT;
 
 /** @internal */
-export const RedirectsUpdateSecurity$inboundSchema: z.ZodType<
-  RedirectsUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type RedirectsUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const RedirectsUpdateSecurity$outboundSchema: z.ZodType<
-  RedirectsUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  RedirectsUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RedirectsUpdateSecurity$ {
-  /** @deprecated use `RedirectsUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = RedirectsUpdateSecurity$inboundSchema;
-  /** @deprecated use `RedirectsUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = RedirectsUpdateSecurity$outboundSchema;
-  /** @deprecated use `RedirectsUpdateSecurity$Outbound` instead. */
-  export type Outbound = RedirectsUpdateSecurity$Outbound;
-}
-
-export function redirectsUpdateSecurityToJSON(
-  redirectsUpdateSecurity: RedirectsUpdateSecurity,
-): string {
-  return JSON.stringify(
-    RedirectsUpdateSecurity$outboundSchema.parse(redirectsUpdateSecurity),
-  );
-}
-
-export function redirectsUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<RedirectsUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RedirectsUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RedirectsUpdateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const RedirectsUpdateRequest$inboundSchema: z.ZodType<
   RedirectsUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
 });
 
 /** @internal */
 export type RedirectsUpdateRequest$Outbound = {
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
 };
 
 /** @internal */
@@ -125,10 +58,10 @@ export const RedirectsUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsUpdateRequest
 > = z.object({
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
 });
 
 /**
@@ -168,24 +101,24 @@ export const RedirectsUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type RedirectsUpdateResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  permanent: boolean;
   redirectId: string;
   regex: string;
   replacement: string;
-  permanent: boolean;
   uniqueConfigKey: number;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -194,13 +127,13 @@ export const RedirectsUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RedirectsUpdateResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  permanent: z.boolean(),
   redirectId: z.string(),
   regex: z.string(),
   replacement: z.string(),
-  permanent: z.boolean(),
   uniqueConfigKey: z.number(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

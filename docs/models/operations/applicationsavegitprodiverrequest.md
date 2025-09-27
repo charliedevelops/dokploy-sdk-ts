@@ -15,10 +15,10 @@ let value: ApplicationSaveGitProdiverRequest = {
 
 | Field                | Type                 | Required             | Description          |
 | -------------------- | -------------------- | -------------------- | -------------------- |
-| `customGitBranch`    | *string*             | :heavy_minus_sign:   | N/A                  |
 | `applicationId`      | *string*             | :heavy_check_mark:   | N/A                  |
+| `customGitBranch`    | *string*             | :heavy_minus_sign:   | N/A                  |
 | `customGitBuildPath` | *string*             | :heavy_minus_sign:   | N/A                  |
-| `customGitUrl`       | *string*             | :heavy_minus_sign:   | N/A                  |
-| `watchPaths`         | *string*[]           | :heavy_minus_sign:   | N/A                  |
-| `enableSubmodules`   | *boolean*            | :heavy_check_mark:   | N/A                  |
 | `customGitSSHKeyId`  | *string*             | :heavy_minus_sign:   | N/A                  |
+| `customGitUrl`       | *string*             | :heavy_minus_sign:   | N/A                  |
+| `enableSubmodules`   | *boolean*            | :heavy_check_mark:   | N/A                  |
+| `watchPaths`         | *string*[]           | :heavy_minus_sign:   | N/A                  |

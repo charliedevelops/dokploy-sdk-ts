@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MariadbStopSecurity = {
-  authorization: string;
-};
-
 export type MariadbStopRequest = {
   mariadbId: string;
 };
@@ -27,194 +23,6 @@ export const MariadbStopApplicationStatus = {
 export type MariadbStopApplicationStatus = ClosedEnum<
   typeof MariadbStopApplicationStatus
 >;
-
-export type MariadbStopHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MariadbStopRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MariadbStopSpread = {
-  spreadDescriptor: string;
-};
-
-export type MariadbStopPreference = {
-  spread: MariadbStopSpread;
-};
-
-export type MariadbStopPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MariadbStopPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MariadbStopPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MariadbStopPlatform> | undefined;
-};
-
-export type MariadbStopUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbStopRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MariadbStopReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MariadbStopGlobal = {};
-
-export type MariadbStopReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MariadbStopGlobalJob = {};
-
-export type MariadbStopModeSwarm = {
-  replicated?: MariadbStopReplicated | undefined;
-  global?: MariadbStopGlobal | undefined;
-  replicatedJob?: MariadbStopReplicatedJob | undefined;
-  globalJob?: MariadbStopGlobalJob | undefined;
-};
-
-export type MariadbStopDriverOpts = {};
-
-export type MariadbStopNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MariadbStopDriverOpts | undefined;
-};
-
-export type MariadbStopProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MariadbStopEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbStopProject;
-};
-
-export const MariadbStopType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MariadbStopType = ClosedEnum<typeof MariadbStopType>;
-
-export const MariadbStopServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MariadbStopServiceType = ClosedEnum<typeof MariadbStopServiceType>;
-
-export type MariadbStopMount = {
-  mountId: string;
-  type: MariadbStopType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MariadbStopServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MariadbStopServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MariadbStopServerStatus = ClosedEnum<
-  typeof MariadbStopServerStatus
->;
-
-export const MariadbStopMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MariadbStopMetricsConfigEnum = ClosedEnum<
-  typeof MariadbStopMetricsConfigEnum
->;
-
-export type MariadbStopMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MariadbStopMetricsConfigEnum;
-
-export type MariadbStopMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MariadbStopMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MariadbStopServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MariadbStopServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MariadbStopMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MariadbStopBackupType = {
   Database: "database",
@@ -240,29 +48,29 @@ export type MariadbStopMetadataEnum = ClosedEnum<
   typeof MariadbStopMetadataEnum
 >;
 
-export type MariadbStopPostgres = {
-  databaseUser: string;
-};
-
 export type MariadbStopMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbStopMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MariadbStopMysql = {
   databaseRootPassword: string;
 };
 
+export type MariadbStopPostgres = {
+  databaseUser: string;
+};
+
 export type MariadbStopMetadata = {
-  postgres?: MariadbStopPostgres | undefined;
   mariadb?: MariadbStopMariadb | undefined;
   mongo?: MariadbStopMongo | undefined;
   mysql?: MariadbStopMysql | undefined;
+  postgres?: MariadbStopPostgres | undefined;
 };
 
 export type MariadbStopMetadataUnion =
@@ -270,128 +78,254 @@ export type MariadbStopMetadataUnion =
   | MariadbStopMetadataEnum;
 
 export type MariadbStopBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MariadbStopBackupType;
-  databaseType: MariadbStopDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MariadbStopDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: MariadbStopMetadata | MariadbStopMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MariadbStopProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MariadbStopEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbStopProject;
+  projectId: string;
+};
+
+export type MariadbStopHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MariadbStopGlobal = {};
+
+export type MariadbStopGlobalJob = {};
+
+export type MariadbStopReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MariadbStopReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MariadbStopModeSwarm = {
+  global?: MariadbStopGlobal | undefined;
+  globalJob?: MariadbStopGlobalJob | undefined;
+  replicated?: MariadbStopReplicated | undefined;
+  replicatedJob?: MariadbStopReplicatedJob | undefined;
+};
+
+export const MariadbStopServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MariadbStopServiceType = ClosedEnum<typeof MariadbStopServiceType>;
+
+export const MariadbStopType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MariadbStopType = ClosedEnum<typeof MariadbStopType>;
+
+export type MariadbStopMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MariadbStopServiceType;
+  type: MariadbStopType;
+  volumeName: string | null;
+};
+
+export type MariadbStopDriverOpts = {};
+
+export type MariadbStopNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MariadbStopDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MariadbStopPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MariadbStopSpread = {
+  spreadDescriptor: string;
+};
+
+export type MariadbStopPreference = {
+  spread: MariadbStopSpread;
+};
+
+export type MariadbStopPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MariadbStopPlatform> | undefined;
+  preferences?: Array<MariadbStopPreference> | undefined;
+};
+
+export type MariadbStopRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MariadbStopRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MariadbStopMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MariadbStopMetricsConfigEnum = ClosedEnum<
+  typeof MariadbStopMetricsConfigEnum
+>;
+
+export type MariadbStopMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MariadbStopMetricsConfigEnum;
+
+export type MariadbStopMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MariadbStopMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MariadbStopServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MariadbStopServerStatus = ClosedEnum<
+  typeof MariadbStopServerStatus
+>;
+
+export type MariadbStopServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MariadbStopMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MariadbStopServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MariadbStopUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MariadbStopResponseBody = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: MariadbStopApplicationStatus;
+  backups: Array<MariadbStopBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: MariadbStopApplicationStatus;
-  healthCheckSwarm: MariadbStopHealthCheckSwarm | null;
-  restartPolicySwarm: MariadbStopRestartPolicySwarm | null;
-  placementSwarm: MariadbStopPlacementSwarm | null;
-  updateConfigSwarm: MariadbStopUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MariadbStopRollbackConfigSwarm | null;
-  modeSwarm: MariadbStopModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbStopNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbStopEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbStopHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbStopModeSwarm | null;
   mounts: Array<MariadbStopMount>;
+  name: string;
+  networkSwarm: Array<MariadbStopNetworkSwarm> | null;
+  placementSwarm: MariadbStopPlacementSwarm | null;
+  replicas: number;
+  restartPolicySwarm: MariadbStopRestartPolicySwarm | null;
+  rollbackConfigSwarm: MariadbStopRollbackConfigSwarm | null;
   server: MariadbStopServer | null;
-  backups: Array<MariadbStopBackup>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbStopUpdateConfigSwarm | null;
 };
 
 export type MariadbStopResponse = MariadbStopResponseBody | models.ErrorT;
-
-/** @internal */
-export const MariadbStopSecurity$inboundSchema: z.ZodType<
-  MariadbStopSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbStopSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbStopSecurity$outboundSchema: z.ZodType<
-  MariadbStopSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbStopSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopSecurity$ {
-  /** @deprecated use `MariadbStopSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopSecurity$inboundSchema;
-  /** @deprecated use `MariadbStopSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopSecurity$outboundSchema;
-  /** @deprecated use `MariadbStopSecurity$Outbound` instead. */
-  export type Outbound = MariadbStopSecurity$Outbound;
-}
-
-export function mariadbStopSecurityToJSON(
-  mariadbStopSecurity: MariadbStopSecurity,
-): string {
-  return JSON.stringify(
-    MariadbStopSecurity$outboundSchema.parse(mariadbStopSecurity),
-  );
-}
-
-export function mariadbStopSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbStopRequest$inboundSchema: z.ZodType<
@@ -469,33 +403,693 @@ export namespace MariadbStopApplicationStatus$ {
 }
 
 /** @internal */
+export const MariadbStopBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopBackupType
+> = z.nativeEnum(MariadbStopBackupType);
+
+/** @internal */
+export const MariadbStopBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopBackupType
+> = MariadbStopBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopBackupType$ {
+  /** @deprecated use `MariadbStopBackupType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopBackupType$inboundSchema;
+  /** @deprecated use `MariadbStopBackupType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStopDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopDatabaseType
+> = z.nativeEnum(MariadbStopDatabaseType);
+
+/** @internal */
+export const MariadbStopDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopDatabaseType
+> = MariadbStopDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopDatabaseType$ {
+  /** @deprecated use `MariadbStopDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopDatabaseType$inboundSchema;
+  /** @deprecated use `MariadbStopDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopMetadataEnum
+> = z.nativeEnum(MariadbStopMetadataEnum);
+
+/** @internal */
+export const MariadbStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopMetadataEnum
+> = MariadbStopMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMetadataEnum$ {
+  /** @deprecated use `MariadbStopMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMetadataEnum$inboundSchema;
+  /** @deprecated use `MariadbStopMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStopMariadb$inboundSchema: z.ZodType<
+  MariadbStopMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStopMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStopMariadb$outboundSchema: z.ZodType<
+  MariadbStopMariadb$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMariadb$ {
+  /** @deprecated use `MariadbStopMariadb$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMariadb$inboundSchema;
+  /** @deprecated use `MariadbStopMariadb$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMariadb$outboundSchema;
+  /** @deprecated use `MariadbStopMariadb$Outbound` instead. */
+  export type Outbound = MariadbStopMariadb$Outbound;
+}
+
+export function mariadbStopMariadbToJSON(
+  mariadbStopMariadb: MariadbStopMariadb,
+): string {
+  return JSON.stringify(
+    MariadbStopMariadb$outboundSchema.parse(mariadbStopMariadb),
+  );
+}
+
+export function mariadbStopMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopMongo$inboundSchema: z.ZodType<
+  MariadbStopMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStopMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStopMongo$outboundSchema: z.ZodType<
+  MariadbStopMongo$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMongo$ {
+  /** @deprecated use `MariadbStopMongo$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMongo$inboundSchema;
+  /** @deprecated use `MariadbStopMongo$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMongo$outboundSchema;
+  /** @deprecated use `MariadbStopMongo$Outbound` instead. */
+  export type Outbound = MariadbStopMongo$Outbound;
+}
+
+export function mariadbStopMongoToJSON(
+  mariadbStopMongo: MariadbStopMongo,
+): string {
+  return JSON.stringify(
+    MariadbStopMongo$outboundSchema.parse(mariadbStopMongo),
+  );
+}
+
+export function mariadbStopMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopMysql$inboundSchema: z.ZodType<
+  MariadbStopMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MariadbStopMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MariadbStopMysql$outboundSchema: z.ZodType<
+  MariadbStopMysql$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMysql$ {
+  /** @deprecated use `MariadbStopMysql$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMysql$inboundSchema;
+  /** @deprecated use `MariadbStopMysql$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMysql$outboundSchema;
+  /** @deprecated use `MariadbStopMysql$Outbound` instead. */
+  export type Outbound = MariadbStopMysql$Outbound;
+}
+
+export function mariadbStopMysqlToJSON(
+  mariadbStopMysql: MariadbStopMysql,
+): string {
+  return JSON.stringify(
+    MariadbStopMysql$outboundSchema.parse(mariadbStopMysql),
+  );
+}
+
+export function mariadbStopMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopPostgres$inboundSchema: z.ZodType<
+  MariadbStopPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MariadbStopPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MariadbStopPostgres$outboundSchema: z.ZodType<
+  MariadbStopPostgres$Outbound,
+  z.ZodTypeDef,
+  MariadbStopPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopPostgres$ {
+  /** @deprecated use `MariadbStopPostgres$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopPostgres$inboundSchema;
+  /** @deprecated use `MariadbStopPostgres$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopPostgres$outboundSchema;
+  /** @deprecated use `MariadbStopPostgres$Outbound` instead. */
+  export type Outbound = MariadbStopPostgres$Outbound;
+}
+
+export function mariadbStopPostgresToJSON(
+  mariadbStopPostgres: MariadbStopPostgres,
+): string {
+  return JSON.stringify(
+    MariadbStopPostgres$outboundSchema.parse(mariadbStopPostgres),
+  );
+}
+
+export function mariadbStopPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopMetadata$inboundSchema: z.ZodType<
+  MariadbStopMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MariadbStopMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MariadbStopMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MariadbStopMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MariadbStopPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MariadbStopMetadata$Outbound = {
+  mariadb?: MariadbStopMariadb$Outbound | undefined;
+  mongo?: MariadbStopMongo$Outbound | undefined;
+  mysql?: MariadbStopMysql$Outbound | undefined;
+  postgres?: MariadbStopPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbStopMetadata$outboundSchema: z.ZodType<
+  MariadbStopMetadata$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMetadata
+> = z.object({
+  mariadb: z.lazy(() => MariadbStopMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MariadbStopMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MariadbStopMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MariadbStopPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMetadata$ {
+  /** @deprecated use `MariadbStopMetadata$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMetadata$inboundSchema;
+  /** @deprecated use `MariadbStopMetadata$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMetadata$outboundSchema;
+  /** @deprecated use `MariadbStopMetadata$Outbound` instead. */
+  export type Outbound = MariadbStopMetadata$Outbound;
+}
+
+export function mariadbStopMetadataToJSON(
+  mariadbStopMetadata: MariadbStopMetadata,
+): string {
+  return JSON.stringify(
+    MariadbStopMetadata$outboundSchema.parse(mariadbStopMetadata),
+  );
+}
+
+export function mariadbStopMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopMetadataUnion$inboundSchema: z.ZodType<
+  MariadbStopMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MariadbStopMetadata$inboundSchema),
+  MariadbStopMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MariadbStopMetadataUnion$Outbound =
+  | MariadbStopMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MariadbStopMetadataUnion$outboundSchema: z.ZodType<
+  MariadbStopMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMetadataUnion
+> = z.union([
+  z.lazy(() => MariadbStopMetadata$outboundSchema),
+  MariadbStopMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMetadataUnion$ {
+  /** @deprecated use `MariadbStopMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMetadataUnion$inboundSchema;
+  /** @deprecated use `MariadbStopMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMetadataUnion$outboundSchema;
+  /** @deprecated use `MariadbStopMetadataUnion$Outbound` instead. */
+  export type Outbound = MariadbStopMetadataUnion$Outbound;
+}
+
+export function mariadbStopMetadataUnionToJSON(
+  mariadbStopMetadataUnion: MariadbStopMetadataUnion,
+): string {
+  return JSON.stringify(
+    MariadbStopMetadataUnion$outboundSchema.parse(mariadbStopMetadataUnion),
+  );
+}
+
+export function mariadbStopMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopBackup$inboundSchema: z.ZodType<
+  MariadbStopBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbStopBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbStopDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbStopMetadata$inboundSchema),
+      MariadbStopMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbStopBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MariadbStopMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MariadbStopBackup$outboundSchema: z.ZodType<
+  MariadbStopBackup$Outbound,
+  z.ZodTypeDef,
+  MariadbStopBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MariadbStopBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MariadbStopDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MariadbStopMetadata$outboundSchema),
+      MariadbStopMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopBackup$ {
+  /** @deprecated use `MariadbStopBackup$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopBackup$inboundSchema;
+  /** @deprecated use `MariadbStopBackup$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopBackup$outboundSchema;
+  /** @deprecated use `MariadbStopBackup$Outbound` instead. */
+  export type Outbound = MariadbStopBackup$Outbound;
+}
+
+export function mariadbStopBackupToJSON(
+  mariadbStopBackup: MariadbStopBackup,
+): string {
+  return JSON.stringify(
+    MariadbStopBackup$outboundSchema.parse(mariadbStopBackup),
+  );
+}
+
+export function mariadbStopBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopProject$inboundSchema: z.ZodType<
+  MariadbStopProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbStopProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbStopProject$outboundSchema: z.ZodType<
+  MariadbStopProject$Outbound,
+  z.ZodTypeDef,
+  MariadbStopProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopProject$ {
+  /** @deprecated use `MariadbStopProject$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopProject$inboundSchema;
+  /** @deprecated use `MariadbStopProject$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopProject$outboundSchema;
+  /** @deprecated use `MariadbStopProject$Outbound` instead. */
+  export type Outbound = MariadbStopProject$Outbound;
+}
+
+export function mariadbStopProjectToJSON(
+  mariadbStopProject: MariadbStopProject,
+): string {
+  return JSON.stringify(
+    MariadbStopProject$outboundSchema.parse(mariadbStopProject),
+  );
+}
+
+export function mariadbStopProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopEnvironment$inboundSchema: z.ZodType<
+  MariadbStopEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbStopProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MariadbStopEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MariadbStopProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MariadbStopEnvironment$outboundSchema: z.ZodType<
+  MariadbStopEnvironment$Outbound,
+  z.ZodTypeDef,
+  MariadbStopEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MariadbStopProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopEnvironment$ {
+  /** @deprecated use `MariadbStopEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopEnvironment$inboundSchema;
+  /** @deprecated use `MariadbStopEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopEnvironment$outboundSchema;
+  /** @deprecated use `MariadbStopEnvironment$Outbound` instead. */
+  export type Outbound = MariadbStopEnvironment$Outbound;
+}
+
+export function mariadbStopEnvironmentToJSON(
+  mariadbStopEnvironment: MariadbStopEnvironment,
+): string {
+  return JSON.stringify(
+    MariadbStopEnvironment$outboundSchema.parse(mariadbStopEnvironment),
+  );
+}
+
+export function mariadbStopEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MariadbStopHealthCheckSwarm$inboundSchema: z.ZodType<
   MariadbStopHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MariadbStopHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -504,18 +1098,18 @@ export const MariadbStopHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStopHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -553,48 +1147,129 @@ export function mariadbStopHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbStopRestartPolicySwarm$inboundSchema: z.ZodType<
-  MariadbStopRestartPolicySwarm,
+export const MariadbStopGlobal$inboundSchema: z.ZodType<
+  MariadbStopGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStopGlobal$Outbound = {};
+
+/** @internal */
+export const MariadbStopGlobal$outboundSchema: z.ZodType<
+  MariadbStopGlobal$Outbound,
+  z.ZodTypeDef,
+  MariadbStopGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopGlobal$ {
+  /** @deprecated use `MariadbStopGlobal$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopGlobal$inboundSchema;
+  /** @deprecated use `MariadbStopGlobal$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopGlobal$outboundSchema;
+  /** @deprecated use `MariadbStopGlobal$Outbound` instead. */
+  export type Outbound = MariadbStopGlobal$Outbound;
+}
+
+export function mariadbStopGlobalToJSON(
+  mariadbStopGlobal: MariadbStopGlobal,
+): string {
+  return JSON.stringify(
+    MariadbStopGlobal$outboundSchema.parse(mariadbStopGlobal),
+  );
+}
+
+export function mariadbStopGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopGlobalJob$inboundSchema: z.ZodType<
+  MariadbStopGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStopGlobalJob$Outbound = {};
+
+/** @internal */
+export const MariadbStopGlobalJob$outboundSchema: z.ZodType<
+  MariadbStopGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MariadbStopGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopGlobalJob$ {
+  /** @deprecated use `MariadbStopGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopGlobalJob$inboundSchema;
+  /** @deprecated use `MariadbStopGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopGlobalJob$outboundSchema;
+  /** @deprecated use `MariadbStopGlobalJob$Outbound` instead. */
+  export type Outbound = MariadbStopGlobalJob$Outbound;
+}
+
+export function mariadbStopGlobalJobToJSON(
+  mariadbStopGlobalJob: MariadbStopGlobalJob,
+): string {
+  return JSON.stringify(
+    MariadbStopGlobalJob$outboundSchema.parse(mariadbStopGlobalJob),
+  );
+}
+
+export function mariadbStopGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopReplicated$inboundSchema: z.ZodType<
+  MariadbStopReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MariadbStopRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MariadbStopReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MariadbStopRestartPolicySwarm$outboundSchema: z.ZodType<
-  MariadbStopRestartPolicySwarm$Outbound,
+export const MariadbStopReplicated$outboundSchema: z.ZodType<
+  MariadbStopReplicated$Outbound,
   z.ZodTypeDef,
-  MariadbStopRestartPolicySwarm
+  MariadbStopReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -602,32 +1277,501 @@ export const MariadbStopRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStopRestartPolicySwarm$ {
-  /** @deprecated use `MariadbStopRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MariadbStopRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MariadbStopRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MariadbStopRestartPolicySwarm$Outbound;
+export namespace MariadbStopReplicated$ {
+  /** @deprecated use `MariadbStopReplicated$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopReplicated$inboundSchema;
+  /** @deprecated use `MariadbStopReplicated$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopReplicated$outboundSchema;
+  /** @deprecated use `MariadbStopReplicated$Outbound` instead. */
+  export type Outbound = MariadbStopReplicated$Outbound;
 }
 
-export function mariadbStopRestartPolicySwarmToJSON(
-  mariadbStopRestartPolicySwarm: MariadbStopRestartPolicySwarm,
+export function mariadbStopReplicatedToJSON(
+  mariadbStopReplicated: MariadbStopReplicated,
 ): string {
   return JSON.stringify(
-    MariadbStopRestartPolicySwarm$outboundSchema.parse(
-      mariadbStopRestartPolicySwarm,
-    ),
+    MariadbStopReplicated$outboundSchema.parse(mariadbStopReplicated),
   );
 }
 
-export function mariadbStopRestartPolicySwarmFromJSON(
+export function mariadbStopReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStopRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MariadbStopReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopRestartPolicySwarm' from JSON`,
+    (x) => MariadbStopReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopReplicatedJob$inboundSchema: z.ZodType<
+  MariadbStopReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MariadbStopReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MariadbStopReplicatedJob$outboundSchema: z.ZodType<
+  MariadbStopReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MariadbStopReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopReplicatedJob$ {
+  /** @deprecated use `MariadbStopReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopReplicatedJob$inboundSchema;
+  /** @deprecated use `MariadbStopReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopReplicatedJob$outboundSchema;
+  /** @deprecated use `MariadbStopReplicatedJob$Outbound` instead. */
+  export type Outbound = MariadbStopReplicatedJob$Outbound;
+}
+
+export function mariadbStopReplicatedJobToJSON(
+  mariadbStopReplicatedJob: MariadbStopReplicatedJob,
+): string {
+  return JSON.stringify(
+    MariadbStopReplicatedJob$outboundSchema.parse(mariadbStopReplicatedJob),
+  );
+}
+
+export function mariadbStopReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopModeSwarm$inboundSchema: z.ZodType<
+  MariadbStopModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MariadbStopGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MariadbStopGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MariadbStopReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => MariadbStopReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MariadbStopModeSwarm$Outbound = {
+  Global?: MariadbStopGlobal$Outbound | undefined;
+  GlobalJob?: MariadbStopGlobalJob$Outbound | undefined;
+  Replicated?: MariadbStopReplicated$Outbound | undefined;
+  ReplicatedJob?: MariadbStopReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MariadbStopModeSwarm$outboundSchema: z.ZodType<
+  MariadbStopModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbStopModeSwarm
+> = z.object({
+  global: z.lazy(() => MariadbStopGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MariadbStopGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MariadbStopReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => MariadbStopReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopModeSwarm$ {
+  /** @deprecated use `MariadbStopModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopModeSwarm$inboundSchema;
+  /** @deprecated use `MariadbStopModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopModeSwarm$outboundSchema;
+  /** @deprecated use `MariadbStopModeSwarm$Outbound` instead. */
+  export type Outbound = MariadbStopModeSwarm$Outbound;
+}
+
+export function mariadbStopModeSwarmToJSON(
+  mariadbStopModeSwarm: MariadbStopModeSwarm,
+): string {
+  return JSON.stringify(
+    MariadbStopModeSwarm$outboundSchema.parse(mariadbStopModeSwarm),
+  );
+}
+
+export function mariadbStopModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopServiceType
+> = z.nativeEnum(MariadbStopServiceType);
+
+/** @internal */
+export const MariadbStopServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopServiceType
+> = MariadbStopServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopServiceType$ {
+  /** @deprecated use `MariadbStopServiceType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopServiceType$inboundSchema;
+  /** @deprecated use `MariadbStopServiceType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStopType$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopType
+> = z.nativeEnum(MariadbStopType);
+
+/** @internal */
+export const MariadbStopType$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopType
+> = MariadbStopType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopType$ {
+  /** @deprecated use `MariadbStopType$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopType$inboundSchema;
+  /** @deprecated use `MariadbStopType$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopType$outboundSchema;
+}
+
+/** @internal */
+export const MariadbStopMount$inboundSchema: z.ZodType<
+  MariadbStopMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbStopServiceType$inboundSchema,
+  type: MariadbStopType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MariadbStopMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MariadbStopMount$outboundSchema: z.ZodType<
+  MariadbStopMount$Outbound,
+  z.ZodTypeDef,
+  MariadbStopMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MariadbStopServiceType$outboundSchema,
+  type: MariadbStopType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopMount$ {
+  /** @deprecated use `MariadbStopMount$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopMount$inboundSchema;
+  /** @deprecated use `MariadbStopMount$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopMount$outboundSchema;
+  /** @deprecated use `MariadbStopMount$Outbound` instead. */
+  export type Outbound = MariadbStopMount$Outbound;
+}
+
+export function mariadbStopMountToJSON(
+  mariadbStopMount: MariadbStopMount,
+): string {
+  return JSON.stringify(
+    MariadbStopMount$outboundSchema.parse(mariadbStopMount),
+  );
+}
+
+export function mariadbStopMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopDriverOpts$inboundSchema: z.ZodType<
+  MariadbStopDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MariadbStopDriverOpts$Outbound = {};
+
+/** @internal */
+export const MariadbStopDriverOpts$outboundSchema: z.ZodType<
+  MariadbStopDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MariadbStopDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopDriverOpts$ {
+  /** @deprecated use `MariadbStopDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopDriverOpts$inboundSchema;
+  /** @deprecated use `MariadbStopDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopDriverOpts$outboundSchema;
+  /** @deprecated use `MariadbStopDriverOpts$Outbound` instead. */
+  export type Outbound = MariadbStopDriverOpts$Outbound;
+}
+
+export function mariadbStopDriverOptsToJSON(
+  mariadbStopDriverOpts: MariadbStopDriverOpts,
+): string {
+  return JSON.stringify(
+    MariadbStopDriverOpts$outboundSchema.parse(mariadbStopDriverOpts),
+  );
+}
+
+export function mariadbStopDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopNetworkSwarm$inboundSchema: z.ZodType<
+  MariadbStopNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MariadbStopDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MariadbStopNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MariadbStopDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MariadbStopNetworkSwarm$outboundSchema: z.ZodType<
+  MariadbStopNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MariadbStopNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MariadbStopDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopNetworkSwarm$ {
+  /** @deprecated use `MariadbStopNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopNetworkSwarm$inboundSchema;
+  /** @deprecated use `MariadbStopNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopNetworkSwarm$outboundSchema;
+  /** @deprecated use `MariadbStopNetworkSwarm$Outbound` instead. */
+  export type Outbound = MariadbStopNetworkSwarm$Outbound;
+}
+
+export function mariadbStopNetworkSwarmToJSON(
+  mariadbStopNetworkSwarm: MariadbStopNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MariadbStopNetworkSwarm$outboundSchema.parse(mariadbStopNetworkSwarm),
+  );
+}
+
+export function mariadbStopNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MariadbStopPlatform$inboundSchema: z.ZodType<
+  MariadbStopPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MariadbStopPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MariadbStopPlatform$outboundSchema: z.ZodType<
+  MariadbStopPlatform$Outbound,
+  z.ZodTypeDef,
+  MariadbStopPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopPlatform$ {
+  /** @deprecated use `MariadbStopPlatform$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopPlatform$inboundSchema;
+  /** @deprecated use `MariadbStopPlatform$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopPlatform$outboundSchema;
+  /** @deprecated use `MariadbStopPlatform$Outbound` instead. */
+  export type Outbound = MariadbStopPlatform$Outbound;
+}
+
+export function mariadbStopPlatformToJSON(
+  mariadbStopPlatform: MariadbStopPlatform,
+): string {
+  return JSON.stringify(
+    MariadbStopPlatform$outboundSchema.parse(mariadbStopPlatform),
+  );
+}
+
+export function mariadbStopPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MariadbStopPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MariadbStopPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopPlatform' from JSON`,
   );
 }
 
@@ -756,99 +1900,32 @@ export function mariadbStopPreferenceFromJSON(
 }
 
 /** @internal */
-export const MariadbStopPlatform$inboundSchema: z.ZodType<
-  MariadbStopPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MariadbStopPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MariadbStopPlatform$outboundSchema: z.ZodType<
-  MariadbStopPlatform$Outbound,
-  z.ZodTypeDef,
-  MariadbStopPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopPlatform$ {
-  /** @deprecated use `MariadbStopPlatform$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopPlatform$inboundSchema;
-  /** @deprecated use `MariadbStopPlatform$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopPlatform$outboundSchema;
-  /** @deprecated use `MariadbStopPlatform$Outbound` instead. */
-  export type Outbound = MariadbStopPlatform$Outbound;
-}
-
-export function mariadbStopPlatformToJSON(
-  mariadbStopPlatform: MariadbStopPlatform,
-): string {
-  return JSON.stringify(
-    MariadbStopPlatform$outboundSchema.parse(mariadbStopPlatform),
-  );
-}
-
-export function mariadbStopPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MariadbStopPlacementSwarm$inboundSchema: z.ZodType<
   MariadbStopPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MariadbStopPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MariadbStopPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MariadbStopPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MariadbStopPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MariadbStopPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MariadbStopPlatform$Outbound> | undefined;
+  Preferences?: Array<MariadbStopPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -858,17 +1935,17 @@ export const MariadbStopPlacementSwarm$outboundSchema: z.ZodType<
   MariadbStopPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MariadbStopPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MariadbStopPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MariadbStopPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -904,58 +1981,48 @@ export function mariadbStopPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MariadbStopUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MariadbStopUpdateConfigSwarm,
+export const MariadbStopRestartPolicySwarm$inboundSchema: z.ZodType<
+  MariadbStopRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MariadbStopUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MariadbStopRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MariadbStopUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MariadbStopUpdateConfigSwarm$Outbound,
+export const MariadbStopRestartPolicySwarm$outboundSchema: z.ZodType<
+  MariadbStopRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MariadbStopUpdateConfigSwarm
+  MariadbStopRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -963,32 +2030,32 @@ export const MariadbStopUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStopUpdateConfigSwarm$ {
-  /** @deprecated use `MariadbStopUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MariadbStopUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MariadbStopUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MariadbStopUpdateConfigSwarm$Outbound;
+export namespace MariadbStopRestartPolicySwarm$ {
+  /** @deprecated use `MariadbStopRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MariadbStopRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MariadbStopRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MariadbStopRestartPolicySwarm$Outbound;
 }
 
-export function mariadbStopUpdateConfigSwarmToJSON(
-  mariadbStopUpdateConfigSwarm: MariadbStopUpdateConfigSwarm,
+export function mariadbStopRestartPolicySwarmToJSON(
+  mariadbStopRestartPolicySwarm: MariadbStopRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MariadbStopUpdateConfigSwarm$outboundSchema.parse(
-      mariadbStopUpdateConfigSwarm,
+    MariadbStopRestartPolicySwarm$outboundSchema.parse(
+      mariadbStopRestartPolicySwarm,
     ),
   );
 }
 
-export function mariadbStopUpdateConfigSwarmFromJSON(
+export function mariadbStopRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStopUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MariadbStopRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopUpdateConfigSwarm' from JSON`,
+    (x) => MariadbStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -998,31 +2065,31 @@ export const MariadbStopRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MariadbStopRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1031,20 +2098,20 @@ export const MariadbStopRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStopRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1079,730 +2146,6 @@ export function mariadbStopRollbackConfigSwarmFromJSON(
     (x) => MariadbStopRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MariadbStopRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MariadbStopReplicated$inboundSchema: z.ZodType<
-  MariadbStopReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MariadbStopReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MariadbStopReplicated$outboundSchema: z.ZodType<
-  MariadbStopReplicated$Outbound,
-  z.ZodTypeDef,
-  MariadbStopReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopReplicated$ {
-  /** @deprecated use `MariadbStopReplicated$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopReplicated$inboundSchema;
-  /** @deprecated use `MariadbStopReplicated$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopReplicated$outboundSchema;
-  /** @deprecated use `MariadbStopReplicated$Outbound` instead. */
-  export type Outbound = MariadbStopReplicated$Outbound;
-}
-
-export function mariadbStopReplicatedToJSON(
-  mariadbStopReplicated: MariadbStopReplicated,
-): string {
-  return JSON.stringify(
-    MariadbStopReplicated$outboundSchema.parse(mariadbStopReplicated),
-  );
-}
-
-export function mariadbStopReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopGlobal$inboundSchema: z.ZodType<
-  MariadbStopGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStopGlobal$Outbound = {};
-
-/** @internal */
-export const MariadbStopGlobal$outboundSchema: z.ZodType<
-  MariadbStopGlobal$Outbound,
-  z.ZodTypeDef,
-  MariadbStopGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopGlobal$ {
-  /** @deprecated use `MariadbStopGlobal$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopGlobal$inboundSchema;
-  /** @deprecated use `MariadbStopGlobal$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopGlobal$outboundSchema;
-  /** @deprecated use `MariadbStopGlobal$Outbound` instead. */
-  export type Outbound = MariadbStopGlobal$Outbound;
-}
-
-export function mariadbStopGlobalToJSON(
-  mariadbStopGlobal: MariadbStopGlobal,
-): string {
-  return JSON.stringify(
-    MariadbStopGlobal$outboundSchema.parse(mariadbStopGlobal),
-  );
-}
-
-export function mariadbStopGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopReplicatedJob$inboundSchema: z.ZodType<
-  MariadbStopReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MariadbStopReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MariadbStopReplicatedJob$outboundSchema: z.ZodType<
-  MariadbStopReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MariadbStopReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopReplicatedJob$ {
-  /** @deprecated use `MariadbStopReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopReplicatedJob$inboundSchema;
-  /** @deprecated use `MariadbStopReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopReplicatedJob$outboundSchema;
-  /** @deprecated use `MariadbStopReplicatedJob$Outbound` instead. */
-  export type Outbound = MariadbStopReplicatedJob$Outbound;
-}
-
-export function mariadbStopReplicatedJobToJSON(
-  mariadbStopReplicatedJob: MariadbStopReplicatedJob,
-): string {
-  return JSON.stringify(
-    MariadbStopReplicatedJob$outboundSchema.parse(mariadbStopReplicatedJob),
-  );
-}
-
-export function mariadbStopReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopGlobalJob$inboundSchema: z.ZodType<
-  MariadbStopGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStopGlobalJob$Outbound = {};
-
-/** @internal */
-export const MariadbStopGlobalJob$outboundSchema: z.ZodType<
-  MariadbStopGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MariadbStopGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopGlobalJob$ {
-  /** @deprecated use `MariadbStopGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopGlobalJob$inboundSchema;
-  /** @deprecated use `MariadbStopGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopGlobalJob$outboundSchema;
-  /** @deprecated use `MariadbStopGlobalJob$Outbound` instead. */
-  export type Outbound = MariadbStopGlobalJob$Outbound;
-}
-
-export function mariadbStopGlobalJobToJSON(
-  mariadbStopGlobalJob: MariadbStopGlobalJob,
-): string {
-  return JSON.stringify(
-    MariadbStopGlobalJob$outboundSchema.parse(mariadbStopGlobalJob),
-  );
-}
-
-export function mariadbStopGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopModeSwarm$inboundSchema: z.ZodType<
-  MariadbStopModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MariadbStopReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => MariadbStopGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MariadbStopReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MariadbStopGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MariadbStopModeSwarm$Outbound = {
-  Replicated?: MariadbStopReplicated$Outbound | undefined;
-  Global?: MariadbStopGlobal$Outbound | undefined;
-  ReplicatedJob?: MariadbStopReplicatedJob$Outbound | undefined;
-  GlobalJob?: MariadbStopGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStopModeSwarm$outboundSchema: z.ZodType<
-  MariadbStopModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbStopModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MariadbStopReplicated$outboundSchema).optional(),
-  global: z.lazy(() => MariadbStopGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MariadbStopReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MariadbStopGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopModeSwarm$ {
-  /** @deprecated use `MariadbStopModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopModeSwarm$inboundSchema;
-  /** @deprecated use `MariadbStopModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopModeSwarm$outboundSchema;
-  /** @deprecated use `MariadbStopModeSwarm$Outbound` instead. */
-  export type Outbound = MariadbStopModeSwarm$Outbound;
-}
-
-export function mariadbStopModeSwarmToJSON(
-  mariadbStopModeSwarm: MariadbStopModeSwarm,
-): string {
-  return JSON.stringify(
-    MariadbStopModeSwarm$outboundSchema.parse(mariadbStopModeSwarm),
-  );
-}
-
-export function mariadbStopModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopDriverOpts$inboundSchema: z.ZodType<
-  MariadbStopDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MariadbStopDriverOpts$Outbound = {};
-
-/** @internal */
-export const MariadbStopDriverOpts$outboundSchema: z.ZodType<
-  MariadbStopDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MariadbStopDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopDriverOpts$ {
-  /** @deprecated use `MariadbStopDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopDriverOpts$inboundSchema;
-  /** @deprecated use `MariadbStopDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopDriverOpts$outboundSchema;
-  /** @deprecated use `MariadbStopDriverOpts$Outbound` instead. */
-  export type Outbound = MariadbStopDriverOpts$Outbound;
-}
-
-export function mariadbStopDriverOptsToJSON(
-  mariadbStopDriverOpts: MariadbStopDriverOpts,
-): string {
-  return JSON.stringify(
-    MariadbStopDriverOpts$outboundSchema.parse(mariadbStopDriverOpts),
-  );
-}
-
-export function mariadbStopDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopNetworkSwarm$inboundSchema: z.ZodType<
-  MariadbStopNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MariadbStopDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MariadbStopNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MariadbStopDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStopNetworkSwarm$outboundSchema: z.ZodType<
-  MariadbStopNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MariadbStopNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MariadbStopDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopNetworkSwarm$ {
-  /** @deprecated use `MariadbStopNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopNetworkSwarm$inboundSchema;
-  /** @deprecated use `MariadbStopNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopNetworkSwarm$outboundSchema;
-  /** @deprecated use `MariadbStopNetworkSwarm$Outbound` instead. */
-  export type Outbound = MariadbStopNetworkSwarm$Outbound;
-}
-
-export function mariadbStopNetworkSwarmToJSON(
-  mariadbStopNetworkSwarm: MariadbStopNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MariadbStopNetworkSwarm$outboundSchema.parse(mariadbStopNetworkSwarm),
-  );
-}
-
-export function mariadbStopNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopProject$inboundSchema: z.ZodType<
-  MariadbStopProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MariadbStopProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MariadbStopProject$outboundSchema: z.ZodType<
-  MariadbStopProject$Outbound,
-  z.ZodTypeDef,
-  MariadbStopProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopProject$ {
-  /** @deprecated use `MariadbStopProject$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopProject$inboundSchema;
-  /** @deprecated use `MariadbStopProject$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopProject$outboundSchema;
-  /** @deprecated use `MariadbStopProject$Outbound` instead. */
-  export type Outbound = MariadbStopProject$Outbound;
-}
-
-export function mariadbStopProjectToJSON(
-  mariadbStopProject: MariadbStopProject,
-): string {
-  return JSON.stringify(
-    MariadbStopProject$outboundSchema.parse(mariadbStopProject),
-  );
-}
-
-export function mariadbStopProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopEnvironment$inboundSchema: z.ZodType<
-  MariadbStopEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbStopProject$inboundSchema),
-});
-
-/** @internal */
-export type MariadbStopEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MariadbStopProject$Outbound;
-};
-
-/** @internal */
-export const MariadbStopEnvironment$outboundSchema: z.ZodType<
-  MariadbStopEnvironment$Outbound,
-  z.ZodTypeDef,
-  MariadbStopEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MariadbStopProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopEnvironment$ {
-  /** @deprecated use `MariadbStopEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopEnvironment$inboundSchema;
-  /** @deprecated use `MariadbStopEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopEnvironment$outboundSchema;
-  /** @deprecated use `MariadbStopEnvironment$Outbound` instead. */
-  export type Outbound = MariadbStopEnvironment$Outbound;
-}
-
-export function mariadbStopEnvironmentToJSON(
-  mariadbStopEnvironment: MariadbStopEnvironment,
-): string {
-  return JSON.stringify(
-    MariadbStopEnvironment$outboundSchema.parse(mariadbStopEnvironment),
-  );
-}
-
-export function mariadbStopEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopType
-> = z.nativeEnum(MariadbStopType);
-
-/** @internal */
-export const MariadbStopType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopType
-> = MariadbStopType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopType$ {
-  /** @deprecated use `MariadbStopType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopType$inboundSchema;
-  /** @deprecated use `MariadbStopType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStopServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopServiceType
-> = z.nativeEnum(MariadbStopServiceType);
-
-/** @internal */
-export const MariadbStopServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopServiceType
-> = MariadbStopServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopServiceType$ {
-  /** @deprecated use `MariadbStopServiceType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopServiceType$inboundSchema;
-  /** @deprecated use `MariadbStopServiceType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStopMount$inboundSchema: z.ZodType<
-  MariadbStopMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MariadbStopType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbStopServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MariadbStopMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MariadbStopMount$outboundSchema: z.ZodType<
-  MariadbStopMount$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMount
-> = z.object({
-  mountId: z.string(),
-  type: MariadbStopType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MariadbStopServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMount$ {
-  /** @deprecated use `MariadbStopMount$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMount$inboundSchema;
-  /** @deprecated use `MariadbStopMount$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMount$outboundSchema;
-  /** @deprecated use `MariadbStopMount$Outbound` instead. */
-  export type Outbound = MariadbStopMount$Outbound;
-}
-
-export function mariadbStopMountToJSON(
-  mariadbStopMount: MariadbStopMount,
-): string {
-  return JSON.stringify(
-    MariadbStopMount$outboundSchema.parse(mariadbStopMount),
-  );
-}
-
-export function mariadbStopMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopServerStatus
-> = z.nativeEnum(MariadbStopServerStatus);
-
-/** @internal */
-export const MariadbStopServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopServerStatus
-> = MariadbStopServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopServerStatus$ {
-  /** @deprecated use `MariadbStopServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopServerStatus$inboundSchema;
-  /** @deprecated use `MariadbStopServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1965,24 +2308,38 @@ export function mariadbStopMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MariadbStopServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopServerStatus
+> = z.nativeEnum(MariadbStopServerStatus);
+
+/** @internal */
+export const MariadbStopServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MariadbStopServerStatus
+> = MariadbStopServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MariadbStopServerStatus$ {
+  /** @deprecated use `MariadbStopServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopServerStatus$inboundSchema;
+  /** @deprecated use `MariadbStopServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MariadbStopServer$inboundSchema: z.ZodType<
   MariadbStopServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbStopServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1993,26 +2350,33 @@ export const MariadbStopServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbStopServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MariadbStopServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2021,19 +2385,12 @@ export const MariadbStopServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStopServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MariadbStopServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2044,6 +2401,13 @@ export const MariadbStopServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MariadbStopServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2078,521 +2442,91 @@ export function mariadbStopServerFromJSON(
 }
 
 /** @internal */
-export const MariadbStopBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopBackupType
-> = z.nativeEnum(MariadbStopBackupType);
-
-/** @internal */
-export const MariadbStopBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopBackupType
-> = MariadbStopBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopBackupType$ {
-  /** @deprecated use `MariadbStopBackupType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopBackupType$inboundSchema;
-  /** @deprecated use `MariadbStopBackupType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStopDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopDatabaseType
-> = z.nativeEnum(MariadbStopDatabaseType);
-
-/** @internal */
-export const MariadbStopDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopDatabaseType
-> = MariadbStopDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopDatabaseType$ {
-  /** @deprecated use `MariadbStopDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopDatabaseType$inboundSchema;
-  /** @deprecated use `MariadbStopDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopMetadataEnum
-> = z.nativeEnum(MariadbStopMetadataEnum);
-
-/** @internal */
-export const MariadbStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MariadbStopMetadataEnum
-> = MariadbStopMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMetadataEnum$ {
-  /** @deprecated use `MariadbStopMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMetadataEnum$inboundSchema;
-  /** @deprecated use `MariadbStopMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MariadbStopPostgres$inboundSchema: z.ZodType<
-  MariadbStopPostgres,
+export const MariadbStopUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MariadbStopUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MariadbStopPostgres$Outbound = {
-  databaseUser: string;
+export type MariadbStopUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MariadbStopPostgres$outboundSchema: z.ZodType<
-  MariadbStopPostgres$Outbound,
+export const MariadbStopUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MariadbStopUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MariadbStopPostgres
+  MariadbStopUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MariadbStopPostgres$ {
-  /** @deprecated use `MariadbStopPostgres$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopPostgres$inboundSchema;
-  /** @deprecated use `MariadbStopPostgres$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopPostgres$outboundSchema;
-  /** @deprecated use `MariadbStopPostgres$Outbound` instead. */
-  export type Outbound = MariadbStopPostgres$Outbound;
+export namespace MariadbStopUpdateConfigSwarm$ {
+  /** @deprecated use `MariadbStopUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MariadbStopUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MariadbStopUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = MariadbStopUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MariadbStopUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MariadbStopUpdateConfigSwarm$Outbound;
 }
 
-export function mariadbStopPostgresToJSON(
-  mariadbStopPostgres: MariadbStopPostgres,
+export function mariadbStopUpdateConfigSwarmToJSON(
+  mariadbStopUpdateConfigSwarm: MariadbStopUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MariadbStopPostgres$outboundSchema.parse(mariadbStopPostgres),
+    MariadbStopUpdateConfigSwarm$outboundSchema.parse(
+      mariadbStopUpdateConfigSwarm,
+    ),
   );
 }
 
-export function mariadbStopPostgresFromJSON(
+export function mariadbStopUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MariadbStopPostgres, SDKValidationError> {
+): SafeParseResult<MariadbStopUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MariadbStopPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopMariadb$inboundSchema: z.ZodType<
-  MariadbStopMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStopMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbStopMariadb$outboundSchema: z.ZodType<
-  MariadbStopMariadb$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMariadb$ {
-  /** @deprecated use `MariadbStopMariadb$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMariadb$inboundSchema;
-  /** @deprecated use `MariadbStopMariadb$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMariadb$outboundSchema;
-  /** @deprecated use `MariadbStopMariadb$Outbound` instead. */
-  export type Outbound = MariadbStopMariadb$Outbound;
-}
-
-export function mariadbStopMariadbToJSON(
-  mariadbStopMariadb: MariadbStopMariadb,
-): string {
-  return JSON.stringify(
-    MariadbStopMariadb$outboundSchema.parse(mariadbStopMariadb),
-  );
-}
-
-export function mariadbStopMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopMongo$inboundSchema: z.ZodType<
-  MariadbStopMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStopMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MariadbStopMongo$outboundSchema: z.ZodType<
-  MariadbStopMongo$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMongo$ {
-  /** @deprecated use `MariadbStopMongo$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMongo$inboundSchema;
-  /** @deprecated use `MariadbStopMongo$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMongo$outboundSchema;
-  /** @deprecated use `MariadbStopMongo$Outbound` instead. */
-  export type Outbound = MariadbStopMongo$Outbound;
-}
-
-export function mariadbStopMongoToJSON(
-  mariadbStopMongo: MariadbStopMongo,
-): string {
-  return JSON.stringify(
-    MariadbStopMongo$outboundSchema.parse(mariadbStopMongo),
-  );
-}
-
-export function mariadbStopMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopMysql$inboundSchema: z.ZodType<
-  MariadbStopMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MariadbStopMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MariadbStopMysql$outboundSchema: z.ZodType<
-  MariadbStopMysql$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMysql$ {
-  /** @deprecated use `MariadbStopMysql$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMysql$inboundSchema;
-  /** @deprecated use `MariadbStopMysql$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMysql$outboundSchema;
-  /** @deprecated use `MariadbStopMysql$Outbound` instead. */
-  export type Outbound = MariadbStopMysql$Outbound;
-}
-
-export function mariadbStopMysqlToJSON(
-  mariadbStopMysql: MariadbStopMysql,
-): string {
-  return JSON.stringify(
-    MariadbStopMysql$outboundSchema.parse(mariadbStopMysql),
-  );
-}
-
-export function mariadbStopMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopMetadata$inboundSchema: z.ZodType<
-  MariadbStopMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MariadbStopPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbStopMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MariadbStopMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MariadbStopMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MariadbStopMetadata$Outbound = {
-  postgres?: MariadbStopPostgres$Outbound | undefined;
-  mariadb?: MariadbStopMariadb$Outbound | undefined;
-  mongo?: MariadbStopMongo$Outbound | undefined;
-  mysql?: MariadbStopMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MariadbStopMetadata$outboundSchema: z.ZodType<
-  MariadbStopMetadata$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMetadata
-> = z.object({
-  postgres: z.lazy(() => MariadbStopPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MariadbStopMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MariadbStopMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MariadbStopMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMetadata$ {
-  /** @deprecated use `MariadbStopMetadata$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMetadata$inboundSchema;
-  /** @deprecated use `MariadbStopMetadata$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMetadata$outboundSchema;
-  /** @deprecated use `MariadbStopMetadata$Outbound` instead. */
-  export type Outbound = MariadbStopMetadata$Outbound;
-}
-
-export function mariadbStopMetadataToJSON(
-  mariadbStopMetadata: MariadbStopMetadata,
-): string {
-  return JSON.stringify(
-    MariadbStopMetadata$outboundSchema.parse(mariadbStopMetadata),
-  );
-}
-
-export function mariadbStopMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopMetadataUnion$inboundSchema: z.ZodType<
-  MariadbStopMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MariadbStopMetadata$inboundSchema),
-  MariadbStopMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MariadbStopMetadataUnion$Outbound =
-  | MariadbStopMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MariadbStopMetadataUnion$outboundSchema: z.ZodType<
-  MariadbStopMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MariadbStopMetadataUnion
-> = z.union([
-  z.lazy(() => MariadbStopMetadata$outboundSchema),
-  MariadbStopMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopMetadataUnion$ {
-  /** @deprecated use `MariadbStopMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopMetadataUnion$inboundSchema;
-  /** @deprecated use `MariadbStopMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopMetadataUnion$outboundSchema;
-  /** @deprecated use `MariadbStopMetadataUnion$Outbound` instead. */
-  export type Outbound = MariadbStopMetadataUnion$Outbound;
-}
-
-export function mariadbStopMetadataUnionToJSON(
-  mariadbStopMetadataUnion: MariadbStopMetadataUnion,
-): string {
-  return JSON.stringify(
-    MariadbStopMetadataUnion$outboundSchema.parse(mariadbStopMetadataUnion),
-  );
-}
-
-export function mariadbStopMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MariadbStopBackup$inboundSchema: z.ZodType<
-  MariadbStopBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbStopBackupType$inboundSchema,
-  databaseType: MariadbStopDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbStopMetadata$inboundSchema),
-      MariadbStopMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MariadbStopBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MariadbStopMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MariadbStopBackup$outboundSchema: z.ZodType<
-  MariadbStopBackup$Outbound,
-  z.ZodTypeDef,
-  MariadbStopBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MariadbStopBackupType$outboundSchema,
-  databaseType: MariadbStopDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MariadbStopMetadata$outboundSchema),
-      MariadbStopMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbStopBackup$ {
-  /** @deprecated use `MariadbStopBackup$inboundSchema` instead. */
-  export const inboundSchema = MariadbStopBackup$inboundSchema;
-  /** @deprecated use `MariadbStopBackup$outboundSchema` instead. */
-  export const outboundSchema = MariadbStopBackup$outboundSchema;
-  /** @deprecated use `MariadbStopBackup$Outbound` instead. */
-  export type Outbound = MariadbStopBackup$Outbound;
-}
-
-export function mariadbStopBackupToJSON(
-  mariadbStopBackup: MariadbStopBackup,
-): string {
-  return JSON.stringify(
-    MariadbStopBackup$outboundSchema.parse(mariadbStopBackup),
-  );
-}
-
-export function mariadbStopBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbStopBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbStopBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbStopBackup' from JSON`,
+    (x) => MariadbStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MariadbStopUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2602,88 +2536,88 @@ export const MariadbStopResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbStopApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MariadbStopBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbStopEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbStopApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbStopHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbStopRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbStopModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbStopMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbStopNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbStopPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbStopUpdateConfigSwarm$inboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbStopRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbStopRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbStopModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbStopNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbStopEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MariadbStopMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MariadbStopServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MariadbStopBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbStopUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MariadbStopResponseBody$Outbound = {
-  mariadbId: string;
-  name: string;
   appName: string;
-  description: string | null;
+  applicationStatus: string;
+  backups: Array<MariadbStopBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
   databaseRootPassword: string;
+  databaseUser: string;
+  description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
-  applicationStatus: string;
-  healthCheckSwarm: MariadbStopHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MariadbStopRestartPolicySwarm$Outbound | null;
-  placementSwarm: MariadbStopPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MariadbStopUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MariadbStopRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MariadbStopModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MariadbStopNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: MariadbStopEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MariadbStopHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  mariadbId: string;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MariadbStopModeSwarm$Outbound | null;
   mounts: Array<MariadbStopMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MariadbStopNetworkSwarm$Outbound> | null;
+  placementSwarm: MariadbStopPlacementSwarm$Outbound | null;
+  replicas: number;
+  restartPolicySwarm: MariadbStopRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MariadbStopRollbackConfigSwarm$Outbound | null;
   server: MariadbStopServer$Outbound | null;
-  backups: Array<MariadbStopBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: MariadbStopUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2692,51 +2626,51 @@ export const MariadbStopResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbStopResponseBody
 > = z.object({
-  mariadbId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
+  applicationStatus: MariadbStopApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MariadbStopBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
   databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
+  environment: z.lazy(() => MariadbStopEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  applicationStatus: MariadbStopApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => MariadbStopHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MariadbStopRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  mariadbId: z.string(),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MariadbStopModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => MariadbStopMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MariadbStopNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MariadbStopPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MariadbStopUpdateConfigSwarm$outboundSchema),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MariadbStopRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MariadbStopRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MariadbStopModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MariadbStopNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => MariadbStopEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MariadbStopMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MariadbStopServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MariadbStopBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MariadbStopUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

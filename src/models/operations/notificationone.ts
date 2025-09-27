@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationOneSecurity = {
-  authorization: string;
-};
-
 export type NotificationOneRequest = {
   notificationId: string;
 };
-
-/** @internal */
-export const NotificationOneSecurity$inboundSchema: z.ZodType<
-  NotificationOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationOneSecurity$outboundSchema: z.ZodType<
-  NotificationOneSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationOneSecurity$ {
-  /** @deprecated use `NotificationOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = NotificationOneSecurity$inboundSchema;
-  /** @deprecated use `NotificationOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = NotificationOneSecurity$outboundSchema;
-  /** @deprecated use `NotificationOneSecurity$Outbound` instead. */
-  export type Outbound = NotificationOneSecurity$Outbound;
-}
-
-export function notificationOneSecurityToJSON(
-  notificationOneSecurity: NotificationOneSecurity,
-): string {
-  return JSON.stringify(
-    NotificationOneSecurity$outboundSchema.parse(notificationOneSecurity),
-  );
-}
-
-export function notificationOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotificationOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationOneRequest$inboundSchema: z.ZodType<

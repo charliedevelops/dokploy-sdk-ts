@@ -3,89 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationTestNtfyConnectionSecurity = {
-  authorization: string;
-};
-
 export type NotificationTestNtfyConnectionRequest = {
-  serverUrl: string;
-  topic: string;
   accessToken: string;
   priority: number;
+  serverUrl: string;
+  topic: string;
 };
-
-/** @internal */
-export const NotificationTestNtfyConnectionSecurity$inboundSchema: z.ZodType<
-  NotificationTestNtfyConnectionSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationTestNtfyConnectionSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationTestNtfyConnectionSecurity$outboundSchema: z.ZodType<
-  NotificationTestNtfyConnectionSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationTestNtfyConnectionSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationTestNtfyConnectionSecurity$ {
-  /** @deprecated use `NotificationTestNtfyConnectionSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    NotificationTestNtfyConnectionSecurity$inboundSchema;
-  /** @deprecated use `NotificationTestNtfyConnectionSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationTestNtfyConnectionSecurity$outboundSchema;
-  /** @deprecated use `NotificationTestNtfyConnectionSecurity$Outbound` instead. */
-  export type Outbound = NotificationTestNtfyConnectionSecurity$Outbound;
-}
-
-export function notificationTestNtfyConnectionSecurityToJSON(
-  notificationTestNtfyConnectionSecurity:
-    NotificationTestNtfyConnectionSecurity,
-): string {
-  return JSON.stringify(
-    NotificationTestNtfyConnectionSecurity$outboundSchema.parse(
-      notificationTestNtfyConnectionSecurity,
-    ),
-  );
-}
-
-export function notificationTestNtfyConnectionSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<NotificationTestNtfyConnectionSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      NotificationTestNtfyConnectionSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotificationTestNtfyConnectionSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const NotificationTestNtfyConnectionRequest$inboundSchema: z.ZodType<
@@ -93,18 +20,18 @@ export const NotificationTestNtfyConnectionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverUrl: z.string(),
-  topic: z.string(),
   accessToken: z.string(),
   priority: z.number(),
+  serverUrl: z.string(),
+  topic: z.string(),
 });
 
 /** @internal */
 export type NotificationTestNtfyConnectionRequest$Outbound = {
-  serverUrl: string;
-  topic: string;
   accessToken: string;
   priority: number;
+  serverUrl: string;
+  topic: string;
 };
 
 /** @internal */
@@ -113,10 +40,10 @@ export const NotificationTestNtfyConnectionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationTestNtfyConnectionRequest
 > = z.object({
-  serverUrl: z.string(),
-  topic: z.string(),
   accessToken: z.string(),
   priority: z.number(),
+  serverUrl: z.string(),
+  topic: z.string(),
 });
 
 /**

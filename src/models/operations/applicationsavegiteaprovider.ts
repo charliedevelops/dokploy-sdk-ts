@@ -3,95 +3,23 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveGiteaProviderSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveGiteaProviderRequest = {
   applicationId: string;
+  enableSubmodules: boolean;
   giteaBranch: string | null;
   giteaBuildPath: string | null;
+  giteaId: string | null;
   giteaOwner: string | null;
   giteaRepository: string | null;
-  giteaId: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 export type ApplicationSaveGiteaProviderResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveGiteaProviderSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveGiteaProviderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveGiteaProviderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveGiteaProviderSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveGiteaProviderSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveGiteaProviderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveGiteaProviderSecurity$ {
-  /** @deprecated use `ApplicationSaveGiteaProviderSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationSaveGiteaProviderSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveGiteaProviderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveGiteaProviderSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveGiteaProviderSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveGiteaProviderSecurity$Outbound;
-}
-
-export function applicationSaveGiteaProviderSecurityToJSON(
-  applicationSaveGiteaProviderSecurity: ApplicationSaveGiteaProviderSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveGiteaProviderSecurity$outboundSchema.parse(
-      applicationSaveGiteaProviderSecurity,
-    ),
-  );
-}
-
-export function applicationSaveGiteaProviderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationSaveGiteaProviderSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveGiteaProviderSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationSaveGiteaProviderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveGiteaProviderRequest$inboundSchema: z.ZodType<
@@ -100,25 +28,25 @@ export const ApplicationSaveGiteaProviderRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   giteaBranch: z.nullable(z.string()),
   giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
   giteaOwner: z.nullable(z.string()),
   giteaRepository: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /** @internal */
 export type ApplicationSaveGiteaProviderRequest$Outbound = {
   applicationId: string;
+  enableSubmodules: boolean;
   giteaBranch: string | null;
   giteaBuildPath: string | null;
+  giteaId: string | null;
   giteaOwner: string | null;
   giteaRepository: string | null;
-  giteaId: string | null;
   watchPaths?: Array<string> | null | undefined;
-  enableSubmodules: boolean;
 };
 
 /** @internal */
@@ -128,13 +56,13 @@ export const ApplicationSaveGiteaProviderRequest$outboundSchema: z.ZodType<
   ApplicationSaveGiteaProviderRequest
 > = z.object({
   applicationId: z.string(),
+  enableSubmodules: z.boolean(),
   giteaBranch: z.nullable(z.string()),
   giteaBuildPath: z.nullable(z.string()),
+  giteaId: z.nullable(z.string()),
   giteaOwner: z.nullable(z.string()),
   giteaRepository: z.nullable(z.string()),
-  giteaId: z.nullable(z.string()),
   watchPaths: z.nullable(z.array(z.string())).optional(),
-  enableSubmodules: z.boolean(),
 });
 
 /**

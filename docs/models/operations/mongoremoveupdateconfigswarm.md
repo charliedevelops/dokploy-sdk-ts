@@ -6,8 +6,8 @@
 import { MongoRemoveUpdateConfigSwarm } from "dokploy-sdk/models/operations";
 
 let value: MongoRemoveUpdateConfigSwarm = {
-  parallelism: 2464.77,
   order: "<value>",
+  parallelism: 2464.77,
 };
 ```
 
@@ -15,9 +15,9 @@ let value: MongoRemoveUpdateConfigSwarm = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |
 | `delay`            | *number*           | :heavy_minus_sign: | N/A                |
 | `failureAction`    | *string*           | :heavy_minus_sign: | N/A                |
-| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `maxFailureRatio`  | *number*           | :heavy_minus_sign: | N/A                |
+| `monitor`          | *number*           | :heavy_minus_sign: | N/A                |
 | `order`            | *string*           | :heavy_check_mark: | N/A                |
+| `parallelism`      | *number*           | :heavy_check_mark: | N/A                |

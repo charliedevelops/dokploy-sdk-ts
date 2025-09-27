@@ -9,10 +9,6 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type NotificationReceiveNotificationSecurity = {
-  authorization: string;
-};
-
 export const ServerType = {
   Dokploy: "Dokploy",
   Remote: "Remote",
@@ -28,87 +24,14 @@ export type NotificationReceiveNotificationType = ClosedEnum<
 >;
 
 export type NotificationReceiveNotificationRequest = {
-  serverType?: ServerType | undefined;
-  type: NotificationReceiveNotificationType;
-  value: number;
-  threshold: number;
   message: string;
+  serverType?: ServerType | undefined;
+  threshold: number;
   timestamp: string;
   token: string;
+  type: NotificationReceiveNotificationType;
+  value: number;
 };
-
-/** @internal */
-export const NotificationReceiveNotificationSecurity$inboundSchema: z.ZodType<
-  NotificationReceiveNotificationSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type NotificationReceiveNotificationSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const NotificationReceiveNotificationSecurity$outboundSchema: z.ZodType<
-  NotificationReceiveNotificationSecurity$Outbound,
-  z.ZodTypeDef,
-  NotificationReceiveNotificationSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NotificationReceiveNotificationSecurity$ {
-  /** @deprecated use `NotificationReceiveNotificationSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    NotificationReceiveNotificationSecurity$inboundSchema;
-  /** @deprecated use `NotificationReceiveNotificationSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    NotificationReceiveNotificationSecurity$outboundSchema;
-  /** @deprecated use `NotificationReceiveNotificationSecurity$Outbound` instead. */
-  export type Outbound = NotificationReceiveNotificationSecurity$Outbound;
-}
-
-export function notificationReceiveNotificationSecurityToJSON(
-  notificationReceiveNotificationSecurity:
-    NotificationReceiveNotificationSecurity,
-): string {
-  return JSON.stringify(
-    NotificationReceiveNotificationSecurity$outboundSchema.parse(
-      notificationReceiveNotificationSecurity,
-    ),
-  );
-}
-
-export function notificationReceiveNotificationSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  NotificationReceiveNotificationSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      NotificationReceiveNotificationSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'NotificationReceiveNotificationSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ServerType$inboundSchema: z.ZodNativeEnum<typeof ServerType> = z
@@ -158,34 +81,34 @@ export const NotificationReceiveNotificationRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  ServerType: ServerType$inboundSchema.default("Dokploy"),
-  Type: NotificationReceiveNotificationType$inboundSchema,
-  Value: z.number(),
-  Threshold: z.number(),
   Message: z.string(),
+  ServerType: ServerType$inboundSchema.default("Dokploy"),
+  Threshold: z.number(),
   Timestamp: z.string(),
   Token: z.string(),
+  Type: NotificationReceiveNotificationType$inboundSchema,
+  Value: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "ServerType": "serverType",
-    "Type": "type",
-    "Value": "value",
-    "Threshold": "threshold",
     "Message": "message",
+    "ServerType": "serverType",
+    "Threshold": "threshold",
     "Timestamp": "timestamp",
     "Token": "token",
+    "Type": "type",
+    "Value": "value",
   });
 });
 
 /** @internal */
 export type NotificationReceiveNotificationRequest$Outbound = {
-  ServerType: string;
-  Type: string;
-  Value: number;
-  Threshold: number;
   Message: string;
+  ServerType: string;
+  Threshold: number;
   Timestamp: string;
   Token: string;
+  Type: string;
+  Value: number;
 };
 
 /** @internal */
@@ -194,22 +117,22 @@ export const NotificationReceiveNotificationRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotificationReceiveNotificationRequest
 > = z.object({
-  serverType: ServerType$outboundSchema.default("Dokploy"),
-  type: NotificationReceiveNotificationType$outboundSchema,
-  value: z.number(),
-  threshold: z.number(),
   message: z.string(),
+  serverType: ServerType$outboundSchema.default("Dokploy"),
+  threshold: z.number(),
   timestamp: z.string(),
   token: z.string(),
+  type: NotificationReceiveNotificationType$outboundSchema,
+  value: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    serverType: "ServerType",
-    type: "Type",
-    value: "Value",
-    threshold: "Threshold",
     message: "Message",
+    serverType: "ServerType",
+    threshold: "Threshold",
     timestamp: "Timestamp",
     token: "Token",
+    type: "Type",
+    value: "Value",
   });
 });
 

@@ -3,96 +3,29 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type SecurityUpdateSecurity = {
-  authorization: string;
-};
-
 export type SecurityUpdateRequest = {
+  password: string;
   securityId: string;
   username: string;
-  password: string;
 };
 
 /**
  * Successful response
  */
 export type SecurityUpdateResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityUpdateResponse = SecurityUpdateResponseBody | models.ErrorT;
-
-/** @internal */
-export const SecurityUpdateSecurity$inboundSchema: z.ZodType<
-  SecurityUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SecurityUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SecurityUpdateSecurity$outboundSchema: z.ZodType<
-  SecurityUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  SecurityUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SecurityUpdateSecurity$ {
-  /** @deprecated use `SecurityUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = SecurityUpdateSecurity$inboundSchema;
-  /** @deprecated use `SecurityUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = SecurityUpdateSecurity$outboundSchema;
-  /** @deprecated use `SecurityUpdateSecurity$Outbound` instead. */
-  export type Outbound = SecurityUpdateSecurity$Outbound;
-}
-
-export function securityUpdateSecurityToJSON(
-  securityUpdateSecurity: SecurityUpdateSecurity,
-): string {
-  return JSON.stringify(
-    SecurityUpdateSecurity$outboundSchema.parse(securityUpdateSecurity),
-  );
-}
-
-export function securityUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SecurityUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SecurityUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SecurityUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SecurityUpdateRequest$inboundSchema: z.ZodType<
@@ -100,16 +33,16 @@ export const SecurityUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
 });
 
 /** @internal */
 export type SecurityUpdateRequest$Outbound = {
+  password: string;
   securityId: string;
   username: string;
-  password: string;
 };
 
 /** @internal */
@@ -118,9 +51,9 @@ export const SecurityUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityUpdateRequest
 > = z.object({
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
 });
 
 /**
@@ -160,20 +93,20 @@ export const SecurityUpdateResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityUpdateResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -182,11 +115,11 @@ export const SecurityUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityUpdateResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

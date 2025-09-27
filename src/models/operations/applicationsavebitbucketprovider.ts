@@ -3,101 +3,23 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type ApplicationSaveBitbucketProviderSecurity = {
-  authorization: string;
-};
-
 export type ApplicationSaveBitbucketProviderRequest = {
+  applicationId: string;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
+  bitbucketId: string | null;
   bitbucketOwner: string | null;
   bitbucketRepository: string | null;
-  bitbucketId: string | null;
-  applicationId: string;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 export type ApplicationSaveBitbucketProviderResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationSaveBitbucketProviderSecurity$inboundSchema: z.ZodType<
-  ApplicationSaveBitbucketProviderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationSaveBitbucketProviderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationSaveBitbucketProviderSecurity$outboundSchema: z.ZodType<
-  ApplicationSaveBitbucketProviderSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationSaveBitbucketProviderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationSaveBitbucketProviderSecurity$ {
-  /** @deprecated use `ApplicationSaveBitbucketProviderSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationSaveBitbucketProviderSecurity$inboundSchema;
-  /** @deprecated use `ApplicationSaveBitbucketProviderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationSaveBitbucketProviderSecurity$outboundSchema;
-  /** @deprecated use `ApplicationSaveBitbucketProviderSecurity$Outbound` instead. */
-  export type Outbound = ApplicationSaveBitbucketProviderSecurity$Outbound;
-}
-
-export function applicationSaveBitbucketProviderSecurityToJSON(
-  applicationSaveBitbucketProviderSecurity:
-    ApplicationSaveBitbucketProviderSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationSaveBitbucketProviderSecurity$outboundSchema.parse(
-      applicationSaveBitbucketProviderSecurity,
-    ),
-  );
-}
-
-export function applicationSaveBitbucketProviderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ApplicationSaveBitbucketProviderSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationSaveBitbucketProviderSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ApplicationSaveBitbucketProviderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationSaveBitbucketProviderRequest$inboundSchema: z.ZodType<
@@ -105,26 +27,26 @@ export const ApplicationSaveBitbucketProviderRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
   bitbucketOwner: z.nullable(z.string()),
   bitbucketRepository: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  applicationId: z.string(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /** @internal */
 export type ApplicationSaveBitbucketProviderRequest$Outbound = {
+  applicationId: string;
   bitbucketBranch: string | null;
   bitbucketBuildPath: string | null;
+  bitbucketId: string | null;
   bitbucketOwner: string | null;
   bitbucketRepository: string | null;
-  bitbucketId: string | null;
-  applicationId: string;
-  watchPaths?: Array<string> | null | undefined;
   enableSubmodules: boolean;
+  watchPaths?: Array<string> | null | undefined;
 };
 
 /** @internal */
@@ -133,14 +55,14 @@ export const ApplicationSaveBitbucketProviderRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ApplicationSaveBitbucketProviderRequest
 > = z.object({
+  applicationId: z.string(),
   bitbucketBranch: z.nullable(z.string()),
   bitbucketBuildPath: z.nullable(z.string()),
+  bitbucketId: z.nullable(z.string()),
   bitbucketOwner: z.nullable(z.string()),
   bitbucketRepository: z.nullable(z.string()),
-  bitbucketId: z.nullable(z.string()),
-  applicationId: z.string(),
-  watchPaths: z.nullable(z.array(z.string())).optional(),
   enableSubmodules: z.boolean(),
+  watchPaths: z.nullable(z.array(z.string())).optional(),
 });
 
 /**

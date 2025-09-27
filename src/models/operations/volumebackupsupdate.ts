@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type VolumeBackupsUpdateSecurity = {
-  authorization: string;
-};
 
 export const VolumeBackupsUpdateServiceType = {
   Application: "application",
@@ -27,91 +22,27 @@ export type VolumeBackupsUpdateServiceType = ClosedEnum<
 >;
 
 export type VolumeBackupsUpdateRequest = {
-  name: string;
-  volumeName: string;
-  prefix: string;
-  serviceType?: VolumeBackupsUpdateServiceType | undefined;
   appName?: string | undefined;
-  serviceName?: string | null | undefined;
-  turnOff?: boolean | undefined;
-  cronExpression: string;
-  keepLatestCount?: number | null | undefined;
-  enabled?: boolean | null | undefined;
   applicationId?: string | null | undefined;
-  postgresId?: string | null | undefined;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
   mariadbId?: string | null | undefined;
   mongoId?: string | null | undefined;
   mysqlId?: string | null | undefined;
+  name: string;
+  postgresId?: string | null | undefined;
+  prefix: string;
   redisId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  createdAt?: string | undefined;
-  destinationId: string;
+  serviceName?: string | null | undefined;
+  serviceType?: VolumeBackupsUpdateServiceType | undefined;
+  turnOff?: boolean | undefined;
   volumeBackupId: string;
+  volumeName: string;
 };
-
-/** @internal */
-export const VolumeBackupsUpdateSecurity$inboundSchema: z.ZodType<
-  VolumeBackupsUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type VolumeBackupsUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const VolumeBackupsUpdateSecurity$outboundSchema: z.ZodType<
-  VolumeBackupsUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  VolumeBackupsUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VolumeBackupsUpdateSecurity$ {
-  /** @deprecated use `VolumeBackupsUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = VolumeBackupsUpdateSecurity$inboundSchema;
-  /** @deprecated use `VolumeBackupsUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = VolumeBackupsUpdateSecurity$outboundSchema;
-  /** @deprecated use `VolumeBackupsUpdateSecurity$Outbound` instead. */
-  export type Outbound = VolumeBackupsUpdateSecurity$Outbound;
-}
-
-export function volumeBackupsUpdateSecurityToJSON(
-  volumeBackupsUpdateSecurity: VolumeBackupsUpdateSecurity,
-): string {
-  return JSON.stringify(
-    VolumeBackupsUpdateSecurity$outboundSchema.parse(
-      volumeBackupsUpdateSecurity,
-    ),
-  );
-}
-
-export function volumeBackupsUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<VolumeBackupsUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VolumeBackupsUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VolumeBackupsUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const VolumeBackupsUpdateServiceType$inboundSchema: z.ZodNativeEnum<
@@ -140,50 +71,50 @@ export const VolumeBackupsUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  volumeName: z.string(),
-  prefix: z.string(),
-  serviceType: VolumeBackupsUpdateServiceType$inboundSchema.optional(),
   appName: z.string().optional(),
-  serviceName: z.nullable(z.string()).optional(),
-  turnOff: z.boolean().optional(),
-  cronExpression: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
   applicationId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
   mariadbId: z.nullable(z.string()).optional(),
   mongoId: z.nullable(z.string()).optional(),
   mysqlId: z.nullable(z.string()).optional(),
+  name: z.string(),
+  postgresId: z.nullable(z.string()).optional(),
+  prefix: z.string(),
   redisId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
-  destinationId: z.string(),
+  serviceName: z.nullable(z.string()).optional(),
+  serviceType: VolumeBackupsUpdateServiceType$inboundSchema.optional(),
+  turnOff: z.boolean().optional(),
   volumeBackupId: z.string(),
+  volumeName: z.string(),
 });
 
 /** @internal */
 export type VolumeBackupsUpdateRequest$Outbound = {
-  name: string;
-  volumeName: string;
-  prefix: string;
-  serviceType?: string | undefined;
   appName?: string | undefined;
-  serviceName?: string | null | undefined;
-  turnOff?: boolean | undefined;
-  cronExpression: string;
-  keepLatestCount?: number | null | undefined;
-  enabled?: boolean | null | undefined;
   applicationId?: string | null | undefined;
-  postgresId?: string | null | undefined;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  destinationId: string;
+  enabled?: boolean | null | undefined;
+  keepLatestCount?: number | null | undefined;
   mariadbId?: string | null | undefined;
   mongoId?: string | null | undefined;
   mysqlId?: string | null | undefined;
+  name: string;
+  postgresId?: string | null | undefined;
+  prefix: string;
   redisId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  createdAt?: string | undefined;
-  destinationId: string;
+  serviceName?: string | null | undefined;
+  serviceType?: string | undefined;
+  turnOff?: boolean | undefined;
   volumeBackupId: string;
+  volumeName: string;
 };
 
 /** @internal */
@@ -192,26 +123,26 @@ export const VolumeBackupsUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   VolumeBackupsUpdateRequest
 > = z.object({
-  name: z.string(),
-  volumeName: z.string(),
-  prefix: z.string(),
-  serviceType: VolumeBackupsUpdateServiceType$outboundSchema.optional(),
   appName: z.string().optional(),
-  serviceName: z.nullable(z.string()).optional(),
-  turnOff: z.boolean().optional(),
-  cronExpression: z.string(),
-  keepLatestCount: z.nullable(z.number()).optional(),
-  enabled: z.nullable(z.boolean()).optional(),
   applicationId: z.nullable(z.string()).optional(),
-  postgresId: z.nullable(z.string()).optional(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()).optional(),
+  keepLatestCount: z.nullable(z.number()).optional(),
   mariadbId: z.nullable(z.string()).optional(),
   mongoId: z.nullable(z.string()).optional(),
   mysqlId: z.nullable(z.string()).optional(),
+  name: z.string(),
+  postgresId: z.nullable(z.string()).optional(),
+  prefix: z.string(),
   redisId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  createdAt: z.string().optional(),
-  destinationId: z.string(),
+  serviceName: z.nullable(z.string()).optional(),
+  serviceType: VolumeBackupsUpdateServiceType$outboundSchema.optional(),
+  turnOff: z.boolean().optional(),
   volumeBackupId: z.string(),
+  volumeName: z.string(),
 });
 
 /**

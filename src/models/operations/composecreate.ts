@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ComposeCreateSecurity = {
-  authorization: string;
-};
 
 export const ComposeCreateComposeType = {
   DockerCompose: "docker-compose",
@@ -22,76 +17,14 @@ export type ComposeCreateComposeType = ClosedEnum<
 >;
 
 export type ComposeCreateRequest = {
-  name: string;
+  appName?: string | undefined;
+  composeFile?: string | undefined;
+  composeType?: ComposeCreateComposeType | undefined;
   description?: string | null | undefined;
   environmentId: string;
-  composeType?: ComposeCreateComposeType | undefined;
-  appName?: string | undefined;
+  name: string;
   serverId?: string | null | undefined;
-  composeFile?: string | undefined;
 };
-
-/** @internal */
-export const ComposeCreateSecurity$inboundSchema: z.ZodType<
-  ComposeCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeCreateSecurity$outboundSchema: z.ZodType<
-  ComposeCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeCreateSecurity$ {
-  /** @deprecated use `ComposeCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeCreateSecurity$inboundSchema;
-  /** @deprecated use `ComposeCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeCreateSecurity$outboundSchema;
-  /** @deprecated use `ComposeCreateSecurity$Outbound` instead. */
-  export type Outbound = ComposeCreateSecurity$Outbound;
-}
-
-export function composeCreateSecurityToJSON(
-  composeCreateSecurity: ComposeCreateSecurity,
-): string {
-  return JSON.stringify(
-    ComposeCreateSecurity$outboundSchema.parse(composeCreateSecurity),
-  );
-}
-
-export function composeCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeCreateComposeType$inboundSchema: z.ZodNativeEnum<
@@ -120,24 +53,24 @@ export const ComposeCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
+  appName: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeType: ComposeCreateComposeType$inboundSchema.optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
-  composeType: ComposeCreateComposeType$inboundSchema.optional(),
-  appName: z.string().optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeCreateRequest$Outbound = {
-  name: string;
+  appName?: string | undefined;
+  composeFile?: string | undefined;
+  composeType?: string | undefined;
   description?: string | null | undefined;
   environmentId: string;
-  composeType?: string | undefined;
-  appName?: string | undefined;
+  name: string;
   serverId?: string | null | undefined;
-  composeFile?: string | undefined;
 };
 
 /** @internal */
@@ -146,13 +79,13 @@ export const ComposeCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ComposeCreateRequest
 > = z.object({
-  name: z.string(),
+  appName: z.string().optional(),
+  composeFile: z.string().optional(),
+  composeType: ComposeCreateComposeType$outboundSchema.optional(),
   description: z.nullable(z.string()).optional(),
   environmentId: z.string(),
-  composeType: ComposeCreateComposeType$outboundSchema.optional(),
-  appName: z.string().optional(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
-  composeFile: z.string().optional(),
 });
 
 /**

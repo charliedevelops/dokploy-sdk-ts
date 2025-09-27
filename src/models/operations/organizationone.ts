@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type OrganizationOneSecurity = {
-  authorization: string;
-};
 
 export type OrganizationOneRequest = {
   organizationId: string;
@@ -21,80 +16,18 @@ export type OrganizationOneRequest = {
  * Successful response
  */
 export type OrganizationOneResponseBody = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: Date;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 export type OrganizationOneResponse =
   | OrganizationOneResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const OrganizationOneSecurity$inboundSchema: z.ZodType<
-  OrganizationOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type OrganizationOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const OrganizationOneSecurity$outboundSchema: z.ZodType<
-  OrganizationOneSecurity$Outbound,
-  z.ZodTypeDef,
-  OrganizationOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationOneSecurity$ {
-  /** @deprecated use `OrganizationOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = OrganizationOneSecurity$inboundSchema;
-  /** @deprecated use `OrganizationOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = OrganizationOneSecurity$outboundSchema;
-  /** @deprecated use `OrganizationOneSecurity$Outbound` instead. */
-  export type Outbound = OrganizationOneSecurity$Outbound;
-}
-
-export function organizationOneSecurityToJSON(
-  organizationOneSecurity: OrganizationOneSecurity,
-): string {
-  return JSON.stringify(
-    OrganizationOneSecurity$outboundSchema.parse(organizationOneSecurity),
-  );
-}
-
-export function organizationOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<OrganizationOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OrganizationOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OrganizationOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const OrganizationOneRequest$inboundSchema: z.ZodType<
@@ -156,24 +89,24 @@ export const OrganizationOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /** @internal */
 export type OrganizationOneResponseBody$Outbound = {
-  id: string;
-  name: string;
-  slug: string | null;
-  logo: string | null;
   createdAt: string;
+  id: string;
+  logo: string | null;
   metadata: string | null;
+  name: string;
   ownerId: string;
+  slug: string | null;
 };
 
 /** @internal */
@@ -182,13 +115,13 @@ export const OrganizationOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OrganizationOneResponseBody
 > = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
   createdAt: z.date().transform(v => v.toISOString()),
+  id: z.string(),
+  logo: z.nullable(z.string()),
   metadata: z.nullable(z.string()),
+  name: z.string(),
   ownerId: z.string(),
+  slug: z.nullable(z.string()),
 });
 
 /**

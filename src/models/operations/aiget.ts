@@ -3,76 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type AiGetSecurity = {
-  authorization: string;
-};
-
 export type AiGetRequest = {
   aiId: string;
 };
-
-/** @internal */
-export const AiGetSecurity$inboundSchema: z.ZodType<
-  AiGetSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiGetSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiGetSecurity$outboundSchema: z.ZodType<
-  AiGetSecurity$Outbound,
-  z.ZodTypeDef,
-  AiGetSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiGetSecurity$ {
-  /** @deprecated use `AiGetSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiGetSecurity$inboundSchema;
-  /** @deprecated use `AiGetSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiGetSecurity$outboundSchema;
-  /** @deprecated use `AiGetSecurity$Outbound` instead. */
-  export type Outbound = AiGetSecurity$Outbound;
-}
-
-export function aiGetSecurityToJSON(aiGetSecurity: AiGetSecurity): string {
-  return JSON.stringify(AiGetSecurity$outboundSchema.parse(aiGetSecurity));
-}
-
-export function aiGetSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiGetSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiGetSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiGetSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiGetRequest$inboundSchema: z.ZodType<

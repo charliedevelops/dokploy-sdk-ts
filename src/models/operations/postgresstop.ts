@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PostgresStopSecurity = {
-  authorization: string;
-};
-
 export type PostgresStopRequest = {
   postgresId: string;
 };
@@ -27,196 +23,6 @@ export const PostgresStopApplicationStatus = {
 export type PostgresStopApplicationStatus = ClosedEnum<
   typeof PostgresStopApplicationStatus
 >;
-
-export type PostgresStopHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type PostgresStopRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type PostgresStopSpread = {
-  spreadDescriptor: string;
-};
-
-export type PostgresStopPreference = {
-  spread: PostgresStopSpread;
-};
-
-export type PostgresStopPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type PostgresStopPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<PostgresStopPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<PostgresStopPlatform> | undefined;
-};
-
-export type PostgresStopUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresStopRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type PostgresStopReplicated = {
-  replicas?: number | undefined;
-};
-
-export type PostgresStopGlobal = {};
-
-export type PostgresStopReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type PostgresStopGlobalJob = {};
-
-export type PostgresStopModeSwarm = {
-  replicated?: PostgresStopReplicated | undefined;
-  global?: PostgresStopGlobal | undefined;
-  replicatedJob?: PostgresStopReplicatedJob | undefined;
-  globalJob?: PostgresStopGlobalJob | undefined;
-};
-
-export type PostgresStopDriverOpts = {};
-
-export type PostgresStopNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: PostgresStopDriverOpts | undefined;
-};
-
-export type PostgresStopProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type PostgresStopEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresStopProject;
-};
-
-export const PostgresStopType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type PostgresStopType = ClosedEnum<typeof PostgresStopType>;
-
-export const PostgresStopServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type PostgresStopServiceType = ClosedEnum<
-  typeof PostgresStopServiceType
->;
-
-export type PostgresStopMount = {
-  mountId: string;
-  type: PostgresStopType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: PostgresStopServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const PostgresStopServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type PostgresStopServerStatus = ClosedEnum<
-  typeof PostgresStopServerStatus
->;
-
-export const PostgresStopMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type PostgresStopMetricsConfigEnum = ClosedEnum<
-  typeof PostgresStopMetricsConfigEnum
->;
-
-export type PostgresStopMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | PostgresStopMetricsConfigEnum;
-
-export type PostgresStopMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | PostgresStopMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type PostgresStopServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: PostgresStopServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | PostgresStopMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const PostgresStopBackupType = {
   Database: "database",
@@ -242,29 +48,29 @@ export type PostgresStopMetadataEnum = ClosedEnum<
   typeof PostgresStopMetadataEnum
 >;
 
-export type PostgresStopPostgres = {
-  databaseUser: string;
-};
-
 export type PostgresStopMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresStopMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type PostgresStopMysql = {
   databaseRootPassword: string;
 };
 
+export type PostgresStopPostgres = {
+  databaseUser: string;
+};
+
 export type PostgresStopMetadata = {
-  postgres?: PostgresStopPostgres | undefined;
   mariadb?: PostgresStopMariadb | undefined;
   mongo?: PostgresStopMongo | undefined;
   mysql?: PostgresStopMysql | undefined;
+  postgres?: PostgresStopPostgres | undefined;
 };
 
 export type PostgresStopMetadataUnion =
@@ -272,127 +78,255 @@ export type PostgresStopMetadataUnion =
   | PostgresStopMetadataEnum;
 
 export type PostgresStopBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: PostgresStopBackupType;
-  databaseType: PostgresStopDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: PostgresStopDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?: PostgresStopMetadata | PostgresStopMetadataEnum | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type PostgresStopProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type PostgresStopEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresStopProject;
+  projectId: string;
+};
+
+export type PostgresStopHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type PostgresStopGlobal = {};
+
+export type PostgresStopGlobalJob = {};
+
+export type PostgresStopReplicated = {
+  replicas?: number | undefined;
+};
+
+export type PostgresStopReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type PostgresStopModeSwarm = {
+  global?: PostgresStopGlobal | undefined;
+  globalJob?: PostgresStopGlobalJob | undefined;
+  replicated?: PostgresStopReplicated | undefined;
+  replicatedJob?: PostgresStopReplicatedJob | undefined;
+};
+
+export const PostgresStopServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type PostgresStopServiceType = ClosedEnum<
+  typeof PostgresStopServiceType
+>;
+
+export const PostgresStopType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type PostgresStopType = ClosedEnum<typeof PostgresStopType>;
+
+export type PostgresStopMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: PostgresStopServiceType;
+  type: PostgresStopType;
+  volumeName: string | null;
+};
+
+export type PostgresStopDriverOpts = {};
+
+export type PostgresStopNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: PostgresStopDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type PostgresStopPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type PostgresStopSpread = {
+  spreadDescriptor: string;
+};
+
+export type PostgresStopPreference = {
+  spread: PostgresStopSpread;
+};
+
+export type PostgresStopPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<PostgresStopPlatform> | undefined;
+  preferences?: Array<PostgresStopPreference> | undefined;
+};
+
+export type PostgresStopRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type PostgresStopRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const PostgresStopMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type PostgresStopMetricsConfigEnum = ClosedEnum<
+  typeof PostgresStopMetricsConfigEnum
+>;
+
+export type PostgresStopMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | PostgresStopMetricsConfigEnum;
+
+export type PostgresStopMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | PostgresStopMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const PostgresStopServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type PostgresStopServerStatus = ClosedEnum<
+  typeof PostgresStopServerStatus
+>;
+
+export type PostgresStopServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | PostgresStopMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: PostgresStopServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type PostgresStopUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type PostgresStopResponseBody = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: PostgresStopApplicationStatus;
+  backups: Array<PostgresStopBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: PostgresStopApplicationStatus;
-  healthCheckSwarm: PostgresStopHealthCheckSwarm | null;
-  restartPolicySwarm: PostgresStopRestartPolicySwarm | null;
-  placementSwarm: PostgresStopPlacementSwarm | null;
-  updateConfigSwarm: PostgresStopUpdateConfigSwarm | null;
-  rollbackConfigSwarm: PostgresStopRollbackConfigSwarm | null;
-  modeSwarm: PostgresStopModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresStopNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresStopEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresStopHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresStopModeSwarm | null;
   mounts: Array<PostgresStopMount>;
+  name: string;
+  networkSwarm: Array<PostgresStopNetworkSwarm> | null;
+  placementSwarm: PostgresStopPlacementSwarm | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresStopRestartPolicySwarm | null;
+  rollbackConfigSwarm: PostgresStopRollbackConfigSwarm | null;
   server: PostgresStopServer | null;
-  backups: Array<PostgresStopBackup>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresStopUpdateConfigSwarm | null;
 };
 
 export type PostgresStopResponse = PostgresStopResponseBody | models.ErrorT;
-
-/** @internal */
-export const PostgresStopSecurity$inboundSchema: z.ZodType<
-  PostgresStopSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresStopSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresStopSecurity$outboundSchema: z.ZodType<
-  PostgresStopSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresStopSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopSecurity$ {
-  /** @deprecated use `PostgresStopSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopSecurity$inboundSchema;
-  /** @deprecated use `PostgresStopSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopSecurity$outboundSchema;
-  /** @deprecated use `PostgresStopSecurity$Outbound` instead. */
-  export type Outbound = PostgresStopSecurity$Outbound;
-}
-
-export function postgresStopSecurityToJSON(
-  postgresStopSecurity: PostgresStopSecurity,
-): string {
-  return JSON.stringify(
-    PostgresStopSecurity$outboundSchema.parse(postgresStopSecurity),
-  );
-}
-
-export function postgresStopSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresStopRequest$inboundSchema: z.ZodType<
@@ -470,33 +404,693 @@ export namespace PostgresStopApplicationStatus$ {
 }
 
 /** @internal */
+export const PostgresStopBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopBackupType
+> = z.nativeEnum(PostgresStopBackupType);
+
+/** @internal */
+export const PostgresStopBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopBackupType
+> = PostgresStopBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopBackupType$ {
+  /** @deprecated use `PostgresStopBackupType$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopBackupType$inboundSchema;
+  /** @deprecated use `PostgresStopBackupType$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopBackupType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresStopDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopDatabaseType
+> = z.nativeEnum(PostgresStopDatabaseType);
+
+/** @internal */
+export const PostgresStopDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopDatabaseType
+> = PostgresStopDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopDatabaseType$ {
+  /** @deprecated use `PostgresStopDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopDatabaseType$inboundSchema;
+  /** @deprecated use `PostgresStopDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopMetadataEnum
+> = z.nativeEnum(PostgresStopMetadataEnum);
+
+/** @internal */
+export const PostgresStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopMetadataEnum
+> = PostgresStopMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMetadataEnum$ {
+  /** @deprecated use `PostgresStopMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMetadataEnum$inboundSchema;
+  /** @deprecated use `PostgresStopMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const PostgresStopMariadb$inboundSchema: z.ZodType<
+  PostgresStopMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresStopMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresStopMariadb$outboundSchema: z.ZodType<
+  PostgresStopMariadb$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMariadb$ {
+  /** @deprecated use `PostgresStopMariadb$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMariadb$inboundSchema;
+  /** @deprecated use `PostgresStopMariadb$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMariadb$outboundSchema;
+  /** @deprecated use `PostgresStopMariadb$Outbound` instead. */
+  export type Outbound = PostgresStopMariadb$Outbound;
+}
+
+export function postgresStopMariadbToJSON(
+  postgresStopMariadb: PostgresStopMariadb,
+): string {
+  return JSON.stringify(
+    PostgresStopMariadb$outboundSchema.parse(postgresStopMariadb),
+  );
+}
+
+export function postgresStopMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopMongo$inboundSchema: z.ZodType<
+  PostgresStopMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresStopMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresStopMongo$outboundSchema: z.ZodType<
+  PostgresStopMongo$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMongo$ {
+  /** @deprecated use `PostgresStopMongo$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMongo$inboundSchema;
+  /** @deprecated use `PostgresStopMongo$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMongo$outboundSchema;
+  /** @deprecated use `PostgresStopMongo$Outbound` instead. */
+  export type Outbound = PostgresStopMongo$Outbound;
+}
+
+export function postgresStopMongoToJSON(
+  postgresStopMongo: PostgresStopMongo,
+): string {
+  return JSON.stringify(
+    PostgresStopMongo$outboundSchema.parse(postgresStopMongo),
+  );
+}
+
+export function postgresStopMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopMysql$inboundSchema: z.ZodType<
+  PostgresStopMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type PostgresStopMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const PostgresStopMysql$outboundSchema: z.ZodType<
+  PostgresStopMysql$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMysql$ {
+  /** @deprecated use `PostgresStopMysql$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMysql$inboundSchema;
+  /** @deprecated use `PostgresStopMysql$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMysql$outboundSchema;
+  /** @deprecated use `PostgresStopMysql$Outbound` instead. */
+  export type Outbound = PostgresStopMysql$Outbound;
+}
+
+export function postgresStopMysqlToJSON(
+  postgresStopMysql: PostgresStopMysql,
+): string {
+  return JSON.stringify(
+    PostgresStopMysql$outboundSchema.parse(postgresStopMysql),
+  );
+}
+
+export function postgresStopMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopPostgres$inboundSchema: z.ZodType<
+  PostgresStopPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type PostgresStopPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const PostgresStopPostgres$outboundSchema: z.ZodType<
+  PostgresStopPostgres$Outbound,
+  z.ZodTypeDef,
+  PostgresStopPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopPostgres$ {
+  /** @deprecated use `PostgresStopPostgres$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopPostgres$inboundSchema;
+  /** @deprecated use `PostgresStopPostgres$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopPostgres$outboundSchema;
+  /** @deprecated use `PostgresStopPostgres$Outbound` instead. */
+  export type Outbound = PostgresStopPostgres$Outbound;
+}
+
+export function postgresStopPostgresToJSON(
+  postgresStopPostgres: PostgresStopPostgres,
+): string {
+  return JSON.stringify(
+    PostgresStopPostgres$outboundSchema.parse(postgresStopPostgres),
+  );
+}
+
+export function postgresStopPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopMetadata$inboundSchema: z.ZodType<
+  PostgresStopMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => PostgresStopMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => PostgresStopMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => PostgresStopMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => PostgresStopPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostgresStopMetadata$Outbound = {
+  mariadb?: PostgresStopMariadb$Outbound | undefined;
+  mongo?: PostgresStopMongo$Outbound | undefined;
+  mysql?: PostgresStopMysql$Outbound | undefined;
+  postgres?: PostgresStopPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresStopMetadata$outboundSchema: z.ZodType<
+  PostgresStopMetadata$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMetadata
+> = z.object({
+  mariadb: z.lazy(() => PostgresStopMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => PostgresStopMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => PostgresStopMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => PostgresStopPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMetadata$ {
+  /** @deprecated use `PostgresStopMetadata$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMetadata$inboundSchema;
+  /** @deprecated use `PostgresStopMetadata$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMetadata$outboundSchema;
+  /** @deprecated use `PostgresStopMetadata$Outbound` instead. */
+  export type Outbound = PostgresStopMetadata$Outbound;
+}
+
+export function postgresStopMetadataToJSON(
+  postgresStopMetadata: PostgresStopMetadata,
+): string {
+  return JSON.stringify(
+    PostgresStopMetadata$outboundSchema.parse(postgresStopMetadata),
+  );
+}
+
+export function postgresStopMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopMetadataUnion$inboundSchema: z.ZodType<
+  PostgresStopMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => PostgresStopMetadata$inboundSchema),
+  PostgresStopMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type PostgresStopMetadataUnion$Outbound =
+  | PostgresStopMetadata$Outbound
+  | string;
+
+/** @internal */
+export const PostgresStopMetadataUnion$outboundSchema: z.ZodType<
+  PostgresStopMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMetadataUnion
+> = z.union([
+  z.lazy(() => PostgresStopMetadata$outboundSchema),
+  PostgresStopMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMetadataUnion$ {
+  /** @deprecated use `PostgresStopMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMetadataUnion$inboundSchema;
+  /** @deprecated use `PostgresStopMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMetadataUnion$outboundSchema;
+  /** @deprecated use `PostgresStopMetadataUnion$Outbound` instead. */
+  export type Outbound = PostgresStopMetadataUnion$Outbound;
+}
+
+export function postgresStopMetadataUnionToJSON(
+  postgresStopMetadataUnion: PostgresStopMetadataUnion,
+): string {
+  return JSON.stringify(
+    PostgresStopMetadataUnion$outboundSchema.parse(postgresStopMetadataUnion),
+  );
+}
+
+export function postgresStopMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopBackup$inboundSchema: z.ZodType<
+  PostgresStopBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresStopBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresStopDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresStopMetadata$inboundSchema),
+      PostgresStopMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresStopBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: PostgresStopMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const PostgresStopBackup$outboundSchema: z.ZodType<
+  PostgresStopBackup$Outbound,
+  z.ZodTypeDef,
+  PostgresStopBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: PostgresStopBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: PostgresStopDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => PostgresStopMetadata$outboundSchema),
+      PostgresStopMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopBackup$ {
+  /** @deprecated use `PostgresStopBackup$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopBackup$inboundSchema;
+  /** @deprecated use `PostgresStopBackup$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopBackup$outboundSchema;
+  /** @deprecated use `PostgresStopBackup$Outbound` instead. */
+  export type Outbound = PostgresStopBackup$Outbound;
+}
+
+export function postgresStopBackupToJSON(
+  postgresStopBackup: PostgresStopBackup,
+): string {
+  return JSON.stringify(
+    PostgresStopBackup$outboundSchema.parse(postgresStopBackup),
+  );
+}
+
+export function postgresStopBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopProject$inboundSchema: z.ZodType<
+  PostgresStopProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresStopProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresStopProject$outboundSchema: z.ZodType<
+  PostgresStopProject$Outbound,
+  z.ZodTypeDef,
+  PostgresStopProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopProject$ {
+  /** @deprecated use `PostgresStopProject$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopProject$inboundSchema;
+  /** @deprecated use `PostgresStopProject$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopProject$outboundSchema;
+  /** @deprecated use `PostgresStopProject$Outbound` instead. */
+  export type Outbound = PostgresStopProject$Outbound;
+}
+
+export function postgresStopProjectToJSON(
+  postgresStopProject: PostgresStopProject,
+): string {
+  return JSON.stringify(
+    PostgresStopProject$outboundSchema.parse(postgresStopProject),
+  );
+}
+
+export function postgresStopProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopEnvironment$inboundSchema: z.ZodType<
+  PostgresStopEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresStopProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type PostgresStopEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: PostgresStopProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const PostgresStopEnvironment$outboundSchema: z.ZodType<
+  PostgresStopEnvironment$Outbound,
+  z.ZodTypeDef,
+  PostgresStopEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => PostgresStopProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopEnvironment$ {
+  /** @deprecated use `PostgresStopEnvironment$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopEnvironment$inboundSchema;
+  /** @deprecated use `PostgresStopEnvironment$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopEnvironment$outboundSchema;
+  /** @deprecated use `PostgresStopEnvironment$Outbound` instead. */
+  export type Outbound = PostgresStopEnvironment$Outbound;
+}
+
+export function postgresStopEnvironmentToJSON(
+  postgresStopEnvironment: PostgresStopEnvironment,
+): string {
+  return JSON.stringify(
+    PostgresStopEnvironment$outboundSchema.parse(postgresStopEnvironment),
+  );
+}
+
+export function postgresStopEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostgresStopHealthCheckSwarm$inboundSchema: z.ZodType<
   PostgresStopHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type PostgresStopHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -505,18 +1099,18 @@ export const PostgresStopHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresStopHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -554,48 +1148,129 @@ export function postgresStopHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresStopRestartPolicySwarm$inboundSchema: z.ZodType<
-  PostgresStopRestartPolicySwarm,
+export const PostgresStopGlobal$inboundSchema: z.ZodType<
+  PostgresStopGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresStopGlobal$Outbound = {};
+
+/** @internal */
+export const PostgresStopGlobal$outboundSchema: z.ZodType<
+  PostgresStopGlobal$Outbound,
+  z.ZodTypeDef,
+  PostgresStopGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopGlobal$ {
+  /** @deprecated use `PostgresStopGlobal$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopGlobal$inboundSchema;
+  /** @deprecated use `PostgresStopGlobal$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopGlobal$outboundSchema;
+  /** @deprecated use `PostgresStopGlobal$Outbound` instead. */
+  export type Outbound = PostgresStopGlobal$Outbound;
+}
+
+export function postgresStopGlobalToJSON(
+  postgresStopGlobal: PostgresStopGlobal,
+): string {
+  return JSON.stringify(
+    PostgresStopGlobal$outboundSchema.parse(postgresStopGlobal),
+  );
+}
+
+export function postgresStopGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopGlobalJob$inboundSchema: z.ZodType<
+  PostgresStopGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresStopGlobalJob$Outbound = {};
+
+/** @internal */
+export const PostgresStopGlobalJob$outboundSchema: z.ZodType<
+  PostgresStopGlobalJob$Outbound,
+  z.ZodTypeDef,
+  PostgresStopGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopGlobalJob$ {
+  /** @deprecated use `PostgresStopGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopGlobalJob$inboundSchema;
+  /** @deprecated use `PostgresStopGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopGlobalJob$outboundSchema;
+  /** @deprecated use `PostgresStopGlobalJob$Outbound` instead. */
+  export type Outbound = PostgresStopGlobalJob$Outbound;
+}
+
+export function postgresStopGlobalJobToJSON(
+  postgresStopGlobalJob: PostgresStopGlobalJob,
+): string {
+  return JSON.stringify(
+    PostgresStopGlobalJob$outboundSchema.parse(postgresStopGlobalJob),
+  );
+}
+
+export function postgresStopGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopReplicated$inboundSchema: z.ZodType<
+  PostgresStopReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type PostgresStopRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type PostgresStopReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const PostgresStopRestartPolicySwarm$outboundSchema: z.ZodType<
-  PostgresStopRestartPolicySwarm$Outbound,
+export const PostgresStopReplicated$outboundSchema: z.ZodType<
+  PostgresStopReplicated$Outbound,
   z.ZodTypeDef,
-  PostgresStopRestartPolicySwarm
+  PostgresStopReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -603,32 +1278,501 @@ export const PostgresStopRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresStopRestartPolicySwarm$ {
-  /** @deprecated use `PostgresStopRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `PostgresStopRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `PostgresStopRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = PostgresStopRestartPolicySwarm$Outbound;
+export namespace PostgresStopReplicated$ {
+  /** @deprecated use `PostgresStopReplicated$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopReplicated$inboundSchema;
+  /** @deprecated use `PostgresStopReplicated$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopReplicated$outboundSchema;
+  /** @deprecated use `PostgresStopReplicated$Outbound` instead. */
+  export type Outbound = PostgresStopReplicated$Outbound;
 }
 
-export function postgresStopRestartPolicySwarmToJSON(
-  postgresStopRestartPolicySwarm: PostgresStopRestartPolicySwarm,
+export function postgresStopReplicatedToJSON(
+  postgresStopReplicated: PostgresStopReplicated,
 ): string {
   return JSON.stringify(
-    PostgresStopRestartPolicySwarm$outboundSchema.parse(
-      postgresStopRestartPolicySwarm,
-    ),
+    PostgresStopReplicated$outboundSchema.parse(postgresStopReplicated),
   );
 }
 
-export function postgresStopRestartPolicySwarmFromJSON(
+export function postgresStopReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresStopRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<PostgresStopReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopRestartPolicySwarm' from JSON`,
+    (x) => PostgresStopReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopReplicatedJob$inboundSchema: z.ZodType<
+  PostgresStopReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type PostgresStopReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const PostgresStopReplicatedJob$outboundSchema: z.ZodType<
+  PostgresStopReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  PostgresStopReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopReplicatedJob$ {
+  /** @deprecated use `PostgresStopReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopReplicatedJob$inboundSchema;
+  /** @deprecated use `PostgresStopReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopReplicatedJob$outboundSchema;
+  /** @deprecated use `PostgresStopReplicatedJob$Outbound` instead. */
+  export type Outbound = PostgresStopReplicatedJob$Outbound;
+}
+
+export function postgresStopReplicatedJobToJSON(
+  postgresStopReplicatedJob: PostgresStopReplicatedJob,
+): string {
+  return JSON.stringify(
+    PostgresStopReplicatedJob$outboundSchema.parse(postgresStopReplicatedJob),
+  );
+}
+
+export function postgresStopReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopModeSwarm$inboundSchema: z.ZodType<
+  PostgresStopModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => PostgresStopGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => PostgresStopGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => PostgresStopReplicated$inboundSchema).optional(),
+  ReplicatedJob: z.lazy(() => PostgresStopReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type PostgresStopModeSwarm$Outbound = {
+  Global?: PostgresStopGlobal$Outbound | undefined;
+  GlobalJob?: PostgresStopGlobalJob$Outbound | undefined;
+  Replicated?: PostgresStopReplicated$Outbound | undefined;
+  ReplicatedJob?: PostgresStopReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const PostgresStopModeSwarm$outboundSchema: z.ZodType<
+  PostgresStopModeSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresStopModeSwarm
+> = z.object({
+  global: z.lazy(() => PostgresStopGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => PostgresStopGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => PostgresStopReplicated$outboundSchema).optional(),
+  replicatedJob: z.lazy(() => PostgresStopReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopModeSwarm$ {
+  /** @deprecated use `PostgresStopModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopModeSwarm$inboundSchema;
+  /** @deprecated use `PostgresStopModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopModeSwarm$outboundSchema;
+  /** @deprecated use `PostgresStopModeSwarm$Outbound` instead. */
+  export type Outbound = PostgresStopModeSwarm$Outbound;
+}
+
+export function postgresStopModeSwarmToJSON(
+  postgresStopModeSwarm: PostgresStopModeSwarm,
+): string {
+  return JSON.stringify(
+    PostgresStopModeSwarm$outboundSchema.parse(postgresStopModeSwarm),
+  );
+}
+
+export function postgresStopModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopServiceType
+> = z.nativeEnum(PostgresStopServiceType);
+
+/** @internal */
+export const PostgresStopServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopServiceType
+> = PostgresStopServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopServiceType$ {
+  /** @deprecated use `PostgresStopServiceType$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopServiceType$inboundSchema;
+  /** @deprecated use `PostgresStopServiceType$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopServiceType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresStopType$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopType
+> = z.nativeEnum(PostgresStopType);
+
+/** @internal */
+export const PostgresStopType$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopType
+> = PostgresStopType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopType$ {
+  /** @deprecated use `PostgresStopType$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopType$inboundSchema;
+  /** @deprecated use `PostgresStopType$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopType$outboundSchema;
+}
+
+/** @internal */
+export const PostgresStopMount$inboundSchema: z.ZodType<
+  PostgresStopMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresStopServiceType$inboundSchema,
+  type: PostgresStopType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type PostgresStopMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const PostgresStopMount$outboundSchema: z.ZodType<
+  PostgresStopMount$Outbound,
+  z.ZodTypeDef,
+  PostgresStopMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: PostgresStopServiceType$outboundSchema,
+  type: PostgresStopType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopMount$ {
+  /** @deprecated use `PostgresStopMount$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopMount$inboundSchema;
+  /** @deprecated use `PostgresStopMount$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopMount$outboundSchema;
+  /** @deprecated use `PostgresStopMount$Outbound` instead. */
+  export type Outbound = PostgresStopMount$Outbound;
+}
+
+export function postgresStopMountToJSON(
+  postgresStopMount: PostgresStopMount,
+): string {
+  return JSON.stringify(
+    PostgresStopMount$outboundSchema.parse(postgresStopMount),
+  );
+}
+
+export function postgresStopMountFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopDriverOpts$inboundSchema: z.ZodType<
+  PostgresStopDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostgresStopDriverOpts$Outbound = {};
+
+/** @internal */
+export const PostgresStopDriverOpts$outboundSchema: z.ZodType<
+  PostgresStopDriverOpts$Outbound,
+  z.ZodTypeDef,
+  PostgresStopDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopDriverOpts$ {
+  /** @deprecated use `PostgresStopDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopDriverOpts$inboundSchema;
+  /** @deprecated use `PostgresStopDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopDriverOpts$outboundSchema;
+  /** @deprecated use `PostgresStopDriverOpts$Outbound` instead. */
+  export type Outbound = PostgresStopDriverOpts$Outbound;
+}
+
+export function postgresStopDriverOptsToJSON(
+  postgresStopDriverOpts: PostgresStopDriverOpts,
+): string {
+  return JSON.stringify(
+    PostgresStopDriverOpts$outboundSchema.parse(postgresStopDriverOpts),
+  );
+}
+
+export function postgresStopDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopNetworkSwarm$inboundSchema: z.ZodType<
+  PostgresStopNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => PostgresStopDriverOpts$inboundSchema).optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type PostgresStopNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: PostgresStopDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const PostgresStopNetworkSwarm$outboundSchema: z.ZodType<
+  PostgresStopNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  PostgresStopNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => PostgresStopDriverOpts$outboundSchema).optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopNetworkSwarm$ {
+  /** @deprecated use `PostgresStopNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopNetworkSwarm$inboundSchema;
+  /** @deprecated use `PostgresStopNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopNetworkSwarm$outboundSchema;
+  /** @deprecated use `PostgresStopNetworkSwarm$Outbound` instead. */
+  export type Outbound = PostgresStopNetworkSwarm$Outbound;
+}
+
+export function postgresStopNetworkSwarmToJSON(
+  postgresStopNetworkSwarm: PostgresStopNetworkSwarm,
+): string {
+  return JSON.stringify(
+    PostgresStopNetworkSwarm$outboundSchema.parse(postgresStopNetworkSwarm),
+  );
+}
+
+export function postgresStopNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostgresStopPlatform$inboundSchema: z.ZodType<
+  PostgresStopPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type PostgresStopPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const PostgresStopPlatform$outboundSchema: z.ZodType<
+  PostgresStopPlatform$Outbound,
+  z.ZodTypeDef,
+  PostgresStopPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopPlatform$ {
+  /** @deprecated use `PostgresStopPlatform$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopPlatform$inboundSchema;
+  /** @deprecated use `PostgresStopPlatform$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopPlatform$outboundSchema;
+  /** @deprecated use `PostgresStopPlatform$Outbound` instead. */
+  export type Outbound = PostgresStopPlatform$Outbound;
+}
+
+export function postgresStopPlatformToJSON(
+  postgresStopPlatform: PostgresStopPlatform,
+): string {
+  return JSON.stringify(
+    PostgresStopPlatform$outboundSchema.parse(postgresStopPlatform),
+  );
+}
+
+export function postgresStopPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<PostgresStopPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostgresStopPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopPlatform' from JSON`,
   );
 }
 
@@ -757,99 +1901,32 @@ export function postgresStopPreferenceFromJSON(
 }
 
 /** @internal */
-export const PostgresStopPlatform$inboundSchema: z.ZodType<
-  PostgresStopPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type PostgresStopPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const PostgresStopPlatform$outboundSchema: z.ZodType<
-  PostgresStopPlatform$Outbound,
-  z.ZodTypeDef,
-  PostgresStopPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopPlatform$ {
-  /** @deprecated use `PostgresStopPlatform$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopPlatform$inboundSchema;
-  /** @deprecated use `PostgresStopPlatform$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopPlatform$outboundSchema;
-  /** @deprecated use `PostgresStopPlatform$Outbound` instead. */
-  export type Outbound = PostgresStopPlatform$Outbound;
-}
-
-export function postgresStopPlatformToJSON(
-  postgresStopPlatform: PostgresStopPlatform,
-): string {
-  return JSON.stringify(
-    PostgresStopPlatform$outboundSchema.parse(postgresStopPlatform),
-  );
-}
-
-export function postgresStopPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const PostgresStopPlacementSwarm$inboundSchema: z.ZodType<
   PostgresStopPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => PostgresStopPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => PostgresStopPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => PostgresStopPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type PostgresStopPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<PostgresStopPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<PostgresStopPlatform$Outbound> | undefined;
+  Preferences?: Array<PostgresStopPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -859,17 +1936,17 @@ export const PostgresStopPlacementSwarm$outboundSchema: z.ZodType<
   PostgresStopPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => PostgresStopPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => PostgresStopPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => PostgresStopPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -905,58 +1982,48 @@ export function postgresStopPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const PostgresStopUpdateConfigSwarm$inboundSchema: z.ZodType<
-  PostgresStopUpdateConfigSwarm,
+export const PostgresStopRestartPolicySwarm$inboundSchema: z.ZodType<
+  PostgresStopRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type PostgresStopUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type PostgresStopRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const PostgresStopUpdateConfigSwarm$outboundSchema: z.ZodType<
-  PostgresStopUpdateConfigSwarm$Outbound,
+export const PostgresStopRestartPolicySwarm$outboundSchema: z.ZodType<
+  PostgresStopRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  PostgresStopUpdateConfigSwarm
+  PostgresStopRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -964,32 +2031,32 @@ export const PostgresStopUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresStopUpdateConfigSwarm$ {
-  /** @deprecated use `PostgresStopUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `PostgresStopUpdateConfigSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `PostgresStopUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = PostgresStopUpdateConfigSwarm$Outbound;
+export namespace PostgresStopRestartPolicySwarm$ {
+  /** @deprecated use `PostgresStopRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `PostgresStopRestartPolicySwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `PostgresStopRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = PostgresStopRestartPolicySwarm$Outbound;
 }
 
-export function postgresStopUpdateConfigSwarmToJSON(
-  postgresStopUpdateConfigSwarm: PostgresStopUpdateConfigSwarm,
+export function postgresStopRestartPolicySwarmToJSON(
+  postgresStopRestartPolicySwarm: PostgresStopRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    PostgresStopUpdateConfigSwarm$outboundSchema.parse(
-      postgresStopUpdateConfigSwarm,
+    PostgresStopRestartPolicySwarm$outboundSchema.parse(
+      postgresStopRestartPolicySwarm,
     ),
   );
 }
 
-export function postgresStopUpdateConfigSwarmFromJSON(
+export function postgresStopRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresStopUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<PostgresStopRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopUpdateConfigSwarm' from JSON`,
+    (x) => PostgresStopRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -999,31 +2066,31 @@ export const PostgresStopRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type PostgresStopRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1032,20 +2099,20 @@ export const PostgresStopRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresStopRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1080,730 +2147,6 @@ export function postgresStopRollbackConfigSwarmFromJSON(
     (x) => PostgresStopRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostgresStopRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const PostgresStopReplicated$inboundSchema: z.ZodType<
-  PostgresStopReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type PostgresStopReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const PostgresStopReplicated$outboundSchema: z.ZodType<
-  PostgresStopReplicated$Outbound,
-  z.ZodTypeDef,
-  PostgresStopReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopReplicated$ {
-  /** @deprecated use `PostgresStopReplicated$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopReplicated$inboundSchema;
-  /** @deprecated use `PostgresStopReplicated$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopReplicated$outboundSchema;
-  /** @deprecated use `PostgresStopReplicated$Outbound` instead. */
-  export type Outbound = PostgresStopReplicated$Outbound;
-}
-
-export function postgresStopReplicatedToJSON(
-  postgresStopReplicated: PostgresStopReplicated,
-): string {
-  return JSON.stringify(
-    PostgresStopReplicated$outboundSchema.parse(postgresStopReplicated),
-  );
-}
-
-export function postgresStopReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopGlobal$inboundSchema: z.ZodType<
-  PostgresStopGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresStopGlobal$Outbound = {};
-
-/** @internal */
-export const PostgresStopGlobal$outboundSchema: z.ZodType<
-  PostgresStopGlobal$Outbound,
-  z.ZodTypeDef,
-  PostgresStopGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopGlobal$ {
-  /** @deprecated use `PostgresStopGlobal$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopGlobal$inboundSchema;
-  /** @deprecated use `PostgresStopGlobal$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopGlobal$outboundSchema;
-  /** @deprecated use `PostgresStopGlobal$Outbound` instead. */
-  export type Outbound = PostgresStopGlobal$Outbound;
-}
-
-export function postgresStopGlobalToJSON(
-  postgresStopGlobal: PostgresStopGlobal,
-): string {
-  return JSON.stringify(
-    PostgresStopGlobal$outboundSchema.parse(postgresStopGlobal),
-  );
-}
-
-export function postgresStopGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopReplicatedJob$inboundSchema: z.ZodType<
-  PostgresStopReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type PostgresStopReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const PostgresStopReplicatedJob$outboundSchema: z.ZodType<
-  PostgresStopReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  PostgresStopReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopReplicatedJob$ {
-  /** @deprecated use `PostgresStopReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopReplicatedJob$inboundSchema;
-  /** @deprecated use `PostgresStopReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopReplicatedJob$outboundSchema;
-  /** @deprecated use `PostgresStopReplicatedJob$Outbound` instead. */
-  export type Outbound = PostgresStopReplicatedJob$Outbound;
-}
-
-export function postgresStopReplicatedJobToJSON(
-  postgresStopReplicatedJob: PostgresStopReplicatedJob,
-): string {
-  return JSON.stringify(
-    PostgresStopReplicatedJob$outboundSchema.parse(postgresStopReplicatedJob),
-  );
-}
-
-export function postgresStopReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopGlobalJob$inboundSchema: z.ZodType<
-  PostgresStopGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresStopGlobalJob$Outbound = {};
-
-/** @internal */
-export const PostgresStopGlobalJob$outboundSchema: z.ZodType<
-  PostgresStopGlobalJob$Outbound,
-  z.ZodTypeDef,
-  PostgresStopGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopGlobalJob$ {
-  /** @deprecated use `PostgresStopGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopGlobalJob$inboundSchema;
-  /** @deprecated use `PostgresStopGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopGlobalJob$outboundSchema;
-  /** @deprecated use `PostgresStopGlobalJob$Outbound` instead. */
-  export type Outbound = PostgresStopGlobalJob$Outbound;
-}
-
-export function postgresStopGlobalJobToJSON(
-  postgresStopGlobalJob: PostgresStopGlobalJob,
-): string {
-  return JSON.stringify(
-    PostgresStopGlobalJob$outboundSchema.parse(postgresStopGlobalJob),
-  );
-}
-
-export function postgresStopGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopModeSwarm$inboundSchema: z.ZodType<
-  PostgresStopModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => PostgresStopReplicated$inboundSchema).optional(),
-  Global: z.lazy(() => PostgresStopGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => PostgresStopReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => PostgresStopGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type PostgresStopModeSwarm$Outbound = {
-  Replicated?: PostgresStopReplicated$Outbound | undefined;
-  Global?: PostgresStopGlobal$Outbound | undefined;
-  ReplicatedJob?: PostgresStopReplicatedJob$Outbound | undefined;
-  GlobalJob?: PostgresStopGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresStopModeSwarm$outboundSchema: z.ZodType<
-  PostgresStopModeSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresStopModeSwarm
-> = z.object({
-  replicated: z.lazy(() => PostgresStopReplicated$outboundSchema).optional(),
-  global: z.lazy(() => PostgresStopGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => PostgresStopReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => PostgresStopGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopModeSwarm$ {
-  /** @deprecated use `PostgresStopModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopModeSwarm$inboundSchema;
-  /** @deprecated use `PostgresStopModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopModeSwarm$outboundSchema;
-  /** @deprecated use `PostgresStopModeSwarm$Outbound` instead. */
-  export type Outbound = PostgresStopModeSwarm$Outbound;
-}
-
-export function postgresStopModeSwarmToJSON(
-  postgresStopModeSwarm: PostgresStopModeSwarm,
-): string {
-  return JSON.stringify(
-    PostgresStopModeSwarm$outboundSchema.parse(postgresStopModeSwarm),
-  );
-}
-
-export function postgresStopModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopDriverOpts$inboundSchema: z.ZodType<
-  PostgresStopDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PostgresStopDriverOpts$Outbound = {};
-
-/** @internal */
-export const PostgresStopDriverOpts$outboundSchema: z.ZodType<
-  PostgresStopDriverOpts$Outbound,
-  z.ZodTypeDef,
-  PostgresStopDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopDriverOpts$ {
-  /** @deprecated use `PostgresStopDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopDriverOpts$inboundSchema;
-  /** @deprecated use `PostgresStopDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopDriverOpts$outboundSchema;
-  /** @deprecated use `PostgresStopDriverOpts$Outbound` instead. */
-  export type Outbound = PostgresStopDriverOpts$Outbound;
-}
-
-export function postgresStopDriverOptsToJSON(
-  postgresStopDriverOpts: PostgresStopDriverOpts,
-): string {
-  return JSON.stringify(
-    PostgresStopDriverOpts$outboundSchema.parse(postgresStopDriverOpts),
-  );
-}
-
-export function postgresStopDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopNetworkSwarm$inboundSchema: z.ZodType<
-  PostgresStopNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => PostgresStopDriverOpts$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type PostgresStopNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: PostgresStopDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresStopNetworkSwarm$outboundSchema: z.ZodType<
-  PostgresStopNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  PostgresStopNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => PostgresStopDriverOpts$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopNetworkSwarm$ {
-  /** @deprecated use `PostgresStopNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopNetworkSwarm$inboundSchema;
-  /** @deprecated use `PostgresStopNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopNetworkSwarm$outboundSchema;
-  /** @deprecated use `PostgresStopNetworkSwarm$Outbound` instead. */
-  export type Outbound = PostgresStopNetworkSwarm$Outbound;
-}
-
-export function postgresStopNetworkSwarmToJSON(
-  postgresStopNetworkSwarm: PostgresStopNetworkSwarm,
-): string {
-  return JSON.stringify(
-    PostgresStopNetworkSwarm$outboundSchema.parse(postgresStopNetworkSwarm),
-  );
-}
-
-export function postgresStopNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopProject$inboundSchema: z.ZodType<
-  PostgresStopProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type PostgresStopProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const PostgresStopProject$outboundSchema: z.ZodType<
-  PostgresStopProject$Outbound,
-  z.ZodTypeDef,
-  PostgresStopProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopProject$ {
-  /** @deprecated use `PostgresStopProject$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopProject$inboundSchema;
-  /** @deprecated use `PostgresStopProject$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopProject$outboundSchema;
-  /** @deprecated use `PostgresStopProject$Outbound` instead. */
-  export type Outbound = PostgresStopProject$Outbound;
-}
-
-export function postgresStopProjectToJSON(
-  postgresStopProject: PostgresStopProject,
-): string {
-  return JSON.stringify(
-    PostgresStopProject$outboundSchema.parse(postgresStopProject),
-  );
-}
-
-export function postgresStopProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopEnvironment$inboundSchema: z.ZodType<
-  PostgresStopEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresStopProject$inboundSchema),
-});
-
-/** @internal */
-export type PostgresStopEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: PostgresStopProject$Outbound;
-};
-
-/** @internal */
-export const PostgresStopEnvironment$outboundSchema: z.ZodType<
-  PostgresStopEnvironment$Outbound,
-  z.ZodTypeDef,
-  PostgresStopEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => PostgresStopProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopEnvironment$ {
-  /** @deprecated use `PostgresStopEnvironment$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopEnvironment$inboundSchema;
-  /** @deprecated use `PostgresStopEnvironment$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopEnvironment$outboundSchema;
-  /** @deprecated use `PostgresStopEnvironment$Outbound` instead. */
-  export type Outbound = PostgresStopEnvironment$Outbound;
-}
-
-export function postgresStopEnvironmentToJSON(
-  postgresStopEnvironment: PostgresStopEnvironment,
-): string {
-  return JSON.stringify(
-    PostgresStopEnvironment$outboundSchema.parse(postgresStopEnvironment),
-  );
-}
-
-export function postgresStopEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopType
-> = z.nativeEnum(PostgresStopType);
-
-/** @internal */
-export const PostgresStopType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopType
-> = PostgresStopType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopType$ {
-  /** @deprecated use `PostgresStopType$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopType$inboundSchema;
-  /** @deprecated use `PostgresStopType$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresStopServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopServiceType
-> = z.nativeEnum(PostgresStopServiceType);
-
-/** @internal */
-export const PostgresStopServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopServiceType
-> = PostgresStopServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopServiceType$ {
-  /** @deprecated use `PostgresStopServiceType$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopServiceType$inboundSchema;
-  /** @deprecated use `PostgresStopServiceType$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopServiceType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresStopMount$inboundSchema: z.ZodType<
-  PostgresStopMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: PostgresStopType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresStopServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type PostgresStopMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const PostgresStopMount$outboundSchema: z.ZodType<
-  PostgresStopMount$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMount
-> = z.object({
-  mountId: z.string(),
-  type: PostgresStopType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: PostgresStopServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMount$ {
-  /** @deprecated use `PostgresStopMount$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMount$inboundSchema;
-  /** @deprecated use `PostgresStopMount$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMount$outboundSchema;
-  /** @deprecated use `PostgresStopMount$Outbound` instead. */
-  export type Outbound = PostgresStopMount$Outbound;
-}
-
-export function postgresStopMountToJSON(
-  postgresStopMount: PostgresStopMount,
-): string {
-  return JSON.stringify(
-    PostgresStopMount$outboundSchema.parse(postgresStopMount),
-  );
-}
-
-export function postgresStopMountFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopServerStatus
-> = z.nativeEnum(PostgresStopServerStatus);
-
-/** @internal */
-export const PostgresStopServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopServerStatus
-> = PostgresStopServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopServerStatus$ {
-  /** @deprecated use `PostgresStopServerStatus$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopServerStatus$inboundSchema;
-  /** @deprecated use `PostgresStopServerStatus$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -1966,24 +2309,38 @@ export function postgresStopMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const PostgresStopServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopServerStatus
+> = z.nativeEnum(PostgresStopServerStatus);
+
+/** @internal */
+export const PostgresStopServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostgresStopServerStatus
+> = PostgresStopServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostgresStopServerStatus$ {
+  /** @deprecated use `PostgresStopServerStatus$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopServerStatus$inboundSchema;
+  /** @deprecated use `PostgresStopServerStatus$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const PostgresStopServer$inboundSchema: z.ZodType<
   PostgresStopServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresStopServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -1994,26 +2351,33 @@ export const PostgresStopServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresStopServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type PostgresStopServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2022,19 +2386,12 @@ export const PostgresStopServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresStopServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: PostgresStopServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2045,6 +2402,13 @@ export const PostgresStopServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: PostgresStopServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2079,521 +2443,91 @@ export function postgresStopServerFromJSON(
 }
 
 /** @internal */
-export const PostgresStopBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopBackupType
-> = z.nativeEnum(PostgresStopBackupType);
-
-/** @internal */
-export const PostgresStopBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopBackupType
-> = PostgresStopBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopBackupType$ {
-  /** @deprecated use `PostgresStopBackupType$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopBackupType$inboundSchema;
-  /** @deprecated use `PostgresStopBackupType$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopBackupType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresStopDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopDatabaseType
-> = z.nativeEnum(PostgresStopDatabaseType);
-
-/** @internal */
-export const PostgresStopDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopDatabaseType
-> = PostgresStopDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopDatabaseType$ {
-  /** @deprecated use `PostgresStopDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopDatabaseType$inboundSchema;
-  /** @deprecated use `PostgresStopDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const PostgresStopMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopMetadataEnum
-> = z.nativeEnum(PostgresStopMetadataEnum);
-
-/** @internal */
-export const PostgresStopMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PostgresStopMetadataEnum
-> = PostgresStopMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMetadataEnum$ {
-  /** @deprecated use `PostgresStopMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMetadataEnum$inboundSchema;
-  /** @deprecated use `PostgresStopMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const PostgresStopPostgres$inboundSchema: z.ZodType<
-  PostgresStopPostgres,
+export const PostgresStopUpdateConfigSwarm$inboundSchema: z.ZodType<
+  PostgresStopUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type PostgresStopPostgres$Outbound = {
-  databaseUser: string;
+export type PostgresStopUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const PostgresStopPostgres$outboundSchema: z.ZodType<
-  PostgresStopPostgres$Outbound,
+export const PostgresStopUpdateConfigSwarm$outboundSchema: z.ZodType<
+  PostgresStopUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  PostgresStopPostgres
+  PostgresStopUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostgresStopPostgres$ {
-  /** @deprecated use `PostgresStopPostgres$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopPostgres$inboundSchema;
-  /** @deprecated use `PostgresStopPostgres$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopPostgres$outboundSchema;
-  /** @deprecated use `PostgresStopPostgres$Outbound` instead. */
-  export type Outbound = PostgresStopPostgres$Outbound;
+export namespace PostgresStopUpdateConfigSwarm$ {
+  /** @deprecated use `PostgresStopUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = PostgresStopUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `PostgresStopUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema = PostgresStopUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `PostgresStopUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = PostgresStopUpdateConfigSwarm$Outbound;
 }
 
-export function postgresStopPostgresToJSON(
-  postgresStopPostgres: PostgresStopPostgres,
+export function postgresStopUpdateConfigSwarmToJSON(
+  postgresStopUpdateConfigSwarm: PostgresStopUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    PostgresStopPostgres$outboundSchema.parse(postgresStopPostgres),
+    PostgresStopUpdateConfigSwarm$outboundSchema.parse(
+      postgresStopUpdateConfigSwarm,
+    ),
   );
 }
 
-export function postgresStopPostgresFromJSON(
+export function postgresStopUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<PostgresStopPostgres, SDKValidationError> {
+): SafeParseResult<PostgresStopUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostgresStopPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopMariadb$inboundSchema: z.ZodType<
-  PostgresStopMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresStopMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresStopMariadb$outboundSchema: z.ZodType<
-  PostgresStopMariadb$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMariadb$ {
-  /** @deprecated use `PostgresStopMariadb$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMariadb$inboundSchema;
-  /** @deprecated use `PostgresStopMariadb$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMariadb$outboundSchema;
-  /** @deprecated use `PostgresStopMariadb$Outbound` instead. */
-  export type Outbound = PostgresStopMariadb$Outbound;
-}
-
-export function postgresStopMariadbToJSON(
-  postgresStopMariadb: PostgresStopMariadb,
-): string {
-  return JSON.stringify(
-    PostgresStopMariadb$outboundSchema.parse(postgresStopMariadb),
-  );
-}
-
-export function postgresStopMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopMongo$inboundSchema: z.ZodType<
-  PostgresStopMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type PostgresStopMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const PostgresStopMongo$outboundSchema: z.ZodType<
-  PostgresStopMongo$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMongo$ {
-  /** @deprecated use `PostgresStopMongo$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMongo$inboundSchema;
-  /** @deprecated use `PostgresStopMongo$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMongo$outboundSchema;
-  /** @deprecated use `PostgresStopMongo$Outbound` instead. */
-  export type Outbound = PostgresStopMongo$Outbound;
-}
-
-export function postgresStopMongoToJSON(
-  postgresStopMongo: PostgresStopMongo,
-): string {
-  return JSON.stringify(
-    PostgresStopMongo$outboundSchema.parse(postgresStopMongo),
-  );
-}
-
-export function postgresStopMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopMysql$inboundSchema: z.ZodType<
-  PostgresStopMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type PostgresStopMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const PostgresStopMysql$outboundSchema: z.ZodType<
-  PostgresStopMysql$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMysql$ {
-  /** @deprecated use `PostgresStopMysql$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMysql$inboundSchema;
-  /** @deprecated use `PostgresStopMysql$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMysql$outboundSchema;
-  /** @deprecated use `PostgresStopMysql$Outbound` instead. */
-  export type Outbound = PostgresStopMysql$Outbound;
-}
-
-export function postgresStopMysqlToJSON(
-  postgresStopMysql: PostgresStopMysql,
-): string {
-  return JSON.stringify(
-    PostgresStopMysql$outboundSchema.parse(postgresStopMysql),
-  );
-}
-
-export function postgresStopMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopMetadata$inboundSchema: z.ZodType<
-  PostgresStopMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => PostgresStopPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresStopMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => PostgresStopMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => PostgresStopMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type PostgresStopMetadata$Outbound = {
-  postgres?: PostgresStopPostgres$Outbound | undefined;
-  mariadb?: PostgresStopMariadb$Outbound | undefined;
-  mongo?: PostgresStopMongo$Outbound | undefined;
-  mysql?: PostgresStopMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const PostgresStopMetadata$outboundSchema: z.ZodType<
-  PostgresStopMetadata$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMetadata
-> = z.object({
-  postgres: z.lazy(() => PostgresStopPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => PostgresStopMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => PostgresStopMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => PostgresStopMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMetadata$ {
-  /** @deprecated use `PostgresStopMetadata$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMetadata$inboundSchema;
-  /** @deprecated use `PostgresStopMetadata$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMetadata$outboundSchema;
-  /** @deprecated use `PostgresStopMetadata$Outbound` instead. */
-  export type Outbound = PostgresStopMetadata$Outbound;
-}
-
-export function postgresStopMetadataToJSON(
-  postgresStopMetadata: PostgresStopMetadata,
-): string {
-  return JSON.stringify(
-    PostgresStopMetadata$outboundSchema.parse(postgresStopMetadata),
-  );
-}
-
-export function postgresStopMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopMetadataUnion$inboundSchema: z.ZodType<
-  PostgresStopMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PostgresStopMetadata$inboundSchema),
-  PostgresStopMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type PostgresStopMetadataUnion$Outbound =
-  | PostgresStopMetadata$Outbound
-  | string;
-
-/** @internal */
-export const PostgresStopMetadataUnion$outboundSchema: z.ZodType<
-  PostgresStopMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  PostgresStopMetadataUnion
-> = z.union([
-  z.lazy(() => PostgresStopMetadata$outboundSchema),
-  PostgresStopMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopMetadataUnion$ {
-  /** @deprecated use `PostgresStopMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopMetadataUnion$inboundSchema;
-  /** @deprecated use `PostgresStopMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopMetadataUnion$outboundSchema;
-  /** @deprecated use `PostgresStopMetadataUnion$Outbound` instead. */
-  export type Outbound = PostgresStopMetadataUnion$Outbound;
-}
-
-export function postgresStopMetadataUnionToJSON(
-  postgresStopMetadataUnion: PostgresStopMetadataUnion,
-): string {
-  return JSON.stringify(
-    PostgresStopMetadataUnion$outboundSchema.parse(postgresStopMetadataUnion),
-  );
-}
-
-export function postgresStopMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopMetadataUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PostgresStopBackup$inboundSchema: z.ZodType<
-  PostgresStopBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresStopBackupType$inboundSchema,
-  databaseType: PostgresStopDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresStopMetadata$inboundSchema),
-      PostgresStopMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type PostgresStopBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: PostgresStopMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const PostgresStopBackup$outboundSchema: z.ZodType<
-  PostgresStopBackup$Outbound,
-  z.ZodTypeDef,
-  PostgresStopBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: PostgresStopBackupType$outboundSchema,
-  databaseType: PostgresStopDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => PostgresStopMetadata$outboundSchema),
-      PostgresStopMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresStopBackup$ {
-  /** @deprecated use `PostgresStopBackup$inboundSchema` instead. */
-  export const inboundSchema = PostgresStopBackup$inboundSchema;
-  /** @deprecated use `PostgresStopBackup$outboundSchema` instead. */
-  export const outboundSchema = PostgresStopBackup$outboundSchema;
-  /** @deprecated use `PostgresStopBackup$Outbound` instead. */
-  export type Outbound = PostgresStopBackup$Outbound;
-}
-
-export function postgresStopBackupToJSON(
-  postgresStopBackup: PostgresStopBackup,
-): string {
-  return JSON.stringify(
-    PostgresStopBackup$outboundSchema.parse(postgresStopBackup),
-  );
-}
-
-export function postgresStopBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresStopBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresStopBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresStopBackup' from JSON`,
+    (x) => PostgresStopUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostgresStopUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2603,86 +2537,86 @@ export const PostgresStopResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresStopApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => PostgresStopBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresStopEnvironment$inboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresStopApplicationStatus$inboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresStopHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresStopRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresStopModeSwarm$inboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresStopMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresStopNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresStopPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresStopUpdateConfigSwarm$inboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresStopRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresStopRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresStopModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresStopNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresStopEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => PostgresStopMount$inboundSchema)),
   server: z.nullable(z.lazy(() => PostgresStopServer$inboundSchema)),
-  backups: z.array(z.lazy(() => PostgresStopBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresStopUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type PostgresStopResponseBody$Outbound = {
-  postgresId: string;
-  name: string;
   appName: string;
+  applicationStatus: string;
+  backups: Array<PostgresStopBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
   description: string | null;
   dockerImage: string;
-  command: string | null;
   env: string | null;
-  memoryReservation: string | null;
-  externalPort: number | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  applicationStatus: string;
-  healthCheckSwarm: PostgresStopHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: PostgresStopRestartPolicySwarm$Outbound | null;
-  placementSwarm: PostgresStopPlacementSwarm$Outbound | null;
-  updateConfigSwarm: PostgresStopUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: PostgresStopRollbackConfigSwarm$Outbound | null;
-  modeSwarm: PostgresStopModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<PostgresStopNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
   environment: PostgresStopEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: PostgresStopHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: PostgresStopModeSwarm$Outbound | null;
   mounts: Array<PostgresStopMount$Outbound>;
+  name: string;
+  networkSwarm: Array<PostgresStopNetworkSwarm$Outbound> | null;
+  placementSwarm: PostgresStopPlacementSwarm$Outbound | null;
+  postgresId: string;
+  replicas: number;
+  restartPolicySwarm: PostgresStopRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: PostgresStopRollbackConfigSwarm$Outbound | null;
   server: PostgresStopServer$Outbound | null;
-  backups: Array<PostgresStopBackup$Outbound>;
+  serverId: string | null;
+  updateConfigSwarm: PostgresStopUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2691,50 +2625,50 @@ export const PostgresStopResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresStopResponseBody
 > = z.object({
-  postgresId: z.string(),
-  name: z.string(),
   appName: z.string(),
+  applicationStatus: PostgresStopApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => PostgresStopBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseUser: z.string(),
   description: z.nullable(z.string()),
   dockerImage: z.string(),
-  command: z.nullable(z.string()),
   env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
+  environment: z.lazy(() => PostgresStopEnvironment$outboundSchema),
+  environmentId: z.string(),
   externalPort: z.nullable(z.number()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  applicationStatus: PostgresStopApplicationStatus$outboundSchema,
   healthCheckSwarm: z.nullable(
     z.lazy(() => PostgresStopHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => PostgresStopRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => PostgresStopModeSwarm$outboundSchema)),
+  mounts: z.array(z.lazy(() => PostgresStopMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => PostgresStopNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => PostgresStopPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => PostgresStopUpdateConfigSwarm$outboundSchema),
+  postgresId: z.string(),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => PostgresStopRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => PostgresStopRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => PostgresStopModeSwarm$outboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => PostgresStopNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  environment: z.lazy(() => PostgresStopEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => PostgresStopMount$outboundSchema)),
   server: z.nullable(z.lazy(() => PostgresStopServer$outboundSchema)),
-  backups: z.array(z.lazy(() => PostgresStopBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => PostgresStopUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

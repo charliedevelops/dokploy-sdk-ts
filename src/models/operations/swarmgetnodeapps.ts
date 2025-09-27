@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SwarmGetNodeAppsSecurity = {
-  authorization: string;
-};
-
 export type SwarmGetNodeAppsRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SwarmGetNodeAppsSecurity$inboundSchema: z.ZodType<
-  SwarmGetNodeAppsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SwarmGetNodeAppsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SwarmGetNodeAppsSecurity$outboundSchema: z.ZodType<
-  SwarmGetNodeAppsSecurity$Outbound,
-  z.ZodTypeDef,
-  SwarmGetNodeAppsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SwarmGetNodeAppsSecurity$ {
-  /** @deprecated use `SwarmGetNodeAppsSecurity$inboundSchema` instead. */
-  export const inboundSchema = SwarmGetNodeAppsSecurity$inboundSchema;
-  /** @deprecated use `SwarmGetNodeAppsSecurity$outboundSchema` instead. */
-  export const outboundSchema = SwarmGetNodeAppsSecurity$outboundSchema;
-  /** @deprecated use `SwarmGetNodeAppsSecurity$Outbound` instead. */
-  export type Outbound = SwarmGetNodeAppsSecurity$Outbound;
-}
-
-export function swarmGetNodeAppsSecurityToJSON(
-  swarmGetNodeAppsSecurity: SwarmGetNodeAppsSecurity,
-): string {
-  return JSON.stringify(
-    SwarmGetNodeAppsSecurity$outboundSchema.parse(swarmGetNodeAppsSecurity),
-  );
-}
-
-export function swarmGetNodeAppsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SwarmGetNodeAppsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SwarmGetNodeAppsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SwarmGetNodeAppsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SwarmGetNodeAppsRequest$inboundSchema: z.ZodType<

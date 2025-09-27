@@ -14,8 +14,8 @@ let value: ApplicationSaveDockerProviderRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `dockerImage`      | *string*           | :heavy_minus_sign: | N/A                |
 | `applicationId`    | *string*           | :heavy_check_mark: | N/A                |
-| `username`         | *string*           | :heavy_minus_sign: | N/A                |
+| `dockerImage`      | *string*           | :heavy_minus_sign: | N/A                |
 | `password`         | *string*           | :heavy_minus_sign: | N/A                |
 | `registryUrl`      | *string*           | :heavy_minus_sign: | N/A                |
+| `username`         | *string*           | :heavy_minus_sign: | N/A                |

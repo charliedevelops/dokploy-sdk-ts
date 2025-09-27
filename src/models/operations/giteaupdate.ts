@@ -3,31 +3,26 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type GiteaUpdateSecurity = {
-  authorization: string;
-};
-
 export type GiteaUpdateRequest = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri?: string | undefined;
+  accessToken?: string | undefined;
   clientId?: string | undefined;
   clientSecret?: string | undefined;
-  gitProviderId: string;
-  accessToken?: string | undefined;
-  refreshToken?: string | undefined;
   expiresAt?: number | undefined;
-  scopes?: string | undefined;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  giteaUsername?: string | undefined;
   lastAuthenticatedAt?: number | undefined;
   name: string;
-  giteaUsername?: string | undefined;
   organizationName?: string | undefined;
+  redirectUri?: string | undefined;
+  refreshToken?: string | undefined;
+  scopes?: string | undefined;
 };
 
 /**
@@ -40,105 +35,43 @@ export type GiteaUpdateResponseBody = {
 export type GiteaUpdateResponse = models.ErrorT | GiteaUpdateResponseBody;
 
 /** @internal */
-export const GiteaUpdateSecurity$inboundSchema: z.ZodType<
-  GiteaUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GiteaUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GiteaUpdateSecurity$outboundSchema: z.ZodType<
-  GiteaUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  GiteaUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GiteaUpdateSecurity$ {
-  /** @deprecated use `GiteaUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = GiteaUpdateSecurity$inboundSchema;
-  /** @deprecated use `GiteaUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = GiteaUpdateSecurity$outboundSchema;
-  /** @deprecated use `GiteaUpdateSecurity$Outbound` instead. */
-  export type Outbound = GiteaUpdateSecurity$Outbound;
-}
-
-export function giteaUpdateSecurityToJSON(
-  giteaUpdateSecurity: GiteaUpdateSecurity,
-): string {
-  return JSON.stringify(
-    GiteaUpdateSecurity$outboundSchema.parse(giteaUpdateSecurity),
-  );
-}
-
-export function giteaUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GiteaUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GiteaUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GiteaUpdateSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const GiteaUpdateRequest$inboundSchema: z.ZodType<
   GiteaUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.string().optional(),
+  accessToken: z.string().optional(),
   clientId: z.string().optional(),
   clientSecret: z.string().optional(),
-  gitProviderId: z.string(),
-  accessToken: z.string().optional(),
-  refreshToken: z.string().optional(),
   expiresAt: z.number().optional(),
-  scopes: z.string().optional(),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  giteaUsername: z.string().optional(),
   lastAuthenticatedAt: z.number().optional(),
   name: z.string(),
-  giteaUsername: z.string().optional(),
   organizationName: z.string().optional(),
+  redirectUri: z.string().optional(),
+  refreshToken: z.string().optional(),
+  scopes: z.string().optional(),
 });
 
 /** @internal */
 export type GiteaUpdateRequest$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri?: string | undefined;
+  accessToken?: string | undefined;
   clientId?: string | undefined;
   clientSecret?: string | undefined;
-  gitProviderId: string;
-  accessToken?: string | undefined;
-  refreshToken?: string | undefined;
   expiresAt?: number | undefined;
-  scopes?: string | undefined;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  giteaUsername?: string | undefined;
   lastAuthenticatedAt?: number | undefined;
   name: string;
-  giteaUsername?: string | undefined;
   organizationName?: string | undefined;
+  redirectUri?: string | undefined;
+  refreshToken?: string | undefined;
+  scopes?: string | undefined;
 };
 
 /** @internal */
@@ -147,20 +80,20 @@ export const GiteaUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaUpdateRequest
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.string().optional(),
+  accessToken: z.string().optional(),
   clientId: z.string().optional(),
   clientSecret: z.string().optional(),
-  gitProviderId: z.string(),
-  accessToken: z.string().optional(),
-  refreshToken: z.string().optional(),
   expiresAt: z.number().optional(),
-  scopes: z.string().optional(),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  giteaUsername: z.string().optional(),
   lastAuthenticatedAt: z.number().optional(),
   name: z.string(),
-  giteaUsername: z.string().optional(),
   organizationName: z.string().optional(),
+  redirectUri: z.string().optional(),
+  refreshToken: z.string().optional(),
+  scopes: z.string().optional(),
 });
 
 /**

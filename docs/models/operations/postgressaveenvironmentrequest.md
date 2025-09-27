@@ -14,5 +14,5 @@ let value: PostgresSaveEnvironmentRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `postgresId`       | *string*           | :heavy_check_mark: | N/A                |
 | `env`              | *string*           | :heavy_minus_sign: | N/A                |
+| `postgresId`       | *string*           | :heavy_check_mark: | N/A                |

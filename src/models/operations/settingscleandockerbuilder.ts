@@ -3,84 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanDockerBuilderSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanDockerBuilderRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanDockerBuilderSecurity$inboundSchema: z.ZodType<
-  SettingsCleanDockerBuilderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanDockerBuilderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanDockerBuilderSecurity$outboundSchema: z.ZodType<
-  SettingsCleanDockerBuilderSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanDockerBuilderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanDockerBuilderSecurity$ {
-  /** @deprecated use `SettingsCleanDockerBuilderSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsCleanDockerBuilderSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanDockerBuilderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsCleanDockerBuilderSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanDockerBuilderSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanDockerBuilderSecurity$Outbound;
-}
-
-export function settingsCleanDockerBuilderSecurityToJSON(
-  settingsCleanDockerBuilderSecurity: SettingsCleanDockerBuilderSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanDockerBuilderSecurity$outboundSchema.parse(
-      settingsCleanDockerBuilderSecurity,
-    ),
-  );
-}
-
-export function settingsCleanDockerBuilderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanDockerBuilderSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsCleanDockerBuilderSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanDockerBuilderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanDockerBuilderRequest$inboundSchema: z.ZodType<

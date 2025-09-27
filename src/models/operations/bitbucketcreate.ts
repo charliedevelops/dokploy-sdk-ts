@@ -3,86 +3,19 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BitbucketCreateSecurity = {
-  authorization: string;
-};
-
 export type BitbucketCreateRequest = {
+  appPassword?: string | undefined;
+  authId: string;
   bitbucketId?: string | undefined;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
   name: string;
 };
-
-/** @internal */
-export const BitbucketCreateSecurity$inboundSchema: z.ZodType<
-  BitbucketCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BitbucketCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BitbucketCreateSecurity$outboundSchema: z.ZodType<
-  BitbucketCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  BitbucketCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BitbucketCreateSecurity$ {
-  /** @deprecated use `BitbucketCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = BitbucketCreateSecurity$inboundSchema;
-  /** @deprecated use `BitbucketCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = BitbucketCreateSecurity$outboundSchema;
-  /** @deprecated use `BitbucketCreateSecurity$Outbound` instead. */
-  export type Outbound = BitbucketCreateSecurity$Outbound;
-}
-
-export function bitbucketCreateSecurityToJSON(
-  bitbucketCreateSecurity: BitbucketCreateSecurity,
-): string {
-  return JSON.stringify(
-    BitbucketCreateSecurity$outboundSchema.parse(bitbucketCreateSecurity),
-  );
-}
-
-export function bitbucketCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BitbucketCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => BitbucketCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BitbucketCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BitbucketCreateRequest$inboundSchema: z.ZodType<
@@ -90,23 +23,23 @@ export const BitbucketCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  appPassword: z.string().optional(),
+  authId: z.string(),
   bitbucketId: z.string().optional(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.string().optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
   name: z.string(),
 });
 
 /** @internal */
 export type BitbucketCreateRequest$Outbound = {
+  appPassword?: string | undefined;
+  authId: string;
   bitbucketId?: string | undefined;
   bitbucketUsername?: string | undefined;
-  appPassword?: string | undefined;
   bitbucketWorkspaceName?: string | undefined;
   gitProviderId?: string | undefined;
-  authId: string;
   name: string;
 };
 
@@ -116,12 +49,12 @@ export const BitbucketCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BitbucketCreateRequest
 > = z.object({
+  appPassword: z.string().optional(),
+  authId: z.string(),
   bitbucketId: z.string().optional(),
   bitbucketUsername: z.string().optional(),
-  appPassword: z.string().optional(),
   bitbucketWorkspaceName: z.string().optional(),
   gitProviderId: z.string().optional(),
-  authId: z.string(),
   name: z.string(),
 });
 

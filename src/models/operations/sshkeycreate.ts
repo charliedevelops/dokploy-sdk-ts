@@ -3,84 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SshKeyCreateSecurity = {
-  authorization: string;
-};
-
 export type SshKeyCreateRequest = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
+  organizationId: string;
   privateKey: string;
   publicKey: string;
-  organizationId: string;
 };
-
-/** @internal */
-export const SshKeyCreateSecurity$inboundSchema: z.ZodType<
-  SshKeyCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SshKeyCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SshKeyCreateSecurity$outboundSchema: z.ZodType<
-  SshKeyCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  SshKeyCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SshKeyCreateSecurity$ {
-  /** @deprecated use `SshKeyCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = SshKeyCreateSecurity$inboundSchema;
-  /** @deprecated use `SshKeyCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = SshKeyCreateSecurity$outboundSchema;
-  /** @deprecated use `SshKeyCreateSecurity$Outbound` instead. */
-  export type Outbound = SshKeyCreateSecurity$Outbound;
-}
-
-export function sshKeyCreateSecurityToJSON(
-  sshKeyCreateSecurity: SshKeyCreateSecurity,
-): string {
-  return JSON.stringify(
-    SshKeyCreateSecurity$outboundSchema.parse(sshKeyCreateSecurity),
-  );
-}
-
-export function sshKeyCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SshKeyCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SshKeyCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SshKeyCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SshKeyCreateRequest$inboundSchema: z.ZodType<
@@ -88,20 +21,20 @@ export const SshKeyCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
+  organizationId: z.string(),
   privateKey: z.string(),
   publicKey: z.string(),
-  organizationId: z.string(),
 });
 
 /** @internal */
 export type SshKeyCreateRequest$Outbound = {
-  name: string;
   description?: string | null | undefined;
+  name: string;
+  organizationId: string;
   privateKey: string;
   publicKey: string;
-  organizationId: string;
 };
 
 /** @internal */
@@ -110,11 +43,11 @@ export const SshKeyCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SshKeyCreateRequest
 > = z.object({
-  name: z.string(),
   description: z.nullable(z.string()).optional(),
+  name: z.string(),
+  organizationId: z.string(),
   privateKey: z.string(),
   publicKey: z.string(),
-  organizationId: z.string(),
 });
 
 /**

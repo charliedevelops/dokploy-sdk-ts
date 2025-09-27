@@ -3,92 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MariadbCreateSecurity = {
-  authorization: string;
-};
-
 export type MariadbCreateRequest = {
-  name: string;
   appName: string;
-  dockerImage?: string | undefined;
-  databaseRootPassword: string;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage?: string | undefined;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
 export type MariadbCreateResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const MariadbCreateSecurity$inboundSchema: z.ZodType<
-  MariadbCreateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MariadbCreateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MariadbCreateSecurity$outboundSchema: z.ZodType<
-  MariadbCreateSecurity$Outbound,
-  z.ZodTypeDef,
-  MariadbCreateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MariadbCreateSecurity$ {
-  /** @deprecated use `MariadbCreateSecurity$inboundSchema` instead. */
-  export const inboundSchema = MariadbCreateSecurity$inboundSchema;
-  /** @deprecated use `MariadbCreateSecurity$outboundSchema` instead. */
-  export const outboundSchema = MariadbCreateSecurity$outboundSchema;
-  /** @deprecated use `MariadbCreateSecurity$Outbound` instead. */
-  export type Outbound = MariadbCreateSecurity$Outbound;
-}
-
-export function mariadbCreateSecurityToJSON(
-  mariadbCreateSecurity: MariadbCreateSecurity,
-): string {
-  return JSON.stringify(
-    MariadbCreateSecurity$outboundSchema.parse(mariadbCreateSecurity),
-  );
-}
-
-export function mariadbCreateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MariadbCreateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MariadbCreateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MariadbCreateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MariadbCreateRequest$inboundSchema: z.ZodType<
@@ -96,29 +29,29 @@ export const MariadbCreateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mariadb:6"),
-  databaseRootPassword: z.string(),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mariadb:6"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type MariadbCreateRequest$Outbound = {
-  name: string;
   appName: string;
-  dockerImage: string;
-  databaseRootPassword: string;
-  environmentId: string;
-  description?: string | null | undefined;
   databaseName: string;
-  databaseUser: string;
   databasePassword: string;
+  databaseRootPassword: string;
+  databaseUser: string;
+  description?: string | null | undefined;
+  dockerImage: string;
+  environmentId: string;
+  name: string;
   serverId?: string | null | undefined;
 };
 
@@ -128,15 +61,15 @@ export const MariadbCreateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MariadbCreateRequest
 > = z.object({
-  name: z.string(),
   appName: z.string(),
-  dockerImage: z.string().default("mariadb:6"),
-  databaseRootPassword: z.string(),
-  environmentId: z.string(),
-  description: z.nullable(z.string()).optional(),
   databaseName: z.string(),
-  databaseUser: z.string(),
   databasePassword: z.string(),
+  databaseRootPassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()).optional(),
+  dockerImage: z.string().default("mariadb:6"),
+  environmentId: z.string(),
+  name: z.string(),
   serverId: z.nullable(z.string()).optional(),
 });
 

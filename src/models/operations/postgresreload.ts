@@ -3,84 +3,17 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type PostgresReloadSecurity = {
-  authorization: string;
-};
-
 export type PostgresReloadRequest = {
-  postgresId: string;
   appName: string;
+  postgresId: string;
 };
 
 export type PostgresReloadResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const PostgresReloadSecurity$inboundSchema: z.ZodType<
-  PostgresReloadSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PostgresReloadSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PostgresReloadSecurity$outboundSchema: z.ZodType<
-  PostgresReloadSecurity$Outbound,
-  z.ZodTypeDef,
-  PostgresReloadSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PostgresReloadSecurity$ {
-  /** @deprecated use `PostgresReloadSecurity$inboundSchema` instead. */
-  export const inboundSchema = PostgresReloadSecurity$inboundSchema;
-  /** @deprecated use `PostgresReloadSecurity$outboundSchema` instead. */
-  export const outboundSchema = PostgresReloadSecurity$outboundSchema;
-  /** @deprecated use `PostgresReloadSecurity$Outbound` instead. */
-  export type Outbound = PostgresReloadSecurity$Outbound;
-}
-
-export function postgresReloadSecurityToJSON(
-  postgresReloadSecurity: PostgresReloadSecurity,
-): string {
-  return JSON.stringify(
-    PostgresReloadSecurity$outboundSchema.parse(postgresReloadSecurity),
-  );
-}
-
-export function postgresReloadSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PostgresReloadSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostgresReloadSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostgresReloadSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostgresReloadRequest$inboundSchema: z.ZodType<
@@ -88,14 +21,14 @@ export const PostgresReloadRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  postgresId: z.string(),
   appName: z.string(),
+  postgresId: z.string(),
 });
 
 /** @internal */
 export type PostgresReloadRequest$Outbound = {
-  postgresId: string;
   appName: string;
+  postgresId: string;
 };
 
 /** @internal */
@@ -104,8 +37,8 @@ export const PostgresReloadRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostgresReloadRequest
 > = z.object({
-  postgresId: z.string(),
   appName: z.string(),
+  postgresId: z.string(),
 });
 
 /**

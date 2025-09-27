@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsReadTraefikEnvSecurity = {
-  authorization: string;
-};
-
 export type SettingsReadTraefikEnvRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsReadTraefikEnvSecurity$inboundSchema: z.ZodType<
-  SettingsReadTraefikEnvSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsReadTraefikEnvSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsReadTraefikEnvSecurity$outboundSchema: z.ZodType<
-  SettingsReadTraefikEnvSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsReadTraefikEnvSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsReadTraefikEnvSecurity$ {
-  /** @deprecated use `SettingsReadTraefikEnvSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsReadTraefikEnvSecurity$inboundSchema;
-  /** @deprecated use `SettingsReadTraefikEnvSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsReadTraefikEnvSecurity$outboundSchema;
-  /** @deprecated use `SettingsReadTraefikEnvSecurity$Outbound` instead. */
-  export type Outbound = SettingsReadTraefikEnvSecurity$Outbound;
-}
-
-export function settingsReadTraefikEnvSecurityToJSON(
-  settingsReadTraefikEnvSecurity: SettingsReadTraefikEnvSecurity,
-): string {
-  return JSON.stringify(
-    SettingsReadTraefikEnvSecurity$outboundSchema.parse(
-      settingsReadTraefikEnvSecurity,
-    ),
-  );
-}
-
-export function settingsReadTraefikEnvSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsReadTraefikEnvSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsReadTraefikEnvSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsReadTraefikEnvSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsReadTraefikEnvRequest$inboundSchema: z.ZodType<

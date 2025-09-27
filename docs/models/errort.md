@@ -8,8 +8,8 @@ Error response
 import { ErrorT } from "dokploy-sdk/models";
 
 let value: ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 
@@ -17,6 +17,6 @@ let value: ErrorT = {
 
 | Field                                | Type                                 | Required                             | Description                          |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `message`                            | *string*                             | :heavy_check_mark:                   | N/A                                  |
 | `code`                               | *string*                             | :heavy_check_mark:                   | N/A                                  |
 | `issues`                             | [models.Issue](../models/issue.md)[] | :heavy_minus_sign:                   | N/A                                  |
+| `message`                            | *string*                             | :heavy_check_mark:                   | N/A                                  |

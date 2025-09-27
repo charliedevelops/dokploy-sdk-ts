@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type UserGetUserByTokenSecurity = {
-  authorization: string;
-};
-
 export type UserGetUserByTokenRequest = {
   token: string;
 };
-
-/** @internal */
-export const UserGetUserByTokenSecurity$inboundSchema: z.ZodType<
-  UserGetUserByTokenSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserGetUserByTokenSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserGetUserByTokenSecurity$outboundSchema: z.ZodType<
-  UserGetUserByTokenSecurity$Outbound,
-  z.ZodTypeDef,
-  UserGetUserByTokenSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserGetUserByTokenSecurity$ {
-  /** @deprecated use `UserGetUserByTokenSecurity$inboundSchema` instead. */
-  export const inboundSchema = UserGetUserByTokenSecurity$inboundSchema;
-  /** @deprecated use `UserGetUserByTokenSecurity$outboundSchema` instead. */
-  export const outboundSchema = UserGetUserByTokenSecurity$outboundSchema;
-  /** @deprecated use `UserGetUserByTokenSecurity$Outbound` instead. */
-  export type Outbound = UserGetUserByTokenSecurity$Outbound;
-}
-
-export function userGetUserByTokenSecurityToJSON(
-  userGetUserByTokenSecurity: UserGetUserByTokenSecurity,
-): string {
-  return JSON.stringify(
-    UserGetUserByTokenSecurity$outboundSchema.parse(userGetUserByTokenSecurity),
-  );
-}
-
-export function userGetUserByTokenSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserGetUserByTokenSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserGetUserByTokenSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserGetUserByTokenSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserGetUserByTokenRequest$inboundSchema: z.ZodType<

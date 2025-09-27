@@ -3,13 +3,18 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type AdminSetupMonitoringSecurity = {
-  authorization: string;
+export type AdminSetupMonitoringServices = {
+  exclude?: Array<string> | undefined;
+  include?: Array<string> | undefined;
+};
+
+export type AdminSetupMonitoringContainers = {
+  refreshRate: number;
+  services: AdminSetupMonitoringServices;
 };
 
 export type AdminSetupMonitoringThresholds = {
@@ -18,28 +23,18 @@ export type AdminSetupMonitoringThresholds = {
 };
 
 export type AdminSetupMonitoringServer = {
-  refreshRate: number;
+  cronJob: string;
   port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: AdminSetupMonitoringThresholds;
   token: string;
   urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: AdminSetupMonitoringThresholds;
-};
-
-export type AdminSetupMonitoringServices = {
-  include?: Array<string> | undefined;
-  exclude?: Array<string> | undefined;
-};
-
-export type AdminSetupMonitoringContainers = {
-  refreshRate: number;
-  services: AdminSetupMonitoringServices;
 };
 
 export type AdminSetupMonitoringMetricsConfig = {
-  server: AdminSetupMonitoringServer;
   containers: AdminSetupMonitoringContainers;
+  server: AdminSetupMonitoringServer;
 };
 
 export type AdminSetupMonitoringRequest = {
@@ -47,214 +42,19 @@ export type AdminSetupMonitoringRequest = {
 };
 
 /** @internal */
-export const AdminSetupMonitoringSecurity$inboundSchema: z.ZodType<
-  AdminSetupMonitoringSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AdminSetupMonitoringSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AdminSetupMonitoringSecurity$outboundSchema: z.ZodType<
-  AdminSetupMonitoringSecurity$Outbound,
-  z.ZodTypeDef,
-  AdminSetupMonitoringSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdminSetupMonitoringSecurity$ {
-  /** @deprecated use `AdminSetupMonitoringSecurity$inboundSchema` instead. */
-  export const inboundSchema = AdminSetupMonitoringSecurity$inboundSchema;
-  /** @deprecated use `AdminSetupMonitoringSecurity$outboundSchema` instead. */
-  export const outboundSchema = AdminSetupMonitoringSecurity$outboundSchema;
-  /** @deprecated use `AdminSetupMonitoringSecurity$Outbound` instead. */
-  export type Outbound = AdminSetupMonitoringSecurity$Outbound;
-}
-
-export function adminSetupMonitoringSecurityToJSON(
-  adminSetupMonitoringSecurity: AdminSetupMonitoringSecurity,
-): string {
-  return JSON.stringify(
-    AdminSetupMonitoringSecurity$outboundSchema.parse(
-      adminSetupMonitoringSecurity,
-    ),
-  );
-}
-
-export function adminSetupMonitoringSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AdminSetupMonitoringSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdminSetupMonitoringSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdminSetupMonitoringSecurity' from JSON`,
-  );
-}
-
-/** @internal */
-export const AdminSetupMonitoringThresholds$inboundSchema: z.ZodType<
-  AdminSetupMonitoringThresholds,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/** @internal */
-export type AdminSetupMonitoringThresholds$Outbound = {
-  cpu: number;
-  memory: number;
-};
-
-/** @internal */
-export const AdminSetupMonitoringThresholds$outboundSchema: z.ZodType<
-  AdminSetupMonitoringThresholds$Outbound,
-  z.ZodTypeDef,
-  AdminSetupMonitoringThresholds
-> = z.object({
-  cpu: z.number(),
-  memory: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdminSetupMonitoringThresholds$ {
-  /** @deprecated use `AdminSetupMonitoringThresholds$inboundSchema` instead. */
-  export const inboundSchema = AdminSetupMonitoringThresholds$inboundSchema;
-  /** @deprecated use `AdminSetupMonitoringThresholds$outboundSchema` instead. */
-  export const outboundSchema = AdminSetupMonitoringThresholds$outboundSchema;
-  /** @deprecated use `AdminSetupMonitoringThresholds$Outbound` instead. */
-  export type Outbound = AdminSetupMonitoringThresholds$Outbound;
-}
-
-export function adminSetupMonitoringThresholdsToJSON(
-  adminSetupMonitoringThresholds: AdminSetupMonitoringThresholds,
-): string {
-  return JSON.stringify(
-    AdminSetupMonitoringThresholds$outboundSchema.parse(
-      adminSetupMonitoringThresholds,
-    ),
-  );
-}
-
-export function adminSetupMonitoringThresholdsFromJSON(
-  jsonString: string,
-): SafeParseResult<AdminSetupMonitoringThresholds, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdminSetupMonitoringThresholds$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdminSetupMonitoringThresholds' from JSON`,
-  );
-}
-
-/** @internal */
-export const AdminSetupMonitoringServer$inboundSchema: z.ZodType<
-  AdminSetupMonitoringServer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => AdminSetupMonitoringThresholds$inboundSchema),
-});
-
-/** @internal */
-export type AdminSetupMonitoringServer$Outbound = {
-  refreshRate: number;
-  port: number;
-  token: string;
-  urlCallback: string;
-  retentionDays: number;
-  cronJob: string;
-  thresholds: AdminSetupMonitoringThresholds$Outbound;
-};
-
-/** @internal */
-export const AdminSetupMonitoringServer$outboundSchema: z.ZodType<
-  AdminSetupMonitoringServer$Outbound,
-  z.ZodTypeDef,
-  AdminSetupMonitoringServer
-> = z.object({
-  refreshRate: z.number(),
-  port: z.number(),
-  token: z.string(),
-  urlCallback: z.string(),
-  retentionDays: z.number(),
-  cronJob: z.string(),
-  thresholds: z.lazy(() => AdminSetupMonitoringThresholds$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdminSetupMonitoringServer$ {
-  /** @deprecated use `AdminSetupMonitoringServer$inboundSchema` instead. */
-  export const inboundSchema = AdminSetupMonitoringServer$inboundSchema;
-  /** @deprecated use `AdminSetupMonitoringServer$outboundSchema` instead. */
-  export const outboundSchema = AdminSetupMonitoringServer$outboundSchema;
-  /** @deprecated use `AdminSetupMonitoringServer$Outbound` instead. */
-  export type Outbound = AdminSetupMonitoringServer$Outbound;
-}
-
-export function adminSetupMonitoringServerToJSON(
-  adminSetupMonitoringServer: AdminSetupMonitoringServer,
-): string {
-  return JSON.stringify(
-    AdminSetupMonitoringServer$outboundSchema.parse(adminSetupMonitoringServer),
-  );
-}
-
-export function adminSetupMonitoringServerFromJSON(
-  jsonString: string,
-): SafeParseResult<AdminSetupMonitoringServer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdminSetupMonitoringServer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdminSetupMonitoringServer' from JSON`,
-  );
-}
-
-/** @internal */
 export const AdminSetupMonitoringServices$inboundSchema: z.ZodType<
   AdminSetupMonitoringServices,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  include: z.array(z.string()).optional(),
   exclude: z.array(z.string()).optional(),
+  include: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type AdminSetupMonitoringServices$Outbound = {
-  include?: Array<string> | undefined;
   exclude?: Array<string> | undefined;
+  include?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -263,8 +63,8 @@ export const AdminSetupMonitoringServices$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AdminSetupMonitoringServices
 > = z.object({
-  include: z.array(z.string()).optional(),
   exclude: z.array(z.string()).optional(),
+  include: z.array(z.string()).optional(),
 });
 
 /**
@@ -360,19 +160,150 @@ export function adminSetupMonitoringContainersFromJSON(
 }
 
 /** @internal */
+export const AdminSetupMonitoringThresholds$inboundSchema: z.ZodType<
+  AdminSetupMonitoringThresholds,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/** @internal */
+export type AdminSetupMonitoringThresholds$Outbound = {
+  cpu: number;
+  memory: number;
+};
+
+/** @internal */
+export const AdminSetupMonitoringThresholds$outboundSchema: z.ZodType<
+  AdminSetupMonitoringThresholds$Outbound,
+  z.ZodTypeDef,
+  AdminSetupMonitoringThresholds
+> = z.object({
+  cpu: z.number(),
+  memory: z.number(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AdminSetupMonitoringThresholds$ {
+  /** @deprecated use `AdminSetupMonitoringThresholds$inboundSchema` instead. */
+  export const inboundSchema = AdminSetupMonitoringThresholds$inboundSchema;
+  /** @deprecated use `AdminSetupMonitoringThresholds$outboundSchema` instead. */
+  export const outboundSchema = AdminSetupMonitoringThresholds$outboundSchema;
+  /** @deprecated use `AdminSetupMonitoringThresholds$Outbound` instead. */
+  export type Outbound = AdminSetupMonitoringThresholds$Outbound;
+}
+
+export function adminSetupMonitoringThresholdsToJSON(
+  adminSetupMonitoringThresholds: AdminSetupMonitoringThresholds,
+): string {
+  return JSON.stringify(
+    AdminSetupMonitoringThresholds$outboundSchema.parse(
+      adminSetupMonitoringThresholds,
+    ),
+  );
+}
+
+export function adminSetupMonitoringThresholdsFromJSON(
+  jsonString: string,
+): SafeParseResult<AdminSetupMonitoringThresholds, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AdminSetupMonitoringThresholds$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AdminSetupMonitoringThresholds' from JSON`,
+  );
+}
+
+/** @internal */
+export const AdminSetupMonitoringServer$inboundSchema: z.ZodType<
+  AdminSetupMonitoringServer,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => AdminSetupMonitoringThresholds$inboundSchema),
+  token: z.string(),
+  urlCallback: z.string(),
+});
+
+/** @internal */
+export type AdminSetupMonitoringServer$Outbound = {
+  cronJob: string;
+  port: number;
+  refreshRate: number;
+  retentionDays: number;
+  thresholds: AdminSetupMonitoringThresholds$Outbound;
+  token: string;
+  urlCallback: string;
+};
+
+/** @internal */
+export const AdminSetupMonitoringServer$outboundSchema: z.ZodType<
+  AdminSetupMonitoringServer$Outbound,
+  z.ZodTypeDef,
+  AdminSetupMonitoringServer
+> = z.object({
+  cronJob: z.string(),
+  port: z.number(),
+  refreshRate: z.number(),
+  retentionDays: z.number(),
+  thresholds: z.lazy(() => AdminSetupMonitoringThresholds$outboundSchema),
+  token: z.string(),
+  urlCallback: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AdminSetupMonitoringServer$ {
+  /** @deprecated use `AdminSetupMonitoringServer$inboundSchema` instead. */
+  export const inboundSchema = AdminSetupMonitoringServer$inboundSchema;
+  /** @deprecated use `AdminSetupMonitoringServer$outboundSchema` instead. */
+  export const outboundSchema = AdminSetupMonitoringServer$outboundSchema;
+  /** @deprecated use `AdminSetupMonitoringServer$Outbound` instead. */
+  export type Outbound = AdminSetupMonitoringServer$Outbound;
+}
+
+export function adminSetupMonitoringServerToJSON(
+  adminSetupMonitoringServer: AdminSetupMonitoringServer,
+): string {
+  return JSON.stringify(
+    AdminSetupMonitoringServer$outboundSchema.parse(adminSetupMonitoringServer),
+  );
+}
+
+export function adminSetupMonitoringServerFromJSON(
+  jsonString: string,
+): SafeParseResult<AdminSetupMonitoringServer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AdminSetupMonitoringServer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AdminSetupMonitoringServer' from JSON`,
+  );
+}
+
+/** @internal */
 export const AdminSetupMonitoringMetricsConfig$inboundSchema: z.ZodType<
   AdminSetupMonitoringMetricsConfig,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  server: z.lazy(() => AdminSetupMonitoringServer$inboundSchema),
   containers: z.lazy(() => AdminSetupMonitoringContainers$inboundSchema),
+  server: z.lazy(() => AdminSetupMonitoringServer$inboundSchema),
 });
 
 /** @internal */
 export type AdminSetupMonitoringMetricsConfig$Outbound = {
-  server: AdminSetupMonitoringServer$Outbound;
   containers: AdminSetupMonitoringContainers$Outbound;
+  server: AdminSetupMonitoringServer$Outbound;
 };
 
 /** @internal */
@@ -381,8 +312,8 @@ export const AdminSetupMonitoringMetricsConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AdminSetupMonitoringMetricsConfig
 > = z.object({
-  server: z.lazy(() => AdminSetupMonitoringServer$outboundSchema),
   containers: z.lazy(() => AdminSetupMonitoringContainers$outboundSchema),
+  server: z.lazy(() => AdminSetupMonitoringServer$outboundSchema),
 });
 
 /**

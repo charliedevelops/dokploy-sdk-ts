@@ -3,82 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ApplicationDeploySecurity = {
-  authorization: string;
-};
-
 export type ApplicationDeployRequest = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
-
-/** @internal */
-export const ApplicationDeploySecurity$inboundSchema: z.ZodType<
-  ApplicationDeploySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationDeploySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationDeploySecurity$outboundSchema: z.ZodType<
-  ApplicationDeploySecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationDeploySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDeploySecurity$ {
-  /** @deprecated use `ApplicationDeploySecurity$inboundSchema` instead. */
-  export const inboundSchema = ApplicationDeploySecurity$inboundSchema;
-  /** @deprecated use `ApplicationDeploySecurity$outboundSchema` instead. */
-  export const outboundSchema = ApplicationDeploySecurity$outboundSchema;
-  /** @deprecated use `ApplicationDeploySecurity$Outbound` instead. */
-  export type Outbound = ApplicationDeploySecurity$Outbound;
-}
-
-export function applicationDeploySecurityToJSON(
-  applicationDeploySecurity: ApplicationDeploySecurity,
-): string {
-  return JSON.stringify(
-    ApplicationDeploySecurity$outboundSchema.parse(applicationDeploySecurity),
-  );
-}
-
-export function applicationDeploySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ApplicationDeploySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ApplicationDeploySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ApplicationDeploySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationDeployRequest$inboundSchema: z.ZodType<
@@ -87,15 +20,15 @@ export const ApplicationDeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ApplicationDeployRequest$Outbound = {
   applicationId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -105,8 +38,8 @@ export const ApplicationDeployRequest$outboundSchema: z.ZodType<
   ApplicationDeployRequest
 > = z.object({
   applicationId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**

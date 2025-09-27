@@ -8,25 +8,26 @@
 ```typescript
 const value: operations.DeploymentAllByTypeResponseBody[] = [
   {
+    applicationId: "<id>",
+    backupId: "<id>",
+    composeId: "<id>",
+    createdAt: "1705368637894",
     deploymentId: "<id>",
-    title: "<value>",
-    description: "per below except aha",
-    status: "done",
+    description:
+      "sleepily gosh abaft preside boo amazing insist oh notwithstanding bah",
+    errorMessage: "<value>",
+    finishedAt: "<value>",
+    isPreviewDeployment: true,
     logPath: "<value>",
     pid: "<id>",
-    applicationId: "<id>",
-    composeId: "<id>",
-    serverId: "<id>",
-    isPreviewDeployment: true,
     previewDeploymentId: "<id>",
-    createdAt: "1722630547173",
-    startedAt: null,
-    finishedAt: "<value>",
-    errorMessage: "<value>",
-    scheduleId: "<id>",
-    backupId: "<id>",
     rollbackId: "<id>",
-    volumeBackupId: "<id>",
+    scheduleId: "<id>",
+    serverId: "<id>",
+    startedAt: "<value>",
+    status: null,
+    title: "<value>",
+    volumeBackupId: null,
   },
 ];
 ```
@@ -35,8 +36,8 @@ const value: operations.DeploymentAllByTypeResponseBody[] = [
 
 ```typescript
 const value: models.ErrorT = {
-  message: "<value>",
   code: "<value>",
+  message: "<value>",
 };
 ```
 

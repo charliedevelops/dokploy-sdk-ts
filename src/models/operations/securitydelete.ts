@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type SecurityDeleteSecurity = {
-  authorization: string;
-};
 
 export type SecurityDeleteRequest = {
   securityId: string;
@@ -21,76 +16,14 @@ export type SecurityDeleteRequest = {
  * Successful response
  */
 export type SecurityDeleteResponseBody = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 export type SecurityDeleteResponse = SecurityDeleteResponseBody | models.ErrorT;
-
-/** @internal */
-export const SecurityDeleteSecurity$inboundSchema: z.ZodType<
-  SecurityDeleteSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SecurityDeleteSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SecurityDeleteSecurity$outboundSchema: z.ZodType<
-  SecurityDeleteSecurity$Outbound,
-  z.ZodTypeDef,
-  SecurityDeleteSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SecurityDeleteSecurity$ {
-  /** @deprecated use `SecurityDeleteSecurity$inboundSchema` instead. */
-  export const inboundSchema = SecurityDeleteSecurity$inboundSchema;
-  /** @deprecated use `SecurityDeleteSecurity$outboundSchema` instead. */
-  export const outboundSchema = SecurityDeleteSecurity$outboundSchema;
-  /** @deprecated use `SecurityDeleteSecurity$Outbound` instead. */
-  export type Outbound = SecurityDeleteSecurity$Outbound;
-}
-
-export function securityDeleteSecurityToJSON(
-  securityDeleteSecurity: SecurityDeleteSecurity,
-): string {
-  return JSON.stringify(
-    SecurityDeleteSecurity$outboundSchema.parse(securityDeleteSecurity),
-  );
-}
-
-export function securityDeleteSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SecurityDeleteSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SecurityDeleteSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SecurityDeleteSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SecurityDeleteRequest$inboundSchema: z.ZodType<
@@ -152,20 +85,20 @@ export const SecurityDeleteResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /** @internal */
 export type SecurityDeleteResponseBody$Outbound = {
+  applicationId: string;
+  createdAt: string;
+  password: string;
   securityId: string;
   username: string;
-  password: string;
-  createdAt: string;
-  applicationId: string;
 };
 
 /** @internal */
@@ -174,11 +107,11 @@ export const SecurityDeleteResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SecurityDeleteResponseBody
 > = z.object({
+  applicationId: z.string(),
+  createdAt: z.string(),
+  password: z.string(),
   securityId: z.string(),
   username: z.string(),
-  password: z.string(),
-  createdAt: z.string(),
-  applicationId: z.string(),
 });
 
 /**

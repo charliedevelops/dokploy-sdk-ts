@@ -10,10 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoChangeStatusSecurity = {
-  authorization: string;
-};
-
 export const MongoChangeStatusApplicationStatusRequest = {
   Idle: "idle",
   Running: "running",
@@ -25,8 +21,8 @@ export type MongoChangeStatusApplicationStatusRequest = ClosedEnum<
 >;
 
 export type MongoChangeStatusRequest = {
-  mongoId: string;
   applicationStatus: MongoChangeStatusApplicationStatusRequest;
+  mongoId: string;
 };
 
 export const MongoChangeStatusApplicationStatusResponse = {
@@ -38,196 +34,6 @@ export const MongoChangeStatusApplicationStatusResponse = {
 export type MongoChangeStatusApplicationStatusResponse = ClosedEnum<
   typeof MongoChangeStatusApplicationStatusResponse
 >;
-
-export type MongoChangeStatusHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MongoChangeStatusRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MongoChangeStatusSpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoChangeStatusPreference = {
-  spread: MongoChangeStatusSpread;
-};
-
-export type MongoChangeStatusPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoChangeStatusPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoChangeStatusPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoChangeStatusPlatform> | undefined;
-};
-
-export type MongoChangeStatusUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoChangeStatusRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoChangeStatusReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoChangeStatusGlobal = {};
-
-export type MongoChangeStatusReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoChangeStatusGlobalJob = {};
-
-export type MongoChangeStatusModeSwarm = {
-  replicated?: MongoChangeStatusReplicated | undefined;
-  global?: MongoChangeStatusGlobal | undefined;
-  replicatedJob?: MongoChangeStatusReplicatedJob | undefined;
-  globalJob?: MongoChangeStatusGlobalJob | undefined;
-};
-
-export type MongoChangeStatusDriverOpts = {};
-
-export type MongoChangeStatusNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoChangeStatusDriverOpts | undefined;
-};
-
-export type MongoChangeStatusProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoChangeStatusEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoChangeStatusProject;
-};
-
-export const MongoChangeStatusType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoChangeStatusType = ClosedEnum<typeof MongoChangeStatusType>;
-
-export const MongoChangeStatusServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MongoChangeStatusServiceType = ClosedEnum<
-  typeof MongoChangeStatusServiceType
->;
-
-export type MongoChangeStatusMount = {
-  mountId: string;
-  type: MongoChangeStatusType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoChangeStatusServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MongoChangeStatusServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoChangeStatusServerStatus = ClosedEnum<
-  typeof MongoChangeStatusServerStatus
->;
-
-export const MongoChangeStatusMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MongoChangeStatusMetricsConfigEnum = ClosedEnum<
-  typeof MongoChangeStatusMetricsConfigEnum
->;
-
-export type MongoChangeStatusMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MongoChangeStatusMetricsConfigEnum;
-
-export type MongoChangeStatusMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MongoChangeStatusMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MongoChangeStatusServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoChangeStatusServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MongoChangeStatusMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MongoChangeStatusBackupType = {
   Database: "database",
@@ -255,29 +61,29 @@ export type MongoChangeStatusMetadataEnum = ClosedEnum<
   typeof MongoChangeStatusMetadataEnum
 >;
 
-export type MongoChangeStatusPostgres = {
-  databaseUser: string;
-};
-
 export type MongoChangeStatusMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoChangeStatusMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoChangeStatusMysql = {
   databaseRootPassword: string;
 };
 
+export type MongoChangeStatusPostgres = {
+  databaseUser: string;
+};
+
 export type MongoChangeStatusMetadata = {
-  postgres?: MongoChangeStatusPostgres | undefined;
   mariadb?: MongoChangeStatusMariadb | undefined;
   mongo?: MongoChangeStatusMongo | undefined;
   mysql?: MongoChangeStatusMysql | undefined;
+  postgres?: MongoChangeStatusPostgres | undefined;
 };
 
 export type MongoChangeStatusMetadataUnion =
@@ -285,133 +91,261 @@ export type MongoChangeStatusMetadataUnion =
   | MongoChangeStatusMetadataEnum;
 
 export type MongoChangeStatusBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MongoChangeStatusBackupType;
-  databaseType: MongoChangeStatusDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MongoChangeStatusDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MongoChangeStatusMetadata
     | MongoChangeStatusMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoChangeStatusProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoChangeStatusEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoChangeStatusProject;
+  projectId: string;
+};
+
+export type MongoChangeStatusHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MongoChangeStatusGlobal = {};
+
+export type MongoChangeStatusGlobalJob = {};
+
+export type MongoChangeStatusReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoChangeStatusReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoChangeStatusModeSwarm = {
+  global?: MongoChangeStatusGlobal | undefined;
+  globalJob?: MongoChangeStatusGlobalJob | undefined;
+  replicated?: MongoChangeStatusReplicated | undefined;
+  replicatedJob?: MongoChangeStatusReplicatedJob | undefined;
+};
+
+export const MongoChangeStatusServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MongoChangeStatusServiceType = ClosedEnum<
+  typeof MongoChangeStatusServiceType
+>;
+
+export const MongoChangeStatusType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoChangeStatusType = ClosedEnum<typeof MongoChangeStatusType>;
+
+export type MongoChangeStatusMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MongoChangeStatusServiceType;
+  type: MongoChangeStatusType;
+  volumeName: string | null;
+};
+
+export type MongoChangeStatusDriverOpts = {};
+
+export type MongoChangeStatusNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoChangeStatusDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoChangeStatusPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoChangeStatusSpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoChangeStatusPreference = {
+  spread: MongoChangeStatusSpread;
+};
+
+export type MongoChangeStatusPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoChangeStatusPlatform> | undefined;
+  preferences?: Array<MongoChangeStatusPreference> | undefined;
+};
+
+export type MongoChangeStatusRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoChangeStatusRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MongoChangeStatusMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MongoChangeStatusMetricsConfigEnum = ClosedEnum<
+  typeof MongoChangeStatusMetricsConfigEnum
+>;
+
+export type MongoChangeStatusMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MongoChangeStatusMetricsConfigEnum;
+
+export type MongoChangeStatusMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MongoChangeStatusMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MongoChangeStatusServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoChangeStatusServerStatus = ClosedEnum<
+  typeof MongoChangeStatusServerStatus
+>;
+
+export type MongoChangeStatusServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MongoChangeStatusMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoChangeStatusServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MongoChangeStatusUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoChangeStatusResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoChangeStatusApplicationStatusResponse;
-  healthCheckSwarm: MongoChangeStatusHealthCheckSwarm | null;
-  restartPolicySwarm: MongoChangeStatusRestartPolicySwarm | null;
-  placementSwarm: MongoChangeStatusPlacementSwarm | null;
-  updateConfigSwarm: MongoChangeStatusUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoChangeStatusRollbackConfigSwarm | null;
-  modeSwarm: MongoChangeStatusModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoChangeStatusNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoChangeStatusEnvironment;
-  mounts: Array<MongoChangeStatusMount>;
-  server: MongoChangeStatusServer | null;
   backups: Array<MongoChangeStatusBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoChangeStatusEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoChangeStatusHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoChangeStatusModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoChangeStatusMount>;
+  name: string;
+  networkSwarm: Array<MongoChangeStatusNetworkSwarm> | null;
+  placementSwarm: MongoChangeStatusPlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoChangeStatusRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoChangeStatusRollbackConfigSwarm | null;
+  server: MongoChangeStatusServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoChangeStatusUpdateConfigSwarm | null;
 };
 
 export type MongoChangeStatusResponse =
   | MongoChangeStatusResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const MongoChangeStatusSecurity$inboundSchema: z.ZodType<
-  MongoChangeStatusSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoChangeStatusSecurity$outboundSchema: z.ZodType<
-  MongoChangeStatusSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusSecurity$ {
-  /** @deprecated use `MongoChangeStatusSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusSecurity$inboundSchema;
-  /** @deprecated use `MongoChangeStatusSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusSecurity$outboundSchema;
-  /** @deprecated use `MongoChangeStatusSecurity$Outbound` instead. */
-  export type Outbound = MongoChangeStatusSecurity$Outbound;
-}
-
-export function mongoChangeStatusSecurityToJSON(
-  mongoChangeStatusSecurity: MongoChangeStatusSecurity,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusSecurity$outboundSchema.parse(mongoChangeStatusSecurity),
-  );
-}
-
-export function mongoChangeStatusSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const MongoChangeStatusApplicationStatusRequest$inboundSchema:
@@ -442,14 +376,14 @@ export const MongoChangeStatusRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   applicationStatus: MongoChangeStatusApplicationStatusRequest$inboundSchema,
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoChangeStatusRequest$Outbound = {
-  mongoId: string;
   applicationStatus: string;
+  mongoId: string;
 };
 
 /** @internal */
@@ -458,8 +392,8 @@ export const MongoChangeStatusRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoChangeStatusRequest
 > = z.object({
-  mongoId: z.string(),
   applicationStatus: MongoChangeStatusApplicationStatusRequest$outboundSchema,
+  mongoId: z.string(),
 });
 
 /**
@@ -517,33 +451,697 @@ export namespace MongoChangeStatusApplicationStatusResponse$ {
 }
 
 /** @internal */
+export const MongoChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusBackupType
+> = z.nativeEnum(MongoChangeStatusBackupType);
+
+/** @internal */
+export const MongoChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusBackupType
+> = MongoChangeStatusBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusBackupType$ {
+  /** @deprecated use `MongoChangeStatusBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusBackupType$inboundSchema;
+  /** @deprecated use `MongoChangeStatusBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusDatabaseType
+> = z.nativeEnum(MongoChangeStatusDatabaseType);
+
+/** @internal */
+export const MongoChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusDatabaseType
+> = MongoChangeStatusDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusDatabaseType$ {
+  /** @deprecated use `MongoChangeStatusDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusDatabaseType$inboundSchema;
+  /** @deprecated use `MongoChangeStatusDatabaseType$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusMetadataEnum
+> = z.nativeEnum(MongoChangeStatusMetadataEnum);
+
+/** @internal */
+export const MongoChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusMetadataEnum
+> = MongoChangeStatusMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMetadataEnum$ {
+  /** @deprecated use `MongoChangeStatusMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoChangeStatusMariadb$inboundSchema: z.ZodType<
+  MongoChangeStatusMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoChangeStatusMariadb$outboundSchema: z.ZodType<
+  MongoChangeStatusMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMariadb$ {
+  /** @deprecated use `MongoChangeStatusMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMariadb$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMariadb$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMariadb$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMariadb$Outbound;
+}
+
+export function mongoChangeStatusMariadbToJSON(
+  mongoChangeStatusMariadb: MongoChangeStatusMariadb,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMariadb$outboundSchema.parse(mongoChangeStatusMariadb),
+  );
+}
+
+export function mongoChangeStatusMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusMongo$inboundSchema: z.ZodType<
+  MongoChangeStatusMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoChangeStatusMongo$outboundSchema: z.ZodType<
+  MongoChangeStatusMongo$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMongo$ {
+  /** @deprecated use `MongoChangeStatusMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMongo$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMongo$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMongo$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMongo$Outbound;
+}
+
+export function mongoChangeStatusMongoToJSON(
+  mongoChangeStatusMongo: MongoChangeStatusMongo,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMongo$outboundSchema.parse(mongoChangeStatusMongo),
+  );
+}
+
+export function mongoChangeStatusMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusMysql$inboundSchema: z.ZodType<
+  MongoChangeStatusMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoChangeStatusMysql$outboundSchema: z.ZodType<
+  MongoChangeStatusMysql$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMysql$ {
+  /** @deprecated use `MongoChangeStatusMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMysql$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMysql$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMysql$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMysql$Outbound;
+}
+
+export function mongoChangeStatusMysqlToJSON(
+  mongoChangeStatusMysql: MongoChangeStatusMysql,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMysql$outboundSchema.parse(mongoChangeStatusMysql),
+  );
+}
+
+export function mongoChangeStatusMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusPostgres$inboundSchema: z.ZodType<
+  MongoChangeStatusPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoChangeStatusPostgres$outboundSchema: z.ZodType<
+  MongoChangeStatusPostgres$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusPostgres$ {
+  /** @deprecated use `MongoChangeStatusPostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusPostgres$inboundSchema;
+  /** @deprecated use `MongoChangeStatusPostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusPostgres$outboundSchema;
+  /** @deprecated use `MongoChangeStatusPostgres$Outbound` instead. */
+  export type Outbound = MongoChangeStatusPostgres$Outbound;
+}
+
+export function mongoChangeStatusPostgresToJSON(
+  mongoChangeStatusPostgres: MongoChangeStatusPostgres,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusPostgres$outboundSchema.parse(mongoChangeStatusPostgres),
+  );
+}
+
+export function mongoChangeStatusPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusMetadata$inboundSchema: z.ZodType<
+  MongoChangeStatusMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoChangeStatusMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoChangeStatusMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoChangeStatusMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoChangeStatusPostgres$inboundSchema).optional(),
+});
+
+/** @internal */
+export type MongoChangeStatusMetadata$Outbound = {
+  mariadb?: MongoChangeStatusMariadb$Outbound | undefined;
+  mongo?: MongoChangeStatusMongo$Outbound | undefined;
+  mysql?: MongoChangeStatusMysql$Outbound | undefined;
+  postgres?: MongoChangeStatusPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoChangeStatusMetadata$outboundSchema: z.ZodType<
+  MongoChangeStatusMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoChangeStatusMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoChangeStatusMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoChangeStatusMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoChangeStatusPostgres$outboundSchema).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMetadata$ {
+  /** @deprecated use `MongoChangeStatusMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMetadata$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMetadata$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMetadata$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMetadata$Outbound;
+}
+
+export function mongoChangeStatusMetadataToJSON(
+  mongoChangeStatusMetadata: MongoChangeStatusMetadata,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMetadata$outboundSchema.parse(mongoChangeStatusMetadata),
+  );
+}
+
+export function mongoChangeStatusMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusMetadataUnion$inboundSchema: z.ZodType<
+  MongoChangeStatusMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoChangeStatusMetadata$inboundSchema),
+  MongoChangeStatusMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoChangeStatusMetadataUnion$Outbound =
+  | MongoChangeStatusMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MongoChangeStatusMetadataUnion$outboundSchema: z.ZodType<
+  MongoChangeStatusMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMetadataUnion
+> = z.union([
+  z.lazy(() => MongoChangeStatusMetadata$outboundSchema),
+  MongoChangeStatusMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMetadataUnion$ {
+  /** @deprecated use `MongoChangeStatusMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMetadataUnion$Outbound;
+}
+
+export function mongoChangeStatusMetadataUnionToJSON(
+  mongoChangeStatusMetadataUnion: MongoChangeStatusMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMetadataUnion$outboundSchema.parse(
+      mongoChangeStatusMetadataUnion,
+    ),
+  );
+}
+
+export function mongoChangeStatusMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusBackup$inboundSchema: z.ZodType<
+  MongoChangeStatusBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoChangeStatusBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoChangeStatusDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoChangeStatusMetadata$inboundSchema),
+      MongoChangeStatusMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoChangeStatusBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoChangeStatusMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoChangeStatusBackup$outboundSchema: z.ZodType<
+  MongoChangeStatusBackup$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoChangeStatusBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoChangeStatusDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoChangeStatusMetadata$outboundSchema),
+      MongoChangeStatusMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusBackup$ {
+  /** @deprecated use `MongoChangeStatusBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusBackup$inboundSchema;
+  /** @deprecated use `MongoChangeStatusBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusBackup$outboundSchema;
+  /** @deprecated use `MongoChangeStatusBackup$Outbound` instead. */
+  export type Outbound = MongoChangeStatusBackup$Outbound;
+}
+
+export function mongoChangeStatusBackupToJSON(
+  mongoChangeStatusBackup: MongoChangeStatusBackup,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusBackup$outboundSchema.parse(mongoChangeStatusBackup),
+  );
+}
+
+export function mongoChangeStatusBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusProject$inboundSchema: z.ZodType<
+  MongoChangeStatusProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoChangeStatusProject$outboundSchema: z.ZodType<
+  MongoChangeStatusProject$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusProject$ {
+  /** @deprecated use `MongoChangeStatusProject$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusProject$inboundSchema;
+  /** @deprecated use `MongoChangeStatusProject$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusProject$outboundSchema;
+  /** @deprecated use `MongoChangeStatusProject$Outbound` instead. */
+  export type Outbound = MongoChangeStatusProject$Outbound;
+}
+
+export function mongoChangeStatusProjectToJSON(
+  mongoChangeStatusProject: MongoChangeStatusProject,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusProject$outboundSchema.parse(mongoChangeStatusProject),
+  );
+}
+
+export function mongoChangeStatusProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusEnvironment$inboundSchema: z.ZodType<
+  MongoChangeStatusEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoChangeStatusProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoChangeStatusEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoChangeStatusProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoChangeStatusEnvironment$outboundSchema: z.ZodType<
+  MongoChangeStatusEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoChangeStatusProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusEnvironment$ {
+  /** @deprecated use `MongoChangeStatusEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusEnvironment$inboundSchema;
+  /** @deprecated use `MongoChangeStatusEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusEnvironment$outboundSchema;
+  /** @deprecated use `MongoChangeStatusEnvironment$Outbound` instead. */
+  export type Outbound = MongoChangeStatusEnvironment$Outbound;
+}
+
+export function mongoChangeStatusEnvironmentToJSON(
+  mongoChangeStatusEnvironment: MongoChangeStatusEnvironment,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusEnvironment$outboundSchema.parse(
+      mongoChangeStatusEnvironment,
+    ),
+  );
+}
+
+export function mongoChangeStatusEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoChangeStatusHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoChangeStatusHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoChangeStatusHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -552,18 +1150,18 @@ export const MongoChangeStatusHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoChangeStatusHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -602,48 +1200,129 @@ export function mongoChangeStatusHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoChangeStatusRestartPolicySwarm,
+export const MongoChangeStatusGlobal$inboundSchema: z.ZodType<
+  MongoChangeStatusGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoChangeStatusGlobal$Outbound = {};
+
+/** @internal */
+export const MongoChangeStatusGlobal$outboundSchema: z.ZodType<
+  MongoChangeStatusGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusGlobal$ {
+  /** @deprecated use `MongoChangeStatusGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusGlobal$inboundSchema;
+  /** @deprecated use `MongoChangeStatusGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusGlobal$outboundSchema;
+  /** @deprecated use `MongoChangeStatusGlobal$Outbound` instead. */
+  export type Outbound = MongoChangeStatusGlobal$Outbound;
+}
+
+export function mongoChangeStatusGlobalToJSON(
+  mongoChangeStatusGlobal: MongoChangeStatusGlobal,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusGlobal$outboundSchema.parse(mongoChangeStatusGlobal),
+  );
+}
+
+export function mongoChangeStatusGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusGlobalJob$inboundSchema: z.ZodType<
+  MongoChangeStatusGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoChangeStatusGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoChangeStatusGlobalJob$outboundSchema: z.ZodType<
+  MongoChangeStatusGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusGlobalJob$ {
+  /** @deprecated use `MongoChangeStatusGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusGlobalJob$inboundSchema;
+  /** @deprecated use `MongoChangeStatusGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusGlobalJob$outboundSchema;
+  /** @deprecated use `MongoChangeStatusGlobalJob$Outbound` instead. */
+  export type Outbound = MongoChangeStatusGlobalJob$Outbound;
+}
+
+export function mongoChangeStatusGlobalJobToJSON(
+  mongoChangeStatusGlobalJob: MongoChangeStatusGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusGlobalJob$outboundSchema.parse(mongoChangeStatusGlobalJob),
+  );
+}
+
+export function mongoChangeStatusGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusReplicated$inboundSchema: z.ZodType<
+  MongoChangeStatusReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoChangeStatusRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoChangeStatusReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoChangeStatusRestartPolicySwarm$Outbound,
+export const MongoChangeStatusReplicated$outboundSchema: z.ZodType<
+  MongoChangeStatusReplicated$Outbound,
   z.ZodTypeDef,
-  MongoChangeStatusRestartPolicySwarm
+  MongoChangeStatusReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -651,35 +1330,513 @@ export const MongoChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoChangeStatusRestartPolicySwarm$ {
-  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MongoChangeStatusRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoChangeStatusRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoChangeStatusRestartPolicySwarm$Outbound;
+export namespace MongoChangeStatusReplicated$ {
+  /** @deprecated use `MongoChangeStatusReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusReplicated$inboundSchema;
+  /** @deprecated use `MongoChangeStatusReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusReplicated$outboundSchema;
+  /** @deprecated use `MongoChangeStatusReplicated$Outbound` instead. */
+  export type Outbound = MongoChangeStatusReplicated$Outbound;
 }
 
-export function mongoChangeStatusRestartPolicySwarmToJSON(
-  mongoChangeStatusRestartPolicySwarm: MongoChangeStatusRestartPolicySwarm,
+export function mongoChangeStatusReplicatedToJSON(
+  mongoChangeStatusReplicated: MongoChangeStatusReplicated,
 ): string {
   return JSON.stringify(
-    MongoChangeStatusRestartPolicySwarm$outboundSchema.parse(
-      mongoChangeStatusRestartPolicySwarm,
+    MongoChangeStatusReplicated$outboundSchema.parse(
+      mongoChangeStatusReplicated,
     ),
   );
 }
 
-export function mongoChangeStatusRestartPolicySwarmFromJSON(
+export function mongoChangeStatusReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<MongoChangeStatusRestartPolicySwarm, SDKValidationError> {
+): SafeParseResult<MongoChangeStatusReplicated, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      MongoChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusRestartPolicySwarm' from JSON`,
+    (x) => MongoChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusReplicatedJob$inboundSchema: z.ZodType<
+  MongoChangeStatusReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoChangeStatusReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoChangeStatusReplicatedJob$outboundSchema: z.ZodType<
+  MongoChangeStatusReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusReplicatedJob$ {
+  /** @deprecated use `MongoChangeStatusReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoChangeStatusReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoChangeStatusReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoChangeStatusReplicatedJob$Outbound;
+}
+
+export function mongoChangeStatusReplicatedJobToJSON(
+  mongoChangeStatusReplicatedJob: MongoChangeStatusReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusReplicatedJob$outboundSchema.parse(
+      mongoChangeStatusReplicatedJob,
+    ),
+  );
+}
+
+export function mongoChangeStatusReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusReplicatedJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusModeSwarm$inboundSchema: z.ZodType<
+  MongoChangeStatusModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoChangeStatusGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoChangeStatusGlobalJob$inboundSchema).optional(),
+  Replicated: z.lazy(() => MongoChangeStatusReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => MongoChangeStatusReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoChangeStatusModeSwarm$Outbound = {
+  Global?: MongoChangeStatusGlobal$Outbound | undefined;
+  GlobalJob?: MongoChangeStatusGlobalJob$Outbound | undefined;
+  Replicated?: MongoChangeStatusReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoChangeStatusReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoChangeStatusModeSwarm$outboundSchema: z.ZodType<
+  MongoChangeStatusModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoChangeStatusGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoChangeStatusGlobalJob$outboundSchema).optional(),
+  replicated: z.lazy(() => MongoChangeStatusReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => MongoChangeStatusReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusModeSwarm$ {
+  /** @deprecated use `MongoChangeStatusModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusModeSwarm$inboundSchema;
+  /** @deprecated use `MongoChangeStatusModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusModeSwarm$outboundSchema;
+  /** @deprecated use `MongoChangeStatusModeSwarm$Outbound` instead. */
+  export type Outbound = MongoChangeStatusModeSwarm$Outbound;
+}
+
+export function mongoChangeStatusModeSwarmToJSON(
+  mongoChangeStatusModeSwarm: MongoChangeStatusModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusModeSwarm$outboundSchema.parse(mongoChangeStatusModeSwarm),
+  );
+}
+
+export function mongoChangeStatusModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusServiceType
+> = z.nativeEnum(MongoChangeStatusServiceType);
+
+/** @internal */
+export const MongoChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusServiceType
+> = MongoChangeStatusServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusServiceType$ {
+  /** @deprecated use `MongoChangeStatusServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusServiceType$inboundSchema;
+  /** @deprecated use `MongoChangeStatusServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoChangeStatusType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusType
+> = z.nativeEnum(MongoChangeStatusType);
+
+/** @internal */
+export const MongoChangeStatusType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusType
+> = MongoChangeStatusType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusType$ {
+  /** @deprecated use `MongoChangeStatusType$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusType$inboundSchema;
+  /** @deprecated use `MongoChangeStatusType$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusType$outboundSchema;
+}
+
+/** @internal */
+export const MongoChangeStatusMount$inboundSchema: z.ZodType<
+  MongoChangeStatusMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoChangeStatusServiceType$inboundSchema,
+  type: MongoChangeStatusType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoChangeStatusMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoChangeStatusMount$outboundSchema: z.ZodType<
+  MongoChangeStatusMount$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoChangeStatusServiceType$outboundSchema,
+  type: MongoChangeStatusType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusMount$ {
+  /** @deprecated use `MongoChangeStatusMount$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusMount$inboundSchema;
+  /** @deprecated use `MongoChangeStatusMount$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusMount$outboundSchema;
+  /** @deprecated use `MongoChangeStatusMount$Outbound` instead. */
+  export type Outbound = MongoChangeStatusMount$Outbound;
+}
+
+export function mongoChangeStatusMountToJSON(
+  mongoChangeStatusMount: MongoChangeStatusMount,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusMount$outboundSchema.parse(mongoChangeStatusMount),
+  );
+}
+
+export function mongoChangeStatusMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusDriverOpts$inboundSchema: z.ZodType<
+  MongoChangeStatusDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoChangeStatusDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoChangeStatusDriverOpts$outboundSchema: z.ZodType<
+  MongoChangeStatusDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusDriverOpts$ {
+  /** @deprecated use `MongoChangeStatusDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusDriverOpts$inboundSchema;
+  /** @deprecated use `MongoChangeStatusDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusDriverOpts$outboundSchema;
+  /** @deprecated use `MongoChangeStatusDriverOpts$Outbound` instead. */
+  export type Outbound = MongoChangeStatusDriverOpts$Outbound;
+}
+
+export function mongoChangeStatusDriverOptsToJSON(
+  mongoChangeStatusDriverOpts: MongoChangeStatusDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusDriverOpts$outboundSchema.parse(
+      mongoChangeStatusDriverOpts,
+    ),
+  );
+}
+
+export function mongoChangeStatusDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
+  MongoChangeStatusNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoChangeStatusDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoChangeStatusNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoChangeStatusDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
+  MongoChangeStatusNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoChangeStatusDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusNetworkSwarm$ {
+  /** @deprecated use `MongoChangeStatusNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoChangeStatusNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoChangeStatusNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoChangeStatusNetworkSwarm$Outbound;
+}
+
+export function mongoChangeStatusNetworkSwarmToJSON(
+  mongoChangeStatusNetworkSwarm: MongoChangeStatusNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusNetworkSwarm$outboundSchema.parse(
+      mongoChangeStatusNetworkSwarm,
+    ),
+  );
+}
+
+export function mongoChangeStatusNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoChangeStatusPlatform$inboundSchema: z.ZodType<
+  MongoChangeStatusPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoChangeStatusPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoChangeStatusPlatform$outboundSchema: z.ZodType<
+  MongoChangeStatusPlatform$Outbound,
+  z.ZodTypeDef,
+  MongoChangeStatusPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusPlatform$ {
+  /** @deprecated use `MongoChangeStatusPlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusPlatform$inboundSchema;
+  /** @deprecated use `MongoChangeStatusPlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusPlatform$outboundSchema;
+  /** @deprecated use `MongoChangeStatusPlatform$Outbound` instead. */
+  export type Outbound = MongoChangeStatusPlatform$Outbound;
+}
+
+export function mongoChangeStatusPlatformToJSON(
+  mongoChangeStatusPlatform: MongoChangeStatusPlatform,
+): string {
+  return JSON.stringify(
+    MongoChangeStatusPlatform$outboundSchema.parse(mongoChangeStatusPlatform),
+  );
+}
+
+export function mongoChangeStatusPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoChangeStatusPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusPlatform' from JSON`,
   );
 }
 
@@ -810,99 +1967,32 @@ export function mongoChangeStatusPreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoChangeStatusPlatform$inboundSchema: z.ZodType<
-  MongoChangeStatusPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoChangeStatusPlatform$outboundSchema: z.ZodType<
-  MongoChangeStatusPlatform$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusPlatform$ {
-  /** @deprecated use `MongoChangeStatusPlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusPlatform$inboundSchema;
-  /** @deprecated use `MongoChangeStatusPlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusPlatform$outboundSchema;
-  /** @deprecated use `MongoChangeStatusPlatform$Outbound` instead. */
-  export type Outbound = MongoChangeStatusPlatform$Outbound;
-}
-
-export function mongoChangeStatusPlatformToJSON(
-  mongoChangeStatusPlatform: MongoChangeStatusPlatform,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusPlatform$outboundSchema.parse(mongoChangeStatusPlatform),
-  );
-}
-
-export function mongoChangeStatusPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoChangeStatusPlacementSwarm$inboundSchema: z.ZodType<
   MongoChangeStatusPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(z.lazy(() => MongoChangeStatusPreference$inboundSchema))
-    .optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoChangeStatusPlatform$inboundSchema))
+    .optional(),
+  Preferences: z.array(z.lazy(() => MongoChangeStatusPreference$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoChangeStatusPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoChangeStatusPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoChangeStatusPlatform$Outbound> | undefined;
+  Preferences?: Array<MongoChangeStatusPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -912,17 +2002,17 @@ export const MongoChangeStatusPlacementSwarm$outboundSchema: z.ZodType<
   MongoChangeStatusPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(z.lazy(() => MongoChangeStatusPreference$outboundSchema))
-    .optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoChangeStatusPlatform$outboundSchema))
+    .optional(),
+  preferences: z.array(z.lazy(() => MongoChangeStatusPreference$outboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -960,58 +2050,48 @@ export function mongoChangeStatusPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoChangeStatusUpdateConfigSwarm,
+export const MongoChangeStatusRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoChangeStatusRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoChangeStatusUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoChangeStatusRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoChangeStatusUpdateConfigSwarm$Outbound,
+export const MongoChangeStatusRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoChangeStatusRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoChangeStatusUpdateConfigSwarm
+  MongoChangeStatusRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1019,34 +2099,35 @@ export const MongoChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoChangeStatusUpdateConfigSwarm$ {
-  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+export namespace MongoChangeStatusRestartPolicySwarm$ {
+  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MongoChangeStatusRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MongoChangeStatusUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoChangeStatusUpdateConfigSwarm$Outbound;
+    MongoChangeStatusRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoChangeStatusRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoChangeStatusRestartPolicySwarm$Outbound;
 }
 
-export function mongoChangeStatusUpdateConfigSwarmToJSON(
-  mongoChangeStatusUpdateConfigSwarm: MongoChangeStatusUpdateConfigSwarm,
+export function mongoChangeStatusRestartPolicySwarmToJSON(
+  mongoChangeStatusRestartPolicySwarm: MongoChangeStatusRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoChangeStatusUpdateConfigSwarm$outboundSchema.parse(
-      mongoChangeStatusUpdateConfigSwarm,
+    MongoChangeStatusRestartPolicySwarm$outboundSchema.parse(
+      mongoChangeStatusRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoChangeStatusUpdateConfigSwarmFromJSON(
+export function mongoChangeStatusRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoChangeStatusUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<MongoChangeStatusRestartPolicySwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MongoChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusUpdateConfigSwarm' from JSON`,
+      MongoChangeStatusRestartPolicySwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1056,31 +2137,31 @@ export const MongoChangeStatusRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoChangeStatusRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1089,20 +2170,20 @@ export const MongoChangeStatusRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoChangeStatusRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1140,744 +2221,6 @@ export function mongoChangeStatusRollbackConfigSwarmFromJSON(
       MongoChangeStatusRollbackConfigSwarm$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'MongoChangeStatusRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoChangeStatusReplicated$inboundSchema: z.ZodType<
-  MongoChangeStatusReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusReplicated$outboundSchema: z.ZodType<
-  MongoChangeStatusReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusReplicated$ {
-  /** @deprecated use `MongoChangeStatusReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusReplicated$inboundSchema;
-  /** @deprecated use `MongoChangeStatusReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusReplicated$outboundSchema;
-  /** @deprecated use `MongoChangeStatusReplicated$Outbound` instead. */
-  export type Outbound = MongoChangeStatusReplicated$Outbound;
-}
-
-export function mongoChangeStatusReplicatedToJSON(
-  mongoChangeStatusReplicated: MongoChangeStatusReplicated,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusReplicated$outboundSchema.parse(
-      mongoChangeStatusReplicated,
-    ),
-  );
-}
-
-export function mongoChangeStatusReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusGlobal$inboundSchema: z.ZodType<
-  MongoChangeStatusGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoChangeStatusGlobal$Outbound = {};
-
-/** @internal */
-export const MongoChangeStatusGlobal$outboundSchema: z.ZodType<
-  MongoChangeStatusGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusGlobal$ {
-  /** @deprecated use `MongoChangeStatusGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusGlobal$inboundSchema;
-  /** @deprecated use `MongoChangeStatusGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusGlobal$outboundSchema;
-  /** @deprecated use `MongoChangeStatusGlobal$Outbound` instead. */
-  export type Outbound = MongoChangeStatusGlobal$Outbound;
-}
-
-export function mongoChangeStatusGlobalToJSON(
-  mongoChangeStatusGlobal: MongoChangeStatusGlobal,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusGlobal$outboundSchema.parse(mongoChangeStatusGlobal),
-  );
-}
-
-export function mongoChangeStatusGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusReplicatedJob$inboundSchema: z.ZodType<
-  MongoChangeStatusReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusReplicatedJob$outboundSchema: z.ZodType<
-  MongoChangeStatusReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusReplicatedJob$ {
-  /** @deprecated use `MongoChangeStatusReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoChangeStatusReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoChangeStatusReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoChangeStatusReplicatedJob$Outbound;
-}
-
-export function mongoChangeStatusReplicatedJobToJSON(
-  mongoChangeStatusReplicatedJob: MongoChangeStatusReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusReplicatedJob$outboundSchema.parse(
-      mongoChangeStatusReplicatedJob,
-    ),
-  );
-}
-
-export function mongoChangeStatusReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusGlobalJob$inboundSchema: z.ZodType<
-  MongoChangeStatusGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoChangeStatusGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoChangeStatusGlobalJob$outboundSchema: z.ZodType<
-  MongoChangeStatusGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusGlobalJob$ {
-  /** @deprecated use `MongoChangeStatusGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusGlobalJob$inboundSchema;
-  /** @deprecated use `MongoChangeStatusGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusGlobalJob$outboundSchema;
-  /** @deprecated use `MongoChangeStatusGlobalJob$Outbound` instead. */
-  export type Outbound = MongoChangeStatusGlobalJob$Outbound;
-}
-
-export function mongoChangeStatusGlobalJobToJSON(
-  mongoChangeStatusGlobalJob: MongoChangeStatusGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusGlobalJob$outboundSchema.parse(mongoChangeStatusGlobalJob),
-  );
-}
-
-export function mongoChangeStatusGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusModeSwarm$inboundSchema: z.ZodType<
-  MongoChangeStatusModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoChangeStatusReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MongoChangeStatusGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoChangeStatusReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MongoChangeStatusGlobalJob$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusModeSwarm$Outbound = {
-  Replicated?: MongoChangeStatusReplicated$Outbound | undefined;
-  Global?: MongoChangeStatusGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoChangeStatusReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoChangeStatusGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusModeSwarm$outboundSchema: z.ZodType<
-  MongoChangeStatusModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoChangeStatusReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MongoChangeStatusGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoChangeStatusReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoChangeStatusGlobalJob$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusModeSwarm$ {
-  /** @deprecated use `MongoChangeStatusModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusModeSwarm$inboundSchema;
-  /** @deprecated use `MongoChangeStatusModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusModeSwarm$outboundSchema;
-  /** @deprecated use `MongoChangeStatusModeSwarm$Outbound` instead. */
-  export type Outbound = MongoChangeStatusModeSwarm$Outbound;
-}
-
-export function mongoChangeStatusModeSwarmToJSON(
-  mongoChangeStatusModeSwarm: MongoChangeStatusModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusModeSwarm$outboundSchema.parse(mongoChangeStatusModeSwarm),
-  );
-}
-
-export function mongoChangeStatusModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusDriverOpts$inboundSchema: z.ZodType<
-  MongoChangeStatusDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoChangeStatusDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoChangeStatusDriverOpts$outboundSchema: z.ZodType<
-  MongoChangeStatusDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusDriverOpts$ {
-  /** @deprecated use `MongoChangeStatusDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusDriverOpts$inboundSchema;
-  /** @deprecated use `MongoChangeStatusDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusDriverOpts$outboundSchema;
-  /** @deprecated use `MongoChangeStatusDriverOpts$Outbound` instead. */
-  export type Outbound = MongoChangeStatusDriverOpts$Outbound;
-}
-
-export function mongoChangeStatusDriverOptsToJSON(
-  mongoChangeStatusDriverOpts: MongoChangeStatusDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusDriverOpts$outboundSchema.parse(
-      mongoChangeStatusDriverOpts,
-    ),
-  );
-}
-
-export function mongoChangeStatusDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusNetworkSwarm$inboundSchema: z.ZodType<
-  MongoChangeStatusNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoChangeStatusDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoChangeStatusNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoChangeStatusDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusNetworkSwarm$outboundSchema: z.ZodType<
-  MongoChangeStatusNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoChangeStatusDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusNetworkSwarm$ {
-  /** @deprecated use `MongoChangeStatusNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoChangeStatusNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoChangeStatusNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoChangeStatusNetworkSwarm$Outbound;
-}
-
-export function mongoChangeStatusNetworkSwarmToJSON(
-  mongoChangeStatusNetworkSwarm: MongoChangeStatusNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusNetworkSwarm$outboundSchema.parse(
-      mongoChangeStatusNetworkSwarm,
-    ),
-  );
-}
-
-export function mongoChangeStatusNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusProject$inboundSchema: z.ZodType<
-  MongoChangeStatusProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoChangeStatusProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoChangeStatusProject$outboundSchema: z.ZodType<
-  MongoChangeStatusProject$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusProject$ {
-  /** @deprecated use `MongoChangeStatusProject$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusProject$inboundSchema;
-  /** @deprecated use `MongoChangeStatusProject$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusProject$outboundSchema;
-  /** @deprecated use `MongoChangeStatusProject$Outbound` instead. */
-  export type Outbound = MongoChangeStatusProject$Outbound;
-}
-
-export function mongoChangeStatusProjectToJSON(
-  mongoChangeStatusProject: MongoChangeStatusProject,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusProject$outboundSchema.parse(mongoChangeStatusProject),
-  );
-}
-
-export function mongoChangeStatusProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusEnvironment$inboundSchema: z.ZodType<
-  MongoChangeStatusEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoChangeStatusProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoChangeStatusEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoChangeStatusProject$Outbound;
-};
-
-/** @internal */
-export const MongoChangeStatusEnvironment$outboundSchema: z.ZodType<
-  MongoChangeStatusEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoChangeStatusProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusEnvironment$ {
-  /** @deprecated use `MongoChangeStatusEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusEnvironment$inboundSchema;
-  /** @deprecated use `MongoChangeStatusEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusEnvironment$outboundSchema;
-  /** @deprecated use `MongoChangeStatusEnvironment$Outbound` instead. */
-  export type Outbound = MongoChangeStatusEnvironment$Outbound;
-}
-
-export function mongoChangeStatusEnvironmentToJSON(
-  mongoChangeStatusEnvironment: MongoChangeStatusEnvironment,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusEnvironment$outboundSchema.parse(
-      mongoChangeStatusEnvironment,
-    ),
-  );
-}
-
-export function mongoChangeStatusEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusType
-> = z.nativeEnum(MongoChangeStatusType);
-
-/** @internal */
-export const MongoChangeStatusType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusType
-> = MongoChangeStatusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusType$ {
-  /** @deprecated use `MongoChangeStatusType$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusType$inboundSchema;
-  /** @deprecated use `MongoChangeStatusType$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusType$outboundSchema;
-}
-
-/** @internal */
-export const MongoChangeStatusServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusServiceType
-> = z.nativeEnum(MongoChangeStatusServiceType);
-
-/** @internal */
-export const MongoChangeStatusServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusServiceType
-> = MongoChangeStatusServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusServiceType$ {
-  /** @deprecated use `MongoChangeStatusServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusServiceType$inboundSchema;
-  /** @deprecated use `MongoChangeStatusServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoChangeStatusMount$inboundSchema: z.ZodType<
-  MongoChangeStatusMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoChangeStatusType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoChangeStatusServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoChangeStatusMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoChangeStatusMount$outboundSchema: z.ZodType<
-  MongoChangeStatusMount$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoChangeStatusType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoChangeStatusServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMount$ {
-  /** @deprecated use `MongoChangeStatusMount$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMount$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMount$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMount$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMount$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMount$Outbound;
-}
-
-export function mongoChangeStatusMountToJSON(
-  mongoChangeStatusMount: MongoChangeStatusMount,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMount$outboundSchema.parse(mongoChangeStatusMount),
-  );
-}
-
-export function mongoChangeStatusMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusServerStatus
-> = z.nativeEnum(MongoChangeStatusServerStatus);
-
-/** @internal */
-export const MongoChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusServerStatus
-> = MongoChangeStatusServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusServerStatus$ {
-  /** @deprecated use `MongoChangeStatusServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusServerStatus$inboundSchema;
-  /** @deprecated use `MongoChangeStatusServerStatus$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2047,24 +2390,38 @@ export function mongoChangeStatusMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoChangeStatusServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusServerStatus
+> = z.nativeEnum(MongoChangeStatusServerStatus);
+
+/** @internal */
+export const MongoChangeStatusServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoChangeStatusServerStatus
+> = MongoChangeStatusServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoChangeStatusServerStatus$ {
+  /** @deprecated use `MongoChangeStatusServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusServerStatus$inboundSchema;
+  /** @deprecated use `MongoChangeStatusServerStatus$outboundSchema` instead. */
+  export const outboundSchema = MongoChangeStatusServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoChangeStatusServer$inboundSchema: z.ZodType<
   MongoChangeStatusServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoChangeStatusServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2075,26 +2432,33 @@ export const MongoChangeStatusServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoChangeStatusServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoChangeStatusServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2103,19 +2467,12 @@ export const MongoChangeStatusServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoChangeStatusServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoChangeStatusServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2126,6 +2483,13 @@ export const MongoChangeStatusServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoChangeStatusServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2160,523 +2524,93 @@ export function mongoChangeStatusServerFromJSON(
 }
 
 /** @internal */
-export const MongoChangeStatusBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusBackupType
-> = z.nativeEnum(MongoChangeStatusBackupType);
-
-/** @internal */
-export const MongoChangeStatusBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusBackupType
-> = MongoChangeStatusBackupType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusBackupType$ {
-  /** @deprecated use `MongoChangeStatusBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusBackupType$inboundSchema;
-  /** @deprecated use `MongoChangeStatusBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoChangeStatusDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusDatabaseType
-> = z.nativeEnum(MongoChangeStatusDatabaseType);
-
-/** @internal */
-export const MongoChangeStatusDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusDatabaseType
-> = MongoChangeStatusDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusDatabaseType$ {
-  /** @deprecated use `MongoChangeStatusDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusDatabaseType$inboundSchema;
-  /** @deprecated use `MongoChangeStatusDatabaseType$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusDatabaseType$outboundSchema;
-}
-
-/** @internal */
-export const MongoChangeStatusMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusMetadataEnum
-> = z.nativeEnum(MongoChangeStatusMetadataEnum);
-
-/** @internal */
-export const MongoChangeStatusMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoChangeStatusMetadataEnum
-> = MongoChangeStatusMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMetadataEnum$ {
-  /** @deprecated use `MongoChangeStatusMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoChangeStatusPostgres$inboundSchema: z.ZodType<
-  MongoChangeStatusPostgres,
+export const MongoChangeStatusUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoChangeStatusUpdateConfigSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  databaseUser: z.string(),
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
 });
 
 /** @internal */
-export type MongoChangeStatusPostgres$Outbound = {
-  databaseUser: string;
+export type MongoChangeStatusUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
-export const MongoChangeStatusPostgres$outboundSchema: z.ZodType<
-  MongoChangeStatusPostgres$Outbound,
+export const MongoChangeStatusUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoChangeStatusUpdateConfigSwarm$Outbound,
   z.ZodTypeDef,
-  MongoChangeStatusPostgres
+  MongoChangeStatusUpdateConfigSwarm
 > = z.object({
-  databaseUser: z.string(),
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoChangeStatusPostgres$ {
-  /** @deprecated use `MongoChangeStatusPostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusPostgres$inboundSchema;
-  /** @deprecated use `MongoChangeStatusPostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusPostgres$outboundSchema;
-  /** @deprecated use `MongoChangeStatusPostgres$Outbound` instead. */
-  export type Outbound = MongoChangeStatusPostgres$Outbound;
+export namespace MongoChangeStatusUpdateConfigSwarm$ {
+  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoChangeStatusUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoChangeStatusUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoChangeStatusUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoChangeStatusUpdateConfigSwarm$Outbound;
 }
 
-export function mongoChangeStatusPostgresToJSON(
-  mongoChangeStatusPostgres: MongoChangeStatusPostgres,
+export function mongoChangeStatusUpdateConfigSwarmToJSON(
+  mongoChangeStatusUpdateConfigSwarm: MongoChangeStatusUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoChangeStatusPostgres$outboundSchema.parse(mongoChangeStatusPostgres),
-  );
-}
-
-export function mongoChangeStatusPostgresFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusMariadb$inboundSchema: z.ZodType<
-  MongoChangeStatusMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoChangeStatusMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoChangeStatusMariadb$outboundSchema: z.ZodType<
-  MongoChangeStatusMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMariadb$ {
-  /** @deprecated use `MongoChangeStatusMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMariadb$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMariadb$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMariadb$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMariadb$Outbound;
-}
-
-export function mongoChangeStatusMariadbToJSON(
-  mongoChangeStatusMariadb: MongoChangeStatusMariadb,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMariadb$outboundSchema.parse(mongoChangeStatusMariadb),
-  );
-}
-
-export function mongoChangeStatusMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusMongo$inboundSchema: z.ZodType<
-  MongoChangeStatusMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoChangeStatusMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoChangeStatusMongo$outboundSchema: z.ZodType<
-  MongoChangeStatusMongo$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMongo$ {
-  /** @deprecated use `MongoChangeStatusMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMongo$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMongo$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMongo$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMongo$Outbound;
-}
-
-export function mongoChangeStatusMongoToJSON(
-  mongoChangeStatusMongo: MongoChangeStatusMongo,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMongo$outboundSchema.parse(mongoChangeStatusMongo),
-  );
-}
-
-export function mongoChangeStatusMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusMysql$inboundSchema: z.ZodType<
-  MongoChangeStatusMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoChangeStatusMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoChangeStatusMysql$outboundSchema: z.ZodType<
-  MongoChangeStatusMysql$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMysql$ {
-  /** @deprecated use `MongoChangeStatusMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMysql$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMysql$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMysql$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMysql$Outbound;
-}
-
-export function mongoChangeStatusMysqlToJSON(
-  mongoChangeStatusMysql: MongoChangeStatusMysql,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMysql$outboundSchema.parse(mongoChangeStatusMysql),
-  );
-}
-
-export function mongoChangeStatusMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusMetadata$inboundSchema: z.ZodType<
-  MongoChangeStatusMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoChangeStatusPostgres$inboundSchema).optional(),
-  mariadb: z.lazy(() => MongoChangeStatusMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoChangeStatusMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoChangeStatusMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoChangeStatusMetadata$Outbound = {
-  postgres?: MongoChangeStatusPostgres$Outbound | undefined;
-  mariadb?: MongoChangeStatusMariadb$Outbound | undefined;
-  mongo?: MongoChangeStatusMongo$Outbound | undefined;
-  mysql?: MongoChangeStatusMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusMetadata$outboundSchema: z.ZodType<
-  MongoChangeStatusMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoChangeStatusPostgres$outboundSchema).optional(),
-  mariadb: z.lazy(() => MongoChangeStatusMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoChangeStatusMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoChangeStatusMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMetadata$ {
-  /** @deprecated use `MongoChangeStatusMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMetadata$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMetadata$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMetadata$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMetadata$Outbound;
-}
-
-export function mongoChangeStatusMetadataToJSON(
-  mongoChangeStatusMetadata: MongoChangeStatusMetadata,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMetadata$outboundSchema.parse(mongoChangeStatusMetadata),
-  );
-}
-
-export function mongoChangeStatusMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusMetadataUnion$inboundSchema: z.ZodType<
-  MongoChangeStatusMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoChangeStatusMetadata$inboundSchema),
-  MongoChangeStatusMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoChangeStatusMetadataUnion$Outbound =
-  | MongoChangeStatusMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MongoChangeStatusMetadataUnion$outboundSchema: z.ZodType<
-  MongoChangeStatusMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusMetadataUnion
-> = z.union([
-  z.lazy(() => MongoChangeStatusMetadata$outboundSchema),
-  MongoChangeStatusMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusMetadataUnion$ {
-  /** @deprecated use `MongoChangeStatusMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoChangeStatusMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoChangeStatusMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoChangeStatusMetadataUnion$Outbound;
-}
-
-export function mongoChangeStatusMetadataUnionToJSON(
-  mongoChangeStatusMetadataUnion: MongoChangeStatusMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusMetadataUnion$outboundSchema.parse(
-      mongoChangeStatusMetadataUnion,
+    MongoChangeStatusUpdateConfigSwarm$outboundSchema.parse(
+      mongoChangeStatusUpdateConfigSwarm,
     ),
   );
 }
 
-export function mongoChangeStatusMetadataUnionFromJSON(
+export function mongoChangeStatusUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoChangeStatusMetadataUnion, SDKValidationError> {
+): SafeParseResult<MongoChangeStatusUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MongoChangeStatusMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoChangeStatusBackup$inboundSchema: z.ZodType<
-  MongoChangeStatusBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoChangeStatusBackupType$inboundSchema,
-  databaseType: MongoChangeStatusDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoChangeStatusMetadata$inboundSchema),
-      MongoChangeStatusMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoChangeStatusBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoChangeStatusMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoChangeStatusBackup$outboundSchema: z.ZodType<
-  MongoChangeStatusBackup$Outbound,
-  z.ZodTypeDef,
-  MongoChangeStatusBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoChangeStatusBackupType$outboundSchema,
-  databaseType: MongoChangeStatusDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoChangeStatusMetadata$outboundSchema),
-      MongoChangeStatusMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoChangeStatusBackup$ {
-  /** @deprecated use `MongoChangeStatusBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoChangeStatusBackup$inboundSchema;
-  /** @deprecated use `MongoChangeStatusBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoChangeStatusBackup$outboundSchema;
-  /** @deprecated use `MongoChangeStatusBackup$Outbound` instead. */
-  export type Outbound = MongoChangeStatusBackup$Outbound;
-}
-
-export function mongoChangeStatusBackupToJSON(
-  mongoChangeStatusBackup: MongoChangeStatusBackup,
-): string {
-  return JSON.stringify(
-    MongoChangeStatusBackup$outboundSchema.parse(mongoChangeStatusBackup),
-  );
-}
-
-export function mongoChangeStatusBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoChangeStatusBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoChangeStatusBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoChangeStatusBackup' from JSON`,
+    (x) =>
+      MongoChangeStatusUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoChangeStatusUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2686,86 +2620,86 @@ export const MongoChangeStatusResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoChangeStatusApplicationStatusResponse$inboundSchema,
+  backups: z.array(z.lazy(() => MongoChangeStatusBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoChangeStatusEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoChangeStatusRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(z.lazy(() => MongoChangeStatusModeSwarm$inboundSchema)),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoChangeStatusMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoChangeStatusNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoChangeStatusUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoChangeStatusRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(z.lazy(() => MongoChangeStatusModeSwarm$inboundSchema)),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoChangeStatusNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoChangeStatusEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoChangeStatusMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoChangeStatusServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoChangeStatusBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoChangeStatusUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoChangeStatusResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoChangeStatusHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoChangeStatusRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoChangeStatusPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoChangeStatusUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoChangeStatusRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoChangeStatusModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoChangeStatusNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoChangeStatusEnvironment$Outbound;
-  mounts: Array<MongoChangeStatusMount$Outbound>;
-  server: MongoChangeStatusServer$Outbound | null;
   backups: Array<MongoChangeStatusBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoChangeStatusEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoChangeStatusHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoChangeStatusModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoChangeStatusMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoChangeStatusNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoChangeStatusPlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoChangeStatusRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoChangeStatusRollbackConfigSwarm$Outbound | null;
+  server: MongoChangeStatusServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoChangeStatusUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2774,52 +2708,52 @@ export const MongoChangeStatusResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoChangeStatusResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoChangeStatusApplicationStatusResponse$outboundSchema,
+  backups: z.array(z.lazy(() => MongoChangeStatusBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoChangeStatusEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoChangeStatusRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MongoChangeStatusModeSwarm$outboundSchema),
+  ),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoChangeStatusMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoChangeStatusNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoChangeStatusUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoChangeStatusRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoChangeStatusRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MongoChangeStatusModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoChangeStatusNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoChangeStatusEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoChangeStatusMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoChangeStatusServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoChangeStatusBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoChangeStatusUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

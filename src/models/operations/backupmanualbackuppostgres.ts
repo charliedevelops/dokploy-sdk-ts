@@ -3,84 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type BackupManualBackupPostgresSecurity = {
-  authorization: string;
-};
-
 export type BackupManualBackupPostgresRequest = {
   backupId: string;
 };
-
-/** @internal */
-export const BackupManualBackupPostgresSecurity$inboundSchema: z.ZodType<
-  BackupManualBackupPostgresSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type BackupManualBackupPostgresSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const BackupManualBackupPostgresSecurity$outboundSchema: z.ZodType<
-  BackupManualBackupPostgresSecurity$Outbound,
-  z.ZodTypeDef,
-  BackupManualBackupPostgresSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BackupManualBackupPostgresSecurity$ {
-  /** @deprecated use `BackupManualBackupPostgresSecurity$inboundSchema` instead. */
-  export const inboundSchema = BackupManualBackupPostgresSecurity$inboundSchema;
-  /** @deprecated use `BackupManualBackupPostgresSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    BackupManualBackupPostgresSecurity$outboundSchema;
-  /** @deprecated use `BackupManualBackupPostgresSecurity$Outbound` instead. */
-  export type Outbound = BackupManualBackupPostgresSecurity$Outbound;
-}
-
-export function backupManualBackupPostgresSecurityToJSON(
-  backupManualBackupPostgresSecurity: BackupManualBackupPostgresSecurity,
-): string {
-  return JSON.stringify(
-    BackupManualBackupPostgresSecurity$outboundSchema.parse(
-      backupManualBackupPostgresSecurity,
-    ),
-  );
-}
-
-export function backupManualBackupPostgresSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<BackupManualBackupPostgresSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      BackupManualBackupPostgresSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'BackupManualBackupPostgresSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const BackupManualBackupPostgresRequest$inboundSchema: z.ZodType<

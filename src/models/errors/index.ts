@@ -3,6 +3,7 @@
  */
 
 export * from "./dokploydefaulterror.js";
+export * from "./dokployerror.js";
 export * from "./httpclienterrors.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";

@@ -14,9 +14,9 @@ let value: EnvironmentUpdateRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
+| `createdAt`        | *string*           | :heavy_minus_sign: | N/A                |
+| `description`      | *string*           | :heavy_minus_sign: | N/A                |
+| `env`              | *string*           | :heavy_minus_sign: | N/A                |
 | `environmentId`    | *string*           | :heavy_check_mark: | N/A                |
 | `name`             | *string*           | :heavy_minus_sign: | N/A                |
-| `description`      | *string*           | :heavy_minus_sign: | N/A                |
-| `createdAt`        | *string*           | :heavy_minus_sign: | N/A                |
-| `env`              | *string*           | :heavy_minus_sign: | N/A                |
 | `projectId`        | *string*           | :heavy_minus_sign: | N/A                |

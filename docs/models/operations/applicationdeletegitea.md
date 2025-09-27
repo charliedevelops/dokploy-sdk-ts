@@ -6,17 +6,17 @@
 import { ApplicationDeleteGitea } from "dokploy-sdk/models/operations";
 
 let value: ApplicationDeleteGitea = {
-  giteaId: "<id>",
-  giteaUrl: "https://caring-colon.com/",
-  redirectUri: null,
+  accessToken: null,
   clientId: "<id>",
   clientSecret: "<value>",
+  expiresAt: null,
   gitProviderId: "<id>",
-  accessToken: "<value>",
+  giteaId: "<id>",
+  giteaUrl: "https://nippy-hydrolyse.net/",
+  lastAuthenticatedAt: 9189.34,
+  redirectUri: "https://milky-sock.info/",
   refreshToken: "<value>",
-  expiresAt: 3648.06,
   scopes: "<value>",
-  lastAuthenticatedAt: 8255.7,
 };
 ```
 
@@ -24,14 +24,14 @@ let value: ApplicationDeleteGitea = {
 
 | Field                 | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
-| `giteaId`             | *string*              | :heavy_check_mark:    | N/A                   |
-| `giteaUrl`            | *string*              | :heavy_check_mark:    | N/A                   |
-| `redirectUri`         | *string*              | :heavy_check_mark:    | N/A                   |
+| `accessToken`         | *string*              | :heavy_check_mark:    | N/A                   |
 | `clientId`            | *string*              | :heavy_check_mark:    | N/A                   |
 | `clientSecret`        | *string*              | :heavy_check_mark:    | N/A                   |
-| `gitProviderId`       | *string*              | :heavy_check_mark:    | N/A                   |
-| `accessToken`         | *string*              | :heavy_check_mark:    | N/A                   |
-| `refreshToken`        | *string*              | :heavy_check_mark:    | N/A                   |
 | `expiresAt`           | *number*              | :heavy_check_mark:    | N/A                   |
-| `scopes`              | *string*              | :heavy_check_mark:    | N/A                   |
+| `gitProviderId`       | *string*              | :heavy_check_mark:    | N/A                   |
+| `giteaId`             | *string*              | :heavy_check_mark:    | N/A                   |
+| `giteaUrl`            | *string*              | :heavy_check_mark:    | N/A                   |
 | `lastAuthenticatedAt` | *number*              | :heavy_check_mark:    | N/A                   |
+| `redirectUri`         | *string*              | :heavy_check_mark:    | N/A                   |
+| `refreshToken`        | *string*              | :heavy_check_mark:    | N/A                   |
+| `scopes`              | *string*              | :heavy_check_mark:    | N/A                   |

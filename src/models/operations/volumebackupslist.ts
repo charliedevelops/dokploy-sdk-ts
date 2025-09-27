@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type VolumeBackupsListSecurity = {
-  authorization: string;
-};
 
 export const VolumeBackupType = {
   Application: "application",
@@ -28,68 +23,6 @@ export type VolumeBackupsListRequest = {
   id: string;
   volumeBackupType: VolumeBackupType;
 };
-
-/** @internal */
-export const VolumeBackupsListSecurity$inboundSchema: z.ZodType<
-  VolumeBackupsListSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type VolumeBackupsListSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const VolumeBackupsListSecurity$outboundSchema: z.ZodType<
-  VolumeBackupsListSecurity$Outbound,
-  z.ZodTypeDef,
-  VolumeBackupsListSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VolumeBackupsListSecurity$ {
-  /** @deprecated use `VolumeBackupsListSecurity$inboundSchema` instead. */
-  export const inboundSchema = VolumeBackupsListSecurity$inboundSchema;
-  /** @deprecated use `VolumeBackupsListSecurity$outboundSchema` instead. */
-  export const outboundSchema = VolumeBackupsListSecurity$outboundSchema;
-  /** @deprecated use `VolumeBackupsListSecurity$Outbound` instead. */
-  export type Outbound = VolumeBackupsListSecurity$Outbound;
-}
-
-export function volumeBackupsListSecurityToJSON(
-  volumeBackupsListSecurity: VolumeBackupsListSecurity,
-): string {
-  return JSON.stringify(
-    VolumeBackupsListSecurity$outboundSchema.parse(volumeBackupsListSecurity),
-  );
-}
-
-export function volumeBackupsListSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<VolumeBackupsListSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VolumeBackupsListSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VolumeBackupsListSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const VolumeBackupType$inboundSchema: z.ZodNativeEnum<

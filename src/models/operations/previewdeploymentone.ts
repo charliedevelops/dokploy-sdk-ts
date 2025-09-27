@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type PreviewDeploymentOneSecurity = {
-  authorization: string;
-};
 
 export type PreviewDeploymentOneRequest = {
   previewDeploymentId: string;
@@ -32,88 +27,24 @@ export type PreviewDeploymentOnePreviewStatus = ClosedEnum<
  * Successful response
  */
 export type PreviewDeploymentOneResponseBody = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: PreviewDeploymentOnePreviewStatus;
   appName: string;
   applicationId: string;
-  domainId: string | null;
+  branch: string;
   createdAt: string;
+  domainId: string | null;
   expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: PreviewDeploymentOnePreviewStatus;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
 };
 
 export type PreviewDeploymentOneResponse =
   | PreviewDeploymentOneResponseBody
   | models.ErrorT;
-
-/** @internal */
-export const PreviewDeploymentOneSecurity$inboundSchema: z.ZodType<
-  PreviewDeploymentOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type PreviewDeploymentOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PreviewDeploymentOneSecurity$outboundSchema: z.ZodType<
-  PreviewDeploymentOneSecurity$Outbound,
-  z.ZodTypeDef,
-  PreviewDeploymentOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PreviewDeploymentOneSecurity$ {
-  /** @deprecated use `PreviewDeploymentOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = PreviewDeploymentOneSecurity$inboundSchema;
-  /** @deprecated use `PreviewDeploymentOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = PreviewDeploymentOneSecurity$outboundSchema;
-  /** @deprecated use `PreviewDeploymentOneSecurity$Outbound` instead. */
-  export type Outbound = PreviewDeploymentOneSecurity$Outbound;
-}
-
-export function previewDeploymentOneSecurityToJSON(
-  previewDeploymentOneSecurity: PreviewDeploymentOneSecurity,
-): string {
-  return JSON.stringify(
-    PreviewDeploymentOneSecurity$outboundSchema.parse(
-      previewDeploymentOneSecurity,
-    ),
-  );
-}
-
-export function previewDeploymentOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PreviewDeploymentOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PreviewDeploymentOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PreviewDeploymentOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const PreviewDeploymentOneRequest$inboundSchema: z.ZodType<
@@ -199,36 +130,36 @@ export const PreviewDeploymentOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: PreviewDeploymentOnePreviewStatus$inboundSchema,
   appName: z.string(),
   applicationId: z.string(),
-  domainId: z.nullable(z.string()),
+  branch: z.string(),
   createdAt: z.string(),
+  domainId: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: PreviewDeploymentOnePreviewStatus$inboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
 });
 
 /** @internal */
 export type PreviewDeploymentOneResponseBody$Outbound = {
-  previewDeploymentId: string;
-  branch: string;
-  pullRequestId: string;
-  pullRequestNumber: string;
-  pullRequestURL: string;
-  pullRequestTitle: string;
-  pullRequestCommentId: string;
-  previewStatus: string;
   appName: string;
   applicationId: string;
-  domainId: string | null;
+  branch: string;
   createdAt: string;
+  domainId: string | null;
   expiresAt: string | null;
+  previewDeploymentId: string;
+  previewStatus: string;
+  pullRequestCommentId: string;
+  pullRequestId: string;
+  pullRequestNumber: string;
+  pullRequestTitle: string;
+  pullRequestURL: string;
 };
 
 /** @internal */
@@ -237,19 +168,19 @@ export const PreviewDeploymentOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PreviewDeploymentOneResponseBody
 > = z.object({
-  previewDeploymentId: z.string(),
-  branch: z.string(),
-  pullRequestId: z.string(),
-  pullRequestNumber: z.string(),
-  pullRequestURL: z.string(),
-  pullRequestTitle: z.string(),
-  pullRequestCommentId: z.string(),
-  previewStatus: PreviewDeploymentOnePreviewStatus$outboundSchema,
   appName: z.string(),
   applicationId: z.string(),
-  domainId: z.nullable(z.string()),
+  branch: z.string(),
   createdAt: z.string(),
+  domainId: z.nullable(z.string()),
   expiresAt: z.nullable(z.string()),
+  previewDeploymentId: z.string(),
+  previewStatus: PreviewDeploymentOnePreviewStatus$outboundSchema,
+  pullRequestCommentId: z.string(),
+  pullRequestId: z.string(),
+  pullRequestNumber: z.string(),
+  pullRequestTitle: z.string(),
+  pullRequestURL: z.string(),
 });
 
 /**

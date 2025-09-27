@@ -20,32 +20,32 @@ specific category of applications.
 
 ```typescript
 import { DokployCore } from "dokploy-sdk/core.js";
-import { adminAdminSetupMonitoring } from "dokploy-sdk/funcs/adminAdminSetupMonitoring.js";
+import { adminSetupMonitoring } from "dokploy-sdk/funcs/adminSetupMonitoring.js";
 
 // Use `DokployCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const dokploy = new DokployCore();
+const dokploy = new DokployCore({
+  apiKeyAuth: process.env["DOKPLOY_API_KEY_AUTH"] ?? "",
+});
 
 async function run() {
-  const res = await adminAdminSetupMonitoring(dokploy, {
-    authorization: process.env["DOKPLOY_AUTHORIZATION"] ?? "",
-  }, {
+  const res = await adminSetupMonitoring(dokploy, {
     metricsConfig: {
+      containers: {
+        refreshRate: 7401.48,
+        services: {},
+      },
       server: {
-        refreshRate: 4397.9,
-        port: 8537.41,
-        token: "<value>",
-        urlCallback: "https://majestic-scratch.org",
-        retentionDays: 6999.95,
         cronJob: "<value>",
+        port: 8537.41,
+        refreshRate: 4397.9,
+        retentionDays: 6999.95,
         thresholds: {
           cpu: 5497.84,
           memory: 6419.22,
         },
-      },
-      containers: {
-        refreshRate: 7401.48,
-        services: {},
+        token: "<value>",
+        urlCallback: "https://majestic-scratch.org",
       },
     },
   });
@@ -53,7 +53,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("adminAdminSetupMonitoring failed:", res.error);
+    console.log("adminSetupMonitoring failed:", res.error);
   }
 }
 

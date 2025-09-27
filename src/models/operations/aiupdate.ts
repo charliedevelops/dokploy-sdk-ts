@@ -3,86 +3,19 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type AiUpdateSecurity = {
-  authorization: string;
-};
-
 export type AiUpdateRequest = {
   aiId: string;
-  name?: string | undefined;
-  apiUrl?: string | undefined;
   apiKey?: string | undefined;
-  model?: string | undefined;
-  isEnabled?: boolean | undefined;
+  apiUrl?: string | undefined;
   createdAt?: string | undefined;
+  isEnabled?: boolean | undefined;
+  model?: string | undefined;
+  name?: string | undefined;
 };
-
-/** @internal */
-export const AiUpdateSecurity$inboundSchema: z.ZodType<
-  AiUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type AiUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const AiUpdateSecurity$outboundSchema: z.ZodType<
-  AiUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  AiUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AiUpdateSecurity$ {
-  /** @deprecated use `AiUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = AiUpdateSecurity$inboundSchema;
-  /** @deprecated use `AiUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = AiUpdateSecurity$outboundSchema;
-  /** @deprecated use `AiUpdateSecurity$Outbound` instead. */
-  export type Outbound = AiUpdateSecurity$Outbound;
-}
-
-export function aiUpdateSecurityToJSON(
-  aiUpdateSecurity: AiUpdateSecurity,
-): string {
-  return JSON.stringify(
-    AiUpdateSecurity$outboundSchema.parse(aiUpdateSecurity),
-  );
-}
-
-export function aiUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<AiUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AiUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AiUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const AiUpdateRequest$inboundSchema: z.ZodType<
@@ -91,23 +24,23 @@ export const AiUpdateRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   aiId: z.string(),
-  name: z.string().optional(),
-  apiUrl: z.string().optional(),
   apiKey: z.string().optional(),
-  model: z.string().optional(),
-  isEnabled: z.boolean().optional(),
+  apiUrl: z.string().optional(),
   createdAt: z.string().optional(),
+  isEnabled: z.boolean().optional(),
+  model: z.string().optional(),
+  name: z.string().optional(),
 });
 
 /** @internal */
 export type AiUpdateRequest$Outbound = {
   aiId: string;
-  name?: string | undefined;
-  apiUrl?: string | undefined;
   apiKey?: string | undefined;
-  model?: string | undefined;
-  isEnabled?: boolean | undefined;
+  apiUrl?: string | undefined;
   createdAt?: string | undefined;
+  isEnabled?: boolean | undefined;
+  model?: string | undefined;
+  name?: string | undefined;
 };
 
 /** @internal */
@@ -117,12 +50,12 @@ export const AiUpdateRequest$outboundSchema: z.ZodType<
   AiUpdateRequest
 > = z.object({
   aiId: z.string(),
-  name: z.string().optional(),
-  apiUrl: z.string().optional(),
   apiKey: z.string().optional(),
-  model: z.string().optional(),
-  isEnabled: z.boolean().optional(),
+  apiUrl: z.string().optional(),
   createdAt: z.string().optional(),
+  isEnabled: z.boolean().optional(),
+  model: z.string().optional(),
+  name: z.string().optional(),
 });
 
 /**

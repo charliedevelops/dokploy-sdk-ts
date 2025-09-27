@@ -3,94 +3,16 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type ApplicationDisconnectGitProviderSecurity = {
-  authorization: string;
-};
 
 export type ApplicationDisconnectGitProviderRequest = {
   applicationId: string;
 };
 
 export type ApplicationDisconnectGitProviderResponse = models.ErrorT | boolean;
-
-/** @internal */
-export const ApplicationDisconnectGitProviderSecurity$inboundSchema: z.ZodType<
-  ApplicationDisconnectGitProviderSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ApplicationDisconnectGitProviderSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ApplicationDisconnectGitProviderSecurity$outboundSchema: z.ZodType<
-  ApplicationDisconnectGitProviderSecurity$Outbound,
-  z.ZodTypeDef,
-  ApplicationDisconnectGitProviderSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ApplicationDisconnectGitProviderSecurity$ {
-  /** @deprecated use `ApplicationDisconnectGitProviderSecurity$inboundSchema` instead. */
-  export const inboundSchema =
-    ApplicationDisconnectGitProviderSecurity$inboundSchema;
-  /** @deprecated use `ApplicationDisconnectGitProviderSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    ApplicationDisconnectGitProviderSecurity$outboundSchema;
-  /** @deprecated use `ApplicationDisconnectGitProviderSecurity$Outbound` instead. */
-  export type Outbound = ApplicationDisconnectGitProviderSecurity$Outbound;
-}
-
-export function applicationDisconnectGitProviderSecurityToJSON(
-  applicationDisconnectGitProviderSecurity:
-    ApplicationDisconnectGitProviderSecurity,
-): string {
-  return JSON.stringify(
-    ApplicationDisconnectGitProviderSecurity$outboundSchema.parse(
-      applicationDisconnectGitProviderSecurity,
-    ),
-  );
-}
-
-export function applicationDisconnectGitProviderSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ApplicationDisconnectGitProviderSecurity,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ApplicationDisconnectGitProviderSecurity$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ApplicationDisconnectGitProviderSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ApplicationDisconnectGitProviderRequest$inboundSchema: z.ZodType<

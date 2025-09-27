@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type GiteaOneSecurity = {
-  authorization: string;
-};
 
 export type GiteaOneRequest = {
   giteaId: string;
@@ -27,11 +22,11 @@ export const GiteaOneProviderType = {
 export type GiteaOneProviderType = ClosedEnum<typeof GiteaOneProviderType>;
 
 export type GiteaOneGitProvider = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: GiteaOneProviderType;
-  createdAt: string;
   organizationId: string;
+  providerType: GiteaOneProviderType;
   userId: string;
 };
 
@@ -39,83 +34,21 @@ export type GiteaOneGitProvider = {
  * Successful response
  */
 export type GiteaOneResponseBody = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
+  accessToken: string | null;
   clientId: string | null;
   clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
   expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
   gitProvider: GiteaOneGitProvider;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
 };
 
 export type GiteaOneResponse = GiteaOneResponseBody | models.ErrorT;
-
-/** @internal */
-export const GiteaOneSecurity$inboundSchema: z.ZodType<
-  GiteaOneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GiteaOneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GiteaOneSecurity$outboundSchema: z.ZodType<
-  GiteaOneSecurity$Outbound,
-  z.ZodTypeDef,
-  GiteaOneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GiteaOneSecurity$ {
-  /** @deprecated use `GiteaOneSecurity$inboundSchema` instead. */
-  export const inboundSchema = GiteaOneSecurity$inboundSchema;
-  /** @deprecated use `GiteaOneSecurity$outboundSchema` instead. */
-  export const outboundSchema = GiteaOneSecurity$outboundSchema;
-  /** @deprecated use `GiteaOneSecurity$Outbound` instead. */
-  export type Outbound = GiteaOneSecurity$Outbound;
-}
-
-export function giteaOneSecurityToJSON(
-  giteaOneSecurity: GiteaOneSecurity,
-): string {
-  return JSON.stringify(
-    GiteaOneSecurity$outboundSchema.parse(giteaOneSecurity),
-  );
-}
-
-export function giteaOneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GiteaOneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GiteaOneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GiteaOneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GiteaOneRequest$inboundSchema: z.ZodType<
@@ -196,21 +129,21 @@ export const GiteaOneGitProvider$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaOneProviderType$inboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaOneProviderType$inboundSchema,
   userId: z.string(),
 });
 
 /** @internal */
 export type GiteaOneGitProvider$Outbound = {
+  createdAt: string;
   gitProviderId: string;
   name: string;
-  providerType: string;
-  createdAt: string;
   organizationId: string;
+  providerType: string;
   userId: string;
 };
 
@@ -220,11 +153,11 @@ export const GiteaOneGitProvider$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaOneGitProvider
 > = z.object({
+  createdAt: z.string(),
   gitProviderId: z.string(),
   name: z.string(),
-  providerType: GiteaOneProviderType$outboundSchema,
-  createdAt: z.string(),
   organizationId: z.string(),
+  providerType: GiteaOneProviderType$outboundSchema,
   userId: z.string(),
 });
 
@@ -265,34 +198,34 @@ export const GiteaOneResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
+  accessToken: z.nullable(z.string()),
   clientId: z.nullable(z.string()),
   clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
   gitProvider: z.lazy(() => GiteaOneGitProvider$inboundSchema),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
 });
 
 /** @internal */
 export type GiteaOneResponseBody$Outbound = {
-  giteaId: string;
-  giteaUrl: string;
-  redirectUri: string | null;
+  accessToken: string | null;
   clientId: string | null;
   clientSecret: string | null;
-  gitProviderId: string;
-  accessToken: string | null;
-  refreshToken: string | null;
   expiresAt: number | null;
-  scopes: string | null;
-  lastAuthenticatedAt: number | null;
   gitProvider: GiteaOneGitProvider$Outbound;
+  gitProviderId: string;
+  giteaId: string;
+  giteaUrl: string;
+  lastAuthenticatedAt: number | null;
+  redirectUri: string | null;
+  refreshToken: string | null;
+  scopes: string | null;
 };
 
 /** @internal */
@@ -301,18 +234,18 @@ export const GiteaOneResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GiteaOneResponseBody
 > = z.object({
-  giteaId: z.string(),
-  giteaUrl: z.string(),
-  redirectUri: z.nullable(z.string()),
+  accessToken: z.nullable(z.string()),
   clientId: z.nullable(z.string()),
   clientSecret: z.nullable(z.string()),
-  gitProviderId: z.string(),
-  accessToken: z.nullable(z.string()),
-  refreshToken: z.nullable(z.string()),
   expiresAt: z.nullable(z.number()),
-  scopes: z.nullable(z.string()),
-  lastAuthenticatedAt: z.nullable(z.number()),
   gitProvider: z.lazy(() => GiteaOneGitProvider$outboundSchema),
+  gitProviderId: z.string(),
+  giteaId: z.string(),
+  giteaUrl: z.string(),
+  lastAuthenticatedAt: z.nullable(z.number()),
+  redirectUri: z.nullable(z.string()),
+  refreshToken: z.nullable(z.string()),
+  scopes: z.nullable(z.string()),
 });
 
 /**

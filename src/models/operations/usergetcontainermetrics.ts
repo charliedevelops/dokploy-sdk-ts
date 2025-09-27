@@ -3,14 +3,9 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type UserGetContainerMetricsSecurity = {
-  authorization: string;
-};
 
 export type UserGetContainerMetricsRequest = {
   url: string;
@@ -18,70 +13,6 @@ export type UserGetContainerMetricsRequest = {
   appName: string;
   dataPoints: string;
 };
-
-/** @internal */
-export const UserGetContainerMetricsSecurity$inboundSchema: z.ZodType<
-  UserGetContainerMetricsSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type UserGetContainerMetricsSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const UserGetContainerMetricsSecurity$outboundSchema: z.ZodType<
-  UserGetContainerMetricsSecurity$Outbound,
-  z.ZodTypeDef,
-  UserGetContainerMetricsSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UserGetContainerMetricsSecurity$ {
-  /** @deprecated use `UserGetContainerMetricsSecurity$inboundSchema` instead. */
-  export const inboundSchema = UserGetContainerMetricsSecurity$inboundSchema;
-  /** @deprecated use `UserGetContainerMetricsSecurity$outboundSchema` instead. */
-  export const outboundSchema = UserGetContainerMetricsSecurity$outboundSchema;
-  /** @deprecated use `UserGetContainerMetricsSecurity$Outbound` instead. */
-  export type Outbound = UserGetContainerMetricsSecurity$Outbound;
-}
-
-export function userGetContainerMetricsSecurityToJSON(
-  userGetContainerMetricsSecurity: UserGetContainerMetricsSecurity,
-): string {
-  return JSON.stringify(
-    UserGetContainerMetricsSecurity$outboundSchema.parse(
-      userGetContainerMetricsSecurity,
-    ),
-  );
-}
-
-export function userGetContainerMetricsSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<UserGetContainerMetricsSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UserGetContainerMetricsSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UserGetContainerMetricsSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const UserGetContainerMetricsRequest$inboundSchema: z.ZodType<

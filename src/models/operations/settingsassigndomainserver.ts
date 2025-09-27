@@ -3,15 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SettingsAssignDomainServerSecurity = {
-  authorization: string;
-};
 
 export const SettingsAssignDomainServerCertificateType = {
   Letsencrypt: "letsencrypt",
@@ -23,77 +18,11 @@ export type SettingsAssignDomainServerCertificateType = ClosedEnum<
 >;
 
 export type SettingsAssignDomainServerRequest = {
-  host: string | null;
   certificateType: SettingsAssignDomainServerCertificateType;
-  letsEncryptEmail?: string | null | undefined;
+  host: string | null;
   https?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
 };
-
-/** @internal */
-export const SettingsAssignDomainServerSecurity$inboundSchema: z.ZodType<
-  SettingsAssignDomainServerSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsAssignDomainServerSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsAssignDomainServerSecurity$outboundSchema: z.ZodType<
-  SettingsAssignDomainServerSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsAssignDomainServerSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsAssignDomainServerSecurity$ {
-  /** @deprecated use `SettingsAssignDomainServerSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsAssignDomainServerSecurity$inboundSchema;
-  /** @deprecated use `SettingsAssignDomainServerSecurity$outboundSchema` instead. */
-  export const outboundSchema =
-    SettingsAssignDomainServerSecurity$outboundSchema;
-  /** @deprecated use `SettingsAssignDomainServerSecurity$Outbound` instead. */
-  export type Outbound = SettingsAssignDomainServerSecurity$Outbound;
-}
-
-export function settingsAssignDomainServerSecurityToJSON(
-  settingsAssignDomainServerSecurity: SettingsAssignDomainServerSecurity,
-): string {
-  return JSON.stringify(
-    SettingsAssignDomainServerSecurity$outboundSchema.parse(
-      settingsAssignDomainServerSecurity,
-    ),
-  );
-}
-
-export function settingsAssignDomainServerSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsAssignDomainServerSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SettingsAssignDomainServerSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsAssignDomainServerSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsAssignDomainServerCertificateType$inboundSchema:
@@ -124,18 +53,18 @@ export const SettingsAssignDomainServerRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.nullable(z.string()),
   certificateType: SettingsAssignDomainServerCertificateType$inboundSchema,
-  letsEncryptEmail: z.nullable(z.string()).optional(),
+  host: z.nullable(z.string()),
   https: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type SettingsAssignDomainServerRequest$Outbound = {
-  host: string | null;
   certificateType: string;
-  letsEncryptEmail?: string | null | undefined;
+  host: string | null;
   https?: boolean | undefined;
+  letsEncryptEmail?: string | null | undefined;
 };
 
 /** @internal */
@@ -144,10 +73,10 @@ export const SettingsAssignDomainServerRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SettingsAssignDomainServerRequest
 > = z.object({
-  host: z.nullable(z.string()),
   certificateType: SettingsAssignDomainServerCertificateType$outboundSchema,
-  letsEncryptEmail: z.nullable(z.string()).optional(),
+  host: z.nullable(z.string()),
   https: z.boolean().optional(),
+  letsEncryptEmail: z.nullable(z.string()).optional(),
 });
 
 /**

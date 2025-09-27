@@ -3,23 +3,10 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type ScheduleUpdateSecurity = {
-  authorization: string;
-};
-
-export const ScheduleUpdateShellType = {
-  Bash: "bash",
-  Sh: "sh",
-} as const;
-export type ScheduleUpdateShellType = ClosedEnum<
-  typeof ScheduleUpdateShellType
->;
 
 export const ScheduleUpdateScheduleType = {
   Application: "application",
@@ -31,84 +18,51 @@ export type ScheduleUpdateScheduleType = ClosedEnum<
   typeof ScheduleUpdateScheduleType
 >;
 
+export const ScheduleUpdateShellType = {
+  Bash: "bash",
+  Sh: "sh",
+} as const;
+export type ScheduleUpdateShellType = ClosedEnum<
+  typeof ScheduleUpdateShellType
+>;
+
 export type ScheduleUpdateRequest = {
-  scheduleId: string;
-  name: string;
-  cronExpression: string;
   appName?: string | undefined;
+  applicationId?: string | null | undefined;
+  command: string;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  enabled?: boolean | undefined;
+  name: string;
+  scheduleId: string;
+  scheduleType?: ScheduleUpdateScheduleType | undefined;
+  script?: string | null | undefined;
+  serverId?: string | null | undefined;
   serviceName?: string | null | undefined;
   shellType?: ScheduleUpdateShellType | undefined;
-  scheduleType?: ScheduleUpdateScheduleType | undefined;
-  command: string;
-  script?: string | null | undefined;
-  applicationId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  serverId?: string | null | undefined;
   userId?: string | null | undefined;
-  enabled?: boolean | undefined;
-  createdAt?: string | undefined;
 };
 
 /** @internal */
-export const ScheduleUpdateSecurity$inboundSchema: z.ZodType<
-  ScheduleUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
+export const ScheduleUpdateScheduleType$inboundSchema: z.ZodNativeEnum<
+  typeof ScheduleUpdateScheduleType
+> = z.nativeEnum(ScheduleUpdateScheduleType);
 
 /** @internal */
-export type ScheduleUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ScheduleUpdateSecurity$outboundSchema: z.ZodType<
-  ScheduleUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  ScheduleUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
+export const ScheduleUpdateScheduleType$outboundSchema: z.ZodNativeEnum<
+  typeof ScheduleUpdateScheduleType
+> = ScheduleUpdateScheduleType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ScheduleUpdateSecurity$ {
-  /** @deprecated use `ScheduleUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = ScheduleUpdateSecurity$inboundSchema;
-  /** @deprecated use `ScheduleUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = ScheduleUpdateSecurity$outboundSchema;
-  /** @deprecated use `ScheduleUpdateSecurity$Outbound` instead. */
-  export type Outbound = ScheduleUpdateSecurity$Outbound;
-}
-
-export function scheduleUpdateSecurityToJSON(
-  scheduleUpdateSecurity: ScheduleUpdateSecurity,
-): string {
-  return JSON.stringify(
-    ScheduleUpdateSecurity$outboundSchema.parse(scheduleUpdateSecurity),
-  );
-}
-
-export function scheduleUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ScheduleUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ScheduleUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ScheduleUpdateSecurity' from JSON`,
-  );
+export namespace ScheduleUpdateScheduleType$ {
+  /** @deprecated use `ScheduleUpdateScheduleType$inboundSchema` instead. */
+  export const inboundSchema = ScheduleUpdateScheduleType$inboundSchema;
+  /** @deprecated use `ScheduleUpdateScheduleType$outboundSchema` instead. */
+  export const outboundSchema = ScheduleUpdateScheduleType$outboundSchema;
 }
 
 /** @internal */
@@ -133,66 +87,45 @@ export namespace ScheduleUpdateShellType$ {
 }
 
 /** @internal */
-export const ScheduleUpdateScheduleType$inboundSchema: z.ZodNativeEnum<
-  typeof ScheduleUpdateScheduleType
-> = z.nativeEnum(ScheduleUpdateScheduleType);
-
-/** @internal */
-export const ScheduleUpdateScheduleType$outboundSchema: z.ZodNativeEnum<
-  typeof ScheduleUpdateScheduleType
-> = ScheduleUpdateScheduleType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScheduleUpdateScheduleType$ {
-  /** @deprecated use `ScheduleUpdateScheduleType$inboundSchema` instead. */
-  export const inboundSchema = ScheduleUpdateScheduleType$inboundSchema;
-  /** @deprecated use `ScheduleUpdateScheduleType$outboundSchema` instead. */
-  export const outboundSchema = ScheduleUpdateScheduleType$outboundSchema;
-}
-
-/** @internal */
 export const ScheduleUpdateRequest$inboundSchema: z.ZodType<
   ScheduleUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  scheduleId: z.string(),
-  name: z.string(),
-  cronExpression: z.string(),
   appName: z.string().optional(),
+  applicationId: z.nullable(z.string()).optional(),
+  command: z.string(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  enabled: z.boolean().optional(),
+  name: z.string(),
+  scheduleId: z.string(),
+  scheduleType: ScheduleUpdateScheduleType$inboundSchema.optional(),
+  script: z.nullable(z.string()).optional(),
+  serverId: z.nullable(z.string()).optional(),
   serviceName: z.nullable(z.string()).optional(),
   shellType: ScheduleUpdateShellType$inboundSchema.optional(),
-  scheduleType: ScheduleUpdateScheduleType$inboundSchema.optional(),
-  command: z.string(),
-  script: z.nullable(z.string()).optional(),
-  applicationId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
   userId: z.nullable(z.string()).optional(),
-  enabled: z.boolean().optional(),
-  createdAt: z.string().optional(),
 });
 
 /** @internal */
 export type ScheduleUpdateRequest$Outbound = {
-  scheduleId: string;
-  name: string;
-  cronExpression: string;
   appName?: string | undefined;
+  applicationId?: string | null | undefined;
+  command: string;
+  composeId?: string | null | undefined;
+  createdAt?: string | undefined;
+  cronExpression: string;
+  enabled?: boolean | undefined;
+  name: string;
+  scheduleId: string;
+  scheduleType?: string | undefined;
+  script?: string | null | undefined;
+  serverId?: string | null | undefined;
   serviceName?: string | null | undefined;
   shellType?: string | undefined;
-  scheduleType?: string | undefined;
-  command: string;
-  script?: string | null | undefined;
-  applicationId?: string | null | undefined;
-  composeId?: string | null | undefined;
-  serverId?: string | null | undefined;
   userId?: string | null | undefined;
-  enabled?: boolean | undefined;
-  createdAt?: string | undefined;
 };
 
 /** @internal */
@@ -201,21 +134,21 @@ export const ScheduleUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ScheduleUpdateRequest
 > = z.object({
-  scheduleId: z.string(),
-  name: z.string(),
-  cronExpression: z.string(),
   appName: z.string().optional(),
+  applicationId: z.nullable(z.string()).optional(),
+  command: z.string(),
+  composeId: z.nullable(z.string()).optional(),
+  createdAt: z.string().optional(),
+  cronExpression: z.string(),
+  enabled: z.boolean().optional(),
+  name: z.string(),
+  scheduleId: z.string(),
+  scheduleType: ScheduleUpdateScheduleType$outboundSchema.optional(),
+  script: z.nullable(z.string()).optional(),
+  serverId: z.nullable(z.string()).optional(),
   serviceName: z.nullable(z.string()).optional(),
   shellType: ScheduleUpdateShellType$outboundSchema.optional(),
-  scheduleType: ScheduleUpdateScheduleType$outboundSchema.optional(),
-  command: z.string(),
-  script: z.nullable(z.string()).optional(),
-  applicationId: z.nullable(z.string()).optional(),
-  composeId: z.nullable(z.string()).optional(),
-  serverId: z.nullable(z.string()).optional(),
   userId: z.nullable(z.string()).optional(),
-  enabled: z.boolean().optional(),
-  createdAt: z.string().optional(),
 });
 
 /**

@@ -3,80 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeStopSecurity = {
-  authorization: string;
-};
-
 export type ComposeStopRequest = {
   composeId: string;
 };
-
-/** @internal */
-export const ComposeStopSecurity$inboundSchema: z.ZodType<
-  ComposeStopSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeStopSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeStopSecurity$outboundSchema: z.ZodType<
-  ComposeStopSecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeStopSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeStopSecurity$ {
-  /** @deprecated use `ComposeStopSecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeStopSecurity$inboundSchema;
-  /** @deprecated use `ComposeStopSecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeStopSecurity$outboundSchema;
-  /** @deprecated use `ComposeStopSecurity$Outbound` instead. */
-  export type Outbound = ComposeStopSecurity$Outbound;
-}
-
-export function composeStopSecurityToJSON(
-  composeStopSecurity: ComposeStopSecurity,
-): string {
-  return JSON.stringify(
-    ComposeStopSecurity$outboundSchema.parse(composeStopSecurity),
-  );
-}
-
-export function composeStopSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeStopSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeStopSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeStopSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeStopRequest$inboundSchema: z.ZodType<

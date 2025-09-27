@@ -3,82 +3,13 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type SettingsCleanDockerPruneSecurity = {
-  authorization: string;
-};
-
 export type SettingsCleanDockerPruneRequest = {
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsCleanDockerPruneSecurity$inboundSchema: z.ZodType<
-  SettingsCleanDockerPruneSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsCleanDockerPruneSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsCleanDockerPruneSecurity$outboundSchema: z.ZodType<
-  SettingsCleanDockerPruneSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsCleanDockerPruneSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsCleanDockerPruneSecurity$ {
-  /** @deprecated use `SettingsCleanDockerPruneSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsCleanDockerPruneSecurity$inboundSchema;
-  /** @deprecated use `SettingsCleanDockerPruneSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsCleanDockerPruneSecurity$outboundSchema;
-  /** @deprecated use `SettingsCleanDockerPruneSecurity$Outbound` instead. */
-  export type Outbound = SettingsCleanDockerPruneSecurity$Outbound;
-}
-
-export function settingsCleanDockerPruneSecurityToJSON(
-  settingsCleanDockerPruneSecurity: SettingsCleanDockerPruneSecurity,
-): string {
-  return JSON.stringify(
-    SettingsCleanDockerPruneSecurity$outboundSchema.parse(
-      settingsCleanDockerPruneSecurity,
-    ),
-  );
-}
-
-export function settingsCleanDockerPruneSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsCleanDockerPruneSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsCleanDockerPruneSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsCleanDockerPruneSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsCleanDockerPruneRequest$inboundSchema: z.ZodType<

@@ -3,83 +3,14 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-export type SettingsWriteTraefikEnvSecurity = {
-  authorization: string;
-};
 
 export type SettingsWriteTraefikEnvRequest = {
   env: string;
   serverId?: string | undefined;
 };
-
-/** @internal */
-export const SettingsWriteTraefikEnvSecurity$inboundSchema: z.ZodType<
-  SettingsWriteTraefikEnvSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type SettingsWriteTraefikEnvSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const SettingsWriteTraefikEnvSecurity$outboundSchema: z.ZodType<
-  SettingsWriteTraefikEnvSecurity$Outbound,
-  z.ZodTypeDef,
-  SettingsWriteTraefikEnvSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SettingsWriteTraefikEnvSecurity$ {
-  /** @deprecated use `SettingsWriteTraefikEnvSecurity$inboundSchema` instead. */
-  export const inboundSchema = SettingsWriteTraefikEnvSecurity$inboundSchema;
-  /** @deprecated use `SettingsWriteTraefikEnvSecurity$outboundSchema` instead. */
-  export const outboundSchema = SettingsWriteTraefikEnvSecurity$outboundSchema;
-  /** @deprecated use `SettingsWriteTraefikEnvSecurity$Outbound` instead. */
-  export type Outbound = SettingsWriteTraefikEnvSecurity$Outbound;
-}
-
-export function settingsWriteTraefikEnvSecurityToJSON(
-  settingsWriteTraefikEnvSecurity: SettingsWriteTraefikEnvSecurity,
-): string {
-  return JSON.stringify(
-    SettingsWriteTraefikEnvSecurity$outboundSchema.parse(
-      settingsWriteTraefikEnvSecurity,
-    ),
-  );
-}
-
-export function settingsWriteTraefikEnvSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<SettingsWriteTraefikEnvSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SettingsWriteTraefikEnvSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SettingsWriteTraefikEnvSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const SettingsWriteTraefikEnvRequest$inboundSchema: z.ZodType<

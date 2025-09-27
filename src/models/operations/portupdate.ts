@@ -3,24 +3,11 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-export type PortUpdateSecurity = {
-  authorization: string;
-};
-
-export const PortUpdatePublishModeRequest = {
-  Ingress: "ingress",
-  Host: "host",
-} as const;
-export type PortUpdatePublishModeRequest = ClosedEnum<
-  typeof PortUpdatePublishModeRequest
->;
 
 export const PortUpdateProtocolRequest = {
   Tcp: "tcp",
@@ -30,21 +17,21 @@ export type PortUpdateProtocolRequest = ClosedEnum<
   typeof PortUpdateProtocolRequest
 >;
 
-export type PortUpdateRequest = {
-  portId: string;
-  publishedPort: number;
-  publishMode?: PortUpdatePublishModeRequest | undefined;
-  targetPort: number;
-  protocol?: PortUpdateProtocolRequest | undefined;
-};
-
-export const PortUpdatePublishModeResponse = {
+export const PortUpdatePublishModeRequest = {
   Ingress: "ingress",
   Host: "host",
 } as const;
-export type PortUpdatePublishModeResponse = ClosedEnum<
-  typeof PortUpdatePublishModeResponse
+export type PortUpdatePublishModeRequest = ClosedEnum<
+  typeof PortUpdatePublishModeRequest
 >;
+
+export type PortUpdateRequest = {
+  portId: string;
+  protocol?: PortUpdateProtocolRequest | undefined;
+  publishMode?: PortUpdatePublishModeRequest | undefined;
+  publishedPort: number;
+  targetPort: number;
+};
 
 export const PortUpdateProtocolResponse = {
   Tcp: "tcp",
@@ -54,80 +41,47 @@ export type PortUpdateProtocolResponse = ClosedEnum<
   typeof PortUpdateProtocolResponse
 >;
 
+export const PortUpdatePublishModeResponse = {
+  Ingress: "ingress",
+  Host: "host",
+} as const;
+export type PortUpdatePublishModeResponse = ClosedEnum<
+  typeof PortUpdatePublishModeResponse
+>;
+
 /**
  * Successful response
  */
 export type PortUpdateResponseBody = {
-  portId: string;
-  publishedPort: number;
-  publishMode: PortUpdatePublishModeResponse;
-  targetPort: number;
-  protocol: PortUpdateProtocolResponse;
   applicationId: string;
+  portId: string;
+  protocol: PortUpdateProtocolResponse;
+  publishMode: PortUpdatePublishModeResponse;
+  publishedPort: number;
+  targetPort: number;
 };
 
 export type PortUpdateResponse = PortUpdateResponseBody | models.ErrorT;
 
 /** @internal */
-export const PortUpdateSecurity$inboundSchema: z.ZodType<
-  PortUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
+export const PortUpdateProtocolRequest$inboundSchema: z.ZodNativeEnum<
+  typeof PortUpdateProtocolRequest
+> = z.nativeEnum(PortUpdateProtocolRequest);
 
 /** @internal */
-export type PortUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const PortUpdateSecurity$outboundSchema: z.ZodType<
-  PortUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  PortUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
+export const PortUpdateProtocolRequest$outboundSchema: z.ZodNativeEnum<
+  typeof PortUpdateProtocolRequest
+> = PortUpdateProtocolRequest$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PortUpdateSecurity$ {
-  /** @deprecated use `PortUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = PortUpdateSecurity$inboundSchema;
-  /** @deprecated use `PortUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = PortUpdateSecurity$outboundSchema;
-  /** @deprecated use `PortUpdateSecurity$Outbound` instead. */
-  export type Outbound = PortUpdateSecurity$Outbound;
-}
-
-export function portUpdateSecurityToJSON(
-  portUpdateSecurity: PortUpdateSecurity,
-): string {
-  return JSON.stringify(
-    PortUpdateSecurity$outboundSchema.parse(portUpdateSecurity),
-  );
-}
-
-export function portUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<PortUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PortUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PortUpdateSecurity' from JSON`,
-  );
+export namespace PortUpdateProtocolRequest$ {
+  /** @deprecated use `PortUpdateProtocolRequest$inboundSchema` instead. */
+  export const inboundSchema = PortUpdateProtocolRequest$inboundSchema;
+  /** @deprecated use `PortUpdateProtocolRequest$outboundSchema` instead. */
+  export const outboundSchema = PortUpdateProtocolRequest$outboundSchema;
 }
 
 /** @internal */
@@ -152,46 +106,25 @@ export namespace PortUpdatePublishModeRequest$ {
 }
 
 /** @internal */
-export const PortUpdateProtocolRequest$inboundSchema: z.ZodNativeEnum<
-  typeof PortUpdateProtocolRequest
-> = z.nativeEnum(PortUpdateProtocolRequest);
-
-/** @internal */
-export const PortUpdateProtocolRequest$outboundSchema: z.ZodNativeEnum<
-  typeof PortUpdateProtocolRequest
-> = PortUpdateProtocolRequest$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortUpdateProtocolRequest$ {
-  /** @deprecated use `PortUpdateProtocolRequest$inboundSchema` instead. */
-  export const inboundSchema = PortUpdateProtocolRequest$inboundSchema;
-  /** @deprecated use `PortUpdateProtocolRequest$outboundSchema` instead. */
-  export const outboundSchema = PortUpdateProtocolRequest$outboundSchema;
-}
-
-/** @internal */
 export const PortUpdateRequest$inboundSchema: z.ZodType<
   PortUpdateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortUpdatePublishModeRequest$inboundSchema.default("ingress"),
-  targetPort: z.number(),
   protocol: PortUpdateProtocolRequest$inboundSchema.default("tcp"),
+  publishMode: PortUpdatePublishModeRequest$inboundSchema.default("ingress"),
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type PortUpdateRequest$Outbound = {
   portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
   protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -201,10 +134,10 @@ export const PortUpdateRequest$outboundSchema: z.ZodType<
   PortUpdateRequest
 > = z.object({
   portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortUpdatePublishModeRequest$outboundSchema.default("ingress"),
-  targetPort: z.number(),
   protocol: PortUpdateProtocolRequest$outboundSchema.default("tcp"),
+  publishMode: PortUpdatePublishModeRequest$outboundSchema.default("ingress"),
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**
@@ -239,27 +172,6 @@ export function portUpdateRequestFromJSON(
 }
 
 /** @internal */
-export const PortUpdatePublishModeResponse$inboundSchema: z.ZodNativeEnum<
-  typeof PortUpdatePublishModeResponse
-> = z.nativeEnum(PortUpdatePublishModeResponse);
-
-/** @internal */
-export const PortUpdatePublishModeResponse$outboundSchema: z.ZodNativeEnum<
-  typeof PortUpdatePublishModeResponse
-> = PortUpdatePublishModeResponse$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PortUpdatePublishModeResponse$ {
-  /** @deprecated use `PortUpdatePublishModeResponse$inboundSchema` instead. */
-  export const inboundSchema = PortUpdatePublishModeResponse$inboundSchema;
-  /** @deprecated use `PortUpdatePublishModeResponse$outboundSchema` instead. */
-  export const outboundSchema = PortUpdatePublishModeResponse$outboundSchema;
-}
-
-/** @internal */
 export const PortUpdateProtocolResponse$inboundSchema: z.ZodNativeEnum<
   typeof PortUpdateProtocolResponse
 > = z.nativeEnum(PortUpdateProtocolResponse);
@@ -281,27 +193,48 @@ export namespace PortUpdateProtocolResponse$ {
 }
 
 /** @internal */
+export const PortUpdatePublishModeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof PortUpdatePublishModeResponse
+> = z.nativeEnum(PortUpdatePublishModeResponse);
+
+/** @internal */
+export const PortUpdatePublishModeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof PortUpdatePublishModeResponse
+> = PortUpdatePublishModeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PortUpdatePublishModeResponse$ {
+  /** @deprecated use `PortUpdatePublishModeResponse$inboundSchema` instead. */
+  export const inboundSchema = PortUpdatePublishModeResponse$inboundSchema;
+  /** @deprecated use `PortUpdatePublishModeResponse$outboundSchema` instead. */
+  export const outboundSchema = PortUpdatePublishModeResponse$outboundSchema;
+}
+
+/** @internal */
 export const PortUpdateResponseBody$inboundSchema: z.ZodType<
   PortUpdateResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortUpdatePublishModeResponse$inboundSchema,
-  targetPort: z.number(),
-  protocol: PortUpdateProtocolResponse$inboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortUpdateProtocolResponse$inboundSchema,
+  publishMode: PortUpdatePublishModeResponse$inboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /** @internal */
 export type PortUpdateResponseBody$Outbound = {
-  portId: string;
-  publishedPort: number;
-  publishMode: string;
-  targetPort: number;
-  protocol: string;
   applicationId: string;
+  portId: string;
+  protocol: string;
+  publishMode: string;
+  publishedPort: number;
+  targetPort: number;
 };
 
 /** @internal */
@@ -310,12 +243,12 @@ export const PortUpdateResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PortUpdateResponseBody
 > = z.object({
-  portId: z.string(),
-  publishedPort: z.number(),
-  publishMode: PortUpdatePublishModeResponse$outboundSchema,
-  targetPort: z.number(),
-  protocol: PortUpdateProtocolResponse$outboundSchema,
   applicationId: z.string(),
+  portId: z.string(),
+  protocol: PortUpdateProtocolResponse$outboundSchema,
+  publishMode: PortUpdatePublishModeResponse$outboundSchema,
+  publishedPort: z.number(),
+  targetPort: z.number(),
 });
 
 /**

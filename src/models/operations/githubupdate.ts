@@ -3,92 +3,25 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type GithubUpdateSecurity = {
-  authorization: string;
-};
-
 export type GithubUpdateRequest = {
-  githubId: string;
-  githubAppName?: string | null | undefined;
+  gitProviderId: string;
   githubAppId?: number | null | undefined;
+  githubAppName?: string | null | undefined;
   githubClientId?: string | null | undefined;
   githubClientSecret?: string | null | undefined;
+  githubId: string;
   githubInstallationId?: string | null | undefined;
   githubPrivateKey?: string | null | undefined;
   githubWebhookSecret?: string | null | undefined;
-  gitProviderId: string;
   name: string;
 };
 
 export type GithubUpdateResponse = models.ErrorT | any;
-
-/** @internal */
-export const GithubUpdateSecurity$inboundSchema: z.ZodType<
-  GithubUpdateSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type GithubUpdateSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const GithubUpdateSecurity$outboundSchema: z.ZodType<
-  GithubUpdateSecurity$Outbound,
-  z.ZodTypeDef,
-  GithubUpdateSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GithubUpdateSecurity$ {
-  /** @deprecated use `GithubUpdateSecurity$inboundSchema` instead. */
-  export const inboundSchema = GithubUpdateSecurity$inboundSchema;
-  /** @deprecated use `GithubUpdateSecurity$outboundSchema` instead. */
-  export const outboundSchema = GithubUpdateSecurity$outboundSchema;
-  /** @deprecated use `GithubUpdateSecurity$Outbound` instead. */
-  export type Outbound = GithubUpdateSecurity$Outbound;
-}
-
-export function githubUpdateSecurityToJSON(
-  githubUpdateSecurity: GithubUpdateSecurity,
-): string {
-  return JSON.stringify(
-    GithubUpdateSecurity$outboundSchema.parse(githubUpdateSecurity),
-  );
-}
-
-export function githubUpdateSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<GithubUpdateSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GithubUpdateSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GithubUpdateSecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const GithubUpdateRequest$inboundSchema: z.ZodType<
@@ -96,29 +29,29 @@ export const GithubUpdateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()).optional(),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()).optional(),
+  githubAppName: z.nullable(z.string()).optional(),
   githubClientId: z.nullable(z.string()).optional(),
   githubClientSecret: z.nullable(z.string()).optional(),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()).optional(),
   githubPrivateKey: z.nullable(z.string()).optional(),
   githubWebhookSecret: z.nullable(z.string()).optional(),
-  gitProviderId: z.string(),
   name: z.string(),
 });
 
 /** @internal */
 export type GithubUpdateRequest$Outbound = {
-  githubId: string;
-  githubAppName?: string | null | undefined;
+  gitProviderId: string;
   githubAppId?: number | null | undefined;
+  githubAppName?: string | null | undefined;
   githubClientId?: string | null | undefined;
   githubClientSecret?: string | null | undefined;
+  githubId: string;
   githubInstallationId?: string | null | undefined;
   githubPrivateKey?: string | null | undefined;
   githubWebhookSecret?: string | null | undefined;
-  gitProviderId: string;
   name: string;
 };
 
@@ -128,15 +61,15 @@ export const GithubUpdateRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GithubUpdateRequest
 > = z.object({
-  githubId: z.string(),
-  githubAppName: z.nullable(z.string()).optional(),
+  gitProviderId: z.string(),
   githubAppId: z.nullable(z.number()).optional(),
+  githubAppName: z.nullable(z.string()).optional(),
   githubClientId: z.nullable(z.string()).optional(),
   githubClientSecret: z.nullable(z.string()).optional(),
+  githubId: z.string(),
   githubInstallationId: z.nullable(z.string()).optional(),
   githubPrivateKey: z.nullable(z.string()).optional(),
   githubWebhookSecret: z.nullable(z.string()).optional(),
-  gitProviderId: z.string(),
   name: z.string(),
 });
 

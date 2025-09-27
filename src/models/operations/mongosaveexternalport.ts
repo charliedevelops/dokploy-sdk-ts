@@ -10,13 +10,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export type MongoSaveExternalPortSecurity = {
-  authorization: string;
-};
-
 export type MongoSaveExternalPortRequest = {
-  mongoId: string;
   externalPort: number | null;
+  mongoId: string;
 };
 
 export const MongoSaveExternalPortApplicationStatus = {
@@ -28,198 +24,6 @@ export const MongoSaveExternalPortApplicationStatus = {
 export type MongoSaveExternalPortApplicationStatus = ClosedEnum<
   typeof MongoSaveExternalPortApplicationStatus
 >;
-
-export type MongoSaveExternalPortHealthCheckSwarm = {
-  test?: Array<string> | undefined;
-  interval?: number | undefined;
-  timeout?: number | undefined;
-  startPeriod?: number | undefined;
-  retries?: number | undefined;
-};
-
-export type MongoSaveExternalPortRestartPolicySwarm = {
-  condition?: string | undefined;
-  delay?: number | undefined;
-  maxAttempts?: number | undefined;
-  window?: number | undefined;
-};
-
-export type MongoSaveExternalPortSpread = {
-  spreadDescriptor: string;
-};
-
-export type MongoSaveExternalPortPreference = {
-  spread: MongoSaveExternalPortSpread;
-};
-
-export type MongoSaveExternalPortPlatform = {
-  architecture: string;
-  os: string;
-};
-
-export type MongoSaveExternalPortPlacementSwarm = {
-  constraints?: Array<string> | undefined;
-  preferences?: Array<MongoSaveExternalPortPreference> | undefined;
-  maxReplicas?: number | undefined;
-  platforms?: Array<MongoSaveExternalPortPlatform> | undefined;
-};
-
-export type MongoSaveExternalPortUpdateConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoSaveExternalPortRollbackConfigSwarm = {
-  parallelism: number;
-  delay?: number | undefined;
-  failureAction?: string | undefined;
-  monitor?: number | undefined;
-  maxFailureRatio?: number | undefined;
-  order: string;
-};
-
-export type MongoSaveExternalPortReplicated = {
-  replicas?: number | undefined;
-};
-
-export type MongoSaveExternalPortGlobal = {};
-
-export type MongoSaveExternalPortReplicatedJob = {
-  maxConcurrent?: number | undefined;
-  totalCompletions?: number | undefined;
-};
-
-export type MongoSaveExternalPortGlobalJob = {};
-
-export type MongoSaveExternalPortModeSwarm = {
-  replicated?: MongoSaveExternalPortReplicated | undefined;
-  global?: MongoSaveExternalPortGlobal | undefined;
-  replicatedJob?: MongoSaveExternalPortReplicatedJob | undefined;
-  globalJob?: MongoSaveExternalPortGlobalJob | undefined;
-};
-
-export type MongoSaveExternalPortDriverOpts = {};
-
-export type MongoSaveExternalPortNetworkSwarm = {
-  target?: string | undefined;
-  aliases?: Array<string> | undefined;
-  driverOpts?: MongoSaveExternalPortDriverOpts | undefined;
-};
-
-export type MongoSaveExternalPortProject = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-export type MongoSaveExternalPortEnvironment = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoSaveExternalPortProject;
-};
-
-export const MongoSaveExternalPortType = {
-  Bind: "bind",
-  Volume: "volume",
-  File: "file",
-} as const;
-export type MongoSaveExternalPortType = ClosedEnum<
-  typeof MongoSaveExternalPortType
->;
-
-export const MongoSaveExternalPortServiceType = {
-  Application: "application",
-  Postgres: "postgres",
-  Mysql: "mysql",
-  Mariadb: "mariadb",
-  Mongo: "mongo",
-  Redis: "redis",
-  Compose: "compose",
-} as const;
-export type MongoSaveExternalPortServiceType = ClosedEnum<
-  typeof MongoSaveExternalPortServiceType
->;
-
-export type MongoSaveExternalPortMount = {
-  mountId: string;
-  type: MongoSaveExternalPortType;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: MongoSaveExternalPortServiceType;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-export const MongoSaveExternalPortServerStatus = {
-  Active: "active",
-  Inactive: "inactive",
-} as const;
-export type MongoSaveExternalPortServerStatus = ClosedEnum<
-  typeof MongoSaveExternalPortServerStatus
->;
-
-export const MongoSaveExternalPortMetricsConfigEnum = {
-  Null: "null",
-} as const;
-export type MongoSaveExternalPortMetricsConfigEnum = ClosedEnum<
-  typeof MongoSaveExternalPortMetricsConfigEnum
->;
-
-export type MongoSaveExternalPortMetricsConfigUnion1 =
-  | string
-  | number
-  | boolean
-  | MongoSaveExternalPortMetricsConfigEnum;
-
-export type MongoSaveExternalPortMetricsConfigUnion2 =
-  | string
-  | number
-  | boolean
-  | MongoSaveExternalPortMetricsConfigEnum
-  | Array<any>
-  | { [k: string]: any };
-
-export type MongoSaveExternalPortServer = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
-  appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: MongoSaveExternalPortServerStatus;
-  command: string;
-  sshKeyId: string | null;
-  metricsConfig:
-    | string
-    | number
-    | boolean
-    | MongoSaveExternalPortMetricsConfigEnum
-    | Array<any>
-    | { [k: string]: any };
-};
 
 export const MongoSaveExternalPortBackupType = {
   Database: "database",
@@ -247,29 +51,29 @@ export type MongoSaveExternalPortMetadataEnum = ClosedEnum<
   typeof MongoSaveExternalPortMetadataEnum
 >;
 
-export type MongoSaveExternalPortPostgres = {
-  databaseUser: string;
-};
-
 export type MongoSaveExternalPortMariadb = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoSaveExternalPortMongo = {
-  databaseUser: string;
   databasePassword: string;
+  databaseUser: string;
 };
 
 export type MongoSaveExternalPortMysql = {
   databaseRootPassword: string;
 };
 
+export type MongoSaveExternalPortPostgres = {
+  databaseUser: string;
+};
+
 export type MongoSaveExternalPortMetadata = {
-  postgres?: MongoSaveExternalPortPostgres | undefined;
   mariadb?: MongoSaveExternalPortMariadb | undefined;
   mongo?: MongoSaveExternalPortMongo | undefined;
   mysql?: MongoSaveExternalPortMysql | undefined;
+  postgres?: MongoSaveExternalPortPostgres | undefined;
 };
 
 export type MongoSaveExternalPortMetadataUnion =
@@ -277,66 +81,258 @@ export type MongoSaveExternalPortMetadataUnion =
   | MongoSaveExternalPortMetadataEnum;
 
 export type MongoSaveExternalPortBackup = {
-  backupId: string;
   appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
+  backupId: string;
   backupType: MongoSaveExternalPortBackupType;
-  databaseType: MongoSaveExternalPortDatabaseType;
   composeId: string | null;
-  postgresId: string | null;
+  database: string;
+  databaseType: MongoSaveExternalPortDatabaseType;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
   mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
   metadata?:
     | MongoSaveExternalPortMetadata
     | MongoSaveExternalPortMetadataEnum
     | null
     | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+export type MongoSaveExternalPortProject = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+export type MongoSaveExternalPortEnvironment = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoSaveExternalPortProject;
+  projectId: string;
+};
+
+export type MongoSaveExternalPortHealthCheckSwarm = {
+  interval?: number | undefined;
+  retries?: number | undefined;
+  startPeriod?: number | undefined;
+  test?: Array<string> | undefined;
+  timeout?: number | undefined;
+};
+
+export type MongoSaveExternalPortGlobal = {};
+
+export type MongoSaveExternalPortGlobalJob = {};
+
+export type MongoSaveExternalPortReplicated = {
+  replicas?: number | undefined;
+};
+
+export type MongoSaveExternalPortReplicatedJob = {
+  maxConcurrent?: number | undefined;
+  totalCompletions?: number | undefined;
+};
+
+export type MongoSaveExternalPortModeSwarm = {
+  global?: MongoSaveExternalPortGlobal | undefined;
+  globalJob?: MongoSaveExternalPortGlobalJob | undefined;
+  replicated?: MongoSaveExternalPortReplicated | undefined;
+  replicatedJob?: MongoSaveExternalPortReplicatedJob | undefined;
+};
+
+export const MongoSaveExternalPortServiceType = {
+  Application: "application",
+  Postgres: "postgres",
+  Mysql: "mysql",
+  Mariadb: "mariadb",
+  Mongo: "mongo",
+  Redis: "redis",
+  Compose: "compose",
+} as const;
+export type MongoSaveExternalPortServiceType = ClosedEnum<
+  typeof MongoSaveExternalPortServiceType
+>;
+
+export const MongoSaveExternalPortType = {
+  Bind: "bind",
+  Volume: "volume",
+  File: "file",
+} as const;
+export type MongoSaveExternalPortType = ClosedEnum<
+  typeof MongoSaveExternalPortType
+>;
+
+export type MongoSaveExternalPortMount = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: MongoSaveExternalPortServiceType;
+  type: MongoSaveExternalPortType;
+  volumeName: string | null;
+};
+
+export type MongoSaveExternalPortDriverOpts = {};
+
+export type MongoSaveExternalPortNetworkSwarm = {
+  aliases?: Array<string> | undefined;
+  driverOpts?: MongoSaveExternalPortDriverOpts | undefined;
+  target?: string | undefined;
+};
+
+export type MongoSaveExternalPortPlatform = {
+  architecture: string;
+  os: string;
+};
+
+export type MongoSaveExternalPortSpread = {
+  spreadDescriptor: string;
+};
+
+export type MongoSaveExternalPortPreference = {
+  spread: MongoSaveExternalPortSpread;
+};
+
+export type MongoSaveExternalPortPlacementSwarm = {
+  constraints?: Array<string> | undefined;
+  maxReplicas?: number | undefined;
+  platforms?: Array<MongoSaveExternalPortPlatform> | undefined;
+  preferences?: Array<MongoSaveExternalPortPreference> | undefined;
+};
+
+export type MongoSaveExternalPortRestartPolicySwarm = {
+  condition?: string | undefined;
+  delay?: number | undefined;
+  maxAttempts?: number | undefined;
+  window?: number | undefined;
+};
+
+export type MongoSaveExternalPortRollbackConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
+};
+
+export const MongoSaveExternalPortMetricsConfigEnum = {
+  Null: "null",
+} as const;
+export type MongoSaveExternalPortMetricsConfigEnum = ClosedEnum<
+  typeof MongoSaveExternalPortMetricsConfigEnum
+>;
+
+export type MongoSaveExternalPortMetricsConfigUnion1 =
+  | string
+  | number
+  | boolean
+  | MongoSaveExternalPortMetricsConfigEnum;
+
+export type MongoSaveExternalPortMetricsConfigUnion2 =
+  | string
+  | number
+  | boolean
+  | MongoSaveExternalPortMetricsConfigEnum
+  | Array<any>
+  | { [k: string]: any };
+
+export const MongoSaveExternalPortServerStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+export type MongoSaveExternalPortServerStatus = ClosedEnum<
+  typeof MongoSaveExternalPortServerStatus
+>;
+
+export type MongoSaveExternalPortServer = {
+  appName: string;
+  command: string;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
+  metricsConfig:
+    | string
+    | number
+    | boolean
+    | MongoSaveExternalPortMetricsConfigEnum
+    | Array<any>
+    | { [k: string]: any };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: MongoSaveExternalPortServerStatus;
+  sshKeyId: string | null;
+  username: string;
+};
+
+export type MongoSaveExternalPortUpdateConfigSwarm = {
+  delay?: number | undefined;
+  failureAction?: string | undefined;
+  maxFailureRatio?: number | undefined;
+  monitor?: number | undefined;
+  order: string;
+  parallelism: number;
 };
 
 /**
  * Successful response
  */
 export type MongoSaveExternalPortResponseBody = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: MongoSaveExternalPortApplicationStatus;
-  healthCheckSwarm: MongoSaveExternalPortHealthCheckSwarm | null;
-  restartPolicySwarm: MongoSaveExternalPortRestartPolicySwarm | null;
-  placementSwarm: MongoSaveExternalPortPlacementSwarm | null;
-  updateConfigSwarm: MongoSaveExternalPortUpdateConfigSwarm | null;
-  rollbackConfigSwarm: MongoSaveExternalPortRollbackConfigSwarm | null;
-  modeSwarm: MongoSaveExternalPortModeSwarm | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoSaveExternalPortNetworkSwarm> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoSaveExternalPortEnvironment;
-  mounts: Array<MongoSaveExternalPortMount>;
-  server: MongoSaveExternalPortServer | null;
   backups: Array<MongoSaveExternalPortBackup>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoSaveExternalPortEnvironment;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoSaveExternalPortHealthCheckSwarm | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoSaveExternalPortModeSwarm | null;
+  mongoId: string;
+  mounts: Array<MongoSaveExternalPortMount>;
+  name: string;
+  networkSwarm: Array<MongoSaveExternalPortNetworkSwarm> | null;
+  placementSwarm: MongoSaveExternalPortPlacementSwarm | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoSaveExternalPortRestartPolicySwarm | null;
+  rollbackConfigSwarm: MongoSaveExternalPortRollbackConfigSwarm | null;
+  server: MongoSaveExternalPortServer | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoSaveExternalPortUpdateConfigSwarm | null;
 };
 
 export type MongoSaveExternalPortResponse =
@@ -344,83 +340,19 @@ export type MongoSaveExternalPortResponse =
   | models.ErrorT;
 
 /** @internal */
-export const MongoSaveExternalPortSecurity$inboundSchema: z.ZodType<
-  MongoSaveExternalPortSecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortSecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortSecurity$outboundSchema: z.ZodType<
-  MongoSaveExternalPortSecurity$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortSecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortSecurity$ {
-  /** @deprecated use `MongoSaveExternalPortSecurity$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortSecurity$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortSecurity$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortSecurity$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortSecurity$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortSecurity$Outbound;
-}
-
-export function mongoSaveExternalPortSecurityToJSON(
-  mongoSaveExternalPortSecurity: MongoSaveExternalPortSecurity,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortSecurity$outboundSchema.parse(
-      mongoSaveExternalPortSecurity,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortSecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortSecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortSecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortSecurity' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoSaveExternalPortRequest$inboundSchema: z.ZodType<
   MongoSaveExternalPortRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
   externalPort: z.nullable(z.number()),
+  mongoId: z.string(),
 });
 
 /** @internal */
 export type MongoSaveExternalPortRequest$Outbound = {
-  mongoId: string;
   externalPort: number | null;
+  mongoId: string;
 };
 
 /** @internal */
@@ -429,8 +361,8 @@ export const MongoSaveExternalPortRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveExternalPortRequest
 > = z.object({
-  mongoId: z.string(),
   externalPort: z.nullable(z.number()),
+  mongoId: z.string(),
 });
 
 /**
@@ -491,33 +423,713 @@ export namespace MongoSaveExternalPortApplicationStatus$ {
 }
 
 /** @internal */
+export const MongoSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortBackupType
+> = z.nativeEnum(MongoSaveExternalPortBackupType);
+
+/** @internal */
+export const MongoSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortBackupType
+> = MongoSaveExternalPortBackupType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortBackupType$ {
+  /** @deprecated use `MongoSaveExternalPortBackupType$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortBackupType$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortBackupType$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortBackupType$outboundSchema;
+}
+
+/** @internal */
+export const MongoSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortDatabaseType
+> = z.nativeEnum(MongoSaveExternalPortDatabaseType);
+
+/** @internal */
+export const MongoSaveExternalPortDatabaseType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortDatabaseType
+> = MongoSaveExternalPortDatabaseType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortDatabaseType$ {
+  /** @deprecated use `MongoSaveExternalPortDatabaseType$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortDatabaseType$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortDatabaseType$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortDatabaseType$outboundSchema;
+}
+
+/** @internal */
+export const MongoSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortMetadataEnum
+> = z.nativeEnum(MongoSaveExternalPortMetadataEnum);
+
+/** @internal */
+export const MongoSaveExternalPortMetadataEnum$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortMetadataEnum
+> = MongoSaveExternalPortMetadataEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMetadataEnum$ {
+  /** @deprecated use `MongoSaveExternalPortMetadataEnum$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMetadataEnum$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMetadataEnum$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortMetadataEnum$outboundSchema;
+}
+
+/** @internal */
+export const MongoSaveExternalPortMariadb$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMariadb,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortMariadb$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortMariadb$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMariadb$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMariadb
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMariadb$ {
+  /** @deprecated use `MongoSaveExternalPortMariadb$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMariadb$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMariadb$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortMariadb$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMariadb$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMariadb$Outbound;
+}
+
+export function mongoSaveExternalPortMariadbToJSON(
+  mongoSaveExternalPortMariadb: MongoSaveExternalPortMariadb,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMariadb$outboundSchema.parse(
+      mongoSaveExternalPortMariadb,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortMariadbFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMariadb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMariadb' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortMongo$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMongo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortMongo$Outbound = {
+  databasePassword: string;
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortMongo$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMongo$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMongo
+> = z.object({
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMongo$ {
+  /** @deprecated use `MongoSaveExternalPortMongo$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMongo$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMongo$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortMongo$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMongo$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMongo$Outbound;
+}
+
+export function mongoSaveExternalPortMongoToJSON(
+  mongoSaveExternalPortMongo: MongoSaveExternalPortMongo,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMongo$outboundSchema.parse(mongoSaveExternalPortMongo),
+  );
+}
+
+export function mongoSaveExternalPortMongoFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMongo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMongo' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortMysql$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMysql,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortMysql$Outbound = {
+  databaseRootPassword: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortMysql$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMysql$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMysql
+> = z.object({
+  databaseRootPassword: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMysql$ {
+  /** @deprecated use `MongoSaveExternalPortMysql$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMysql$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMysql$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortMysql$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMysql$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMysql$Outbound;
+}
+
+export function mongoSaveExternalPortMysqlToJSON(
+  mongoSaveExternalPortMysql: MongoSaveExternalPortMysql,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMysql$outboundSchema.parse(mongoSaveExternalPortMysql),
+  );
+}
+
+export function mongoSaveExternalPortMysqlFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMysql, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMysql' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortPostgres$inboundSchema: z.ZodType<
+  MongoSaveExternalPortPostgres,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortPostgres$Outbound = {
+  databaseUser: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortPostgres$outboundSchema: z.ZodType<
+  MongoSaveExternalPortPostgres$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortPostgres
+> = z.object({
+  databaseUser: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortPostgres$ {
+  /** @deprecated use `MongoSaveExternalPortPostgres$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortPostgres$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortPostgres$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortPostgres$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortPostgres$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortPostgres$Outbound;
+}
+
+export function mongoSaveExternalPortPostgresToJSON(
+  mongoSaveExternalPortPostgres: MongoSaveExternalPortPostgres,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortPostgres$outboundSchema.parse(
+      mongoSaveExternalPortPostgres,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortPostgresFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortPostgres, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortPostgres' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortMetadata$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mariadb: z.lazy(() => MongoSaveExternalPortMariadb$inboundSchema).optional(),
+  mongo: z.lazy(() => MongoSaveExternalPortMongo$inboundSchema).optional(),
+  mysql: z.lazy(() => MongoSaveExternalPortMysql$inboundSchema).optional(),
+  postgres: z.lazy(() => MongoSaveExternalPortPostgres$inboundSchema)
+    .optional(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortMetadata$Outbound = {
+  mariadb?: MongoSaveExternalPortMariadb$Outbound | undefined;
+  mongo?: MongoSaveExternalPortMongo$Outbound | undefined;
+  mysql?: MongoSaveExternalPortMysql$Outbound | undefined;
+  postgres?: MongoSaveExternalPortPostgres$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoSaveExternalPortMetadata$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMetadata$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMetadata
+> = z.object({
+  mariadb: z.lazy(() => MongoSaveExternalPortMariadb$outboundSchema).optional(),
+  mongo: z.lazy(() => MongoSaveExternalPortMongo$outboundSchema).optional(),
+  mysql: z.lazy(() => MongoSaveExternalPortMysql$outboundSchema).optional(),
+  postgres: z.lazy(() => MongoSaveExternalPortPostgres$outboundSchema)
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMetadata$ {
+  /** @deprecated use `MongoSaveExternalPortMetadata$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMetadata$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMetadata$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortMetadata$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMetadata$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMetadata$Outbound;
+}
+
+export function mongoSaveExternalPortMetadataToJSON(
+  mongoSaveExternalPortMetadata: MongoSaveExternalPortMetadata,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMetadata$outboundSchema.parse(
+      mongoSaveExternalPortMetadata,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMetadataUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => MongoSaveExternalPortMetadata$inboundSchema),
+  MongoSaveExternalPortMetadataEnum$inboundSchema,
+]);
+
+/** @internal */
+export type MongoSaveExternalPortMetadataUnion$Outbound =
+  | MongoSaveExternalPortMetadata$Outbound
+  | string;
+
+/** @internal */
+export const MongoSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMetadataUnion$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMetadataUnion
+> = z.union([
+  z.lazy(() => MongoSaveExternalPortMetadata$outboundSchema),
+  MongoSaveExternalPortMetadataEnum$outboundSchema,
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMetadataUnion$ {
+  /** @deprecated use `MongoSaveExternalPortMetadataUnion$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMetadataUnion$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMetadataUnion$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortMetadataUnion$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMetadataUnion$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMetadataUnion$Outbound;
+}
+
+export function mongoSaveExternalPortMetadataUnionToJSON(
+  mongoSaveExternalPortMetadataUnion: MongoSaveExternalPortMetadataUnion,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMetadataUnion$outboundSchema.parse(
+      mongoSaveExternalPortMetadataUnion,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortMetadataUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMetadataUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      MongoSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMetadataUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortBackup$inboundSchema: z.ZodType<
+  MongoSaveExternalPortBackup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoSaveExternalPortBackupType$inboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoSaveExternalPortDatabaseType$inboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoSaveExternalPortMetadata$inboundSchema),
+      MongoSaveExternalPortMetadataEnum$inboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoSaveExternalPortBackup$Outbound = {
+  appName: string;
+  backupId: string;
+  backupType: string;
+  composeId: string | null;
+  database: string;
+  databaseType: string;
+  destinationId: string;
+  enabled: boolean | null;
+  keepLatestCount: number | null;
+  mariadbId: string | null;
+  metadata?: MongoSaveExternalPortMetadata$Outbound | string | null | undefined;
+  mongoId: string | null;
+  mysqlId: string | null;
+  postgresId: string | null;
+  prefix: string;
+  schedule: string;
+  serviceName: string | null;
+  userId: string | null;
+};
+
+/** @internal */
+export const MongoSaveExternalPortBackup$outboundSchema: z.ZodType<
+  MongoSaveExternalPortBackup$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortBackup
+> = z.object({
+  appName: z.string(),
+  backupId: z.string(),
+  backupType: MongoSaveExternalPortBackupType$outboundSchema,
+  composeId: z.nullable(z.string()),
+  database: z.string(),
+  databaseType: MongoSaveExternalPortDatabaseType$outboundSchema,
+  destinationId: z.string(),
+  enabled: z.nullable(z.boolean()),
+  keepLatestCount: z.nullable(z.number()),
+  mariadbId: z.nullable(z.string()),
+  metadata: z.nullable(
+    z.union([
+      z.lazy(() => MongoSaveExternalPortMetadata$outboundSchema),
+      MongoSaveExternalPortMetadataEnum$outboundSchema,
+    ]),
+  ).optional(),
+  mongoId: z.nullable(z.string()),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  prefix: z.string(),
+  schedule: z.string(),
+  serviceName: z.nullable(z.string()),
+  userId: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortBackup$ {
+  /** @deprecated use `MongoSaveExternalPortBackup$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortBackup$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortBackup$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortBackup$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortBackup$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortBackup$Outbound;
+}
+
+export function mongoSaveExternalPortBackupToJSON(
+  mongoSaveExternalPortBackup: MongoSaveExternalPortBackup,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortBackup$outboundSchema.parse(
+      mongoSaveExternalPortBackup,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortBackupFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortBackup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortBackup' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortProject$inboundSchema: z.ZodType<
+  MongoSaveExternalPortProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortProject$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  name: string;
+  organizationId: string;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortProject$outboundSchema: z.ZodType<
+  MongoSaveExternalPortProject$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortProject
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  name: z.string(),
+  organizationId: z.string(),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortProject$ {
+  /** @deprecated use `MongoSaveExternalPortProject$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortProject$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortProject$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortProject$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortProject$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortProject$Outbound;
+}
+
+export function mongoSaveExternalPortProjectToJSON(
+  mongoSaveExternalPortProject: MongoSaveExternalPortProject,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortProject$outboundSchema.parse(
+      mongoSaveExternalPortProject,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortEnvironment$inboundSchema: z.ZodType<
+  MongoSaveExternalPortEnvironment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoSaveExternalPortProject$inboundSchema),
+  projectId: z.string(),
+});
+
+/** @internal */
+export type MongoSaveExternalPortEnvironment$Outbound = {
+  createdAt: string;
+  description: string | null;
+  env: string;
+  environmentId: string;
+  name: string;
+  project: MongoSaveExternalPortProject$Outbound;
+  projectId: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortEnvironment$outboundSchema: z.ZodType<
+  MongoSaveExternalPortEnvironment$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortEnvironment
+> = z.object({
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  env: z.string(),
+  environmentId: z.string(),
+  name: z.string(),
+  project: z.lazy(() => MongoSaveExternalPortProject$outboundSchema),
+  projectId: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortEnvironment$ {
+  /** @deprecated use `MongoSaveExternalPortEnvironment$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortEnvironment$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortEnvironment$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortEnvironment$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortEnvironment$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortEnvironment$Outbound;
+}
+
+export function mongoSaveExternalPortEnvironmentToJSON(
+  mongoSaveExternalPortEnvironment: MongoSaveExternalPortEnvironment,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortEnvironment$outboundSchema.parse(
+      mongoSaveExternalPortEnvironment,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortEnvironmentFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortEnvironment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortEnvironment' from JSON`,
+  );
+}
+
+/** @internal */
 export const MongoSaveExternalPortHealthCheckSwarm$inboundSchema: z.ZodType<
   MongoSaveExternalPortHealthCheckSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Test: z.array(z.string()).optional(),
   Interval: z.number().optional(),
-  Timeout: z.number().optional(),
-  StartPeriod: z.number().optional(),
   Retries: z.number().optional(),
+  StartPeriod: z.number().optional(),
+  Test: z.array(z.string()).optional(),
+  Timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Test": "test",
     "Interval": "interval",
-    "Timeout": "timeout",
-    "StartPeriod": "startPeriod",
     "Retries": "retries",
+    "StartPeriod": "startPeriod",
+    "Test": "test",
+    "Timeout": "timeout",
   });
 });
 
 /** @internal */
 export type MongoSaveExternalPortHealthCheckSwarm$Outbound = {
-  Test?: Array<string> | undefined;
   Interval?: number | undefined;
-  Timeout?: number | undefined;
-  StartPeriod?: number | undefined;
   Retries?: number | undefined;
+  StartPeriod?: number | undefined;
+  Test?: Array<string> | undefined;
+  Timeout?: number | undefined;
 };
 
 /** @internal */
@@ -526,18 +1138,18 @@ export const MongoSaveExternalPortHealthCheckSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveExternalPortHealthCheckSwarm
 > = z.object({
-  test: z.array(z.string()).optional(),
   interval: z.number().optional(),
-  timeout: z.number().optional(),
-  startPeriod: z.number().optional(),
   retries: z.number().optional(),
+  startPeriod: z.number().optional(),
+  test: z.array(z.string()).optional(),
+  timeout: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    test: "Test",
     interval: "Interval",
-    timeout: "Timeout",
-    startPeriod: "StartPeriod",
     retries: "Retries",
+    startPeriod: "StartPeriod",
+    test: "Test",
+    timeout: "Timeout",
   });
 });
 
@@ -578,48 +1190,133 @@ export function mongoSaveExternalPortHealthCheckSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
-  MongoSaveExternalPortRestartPolicySwarm,
+export const MongoSaveExternalPortGlobal$inboundSchema: z.ZodType<
+  MongoSaveExternalPortGlobal,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoSaveExternalPortGlobal$Outbound = {};
+
+/** @internal */
+export const MongoSaveExternalPortGlobal$outboundSchema: z.ZodType<
+  MongoSaveExternalPortGlobal$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortGlobal
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortGlobal$ {
+  /** @deprecated use `MongoSaveExternalPortGlobal$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortGlobal$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortGlobal$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortGlobal$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortGlobal$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortGlobal$Outbound;
+}
+
+export function mongoSaveExternalPortGlobalToJSON(
+  mongoSaveExternalPortGlobal: MongoSaveExternalPortGlobal,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortGlobal$outboundSchema.parse(
+      mongoSaveExternalPortGlobal,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortGlobalFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortGlobal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortGlobal' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
+  MongoSaveExternalPortGlobalJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoSaveExternalPortGlobalJob$Outbound = {};
+
+/** @internal */
+export const MongoSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
+  MongoSaveExternalPortGlobalJob$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortGlobalJob
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortGlobalJob$ {
+  /** @deprecated use `MongoSaveExternalPortGlobalJob$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortGlobalJob$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortGlobalJob$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortGlobalJob$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortGlobalJob$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortGlobalJob$Outbound;
+}
+
+export function mongoSaveExternalPortGlobalJobToJSON(
+  mongoSaveExternalPortGlobalJob: MongoSaveExternalPortGlobalJob,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortGlobalJob$outboundSchema.parse(
+      mongoSaveExternalPortGlobalJob,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortGlobalJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortGlobalJob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortGlobalJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortReplicated$inboundSchema: z.ZodType<
+  MongoSaveExternalPortReplicated,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Condition: z.string().optional(),
-  Delay: z.number().optional(),
-  MaxAttempts: z.number().optional(),
-  Window: z.number().optional(),
+  Replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Condition": "condition",
-    "Delay": "delay",
-    "MaxAttempts": "maxAttempts",
-    "Window": "window",
+    "Replicas": "replicas",
   });
 });
 
 /** @internal */
-export type MongoSaveExternalPortRestartPolicySwarm$Outbound = {
-  Condition?: string | undefined;
-  Delay?: number | undefined;
-  MaxAttempts?: number | undefined;
-  Window?: number | undefined;
+export type MongoSaveExternalPortReplicated$Outbound = {
+  Replicas?: number | undefined;
 };
 
 /** @internal */
-export const MongoSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
-  MongoSaveExternalPortRestartPolicySwarm$Outbound,
+export const MongoSaveExternalPortReplicated$outboundSchema: z.ZodType<
+  MongoSaveExternalPortReplicated$Outbound,
   z.ZodTypeDef,
-  MongoSaveExternalPortRestartPolicySwarm
+  MongoSaveExternalPortReplicated
 > = z.object({
-  condition: z.string().optional(),
-  delay: z.number().optional(),
-  maxAttempts: z.number().optional(),
-  window: z.number().optional(),
+  replicas: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    condition: "Condition",
-    delay: "Delay",
-    maxAttempts: "MaxAttempts",
-    window: "Window",
+    replicas: "Replicas",
   });
 });
 
@@ -627,41 +1324,522 @@ export const MongoSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoSaveExternalPortRestartPolicySwarm$ {
-  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
-  export const inboundSchema =
-    MongoSaveExternalPortRestartPolicySwarm$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortRestartPolicySwarm$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortRestartPolicySwarm$Outbound;
+export namespace MongoSaveExternalPortReplicated$ {
+  /** @deprecated use `MongoSaveExternalPortReplicated$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortReplicated$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortReplicated$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortReplicated$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortReplicated$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortReplicated$Outbound;
 }
 
-export function mongoSaveExternalPortRestartPolicySwarmToJSON(
-  mongoSaveExternalPortRestartPolicySwarm:
-    MongoSaveExternalPortRestartPolicySwarm,
+export function mongoSaveExternalPortReplicatedToJSON(
+  mongoSaveExternalPortReplicated: MongoSaveExternalPortReplicated,
 ): string {
   return JSON.stringify(
-    MongoSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
-      mongoSaveExternalPortRestartPolicySwarm,
+    MongoSaveExternalPortReplicated$outboundSchema.parse(
+      mongoSaveExternalPortReplicated,
     ),
   );
 }
 
-export function mongoSaveExternalPortRestartPolicySwarmFromJSON(
+export function mongoSaveExternalPortReplicatedFromJSON(
   jsonString: string,
-): SafeParseResult<
-  MongoSaveExternalPortRestartPolicySwarm,
-  SDKValidationError
-> {
+): SafeParseResult<MongoSaveExternalPortReplicated, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortReplicated' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
+  MongoSaveExternalPortReplicatedJob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  MaxConcurrent: z.number().optional(),
+  TotalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "MaxConcurrent": "maxConcurrent",
+    "TotalCompletions": "totalCompletions",
+  });
+});
+
+/** @internal */
+export type MongoSaveExternalPortReplicatedJob$Outbound = {
+  MaxConcurrent?: number | undefined;
+  TotalCompletions?: number | undefined;
+};
+
+/** @internal */
+export const MongoSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
+  MongoSaveExternalPortReplicatedJob$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortReplicatedJob
+> = z.object({
+  maxConcurrent: z.number().optional(),
+  totalCompletions: z.number().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    maxConcurrent: "MaxConcurrent",
+    totalCompletions: "TotalCompletions",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortReplicatedJob$ {
+  /** @deprecated use `MongoSaveExternalPortReplicatedJob$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortReplicatedJob$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortReplicatedJob$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortReplicatedJob$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortReplicatedJob$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortReplicatedJob$Outbound;
+}
+
+export function mongoSaveExternalPortReplicatedJobToJSON(
+  mongoSaveExternalPortReplicatedJob: MongoSaveExternalPortReplicatedJob,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortReplicatedJob$outboundSchema.parse(
+      mongoSaveExternalPortReplicatedJob,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortReplicatedJobFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortReplicatedJob, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MongoSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'MongoSaveExternalPortRestartPolicySwarm' from JSON`,
+      MongoSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortReplicatedJob' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
+  MongoSaveExternalPortModeSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Global: z.lazy(() => MongoSaveExternalPortGlobal$inboundSchema).optional(),
+  GlobalJob: z.lazy(() => MongoSaveExternalPortGlobalJob$inboundSchema)
+    .optional(),
+  Replicated: z.lazy(() => MongoSaveExternalPortReplicated$inboundSchema)
+    .optional(),
+  ReplicatedJob: z.lazy(() => MongoSaveExternalPortReplicatedJob$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Global": "global",
+    "GlobalJob": "globalJob",
+    "Replicated": "replicated",
+    "ReplicatedJob": "replicatedJob",
+  });
+});
+
+/** @internal */
+export type MongoSaveExternalPortModeSwarm$Outbound = {
+  Global?: MongoSaveExternalPortGlobal$Outbound | undefined;
+  GlobalJob?: MongoSaveExternalPortGlobalJob$Outbound | undefined;
+  Replicated?: MongoSaveExternalPortReplicated$Outbound | undefined;
+  ReplicatedJob?: MongoSaveExternalPortReplicatedJob$Outbound | undefined;
+};
+
+/** @internal */
+export const MongoSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
+  MongoSaveExternalPortModeSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortModeSwarm
+> = z.object({
+  global: z.lazy(() => MongoSaveExternalPortGlobal$outboundSchema).optional(),
+  globalJob: z.lazy(() => MongoSaveExternalPortGlobalJob$outboundSchema)
+    .optional(),
+  replicated: z.lazy(() => MongoSaveExternalPortReplicated$outboundSchema)
+    .optional(),
+  replicatedJob: z.lazy(() => MongoSaveExternalPortReplicatedJob$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    global: "Global",
+    globalJob: "GlobalJob",
+    replicated: "Replicated",
+    replicatedJob: "ReplicatedJob",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortModeSwarm$ {
+  /** @deprecated use `MongoSaveExternalPortModeSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortModeSwarm$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortModeSwarm$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortModeSwarm$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortModeSwarm$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortModeSwarm$Outbound;
+}
+
+export function mongoSaveExternalPortModeSwarmToJSON(
+  mongoSaveExternalPortModeSwarm: MongoSaveExternalPortModeSwarm,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortModeSwarm$outboundSchema.parse(
+      mongoSaveExternalPortModeSwarm,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortModeSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortModeSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortModeSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortServiceType
+> = z.nativeEnum(MongoSaveExternalPortServiceType);
+
+/** @internal */
+export const MongoSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortServiceType
+> = MongoSaveExternalPortServiceType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortServiceType$ {
+  /** @deprecated use `MongoSaveExternalPortServiceType$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortServiceType$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortServiceType$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortServiceType$outboundSchema;
+}
+
+/** @internal */
+export const MongoSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortType
+> = z.nativeEnum(MongoSaveExternalPortType);
+
+/** @internal */
+export const MongoSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortType
+> = MongoSaveExternalPortType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortType$ {
+  /** @deprecated use `MongoSaveExternalPortType$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortType$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortType$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortType$outboundSchema;
+}
+
+/** @internal */
+export const MongoSaveExternalPortMount$inboundSchema: z.ZodType<
+  MongoSaveExternalPortMount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoSaveExternalPortServiceType$inboundSchema,
+  type: MongoSaveExternalPortType$inboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/** @internal */
+export type MongoSaveExternalPortMount$Outbound = {
+  applicationId: string | null;
+  composeId: string | null;
+  content: string | null;
+  filePath: string | null;
+  hostPath: string | null;
+  mariadbId: string | null;
+  mongoId: string | null;
+  mountId: string;
+  mountPath: string;
+  mysqlId: string | null;
+  postgresId: string | null;
+  redisId: string | null;
+  serviceType: string;
+  type: string;
+  volumeName: string | null;
+};
+
+/** @internal */
+export const MongoSaveExternalPortMount$outboundSchema: z.ZodType<
+  MongoSaveExternalPortMount$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortMount
+> = z.object({
+  applicationId: z.nullable(z.string()),
+  composeId: z.nullable(z.string()),
+  content: z.nullable(z.string()),
+  filePath: z.nullable(z.string()),
+  hostPath: z.nullable(z.string()),
+  mariadbId: z.nullable(z.string()),
+  mongoId: z.nullable(z.string()),
+  mountId: z.string(),
+  mountPath: z.string(),
+  mysqlId: z.nullable(z.string()),
+  postgresId: z.nullable(z.string()),
+  redisId: z.nullable(z.string()),
+  serviceType: MongoSaveExternalPortServiceType$outboundSchema,
+  type: MongoSaveExternalPortType$outboundSchema,
+  volumeName: z.nullable(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortMount$ {
+  /** @deprecated use `MongoSaveExternalPortMount$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortMount$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMount$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortMount$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortMount$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortMount$Outbound;
+}
+
+export function mongoSaveExternalPortMountToJSON(
+  mongoSaveExternalPortMount: MongoSaveExternalPortMount,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortMount$outboundSchema.parse(mongoSaveExternalPortMount),
+  );
+}
+
+export function mongoSaveExternalPortMountFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortMount, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortMount' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
+  MongoSaveExternalPortDriverOpts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type MongoSaveExternalPortDriverOpts$Outbound = {};
+
+/** @internal */
+export const MongoSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
+  MongoSaveExternalPortDriverOpts$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortDriverOpts
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortDriverOpts$ {
+  /** @deprecated use `MongoSaveExternalPortDriverOpts$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortDriverOpts$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortDriverOpts$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortDriverOpts$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortDriverOpts$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortDriverOpts$Outbound;
+}
+
+export function mongoSaveExternalPortDriverOptsToJSON(
+  mongoSaveExternalPortDriverOpts: MongoSaveExternalPortDriverOpts,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortDriverOpts$outboundSchema.parse(
+      mongoSaveExternalPortDriverOpts,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortDriverOptsFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortDriverOpts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortDriverOpts' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
+  MongoSaveExternalPortNetworkSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Aliases: z.array(z.string()).optional(),
+  DriverOpts: z.lazy(() => MongoSaveExternalPortDriverOpts$inboundSchema)
+    .optional(),
+  Target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "Aliases": "aliases",
+    "DriverOpts": "driverOpts",
+    "Target": "target",
+  });
+});
+
+/** @internal */
+export type MongoSaveExternalPortNetworkSwarm$Outbound = {
+  Aliases?: Array<string> | undefined;
+  DriverOpts?: MongoSaveExternalPortDriverOpts$Outbound | undefined;
+  Target?: string | undefined;
+};
+
+/** @internal */
+export const MongoSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
+  MongoSaveExternalPortNetworkSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortNetworkSwarm
+> = z.object({
+  aliases: z.array(z.string()).optional(),
+  driverOpts: z.lazy(() => MongoSaveExternalPortDriverOpts$outboundSchema)
+    .optional(),
+  target: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    aliases: "Aliases",
+    driverOpts: "DriverOpts",
+    target: "Target",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortNetworkSwarm$ {
+  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortNetworkSwarm$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortNetworkSwarm$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortNetworkSwarm$Outbound;
+}
+
+export function mongoSaveExternalPortNetworkSwarmToJSON(
+  mongoSaveExternalPortNetworkSwarm: MongoSaveExternalPortNetworkSwarm,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortNetworkSwarm$outboundSchema.parse(
+      mongoSaveExternalPortNetworkSwarm,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortNetworkSwarmFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortNetworkSwarm, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortNetworkSwarm' from JSON`,
+  );
+}
+
+/** @internal */
+export const MongoSaveExternalPortPlatform$inboundSchema: z.ZodType<
+  MongoSaveExternalPortPlatform,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Architecture: z.string(),
+  OS: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "Architecture": "architecture",
+    "OS": "os",
+  });
+});
+
+/** @internal */
+export type MongoSaveExternalPortPlatform$Outbound = {
+  Architecture: string;
+  OS: string;
+};
+
+/** @internal */
+export const MongoSaveExternalPortPlatform$outboundSchema: z.ZodType<
+  MongoSaveExternalPortPlatform$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortPlatform
+> = z.object({
+  architecture: z.string(),
+  os: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    architecture: "Architecture",
+    os: "OS",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortPlatform$ {
+  /** @deprecated use `MongoSaveExternalPortPlatform$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortPlatform$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortPlatform$outboundSchema` instead. */
+  export const outboundSchema = MongoSaveExternalPortPlatform$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortPlatform$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortPlatform$Outbound;
+}
+
+export function mongoSaveExternalPortPlatformToJSON(
+  mongoSaveExternalPortPlatform: MongoSaveExternalPortPlatform,
+): string {
+  return JSON.stringify(
+    MongoSaveExternalPortPlatform$outboundSchema.parse(
+      mongoSaveExternalPortPlatform,
+    ),
+  );
+}
+
+export function mongoSaveExternalPortPlatformFromJSON(
+  jsonString: string,
+): SafeParseResult<MongoSaveExternalPortPlatform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MongoSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortPlatform' from JSON`,
   );
 }
 
@@ -794,102 +1972,33 @@ export function mongoSaveExternalPortPreferenceFromJSON(
 }
 
 /** @internal */
-export const MongoSaveExternalPortPlatform$inboundSchema: z.ZodType<
-  MongoSaveExternalPortPlatform,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Architecture: z.string(),
-  OS: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Architecture": "architecture",
-    "OS": "os",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortPlatform$Outbound = {
-  Architecture: string;
-  OS: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortPlatform$outboundSchema: z.ZodType<
-  MongoSaveExternalPortPlatform$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortPlatform
-> = z.object({
-  architecture: z.string(),
-  os: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    architecture: "Architecture",
-    os: "OS",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortPlatform$ {
-  /** @deprecated use `MongoSaveExternalPortPlatform$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortPlatform$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortPlatform$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortPlatform$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortPlatform$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortPlatform$Outbound;
-}
-
-export function mongoSaveExternalPortPlatformToJSON(
-  mongoSaveExternalPortPlatform: MongoSaveExternalPortPlatform,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortPlatform$outboundSchema.parse(
-      mongoSaveExternalPortPlatform,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortPlatformFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortPlatform, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortPlatform$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortPlatform' from JSON`,
-  );
-}
-
-/** @internal */
 export const MongoSaveExternalPortPlacementSwarm$inboundSchema: z.ZodType<
   MongoSaveExternalPortPlacementSwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Constraints: z.array(z.string()).optional(),
-  Preferences: z.array(
-    z.lazy(() => MongoSaveExternalPortPreference$inboundSchema),
-  ).optional(),
   MaxReplicas: z.number().optional(),
   Platforms: z.array(z.lazy(() => MongoSaveExternalPortPlatform$inboundSchema))
     .optional(),
+  Preferences: z.array(
+    z.lazy(() => MongoSaveExternalPortPreference$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "Constraints": "constraints",
-    "Preferences": "preferences",
     "MaxReplicas": "maxReplicas",
     "Platforms": "platforms",
+    "Preferences": "preferences",
   });
 });
 
 /** @internal */
 export type MongoSaveExternalPortPlacementSwarm$Outbound = {
   Constraints?: Array<string> | undefined;
-  Preferences?: Array<MongoSaveExternalPortPreference$Outbound> | undefined;
   MaxReplicas?: number | undefined;
   Platforms?: Array<MongoSaveExternalPortPlatform$Outbound> | undefined;
+  Preferences?: Array<MongoSaveExternalPortPreference$Outbound> | undefined;
 };
 
 /** @internal */
@@ -899,18 +2008,18 @@ export const MongoSaveExternalPortPlacementSwarm$outboundSchema: z.ZodType<
   MongoSaveExternalPortPlacementSwarm
 > = z.object({
   constraints: z.array(z.string()).optional(),
-  preferences: z.array(
-    z.lazy(() => MongoSaveExternalPortPreference$outboundSchema),
-  ).optional(),
   maxReplicas: z.number().optional(),
   platforms: z.array(z.lazy(() => MongoSaveExternalPortPlatform$outboundSchema))
     .optional(),
+  preferences: z.array(
+    z.lazy(() => MongoSaveExternalPortPreference$outboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     constraints: "Constraints",
-    preferences: "Preferences",
     maxReplicas: "MaxReplicas",
     platforms: "Platforms",
+    preferences: "Preferences",
   });
 });
 
@@ -951,58 +2060,48 @@ export function mongoSaveExternalPortPlacementSwarmFromJSON(
 }
 
 /** @internal */
-export const MongoSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
-  MongoSaveExternalPortUpdateConfigSwarm,
+export const MongoSaveExternalPortRestartPolicySwarm$inboundSchema: z.ZodType<
+  MongoSaveExternalPortRestartPolicySwarm,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
+  Condition: z.string().optional(),
   Delay: z.number().optional(),
-  FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
-  MaxFailureRatio: z.number().optional(),
-  Order: z.string(),
+  MaxAttempts: z.number().optional(),
+  Window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
+    "Condition": "condition",
     "Delay": "delay",
-    "FailureAction": "failureAction",
-    "Monitor": "monitor",
-    "MaxFailureRatio": "maxFailureRatio",
-    "Order": "order",
+    "MaxAttempts": "maxAttempts",
+    "Window": "window",
   });
 });
 
 /** @internal */
-export type MongoSaveExternalPortUpdateConfigSwarm$Outbound = {
-  Parallelism: number;
+export type MongoSaveExternalPortRestartPolicySwarm$Outbound = {
+  Condition?: string | undefined;
   Delay?: number | undefined;
-  FailureAction?: string | undefined;
-  Monitor?: number | undefined;
-  MaxFailureRatio?: number | undefined;
-  Order: string;
+  MaxAttempts?: number | undefined;
+  Window?: number | undefined;
 };
 
 /** @internal */
-export const MongoSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
-  MongoSaveExternalPortUpdateConfigSwarm$Outbound,
+export const MongoSaveExternalPortRestartPolicySwarm$outboundSchema: z.ZodType<
+  MongoSaveExternalPortRestartPolicySwarm$Outbound,
   z.ZodTypeDef,
-  MongoSaveExternalPortUpdateConfigSwarm
+  MongoSaveExternalPortRestartPolicySwarm
 > = z.object({
-  parallelism: z.number(),
+  condition: z.string().optional(),
   delay: z.number().optional(),
-  failureAction: z.string().optional(),
-  monitor: z.number().optional(),
-  maxFailureRatio: z.number().optional(),
-  order: z.string(),
+  maxAttempts: z.number().optional(),
+  window: z.number().optional(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
+    condition: "Condition",
     delay: "Delay",
-    failureAction: "FailureAction",
-    monitor: "Monitor",
-    maxFailureRatio: "MaxFailureRatio",
-    order: "Order",
+    maxAttempts: "MaxAttempts",
+    window: "Window",
   });
 });
 
@@ -1010,36 +2109,41 @@ export const MongoSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoSaveExternalPortUpdateConfigSwarm$ {
-  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+export namespace MongoSaveExternalPortRestartPolicySwarm$ {
+  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$inboundSchema` instead. */
   export const inboundSchema =
-    MongoSaveExternalPortUpdateConfigSwarm$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
+    MongoSaveExternalPortRestartPolicySwarm$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MongoSaveExternalPortUpdateConfigSwarm$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortUpdateConfigSwarm$Outbound;
+    MongoSaveExternalPortRestartPolicySwarm$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortRestartPolicySwarm$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortRestartPolicySwarm$Outbound;
 }
 
-export function mongoSaveExternalPortUpdateConfigSwarmToJSON(
-  mongoSaveExternalPortUpdateConfigSwarm:
-    MongoSaveExternalPortUpdateConfigSwarm,
+export function mongoSaveExternalPortRestartPolicySwarmToJSON(
+  mongoSaveExternalPortRestartPolicySwarm:
+    MongoSaveExternalPortRestartPolicySwarm,
 ): string {
   return JSON.stringify(
-    MongoSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
-      mongoSaveExternalPortUpdateConfigSwarm,
+    MongoSaveExternalPortRestartPolicySwarm$outboundSchema.parse(
+      mongoSaveExternalPortRestartPolicySwarm,
     ),
   );
 }
 
-export function mongoSaveExternalPortUpdateConfigSwarmFromJSON(
+export function mongoSaveExternalPortRestartPolicySwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
+): SafeParseResult<
+  MongoSaveExternalPortRestartPolicySwarm,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      MongoSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortUpdateConfigSwarm' from JSON`,
+      MongoSaveExternalPortRestartPolicySwarm$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'MongoSaveExternalPortRestartPolicySwarm' from JSON`,
   );
 }
 
@@ -1049,31 +2153,31 @@ export const MongoSaveExternalPortRollbackConfigSwarm$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Parallelism: z.number(),
   Delay: z.number().optional(),
   FailureAction: z.string().optional(),
-  Monitor: z.number().optional(),
   MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
   Order: z.string(),
+  Parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    "Parallelism": "parallelism",
     "Delay": "delay",
     "FailureAction": "failureAction",
-    "Monitor": "monitor",
     "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
     "Order": "order",
+    "Parallelism": "parallelism",
   });
 });
 
 /** @internal */
 export type MongoSaveExternalPortRollbackConfigSwarm$Outbound = {
-  Parallelism: number;
   Delay?: number | undefined;
   FailureAction?: string | undefined;
-  Monitor?: number | undefined;
   MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
   Order: string;
+  Parallelism: number;
 };
 
 /** @internal */
@@ -1082,20 +2186,20 @@ export const MongoSaveExternalPortRollbackConfigSwarm$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveExternalPortRollbackConfigSwarm
 > = z.object({
-  parallelism: z.number(),
   delay: z.number().optional(),
   failureAction: z.string().optional(),
-  monitor: z.number().optional(),
   maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
   order: z.string(),
+  parallelism: z.number(),
 }).transform((v) => {
   return remap$(v, {
-    parallelism: "Parallelism",
     delay: "Delay",
     failureAction: "FailureAction",
-    monitor: "Monitor",
     maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
     order: "Order",
+    parallelism: "Parallelism",
   });
 });
 
@@ -1139,758 +2243,6 @@ export function mongoSaveExternalPortRollbackConfigSwarmFromJSON(
       ),
     `Failed to parse 'MongoSaveExternalPortRollbackConfigSwarm' from JSON`,
   );
-}
-
-/** @internal */
-export const MongoSaveExternalPortReplicated$inboundSchema: z.ZodType<
-  MongoSaveExternalPortReplicated,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicas": "replicas",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortReplicated$Outbound = {
-  Replicas?: number | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortReplicated$outboundSchema: z.ZodType<
-  MongoSaveExternalPortReplicated$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortReplicated
-> = z.object({
-  replicas: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicas: "Replicas",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortReplicated$ {
-  /** @deprecated use `MongoSaveExternalPortReplicated$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortReplicated$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortReplicated$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortReplicated$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortReplicated$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortReplicated$Outbound;
-}
-
-export function mongoSaveExternalPortReplicatedToJSON(
-  mongoSaveExternalPortReplicated: MongoSaveExternalPortReplicated,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortReplicated$outboundSchema.parse(
-      mongoSaveExternalPortReplicated,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortReplicatedFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortReplicated, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortReplicated$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortReplicated' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortGlobal$inboundSchema: z.ZodType<
-  MongoSaveExternalPortGlobal,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoSaveExternalPortGlobal$Outbound = {};
-
-/** @internal */
-export const MongoSaveExternalPortGlobal$outboundSchema: z.ZodType<
-  MongoSaveExternalPortGlobal$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortGlobal
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortGlobal$ {
-  /** @deprecated use `MongoSaveExternalPortGlobal$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortGlobal$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortGlobal$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortGlobal$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortGlobal$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortGlobal$Outbound;
-}
-
-export function mongoSaveExternalPortGlobalToJSON(
-  mongoSaveExternalPortGlobal: MongoSaveExternalPortGlobal,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortGlobal$outboundSchema.parse(
-      mongoSaveExternalPortGlobal,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortGlobalFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortGlobal, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortGlobal$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortGlobal' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortReplicatedJob$inboundSchema: z.ZodType<
-  MongoSaveExternalPortReplicatedJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  MaxConcurrent: z.number().optional(),
-  TotalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "MaxConcurrent": "maxConcurrent",
-    "TotalCompletions": "totalCompletions",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortReplicatedJob$Outbound = {
-  MaxConcurrent?: number | undefined;
-  TotalCompletions?: number | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortReplicatedJob$outboundSchema: z.ZodType<
-  MongoSaveExternalPortReplicatedJob$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortReplicatedJob
-> = z.object({
-  maxConcurrent: z.number().optional(),
-  totalCompletions: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    maxConcurrent: "MaxConcurrent",
-    totalCompletions: "TotalCompletions",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortReplicatedJob$ {
-  /** @deprecated use `MongoSaveExternalPortReplicatedJob$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortReplicatedJob$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortReplicatedJob$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortReplicatedJob$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortReplicatedJob$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortReplicatedJob$Outbound;
-}
-
-export function mongoSaveExternalPortReplicatedJobToJSON(
-  mongoSaveExternalPortReplicatedJob: MongoSaveExternalPortReplicatedJob,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortReplicatedJob$outboundSchema.parse(
-      mongoSaveExternalPortReplicatedJob,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortReplicatedJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortReplicatedJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MongoSaveExternalPortReplicatedJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortReplicatedJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortGlobalJob$inboundSchema: z.ZodType<
-  MongoSaveExternalPortGlobalJob,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoSaveExternalPortGlobalJob$Outbound = {};
-
-/** @internal */
-export const MongoSaveExternalPortGlobalJob$outboundSchema: z.ZodType<
-  MongoSaveExternalPortGlobalJob$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortGlobalJob
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortGlobalJob$ {
-  /** @deprecated use `MongoSaveExternalPortGlobalJob$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortGlobalJob$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortGlobalJob$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortGlobalJob$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortGlobalJob$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortGlobalJob$Outbound;
-}
-
-export function mongoSaveExternalPortGlobalJobToJSON(
-  mongoSaveExternalPortGlobalJob: MongoSaveExternalPortGlobalJob,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortGlobalJob$outboundSchema.parse(
-      mongoSaveExternalPortGlobalJob,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortGlobalJobFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortGlobalJob, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortGlobalJob$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortGlobalJob' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortModeSwarm$inboundSchema: z.ZodType<
-  MongoSaveExternalPortModeSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Replicated: z.lazy(() => MongoSaveExternalPortReplicated$inboundSchema)
-    .optional(),
-  Global: z.lazy(() => MongoSaveExternalPortGlobal$inboundSchema).optional(),
-  ReplicatedJob: z.lazy(() => MongoSaveExternalPortReplicatedJob$inboundSchema)
-    .optional(),
-  GlobalJob: z.lazy(() => MongoSaveExternalPortGlobalJob$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Replicated": "replicated",
-    "Global": "global",
-    "ReplicatedJob": "replicatedJob",
-    "GlobalJob": "globalJob",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortModeSwarm$Outbound = {
-  Replicated?: MongoSaveExternalPortReplicated$Outbound | undefined;
-  Global?: MongoSaveExternalPortGlobal$Outbound | undefined;
-  ReplicatedJob?: MongoSaveExternalPortReplicatedJob$Outbound | undefined;
-  GlobalJob?: MongoSaveExternalPortGlobalJob$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortModeSwarm$outboundSchema: z.ZodType<
-  MongoSaveExternalPortModeSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortModeSwarm
-> = z.object({
-  replicated: z.lazy(() => MongoSaveExternalPortReplicated$outboundSchema)
-    .optional(),
-  global: z.lazy(() => MongoSaveExternalPortGlobal$outboundSchema).optional(),
-  replicatedJob: z.lazy(() => MongoSaveExternalPortReplicatedJob$outboundSchema)
-    .optional(),
-  globalJob: z.lazy(() => MongoSaveExternalPortGlobalJob$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    replicated: "Replicated",
-    global: "Global",
-    replicatedJob: "ReplicatedJob",
-    globalJob: "GlobalJob",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortModeSwarm$ {
-  /** @deprecated use `MongoSaveExternalPortModeSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortModeSwarm$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortModeSwarm$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortModeSwarm$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortModeSwarm$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortModeSwarm$Outbound;
-}
-
-export function mongoSaveExternalPortModeSwarmToJSON(
-  mongoSaveExternalPortModeSwarm: MongoSaveExternalPortModeSwarm,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortModeSwarm$outboundSchema.parse(
-      mongoSaveExternalPortModeSwarm,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortModeSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortModeSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortModeSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortModeSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortDriverOpts$inboundSchema: z.ZodType<
-  MongoSaveExternalPortDriverOpts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type MongoSaveExternalPortDriverOpts$Outbound = {};
-
-/** @internal */
-export const MongoSaveExternalPortDriverOpts$outboundSchema: z.ZodType<
-  MongoSaveExternalPortDriverOpts$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortDriverOpts
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortDriverOpts$ {
-  /** @deprecated use `MongoSaveExternalPortDriverOpts$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortDriverOpts$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortDriverOpts$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortDriverOpts$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortDriverOpts$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortDriverOpts$Outbound;
-}
-
-export function mongoSaveExternalPortDriverOptsToJSON(
-  mongoSaveExternalPortDriverOpts: MongoSaveExternalPortDriverOpts,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortDriverOpts$outboundSchema.parse(
-      mongoSaveExternalPortDriverOpts,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortDriverOptsFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortDriverOpts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortDriverOpts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortDriverOpts' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortNetworkSwarm$inboundSchema: z.ZodType<
-  MongoSaveExternalPortNetworkSwarm,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Target: z.string().optional(),
-  Aliases: z.array(z.string()).optional(),
-  DriverOpts: z.lazy(() => MongoSaveExternalPortDriverOpts$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "Target": "target",
-    "Aliases": "aliases",
-    "DriverOpts": "driverOpts",
-  });
-});
-
-/** @internal */
-export type MongoSaveExternalPortNetworkSwarm$Outbound = {
-  Target?: string | undefined;
-  Aliases?: Array<string> | undefined;
-  DriverOpts?: MongoSaveExternalPortDriverOpts$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortNetworkSwarm$outboundSchema: z.ZodType<
-  MongoSaveExternalPortNetworkSwarm$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortNetworkSwarm
-> = z.object({
-  target: z.string().optional(),
-  aliases: z.array(z.string()).optional(),
-  driverOpts: z.lazy(() => MongoSaveExternalPortDriverOpts$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    target: "Target",
-    aliases: "Aliases",
-    driverOpts: "DriverOpts",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortNetworkSwarm$ {
-  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortNetworkSwarm$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortNetworkSwarm$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortNetworkSwarm$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortNetworkSwarm$Outbound;
-}
-
-export function mongoSaveExternalPortNetworkSwarmToJSON(
-  mongoSaveExternalPortNetworkSwarm: MongoSaveExternalPortNetworkSwarm,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortNetworkSwarm$outboundSchema.parse(
-      mongoSaveExternalPortNetworkSwarm,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortNetworkSwarmFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortNetworkSwarm, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortNetworkSwarm$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortNetworkSwarm' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortProject$inboundSchema: z.ZodType<
-  MongoSaveExternalPortProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortProject$Outbound = {
-  projectId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  organizationId: string;
-  env: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortProject$outboundSchema: z.ZodType<
-  MongoSaveExternalPortProject$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortProject
-> = z.object({
-  projectId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  env: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortProject$ {
-  /** @deprecated use `MongoSaveExternalPortProject$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortProject$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortProject$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortProject$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortProject$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortProject$Outbound;
-}
-
-export function mongoSaveExternalPortProjectToJSON(
-  mongoSaveExternalPortProject: MongoSaveExternalPortProject,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortProject$outboundSchema.parse(
-      mongoSaveExternalPortProject,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortProject' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortEnvironment$inboundSchema: z.ZodType<
-  MongoSaveExternalPortEnvironment,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoSaveExternalPortProject$inboundSchema),
-});
-
-/** @internal */
-export type MongoSaveExternalPortEnvironment$Outbound = {
-  environmentId: string;
-  name: string;
-  description: string | null;
-  createdAt: string;
-  env: string;
-  projectId: string;
-  project: MongoSaveExternalPortProject$Outbound;
-};
-
-/** @internal */
-export const MongoSaveExternalPortEnvironment$outboundSchema: z.ZodType<
-  MongoSaveExternalPortEnvironment$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortEnvironment
-> = z.object({
-  environmentId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  createdAt: z.string(),
-  env: z.string(),
-  projectId: z.string(),
-  project: z.lazy(() => MongoSaveExternalPortProject$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortEnvironment$ {
-  /** @deprecated use `MongoSaveExternalPortEnvironment$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortEnvironment$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortEnvironment$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortEnvironment$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortEnvironment$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortEnvironment$Outbound;
-}
-
-export function mongoSaveExternalPortEnvironmentToJSON(
-  mongoSaveExternalPortEnvironment: MongoSaveExternalPortEnvironment,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortEnvironment$outboundSchema.parse(
-      mongoSaveExternalPortEnvironment,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortEnvironmentFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortEnvironment, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortEnvironment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortEnvironment' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortType
-> = z.nativeEnum(MongoSaveExternalPortType);
-
-/** @internal */
-export const MongoSaveExternalPortType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortType
-> = MongoSaveExternalPortType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortType$ {
-  /** @deprecated use `MongoSaveExternalPortType$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortType$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortType$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortType$outboundSchema;
-}
-
-/** @internal */
-export const MongoSaveExternalPortServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortServiceType
-> = z.nativeEnum(MongoSaveExternalPortServiceType);
-
-/** @internal */
-export const MongoSaveExternalPortServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortServiceType
-> = MongoSaveExternalPortServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortServiceType$ {
-  /** @deprecated use `MongoSaveExternalPortServiceType$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortServiceType$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortServiceType$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortServiceType$outboundSchema;
-}
-
-/** @internal */
-export const MongoSaveExternalPortMount$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMount,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mountId: z.string(),
-  type: MongoSaveExternalPortType$inboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoSaveExternalPortServiceType$inboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/** @internal */
-export type MongoSaveExternalPortMount$Outbound = {
-  mountId: string;
-  type: string;
-  hostPath: string | null;
-  volumeName: string | null;
-  filePath: string | null;
-  content: string | null;
-  serviceType: string;
-  mountPath: string;
-  applicationId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mongoId: string | null;
-  mysqlId: string | null;
-  redisId: string | null;
-  composeId: string | null;
-};
-
-/** @internal */
-export const MongoSaveExternalPortMount$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMount$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMount
-> = z.object({
-  mountId: z.string(),
-  type: MongoSaveExternalPortType$outboundSchema,
-  hostPath: z.nullable(z.string()),
-  volumeName: z.nullable(z.string()),
-  filePath: z.nullable(z.string()),
-  content: z.nullable(z.string()),
-  serviceType: MongoSaveExternalPortServiceType$outboundSchema,
-  mountPath: z.string(),
-  applicationId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  redisId: z.nullable(z.string()),
-  composeId: z.nullable(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMount$ {
-  /** @deprecated use `MongoSaveExternalPortMount$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMount$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMount$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortMount$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMount$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMount$Outbound;
-}
-
-export function mongoSaveExternalPortMountToJSON(
-  mongoSaveExternalPortMount: MongoSaveExternalPortMount,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMount$outboundSchema.parse(mongoSaveExternalPortMount),
-  );
-}
-
-export function mongoSaveExternalPortMountFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMount, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortMount$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMount' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortServerStatus
-> = z.nativeEnum(MongoSaveExternalPortServerStatus);
-
-/** @internal */
-export const MongoSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortServerStatus
-> = MongoSaveExternalPortServerStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortServerStatus$ {
-  /** @deprecated use `MongoSaveExternalPortServerStatus$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortServerStatus$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortServerStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortServerStatus$outboundSchema;
 }
 
 /** @internal */
@@ -2074,24 +2426,39 @@ export function mongoSaveExternalPortMetricsConfigUnion2FromJSON(
 }
 
 /** @internal */
+export const MongoSaveExternalPortServerStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortServerStatus
+> = z.nativeEnum(MongoSaveExternalPortServerStatus);
+
+/** @internal */
+export const MongoSaveExternalPortServerStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MongoSaveExternalPortServerStatus
+> = MongoSaveExternalPortServerStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MongoSaveExternalPortServerStatus$ {
+  /** @deprecated use `MongoSaveExternalPortServerStatus$inboundSchema` instead. */
+  export const inboundSchema = MongoSaveExternalPortServerStatus$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortServerStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    MongoSaveExternalPortServerStatus$outboundSchema;
+}
+
+/** @internal */
 export const MongoSaveExternalPortServer$inboundSchema: z.ZodType<
   MongoSaveExternalPortServer,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoSaveExternalPortServerStatus$inboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2102,26 +2469,33 @@ export const MongoSaveExternalPortServer$inboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoSaveExternalPortServerStatus$inboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /** @internal */
 export type MongoSaveExternalPortServer$Outbound = {
-  serverId: string;
-  name: string;
-  description: string | null;
-  ipAddress: string;
-  port: number;
-  username: string;
   appName: string;
-  enableDockerCleanup: boolean;
-  createdAt: string;
-  organizationId: string;
-  serverStatus: string;
   command: string;
-  sshKeyId: string | null;
+  createdAt: string;
+  description: string | null;
+  enableDockerCleanup: boolean;
+  ipAddress: string;
   metricsConfig: string | number | boolean | string | Array<any> | {
     [k: string]: any;
   };
+  name: string;
+  organizationId: string;
+  port: number;
+  serverId: string;
+  serverStatus: string;
+  sshKeyId: string | null;
+  username: string;
 };
 
 /** @internal */
@@ -2130,19 +2504,12 @@ export const MongoSaveExternalPortServer$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveExternalPortServer
 > = z.object({
-  serverId: z.string(),
-  name: z.string(),
-  description: z.nullable(z.string()),
-  ipAddress: z.string(),
-  port: z.number(),
-  username: z.string(),
   appName: z.string(),
-  enableDockerCleanup: z.boolean(),
-  createdAt: z.string(),
-  organizationId: z.string(),
-  serverStatus: MongoSaveExternalPortServerStatus$outboundSchema,
   command: z.string(),
-  sshKeyId: z.nullable(z.string()),
+  createdAt: z.string(),
+  description: z.nullable(z.string()),
+  enableDockerCleanup: z.boolean(),
+  ipAddress: z.string(),
   metricsConfig: z.union([
     z.union([
       z.string(),
@@ -2153,6 +2520,13 @@ export const MongoSaveExternalPortServer$outboundSchema: z.ZodType<
     z.array(z.any()),
     z.record(z.any()),
   ]),
+  name: z.string(),
+  organizationId: z.string(),
+  port: z.number(),
+  serverId: z.string(),
+  serverStatus: MongoSaveExternalPortServerStatus$outboundSchema,
+  sshKeyId: z.nullable(z.string()),
+  username: z.string(),
 });
 
 /**
@@ -2189,537 +2563,95 @@ export function mongoSaveExternalPortServerFromJSON(
 }
 
 /** @internal */
-export const MongoSaveExternalPortBackupType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortBackupType
-> = z.nativeEnum(MongoSaveExternalPortBackupType);
+export const MongoSaveExternalPortUpdateConfigSwarm$inboundSchema: z.ZodType<
+  MongoSaveExternalPortUpdateConfigSwarm,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Delay: z.number().optional(),
+  FailureAction: z.string().optional(),
+  MaxFailureRatio: z.number().optional(),
+  Monitor: z.number().optional(),
+  Order: z.string(),
+  Parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    "Delay": "delay",
+    "FailureAction": "failureAction",
+    "MaxFailureRatio": "maxFailureRatio",
+    "Monitor": "monitor",
+    "Order": "order",
+    "Parallelism": "parallelism",
+  });
+});
 
 /** @internal */
-export const MongoSaveExternalPortBackupType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortBackupType
-> = MongoSaveExternalPortBackupType$inboundSchema;
+export type MongoSaveExternalPortUpdateConfigSwarm$Outbound = {
+  Delay?: number | undefined;
+  FailureAction?: string | undefined;
+  MaxFailureRatio?: number | undefined;
+  Monitor?: number | undefined;
+  Order: string;
+  Parallelism: number;
+};
+
+/** @internal */
+export const MongoSaveExternalPortUpdateConfigSwarm$outboundSchema: z.ZodType<
+  MongoSaveExternalPortUpdateConfigSwarm$Outbound,
+  z.ZodTypeDef,
+  MongoSaveExternalPortUpdateConfigSwarm
+> = z.object({
+  delay: z.number().optional(),
+  failureAction: z.string().optional(),
+  maxFailureRatio: z.number().optional(),
+  monitor: z.number().optional(),
+  order: z.string(),
+  parallelism: z.number(),
+}).transform((v) => {
+  return remap$(v, {
+    delay: "Delay",
+    failureAction: "FailureAction",
+    maxFailureRatio: "MaxFailureRatio",
+    monitor: "Monitor",
+    order: "Order",
+    parallelism: "Parallelism",
+  });
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MongoSaveExternalPortBackupType$ {
-  /** @deprecated use `MongoSaveExternalPortBackupType$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortBackupType$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortBackupType$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortBackupType$outboundSchema;
-}
-
-/** @internal */
-export const MongoSaveExternalPortDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortDatabaseType
-> = z.nativeEnum(MongoSaveExternalPortDatabaseType);
-
-/** @internal */
-export const MongoSaveExternalPortDatabaseType$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortDatabaseType
-> = MongoSaveExternalPortDatabaseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortDatabaseType$ {
-  /** @deprecated use `MongoSaveExternalPortDatabaseType$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortDatabaseType$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortDatabaseType$outboundSchema` instead. */
+export namespace MongoSaveExternalPortUpdateConfigSwarm$ {
+  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$inboundSchema` instead. */
+  export const inboundSchema =
+    MongoSaveExternalPortUpdateConfigSwarm$inboundSchema;
+  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$outboundSchema` instead. */
   export const outboundSchema =
-    MongoSaveExternalPortDatabaseType$outboundSchema;
+    MongoSaveExternalPortUpdateConfigSwarm$outboundSchema;
+  /** @deprecated use `MongoSaveExternalPortUpdateConfigSwarm$Outbound` instead. */
+  export type Outbound = MongoSaveExternalPortUpdateConfigSwarm$Outbound;
 }
 
-/** @internal */
-export const MongoSaveExternalPortMetadataEnum$inboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortMetadataEnum
-> = z.nativeEnum(MongoSaveExternalPortMetadataEnum);
-
-/** @internal */
-export const MongoSaveExternalPortMetadataEnum$outboundSchema: z.ZodNativeEnum<
-  typeof MongoSaveExternalPortMetadataEnum
-> = MongoSaveExternalPortMetadataEnum$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMetadataEnum$ {
-  /** @deprecated use `MongoSaveExternalPortMetadataEnum$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMetadataEnum$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMetadataEnum$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortMetadataEnum$outboundSchema;
-}
-
-/** @internal */
-export const MongoSaveExternalPortPostgres$inboundSchema: z.ZodType<
-  MongoSaveExternalPortPostgres,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortPostgres$Outbound = {
-  databaseUser: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortPostgres$outboundSchema: z.ZodType<
-  MongoSaveExternalPortPostgres$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortPostgres
-> = z.object({
-  databaseUser: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortPostgres$ {
-  /** @deprecated use `MongoSaveExternalPortPostgres$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortPostgres$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortPostgres$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortPostgres$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortPostgres$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortPostgres$Outbound;
-}
-
-export function mongoSaveExternalPortPostgresToJSON(
-  mongoSaveExternalPortPostgres: MongoSaveExternalPortPostgres,
+export function mongoSaveExternalPortUpdateConfigSwarmToJSON(
+  mongoSaveExternalPortUpdateConfigSwarm:
+    MongoSaveExternalPortUpdateConfigSwarm,
 ): string {
   return JSON.stringify(
-    MongoSaveExternalPortPostgres$outboundSchema.parse(
-      mongoSaveExternalPortPostgres,
+    MongoSaveExternalPortUpdateConfigSwarm$outboundSchema.parse(
+      mongoSaveExternalPortUpdateConfigSwarm,
     ),
   );
 }
 
-export function mongoSaveExternalPortPostgresFromJSON(
+export function mongoSaveExternalPortUpdateConfigSwarmFromJSON(
   jsonString: string,
-): SafeParseResult<MongoSaveExternalPortPostgres, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortPostgres$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortPostgres' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortMariadb$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMariadb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortMariadb$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortMariadb$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMariadb$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMariadb
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMariadb$ {
-  /** @deprecated use `MongoSaveExternalPortMariadb$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMariadb$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMariadb$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortMariadb$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMariadb$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMariadb$Outbound;
-}
-
-export function mongoSaveExternalPortMariadbToJSON(
-  mongoSaveExternalPortMariadb: MongoSaveExternalPortMariadb,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMariadb$outboundSchema.parse(
-      mongoSaveExternalPortMariadb,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortMariadbFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMariadb, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortMariadb$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMariadb' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortMongo$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMongo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortMongo$Outbound = {
-  databaseUser: string;
-  databasePassword: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortMongo$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMongo$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMongo
-> = z.object({
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMongo$ {
-  /** @deprecated use `MongoSaveExternalPortMongo$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMongo$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMongo$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortMongo$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMongo$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMongo$Outbound;
-}
-
-export function mongoSaveExternalPortMongoToJSON(
-  mongoSaveExternalPortMongo: MongoSaveExternalPortMongo,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMongo$outboundSchema.parse(mongoSaveExternalPortMongo),
-  );
-}
-
-export function mongoSaveExternalPortMongoFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMongo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortMongo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMongo' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortMysql$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMysql,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortMysql$Outbound = {
-  databaseRootPassword: string;
-};
-
-/** @internal */
-export const MongoSaveExternalPortMysql$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMysql$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMysql
-> = z.object({
-  databaseRootPassword: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMysql$ {
-  /** @deprecated use `MongoSaveExternalPortMysql$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMysql$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMysql$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortMysql$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMysql$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMysql$Outbound;
-}
-
-export function mongoSaveExternalPortMysqlToJSON(
-  mongoSaveExternalPortMysql: MongoSaveExternalPortMysql,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMysql$outboundSchema.parse(mongoSaveExternalPortMysql),
-  );
-}
-
-export function mongoSaveExternalPortMysqlFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMysql, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortMysql$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMysql' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortMetadata$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  postgres: z.lazy(() => MongoSaveExternalPortPostgres$inboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MongoSaveExternalPortMariadb$inboundSchema).optional(),
-  mongo: z.lazy(() => MongoSaveExternalPortMongo$inboundSchema).optional(),
-  mysql: z.lazy(() => MongoSaveExternalPortMysql$inboundSchema).optional(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortMetadata$Outbound = {
-  postgres?: MongoSaveExternalPortPostgres$Outbound | undefined;
-  mariadb?: MongoSaveExternalPortMariadb$Outbound | undefined;
-  mongo?: MongoSaveExternalPortMongo$Outbound | undefined;
-  mysql?: MongoSaveExternalPortMysql$Outbound | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortMetadata$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMetadata$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMetadata
-> = z.object({
-  postgres: z.lazy(() => MongoSaveExternalPortPostgres$outboundSchema)
-    .optional(),
-  mariadb: z.lazy(() => MongoSaveExternalPortMariadb$outboundSchema).optional(),
-  mongo: z.lazy(() => MongoSaveExternalPortMongo$outboundSchema).optional(),
-  mysql: z.lazy(() => MongoSaveExternalPortMysql$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMetadata$ {
-  /** @deprecated use `MongoSaveExternalPortMetadata$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMetadata$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMetadata$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortMetadata$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMetadata$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMetadata$Outbound;
-}
-
-export function mongoSaveExternalPortMetadataToJSON(
-  mongoSaveExternalPortMetadata: MongoSaveExternalPortMetadata,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMetadata$outboundSchema.parse(
-      mongoSaveExternalPortMetadata,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortMetadataUnion$inboundSchema: z.ZodType<
-  MongoSaveExternalPortMetadataUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => MongoSaveExternalPortMetadata$inboundSchema),
-  MongoSaveExternalPortMetadataEnum$inboundSchema,
-]);
-
-/** @internal */
-export type MongoSaveExternalPortMetadataUnion$Outbound =
-  | MongoSaveExternalPortMetadata$Outbound
-  | string;
-
-/** @internal */
-export const MongoSaveExternalPortMetadataUnion$outboundSchema: z.ZodType<
-  MongoSaveExternalPortMetadataUnion$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortMetadataUnion
-> = z.union([
-  z.lazy(() => MongoSaveExternalPortMetadata$outboundSchema),
-  MongoSaveExternalPortMetadataEnum$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortMetadataUnion$ {
-  /** @deprecated use `MongoSaveExternalPortMetadataUnion$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortMetadataUnion$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMetadataUnion$outboundSchema` instead. */
-  export const outboundSchema =
-    MongoSaveExternalPortMetadataUnion$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortMetadataUnion$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortMetadataUnion$Outbound;
-}
-
-export function mongoSaveExternalPortMetadataUnionToJSON(
-  mongoSaveExternalPortMetadataUnion: MongoSaveExternalPortMetadataUnion,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortMetadataUnion$outboundSchema.parse(
-      mongoSaveExternalPortMetadataUnion,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortMetadataUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortMetadataUnion, SDKValidationError> {
+): SafeParseResult<MongoSaveExternalPortUpdateConfigSwarm, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      MongoSaveExternalPortMetadataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortMetadataUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const MongoSaveExternalPortBackup$inboundSchema: z.ZodType<
-  MongoSaveExternalPortBackup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoSaveExternalPortBackupType$inboundSchema,
-  databaseType: MongoSaveExternalPortDatabaseType$inboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoSaveExternalPortMetadata$inboundSchema),
-      MongoSaveExternalPortMetadataEnum$inboundSchema,
-    ]),
-  ).optional(),
-});
-
-/** @internal */
-export type MongoSaveExternalPortBackup$Outbound = {
-  backupId: string;
-  appName: string;
-  schedule: string;
-  enabled: boolean | null;
-  database: string;
-  prefix: string;
-  serviceName: string | null;
-  destinationId: string;
-  keepLatestCount: number | null;
-  backupType: string;
-  databaseType: string;
-  composeId: string | null;
-  postgresId: string | null;
-  mariadbId: string | null;
-  mysqlId: string | null;
-  mongoId: string | null;
-  userId: string | null;
-  metadata?: MongoSaveExternalPortMetadata$Outbound | string | null | undefined;
-};
-
-/** @internal */
-export const MongoSaveExternalPortBackup$outboundSchema: z.ZodType<
-  MongoSaveExternalPortBackup$Outbound,
-  z.ZodTypeDef,
-  MongoSaveExternalPortBackup
-> = z.object({
-  backupId: z.string(),
-  appName: z.string(),
-  schedule: z.string(),
-  enabled: z.nullable(z.boolean()),
-  database: z.string(),
-  prefix: z.string(),
-  serviceName: z.nullable(z.string()),
-  destinationId: z.string(),
-  keepLatestCount: z.nullable(z.number()),
-  backupType: MongoSaveExternalPortBackupType$outboundSchema,
-  databaseType: MongoSaveExternalPortDatabaseType$outboundSchema,
-  composeId: z.nullable(z.string()),
-  postgresId: z.nullable(z.string()),
-  mariadbId: z.nullable(z.string()),
-  mysqlId: z.nullable(z.string()),
-  mongoId: z.nullable(z.string()),
-  userId: z.nullable(z.string()),
-  metadata: z.nullable(
-    z.union([
-      z.lazy(() => MongoSaveExternalPortMetadata$outboundSchema),
-      MongoSaveExternalPortMetadataEnum$outboundSchema,
-    ]),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MongoSaveExternalPortBackup$ {
-  /** @deprecated use `MongoSaveExternalPortBackup$inboundSchema` instead. */
-  export const inboundSchema = MongoSaveExternalPortBackup$inboundSchema;
-  /** @deprecated use `MongoSaveExternalPortBackup$outboundSchema` instead. */
-  export const outboundSchema = MongoSaveExternalPortBackup$outboundSchema;
-  /** @deprecated use `MongoSaveExternalPortBackup$Outbound` instead. */
-  export type Outbound = MongoSaveExternalPortBackup$Outbound;
-}
-
-export function mongoSaveExternalPortBackupToJSON(
-  mongoSaveExternalPortBackup: MongoSaveExternalPortBackup,
-): string {
-  return JSON.stringify(
-    MongoSaveExternalPortBackup$outboundSchema.parse(
-      mongoSaveExternalPortBackup,
-    ),
-  );
-}
-
-export function mongoSaveExternalPortBackupFromJSON(
-  jsonString: string,
-): SafeParseResult<MongoSaveExternalPortBackup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MongoSaveExternalPortBackup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MongoSaveExternalPortBackup' from JSON`,
+      MongoSaveExternalPortUpdateConfigSwarm$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MongoSaveExternalPortUpdateConfigSwarm' from JSON`,
   );
 }
 
@@ -2729,88 +2661,88 @@ export const MongoSaveExternalPortResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoSaveExternalPortApplicationStatus$inboundSchema,
+  backups: z.array(z.lazy(() => MongoSaveExternalPortBackup$inboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoSaveExternalPortEnvironment$inboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortHealthCheckSwarm$inboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortRestartPolicySwarm$inboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortModeSwarm$inboundSchema),
+  ),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoSaveExternalPortMount$inboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoSaveExternalPortNetworkSwarm$inboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortPlacementSwarm$inboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortRestartPolicySwarm$inboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortRollbackConfigSwarm$inboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortModeSwarm$inboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoSaveExternalPortNetworkSwarm$inboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoSaveExternalPortEnvironment$inboundSchema),
-  mounts: z.array(z.lazy(() => MongoSaveExternalPortMount$inboundSchema)),
   server: z.nullable(z.lazy(() => MongoSaveExternalPortServer$inboundSchema)),
-  backups: z.array(z.lazy(() => MongoSaveExternalPortBackup$inboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortUpdateConfigSwarm$inboundSchema),
+  ),
 });
 
 /** @internal */
 export type MongoSaveExternalPortResponseBody$Outbound = {
-  mongoId: string;
-  name: string;
   appName: string;
-  description: string | null;
-  databaseUser: string;
-  databasePassword: string;
-  dockerImage: string;
-  command: string | null;
-  env: string | null;
-  memoryReservation: string | null;
-  memoryLimit: string | null;
-  cpuReservation: string | null;
-  cpuLimit: string | null;
-  externalPort: number | null;
   applicationStatus: string;
-  healthCheckSwarm: MongoSaveExternalPortHealthCheckSwarm$Outbound | null;
-  restartPolicySwarm: MongoSaveExternalPortRestartPolicySwarm$Outbound | null;
-  placementSwarm: MongoSaveExternalPortPlacementSwarm$Outbound | null;
-  updateConfigSwarm: MongoSaveExternalPortUpdateConfigSwarm$Outbound | null;
-  rollbackConfigSwarm: MongoSaveExternalPortRollbackConfigSwarm$Outbound | null;
-  modeSwarm: MongoSaveExternalPortModeSwarm$Outbound | null;
-  labelsSwarm: { [k: string]: string } | null;
-  networkSwarm: Array<MongoSaveExternalPortNetworkSwarm$Outbound> | null;
-  replicas: number;
-  createdAt: string;
-  environmentId: string;
-  serverId: string | null;
-  replicaSets: boolean | null;
-  environment: MongoSaveExternalPortEnvironment$Outbound;
-  mounts: Array<MongoSaveExternalPortMount$Outbound>;
-  server: MongoSaveExternalPortServer$Outbound | null;
   backups: Array<MongoSaveExternalPortBackup$Outbound>;
+  command: string | null;
+  cpuLimit: string | null;
+  cpuReservation: string | null;
+  createdAt: string;
+  databasePassword: string;
+  databaseUser: string;
+  description: string | null;
+  dockerImage: string;
+  env: string | null;
+  environment: MongoSaveExternalPortEnvironment$Outbound;
+  environmentId: string;
+  externalPort: number | null;
+  healthCheckSwarm: MongoSaveExternalPortHealthCheckSwarm$Outbound | null;
+  labelsSwarm: { [k: string]: string } | null;
+  memoryLimit: string | null;
+  memoryReservation: string | null;
+  modeSwarm: MongoSaveExternalPortModeSwarm$Outbound | null;
+  mongoId: string;
+  mounts: Array<MongoSaveExternalPortMount$Outbound>;
+  name: string;
+  networkSwarm: Array<MongoSaveExternalPortNetworkSwarm$Outbound> | null;
+  placementSwarm: MongoSaveExternalPortPlacementSwarm$Outbound | null;
+  replicaSets: boolean | null;
+  replicas: number;
+  restartPolicySwarm: MongoSaveExternalPortRestartPolicySwarm$Outbound | null;
+  rollbackConfigSwarm: MongoSaveExternalPortRollbackConfigSwarm$Outbound | null;
+  server: MongoSaveExternalPortServer$Outbound | null;
+  serverId: string | null;
+  updateConfigSwarm: MongoSaveExternalPortUpdateConfigSwarm$Outbound | null;
 };
 
 /** @internal */
@@ -2819,52 +2751,52 @@ export const MongoSaveExternalPortResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MongoSaveExternalPortResponseBody
 > = z.object({
-  mongoId: z.string(),
-  name: z.string(),
   appName: z.string(),
-  description: z.nullable(z.string()),
-  databaseUser: z.string(),
-  databasePassword: z.string(),
-  dockerImage: z.string(),
-  command: z.nullable(z.string()),
-  env: z.nullable(z.string()),
-  memoryReservation: z.nullable(z.string()),
-  memoryLimit: z.nullable(z.string()),
-  cpuReservation: z.nullable(z.string()),
-  cpuLimit: z.nullable(z.string()),
-  externalPort: z.nullable(z.number()),
   applicationStatus: MongoSaveExternalPortApplicationStatus$outboundSchema,
+  backups: z.array(z.lazy(() => MongoSaveExternalPortBackup$outboundSchema)),
+  command: z.nullable(z.string()),
+  cpuLimit: z.nullable(z.string()),
+  cpuReservation: z.nullable(z.string()),
+  createdAt: z.string(),
+  databasePassword: z.string(),
+  databaseUser: z.string(),
+  description: z.nullable(z.string()),
+  dockerImage: z.string(),
+  env: z.nullable(z.string()),
+  environment: z.lazy(() => MongoSaveExternalPortEnvironment$outboundSchema),
+  environmentId: z.string(),
+  externalPort: z.nullable(z.number()),
   healthCheckSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortHealthCheckSwarm$outboundSchema),
   ),
-  restartPolicySwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortRestartPolicySwarm$outboundSchema),
+  labelsSwarm: z.nullable(z.record(z.string())),
+  memoryLimit: z.nullable(z.string()),
+  memoryReservation: z.nullable(z.string()),
+  modeSwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortModeSwarm$outboundSchema),
+  ),
+  mongoId: z.string(),
+  mounts: z.array(z.lazy(() => MongoSaveExternalPortMount$outboundSchema)),
+  name: z.string(),
+  networkSwarm: z.nullable(
+    z.array(z.lazy(() => MongoSaveExternalPortNetworkSwarm$outboundSchema)),
   ),
   placementSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortPlacementSwarm$outboundSchema),
   ),
-  updateConfigSwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  replicaSets: z.nullable(z.boolean()),
+  replicas: z.number(),
+  restartPolicySwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortRestartPolicySwarm$outboundSchema),
   ),
   rollbackConfigSwarm: z.nullable(
     z.lazy(() => MongoSaveExternalPortRollbackConfigSwarm$outboundSchema),
   ),
-  modeSwarm: z.nullable(
-    z.lazy(() => MongoSaveExternalPortModeSwarm$outboundSchema),
-  ),
-  labelsSwarm: z.nullable(z.record(z.string())),
-  networkSwarm: z.nullable(
-    z.array(z.lazy(() => MongoSaveExternalPortNetworkSwarm$outboundSchema)),
-  ),
-  replicas: z.number(),
-  createdAt: z.string(),
-  environmentId: z.string(),
-  serverId: z.nullable(z.string()),
-  replicaSets: z.nullable(z.boolean()),
-  environment: z.lazy(() => MongoSaveExternalPortEnvironment$outboundSchema),
-  mounts: z.array(z.lazy(() => MongoSaveExternalPortMount$outboundSchema)),
   server: z.nullable(z.lazy(() => MongoSaveExternalPortServer$outboundSchema)),
-  backups: z.array(z.lazy(() => MongoSaveExternalPortBackup$outboundSchema)),
+  serverId: z.nullable(z.string()),
+  updateConfigSwarm: z.nullable(
+    z.lazy(() => MongoSaveExternalPortUpdateConfigSwarm$outboundSchema),
+  ),
 });
 
 /**

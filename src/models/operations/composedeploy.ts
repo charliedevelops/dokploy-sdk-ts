@@ -3,82 +3,15 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type ComposeDeploySecurity = {
-  authorization: string;
-};
-
 export type ComposeDeployRequest = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
-
-/** @internal */
-export const ComposeDeploySecurity$inboundSchema: z.ZodType<
-  ComposeDeploySecurity,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "Authorization": "authorization",
-  });
-});
-
-/** @internal */
-export type ComposeDeploySecurity$Outbound = {
-  Authorization: string;
-};
-
-/** @internal */
-export const ComposeDeploySecurity$outboundSchema: z.ZodType<
-  ComposeDeploySecurity$Outbound,
-  z.ZodTypeDef,
-  ComposeDeploySecurity
-> = z.object({
-  authorization: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    authorization: "Authorization",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ComposeDeploySecurity$ {
-  /** @deprecated use `ComposeDeploySecurity$inboundSchema` instead. */
-  export const inboundSchema = ComposeDeploySecurity$inboundSchema;
-  /** @deprecated use `ComposeDeploySecurity$outboundSchema` instead. */
-  export const outboundSchema = ComposeDeploySecurity$outboundSchema;
-  /** @deprecated use `ComposeDeploySecurity$Outbound` instead. */
-  export type Outbound = ComposeDeploySecurity$Outbound;
-}
-
-export function composeDeploySecurityToJSON(
-  composeDeploySecurity: ComposeDeploySecurity,
-): string {
-  return JSON.stringify(
-    ComposeDeploySecurity$outboundSchema.parse(composeDeploySecurity),
-  );
-}
-
-export function composeDeploySecurityFromJSON(
-  jsonString: string,
-): SafeParseResult<ComposeDeploySecurity, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ComposeDeploySecurity$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ComposeDeploySecurity' from JSON`,
-  );
-}
 
 /** @internal */
 export const ComposeDeployRequest$inboundSchema: z.ZodType<
@@ -87,15 +20,15 @@ export const ComposeDeployRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /** @internal */
 export type ComposeDeployRequest$Outbound = {
   composeId: string;
-  title?: string | undefined;
   description?: string | undefined;
+  title?: string | undefined;
 };
 
 /** @internal */
@@ -105,8 +38,8 @@ export const ComposeDeployRequest$outboundSchema: z.ZodType<
   ComposeDeployRequest
 > = z.object({
   composeId: z.string(),
-  title: z.string().optional(),
   description: z.string().optional(),
+  title: z.string().optional(),
 });
 
 /**
