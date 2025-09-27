@@ -14,7 +14,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 
 Dokploy API: Endpoints for dokploy
 
-More information about the API can be found at https://docs.dokploy.com/docs/api or you local swagger instance at https://<dokployServerUrl>/swagger
+More information about the API can be found at https://docs.dokploy.com/docs/api or you local swagger instance at https://yourDokployInstance.com/swagger
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
