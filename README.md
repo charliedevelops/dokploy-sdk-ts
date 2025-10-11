@@ -14,7 +14,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 
 Dokploy API: Endpoints for dokploy
 
-More information about the API can be found at https://docs.dokploy.com/docs/api or you local swagger instance at https://yourDokployInstance.com/swagger
+More information about the API can be found at http://localhost:3000/api/settings.getOpenApiDocument
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -319,7 +319,6 @@ run();
 
 * [serviceContainersByAppName](docs/sdks/dockerget/README.md#servicecontainersbyappname)
 * [stackContainersByAppName](docs/sdks/dockerget/README.md#stackcontainersbyappname)
-
 
 ### [domain](docs/sdks/domain/README.md)
 
