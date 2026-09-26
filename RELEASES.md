@@ -7,3 +7,13 @@ Based on:
 - Speakeasy CLI 1.615.2 (2.698.4) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [typescript v0.0.2] .
+
+## 2026-09-26 02:29:25
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.799.0 (2.941.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.3.0] .
+### Releases
+- [NPM v0.3.0] https://www.npmjs.com/package/dokploy-sdk/v/0.3.0 - .
